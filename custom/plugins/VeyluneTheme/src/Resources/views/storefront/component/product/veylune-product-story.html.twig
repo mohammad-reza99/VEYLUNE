@@ -1,0 +1,121 @@
+{% set storyFields = product.customFields|default({}) %}
+
+{% set editorialLead = storyFields.veylune_editorial_lead|default('')|trim %}
+{% set signatureDetail = storyFields.veylune_signature_detail|default('')|trim %}
+{% set leadTimeNote = storyFields.veylune_lead_time_note|default('')|trim %}
+{% set materialStory = storyFields.veylune_material_story|default('')|trim %}
+{% set careGuidance = storyFields.veylune_care_guidance|default('')|trim %}
+{% set spatialPresence = storyFields.veylune_spatial_presence|default('')|trim %}
+{% set illuminationCharacter = storyFields.veylune_illumination_character|default('')|trim %}
+{% set eveningAtmosphere = storyFields.veylune_evening_atmosphere|default('')|trim %}
+{% set craftsmanshipNote = storyFields.veylune_craftsmanship_note|default('')|trim %}
+{% set consultationNote = storyFields.veylune_consultation_note|default('')|trim %}
+{% set collectibleIdentity = storyFields.veylune_collectible_identity|default('')|trim %}
+
+{% set hasOpeningEditorial = editorialLead %}
+{% set hasSignatureFacts = signatureDetail or leadTimeNote %}
+{% set hasMaterialCare = materialStory or careGuidance %}
+{% set hasLightingCharacter = spatialPresence or illuminationCharacter or eveningAtmosphere %}
+{% set hasCraftConsultation = craftsmanshipNote or consultationNote %}
+{% set hasCollectibleIdentity = collectibleIdentity %}
+{% set hasProductStory = hasOpeningEditorial or hasSignatureFacts or hasMaterialCare or hasLightingCharacter or hasCraftConsultation or hasCollectibleIdentity %}
+
+{% if hasProductStory %}
+    <div class="veylune-product-story">
+        {% if hasOpeningEditorial %}
+            <div class="veylune-product-story__group veylune-product-story__group--opening">
+                <p class="veylune-product-story__lead">
+                    {{ editorialLead|sw_sanitize }}
+                </p>
+            </div>
+        {% endif %}
+
+        {% if hasSignatureFacts %}
+            <dl class="veylune-product-story__group veylune-product-story__group--facts">
+                {% if signatureDetail %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.signatureDetail'|trans|sw_sanitize }}</dt>
+                        <dd>{{ signatureDetail|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+
+                {% if leadTimeNote %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.leadTimeNote'|trans|sw_sanitize }}</dt>
+                        <dd>{{ leadTimeNote|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+            </dl>
+        {% endif %}
+
+        {% if hasMaterialCare %}
+            <dl class="veylune-product-story__group veylune-product-story__group--material">
+                {% if materialStory %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.materialStory'|trans|sw_sanitize }}</dt>
+                        <dd>{{ materialStory|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+
+                {% if careGuidance %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.careGuidance'|trans|sw_sanitize }}</dt>
+                        <dd>{{ careGuidance|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+            </dl>
+        {% endif %}
+
+        {% if hasLightingCharacter %}
+            <dl class="veylune-product-story__group veylune-product-story__group--light">
+                {% if spatialPresence %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.spatialPresence'|trans|sw_sanitize }}</dt>
+                        <dd>{{ spatialPresence|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+
+                {% if illuminationCharacter %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.illuminationCharacter'|trans|sw_sanitize }}</dt>
+                        <dd>{{ illuminationCharacter|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+
+                {% if eveningAtmosphere %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.eveningAtmosphere'|trans|sw_sanitize }}</dt>
+                        <dd>{{ eveningAtmosphere|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+            </dl>
+        {% endif %}
+
+        {% if hasCraftConsultation %}
+            <dl class="veylune-product-story__group veylune-product-story__group--craft">
+                {% if craftsmanshipNote %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.craftsmanship'|trans|sw_sanitize }}</dt>
+                        <dd>{{ craftsmanshipNote|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+
+                {% if consultationNote %}
+                    <div class="veylune-product-story__item">
+                        <dt>{{ 'veylune.productStory.consultation'|trans|sw_sanitize }}</dt>
+                        <dd>{{ consultationNote|sw_sanitize }}</dd>
+                    </div>
+                {% endif %}
+            </dl>
+        {% endif %}
+
+        {% if hasCollectibleIdentity %}
+            <dl class="veylune-product-story__group veylune-product-story__group--collectible">
+                <div class="veylune-product-story__item">
+                    <dt>{{ 'veylune.productStory.collectibleIdentity'|trans|sw_sanitize }}</dt>
+                    <dd>{{ collectibleIdentity|sw_sanitize }}</dd>
+                </div>
+            </dl>
+        {% endif %}
+    </div>
+{% endif %}

@@ -1,0 +1,103 @@
+html {
+    background: var(--veylune-color-ivory);
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--veylune-color-charcoal);
+    background:
+        radial-gradient(80% 60% at 50% -10%, rgba(139, 118, 90, 0.1), rgba(139, 118, 90, 0) 62%),
+        linear-gradient(180deg, #fbfaf7 0%, var(--veylune-color-ivory) 26%, #f3eee6 100%);
+    font-family: var(--veylune-font-sans);
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    color: #fff;
+    background: var(--veylune-color-bronze);
+}
+
+a {
+    transition: color var(--veylune-duration-fast) ease, opacity var(--veylune-duration-fast) ease;
+}
+
+img,
+video,
+picture {
+    max-width: 100%;
+}
+
+img,
+video {
+    height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+.container,
+.cms-section .boxed {
+    max-width: 1520px;
+}
+
+.content-main {
+    background: transparent;
+}
+
+.veylune-collection-page,
+.veylune-cms-page-main,
+.veylune-single-cms__main {
+    --veylune-container: min(100% - calc(var(--veylune-page-gutter) * 2), 1520px);
+    --veylune-container-narrow: min(100% - calc(var(--veylune-page-gutter) * 2), 1120px);
+}
+
+.cms-section {
+    position: relative;
+}
+
+.cms-section:not(:first-child) {
+    border-top: 1px solid rgba(139, 118, 90, 0.08);
+}
+
+.form-control,
+.form-select {
+    color: var(--veylune-color-charcoal);
+    background-color: rgba(255, 255, 255, 0.58);
+    border-color: var(--veylune-color-line);
+    border-radius: var(--veylune-radius-none);
+    box-shadow: none;
+    transition:
+        border-color var(--veylune-duration-fast) ease,
+        background-color var(--veylune-duration-fast) ease,
+        box-shadow var(--veylune-duration-fast) ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    color: var(--veylune-color-charcoal);
+    background-color: rgba(255, 255, 255, 0.82);
+    border-color: rgba(139, 118, 90, 0.52);
+    box-shadow: 0 0 0 1px rgba(139, 118, 90, 0.16);
+}
+
+.btn {
+    border-radius: var(--veylune-radius-none);
+}
+
+@media (max-width: 767px) {
+    body {
+        line-height: 1.6;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

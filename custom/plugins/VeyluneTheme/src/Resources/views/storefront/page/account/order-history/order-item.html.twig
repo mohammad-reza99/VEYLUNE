@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/page/account/order-history/order-item.html.twig' %}
+
+{% block page_account_order_item_overview %}
+    <div class="veylune-order-card">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block page_account_order_item_heading %}
+    <div class="h3 col-auto order-table-header-heading veylune-order-card__heading">
+        <span>{{ 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</span>
+        {{ order.orderDateTime|format_date('medium', locale=app.request.locale) }}
+    </div>
+{% endblock %}

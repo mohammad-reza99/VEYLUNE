@@ -1,0 +1,93 @@
+.login-card,
+.register-card {
+    --account-card-bg: rgba(255, 252, 245, 0.78);
+}
+
+.login-form-description,
+.register-required-info,
+.account-profile-required-info,
+.veylune-account .text-muted {
+    color: var(--veylune-color-ink-muted) !important;
+    font-family: var(--veylune-font-serif);
+    line-height: 1.7;
+}
+
+.login-form,
+.register-form,
+.veylune-account form {
+    .form-label,
+    label:not(.form-check-label):not(.custom-control-label) {
+        color: var(--veylune-color-bronze-dark);
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .form-control,
+    .form-select {
+        min-height: 48px;
+        color: var(--veylune-color-charcoal);
+        background-color: rgba(248, 245, 239, 0.68);
+        border-color: var(--veylune-color-line);
+        border-radius: var(--veylune-radius-xs);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--veylune-color-bronze);
+        box-shadow: 0 0 0 0.18rem rgba(139, 118, 90, 0.16);
+    }
+
+    .form-check-input {
+        border-color: var(--veylune-color-line);
+    }
+
+    .form-check-input:checked {
+        background-color: var(--veylune-color-bronze);
+        border-color: var(--veylune-color-bronze);
+    }
+
+    .invalid-feedback,
+    .form-error-message {
+        color: var(--bs-danger);
+    }
+}
+
+.veylune-address-card {
+    min-height: 100%;
+    padding: var(--veylune-space-lg);
+}
+
+.veylune-address-card__address {
+    color: var(--veylune-color-charcoal);
+    line-height: 1.65;
+}
+
+.veylune-address-card__menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: var(--veylune-color-bronze-dark);
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+}
+
+.veylune-address-card__menu:hover,
+.veylune-address-card__menu:focus {
+    background: rgba(139, 118, 90, 0.1);
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-address-card {
+        padding: var(--veylune-space-md);
+    }
+}
+
+.account-profile-change {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+}

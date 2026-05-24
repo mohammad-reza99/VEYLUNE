@@ -1,0 +1,66 @@
+.veylune-button,
+.btn-primary,
+.btn-outline-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.78rem 1.25rem;
+    border-radius: var(--veylune-radius-none);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.72rem;
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+    transition:
+        color var(--veylune-duration-medium) ease,
+        background-color var(--veylune-duration-medium) ease,
+        border-color var(--veylune-duration-medium) ease,
+        transform var(--veylune-duration-medium) var(--veylune-ease-out);
+}
+
+.veylune-button,
+.btn-primary {
+    color: #fff;
+    background: var(--veylune-color-charcoal);
+    border: 1px solid var(--veylune-color-charcoal);
+}
+
+.veylune-button:hover,
+.veylune-button:focus-visible,
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    color: #fff;
+    background: var(--veylune-color-bronze-dark);
+    border-color: var(--veylune-color-bronze-dark);
+    transform: translate3d(0, -1px, 0);
+}
+
+.veylune-button--ghost,
+.btn-outline-primary {
+    color: var(--veylune-color-charcoal);
+    background: transparent;
+    border: 1px solid var(--veylune-color-line);
+}
+
+.veylune-button--sm {
+    min-height: 2.25rem;
+    padding: 0.52rem 0.9rem;
+    font-size: 0.66rem;
+}
+
+.veylune-button--ghost:hover,
+.veylune-button--ghost:focus-visible,
+.btn-outline-primary:hover {
+    color: var(--veylune-color-charcoal);
+    background: rgba(139, 118, 90, 0.08);
+    border-color: rgba(139, 118, 90, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-button,
+    .btn-primary,
+    .btn-outline-primary {
+        transition: none;
+        transform: none;
+    }
+}

@@ -1,0 +1,267 @@
+:root {
+    --veylune-magnet-x: 0px;
+    --veylune-magnet-y: 0px;
+    --veylune-light-x: 50%;
+    --veylune-light-y: 30%;
+    --veylune-scroll-progress: 0;
+    --veylune-scroll-velocity: 0;
+}
+
+body::before {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: "";
+    opacity: calc(0.16 + (var(--veylune-scroll-progress) * 0.08));
+    background:
+        radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.56), transparent 18rem),
+        radial-gradient(circle at 84% 20%, rgba(139, 118, 90, 0.13), transparent 24rem),
+        linear-gradient(180deg, rgba(33, 31, 27, 0.02), rgba(33, 31, 27, 0.055));
+    mix-blend-mode: multiply;
+}
+
+body::after {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: "";
+    opacity: 0.115;
+    background-image:
+        radial-gradient(circle at 24% 28%, rgba(33, 31, 27, 0.28) 0 0.7px, transparent 0.8px),
+        radial-gradient(circle at 72% 62%, rgba(139, 118, 90, 0.22) 0 0.8px, transparent 0.9px);
+    background-size: 17px 17px, 29px 29px;
+}
+
+.veylune-header,
+.content-main,
+.footer-main {
+    position: relative;
+    z-index: 2;
+}
+
+.veylune-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: grid;
+    place-items: center;
+    color: var(--veylune-color-charcoal);
+    background:
+        radial-gradient(circle at 50% 18%, rgba(139, 118, 90, 0.16), transparent 30rem),
+        linear-gradient(180deg, #fbfaf7 0%, var(--veylune-color-ivory) 100%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 220ms var(--veylune-ease-soft),
+        visibility 220ms var(--veylune-ease-soft);
+}
+
+.veylune-loader__grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.13;
+    background-image:
+        repeating-linear-gradient(90deg, rgba(33, 31, 27, 0.035) 0 1px, transparent 1px 7px),
+        repeating-linear-gradient(0deg, rgba(139, 118, 90, 0.028) 0 1px, transparent 1px 9px);
+}
+
+.veylune-loader__mark {
+    position: relative;
+    display: grid;
+    gap: 0.85rem;
+    justify-items: center;
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    animation: none;
+}
+
+.veylune-loader__mark span {
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.2rem, 6vw, 5.8rem);
+    line-height: 0.9;
+    letter-spacing: 0.08em;
+}
+
+.veylune-loader__mark em {
+    color: var(--veylune-color-bronze);
+    font-size: 0.68rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-loader.is-complete {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes veyluneLoaderMark {
+    0% {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translate3d(0, 18px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.veylune-magnetic {
+    transform: none;
+    transition:
+        color var(--veylune-duration-medium) var(--veylune-ease-soft),
+        background-color var(--veylune-duration-medium) var(--veylune-ease-soft),
+        border-color var(--veylune-duration-medium) var(--veylune-ease-soft),
+        opacity var(--veylune-duration-medium) var(--veylune-ease-soft);
+    will-change: auto;
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+    outline: 1px solid rgba(139, 118, 90, 0.74);
+    outline-offset: 5px;
+    box-shadow: 0 0 0 7px rgba(139, 118, 90, 0.08);
+}
+
+:where(.veylune-header__nav-link, .veylune-header__action-link, .veylune-footer__link, .veylune-home__link) {
+    position: relative;
+}
+
+:where(.veylune-header__nav-link, .veylune-header__action-link, .veylune-footer__link, .veylune-home__link)::after {
+    position: absolute;
+    right: 0;
+    bottom: -0.28rem;
+    left: 0;
+    height: 1px;
+    content: "";
+    background: currentColor;
+    opacity: 0.46;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition:
+        transform 640ms var(--veylune-ease-out),
+        opacity 640ms var(--veylune-ease-soft);
+}
+
+:where(.veylune-header__nav-link, .veylune-header__action-link, .veylune-footer__link, .veylune-home__link):hover::after,
+:where(.veylune-header__nav-link, .veylune-header__action-link, .veylune-footer__link, .veylune-home__link):focus-visible::after {
+    opacity: 0.82;
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.veylune-sensory-frame {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.veylune-sensory-frame__light {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        radial-gradient(circle at var(--veylune-light-x) var(--veylune-light-y), rgba(255, 255, 255, 0.22), transparent 18rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(33, 31, 27, 0.1));
+    transition: opacity 680ms var(--veylune-ease-soft);
+}
+
+.veylune-sensory-frame:hover > .veylune-sensory-frame__light {
+    opacity: 1;
+}
+
+.veylune-home__scene,
+.veylune-authority-section,
+.veylune-product-detail__scene,
+.veylune-collection-story {
+    scroll-margin-top: clamp(96px, 12vw, 150px);
+}
+
+.veylune-polish-ready :where(.veylune-home, .veylune-authority, .veylune-ecosystem, .veylune-legacy, .veylune-product-detail, .veylune-collection-page) {
+    animation: veylunePageArrive 420ms var(--veylune-ease-soft) both;
+}
+
+@keyframes veylunePageArrive {
+    0% {
+        opacity: 0.001;
+        filter: none;
+        transform: translate3d(0, 4px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.veylune-scroll-deep .veylune-header__bar {
+    box-shadow:
+        0 16px 60px rgba(33, 31, 27, 0.08),
+        0 1px 0 rgba(139, 118, 90, 0.11);
+}
+
+.veylune-page-transition {
+    background:
+        radial-gradient(circle at 50% 18%, rgba(139, 118, 90, 0.2), transparent 28rem),
+        linear-gradient(180deg, rgba(248, 245, 239, 0.96), rgba(33, 31, 27, 0.9));
+}
+
+.veylune-page-transition::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    opacity: 0.16;
+    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 8px);
+}
+
+@media (max-width: 767px) {
+    body::before {
+        opacity: 0.12;
+    }
+
+    .veylune-loader__mark span {
+        font-size: clamp(2rem, 15vw, 3.8rem);
+    }
+
+    :where(a, button, input, textarea, select):focus-visible {
+        outline-offset: 3px;
+        box-shadow: 0 0 0 5px rgba(139, 118, 90, 0.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+    }
+
+    .veylune-loader,
+    .veylune-loader__mark,
+    .veylune-magnetic,
+    .veylune-sensory-frame__light,
+    .veylune-page-transition,
+    .veylune-polish-ready :where(.veylune-home, .veylune-authority, .veylune-ecosystem, .veylune-legacy, .veylune-product-detail, .veylune-collection-page),
+    [data-veylune-reveal],
+    [data-veylune-parallax] {
+        animation: none;
+        transition: none;
+        transform: none;
+    }
+
+    body::before,
+    body::after {
+        opacity: 0.08;
+    }
+}

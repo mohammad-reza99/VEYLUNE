@@ -1,0 +1,111 @@
+{% block address_item %}
+<li class="col-12 col-lg-6 d-flex">
+    <div class="address-manager-select-address flex-fill veylune-address-card">
+        <div class="row h-100">
+            <div class="d-flex justify-content-between gap-3">
+                {% block address_item_address %}
+                    <div class="veylune-address-card__address">
+                        {% sw_include '@Storefront/storefront/component/address/address.html.twig' with {
+                            address: address
+                        } %}
+                    </div>
+                {% endblock %}
+
+                {% block address_item_dropdown %}
+                    {% set addressItemDropdownId = 'address-item-dropdown-' ~ random() %}
+
+                    <div class="dropdown veylune-address-card__dropdown">
+                        {% block address_item_dropdown_button %}
+                            <button
+                                type="button"
+                                id="{{ addressItemDropdownId }}"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                aria-label="{{ 'account.addressOptionsBtn'|trans|sw_sanitize }}"
+                                class="veylune-address-card__menu"
+                            >
+                                {% sw_icon 'more-vertical' style {size: 's'} %}
+                            </button>
+                        {% endblock %}
+
+                        <ul class="dropdown-menu" aria-labelledby="{{ addressItemDropdownId }}">
+                            {% block address_item_dropdown_items %}
+                                <li>
+                                    <a
+                                        class="veylune-dropdown-item address-manager-modal-address-form"
+                                        href="{{ path('frontend.account.address.edit.page', {addressId: address.id}) }}"
+                                    >
+                                        {{ 'global.default.edit'|trans|sw_sanitize }}
+                                    </a>
+                                </li>
+                                {% if not defaultShipping %}
+                                    <li>
+                                        <form
+                                            action="{{ path('frontend.account.address.set-default-address', {type: 'shipping', addressId: address.id}) }}"
+                                            method="post"
+                                        >
+                                            <button
+                                                type="submit"
+                                                title="{{ 'account.addressesSetAsDefaultShippingAction'|trans|striptags }}"
+                                                class="veylune-dropdown-item"{% if not address.country.shippingAvailable %}disabled="disabled"{% endif %}
+                                            >
+                                                {{ 'account.addressesSetAsDefaultShippingAction'|trans|sw_sanitize }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                {% endif %}
+                                {% if not defaultBilling %}
+                                    <li>
+                                        <form
+                                            action="{{ path('frontend.account.address.set-default-address', {type: 'billing', addressId: address.id}) }}"
+                                            method="post"
+                                        >
+                                            <button
+                                                type="submit"
+                                                title="{{ 'account.addressesSetAsDefaultBillingAction'|trans|striptags }}"
+                                                class="veylune-dropdown-item"
+                                            >
+                                                {{ 'account.addressesSetAsDefaultBillingAction'|trans|sw_sanitize }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                {% endif %}
+                                {% if not (defaultShipping or defaultBilling) %}
+                                    <li>
+                                        <form
+                                            action="{{ path('frontend.account.address.delete', {addressId: address.id}) }}"
+                                            method="post"
+                                        >
+                                            <button type="submit" class="veylune-dropdown-item veylune-dropdown-item--danger">
+                                                {{ 'account.addressesContentItemActionDelete'|trans|sw_sanitize }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                {% endif %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                {% endblock %}
+            </div>
+
+            {% if defaultShipping %}
+                {% set snippet = 'account.addressesTitleDefaultShippingAddress' %}
+            {% elseif defaultBilling %}
+                {% set snippet = 'account.addressesTitleDefaultBillingAddress' %}
+            {% endif %}
+
+            {% block address_item_badge_content %}
+                {% if defaultShipping or defaultBilling %}
+                    {% block address_item_badge %}
+                        <div class="mt-auto d-flex justify-content-end">
+                            <span class="address-item-default-badge veylune-address-card__badge">
+                                {{ snippet|trans|sw_sanitize }}
+                            </span>
+                        </div>
+                    {% endblock %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+</li>
+{% endblock %}

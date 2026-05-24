@@ -1,0 +1,126 @@
+.veylune-editorial-kicker,
+.veylune-cms-page .cms-element-text > p:first-child:has(strong):not(:has(+ p)) {
+    color: var(--veylune-color-bronze-dark);
+    font-family: var(--veylune-font-sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.35;
+    text-transform: uppercase;
+}
+
+.veylune-cms-page {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-sans);
+
+    h1,
+    h2,
+    h3 {
+        color: var(--veylune-color-charcoal);
+        font-family: var(--veylune-font-serif);
+        font-weight: 400;
+        letter-spacing: 0;
+    }
+
+    h1 {
+        max-width: 13ch;
+        font-size: clamp(3rem, 8vw, 7.4rem);
+        line-height: 0.94;
+    }
+
+    h2 {
+        max-width: 18ch;
+        font-size: clamp(2.2rem, 5.4vw, 5.4rem);
+        line-height: 0.98;
+    }
+
+    h3 {
+        max-width: 22ch;
+        font-size: clamp(1.55rem, 3vw, 3rem);
+        line-height: 1.06;
+    }
+
+    p,
+    li {
+        color: var(--veylune-color-ink-muted);
+        font-size: clamp(1rem, 1.25vw, 1.12rem);
+        line-height: 1.78;
+    }
+
+    p {
+        max-width: 68ch;
+    }
+
+    a:not(.btn):not(.cms-image-link):not(.image-slider-link):not(.product-slider-link) {
+        color: var(--veylune-color-bronze-dark);
+        text-decoration-color: rgba(139, 118, 90, 0.42);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.22em;
+
+        &:hover {
+            color: var(--veylune-color-charcoal);
+            text-decoration-color: var(--veylune-color-charcoal);
+        }
+
+        &:focus-visible {
+            outline: 2px solid rgba(139, 118, 90, 0.48);
+            outline-offset: 3px;
+        }
+    }
+
+    .btn {
+        border-radius: var(--veylune-radius-sm);
+        font-family: var(--veylune-font-sans);
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
+
+    blockquote {
+        max-width: 15ch;
+        margin: 0;
+        color: var(--veylune-color-charcoal);
+        font-family: var(--veylune-font-serif);
+        font-size: clamp(2.1rem, 5vw, 5.6rem);
+        font-weight: 400;
+        line-height: 0.98;
+    }
+}
+
+.veylune-cms-element--text,
+.veylune-cms-element--html {
+    max-width: 100%;
+
+    .cms-element-text,
+    .cms-element-html {
+        > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .cms-element-text > * + *,
+    .cms-element-html > * + * {
+        margin-top: clamp(1rem, 2vw, 1.55rem);
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-cms-page {
+        h1 {
+            max-width: 11ch;
+            font-size: clamp(2.65rem, 14vw, 4.6rem);
+        }
+
+        h2 {
+            max-width: 14ch;
+            font-size: clamp(2rem, 10vw, 3.5rem);
+        }
+
+        p,
+        li {
+            font-size: 1rem;
+            line-height: 1.72;
+        }
+    }
+}

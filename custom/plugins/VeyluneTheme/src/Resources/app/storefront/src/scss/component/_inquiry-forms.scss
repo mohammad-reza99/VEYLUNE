@@ -1,0 +1,251 @@
+.veylune-inquiry {
+    --veylune-inquiry-field-bg: rgba(248, 245, 239, 0.82);
+    --veylune-inquiry-field-border: rgba(139, 118, 90, 0.24);
+    --veylune-inquiry-field-focus: rgba(139, 118, 90, 0.58);
+
+    margin-block: clamp(1.5rem, 4vw, 4.5rem);
+
+    .card {
+        border: 0;
+    }
+
+    .alert {
+        border-radius: var(--veylune-radius-sm);
+        border-width: 1px;
+        color: var(--veylune-color-charcoal);
+        background: rgba(248, 245, 239, 0.94);
+        box-shadow: none;
+    }
+
+    .alert-success {
+        border-color: rgba(94, 124, 92, 0.34);
+    }
+
+    .alert-danger,
+    .alert-error {
+        border-color: rgba(140, 58, 46, 0.38);
+    }
+}
+
+.veylune-inquiry__card {
+    max-width: 920px;
+    margin-inline: auto;
+    color: var(--veylune-color-charcoal);
+    background:
+        linear-gradient(135deg, rgba(255, 252, 246, 0.96), rgba(241, 234, 223, 0.86)),
+        var(--veylune-color-ivory);
+    border: 1px solid var(--veylune-color-line);
+    border-radius: var(--veylune-radius-sm);
+    box-shadow: none;
+}
+
+.veylune-inquiry__body {
+    padding: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.veylune-inquiry__header {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.veylune-inquiry__eyebrow {
+    margin: 0;
+    color: var(--veylune-color-bronze-dark);
+    font-family: var(--veylune-font-sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.veylune-inquiry__title {
+    max-width: 13ch;
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2rem, 4vw, 3.45rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: 0;
+}
+
+.veylune-inquiry__intro {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--veylune-color-ink-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.veylune-inquiry__content {
+    display: grid;
+    gap: 1rem;
+}
+
+.veylune-inquiry__field {
+    margin-bottom: 0;
+
+    .form-label {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.45rem;
+        color: var(--veylune-color-charcoal);
+        font-family: var(--veylune-font-sans);
+        font-size: 0.83rem;
+        font-weight: 600;
+        letter-spacing: 0;
+    }
+
+    .form-required-label {
+        color: var(--veylune-color-bronze-dark);
+        font-size: 0.76rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+}
+
+.veylune-inquiry__control,
+.veylune-inquiry .form-select,
+.veylune-inquiry .contact-select {
+    min-height: 3.25rem;
+    color: var(--veylune-color-charcoal);
+    background-color: var(--veylune-inquiry-field-bg);
+    border: 1px solid var(--veylune-inquiry-field-border);
+    border-radius: var(--veylune-radius-sm);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transition:
+        border-color var(--veylune-duration-fast) var(--veylune-ease-soft),
+        box-shadow var(--veylune-duration-fast) var(--veylune-ease-soft),
+        background-color var(--veylune-duration-fast) var(--veylune-ease-soft);
+
+    &::placeholder {
+        color: rgba(33, 31, 27, 0.45);
+        opacity: 1;
+    }
+
+    &:focus {
+        color: var(--veylune-color-charcoal);
+        background-color: rgba(255, 252, 246, 0.98);
+        border-color: var(--veylune-inquiry-field-focus);
+        box-shadow: 0 0 0 0.18rem rgba(139, 118, 90, 0.14);
+    }
+
+    &.is-invalid {
+        border-color: rgba(140, 58, 46, 0.66);
+        box-shadow: 0 0 0 0.16rem rgba(140, 58, 46, 0.12);
+    }
+}
+
+.veylune-inquiry textarea.veylune-inquiry__control {
+    min-height: 10rem;
+    resize: vertical;
+}
+
+.veylune-inquiry__additional {
+    padding-top: 0.25rem;
+}
+
+.veylune-inquiry__captcha,
+.veylune-inquiry__privacy,
+.veylune-inquiry__required {
+    color: var(--veylune-color-ink-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.veylune-inquiry__privacy {
+    padding: 1rem;
+    background: rgba(255, 252, 246, 0.56);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: var(--veylune-radius-sm);
+
+    .privacy-notice {
+        margin: 0;
+    }
+
+    .privacy-notice-title {
+        margin-bottom: 0.35rem;
+        color: var(--veylune-color-charcoal);
+    }
+
+    .btn-link-inline {
+        color: var(--veylune-color-bronze-dark);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.16em;
+
+        &:focus-visible {
+            outline: 2px solid rgba(139, 118, 90, 0.44);
+            outline-offset: 2px;
+        }
+    }
+
+    .form-check {
+        margin-bottom: 0;
+    }
+}
+
+.veylune-inquiry__required {
+    color: rgba(33, 31, 27, 0.62);
+}
+
+.veylune-inquiry__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.4rem;
+}
+
+.veylune-inquiry__submit {
+    min-height: 3.15rem;
+    padding-inline: 1.65rem;
+    color: var(--veylune-color-ivory);
+    background: var(--veylune-color-charcoal);
+    border: 1px solid var(--veylune-color-charcoal);
+    border-radius: var(--veylune-radius-sm);
+    font-family: var(--veylune-font-sans);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+        color: #fffdf7;
+        background: var(--veylune-color-bronze-dark);
+        border-color: var(--veylune-color-bronze-dark);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(139, 118, 90, 0.5);
+        outline-offset: 3px;
+    }
+}
+
+.veylune-inquiry .form-field-feedback {
+    min-height: 1.15rem;
+    margin-top: 0.35rem;
+    color: rgb(140, 58, 46);
+    font-size: 0.84rem;
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-inquiry {
+        margin-block: 1rem 2.5rem;
+    }
+
+    .veylune-inquiry__body {
+        padding: 1.25rem;
+    }
+
+    .veylune-inquiry__title {
+        max-width: none;
+    }
+
+    .veylune-inquiry__actions,
+    .veylune-inquiry__submit {
+        width: 100%;
+    }
+}

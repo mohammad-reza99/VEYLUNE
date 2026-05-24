@@ -1,0 +1,142 @@
+.veylune-account {
+    --account-card-bg: rgba(255, 252, 245, 0.76);
+
+    min-height: 70vh;
+    padding: clamp(1.5rem, 4vw, 3.25rem) 0 clamp(3rem, 7vw, 6rem);
+    color: var(--veylune-color-charcoal);
+}
+
+.veylune-account__main {
+    min-width: 0;
+}
+
+.veylune-account__mobile-nav {
+    margin-bottom: 1.25rem;
+}
+
+.veylune-account-hero {
+    max-width: 54rem;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.veylune-account-hero__eyebrow,
+.veylune-account-auth__eyebrow,
+.veylune-account-empty__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-account-hero h1 {
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.25rem, 5vw, 5.1rem);
+    font-weight: 400;
+    line-height: 1;
+}
+
+.veylune-account-hero p:not(.veylune-account-hero__eyebrow) {
+    max-width: 38rem;
+    margin: 1rem 0 0;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1rem, 1.35vw, 1.16rem);
+    line-height: 1.75;
+}
+
+.veylune-account .card,
+.veylune-account .account-profile-personal,
+.veylune-account .account-profile-credentials,
+.veylune-account .account-email,
+.veylune-account .account-password,
+.veylune-account .address-manager-select-address,
+.login-card,
+.register-card {
+    color: var(--veylune-color-charcoal);
+    background: var(--account-card-bg, rgba(255, 252, 245, 0.72));
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: var(--veylune-radius-sm);
+    box-shadow: none;
+}
+
+.veylune-account .card-body,
+.login-card .card-body,
+.register-card .card-body {
+    padding: clamp(1.15rem, 3vw, 2rem);
+}
+
+.veylune-account .card-title,
+.veylune-account-section-title,
+.login-card .card-title,
+.register-card .card-title,
+.login-card .veylune-account-section-title,
+.register-card .veylune-account-section-title {
+    margin: 0 0 1rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.25rem, 2vw, 1.85rem);
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.veylune-account-overview > .account-overview,
+.veylune-account-profile > .account-profile,
+.veylune-account-orders > .account-orders {
+    display: contents;
+}
+
+.account-overview-card,
+.account-profile-personal,
+.account-profile-credentials,
+.profile-content,
+.account-orders-main,
+.address-manager-list-wrapper {
+    margin-top: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.veylune-account-empty {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: rgba(255, 252, 245, 0.78);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: var(--veylune-radius-sm);
+}
+
+.veylune-account-empty h2 {
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+    font-weight: 400;
+}
+
+.veylune-account a:not(.btn),
+.login-card a:not(.btn),
+.register-card a:not(.btn) {
+    color: var(--veylune-color-bronze-dark);
+    text-decoration-color: rgba(139, 118, 90, 0.34);
+    text-underline-offset: 0.22em;
+}
+
+.veylune-account :focus-visible,
+.login-card :focus-visible,
+.register-card :focus-visible {
+    outline: 1px solid rgba(139, 118, 90, 0.74);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(139, 118, 90, 0.08);
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-account {
+        padding-top: 1rem;
+    }
+
+    .veylune-account-hero {
+        margin-bottom: 1.25rem;
+    }
+}

@@ -1,0 +1,97 @@
+.checkout .form-group,
+.checkout .form-floating {
+    margin-bottom: 1rem;
+}
+
+.checkout .form-label,
+.checkout label:not(.form-check-label):not(.custom-control-label) {
+    margin-bottom: 0.45rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+}
+
+.checkout .form-control,
+.checkout .form-select {
+    min-height: 3rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    background-color: rgba(255, 252, 245, 0.76);
+    border-color: var(--veylune-color-line-soft);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.checkout textarea.form-control {
+    min-height: 8rem;
+    line-height: 1.7;
+}
+
+.checkout .form-control:focus,
+.checkout .form-select:focus {
+    background-color: rgba(255, 252, 245, 0.96);
+    border-color: rgba(139, 118, 90, 0.48);
+    box-shadow: 0 0 0 0.18rem rgba(139, 118, 90, 0.08);
+}
+
+.checkout .form-check {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    margin: 0.85rem 0;
+}
+
+.checkout .form-check-input {
+    flex: 0 0 auto;
+    margin-top: 0.28rem;
+}
+
+.checkout .form-check-label,
+.checkout .custom-control-label {
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.65;
+}
+
+.checkout .invalid-feedback,
+.checkout .form-error-message,
+.checkout .invalid-tooltip {
+    display: block;
+    margin-top: 0.45rem;
+    color: #7f342f;
+    font-family: var(--veylune-font-serif);
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.checkout .is-invalid,
+.checkout .form-control.is-invalid,
+.checkout .form-select.is-invalid,
+.checkout .form-check-input.is-invalid {
+    border-color: rgba(127, 52, 47, 0.62);
+}
+
+.checkout .register-login-collapse-toogle,
+.veylune-checkout-login-toggle {
+    display: inline-flex;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.85rem 1rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    background: rgba(255, 252, 245, 0.58);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.checkout .login-collapse-toggle {
+    color: inherit;
+    text-decoration: none;
+}
+
+.checkout .login-submit .btn,
+.checkout .register-submit .btn,
+.checkout .address-form-submit .btn {
+    min-width: min(100%, 18rem);
+}

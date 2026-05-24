@@ -1,0 +1,33 @@
+{% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
+
+{% block page_checkout_confirm_header %}
+    <div class="veylune-checkout-page__header">
+        <p class="veylune-checkout-page__eyebrow">{{ 'veylune.checkout.privateAcquisition'|trans|sw_sanitize }}</p>
+        <h1 class="confirm-main-header">
+            {{ 'veylune.checkout.confirmSelection'|trans|sw_sanitize }}
+        </h1>
+        <span class="confirm-main-header-item-counter">
+            {{- 'checkout.itemCounter'|trans({'%count%': page.cart.lineItems|length})|sw_sanitize -}}
+        </span>
+    </div>
+{% endblock %}
+
+{% block page_checkout_confirm_tos_header %}
+    <div class="veylune-checkout-section-title">
+        {{ 'checkout.confirmTermsHeader'|trans|sw_sanitize }}
+    </div>
+{% endblock %}
+
+{% block page_checkout_confirm_form_submit %}
+    <div class="d-grid">
+        <button id="confirmFormSubmit"
+                class="btn btn-lg veylune-button"
+                form="confirmOrderForm"
+            {% if page.cart.errors.blockResubmit %}
+                disabled
+            {% endif %}
+                type="submit">
+            {{ 'veylune.checkout.completeOrder'|trans|sw_sanitize }}
+        </button>
+    </div>
+{% endblock %}

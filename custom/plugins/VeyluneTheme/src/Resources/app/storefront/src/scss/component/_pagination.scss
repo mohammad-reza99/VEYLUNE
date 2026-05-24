@@ -1,0 +1,97 @@
+.sorting,
+.veylune-listing__sorting {
+    display: flex;
+    align-items: center;
+}
+
+.sorting .form-select,
+.veylune-listing__sorting .form-select,
+.veylune-listing__sorting select {
+    min-width: 14rem;
+    min-height: 2.75rem;
+    padding: 0.62rem 2.4rem 0.62rem 0.85rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.86rem;
+    background-color: rgba(255, 252, 245, 0.66);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.sorting .form-select:hover,
+.sorting .form-select:focus,
+.veylune-listing__sorting .form-select:hover,
+.veylune-listing__sorting .form-select:focus,
+.veylune-listing__sorting select:hover,
+.veylune-listing__sorting select:focus {
+    border-color: rgba(139, 118, 90, 0.44);
+    box-shadow: none;
+}
+
+.pagination-nav,
+.veylune-listing__pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    gap: 0.35rem;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.6rem;
+    min-height: 2.6rem;
+    padding: 0.45rem 0.7rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.82rem;
+    background: rgba(255, 252, 245, 0.7);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.page-link:hover,
+.page-link:focus-visible {
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 245, 0.96);
+    border-color: rgba(139, 118, 90, 0.44);
+}
+
+.page-item.active .page-link,
+.page-link.active {
+    color: #fffaf0;
+    background: var(--veylune-color-charcoal);
+    border-color: var(--veylune-color-charcoal);
+}
+
+.page-item.disabled .page-link,
+.page-link.disabled {
+    color: rgba(33, 31, 27, 0.32);
+    pointer-events: none;
+    background: rgba(235, 229, 218, 0.3);
+    border-color: rgba(33, 31, 27, 0.08);
+}
+
+@include media-breakpoint-down(sm) {
+    .sorting,
+    .sorting .form-select,
+    .veylune-listing__sorting,
+    .veylune-listing__sorting .form-select,
+    .veylune-listing__sorting select {
+        width: 100%;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+}

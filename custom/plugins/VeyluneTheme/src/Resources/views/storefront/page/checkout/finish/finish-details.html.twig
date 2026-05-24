@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/page/checkout/finish/finish-details.html.twig' %}
+
+{% block page_checkout_finish_header %}
+    <h1 class="finish-header">
+        {% if page.changedPayment == true %}
+            {{ 'checkout.finishUpdateHeader'|trans|sw_sanitize }}
+        {% else %}
+            {{ 'veylune.checkout.thankYou'|trans|sw_sanitize }}
+        {% endif %}
+    </h1>
+{% endblock %}

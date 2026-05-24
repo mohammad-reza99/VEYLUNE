@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-input.html.twig' %}
+
+{% block cms_element_form_input %}
+    {% set validationRules = [] %}
+
+    {% if required %}
+        {% set validationRules = validationRules|merge(['required']) %}
+    {% endif %}
+
+    {% if type === 'email' %}
+        {% set validationRules = validationRules|merge(['email']) %}
+    {% endif %}
+
+    {% set fieldClass = (additionalClass|default('') ~ ' veylune-inquiry__field')|trim %}
+    {% set inputClass = (additionalInputClass|default('') ~ ' veylune-inquiry__control')|trim %}
+
+    {% sw_include '@Storefront/storefront/component/form/form-input.html.twig' with {
+        type: type,
+        label: label|trans,
+        id: formPrefix ~ '-form-' ~ fieldName,
+        name: fieldName,
+        value: data.get( fieldName ),
+        placeholder: placeholder|trans,
+        autocomplete: autocomplete,
+        violationPath: '/' ~ fieldName,
+        validationRules: (validationRules is not empty) ? validationRules|join(','),
+        additionalClass: fieldClass,
+        additionalInputClass: inputClass,
+    } %}
+{% endblock %}

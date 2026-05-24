@@ -1,0 +1,149 @@
+{% set ecosystemPages = {
+    world: {
+        label: 'Living Ecosystem',
+        title: 'A cinematic interior universe shaped by memory, atmosphere, and collectible form.',
+        text: 'VEYLUNE is a cultural design world: editorial publishing, private collection access, room narratives, and selected objects arranged into one recognizable luxury identity.',
+        accent: 'World 01'
+    },
+    private: {
+        label: 'Private Access',
+        title: 'Quiet access to collector previews, atelier releases, and private acquisition moments.',
+        text: 'Private access is designed for clients, designers, and collectors who want early visibility into curated forms without the pressure of ordinary commerce.',
+        accent: 'Invitation'
+    },
+    collectors: {
+        label: 'Collector Experience',
+        title: 'Selected objects presented with rarity, provenance, and emotional value.',
+        text: 'VEYLUNE frames collectible furniture as spatial art: limited forms, atelier editions, material narratives, and pieces that become part of a room’s memory.',
+        accent: 'Archive'
+    },
+    rooms: {
+        label: 'Interior Storytelling',
+        title: 'Rooms as emotional worlds, not product arrangements.',
+        text: 'Each VEYLUNE room narrative studies light, silence, object presence, and architectural rhythm so the visitor can imagine living inside a composed atmosphere.',
+        accent: 'Rooms'
+    }
+} %}
+
+{% set current = ecosystemPages[veyluneEcosystemType]|default(ecosystemPages.world) %}
+{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
+{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
+
+<main class="veylune-ecosystem veylune-ecosystem--{{ veyluneEcosystemType }}" data-veylune-ecosystem>
+    <section class="veylune-ecosystem-hero" data-veylune-reveal data-veylune-atmosphere-zone="limestone">
+        <div class="veylune-ecosystem-hero__field" aria-hidden="true"></div>
+        <div class="veylune-ecosystem-hero__inner">
+            <div>
+                <p class="veylune-ecosystem__eyebrow">{{ current.label }}</p>
+                <h1>{{ current.title }}</h1>
+                <p>{{ current.text }}</p>
+            </div>
+            <aside class="veylune-ecosystem-orbit" aria-label="VEYLUNE ecosystem signals">
+                <span>{{ current.accent }}</span>
+                <strong>Memory</strong>
+                <strong>Identity</strong>
+                <strong>Atmosphere</strong>
+            </aside>
+        </div>
+    </section>
+
+    <section class="veylune-ecosystem-section veylune-world-pillars" data-veylune-reveal data-veylune-atmosphere-zone="bronze">
+        <div class="veylune-ecosystem-section__head">
+            <p class="veylune-ecosystem__eyebrow">Editorial World</p>
+            <h2>VEYLUNE speaks through recurring cultural pillars, not disposable content.</h2>
+        </div>
+        {% set pillars = [
+            { title: 'Sculptural Living', text: 'Furniture as form, presence, and emotional architecture.' },
+            { title: 'Interior Atmosphere', text: 'Rooms composed through shadow, silence, scale, and softness.' },
+            { title: 'Material Narratives', text: 'Stone, bronze, wood, textile, and surface as lasting memory.' },
+            { title: 'Collectible Forms', text: 'Selected objects that feel found, rare, and culturally intentional.' },
+            { title: 'Quiet Luxury', text: 'Restraint, proportion, and confidence over visual noise.' },
+            { title: 'Future Living', text: 'A slower, more artistic way to inhabit refined interiors.' }
+        ] %}
+        <div class="veylune-world-pillars__grid">
+            {% for pillar in pillars %}
+                <button class="veylune-world-card" type="button" data-veylune-interest="{{ pillar.title|lower|replace({' ': '-'}) }}">
+                    <span>0{{ loop.index }}</span>
+                    <strong>{{ pillar.title }}</strong>
+                    <em>{{ pillar.text }}</em>
+                </button>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="veylune-ecosystem-section veylune-atmosphere-engine" data-veylune-reveal data-veylune-atmosphere-zone="charcoal">
+        <div class="veylune-atmosphere-engine__visual" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="veylune-atmosphere-engine__content">
+            <p class="veylune-ecosystem__eyebrow">Living Atmosphere</p>
+            <h2>The site breathes with subtle environmental moods.</h2>
+            <p>
+                Time, scroll, and chosen interests influence the background temperature,
+                light diffusion, and recommendation language without turning the experience into algorithmic commerce.
+            </p>
+            <div class="veylune-atmosphere-engine__moods" aria-label="Atmosphere moods">
+                <button type="button" data-veylune-mood="limestone">Limestone Morning</button>
+                <button type="button" data-veylune-mood="bronze">Bronze Dusk</button>
+                <button type="button" data-veylune-mood="charcoal">Charcoal Evening</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="veylune-ecosystem-section veylune-private-access" data-veylune-reveal data-veylune-atmosphere-zone="limestone">
+        <div class="veylune-ecosystem-section__head">
+            <p class="veylune-ecosystem__eyebrow">Private Access</p>
+            <h2>Exclusivity is expressed as calm access, not urgency.</h2>
+        </div>
+        <div class="veylune-private-access__grid">
+            {% set access = [
+                { title: 'Collector Preview', text: 'Early access to selected releases and atelier editions.' },
+                { title: 'Trade Member Area', text: 'Project support, sourcing direction, and refined procurement flow.' },
+                { title: 'Curated Acquisition', text: 'Private inquiry paths for pieces that need conversation.' }
+            ] %}
+            {% for item in access %}
+                <article>
+                    <span>Access 0{{ loop.index }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.text }}</p>
+                    <a href="{{ veyluneInquiryUrl }}">{{ 'veylune.professional.requestAccess'|trans|sw_sanitize }}</a>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="veylune-ecosystem-section veylune-room-universe" data-veylune-reveal data-veylune-atmosphere-zone="bronze">
+        <div class="veylune-room-universe__intro">
+            <p class="veylune-ecosystem__eyebrow">Interior Storytelling Universe</p>
+            <h2>Each room becomes a cinematic chapter.</h2>
+        </div>
+        <div class="veylune-room-universe__timeline">
+            {% set rooms = [
+                { title: 'The Quiet Salon', mood: 'Curved seating, bronze light, limestone calm' },
+                { title: 'The Collector Lounge', mood: 'Marble objects, sculptural silhouettes, slow shadow' },
+                { title: 'The Material Studio', mood: 'Textile, stone, prototypes, selected forms' }
+            ] %}
+            {% for room in rooms %}
+                <a href="{{ path('frontend.search.page') }}?search={{ room.title|lower|replace({' ': '%20'}) }}" data-veylune-interest="rooms">
+                    <span>Chapter 0{{ loop.index }}</span>
+                    <strong>{{ room.title }}</strong>
+                    <em>{{ room.mood }}</em>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="veylune-ecosystem-section veylune-memory-panel" data-veylune-reveal>
+        <div>
+            <p class="veylune-ecosystem__eyebrow">Brand Memory</p>
+            <h2>Your VEYLUNE atmosphere is remembered quietly.</h2>
+        </div>
+        <div class="veylune-memory-panel__card" data-veylune-memory-card>
+            <span>Your current atmosphere</span>
+            <strong data-veylune-memory-mood>Limestone Morning</strong>
+            <p data-veylune-memory-interest>Begin by choosing an editorial pillar or room narrative.</p>
+        </div>
+    </section>
+</main>

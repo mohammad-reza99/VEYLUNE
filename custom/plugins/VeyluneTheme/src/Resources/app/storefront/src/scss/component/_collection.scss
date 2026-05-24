@@ -1,0 +1,511 @@
+.veylune-collection-page {
+    background: var(--veylune-color-ivory);
+}
+
+.veylune-collection-intro {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(5rem, 10vw, 10rem) 0 clamp(3rem, 7vw, 7rem);
+    background:
+        radial-gradient(70% 90% at 80% 10%, rgba(139, 118, 90, 0.14), rgba(139, 118, 90, 0) 62%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(235, 229, 218, 0.58));
+}
+
+.veylune-collection-intro__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.5fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: end;
+    width: var(--veylune-container);
+    margin: 0 auto;
+}
+
+.veylune-collection-intro__eyebrow {
+    margin: 0 0 1rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-collection-intro h1 {
+    max-width: 980px;
+    margin: 0;
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 400;
+    line-height: 0.92;
+}
+
+.veylune-collection-intro p {
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1rem, 1.7vw, 1.35rem);
+    line-height: 1.75;
+}
+
+.veylune-listing {
+    width: var(--veylune-container);
+    margin: 0 auto;
+    padding: clamp(2.75rem, 5.6vw, 5.4rem) 0 clamp(5rem, 10vw, 10rem);
+}
+
+.veylune-collection-page__cms .cms-block-product-listing > .cms-block-container {
+    padding-right: var(--veylune-page-gutter) !important;
+    padding-left: var(--veylune-page-gutter) !important;
+}
+
+.veylune-collection-overview {
+    width: var(--veylune-container);
+    margin: 0 auto;
+    padding: clamp(4.25rem, 8vw, 8.5rem) 0 clamp(2.5rem, 5vw, 5rem);
+}
+
+.veylune-collection-overview__head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.42fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: end;
+    margin-bottom: clamp(2.4rem, 5.6vw, 5.25rem);
+}
+
+.veylune-collection-overview__head h2 {
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.65rem, 5.8vw, 6.35rem);
+    font-weight: 400;
+    line-height: 0.95;
+}
+
+.veylune-collection-overview__head p:last-child {
+    max-width: 28rem;
+    margin: 0 0 0.45rem;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1rem, 1.35vw, 1.18rem);
+    line-height: 1.85;
+}
+
+.veylune-collection-overview__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(0.85rem, 1.5vw, 1.35rem);
+    align-items: stretch;
+}
+
+.veylune-collection-overview-card {
+    position: relative;
+    display: grid;
+    grid-column: span 6;
+    min-height: clamp(30rem, 46vw, 42rem);
+    overflow: hidden;
+    color: var(--veylune-color-ivory);
+    text-decoration: none;
+    background: var(--veylune-color-charcoal);
+    outline: 1px solid rgba(139, 118, 90, 0.16);
+    outline-offset: -1px;
+    isolation: isolate;
+}
+
+.veylune-collection-overview-card:nth-child(2),
+.veylune-collection-overview-card:nth-child(3) {
+    min-height: clamp(22rem, 31vw, 31rem);
+}
+
+.veylune-collection-overview-card:nth-child(3) {
+    grid-column: 2 / span 5;
+}
+
+.veylune-collection-overview-card:nth-child(4) {
+    grid-column: span 7;
+}
+
+.veylune-collection-overview-card::after {
+    content: "";
+    position: absolute;
+    inset: clamp(0.7rem, 1.4vw, 1.1rem);
+    z-index: 2;
+    border: 1px solid rgba(255, 252, 245, 0.18);
+    pointer-events: none;
+    transition: border-color 520ms var(--veylune-ease-soft), inset 520ms var(--veylune-ease-soft);
+}
+
+.veylune-collection-overview-card__media,
+.veylune-collection-overview-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.veylune-collection-overview-card__media {
+    background:
+        linear-gradient(135deg, rgba(155, 133, 103, 0.58), rgba(36, 32, 27, 0.96)),
+        linear-gradient(180deg, rgba(255, 252, 245, 0.08), rgba(255, 252, 245, 0));
+    transform: scale(1.01);
+    transition: transform 900ms var(--veylune-ease-soft), filter 900ms var(--veylune-ease-soft);
+}
+
+.veylune-collection-overview-card:nth-child(2n) .veylune-collection-overview-card__media.is-fallback {
+    background:
+        linear-gradient(135deg, rgba(211, 203, 190, 0.72), rgba(84, 76, 66, 0.94)),
+        linear-gradient(180deg, rgba(255, 252, 245, 0.12), rgba(255, 252, 245, 0));
+}
+
+.veylune-collection-overview-card:nth-child(3n) .veylune-collection-overview-card__media.is-fallback {
+    background:
+        linear-gradient(135deg, rgba(70, 64, 56, 0.96), rgba(18, 17, 15, 0.98)),
+        linear-gradient(180deg, rgba(180, 157, 120, 0.14), rgba(180, 157, 120, 0));
+}
+
+.veylune-collection-overview-card__image {
+    object-fit: cover;
+    filter: saturate(0.84) contrast(1.02);
+}
+
+.veylune-collection-overview-card__veil {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(180deg, rgba(18, 16, 14, 0.04), rgba(18, 16, 14, 0.36) 52%, rgba(18, 16, 14, 0.82)),
+        linear-gradient(90deg, rgba(18, 16, 14, 0.36), rgba(18, 16, 14, 0.04) 58%);
+    pointer-events: none;
+    transition: opacity 680ms var(--veylune-ease-soft);
+}
+
+.veylune-collection-overview-card__body {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100%;
+    padding: clamp(1.45rem, 3vw, 2.7rem);
+}
+
+.veylune-collection-overview-card__meta,
+.veylune-collection-overview-card em,
+.veylune-collection-overview-card__link {
+    font-family: var(--veylune-font-serif);
+}
+
+.veylune-collection-overview-card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: auto;
+    color: rgba(255, 252, 245, 0.66);
+    font-size: 0.62rem;
+    letter-spacing: var(--veylune-letter-label);
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.veylune-collection-overview-card__index {
+    color: rgba(255, 252, 245, 0.82);
+}
+
+.veylune-collection-overview-card strong {
+    display: block;
+    max-width: 12ch;
+    margin-top: clamp(7rem, 15vw, 13rem);
+    color: inherit;
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.2rem, 4.4vw, 5rem);
+    font-weight: 400;
+    line-height: 0.92;
+}
+
+.veylune-collection-overview-card strong span {
+    display: inline-block;
+    transform: translate3d(0, 0, 0);
+    transition: transform 620ms var(--veylune-ease-soft);
+}
+
+.veylune-collection-overview-card em {
+    display: block;
+    max-width: 25rem;
+    margin-top: 1rem;
+    color: rgba(255, 252, 245, 0.72);
+    font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+    font-style: normal;
+    line-height: 1.65;
+}
+
+.veylune-collection-overview-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: fit-content;
+    margin-top: 1.5rem;
+    padding-bottom: 0.25rem;
+    color: rgba(255, 252, 245, 0.9);
+    border-bottom: 1px solid rgba(255, 252, 245, 0.44);
+    font-size: 0.66rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+    transition: border-color 420ms var(--veylune-ease-soft), transform 420ms var(--veylune-ease-soft);
+}
+
+.veylune-collection-overview-card__link::after {
+    content: "";
+    width: 1.9rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.62;
+    transform: scaleX(0.58);
+    transform-origin: left;
+    transition: transform 420ms var(--veylune-ease-soft), opacity 420ms var(--veylune-ease-soft);
+}
+
+.veylune-collection-overview-card:hover,
+.veylune-collection-overview-card:focus-visible {
+    color: var(--veylune-color-ivory);
+    text-decoration: none;
+}
+
+.veylune-collection-overview-card:hover::after,
+.veylune-collection-overview-card:focus-visible::after {
+    inset: clamp(0.95rem, 1.8vw, 1.45rem);
+    border-color: rgba(255, 252, 245, 0.28);
+}
+
+.veylune-collection-overview-card:hover .veylune-collection-overview-card__media,
+.veylune-collection-overview-card:focus-visible .veylune-collection-overview-card__media {
+    filter: saturate(0.92) contrast(1.04);
+    transform: scale(1.045);
+}
+
+.veylune-collection-overview-card:hover .veylune-collection-overview-card__veil,
+.veylune-collection-overview-card:focus-visible .veylune-collection-overview-card__veil {
+    opacity: 0.92;
+}
+
+.veylune-collection-overview-card:hover strong span,
+.veylune-collection-overview-card:focus-visible strong span {
+    transform: translate3d(0, -0.18rem, 0);
+}
+
+.veylune-collection-overview-card:hover .veylune-collection-overview-card__link,
+.veylune-collection-overview-card:focus-visible .veylune-collection-overview-card__link {
+    border-color: rgba(255, 252, 245, 0.72);
+    transform: translate3d(0.2rem, 0, 0);
+}
+
+.veylune-collection-overview-card:hover .veylune-collection-overview-card__link::after,
+.veylune-collection-overview-card:focus-visible .veylune-collection-overview-card__link::after {
+    opacity: 0.9;
+    transform: scaleX(1);
+}
+
+.veylune-listing__filters {
+    margin-bottom: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.veylune-listing__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: clamp(2.6rem, 5vw, 4.5rem);
+    padding: 1rem 0;
+    background: transparent;
+    border-top: 1px solid var(--veylune-color-line-soft);
+    border-bottom: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-listing__toolbar-copy {
+    display: grid;
+    gap: 0.34rem;
+    font-family: var(--veylune-font-serif);
+}
+
+.veylune-listing__toolbar-copy span {
+    color: var(--veylune-color-bronze);
+    font-size: 0.6rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-listing__toolbar-copy strong {
+    color: var(--veylune-color-charcoal);
+    font-size: clamp(1.05rem, 1.4vw, 1.22rem);
+    font-weight: 400;
+}
+
+.veylune-listing__sorting .form-select,
+.veylune-listing__sorting select {
+    min-width: 220px;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--veylune-color-line);
+    border-radius: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+}
+
+.veylune-listing__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(3rem, 6vw, 6rem) clamp(1rem, 2.2vw, 2rem);
+    align-items: start;
+}
+
+.veylune-listing__item {
+    grid-column: span 4;
+}
+
+.veylune-listing__item:nth-child(6n + 1),
+.veylune-listing__item:nth-child(6n + 5) {
+    grid-column: span 6;
+}
+
+.veylune-listing__item:nth-child(6n + 2),
+.veylune-listing__item:nth-child(6n + 6) {
+    grid-column: span 6;
+}
+
+.veylune-listing__item:nth-child(6n + 3) {
+    margin-top: clamp(2rem, 5vw, 4.5rem);
+}
+
+.veylune-listing__item:nth-child(6n + 4) {
+    margin-top: clamp(4rem, 7vw, 6.5rem);
+}
+
+.veylune-listing__pagination {
+    margin-top: 3rem;
+}
+
+.veylune-listing__pagination--top {
+    margin: 0 0 2rem;
+}
+
+.veylune-listing__empty {
+    grid-column: 1 / -1;
+    display: grid;
+    place-items: center;
+    min-height: 22rem;
+    padding: clamp(2.5rem, 7vw, 5rem);
+    color: var(--veylune-color-ink-muted);
+    text-align: center;
+    background: rgba(255, 252, 245, 0.62);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-listing__empty-kicker {
+    margin: 0 0 0.8rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.64rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-listing__empty h2 {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.veylune-listing__empty p:not(.veylune-listing__empty-kicker) {
+    max-width: 32rem;
+    margin: 1rem 0 0;
+    font-family: var(--veylune-font-serif);
+    line-height: 1.75;
+}
+
+.veylune-listing__empty .alert {
+    margin-top: 1.5rem;
+}
+
+.veylune-collection-story {
+    padding: clamp(4rem, 8vw, 8rem) 0;
+    background: rgba(235, 229, 218, 0.52);
+}
+
+.veylune-collection-story__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(280px, 0.45fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    width: var(--veylune-container);
+    margin: 0 auto;
+}
+
+.veylune-collection-story h2 {
+    margin: 0;
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.1rem, 5vw, 5.2rem);
+    font-weight: 400;
+    line-height: 1;
+}
+
+.veylune-collection-story p:last-child {
+    align-self: end;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.8;
+}
+
+@include media-breakpoint-down(lg) {
+    .veylune-collection-overview__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .veylune-collection-overview-card,
+    .veylune-collection-overview-card:nth-child(n) {
+        grid-column: auto;
+        min-height: clamp(24rem, 48vw, 34rem);
+    }
+
+    .veylune-listing__item,
+    .veylune-listing__item:nth-child(n) {
+        grid-column: span 6;
+        margin-top: 0;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-collection-intro__inner,
+    .veylune-collection-overview__head,
+    .veylune-collection-story__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-collection-overview__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-collection-overview-card,
+    .veylune-collection-overview-card:nth-child(n) {
+        min-height: clamp(25rem, 118vw, 35rem);
+    }
+
+    .veylune-collection-overview-card__meta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .veylune-listing__toolbar {
+        position: static;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .veylune-listing__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-listing__item,
+    .veylune-listing__item:nth-child(n) {
+        grid-column: auto;
+        margin-top: 0;
+    }
+}

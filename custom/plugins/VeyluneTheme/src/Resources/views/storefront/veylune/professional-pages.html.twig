@@ -1,0 +1,200 @@
+{% set authorityPages = {
+    about: {
+        label: 'Brand Story',
+        title: 'A design house for collectible interiors.',
+        text: 'VEYLUNE STUDIO composes sculptural furniture, atmospheric objects, and quiet European interiors with the restraint of a gallery and the warmth of a lived home.',
+        accent: 'Studio manifesto'
+    },
+    trade: {
+        label: 'Trade Program',
+        title: 'Private sourcing for designers, architects, and refined projects.',
+        text: 'A discreet trade atelier for interior designers, architects, hospitality studios, and private residential projects seeking collectible pieces with strong spatial presence.',
+        accent: 'Professional partnership'
+    },
+    partnership: {
+        label: 'veylune.partnership.hero.label'|trans|sw_sanitize,
+        title: 'veylune.partnership.hero.title'|trans|sw_sanitize,
+        text: 'veylune.partnership.hero.text'|trans|sw_sanitize,
+        accent: 'veylune.partnership.hero.accent'|trans|sw_sanitize
+    },
+    consultation: {
+        label: 'Private Consultation',
+        title: 'Begin a quiet design conversation with the studio.',
+        text: 'For homes, rooms, boutique hospitality spaces, and curated sourcing requests, VEYLUNE offers a calm consultation path shaped around atmosphere, proportion, and intention.',
+        accent: 'Studio dialogue'
+    },
+    contact: {
+        label: 'Contact Ecosystem',
+        title: 'The right conversation, directed with care.',
+        text: 'Reach the studio through dedicated channels for private clients, trade professionals, atelier partners, and editorial conversations.',
+        accent: 'Communication'
+    },
+    journal: {
+        label: 'Editorial Authority',
+        title: 'Notes on atmosphere, material, and sculptural living.',
+        text: 'The VEYLUNE journal frames interiors as emotional architecture: studies in light, proportion, object presence, and European design restraint.',
+        accent: 'Design journal'
+    }
+} %}
+
+{% set current = authorityPages[veylunePageType]|default(authorityPages.about) %}
+{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
+{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
+{% set veyluneRoutes = {
+    trade: path('frontend.search.page', { search: 'trade' }),
+    consultation: veyluneInquiryUrl,
+    partnership: path('frontend.veylune.partnership.page'),
+    contact: veyluneInquiryUrl
+} %}
+
+<div class="veylune-authority veylune-authority--{{ veylunePageType }}" data-veylune-authority>
+    <section class="veylune-authority-hero" data-veylune-reveal>
+        <div class="veylune-authority-hero__grain" aria-hidden="true"></div>
+        <div class="veylune-authority-hero__inner">
+            <div class="veylune-authority-hero__content">
+                <p class="veylune-authority__eyebrow">{{ current.label }}</p>
+                <h1>{{ current.title }}</h1>
+                <p>{{ current.text }}</p>
+            </div>
+            <div class="veylune-authority-hero__visual" data-veylune-parallax aria-hidden="true">
+                <span>{{ current.accent }}</span>
+            </div>
+        </div>
+    </section>
+
+    {% if veylunePageType == 'about' %}
+        <section class="veylune-authority-section veylune-manifesto" data-veylune-reveal>
+            <div class="veylune-authority-section__head">
+                <p class="veylune-authority__eyebrow">Philosophy</p>
+                <h2>We believe rooms should be edited like collections, not filled like inventories.</h2>
+            </div>
+            <div class="veylune-manifesto__grid">
+                {% set principles = [
+                    { title: 'Sculptural Forms', text: 'Pieces chosen for silhouette, tension, and the way they hold space.' },
+                    { title: 'Atmospheric Interiors', text: 'Light, shadow, texture, and silence treated as part of the composition.' },
+                    { title: 'Timeless Materiality', text: 'Stone, wood, bronze, textile, and surface selected for permanence.' },
+                    { title: 'Collectible Living', text: 'A slower relationship to objects, shaped by meaning and proportion.' }
+                ] %}
+                {% for principle in principles %}
+                    <article class="veylune-authority-card">
+                        <span>0{{ loop.index }}</span>
+                        <h3>{{ principle.title }}</h3>
+                        <p>{{ principle.text }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="veylune-authority-statement" data-veylune-reveal>
+            <p>VEYLUNE is building a design world where sourcing, editorial direction, and collectible furniture become one coherent cultural language.</p>
+        </section>
+    {% endif %}
+
+    {% if veylunePageType == 'trade' %}
+        <section class="veylune-authority-section veylune-trade-program" data-veylune-reveal>
+            <div class="veylune-authority-section__head">
+                <p class="veylune-authority__eyebrow">Trade Atelier</p>
+                <h2>Professional support for interiors with atmosphere, restraint, and spatial intelligence.</h2>
+            </div>
+            <div class="veylune-trade-program__grid">
+                {% set benefits = [
+                    'Curated sourcing for residential and hospitality projects',
+                    'Private consultation access and collection guidance',
+                    'Material, finish, and proportion support',
+                    'Custom requests and made-to-order coordination',
+                    'Procurement-ready communication for professional teams',
+                    'Early access to selected collectible pieces'
+                ] %}
+                {% for benefit in benefits %}
+                    <div class="veylune-authority-card">
+                        <span>0{{ loop.index }}</span>
+                        <h3>{{ benefit }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    {% endif %}
+
+    {% if veylunePageType == 'partnership' %}
+        {% sw_include '@Storefront/storefront/veylune/partnership/content.html.twig' %}
+    {% endif %}
+
+    {% if veylunePageType == 'consultation' or veylunePageType == 'trade' %}
+        <section class="veylune-authority-section veylune-inquiry" data-veylune-reveal>
+            <div class="veylune-inquiry__intro">
+                <p class="veylune-authority__eyebrow">{{ 'veylune.professional.privateInquiry'|trans|sw_sanitize }}</p>
+                <h2>{{ 'veylune.professional.requestStudioConversation'|trans|sw_sanitize }}</h2>
+                <p>{{ 'veylune.professional.inquiryIntro'|trans|sw_sanitize }}</p>
+            </div>
+            <div class="veylune-inquiry__form" role="group" aria-label="{{ 'veylune.professional.inquiryCtaAriaLabel'|trans|striptags }}">
+                <a class="veylune-button veylune-button--primary" href="{{ veyluneRoutes.consultation }}">
+                    {{ 'veylune.professional.beginPrivateDialogue'|trans|sw_sanitize }}
+                </a>
+            </div>
+        </section>
+    {% endif %}
+
+    {% if veylunePageType == 'contact' %}
+        <section class="veylune-authority-section veylune-contact-grid" data-veylune-reveal>
+            <div class="veylune-authority-section__head">
+                <p class="veylune-authority__eyebrow">Contact</p>
+                <h2>Each message reaches the right studio conversation.</h2>
+            </div>
+            {% set contacts = [
+                { title: 'Private Clients', email: 'hello@veylune.studio', note: 'Collection questions, availability, and selected pieces.' },
+                { title: 'Trade', email: 'trade@veylune.studio', note: 'Designers, architects, hospitality, and procurement.' },
+                { title: 'Partnerships', email: 'partnerships@veylune.studio', note: 'Ateliers, suppliers, makers, and collection development.' },
+                { title: 'Consultation', email: 'consultation@veylune.studio', note: 'Interior direction, sourcing sessions, and private projects.' }
+            ] %}
+            <div class="veylune-contact-grid__items">
+                {% for contact in contacts %}
+                    <a class="veylune-authority-card" href="mailto:{{ contact.email }}">
+                        <span>0{{ loop.index }}</span>
+                        <h3>{{ contact.title }}</h3>
+                        <p>{{ contact.note }}</p>
+                        <em>{{ contact.email }}</em>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if veylunePageType == 'journal' %}
+        <section class="veylune-authority-section veylune-journal-system" data-veylune-reveal>
+            <div class="veylune-authority-section__head">
+                <p class="veylune-authority__eyebrow">Editorial System</p>
+                <h2>Authority is built through language, material knowledge, and a consistent visual point of view.</h2>
+            </div>
+            {% set topics = [
+                { title: 'Interior Atmosphere', text: 'How light, silence, and proportion shape emotional rooms.' },
+                { title: 'Material Studies', text: 'Stone, bronze, wood, textile, and the surface language of permanence.' },
+                { title: 'Sculptural Living', text: 'Furniture as form, object, and spatial anchor.' },
+                { title: 'European Inspirations', text: 'Gallery restraint, Milanese calm, and architectural domesticity.' }
+            ] %}
+            <div class="veylune-journal-system__grid">
+                {% for topic in topics %}
+                    <article class="veylune-journal-card">
+                        <div class="veylune-journal-card__media" aria-hidden="true"></div>
+                        <span>Journal 0{{ loop.index }}</span>
+                        <h3>{{ topic.title }}</h3>
+                        <p>{{ topic.text }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="veylune-authority-closing" data-veylune-reveal>
+        <div>
+            <p class="veylune-authority__eyebrow">{{ 'veylune.header.logoText'|trans|sw_sanitize }}</p>
+            <h2>{{ 'veylune.professional.closingTitle'|trans|sw_sanitize }}</h2>
+        </div>
+        <div class="veylune-authority-closing__links">
+            <a href="{{ veyluneRoutes.trade }}">{{ 'veylune.header.nav.trade'|trans|sw_sanitize }}</a>
+            <a href="{{ veyluneRoutes.consultation }}">{{ 'veylune.footer.privateConsultation'|trans|sw_sanitize }}</a>
+            <a href="{{ veyluneRoutes.partnership }}">{{ 'veylune.footer.atelierPartnerships'|trans|sw_sanitize }}</a>
+            <a href="{{ veyluneRoutes.contact }}">{{ 'veylune.professional.contactStudio'|trans|sw_sanitize }}</a>
+        </div>
+    </section>
+</div>

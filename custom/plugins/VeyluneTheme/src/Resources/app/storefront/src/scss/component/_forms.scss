@@ -1,0 +1,28 @@
+.veylune-field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.veylune-label {
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.65rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-input {
+    min-height: 50px;
+    padding: 0.8rem 0;
+    color: var(--veylune-color-charcoal);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--veylune-color-line);
+    border-radius: 0;
+    outline: 0;
+    transition: border-color var(--veylune-duration-fast) ease;
+}
+
+.veylune-input:focus {
+    border-bottom-color: var(--veylune-color-bronze);
+}

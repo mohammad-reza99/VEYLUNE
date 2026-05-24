@@ -1,0 +1,24 @@
+{% sw_extends '@Storefront/storefront/page/account/profile/index.html.twig' %}
+
+{% block page_account_profile %}
+    <div class="account-profile veylune-account-profile">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block page_account_profile_personal_welcome %}
+    <header class="account-welcome veylune-account-hero">
+        {% block page_account_profile_personal_welcome_headline %}
+            <p class="veylune-account-hero__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+            <h1>{{ 'veylune.account.personalDetails'|trans|sw_sanitize }}</h1>
+        {% endblock %}
+
+        {% block page_account_profile_personal_welcome_intro %}
+            <p>{{ 'account.profileText'|trans|sw_sanitize }}</p>
+        {% endblock %}
+    </header>
+{% endblock %}
+
+{% block page_account_profile_personal_header %}
+    <div class="veylune-account-section-title">{{ 'account.profilePersonalTitle'|trans|sw_sanitize }}</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-submit.html.twig' %}
+
+{% block cms_form_submit %}
+    <div class="veylune-inquiry__actions">
+        <button type="submit" class="btn veylune-inquiry__submit">
+            {{ ( submitText ? submitText : 'general.formSubmit' )|trans|sw_sanitize }}
+        </button>
+    </div>
+{% endblock %}

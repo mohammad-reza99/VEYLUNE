@@ -1,0 +1,41 @@
+{% sw_extends '@Storefront/storefront/page/checkout/address/index.html.twig' %}
+
+{% block page_checkout_address_header %}
+    <div class="veylune-checkout-page__header">
+        <p class="veylune-checkout-page__eyebrow">{{ 'veylune.checkout.privateAcquisition'|trans|sw_sanitize }}</p>
+        <h1 class="address-main-header">
+            {{ 'veylune.checkout.secureCheckout'|trans|sw_sanitize }}
+        </h1>
+        <p>{{ 'veylune.checkout.deliveryDetails'|trans|sw_sanitize }}</p>
+    </div>
+{% endblock %}
+
+{% block page_checkout_address_login_toggle %}
+    <div class="register-login-collapse-toogle mb-3 veylune-checkout-login-toggle">
+        {% sw_icon 'avatar' %}
+        <a href="#loginCollapse"
+           class="login-collapse-toggle"
+           data-bs-toggle="collapse"
+           aria-expanded="false">
+            <strong>{{ 'checkout.addressLoginToggle'|trans|sw_sanitize }}</strong>
+        </a>
+    </div>
+{% endblock %}
+
+{% block page_checkout_address_login_card %}
+    {% sw_include '@Storefront/storefront/component/account/login.html.twig' with {
+        cardTitle: 'veylune.checkout.secureCheckout'|trans|sw_sanitize
+    } %}
+{% endblock %}
+
+{% block page_checkout_address_register_card %}
+    {% sw_include '@Storefront/storefront/page/checkout/address/register.html.twig' with {
+        cardTitle: 'veylune.checkout.deliveryDetails'|trans|sw_sanitize
+    } %}
+{% endblock %}
+
+{% block page_checkout_address_products_header %}
+    <h2 class="checkout-aside-product-header mb-4">
+        {{ 'veylune.cart.cartTitle'|trans|sw_sanitize }}
+    </h2>
+{% endblock %}

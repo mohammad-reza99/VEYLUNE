@@ -1,0 +1,61 @@
+{% sw_extends '@Storefront/storefront/page/checkout/cart/index.html.twig' %}
+
+{% block page_checkout_container %}
+    {% if page.cart.lineItems.count is same as(0) %}
+        <div class="veylune-cart-empty" role="status">
+            <p class="veylune-cart-empty__eyebrow">{{ 'veylune.cart.emptyEyebrow'|trans|sw_sanitize }}</p>
+            <h1>{{ 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h1>
+            <p>{{ 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
+            <a class="btn veylune-button" href="{{ path('frontend.home.page') }}">
+                {{ 'veylune.cart.continueExploring'|trans|sw_sanitize }}
+            </a>
+        </div>
+
+        {% set messages = app.flashes %}
+
+        {% if messages.danger|length > 0 %}
+            <div class="flashbags">
+                {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                    type: 'danger',
+                    list: messages.danger,
+                    announceOnLoad: true,
+                    ariaLive: 'assertive'
+                } %}
+            </div>
+        {% endif %}
+
+        <div class="row mt-4 veylune-cart-empty__add-product">
+            {% sw_include '@Storefront/storefront/component/checkout/add-product-by-number.html.twig' %}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block page_checkout_cart_header %}
+    <div class="veylune-cart-page__header">
+        <p class="veylune-cart-page__eyebrow">{{ 'veylune.cart.selectionEyebrow'|trans|sw_sanitize }}</p>
+        <h1 class="cart-main-header">
+            {{ 'veylune.cart.cartTitle'|trans|sw_sanitize }}
+        </h1>
+        <span class="cart-main-header-item-counter">
+            {{- 'checkout.itemCounter'|trans({'%count%': page.cart.lineItems|length})|sw_sanitize -}}
+        </span>
+    </div>
+{% endblock %}
+
+{% block page_checkout_summary_header %}
+    <h2 class="checkout-aside-summary-header">
+        {{ 'veylune.cart.orderSummary'|trans|sw_sanitize }}
+    </h2>
+{% endblock %}
+
+{% block page_checkout_cart_action_proceed %}
+    <div class="checkout-aside-action d-grid">
+        <a href="{{ path('frontend.checkout.confirm.page') }}"
+           class="btn btn-lg veylune-button begin-checkout-btn"
+           title="{{ 'veylune.cart.proceedToCheckout'|trans|striptags }}">
+            {{ 'veylune.cart.proceedToCheckout'|trans|sw_sanitize }}
+        </a>
+    </div>
+{% endblock %}

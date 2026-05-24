@@ -1,0 +1,18 @@
+{% sw_extends '@Storefront/storefront/component/product/description.html.twig' %}
+
+{% block component_product_description_content %}
+    {{ parent() }}
+
+    {% sw_include '@Storefront/storefront/component/product/veylune-product-story.html.twig' with {
+        product: product
+    } only %}
+{% endblock %}
+
+{% block component_product_description_content_text %}
+    <div class="product-detail-description-text"
+         {% if not feature('JSON_LD_DATA') %}
+         itemprop="description"
+         {% endif %}>
+        {{ product.translated.description|sw_sanitize }}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% sw_extends '@Storefront/storefront/component/account/register.html.twig' %}
+
+{% block component_account_register_header %}
+    <p class="veylune-account-auth__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+    {% if cardTitle %}
+        <h2 class="veylune-account-section-title">{{ cardTitle }}</h2>
+    {% else %}
+        <h2 class="veylune-account-section-title">{{ 'account.registerTitle'|trans|sw_sanitize }}</h2>
+    {% endif %}
+{% endblock %}

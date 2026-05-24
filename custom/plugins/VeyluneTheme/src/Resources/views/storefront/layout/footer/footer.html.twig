@@ -1,0 +1,61 @@
+{% sw_extends '@Storefront/storefront/layout/footer/footer.html.twig' %}
+
+{% block layout_footer_inner_container %}
+	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
+	{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
+	{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
+	{% set veyluneRoutes = {
+        journal: path('frontend.search.page', { search: 'journal' }),
+        world: path('frontend.search.page', { search: 'living world' }),
+        about: path('frontend.search.page', { search: 'brand story' }),
+        trade: veyluneCategoryRoutes.url('trade'),
+        privateAccess: path('frontend.search.page', { search: 'private access' }),
+        partnership: path('frontend.veylune.partnership.page'),
+        consultation: veyluneCategoryRoutes.url('consultation'),
+        contact: veyluneInquiryUrl
+    } %}
+
+	<footer class="veylune-footer" aria-label="{{ 'veylune.footer.ariaLabel'|trans|striptags }}">
+		<div class="veylune-footer__inner">
+			<div class="veylune-footer__brand">
+				<div class="veylune-footer__logo">VEYLUNE</div>
+				<p class="veylune-footer__text">
+					{{ 'veylune.footer.brandText'|trans|sw_sanitize }}
+				</p>
+			</div>
+
+			<div class="veylune-footer__column">
+				<div class="veylune-footer__title">{{ 'veylune.footer.studio'|trans|sw_sanitize }}</div>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.about }}">{{ 'veylune.header.nav.brandStory'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneCategoryRoutes.url('collections') }}">{{ 'veylune.header.nav.collections'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ path('frontend.search.page', { search: 'rooms' }) }}">{{ 'veylune.header.nav.rooms'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.journal }}">{{ 'veylune.header.nav.journal'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.world }}">{{ 'veylune.header.nav.livingWorld'|trans|sw_sanitize }}</a>
+			</div>
+
+			<div class="veylune-footer__column">
+				<div class="veylune-footer__title">{{ 'veylune.footer.services'|trans|sw_sanitize }}</div>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.trade }}">{{ 'veylune.footer.tradeAtelier'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.privateAccess }}">{{ 'veylune.header.nav.privateAccess'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.footer.privateConsultation'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.partnership }}">{{ 'veylune.footer.atelierPartnerships'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.contact }}">{{ 'veylune.footer.contactEcosystem'|trans|sw_sanitize }}</a>
+			</div>
+
+			<div class="veylune-footer__column">
+				<div class="veylune-footer__title">{{ 'veylune.footer.clientCare'|trans|sw_sanitize }}</div>
+				{% for serviceMenuItem in footer.serviceMenu|slice(0, 4) %}
+					<a class="veylune-footer__link" href="{{ serviceMenuItem.seoUrl }}" {% if serviceMenuItem.shouldOpenInNewTab %} target="_blank" rel="noopener noreferrer" {% endif %}>
+						{{ serviceMenuItem.translated.name }}
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="veylune-footer__bottom">
+			<span>{{ 'veylune.footer.bottomBrand'|trans|sw_sanitize }}</span>
+			<span>{{ "now"|date("Y") }}
+				{{ 'veylune.footer.bottomHouse'|trans|sw_sanitize }}</span>
+		</div>
+	</footer>
+{% endblock %}

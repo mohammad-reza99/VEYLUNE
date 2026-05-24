@@ -1,0 +1,81 @@
+.veylune-account-sidebar__panel {
+    position: sticky;
+    top: 1.25rem;
+    overflow: hidden;
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 245, 0.76);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: var(--veylune-radius-sm);
+    box-shadow: none;
+}
+
+.veylune-account-sidebar__header {
+    display: grid;
+    gap: 0.45rem;
+    padding: 1.15rem;
+    background: transparent;
+    border-bottom: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-account-sidebar__eyebrow {
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.62rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-account-sidebar__name {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.35;
+}
+
+.veylune-account-sidebar__list {
+    padding: 0.45rem;
+}
+
+.veylune-account-sidebar__item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 44px;
+    padding: 0.7rem 0.75rem;
+    color: var(--veylune-color-ink-muted);
+    background: transparent;
+    border: 0;
+    border-radius: var(--veylune-radius-xs);
+    font-size: 0.92rem;
+}
+
+.veylune-account-sidebar__item .icon {
+    color: var(--veylune-color-bronze);
+}
+
+.veylune-account-sidebar__item:hover,
+.veylune-account-sidebar__item:focus,
+.veylune-account-sidebar__item.is-active {
+    color: var(--veylune-color-charcoal);
+    background: rgba(139, 118, 90, 0.09);
+}
+
+.veylune-account-sidebar__footer {
+    padding: 0.85rem 1.15rem;
+    background: transparent;
+    border-top: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-account-sidebar__logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0;
+    color: var(--veylune-color-bronze-dark);
+    text-decoration: none;
+}
+
+@include media-breakpoint-down(lg) {
+    .veylune-account-sidebar__panel {
+        position: static;
+    }
+}

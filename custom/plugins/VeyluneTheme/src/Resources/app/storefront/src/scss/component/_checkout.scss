@@ -1,0 +1,152 @@
+.checkout {
+    min-height: 100vh;
+}
+
+.checkout-main .flashbags {
+    margin-bottom: 1.25rem;
+}
+
+.veylune-checkout-page__header {
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.veylune-checkout-page__eyebrow {
+    margin: 0 0 0.85rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-checkout-page__header h1,
+.address-main-header,
+.confirm-main-header,
+.finish-header {
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.4rem, 5.6vw, 5.8rem);
+    font-weight: 400;
+    line-height: 0.98;
+}
+
+.veylune-checkout-page__header p:not(.veylune-checkout-page__eyebrow) {
+    max-width: 34rem;
+    margin: 1rem 0 0;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.75;
+}
+
+.confirm-main-header-item-counter {
+    display: inline-flex;
+    margin-top: 0.8rem;
+    color: rgba(33, 31, 27, 0.52);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+}
+
+.checkout-card,
+.login-card,
+.register-card,
+.confirm-address .card,
+.confirm-payment .card,
+.confirm-shipping .card,
+.checkout-additional .card,
+.finish-info .card {
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 245, 0.62);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.checkout-card .card-body,
+.login-card .card-body,
+.register-card .card-body,
+.confirm-address .card-body,
+.confirm-payment .card-body,
+.confirm-shipping .card-body,
+.checkout-additional .card-body,
+.finish-info .card-body {
+    padding: clamp(1.15rem, 3vw, 2rem);
+}
+
+.checkout-card .card-title,
+.veylune-checkout-section-title,
+.login-card .card-title,
+.register-card .card-title,
+.confirm-address .card-title,
+.confirm-payment .card-title,
+.confirm-shipping .card-title,
+.checkout-additional .card-title,
+.finish-info .card-title {
+    margin: 0 0 1rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+    font-weight: 400;
+    line-height: 1.12;
+}
+
+.confirm-address,
+.confirm-payment-shipping,
+.confirm-product,
+.confirm-tos,
+.checkout-additional,
+.finish-info,
+.checkout-product-table {
+    margin-top: clamp(1.2rem, 3vw, 2rem);
+}
+
+.confirm-payment-shipping .row,
+.confirm-address .row,
+.finish-info {
+    --bs-gutter-x: clamp(1rem, 2.5vw, 1.5rem);
+    --bs-gutter-y: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.checkout-confirm-tos-information,
+.revocation-notice,
+.checkout-confirm-tos-label,
+.checkout-confirm-revocation-label,
+.finish-teaser,
+.finish-order-subtitle,
+.finish-ordernumber,
+.login-form-description {
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.7;
+}
+
+.checkout-confirm-tos-information button,
+.revocation-notice button,
+.checkout-confirm-tos-label button {
+    color: var(--veylune-color-bronze);
+    font-family: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgba(139, 118, 90, 0.32);
+    text-underline-offset: 0.22em;
+}
+
+.checkout-aside-product-header {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.35rem, 2vw, 2rem);
+    font-weight: 400;
+}
+
+.checkout-aside-product-list {
+    display: grid;
+    margin: 0;
+}
+
+@include media-breakpoint-down(md) {
+    .checkout-container {
+        padding-top: 1.5rem;
+    }
+}

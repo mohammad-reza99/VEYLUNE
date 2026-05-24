@@ -1,0 +1,19 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-textarea.html.twig' %}
+
+{% block cms_element_form_textarea %}
+    {% set fieldClass = (additionalClass|default('') ~ ' veylune-inquiry__field')|trim %}
+    {% set inputClass = (additionalInputClass|default('') ~ ' veylune-inquiry__control')|trim %}
+
+    {% sw_include '@Storefront/storefront/component/form/form-textarea.html.twig' with {
+        label: label|trans,
+        id: formPrefix ~ '-form-' ~ fieldName,
+        name: fieldName,
+        value: data.get(fieldName),
+        placeholder: placeholder|trans,
+        violationPath: '/' ~ fieldName,
+        validationRules: required ? 'required',
+        rows: rows,
+        additionalClass: fieldClass,
+        additionalInputClass: inputClass,
+    } %}
+{% endblock %}

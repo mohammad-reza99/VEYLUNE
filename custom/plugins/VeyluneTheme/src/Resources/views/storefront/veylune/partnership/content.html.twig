@@ -1,0 +1,96 @@
+<section class="veylune-authority-section veylune-partnership" data-veylune-reveal>
+    <div class="veylune-authority-section__head">
+        <p class="veylune-authority__eyebrow">{{ 'veylune.partnership.philosophy.eyebrow'|trans|sw_sanitize }}</p>
+        <h2>{{ 'veylune.partnership.philosophy.title'|trans|sw_sanitize }}</h2>
+    </div>
+    <div class="veylune-partnership__layout">
+        <div class="veylune-partnership__panel">
+            <h3>{{ 'veylune.partnership.philosophy.panelTitle'|trans|sw_sanitize }}</h3>
+            <p>{{ 'veylune.partnership.philosophy.panelText'|trans|sw_sanitize }}</p>
+        </div>
+        <div class="veylune-partnership__list">
+            {% for key in ['selectivePlacement', 'taxonomy', 'bilingualPreparation', 'materialDiscipline', 'privateContext'] %}
+                <span>{{ ('veylune.partnership.philosophy.highlights.' ~ key)|trans|sw_sanitize }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="veylune-authority-section veylune-partnership-curation" data-veylune-reveal>
+    <div class="veylune-authority-section__head">
+        <p class="veylune-authority__eyebrow">{{ 'veylune.partnership.curation.eyebrow'|trans|sw_sanitize }}</p>
+        <h2>{{ 'veylune.partnership.curation.title'|trans|sw_sanitize }}</h2>
+    </div>
+    <div class="veylune-partnership-curation__grid">
+        {% for key in ['furniture', 'lighting', 'objects', 'editions'] %}
+            <article class="veylune-authority-card">
+                <span>0{{ loop.index }}</span>
+                <h3>{{ ('veylune.partnership.curation.items.' ~ key ~ '.title')|trans|sw_sanitize }}</h3>
+                <p>{{ ('veylune.partnership.curation.items.' ~ key ~ '.text')|trans|sw_sanitize }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="veylune-authority-section veylune-partnership-standards" data-veylune-reveal>
+    <div class="veylune-authority-section__head">
+        <p class="veylune-authority__eyebrow">{{ 'veylune.partnership.standards.eyebrow'|trans|sw_sanitize }}</p>
+        <h2>{{ 'veylune.partnership.standards.title'|trans|sw_sanitize }}</h2>
+    </div>
+    <div class="veylune-partnership-standards__list">
+        {% for key in ['context', 'governance', 'visualDiscipline', 'bilingualReadiness'] %}
+            <article>
+                <span>0{{ loop.index }}</span>
+                <div>
+                    <h3>{{ ('veylune.partnership.standards.items.' ~ key ~ '.title')|trans|sw_sanitize }}</h3>
+                    <p>{{ ('veylune.partnership.standards.items.' ~ key ~ '.text')|trans|sw_sanitize }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="veylune-authority-section veylune-partnership-fit" data-veylune-reveal>
+    <div class="veylune-partnership-fit__intro">
+        <p class="veylune-authority__eyebrow">{{ 'veylune.partnership.fit.eyebrow'|trans|sw_sanitize }}</p>
+        <h2>{{ 'veylune.partnership.fit.title'|trans|sw_sanitize }}</h2>
+    </div>
+    <div class="veylune-partnership-fit__signals">
+        {% for key in ['originalDesign', 'materialTransparency', 'productData', 'mediaStandards', 'projectCompatibility', 'longTermDevelopment'] %}
+            <span>{{ ('veylune.partnership.fit.signals.' ~ key)|trans|sw_sanitize }}</span>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="veylune-authority-section veylune-partnership-process" data-veylune-reveal>
+    <div class="veylune-authority-section__head">
+        <p class="veylune-authority__eyebrow">{{ 'veylune.partnership.process.eyebrow'|trans|sw_sanitize }}</p>
+        <h2>{{ 'veylune.partnership.process.title'|trans|sw_sanitize }}</h2>
+    </div>
+    <div class="veylune-partnership-process__steps">
+        {% for key in ['inquiry', 'review', 'preparation', 'publication'] %}
+            <article>
+                <span>0{{ loop.index }}</span>
+                <h3>{{ ('veylune.partnership.process.steps.' ~ key ~ '.title')|trans|sw_sanitize }}</h3>
+                <p>{{ ('veylune.partnership.process.steps.' ~ key ~ '.text')|trans|sw_sanitize }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="veylune-authority-section veylune-partnership-submission" data-veylune-reveal>
+    <div>
+        <p class="veylune-authority__eyebrow">{{ 'veylune.partnership.submission.eyebrow'|trans|sw_sanitize }}</p>
+        <h2>{{ 'veylune.partnership.submission.title'|trans|sw_sanitize }}</h2>
+    </div>
+    <div class="veylune-partnership-submission__content">
+        <ul>
+            {% for key in ['background', 'categories', 'materials', 'media', 'production', 'commercial'] %}
+                <li>{{ ('veylune.partnership.submission.expectations.' ~ key)|trans|sw_sanitize }}</li>
+            {% endfor %}
+        </ul>
+        <a class="veylune-button veylune-button--primary" href="mailto:partnerships@veylune.studio">
+            {{ 'veylune.partnership.submission.cta'|trans|sw_sanitize }}
+        </a>
+    </div>
+</section>

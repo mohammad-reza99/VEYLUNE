@@ -1,0 +1,484 @@
+{% sw_extends '@Storefront/storefront/page/content/index.html.twig' %}
+
+{% block base_main_inner %}
+	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
+	{% set cmsPage = page.landingPage ? page.landingPage.cmsPage : page.cmsPage|default(null) %}
+		{% set activeCategory = page.category|default(page.header.navigation.active|default(null)) %}
+	{% set categoryCustomFields = activeCategory.translated.customFields|default(activeCategory.customFields|default({})) %}
+	{% set cmsCustomFields = cmsPage.translated.customFields|default(cmsPage.customFields|default({})) %}
+		{% set veyluneIdentifier = categoryCustomFields.veylune_page_identifier|default(cmsCustomFields.veylune_page_identifier|default(null)) %}
+		{% set veyluneCmsClasses = (cmsPage.cssClass|default(''))|trim|split(' ') %}
+		{% set veyluneRouteName = app.request.attributes.get('_route') %}
+		{% set isVeyluneCollectionPage = veyluneRouteName == 'frontend.navigation.page' %}
+		{% set veyluneCollectionsCategoryId = '019e47255c4f7a8f947adc9f036f367f' %}
+		{% set veylunePageType = null %}
+	{% set veyluneEcosystemType = null %}
+	{% set veyluneLegacyType = null %}
+	{% set veyluneDetectedType = categoryCustomFields.veylune_page_type|default(cmsCustomFields.veylune_page_type|default(veyluneIdentifier)) %}
+	{% if veyluneDetectedType in ['partnership', 'supplier', 'atelier'] or 'veylune-page-partnership' in veyluneCmsClasses %}
+		{% set veylunePageType = 'partnership' %}
+	{% elseif veyluneDetectedType in ['legacy', 'mythology'] or 'veylune-page-legacy' in veyluneCmsClasses %}
+		{% set veyluneLegacyType = 'legacy' %}
+	{% elseif veyluneDetectedType in ['culture', 'cultural'] or 'veylune-page-culture' in veyluneCmsClasses %}
+		{% set veyluneLegacyType = 'culture' %}
+	{% elseif veyluneDetectedType in ['archive', 'lineage'] or 'veylune-page-archive' in veyluneCmsClasses %}
+		{% set veyluneLegacyType = 'archive' %}
+	{% elseif veyluneDetectedType in ['exhibitions', 'exhibition', 'showroom'] or 'veylune-page-exhibitions' in veyluneCmsClasses %}
+		{% set veyluneLegacyType = 'exhibitions' %}
+	{% elseif veyluneDetectedType in ['private', 'private-access', 'members', 'membership'] or 'veylune-page-private-access' in veyluneCmsClasses %}
+		{% set veyluneEcosystemType = 'private' %}
+	{% elseif veyluneDetectedType in ['collector', 'collectors'] or 'veylune-page-collectors' in veyluneCmsClasses %}
+		{% set veyluneEcosystemType = 'collectors' %}
+	{% elseif veyluneDetectedType in ['rooms', 'rooms-universe', 'interior-universe'] or 'veylune-page-rooms' in veyluneCmsClasses %}
+		{% set veyluneEcosystemType = 'rooms' %}
+	{% elseif veyluneDetectedType in ['world', 'ecosystem'] or 'veylune-page-world' in veyluneCmsClasses %}
+		{% set veyluneEcosystemType = 'world' %}
+	{% elseif veyluneDetectedType in ['consultation', 'inquiry'] or 'veylune-page-consultation' in veyluneCmsClasses %}
+		{% set veylunePageType = 'consultation' %}
+	{% elseif veyluneDetectedType == 'contact' or 'veylune-page-contact' in veyluneCmsClasses %}
+		{% set veylunePageType = 'contact' %}
+	{% elseif veyluneDetectedType in ['trade', 'architect', 'designer'] or 'veylune-page-trade' in veyluneCmsClasses %}
+		{% set veylunePageType = 'trade' %}
+	{% elseif veyluneDetectedType in ['journal', 'editorial'] or 'veylune-page-journal' in veyluneCmsClasses %}
+		{% set veylunePageType = 'journal' %}
+	{% elseif veyluneDetectedType in ['about', 'story', 'studio'] or 'veylune-page-about' in veyluneCmsClasses %}
+		{% set veylunePageType = 'about' %}
+	{% endif %}
+	{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
+	{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
+	{% set veyluneRoutes = {
+        world: path('frontend.search.page', { search: 'living world' }),
+        privateAccess: path('frontend.search.page', { search: 'private access' }),
+        rooms: path('frontend.search.page', { search: 'room universe' }),
+        legacy: path('frontend.search.page', { search: 'legacy' }),
+        culture: path('frontend.search.page', { search: 'culture' }),
+        exhibitions: path('frontend.search.page', { search: 'future showrooms' }),
+        consultation: veyluneCategoryRoutes.url('consultation')
+    } %}
+
+		{% if app.request.attributes.get('_route') == 'frontend.home.page' %}
+			{% set veyluneHomeHeroPreferredSlots = [] %}
+			{% set veyluneHomeHeroFallbackSlots = [] %}
+			{% if cmsPage and cmsPage.sections %}
+				{% for section in cmsPage.sections %}
+					{% for block in section.blocks %}
+						{% for slot in block.slots %}
+							{% set veyluneHomeHeroSlotIsPreferred = slot.type == 'image' and slot.slot == 'image' and block.type == 'image-cover' %}
+							{% if slot.type == 'image' and slot.data.media %}
+								{% if veyluneHomeHeroSlotIsPreferred %}
+									{% set veyluneHomeHeroPreferredSlots = veyluneHomeHeroPreferredSlots|merge([slot]) %}
+								{% else %}
+									{% set veyluneHomeHeroFallbackSlots = veyluneHomeHeroFallbackSlots|merge([slot]) %}
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				{% endfor %}
+			{% endif %}
+			{% set veyluneHomeHeroSlot = veyluneHomeHeroPreferredSlots|first ?: veyluneHomeHeroFallbackSlots|first %}
+			{% set veyluneHomeHeroMedia = veyluneHomeHeroSlot ? veyluneHomeHeroSlot.data.media : null %}
+			{% set veyluneHomeHeroDisplayMode = veyluneHomeHeroSlot ? veyluneHomeHeroSlot.translated.config.displayMode.value|default('cover') : 'cover' %}
+			<main class="veylune-home" data-veylune-home>
+				<section class="veylune-home__scene veylune-home-hero" data-veylune-reveal>
+					<div class="veylune-home-hero__grain" aria-hidden="true"></div>
+				<div class="veylune-home-hero__inner">
+					<div class="veylune-home-hero__content">
+						<p class="veylune-home__eyebrow">{{ 'veylune.home.heroEyebrow'|trans|sw_sanitize }}</p>
+						<h1 class="veylune-home-hero__title">{{ 'veylune.home.heroTitle'|trans|sw_sanitize }}</h1>
+						<p class="veylune-home-hero__text">
+							{{ 'veylune.home.heroText'|trans|sw_sanitize }}
+						</p>
+						<div class="veylune-home-hero__actions">
+							<a class="veylune-home__link" href="{{ veyluneCategoryRoutes.url('collections') }}">{{ 'veylune.home.exploreCollections'|trans|sw_sanitize }}</a>
+							<a class="veylune-home__link veylune-home__link--muted" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.home.privateConsultation'|trans|sw_sanitize }}</a>
+						</div>
+					</div>
+
+					<div class="veylune-home-hero__visual" data-veylune-parallax>
+						<div class="veylune-home-hero__image"{% if not veyluneHomeHeroMedia %} aria-hidden="true"{% endif %}>
+							{% if veyluneHomeHeroMedia %}
+								{% set veyluneHomeHeroObjectFit = veyluneHomeHeroDisplayMode in ['cover', 'contain'] ? veyluneHomeHeroDisplayMode : 'cover' %}
+								{% set veyluneHomeHeroImageAttributes = {
+									class: 'cms-image veylune-home-hero__media',
+									alt: veyluneHomeHeroMedia.translated.alt ?: '',
+									title: veyluneHomeHeroMedia.translated.title ?: '',
+									loading: 'eager',
+									'data-object-fit': veyluneHomeHeroObjectFit,
+									style: 'display: block; width: 100%; height: 100%; object-fit: ' ~ veyluneHomeHeroObjectFit ~ ';'
+								} %}
+
+								<div class="cms-element-image is-{{ veyluneHomeHeroObjectFit }} h-100">
+									<div class="w-100 h-100 cms-image-container is-{{ veyluneHomeHeroObjectFit }}">
+										{% sw_thumbnails 'veylune-home-hero-image' with {
+											media: veyluneHomeHeroMedia,
+											attributes: veyluneHomeHeroImageAttributes
+										} %}
+									</div>
+								</div>
+							{% endif %}
+						</div>
+						<div class="veylune-home-hero__plate">
+							<span>01</span>
+							<strong>{{ 'veylune.home.atmosphericInteriors'|trans|sw_sanitize }}</strong>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-philosophy" data-veylune-reveal>
+				<div class="veylune-philosophy__inner">
+					<p class="veylune-home__eyebrow">{{ 'veylune.home.brandPhilosophy'|trans|sw_sanitize }}</p>
+					<h2 class="veylune-philosophy__statement">
+						{{ 'veylune.home.philosophyStatement'|trans|sw_sanitize }}
+					</h2>
+					<div class="veylune-philosophy__copy">
+						<p>
+							{{ 'veylune.home.philosophyCopyOne'|trans|sw_sanitize }}
+						</p>
+						<p>
+							{{ 'veylune.home.philosophyCopyTwo'|trans|sw_sanitize }}
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-collections" data-veylune-reveal>
+				<div class="veylune-home__section-head">
+					<p class="veylune-home__eyebrow">{{ 'veylune.home.featuredCollections'|trans|sw_sanitize }}</p>
+					<h2>{{ 'veylune.home.featuredCollectionsTitle'|trans|sw_sanitize }}</h2>
+				</div>
+
+				<div class="veylune-collections__grid">
+					{% set collections = [
+                        { title: 'veylune.home.collections.sculpturalSeating.title', href: veyluneCategoryRoutes.url('seating'), categoryId: '019e472688de7a4488d2ccaa9f4c1aca', categoryMediaId: '019e4cf2dd9e78d292535317e4db4fdb', meta: 'veylune.home.collections.sculpturalSeating.meta', tone: 'is-bronze' },
+                        { title: 'veylune.home.collections.tables.title', href: veyluneCategoryRoutes.url('tables'), categoryId: '019e4726c20076f092111b3a35ebdc0e', categoryMediaId: '019e51166fea7e76a5e1c3e08c12146d', meta: 'veylune.home.collections.tables.meta', tone: 'is-ivory' },
+                        { title: 'veylune.home.collections.collectibleLighting.title', href: veyluneCategoryRoutes.url('lighting'), categoryId: '019e4726e79d7edfa7209e2333b29a58', categoryMediaId: '019e4c3ec019755ca6f737ba688a885d', meta: 'veylune.home.collections.collectibleLighting.meta', tone: 'is-charcoal' },
+                        { title: 'veylune.home.collections.objects.title', href: veyluneCategoryRoutes.url('objects'), categoryId: '019e4727472c7ba280e48539675d26f3', categoryMediaId: '019e4c472dad7ed280fcdfd7809ac6a4', meta: 'veylune.home.collections.objects.meta', tone: 'is-stone' },
+                        { title: 'veylune.home.collections.decor.title', href: veyluneCategoryRoutes.url('decorObjects'), categoryId: '019e4c2460a47c3fa030916b63d77970', categoryMediaId: '019e569fc7d076a7b687a001fc10b841', meta: 'veylune.home.collections.decor.meta', tone: 'is-smoke' }
+                    ] %}
+
+					{% for collection in collections %}
+						{% set collectionTree = page.header.navigation.getChildren(collection.categoryId)|default(null) %}
+						{% set collectionCategory = collectionTree.active|default(null) %}
+						{% set collectionMedia = collectionCategory.media|default(null) %}
+						{% set collectionMediaId = collectionCategory.mediaId|default(collection.categoryMediaId|default(null)) %}
+						{% if not collectionMedia and collectionMediaId %}
+							{% set collectionMediaCollection = searchMedia([collectionMediaId], context.context) %}
+							{% set collectionMedia = collectionMediaCollection.get(collectionMediaId) %}
+						{% endif %}
+						<a class="veylune-collection-card {{ collection.tone }}" href="{{ collection.href }}">
+							<span class="veylune-collection-card__media {% if not collectionMedia %}is-fallback{% endif %}" aria-hidden="true">
+								{% if collectionMedia %}
+									{% sw_thumbnails 'veylune-home-collection-card' with {
+										media: collectionMedia,
+										sizes: {
+											default: '680px'
+										},
+										attributes: {
+											class: 'veylune-collection-card__image',
+											alt: '',
+											loading: 'lazy'
+										}
+									} %}
+								{% endif %}
+							</span>
+							<span class="veylune-collection-card__content">
+								<span class="veylune-collection-card__index">0{{ loop.index }}</span>
+								<strong>{{ collection.title|trans|sw_sanitize }}</strong>
+								<em>{{ collection.meta|trans|sw_sanitize }}</em>
+							</span>
+						</a>
+					{% endfor %}
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-atmosphere" data-veylune-reveal>
+				{% set atmosphereMediaId = '019e5666d41d750faf5381cc308d4c5c' %}
+				{% set atmosphereMediaCollection = searchMedia([atmosphereMediaId], context.context) %}
+				{% set atmosphereMedia = atmosphereMediaCollection.get(atmosphereMediaId) %}
+				<div class="veylune-atmosphere__image {% if not atmosphereMedia %}is-fallback{% endif %}" data-veylune-parallax aria-hidden="true">
+					{% if atmosphereMedia %}
+						{% sw_thumbnails 'veylune-home-atmosphere' with {
+							media: atmosphereMedia,
+							sizes: {
+								default: '100vw'
+							},
+							attributes: {
+								class: 'veylune-atmosphere__media',
+								alt: '',
+								loading: 'lazy'
+							}
+						} %}
+					{% endif %}
+				</div>
+				<div class="veylune-atmosphere__quote">
+					<p class="veylune-home__eyebrow">{{ 'veylune.home.interiorAtmosphere'|trans|sw_sanitize }}</p>
+					<blockquote>{{ 'veylune.home.atmosphereQuote'|trans|sw_sanitize }}</blockquote>
+					<span>{{ 'veylune.home.atmosphereMeta'|trans|sw_sanitize }}</span>
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-pieces" data-veylune-reveal>
+				<div class="veylune-home__section-head">
+					<p class="veylune-home__eyebrow">{{ 'veylune.home.selectedPieces'|trans|sw_sanitize }}</p>
+					<h2>{{ 'veylune.home.selectedPiecesTitle'|trans|sw_sanitize }}</h2>
+				</div>
+
+				<div class="veylune-pieces__grid">
+					{% set pieces = [
+                        { name: 'veylune.home.pieces.aurelia.name', type: 'veylune.home.pieces.selectedPiece', note: 'veylune.home.pieces.aurelia.note', coverMediaId: '019e4c2ff4107c348c9ba6e35aae43a2' },
+                        { name: 'veylune.home.pieces.calma.name', type: 'veylune.home.pieces.curatedObject', note: 'veylune.home.pieces.calma.note', coverMediaId: '019e4c43733a7315bdcded111637d261' },
+                        { name: 'veylune.home.pieces.nocturne.name', type: 'veylune.home.pieces.madeToOrder', note: 'veylune.home.pieces.nocturne.note', coverMediaId: '019e4c3ec019755ca6f737ba688a885d' }
+                    ] %}
+
+					{% for piece in pieces %}
+						{% set pieceMedia = null %}
+						{% if piece.coverMediaId %}
+							{% set pieceMediaCollection = searchMedia([piece.coverMediaId], context.context) %}
+							{% set pieceMedia = pieceMediaCollection.get(piece.coverMediaId) %}
+						{% endif %}
+						<article class="veylune-piece-card">
+							<div class="veylune-piece-card__media is-piece-{{ loop.index }} {% if not pieceMedia %}is-fallback{% endif %}" aria-hidden="true">
+								{% if pieceMedia %}
+									{% sw_thumbnails 'veylune-home-piece-card' with {
+										media: pieceMedia,
+										sizes: {
+											default: '520px'
+										},
+										attributes: {
+											class: 'veylune-piece-card__image',
+											alt: '',
+											loading: 'lazy'
+										}
+									} %}
+								{% endif %}
+							</div>
+							<div class="veylune-piece-card__body">
+								<span>{{ piece.type|trans|sw_sanitize }}</span>
+								<h3>{{ piece.name|trans|sw_sanitize }}</h3>
+								<p>{{ piece.note|trans|sw_sanitize }}</p>
+								<a href="{{ veyluneRoutes.consultation }}">{{ 'veylune.home.privateInquiry'|trans|sw_sanitize }}</a>
+							</div>
+						</article>
+					{% endfor %}
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-trade" data-veylune-reveal>
+				<div class="veylune-trade__inner">
+					<div>
+						<p class="veylune-home__eyebrow">{{ 'veylune.home.tradeEyebrow'|trans|sw_sanitize }}</p>
+						<h2>{{ 'veylune.home.tradeTitle'|trans|sw_sanitize }}</h2>
+					</div>
+					<div class="veylune-trade__list">
+						<span>{{ 'veylune.home.tradeProgram'|trans|sw_sanitize }}</span>
+						<span>{{ 'veylune.home.privateConsultation'|trans|sw_sanitize }}</span>
+						<span>{{ 'veylune.home.curatedSourcing'|trans|sw_sanitize }}</span>
+						<span>{{ 'veylune.home.designPartnerships'|trans|sw_sanitize }}</span>
+					</div>
+					<a class="veylune-home__link" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.home.beginPrivateDialogue'|trans|sw_sanitize }}</a>
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-home-ecosystem" data-veylune-reveal data-veylune-atmosphere-zone="bronze">
+				<div class="veylune-home__section-head">
+					<p class="veylune-home__eyebrow">{{ 'veylune.home.designCulture'|trans|sw_sanitize }}</p>
+					<h2>{{ 'veylune.home.designCultureTitle'|trans|sw_sanitize }}</h2>
+				</div>
+				<div class="veylune-home-ecosystem__grid">
+					<a href="{{ veyluneRoutes.world }}">
+						<span>01</span>
+						<strong>{{ 'veylune.home.ecosystem.world.title'|trans|sw_sanitize }}</strong>
+						<em>{{ 'veylune.home.ecosystem.world.text'|trans|sw_sanitize }}</em>
+					</a>
+					<a href="{{ veyluneRoutes.privateAccess }}">
+						<span>02</span>
+						<strong>{{ 'veylune.home.ecosystem.privateAccess.title'|trans|sw_sanitize }}</strong>
+						<em>{{ 'veylune.home.ecosystem.privateAccess.text'|trans|sw_sanitize }}</em>
+					</a>
+					<a href="{{ veyluneRoutes.rooms }}">
+						<span>03</span>
+						<strong>{{ 'veylune.home.ecosystem.roomUniverse.title'|trans|sw_sanitize }}</strong>
+						<em>{{ 'veylune.home.ecosystem.roomUniverse.text'|trans|sw_sanitize }}</em>
+					</a>
+					<a href="{{ veyluneRoutes.legacy }}">
+						<span>04</span>
+						<strong>{{ 'veylune.home.ecosystem.legacy.title'|trans|sw_sanitize }}</strong>
+						<em>{{ 'veylune.home.ecosystem.legacy.text'|trans|sw_sanitize }}</em>
+					</a>
+					<a href="{{ veyluneRoutes.culture }}">
+						<span>05</span>
+						<strong>{{ 'veylune.home.ecosystem.culture.title'|trans|sw_sanitize }}</strong>
+						<em>{{ 'veylune.home.ecosystem.culture.text'|trans|sw_sanitize }}</em>
+					</a>
+					<a href="{{ veyluneRoutes.exhibitions }}">
+						<span>06</span>
+						<strong>{{ 'veylune.home.ecosystem.exhibitions.title'|trans|sw_sanitize }}</strong>
+						<em>{{ 'veylune.home.ecosystem.exhibitions.text'|trans|sw_sanitize }}</em>
+					</a>
+				</div>
+			</section>
+		</main>
+	{% elseif veyluneLegacyType %}
+		{% sw_include '@Storefront/storefront/veylune/legacy.html.twig' with {
+            veyluneLegacyType: veyluneLegacyType
+        } %}
+	{% elseif veyluneEcosystemType %}
+		{% sw_include '@Storefront/storefront/veylune/ecosystem.html.twig' with {
+            veyluneEcosystemType: veyluneEcosystemType
+        } %}
+	{% elseif veylunePageType %}
+		{% sw_include '@Storefront/storefront/veylune/professional-pages.html.twig' with {
+            veylunePageType: veylunePageType
+        } %}
+	{% elseif isVeyluneCollectionPage %}
+		<main class="veylune-collection-page">
+				{% set cmsPageClasses = ('cms-page ' ~ cmsPage.cssClass|striptags)|trim %}
+				{% set landingPage = page.landingPage ? page.landingPage : {} %}
+				{% set activeCategory = page.category|default(page.header.navigation.active) %}
+
+				<section class="veylune-collection-intro">
+					<div class="veylune-collection-intro__inner">
+						<div>
+							<p class="veylune-collection-intro__eyebrow">{{ 'veylune.listing.collectionArchive'|trans|sw_sanitize }}</p>
+						<h1>{{ activeCategory.translated.name|default('veylune.listing.curatedCollection'|trans|sw_sanitize) }}</h1>
+					</div>
+					<p>
+						{{ activeCategory.translated.description|striptags|default('veylune.listing.collectionFallbackText'|trans|sw_sanitize) }}
+					</p>
+					</div>
+				</section>
+
+				{% if activeCategory.id == veyluneCollectionsCategoryId %}
+					{% set collectionNavigation = page.header.navigation.getChildren(activeCategory.id)|default(null) %}
+					{% set collectionChildren = collectionNavigation.tree|default([]) %}
+
+						<section class="veylune-collection-overview" aria-labelledby="veylune-collection-overview-title">
+							<div class="veylune-collection-overview__head">
+								<div>
+									<p class="veylune-collection-intro__eyebrow">{{ 'veylune.listing.overviewEyebrow'|trans|sw_sanitize }}</p>
+									<h2 id="veylune-collection-overview-title">{{ 'veylune.listing.overviewTitle'|trans|sw_sanitize }}</h2>
+								</div>
+								<p>{{ 'veylune.listing.overviewText'|trans|sw_sanitize }}</p>
+							</div>
+
+							<div class="veylune-collection-overview__grid">
+							{% if collectionChildren|length > 0 %}
+									{% for childItem in collectionChildren %}
+										{% set childCategory = childItem.category %}
+										{% set childName = childCategory.translated.name|default(childCategory.name) %}
+										{% set childDescription = childCategory.translated.description|default(childCategory.description)|striptags %}
+										{% set childMedia = childCategory.media|default(null) %}
+										{% if not childMedia and childCategory.mediaId|default(null) %}
+											{% set childMediaCollection = searchMedia([childCategory.mediaId], context.context) %}
+											{% set childMedia = childMediaCollection.get(childCategory.mediaId) %}
+										{% endif %}
+
+											<a class="veylune-collection-overview-card" href="{{ path('frontend.navigation.page', { navigationId: childCategory.id }) }}">
+												<span class="veylune-collection-overview-card__media {% if not childMedia %}is-fallback{% endif %}">
+													{% if childMedia %}
+														{% sw_thumbnails 'veylune-collection-overview-card' with {
+														media: childMedia,
+														sizes: {
+															default: '560px'
+														},
+													attributes: {
+														class: 'veylune-collection-overview-card__image',
+														alt: childName,
+														loading: 'lazy'
+													}
+													} %}
+												{% endif %}
+											</span>
+											<span class="veylune-collection-overview-card__veil" aria-hidden="true"></span>
+											<span class="veylune-collection-overview-card__body">
+												<span class="veylune-collection-overview-card__meta">
+													<span class="veylune-collection-overview-card__index">0{{ loop.index }}</span>
+													<span>{{ 'veylune.listing.overviewEyebrow'|trans|sw_sanitize }}</span>
+												</span>
+												<strong>
+													<span>{{ childName }}</span>
+												</strong>
+												<em>{{ childDescription ?: 'veylune.listing.collectionChildFallbackText'|trans|sw_sanitize }}</em>
+												<span class="veylune-collection-overview-card__link">{{ 'veylune.listing.exploreCategory'|trans({'%name%': childName})|sw_sanitize }}</span>
+											</span>
+									</a>
+								{% endfor %}
+								{% else %}
+									{% set fallbackCollectionChildren = [
+										{ name: 'Seating', id: '019e472688de7a4488d2ccaa9f4c1aca', mediaId: '019e4cf2dd9e78d292535317e4db4fdb' },
+										{ name: 'Tables', id: '019e4726c20076f092111b3a35ebdc0e', mediaId: '019e51166fea7e76a5e1c3e08c12146d' },
+										{ name: 'Lighting', id: '019e4726e79d7edfa7209e2333b29a58', mediaId: '019e4c3ec019755ca6f737ba688a885d' },
+										{ name: 'Objects', id: '019e4727472c7ba280e48539675d26f3', mediaId: '019e4c472dad7ed280fcdfd7809ac6a4' }
+									] %}
+
+										{% for childCategory in fallbackCollectionChildren %}
+											{% set fallbackMedia = null %}
+											{% if childCategory.mediaId|default(null) %}
+												{% set fallbackMediaCollection = searchMedia([childCategory.mediaId], context.context) %}
+												{% set fallbackMedia = fallbackMediaCollection.get(childCategory.mediaId) %}
+											{% endif %}
+											<a class="veylune-collection-overview-card" href="{{ path('frontend.navigation.page', { navigationId: childCategory.id }) }}">
+												<span class="veylune-collection-overview-card__media {% if not fallbackMedia %}is-fallback{% endif %}" aria-hidden="true">
+													{% if fallbackMedia %}
+														{% sw_thumbnails 'veylune-collection-overview-card' with {
+															media: fallbackMedia,
+															sizes: {
+																default: '560px'
+															},
+															attributes: {
+																class: 'veylune-collection-overview-card__image',
+																alt: childCategory.name,
+																loading: 'lazy'
+															}
+														} %}
+													{% endif %}
+												</span>
+												<span class="veylune-collection-overview-card__veil" aria-hidden="true"></span>
+											<span class="veylune-collection-overview-card__body">
+												<span class="veylune-collection-overview-card__meta">
+													<span class="veylune-collection-overview-card__index">0{{ loop.index }}</span>
+													<span>{{ 'veylune.listing.overviewEyebrow'|trans|sw_sanitize }}</span>
+												</span>
+												<strong>
+													<span>{{ childCategory.name }}</span>
+												</strong>
+												<em>{{ 'veylune.listing.collectionChildFallbackText'|trans|sw_sanitize }}</em>
+												<span class="veylune-collection-overview-card__link">{{ 'veylune.listing.exploreCategory'|trans({'%name%': childCategory.name})|sw_sanitize }}</span>
+											</span>
+									</a>
+								{% endfor %}
+							{% endif %}
+						</div>
+					</section>
+				{% endif %}
+
+				<div class="{{ cmsPageClasses }} veylune-cms-page veylune-cms-page--content veylune-collection-page__cms">
+					{% block page_content_blocks %}
+						{% sw_include '@Storefront/storefront/page/content/detail.html.twig' with {cmsPage: cmsPage, landingPage: landingPage} %}
+				{% endblock %}
+			</div>
+
+			<section class="veylune-collection-story">
+				<div class="veylune-collection-story__inner">
+					<p class="veylune-collection-intro__eyebrow">{{ 'veylune.listing.materialMood'|trans|sw_sanitize }}</p>
+					<h2>{{ 'veylune.listing.materialMoodTitle'|trans|sw_sanitize }}</h2>
+					<p>
+						{{ 'veylune.listing.materialMoodText'|trans|sw_sanitize }}
+					</p>
+				</div>
+			</section>
+		</main>
+	{% else %}
+		{% set cmsPageClasses = ('cms-page ' ~ cmsPage.cssClass|striptags)|trim %}
+		{% set landingPage = page.landingPage ? page.landingPage : {} %}
+
+		<main class="veylune-cms-page-main">
+			<div class="{{ cmsPageClasses }} veylune-cms-page veylune-cms-page--content">
+				{% block veylune_generic_page_content_blocks %}
+					{% sw_include '@Storefront/storefront/page/content/detail.html.twig' with {cmsPage: cmsPage, landingPage: landingPage} %}
+				{% endblock %}
+			</div>
+		</main>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% sw_extends '@Storefront/storefront/component/checkout/offcanvas-cart.html.twig' %}
+
+{% block utilities_offcanvas_close_text %}
+    {{ 'veylune.cart.continueExploring'|trans|sw_sanitize }}
+{% endblock %}
+
+{% block component_offcanvas_cart_header %}
+    <div class="row align-items-start offcanvas-cart-header veylune-offcanvas-cart__header">
+        <div class="col">
+            <p class="veylune-offcanvas-cart__eyebrow">{{ 'veylune.cart.selectionEyebrow'|trans|sw_sanitize }}</p>
+            <h4 data-id="off-canvas-headline">
+                {{ 'veylune.cart.offcanvasTitle'|trans|sw_sanitize }}
+            </h4>
+        </div>
+
+        {% set checkoutItemCounter = page.cart.lineItems|length %}
+
+        {% block component_offcanvas_cart_header_item_counter %}
+            {% if isCartNotEmpty %}
+                <div class="col-auto">
+                    <small class="offcanvas-cart-header-count h4">
+                        {{ 'checkout.itemCounter'|trans({'%count%': checkoutItemCounter})|sw_sanitize }}
+                    </small>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block component_offcanvas_cart_empty %}
+    <div class="veylune-offcanvas-cart__empty" role="status">
+        <p class="veylune-offcanvas-cart__eyebrow">{{ 'veylune.cart.emptyEyebrow'|trans|sw_sanitize }}</p>
+        <h4>{{ 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h4>
+        <p>{{ 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
+    </div>
+{% endblock %}
+
+{% block component_offcanvas_cart_actions_checkout %}
+    <div class="d-grid">
+        <a {% if isCartNotEmpty %}href="{{ path('frontend.checkout.confirm.page') }}"{% else %}aria-disabled="true" tabindex="-1"{% endif %}
+           class="btn begin-checkout-btn{% if isCartNotEmpty %} veylune-button{% else %} btn-light disabled{% endif %}"
+           title="{{ 'veylune.cart.proceedToCheckout'|trans|striptags }}">
+            {{ 'veylune.cart.proceedToCheckout'|trans|sw_sanitize }}
+        </a>
+    </div>
+{% endblock %}
+
+{% block component_offcanvas_cart_actions_cart %}
+    <div class="d-grid">
+        <a href="{{ path('frontend.checkout.cart.page') }}"
+           class="btn btn-link"
+           title="{{ 'veylune.cart.viewSelection'|trans|striptags }}">
+            {{ 'veylune.cart.viewSelection'|trans|sw_sanitize }}
+        </a>
+    </div>
+{% endblock %}

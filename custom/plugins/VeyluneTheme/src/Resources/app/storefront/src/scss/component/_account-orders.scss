@@ -1,0 +1,81 @@
+.veylune-order-card,
+.account-orders-overview .order-table {
+    margin-bottom: 1rem;
+}
+
+.veylune-order-card .order-wrapper {
+    overflow: hidden;
+    background: rgba(255, 252, 245, 0.78);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: var(--veylune-radius-sm);
+}
+
+.veylune-order-card .order-item-header {
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.veylune-order-card__heading {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.veylune-order-card__heading span {
+    color: var(--veylune-color-bronze);
+    font-size: 0.62rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-order-card .badge,
+.veylune-order-card .order-item-status-badge,
+.veylune-address-card__badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.35rem 0.85rem;
+    color: var(--veylune-color-charcoal);
+    background-color: rgba(139, 118, 90, 0.13);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: 999px;
+    font-family: var(--veylune-font-serif);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: var(--veylune-letter-editorial);
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.veylune-order-card .order-table-header-order-table-header {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    color: var(--veylune-color-bronze);
+    border-top: 1px solid var(--veylune-color-line-soft);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.veylune-order-card .order-table-header-order-table-body {
+    color: var(--veylune-color-charcoal);
+}
+
+.veylune-order-card .order-table-header-label {
+    color: var(--veylune-color-ink-muted);
+    font-weight: 500;
+}
+
+.veylune-order-card .order-table-header-context-menu,
+.veylune-order-card .order-hide-btn {
+    border-color: var(--veylune-color-line-soft);
+    background: rgba(248, 245, 239, 0.72);
+}
+
+.account-orders-pagination {
+    margin-top: 1.5rem;
+}

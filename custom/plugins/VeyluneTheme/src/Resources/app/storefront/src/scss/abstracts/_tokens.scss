@@ -1,0 +1,50 @@
+:root {
+    --veylune-color-ivory: #f8f5ef;
+    --veylune-color-limestone: #ebe5da;
+    --veylune-color-warm-gray: #d8d0c3;
+    --veylune-color-bronze: #8b765a;
+    --veylune-color-bronze-dark: #6f604b;
+    --veylune-color-charcoal: #211f1b;
+    --veylune-color-ink-muted: rgba(33, 31, 27, 0.68);
+    --veylune-color-line: rgba(139, 118, 90, 0.22);
+    --veylune-color-line-soft: rgba(139, 118, 90, 0.13);
+    --veylune-color-obsidian: #151412;
+    --veylune-color-parchment: #f1eadf;
+    --veylune-color-patina: #9f8e72;
+
+    --veylune-font-serif: Georgia, "Times New Roman", serif;
+    --veylune-font-sans: Inter, "Helvetica Neue", Arial, sans-serif;
+    --veylune-letter-editorial: 0.16em;
+    --veylune-letter-label: 0.22em;
+    --veylune-letter-seal: 0.34em;
+
+    --veylune-container: min(100% - 2.25rem, 1520px);
+    --veylune-container-narrow: min(100% - 2rem, 1120px);
+    --veylune-page-gutter: clamp(1.25rem, 3vw, 2rem);
+
+    --veylune-space-2xs: 0.25rem;
+    --veylune-space-xs: 0.5rem;
+    --veylune-space-sm: 0.75rem;
+    --veylune-space-md: 1rem;
+    --veylune-space-lg: 1.5rem;
+    --veylune-space-xl: 2.25rem;
+    --veylune-space-2xl: 3.5rem;
+    --veylune-space-3xl: clamp(4rem, 8vw, 8rem);
+
+    --veylune-radius-none: 0;
+    --veylune-radius-xs: 2px;
+    --veylune-radius-sm: 4px;
+
+    --veylune-shadow-soft: 0 18px 62px rgba(33, 31, 27, 0.1);
+    --veylune-shadow-panel: 0 28px 90px rgba(33, 31, 27, 0.17);
+    --veylune-glass-ivory: rgba(248, 245, 239, 0.72);
+    --veylune-blur-strong: blur(20px) saturate(1.08);
+
+    --veylune-ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+    --veylune-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --veylune-ease-iconic: cubic-bezier(0.16, 1, 0.3, 1);
+    --veylune-duration-fast: 260ms;
+    --veylune-duration-medium: 520ms;
+    --veylune-duration-slow: 820ms;
+    --veylune-duration-iconic: 1280ms;
+}

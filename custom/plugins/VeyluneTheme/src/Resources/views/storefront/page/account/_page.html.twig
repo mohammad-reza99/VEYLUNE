@@ -1,0 +1,25 @@
+{% sw_extends '@Storefront/storefront/page/account/_page.html.twig' %}
+
+{% block page_account %}
+    <section class="account account-content veylune-account row" aria-label="{{ 'veylune.account.areaLabel'|trans|striptags }}">
+        {% block page_account_sidebar %}
+            <div class="account-content-aside veylune-account__aside col-lg-3 col-xl-2 d-none d-lg-block">
+                {% if context.customer and not context.customer.guest %}
+                    {% sw_include '@Storefront/storefront/page/account/sidebar.html.twig' %}
+                {% endif %}
+            </div>
+        {% endblock %}
+
+        {% block page_account_main %}
+            <div class="account-content-main veylune-account__main col-lg-9 col-xl-10">
+                {% if context.customer and not context.customer.guest %}
+                    <div class="veylune-account__mobile-nav d-lg-none">
+                        {% sw_include '@Storefront/storefront/page/account/sidebar.html.twig' %}
+                    </div>
+                {% endif %}
+
+                {% block page_account_main_content %}{% endblock %}
+            </div>
+        {% endblock %}
+    </section>
+{% endblock %}

@@ -1,0 +1,140 @@
+.veylune-product-detail .cms-block-gallery-buybox {
+    padding: 0;
+}
+
+.veylune-product-detail .cms-block-gallery-buybox .row {
+    --bs-gutter-x: clamp(1.25rem, 5vw, 6rem);
+    --bs-gutter-y: 2rem;
+    align-items: start;
+}
+
+.veylune-product-detail .product-detail-media {
+    min-width: 0;
+}
+
+.veylune-product-detail .cms-element-image-gallery {
+    position: relative;
+}
+
+.veylune-product-detail .gallery-slider-row {
+    margin: 0;
+    background: rgba(235, 229, 218, 0.38);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .gallery-slider-col {
+    padding: 0;
+}
+
+.veylune-product-detail .gallery-slider-item,
+.veylune-product-detail .gallery-slider-item-container {
+    background: rgba(235, 229, 218, 0.44);
+}
+
+.veylune-product-detail .gallery-slider-item {
+    min-height: clamp(34rem, 58vw, 52rem);
+}
+
+.veylune-product-detail .gallery-slider-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    filter: saturate(0.92) contrast(0.98) sepia(0.04);
+    transition: filter 520ms ease;
+}
+
+.veylune-product-detail .gallery-slider-image:hover,
+.veylune-product-detail .gallery-slider-image:focus-visible {
+    filter: saturate(1) contrast(1) sepia(0.02);
+}
+
+.veylune-product-detail .gallery-slider-thumbnails-col {
+    padding: 0.75rem;
+    background: rgba(255, 252, 245, 0.58);
+    border-left: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .gallery-slider-thumbnails-item {
+    overflow: hidden;
+    background: rgba(235, 229, 218, 0.62);
+    border: 1px solid transparent;
+    opacity: 0.72;
+    transition: border-color 220ms ease, opacity 220ms ease;
+}
+
+.veylune-product-detail .gallery-slider-thumbnails-item:hover,
+.veylune-product-detail .gallery-slider-thumbnails-item:focus-visible,
+.veylune-product-detail .gallery-slider-thumbnails-item.tns-nav-active,
+.veylune-product-detail .gallery-slider-thumbnails-item.is-active {
+    border-color: rgba(139, 118, 90, 0.44);
+    opacity: 1;
+}
+
+.veylune-product-detail .gallery-slider-thumbnails-image {
+    filter: saturate(0.9) sepia(0.04);
+}
+
+.veylune-product-detail .base-slider-controls button,
+.veylune-product-detail .gallery-slider-controls button,
+.veylune-product-detail .gallery-slider-thumbnails-controls button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 245, 0.72);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: 999px;
+    box-shadow: none;
+}
+
+.veylune-product-detail .base-slider-controls button:hover,
+.veylune-product-detail .base-slider-controls button:focus-visible,
+.veylune-product-detail .gallery-slider-controls button:hover,
+.veylune-product-detail .gallery-slider-controls button:focus-visible,
+.veylune-product-detail .gallery-slider-thumbnails-controls button:hover,
+.veylune-product-detail .gallery-slider-thumbnails-controls button:focus-visible {
+    background: rgba(255, 252, 245, 0.94);
+    border-color: rgba(139, 118, 90, 0.42);
+}
+
+.veylune-product-detail .gallery-slider-dots .base-slider-dot,
+.veylune-product-detail .base-slider-dots .base-slider-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    background: rgba(33, 31, 27, 0.18);
+    border: 0;
+}
+
+.veylune-product-detail .gallery-slider-dots .base-slider-dot.tns-nav-active,
+.veylune-product-detail .base-slider-dots .base-slider-dot.tns-nav-active {
+    background: var(--veylune-color-bronze);
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-product-detail .gallery-slider-item {
+        min-height: clamp(22rem, 50vh, 30rem);
+    }
+
+    .veylune-product-detail .cms-block-gallery-buybox .row {
+        --bs-gutter-y: 1.5rem;
+    }
+
+    .veylune-product-detail .gallery-slider-thumbnails-col {
+        padding: 0.6rem;
+        border-top: 1px solid var(--veylune-color-line-soft);
+        border-left: 0;
+    }
+}
+
+@media (max-width: 991.98px) and (max-height: 520px) and (orientation: landscape) {
+    .veylune-product-detail .gallery-slider-item {
+        min-height: clamp(18rem, 68vh, 23rem);
+    }
+
+    .veylune-product-detail .cms-block-gallery-buybox .row {
+        --bs-gutter-y: 1.15rem;
+    }
+}

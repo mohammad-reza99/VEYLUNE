@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/component/account/login.html.twig' %}
+
+{% block component_account_login_header %}
+    <p class="veylune-account-auth__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+    {% if cardTitle %}
+        <h2 class="veylune-account-section-title">{{ cardTitle }}</h2>
+    {% else %}
+        <h2 class="veylune-account-section-title">{{ 'account.loginHeader'|trans|sw_sanitize }}</h2>
+    {% endif %}
+{% endblock %}
+
+{% block component_account_login_form_description %}
+    <p class="login-form-description">
+        {{ 'veylune.account.loginIntro'|trans|sw_sanitize }}
+    </p>
+{% endblock %}

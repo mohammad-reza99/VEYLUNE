@@ -1,0 +1,132 @@
+{% sw_extends '@Storefront/storefront/component/product/listing.html.twig' %}
+
+{% block product_listing %}
+    {% set paginationConfig = { page: searchResult.page } %}
+
+    {% if disableEmptyFilter is not defined %}
+        {% set disableEmptyFilter = config('core.listing.disableEmptyFilterOptions') %}
+    {% endif %}
+
+    {% set listingPagination = {
+        sidebar: sidebar,
+        params: params,
+        dataUrl: dataUrl,
+        filterUrl: filterUrl,
+        disableEmptyFilter: disableEmptyFilter,
+        ariaLiveUpdates: ariaLiveUpdates,
+        snippets: {
+            resetAllButtonText: 'listing.filterPanelResetAll'|trans|sw_sanitize,
+            resetAllFiltersAriaLabel: 'listing.filterResetAllAriaLabel'|trans|sw_sanitize,
+            removeFilterAriaLabel: 'listing.filterRemoveAriaLabel'|trans|sw_sanitize
+        }
+    } %}
+
+    <section class="cms-element-product-listing-wrapper veylune-listing"
+             data-listing-pagination="true"
+             data-listing-pagination-options="{{ paginationConfig|json_encode }}"
+             data-listing="true"
+             data-listing-options="{{ listingPagination|json_encode }}">
+        {% block element_product_listing_wrapper_content %}
+            {% if not sidebar and searchResult.aggregations.elements|default([])|length > 0 %}
+                <div class="veylune-listing__filters">
+                    <button class="veylune-button veylune-button--ghost filter-panel-wrapper-toggle veylune-listing__filter-toggle"
+                            type="button"
+                            data-off-canvas-filter="true"
+                            aria-haspopup="dialog">
+                        {{ 'listing.filterTitleText'|trans|sw_sanitize }}
+                    </button>
+
+                    <div id="filter-panel-wrapper"
+                         class="filter-panel-wrapper veylune-listing__filter-wrapper"
+                         data-off-canvas-filter-content="true">
+                        {% sw_include '@Storefront/storefront/component/listing/filter-panel.html.twig' with {
+                            listing: searchResult,
+                            sidebar: sidebar,
+                            ariaLiveUpdates: ariaLiveUpdates
+                        } %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="veylune-listing__toolbar">
+                <div class="veylune-listing__toolbar-copy">
+                    <span>{{ 'veylune.listing.galleryArchive'|trans|sw_sanitize }}</span>
+                    <strong>
+                        {% if searchResult.total == 1 %}
+                            {{ 'veylune.listing.selectedFormOne'|trans|sw_sanitize }}
+                        {% else %}
+                            {{ 'veylune.listing.selectedFormsMany'|trans({'%count%': searchResult.total})|sw_sanitize }}
+                        {% endif %}
+                    </strong>
+                </div>
+
+                {% if searchResult.total > 0 %}
+                    <div class="veylune-listing__sorting">
+                        {% block element_product_listing_sorting %}
+                            {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
+                                current: searchResult.sorting,
+                                sortings: searchResult.availableSortings
+                            } %}
+                        {% endblock %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if searchResult.total > searchResult.limit %}
+                <div class="veylune-listing__pagination veylune-listing__pagination--top">
+                    {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                        entities: searchResult,
+                        fallbackUrl: paginationFallbackUrl,
+                        paginationLocation: 'top',
+                    } %}
+                </div>
+            {% endif %}
+
+            {% if searchResult.total > searchResult.limit %}
+                {% set ariaLiveText = 'listing.filterPanelAriaLivePaginated'|trans({
+                    '%count%': searchResult.elements|length,
+                    '%total%': searchResult.total}
+                )|sw_sanitize %}
+            {% else %}
+                {% set ariaLiveText = 'listing.filterPanelAriaLive'|trans({'%count%': searchResult.total})|sw_sanitize %}
+            {% endif %}
+
+            <div class="veylune-listing__grid js-listing-wrapper"
+                 data-aria-live-text="{{- ariaLiveText -}}"
+                 {% if searchResult.total > 0 %}role="list"{% endif %}>
+                {% if searchResult.total > 0 %}
+                    {% for product in searchResult %}
+                        <div class="veylune-listing__item" role="listitem">
+                            {% sw_include '@Storefront/storefront/component/product/card/box.html.twig' with {
+                                layout: boxLayout,
+                                displayMode: displayMode,
+                                referrerCategoryId: config('core.listing.buildBreadcrumbByReferrerCategory') ? shopware.navigation.id : null,
+                            } %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="veylune-listing__empty" role="status">
+                        <p class="veylune-listing__empty-kicker">{{ 'veylune.listing.emptyKicker'|trans|sw_sanitize }}</p>
+                        <h2>{{ 'veylune.listing.emptyTitle'|trans|sw_sanitize }}</h2>
+                        <p>{{ 'veylune.listing.emptyText'|trans|sw_sanitize }}</p>
+
+                        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                            type: 'info',
+                            content: 'listing.emptyResultMessage'|trans|sw_sanitize,
+                            announceOnLoad: true,
+                        } %}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if searchResult.total > searchResult.limit %}
+                <div class="veylune-listing__pagination">
+                    {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                        entities: searchResult,
+                        paginationLocation: 'bottom',
+                    } %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    </section>
+{% endblock %}

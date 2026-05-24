@@ -1,0 +1,441 @@
+{
+  "veylune": {
+    "cart": {
+      "cartTitle": "Your Private Selection",
+      "continueExploring": "Continue Exploring",
+      "emptyEyebrow": "Selected Pieces",
+      "emptyText": "Explore sculptural pieces curated for atmospheric interiors.",
+      "emptyTitle": "Your selection is waiting to be shaped.",
+      "estimatedTotal": "Estimated Total",
+      "offcanvasTitle": "Selected Pieces",
+      "orderSummary": "Order Summary",
+      "proceedToCheckout": "Proceed to Checkout",
+      "selectionEyebrow": "Private Selection",
+      "viewSelection": "View Selection"
+    },
+    "checkout": {
+      "completeOrder": "Complete Order",
+      "confirmSelection": "Confirm Selection",
+      "deliveryDetails": "Delivery Details",
+      "paymentMethod": "Payment Method",
+      "privateAcquisition": "Private Acquisition",
+      "secureCheckout": "Secure Checkout",
+      "thankYou": "Thank you for your acquisition"
+    },
+    "account": {
+      "acquisitionArchive": "Acquisition Archive",
+      "areaLabel": "Your Veylune Account",
+      "conciergeNavigation": "Concierge Navigation",
+      "continueCollection": "Continue your collection",
+      "loginIntro": "Access your saved details, delivery addresses, and acquisition archive.",
+      "noAcquisitionsYet": "No acquisitions yet",
+      "ordersIntro": "Review previous acquisitions and continue any open payment details without leaving your private client salon.",
+      "overviewIntro": "A calm place for your personal details, delivery addresses, newsletter preferences, and acquisition archive.",
+      "personalDetails": "Personal Details",
+      "privateClientSalon": "Private Client Salon",
+      "savedDeliveryAddresses": "Saved Delivery Addresses",
+      "yourAccount": "Your Veylune Account"
+    },
+    "inquiry": {
+      "contactEyebrow": "Private Design Inquiry",
+      "contactIntro": "Tell us about the piece, room, or project you have in mind.",
+      "contactSubmit": "Send Inquiry",
+      "contactTitle": "Private Design Inquiry",
+      "newsletterEyebrow": "Studio Notes",
+      "newsletterIntro": "Receive quiet updates on new collections, materials, and private releases.",
+      "newsletterSubmit": "Join Studio Notes",
+      "newsletterTitle": "Studio Notes"
+    },
+    "header": {
+      "bag": "Bag",
+      "logoAlt": "VEYLUNE STUDIO",
+      "logoSubtitle": "Collectible Interior Gallery",
+      "logoText": "VEYLUNE STUDIO",
+      "logoWhisper": "Interior Culture House",
+      "primaryNavAriaLabel": "VEYLUNE primary navigation",
+      "topbarAriaLabel": "VEYLUNE editorial announcements",
+      "topbar": {
+        "item1": "Curated collectible furniture for artistic living",
+        "item2": "Selected European ateliers",
+        "item3": "Private interior consultation available",
+        "item4": "Sculptural forms for atmospheric spaces",
+        "item5": "VEYLUNE · Quiet Luxury Interiors",
+        "item6": "Trade program for designers & architects"
+      },
+      "nav": {
+        "brandStory": "Brand Story",
+        "collections": "Collections",
+        "consultation": "Consultation",
+        "culture": "Culture",
+        "journal": "Journal",
+        "legacy": "Legacy",
+        "livingWorld": "Living World",
+        "partnership": "Partnership",
+        "privateAccess": "Private Access",
+        "rooms": "Rooms",
+        "trade": "Trade"
+      },
+      "search": {
+        "closeAriaLabel": "Close search",
+        "inputAriaLabel": "Search sculptural pieces, rooms, collections",
+        "kicker": "Private design archive",
+        "panelAriaLabel": "Search the VEYLUNE archive",
+        "placeholder": "Search sculptural pieces, rooms, collections...",
+        "resultCollectibleLighting": "Objects of glow and shadow",
+        "resultMarbleObjects": "Material weight and permanence",
+        "resultObjects": "Sculptural objects and vessels",
+        "resultSculpturalSeating": "Curved forms for quiet rooms",
+        "suggestionAtmosphericDecor": "Decor",
+        "suggestionCollectibleLighting": "Collectible Lighting",
+        "suggestionCurvedSofas": "Curved Sofas",
+        "suggestionDecor": "Decor",
+        "suggestionInteriorInspiration": "Interior Inspiration",
+        "suggestionMarbleObjects": "Objects",
+        "suggestionObjects": "Objects",
+        "suggestionSculpturalSeating": "Sculptural Seating",
+        "suggestionTables": "Tables",
+        "suggestionsAriaLabel": "Suggested search terms",
+        "toggle": "Search"
+      },
+      "mega": {
+        "collections": {
+          "intro": "Sculptural pieces arranged as a collectible design archive.",
+          "title": "Collections"
+        },
+        "itemArchitects": "Architects",
+        "itemAtmosphere": "Atmosphere",
+        "itemBedroom": "Bedroom",
+        "itemDecor": "Decor",
+        "itemDesignPhilosophy": "Design Philosophy",
+        "itemDesigners": "Designers",
+        "itemDining": "Dining",
+        "itemHospitality": "Hospitality",
+        "itemInteriorStories": "Interior Stories",
+        "itemLighting": "Lighting",
+        "itemLivingRoom": "Living Room",
+        "itemLounge": "Lounge",
+        "itemMarblePieces": "Objects",
+        "itemMaterialStudies": "Material Studies",
+        "itemObjects": "Objects",
+        "itemSeating": "Seating",
+        "itemStudio": "Studio",
+        "itemSofas": "Sofas",
+        "itemTables": "Tables",
+        "journal": {
+          "intro": "Material studies, interior stories, and VEYLUNE design philosophy.",
+          "title": "Journal"
+        },
+        "kicker": "VEYLUNE Archive",
+        "rooms": {
+          "intro": "Interior chapters shaped around atmosphere, rhythm, and proportion.",
+          "title": "Rooms"
+        },
+        "trade": {
+          "intro": "Private sourcing and project support for design professionals.",
+          "title": "Trade"
+        }
+      },
+      "mobile": {
+        "closeAriaLabel": "Close navigation",
+        "navAriaLabel": "Mobile navigation",
+        "note": "Move through curated artistic living, collectible forms, and atmospheric interiors.",
+        "searchAriaLabel": "Search VEYLUNE archive",
+        "searchPlaceholder": "Enter the design archive"
+      }
+    },
+    "footer": {
+      "ariaLabel": "VEYLUNE STUDIO footer",
+      "atelierPartnerships": "Atelier Partnerships",
+      "bottomBrand": "VEYLUNE STUDIO · Collectible Interior Gallery",
+      "bottomHouse": "· European Design House",
+      "brandText": "Curated artistic living for refined interiors. Collectible furniture, sculptural forms, and atmospheric objects selected with a gallery sensibility.",
+      "clientCare": "Client Care",
+      "contactEcosystem": "Contact Ecosystem",
+      "privateConsultation": "Private Consultation",
+      "services": "Services",
+      "studio": "Studio",
+      "tradeAtelier": "Trade Atelier"
+    },
+    "listing": {
+      "collectionArchive": "Collection Archive",
+      "collectionChildFallbackText": "A curated interior chapter shaped by material, proportion, and atmospheric presence.",
+      "collectionFallbackText": "Sculptural forms, quiet silhouettes, and collectible pieces shaped for atmospheric interiors.",
+      "curatedCollection": "Curated Collection",
+      "emptyKicker": "Quiet Selection",
+      "emptyText": "Refine the atmosphere or explore another collection.",
+      "emptyTitle": "No pieces were found for this selection.",
+      "exploreCategory": "Explore %name%",
+      "galleryArchive": "Gallery Archive",
+      "materialMood": "Material Mood",
+      "materialMoodText": "VEYLUNE collections are built as interior chapters, combining material weight, sculptural restraint, and a quiet gallery sensibility for refined residential and hospitality spaces.",
+      "materialMoodTitle": "Each selection is edited for proportion, atmosphere, and spatial presence.",
+      "overviewEyebrow": "Collection Rooms",
+      "overviewText": "Move through the parent archive by category. Each room opens into its own edited product selection.",
+      "overviewTitle": "Four collectible directions for atmospheric interiors.",
+      "selectedFormOne": "1 selected form",
+      "selectedFormsMany": "%count% selected forms"
+    },
+    "productDetail": {
+      "atelier": "Atelier",
+      "availability": "Availability",
+      "availabilityOnRequest": "Availability on request",
+      "available": "Available for acquisition",
+      "dimensions": "Dimensions",
+      "reference": "Reference",
+      "studioNoteTitle": "%name% as a collected interior object.",
+      "studioNotes": "Studio Notes"
+    },
+    "productStory": {
+      "careGuidance": "Care Guidance",
+      "collectibleIdentity": "Collectible Identity",
+      "consultation": "Consultation",
+      "craftsmanship": "Craftsmanship",
+      "eveningAtmosphere": "Evening Atmosphere",
+      "illuminationCharacter": "Illumination Character",
+      "leadTimeNote": "Lead-Time Note",
+      "materialStory": "Material Story",
+      "spatialPresence": "Spatial Presence",
+      "signatureDetail": "Signature Detail"
+    },
+    "productCard": {
+      "availabilityOnRequest": "Availability on request",
+      "available": "Available for acquisition",
+      "brandFallback": "VEYLUNE STUDIO",
+      "categoryFallback": "Curated Object",
+      "descriptionFallback": "A sculptural object selected for atmospheric interiors.",
+      "selectedPiece": "Selected Piece",
+      "viewPiece": "View Piece"
+    },
+    "partnership": {
+      "seo": {
+        "title": "Atelier Partnerships | Veylune Studio",
+        "description": "A curated partnership path for ateliers, studios, and makers working across collectible furniture, lighting, objects, and refined interiors."
+      },
+      "hero": {
+        "label": "Atelier Partnerships",
+        "title": "A curated path for ateliers with material discipline and spatial intention.",
+        "text": "VEYLUNE works with selected makers, studios, and design manufacturers whose pieces can live inside a controlled editorial-commerce environment.",
+        "accent": "Curated partnership"
+      },
+      "philosophy": {
+        "eyebrow": "Partnership Philosophy",
+        "title": "We protect context, presentation, and the long-term value of a coherent design world.",
+        "panelTitle": "Partnership begins with alignment, not volume.",
+        "panelText": "VEYLUNE is built for objects that deserve editorial structure: pieces with proportion, material presence, and a clear place inside refined interiors.",
+        "highlights": {
+          "selectivePlacement": "Selective collection placement",
+          "taxonomy": "Architecture-aware taxonomy",
+          "bilingualPreparation": "Bilingual editorial preparation",
+          "materialDiscipline": "Material and finish discipline",
+          "privateContext": "Private client and trade context"
+        }
+      },
+      "curation": {
+        "eyebrow": "Curated Categories",
+        "title": "Veylune is interested in work that can hold a room with restraint.",
+        "items": {
+          "furniture": {
+            "title": "Collectible Furniture",
+            "text": "Seating, tables, storage, and room-defining forms with strong proportion and material clarity."
+          },
+          "lighting": {
+            "title": "Architectural Lighting",
+            "text": "Floor, wall, table, and pendant lights with controlled illumination and spatial presence."
+          },
+          "objects": {
+            "title": "Objects & Vessels",
+            "text": "Material-led objects whose scale, surface, and silhouette contribute to an interior composition."
+          },
+          "editions": {
+            "title": "Interior Editions",
+            "text": "Small series, atelier releases, and pieces suited to long-term collection building."
+          }
+        }
+      },
+      "standards": {
+        "eyebrow": "Editorial Standards",
+        "title": "Products are prepared as collection entries, not marketplace listings.",
+        "items": {
+          "context": {
+            "title": "Product Context",
+            "text": "Each piece is placed within collection logic, room relevance, material vocabulary, and long-term brand coherence."
+          },
+          "governance": {
+            "title": "Story Governance",
+            "text": "Native description, properties, and Veylune storytelling fields are handled as separate editorial layers."
+          },
+          "visualDiscipline": {
+            "title": "Visual Discipline",
+            "text": "Media should show form, scale, surface, and atmosphere without lifestyle clutter or decorative excess."
+          },
+          "bilingualReadiness": {
+            "title": "Bilingual Readiness",
+            "text": "English and German content are managed with language-strict storytelling to avoid fallback leakage."
+          }
+        }
+      },
+      "fit": {
+        "eyebrow": "Partnership Fit",
+        "title": "We review partners through design integrity, operational clarity, and presentation readiness.",
+        "signals": {
+          "originalDesign": "Original design or meaningful curation value",
+          "materialTransparency": "Material, finish, and production transparency",
+          "productData": "Reliable product data and commercial terms",
+          "mediaStandards": "Strong media or willingness to meet visual standards",
+          "projectCompatibility": "Compatibility with refined residential and trade projects",
+          "longTermDevelopment": "Patience for selective, long-term collection development"
+        }
+      },
+      "process": {
+        "eyebrow": "Process",
+        "title": "A measured review path keeps the platform selective and presentation-ready.",
+        "steps": {
+          "inquiry": {
+            "title": "Inquiry",
+            "text": "A studio, atelier, or manufacturer shares collection context and product direction."
+          },
+          "review": {
+            "title": "Curatorial Review",
+            "text": "Veylune evaluates fit across material, silhouette, category, and editorial value."
+          },
+          "preparation": {
+            "title": "Preparation",
+            "text": "Approved pieces are structured through taxonomy, media standards, and product-story governance."
+          },
+          "publication": {
+            "title": "Publication",
+            "text": "Selected work enters the platform as part of a coherent interior-commerce system."
+          }
+        }
+      },
+      "submission": {
+        "eyebrow": "Submission Expectations",
+        "title": "Useful inquiries are specific, visual, and commercially grounded.",
+        "expectations": {
+          "background": "Studio or manufacturer background",
+          "categories": "Product categories and representative pieces",
+          "materials": "Material, finish, dimensions, and origin information",
+          "media": "Available image assets or visual direction",
+          "production": "Production model, lead-time logic, and shipping readiness",
+          "commercial": "Wholesale, trade, or partnership expectations"
+        },
+        "cta": "Begin a Partnership Inquiry"
+      }
+    },
+    "professional": {
+      "beginPrivateDialogue": "Begin Private Dialogue",
+      "closingTitle": "Curated artistic living for refined interiors.",
+      "contactStudio": "Contact Studio",
+      "inquiryCtaAriaLabel": "Professional inquiry contact action",
+      "inquiryIntro": "Share the space, project type, or collection direction. The studio will respond with a considered next step.",
+      "privateInquiry": "Private Inquiry",
+      "requestAccess": "Request Access",
+      "requestStudioConversation": "Request a studio conversation."
+    },
+    "home": {
+      "atmosphereMeta": "Atmosphere, proportion, shadow, material.",
+      "atmosphereQuote": "Living inside curated art begins with restraint.",
+      "atmosphericInteriors": "Atmospheric interiors",
+      "beginPrivateDialogue": "Begin a private dialogue",
+      "brandPhilosophy": "Brand Philosophy",
+      "curatedSourcing": "Curated Sourcing",
+      "designCulture": "Timeless Design Culture",
+      "designCultureTitle": "A global design world with memory, private access, cinematic room narratives, and lasting cultural presence.",
+      "designPartnerships": "Design Partnerships",
+      "exploreCollections": "Explore collections",
+      "featuredCollections": "Featured Collections",
+      "featuredCollectionsTitle": "Editorial collections for artistic homes.",
+      "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
+      "heroText": "Curated interiors shaped by atmosphere, sculptural form, and quiet European refinement.",
+      "heroTitle": "Collectible furniture for artistic living.",
+      "interiorAtmosphere": "Interior Atmosphere",
+      "philosophyCopyOne": "VEYLUNE STUDIO is a collectible design house for sculptural living. We believe a room should not be filled. It should be edited, paced, and allowed to breathe.",
+      "philosophyCopyTwo": "Our world is built around tactile materials, softened light, architectural silhouettes, and pieces that feel discovered rather than consumed.",
+      "philosophyStatement": "We compose rooms as quiet works of art, where every object carries presence, proportion, and emotional weight.",
+      "privateConsultation": "Private Consultation",
+      "privateInquiry": "Private Inquiry",
+      "selectedPieces": "Selected Pieces",
+      "selectedPiecesTitle": "Objects presented as gallery exhibits.",
+      "tradeEyebrow": "Trade / Designer Experience",
+      "tradeProgram": "Trade Program",
+      "tradeTitle": "For architects, interior designers, and private residential projects.",
+      "collections": {
+        "atmosphericDecor": {
+          "meta": "Finishing gestures with presence",
+          "title": "Decor"
+        },
+        "collectibleLighting": {
+          "meta": "Objects of glow and shadow",
+          "title": "Collectible Lighting"
+        },
+        "curvedSofas": {
+          "meta": "Soft architecture for living rooms",
+          "title": "Curved Sofas"
+        },
+        "marbleObjects": {
+          "meta": "Weight, polish, permanence",
+          "title": "Objects"
+        },
+        "decor": {
+          "meta": "Finishing gestures with presence",
+          "title": "Decor"
+        },
+        "objects": {
+          "meta": "Sculptural forms, vessels, and material studies",
+          "title": "Objects"
+        },
+        "sculpturalSeating": {
+          "meta": "Curved profiles · grounded comfort",
+          "title": "Sculptural Seating"
+        },
+        "tables": {
+          "meta": "Stone, glass, and quiet architectural surfaces",
+          "title": "Tables"
+        }
+      },
+      "ecosystem": {
+        "culture": {
+          "text": "Architecture, collectible design, essays, interviews, and artistic living.",
+          "title": "Cultural Position"
+        },
+        "exhibitions": {
+          "text": "Digital exhibitions, collector environments, and evolving experience rooms.",
+          "title": "Future Showrooms"
+        },
+        "legacy": {
+          "text": "Origin, lineage, mythology, and the long memory of the house.",
+          "title": "Legacy System"
+        },
+        "privateAccess": {
+          "text": "Collector previews and invitation-based acquisition moments.",
+          "title": "Private Access"
+        },
+        "roomUniverse": {
+          "text": "Interior chapters shaped by atmosphere and emotional architecture.",
+          "title": "Room Universe"
+        },
+        "world": {
+          "text": "Sculptural living, material narratives, and quiet luxury studies.",
+          "title": "Editorial World"
+        }
+      },
+        "pieces": {
+        "aurelia": {
+          "name": "Aurelia Modular Sofa",
+          "note": "Hand-finished sculptural seating"
+        },
+        "calma": {
+          "name": "Calma Travertine Table",
+          "note": "Stone presence for quiet rooms"
+        },
+        "curatedObject": "Curated Object",
+        "madeToOrder": "Made To Order",
+        "nocturne": {
+          "name": "Nocturne Floor Lamp",
+          "note": "Bronze glow with architectural line"
+        },
+        "selectedPiece": "Selected Piece"
+      }
+    }
+  }
+}

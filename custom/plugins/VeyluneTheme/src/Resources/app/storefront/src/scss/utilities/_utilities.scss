@@ -1,0 +1,53 @@
+.veylune-container {
+    width: var(--veylune-container);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.veylune-container--narrow {
+    width: var(--veylune-container-narrow);
+}
+
+.veylune-eyebrow {
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-title {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.4rem, 7vw, 6.6rem);
+    font-weight: 400;
+    line-height: 0.96;
+    letter-spacing: 0;
+}
+
+.veylune-section {
+    padding: var(--veylune-space-3xl) 0;
+}
+
+.veylune-glass {
+    background: var(--veylune-glass-ivory);
+    border: 1px solid var(--veylune-color-line-soft);
+    box-shadow: var(--veylune-shadow-soft);
+    backdrop-filter: var(--veylune-blur-strong);
+}
+
+.veylune-overlay {
+    position: relative;
+    isolation: isolate;
+}
+
+.veylune-overlay::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(70% 80% at 50% 0%, rgba(139, 118, 90, 0.12), rgba(139, 118, 90, 0) 66%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+    content: "";
+}

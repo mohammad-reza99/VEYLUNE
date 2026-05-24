@@ -1,0 +1,61 @@
+.payment-methods,
+.shipping-methods {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.payment-method,
+.shipping-method {
+    margin: 0;
+    padding: 1rem;
+    background: rgba(255, 252, 245, 0.58);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.payment-method:hover,
+.shipping-method:hover {
+    border-color: rgba(139, 118, 90, 0.36);
+}
+
+.payment-method-input,
+.shipping-method-input {
+    margin-top: 0.35rem;
+}
+
+.payment-method-label,
+.shipping-method-label {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+}
+
+.payment-method-description,
+.shipping-method-description {
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.6;
+}
+
+.payment-method-image,
+.shipping-method-image {
+    border-radius: 0;
+}
+
+.confirm-address address,
+.address,
+.address-content {
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.7;
+}
+
+.confirm-address .card-actions {
+    margin-top: 1rem;
+}
+
+.confirm-address .card-actions .btn {
+    width: 100%;
+}
+
+.confirm-tos .checkout-card {
+    background: rgba(255, 252, 245, 0.5);
+}

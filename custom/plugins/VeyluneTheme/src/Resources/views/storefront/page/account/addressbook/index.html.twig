@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/page/account/addressbook/index.html.twig' %}
+
+{% block page_account_main_content_header %}
+    <header class="account-welcome veylune-account-hero veylune-account-addressbook__header">
+        <p class="veylune-account-hero__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+        <h1>{{ 'veylune.account.savedDeliveryAddresses'|trans|sw_sanitize }}</h1>
+        <p>{{ "account.addressText"|trans|sw_sanitize }}</p>
+    </header>
+{% endblock %}

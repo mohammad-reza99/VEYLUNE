@@ -1,0 +1,352 @@
+.veylune-product-detail .product-detail-buy {
+    min-width: 0;
+}
+
+.veylune-product-detail .cms-element-buy-box {
+    position: sticky;
+    top: 7rem;
+    padding: clamp(1.25rem, 3vw, 2.2rem);
+    background: rgba(255, 252, 245, 0.68);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .product-detail-buy .product-detail-buy {
+    position: static;
+    padding: 0;
+    background: transparent;
+    border: 0;
+}
+
+.veylune-product-detail .product-detail-name,
+.veylune-product-detail .product-detail-headline {
+    margin: 0 0 1rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2.2rem, 4vw, 4.8rem);
+    font-weight: 400;
+    line-height: 0.98;
+}
+
+.veylune-product-detail .product-detail-manufacturer,
+.veylune-product-detail .product-detail-manufacturer-link {
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    letter-spacing: var(--veylune-letter-label);
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.veylune-product-detail .product-detail-price-container {
+    margin: 1.25rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .product-detail-price,
+.veylune-product-detail .product-detail-list-price-wrapper {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.25rem, 2vw, 1.9rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.veylune-product-detail .product-detail-price-unit,
+.veylune-product-detail .product-detail-tax,
+.veylune-product-detail .product-detail-delivery-information,
+.veylune-product-detail .product-detail-ordernumber-container {
+    margin: 0.75rem 0 0;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+.veylune-product-detail .product-detail-tax-link,
+.veylune-product-detail .product-detail-reviews-link {
+    color: var(--veylune-color-bronze);
+    font-family: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgba(139, 118, 90, 0.28);
+    text-underline-offset: 0.24em;
+}
+
+.veylune-product-detail .product-detail-reviews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+    margin-top: 1rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+}
+
+.veylune-product-detail .product-detail-configurator-container {
+    margin-top: 1.6rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .product-detail-configurator {
+    display: grid;
+    gap: 1rem;
+}
+
+.veylune-product-detail .product-detail-configurator-group-title {
+    margin: 0 0 0.65rem;
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
+.veylune-product-detail .product-detail-configurator-options {
+    gap: 0.55rem !important;
+}
+
+.veylune-product-detail .product-detail-configurator-option-label {
+    min-width: 2.9rem;
+    min-height: 2.55rem;
+    padding: 0.55rem 0.8rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.86rem;
+    background: rgba(255, 252, 245, 0.62);
+    border: 1px solid var(--veylune-color-line-soft);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.veylune-product-detail .product-detail-configurator-option-input:checked + .product-detail-configurator-option-label,
+.veylune-product-detail .product-detail-configurator-option-label:hover,
+.veylune-product-detail .product-detail-configurator-option-label:focus-visible {
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 245, 0.95);
+    border-color: rgba(139, 118, 90, 0.48);
+}
+
+.veylune-product-detail .product-detail-configurator-option-label.not-combinable {
+    color: rgba(33, 31, 27, 0.34);
+    background: rgba(235, 229, 218, 0.36);
+}
+
+.veylune-product-detail .product-detail-configurator-select-input {
+    min-height: 2.9rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    background-color: rgba(255, 252, 245, 0.76);
+    border-color: var(--veylune-color-line-soft);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.veylune-product-detail .product-detail-form-container {
+    margin-top: 1.5rem;
+}
+
+.veylune-product-detail .buy-widget-container {
+    align-items: stretch;
+}
+
+.veylune-product-detail .quantity-selector-group {
+    min-height: 3.15rem;
+    background: rgba(255, 252, 245, 0.76);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .quantity-selector-group .btn,
+.veylune-product-detail .quantity-selector-group .form-control,
+.veylune-product-detail .quantity-selector-group .input-group-text {
+    min-height: 3.05rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.veylune-product-detail .quantity-selector-group .form-control {
+    text-align: center;
+}
+
+.veylune-product-detail .btn-buy {
+    min-height: 3.15rem;
+    color: #fffaf0;
+    font-family: var(--veylune-font-serif);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+    background: var(--veylune-color-charcoal);
+    border: 1px solid var(--veylune-color-charcoal);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.veylune-product-detail .btn-buy:hover,
+.veylune-product-detail .btn-buy:focus-visible {
+    color: #fffaf0;
+    background: var(--veylune-color-bronze-dark);
+    border-color: var(--veylune-color-bronze-dark);
+}
+
+.veylune-product-detail .product-wishlist {
+    margin-top: 1rem;
+}
+
+.veylune-product-detail .product-wishlist-action,
+.veylune-product-detail .product-wishlist .btn {
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.72rem;
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.veylune-product-detail .product-detail-ordernumber-container {
+    padding-top: 1rem;
+    border-top: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-product-detail .product-detail-ordernumber-label {
+    color: var(--veylune-color-bronze);
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+}
+
+.veylune-product-detail .cms-element-buy-box {
+    display: grid;
+    gap: clamp(1.15rem, 2.2vw, 1.65rem);
+    padding: clamp(1.65rem, 3.2vw, 2.55rem);
+    background: rgba(255, 252, 245, 0.74);
+    border-color: rgba(139, 118, 90, 0.14);
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-name,
+.veylune-product-detail .cms-element-buy-box .product-detail-headline {
+    margin-bottom: 1.2rem;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-price-container {
+    margin-top: 1.55rem;
+    padding-top: 1.55rem;
+    border-top-color: rgba(139, 118, 90, 0.13);
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-price {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.15vw, 2.05rem);
+    letter-spacing: 0.01em;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-tax-container {
+    margin-top: 0.65rem;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-price-unit,
+.veylune-product-detail .cms-element-buy-box .product-detail-tax,
+.veylune-product-detail .cms-element-buy-box .product-detail-delivery-information,
+.veylune-product-detail .cms-element-buy-box .product-detail-ordernumber-container {
+    color: rgba(33, 31, 27, 0.58);
+    font-size: 0.84rem;
+    line-height: 1.7;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-tax {
+    margin: 0;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-tax-link {
+    color: rgba(139, 118, 90, 0.82);
+    text-decoration-color: rgba(139, 118, 90, 0.22);
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-delivery-information {
+    margin-top: 1.25rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid rgba(139, 118, 90, 0.1);
+}
+
+.veylune-product-detail .cms-element-buy-box .product-delivery-information,
+.veylune-product-detail .cms-element-buy-box .delivery-information {
+    margin: 0;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-form-container {
+    margin-top: 1.85rem;
+}
+
+.veylune-product-detail .cms-element-buy-box .buy-widget-container {
+    --bs-gutter-x: 0.85rem;
+    --bs-gutter-y: 0.85rem;
+
+    align-items: stretch;
+}
+
+.veylune-product-detail .cms-element-buy-box .quantity-selector-group {
+    min-height: 3.35rem;
+    background: rgba(255, 252, 245, 0.82);
+    border-color: rgba(139, 118, 90, 0.16);
+}
+
+.veylune-product-detail .cms-element-buy-box .quantity-selector-group .btn,
+.veylune-product-detail .cms-element-buy-box .quantity-selector-group .form-control,
+.veylune-product-detail .cms-element-buy-box .quantity-selector-group .input-group-text {
+    min-height: 3.25rem;
+}
+
+.veylune-product-detail .cms-element-buy-box .quantity-selector-group .btn {
+    width: 2.85rem;
+    padding-inline: 0.65rem;
+}
+
+.veylune-product-detail .cms-element-buy-box .btn-buy {
+    min-height: 3.35rem;
+    padding-inline: 1.35rem;
+    letter-spacing: 0.15em;
+}
+
+.veylune-product-detail .cms-element-buy-box .product-detail-ordernumber-container {
+    margin-top: 0.15rem;
+    padding-top: 1.1rem;
+    border-top-color: rgba(139, 118, 90, 0.1);
+}
+
+@include media-breakpoint-down(lg) {
+    .veylune-product-detail .cms-element-buy-box {
+        position: static;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-product-detail .cms-element-buy-box {
+        gap: 1.05rem;
+        padding: clamp(1.25rem, 5vw, 1.75rem);
+    }
+
+    .veylune-product-detail .cms-element-buy-box .product-detail-price-container {
+        margin-top: 1.25rem;
+        padding-top: 1.25rem;
+    }
+
+    .veylune-product-detail .cms-element-buy-box .product-detail-form-container {
+        margin-top: 1.45rem;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .veylune-product-detail .cms-element-buy-box .buy-widget-container {
+        display: grid;
+    }
+
+    .veylune-product-detail .cms-element-buy-box .buy-widget-container > [class*="col-"] {
+        width: 100%;
+    }
+}

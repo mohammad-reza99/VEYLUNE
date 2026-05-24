@@ -1,0 +1,17 @@
+{% sw_extends '@Storefront/storefront/component/skip-to-content.html.twig' %}
+
+{% block component_skip_to_content_search %}
+    {% if skipToSearch %}
+        <a href="#veyluneHeaderSearchToggle" class="skip-to-content-link d-inline-flex text-decoration-underline m-1 p-2 fw-bold gap-2 d-none d-sm-block">
+            {{ 'general.skipToSearch'|trans|sw_sanitize }}
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block component_skip_to_content_main_nav %}
+    {% if skipToMainNav %}
+        <a href="#veylunePrimaryNavigation" class="skip-to-content-link d-inline-flex text-decoration-underline m-1 p-2 fw-bold gap-2 d-none d-lg-block">
+            {{ 'general.skipToNavigation'|trans|sw_sanitize }}
+        </a>
+    {% endif %}
+{% endblock %}

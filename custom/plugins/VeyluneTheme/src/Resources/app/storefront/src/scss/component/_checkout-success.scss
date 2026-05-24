@@ -1,0 +1,40 @@
+.finish-header {
+    max-width: 56rem;
+}
+
+.finish-ordernumber {
+    display: inline-flex;
+    margin: 1.25rem 0 0;
+    padding: 0.65rem 0.85rem;
+    color: var(--veylune-color-bronze);
+    background: rgba(235, 229, 218, 0.38);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.finish-content {
+    margin-top: 1rem;
+}
+
+.finish-info {
+    align-items: stretch;
+}
+
+.finish-address,
+.finish-order-details {
+    min-width: 0;
+}
+
+.finish-order-details p,
+.finish-address address {
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.7;
+}
+
+.finish-order-details strong {
+    display: block;
+    color: var(--veylune-color-bronze);
+    font-weight: 400;
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+}

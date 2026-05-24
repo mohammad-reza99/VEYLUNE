@@ -1,0 +1,24 @@
+{
+  "name": "veylune/studio-theme",
+  "description": "Quiet luxury Shopware storefront theme for VEYLUNE STUDIO collectible furniture and interior design.",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "VEYLUNE STUDIO",
+      "role": "Theme Vendor"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VeyluneTheme\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "VeyluneTheme\\VeyluneTheme",
+    "label": {
+      "de-DE": "VEYLUNE STUDIO Theme",
+      "en-GB": "VEYLUNE STUDIO Theme"
+    }
+  }
+}

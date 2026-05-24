@@ -1,0 +1,43 @@
+{% sw_extends '@Storefront/storefront/page/content/single-cms-page.html.twig' %}
+
+{% block single_cms_page_body_classes %}
+    {{ parent() }} veylune-single-cms
+{% endblock %}
+
+{% block single_cms_page_main %}
+    <main class="content-main veylune-single-cms__main">
+        {% block single_cms_page_main_content %}
+            {% set cmsPage = page.cmsPage %}
+            {% set cmsPageClasses = ('cms-page ' ~ cmsPage.cssClass|striptags)|trim %}
+            <div class="{{ cmsPageClasses }} veylune-cms-page veylune-cms-page--single">
+                {% block page_content_blocks %}
+                    {% sw_include '@Storefront/storefront/page/content/detail.html.twig' with { cmsPage: cmsPage } %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </main>
+{% endblock %}
+
+{% block single_cms_page_footer %}
+    <footer class="footer-main veylune-single-cms__footer">
+        {% block single_cms_page_footer_content %}
+            <div class="container text-center">
+                {% if config('core.basicInformation.imprintPage') is not null %}
+                    <a href="{{ path('frontend.maintenance.singlepage', { id: config('core.basicInformation.imprintPage') }) }}"
+                       title="{{ "general.imprintLink"|trans|sw_sanitize }}"
+                       class="ps-2 pe-2">
+                        {{ "general.imprintLink"|trans|sw_sanitize }}
+                    </a>
+                {% endif %}
+
+                {% if config('core.basicInformation.privacyPage') is not null %}
+                    <a href="{{ path('frontend.maintenance.singlepage', { id: config('core.basicInformation.privacyPage') }) }}"
+                       title="{{ "general.privacyLink"|trans|sw_sanitize }}"
+                       class="ps-2 pe-2">
+                        {{ "general.privacyLink"|trans|sw_sanitize }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endblock %}
+    </footer>
+{% endblock %}

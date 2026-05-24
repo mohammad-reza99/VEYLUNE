@@ -1,0 +1,94 @@
+{% block page_account_sidebar_inner %}
+    <div class="{% if not headerWidget %}account-aside veylune-account-sidebar{% else %}header-account-menu veylune-account-sidebar veylune-account-sidebar--header{% endif %}">
+        <div class="account-menu-inner veylune-account-sidebar__panel">
+            {% block page_account_sidebar_header %}
+                {% if not headerWidget %}
+                    <div class="account-aside-header veylune-account-sidebar__header">
+                        <span class="veylune-account-sidebar__eyebrow">{{ 'veylune.account.conciergeNavigation'|trans|sw_sanitize }}</span>
+                        <span class="veylune-account-sidebar__name">
+                            {{ 'account.greetings'|trans|sw_sanitize }}
+                            {{ context.customer.title }}
+                            {{ context.customer.firstName }}
+                            {{ context.customer.lastName }}
+                        </span>
+                    </div>
+                {% endif %}
+            {% endblock %}
+
+            {% block page_account_sidebar_menu %}
+                {% if not context.customer.guest %}
+                    <nav class="list-group list-group-flush account-aside-list-group veylune-account-sidebar__list"{% if headerWidget == null %} aria-label="{{ 'account.myAccount'|trans|striptags }}"{% endif %}>
+                        {% block page_account_sidebar_menu_inner %}
+                            {% block page_account_sidebar_link_home %}
+                                <a href="{{ path('frontend.account.home.page') }}"
+                                   title="{{ 'account.overviewLink'|trans|striptags }}"
+                                   class="list-group-item list-group-item-action account-aside-item veylune-account-sidebar__item{% if activeRoute is same as('frontend.account.home.page') %} is-active{% endif %}"
+                                   {% if activeRoute is same as('frontend.account.home.page') %} aria-current="page"{% endif %}>
+                                    {% sw_icon 'home' style { size: 'sm' } %}
+                                    <span>{{ 'account.overviewLink'|trans|sw_sanitize }}</span>
+                                </a>
+                            {% endblock %}
+
+                            {% block page_account_sidebar_link_profile %}
+                                <a href="{{ path('frontend.account.profile.page') }}"
+                                   title="{{ 'account.profileLink'|trans|striptags }}"
+                                   class="list-group-item list-group-item-action account-aside-item veylune-account-sidebar__item{% if activeRoute is same as('frontend.account.profile.page') %} is-active{% endif %}"
+                                   {% if activeRoute is same as('frontend.account.profile.page') %} aria-current="page"{% endif %}>
+                                    {% sw_icon 'avatar' style { size: 'sm' } %}
+                                    <span>{{ 'account.profileLink'|trans|sw_sanitize }}</span>
+                                </a>
+                            {% endblock %}
+
+                            {% block page_account_sidebar_link_address %}
+                                <a href="{{ path('frontend.account.address.page') }}"
+                                   title="{{ 'account.addressLink'|trans|striptags }}"
+                                   class="list-group-item list-group-item-action account-aside-item veylune-account-sidebar__item{% if activeRoute starts with('frontend.account.address') %} is-active{% endif %}"
+                                   {% if activeRoute starts with('frontend.account.address.page') %} aria-current="page"{% endif %}>
+                                    {% sw_icon 'map' style { size: 'sm' } %}
+                                    <span>{{ 'account.addressLink'|trans|sw_sanitize }}</span>
+                                </a>
+                            {% endblock %}
+
+                            {% block page_account_sidebar_link_orders %}
+                                <a href="{{ path('frontend.account.order.page') }}"
+                                   title="{{ 'account.ordersLink'|trans|striptags }}"
+                                   class="list-group-item list-group-item-action account-aside-item veylune-account-sidebar__item{% if activeRoute is same as('frontend.account.order.page') %} is-active{% endif %}"
+                                   {% if activeRoute is same as('frontend.account.order.page') %} aria-current="page"{% endif %}>
+                                    {% sw_icon 'package-closed' style { size: 'sm' } %}
+                                    <span>{{ 'account.ordersLink'|trans|sw_sanitize }}</span>
+                                </a>
+                            {% endblock %}
+                        {% endblock %}
+                    </nav>
+                {% endif %}
+            {% endblock %}
+
+            {% block page_account_sidebar_footer %}
+                {% if context.customer %}
+                    {% if not context.customer.guest %}
+                        <div class="account-aside-footer veylune-account-sidebar__footer">
+                            {% block page_account_sidebar_logout %}
+                                <a href="{{ path('frontend.account.logout.page') }}"
+                                   class="btn btn-link account-aside-btn veylune-account-sidebar__logout">
+                                    {% sw_icon 'log-out' -%}
+                                    {{- 'account.logout'|trans|sw_sanitize }}
+                                </a>
+                            {% endblock %}
+                        </div>
+                    {% else %}
+                        <div class="account-aside-footer account-guest-abort veylune-account-sidebar__footer">
+                            {% block page_account_sidebar_guest_abort %}
+                                <a href="{{ path('frontend.account.logout.page') }}"
+                                   data-account-guest-abort-button="true"
+                                   class="btn btn-link account-aside-btn veylune-account-sidebar__logout">
+                                    {% sw_icon 'log-out' -%}
+                                    {{- 'account.guestAbort'|trans|sw_sanitize }}
+                                </a>
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

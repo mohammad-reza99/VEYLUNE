@@ -1,0 +1,30 @@
+{% sw_extends '@Storefront/storefront/page/account/order-history/index.html.twig' %}
+
+{% block page_account_orders %}
+    <div class="account-orders veylune-account-orders">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block page_account_orders_welcome %}
+    <header class="account-welcome veylune-account-hero">
+        {% block page_account_orders_welcome_headline %}
+            <p class="veylune-account-hero__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+            <h1>{{ 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</h1>
+        {% endblock %}
+
+        {% block page_account_orders_welcome_intro %}
+            <p>{{ 'veylune.account.ordersIntro'|trans|sw_sanitize }}</p>
+        {% endblock %}
+    </header>
+{% endblock %}
+
+{% block page_account_orders_info_empty %}
+    <div class="veylune-account-empty" role="status">
+        <p class="veylune-account-empty__eyebrow">{{ 'veylune.account.noAcquisitionsYet'|trans|sw_sanitize }}</p>
+        <h2>{{ 'account.ordersInfoEmpty'|trans|sw_sanitize }}</h2>
+        <a href="{{ path('frontend.home.page') }}" class="btn veylune-button">
+            {{ 'veylune.account.continueCollection'|trans|sw_sanitize }}
+        </a>
+    </div>
+{% endblock %}

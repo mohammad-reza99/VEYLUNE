@@ -1,0 +1,118 @@
+.veylune-topbar {
+    position: relative;
+    z-index: 21;
+    display: flex;
+    align-items: center;
+    min-height: 28px;
+    overflow: hidden;
+    color: rgba(33, 31, 27, 0.56);
+    background: rgba(248, 245, 239, 0.76);
+    border-bottom: 1px solid rgba(139, 118, 90, 0.09);
+    font-family: var(--veylune-font-serif);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.veylune-topbar__atmosphere {
+    display: none;
+}
+
+.veylune-topbar::before,
+.veylune-topbar::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: min(12vw, 128px);
+    pointer-events: none;
+    content: "";
+}
+
+.veylune-topbar::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--veylune-color-ivory), rgba(248, 245, 239, 0));
+}
+
+.veylune-topbar::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--veylune-color-ivory), rgba(248, 245, 239, 0));
+}
+
+.veylune-topbar__viewport {
+    width: 100%;
+    overflow: hidden;
+}
+
+.veylune-topbar__track {
+    display: flex;
+    width: max-content;
+    animation: veylune-topbar-marquee 96s linear infinite;
+    will-change: transform;
+}
+
+.veylune-topbar:hover .veylune-topbar__track {
+    animation-play-state: paused;
+}
+
+.veylune-topbar__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: max-content;
+}
+
+.veylune-topbar__item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 clamp(1.1rem, 2.4vw, 2.6rem);
+    color: rgba(33, 31, 27, 0.52);
+    font-size: 0.55rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.veylune-topbar__dot {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 2px;
+    height: 2px;
+    background: rgba(139, 118, 90, 0.42);
+    border-radius: 50%;
+}
+
+.veylune-topbar__dot::after {
+    display: none;
+}
+
+@keyframes veylune-topbar-marquee {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-topbar {
+        min-height: 28px;
+        letter-spacing: 0.1em;
+    }
+
+    .veylune-topbar__track {
+        animation-duration: 72s;
+    }
+
+    .veylune-topbar__item {
+        padding: 0 0.9rem;
+        font-size: 0.52rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-topbar__track {
+        transform: none;
+        animation: none;
+    }
+}
