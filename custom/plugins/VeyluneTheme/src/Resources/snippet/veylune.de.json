@@ -335,62 +335,48 @@
     "home": {
       "atmosphereMeta": "Atmosphäre, Proportion, Schatten, Material.",
       "atmosphereQuote": "Das Leben in kuratierter Kunst beginnt mit Zurückhaltung.",
-      "atmosphericInteriors": "Atmosphärische Interieurs",
+      "atmosphericInteriors": "Architektonische Interieurs",
+      "atelierPartnerships": "Atelier-Partnerschaften",
       "beginPrivateDialogue": "Privaten Dialog beginnen",
-      "brandPhilosophy": "Brand Philosophy",
+      "brandPhilosophy": "Redaktionelle Steuerung",
       "curatedSourcing": "Curated Sourcing",
       "designCulture": "Timeless Design Culture",
-      "designCultureTitle": "Eine globale Designwelt mit Erinnerung, Private Access, filmischen Raumnarrativen und bleibender kultureller Präsenz.",
+      "designCultureTitle": "Redaktionelle Seiten für Kollektionskontext, Private Access, Raumlogik und langfristige Plattformentwicklung.",
       "designPartnerships": "Design Partnerships",
+      "enterEditorialWorld": "Editorial World betreten",
       "exploreCollections": "Kollektionen entdecken",
-      "featuredCollections": "Featured Collections",
-      "featuredCollectionsTitle": "Redaktionelle Kollektionen für künstlerische Zuhause.",
+      "featuredCollections": "Kollektionsebenen",
+      "featuredCollectionsTitle": "Vier gesteuerte Einstiegspunkte in das Veylune-Kollektionssystem.",
       "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
-      "heroText": "Kuratierte Interieurs, geprägt von Atmosphäre, skulpturaler Form und ruhiger europäischer Raffinesse.",
-      "heroTitle": "Collectible Furniture für künstlerisches Wohnen.",
+      "heroText": "Veylune Studio editiert Möbel, Leuchten, Objekte und Editionen über Kollektionslogik, Materialdisziplin und architektonische Relevanz.",
+      "heroTitle": "Eine geführte Plattform für collectible Interiors.",
       "interiorAtmosphere": "Interior Atmosphere",
-      "philosophyCopyOne": "VEYLUNE STUDIO ist ein Collectible Design House für skulpturales Wohnen. Wir glauben, dass ein Raum nicht gefüllt werden sollte. Er sollte editiert, rhythmisiert und atmen dürfen.",
-      "philosophyCopyTwo": "Unsere Welt entsteht aus taktilen Materialien, weichem Licht, architektonischen Silhouetten und Stücken, die entdeckt statt konsumiert wirken.",
-      "philosophyStatement": "Wir komponieren Räume als ruhige Kunstwerke, in denen jedes Objekt Präsenz, Proportion und emotionales Gewicht trägt.",
+      "philosophyCopyOne": "Veylune bewertet jedes Stück über Materialpräsenz, Proportion, räumliche Rolle, Supplier-Fit und Kollektionskohärenz.",
+      "philosophyCopyTwo": "Die Homepage ist keine Katalogeinführung. Sie ist die erste Ebene eines redaktionellen Commerce-Systems für architektonische Interieurs und Collectible Design.",
+      "philosophyStatement": "Produkte werden als Kollektionseinträge ausgewählt, nicht als Listings hochgeladen.",
       "privateConsultation": "Private Consultation",
       "privateInquiry": "Private Inquiry",
       "selectedPieces": "Selected Pieces",
-      "selectedPiecesTitle": "Objekte präsentiert wie Galerieexponate.",
+      "selectedPiecesTitle": "Ausgewählte Arbeiten als Kollektionseinträge platziert.",
       "tradeEyebrow": "Trade / Designer Experience",
       "tradeProgram": "Trade Program",
       "tradeTitle": "Für Architekten, Interior Designer und private Wohnprojekte.",
       "collections": {
-        "atmosphericDecor": {
-          "meta": "Abschließende Gesten mit Präsenz",
-          "title": "Decor"
+        "editions": {
+          "meta": "Limitierte Releases, Kollaborationen und Atelier-Auswahlen",
+          "title": "Editionen"
         },
-        "collectibleLighting": {
-          "meta": "Objekte aus Licht und Schatten",
+        "lighting": {
+          "meta": "Objekte aus Licht, Schatten und räumlicher Linie",
           "title": "Lighting"
         },
-        "curvedSofas": {
-          "meta": "Weiche Architektur für Wohnräume",
-          "title": "Curved Sofas"
-        },
-        "marbleObjects": {
-          "meta": "Gewicht, Politur, Beständigkeit",
-          "title": "Objects"
-        },
-        "decor": {
-          "meta": "Abschließende Gesten mit Präsenz",
-          "title": "Decor"
-        },
         "objects": {
-          "meta": "Skulpturale Formen, Gefäße und Materialstudien",
+          "meta": "Gefäße, Materialstudien und skulpturale Stücke",
           "title": "Objects"
         },
-        "sculpturalSeating": {
-          "meta": "Kurvige Profile · geerdeter Komfort",
+        "seating": {
+          "meta": "Raumprägende Formen und architektonischer Komfort",
           "title": "Seating"
-        },
-        "tables": {
-          "meta": "Stein, Glas und ruhige architektonische Flächen",
-          "title": "Tables"
         }
       },
       "ecosystem": {
@@ -415,9 +401,14 @@
           "title": "Room Universe"
         },
         "world": {
-          "text": "Skulpturales Wohnen, Materialnarrative und Quiet-Luxury-Studien.",
+          "text": "Kollektionskontext, Materialnarrative und architektonische Interieurs.",
           "title": "Editorial World"
         }
+      },
+      "supplier": {
+        "eyebrow": "Für Studios, Ateliers und Interior Professionals",
+        "text": "Veylune arbeitet mit Makern, Studios, Architekten und Interior Professionals, deren Arbeit in ein gesteuertes Kollektionssystem gehört. Produkte werden mit redaktionellem Kontext, Kollektionsplatzierung und architektonischer Relevanz vorbereitet, bevor sie in die Plattform eintreten.",
+        "title": "Eine kontrollierte Präsentationsumgebung für ausgewählte Designarbeit."
       },
         "pieces": {
         "aurelia": {

@@ -53,7 +53,8 @@
         legacy: path('frontend.search.page', { search: 'legacy' }),
         culture: path('frontend.search.page', { search: 'culture' }),
         exhibitions: path('frontend.search.page', { search: 'future showrooms' }),
-        consultation: veyluneCategoryRoutes.url('consultation')
+        consultation: veyluneCategoryRoutes.url('consultation'),
+        partnership: path('frontend.veylune.partnership.page')
     } %}
 
 		{% if app.request.attributes.get('_route') == 'frontend.home.page' %}
@@ -150,15 +151,14 @@
 
 				<div class="veylune-collections__grid">
 					{% set collections = [
-                        { title: 'veylune.home.collections.sculpturalSeating.title', href: veyluneCategoryRoutes.url('seating'), categoryId: '019e472688de7a4488d2ccaa9f4c1aca', categoryMediaId: '019e4cf2dd9e78d292535317e4db4fdb', meta: 'veylune.home.collections.sculpturalSeating.meta', tone: 'is-bronze' },
-                        { title: 'veylune.home.collections.tables.title', href: veyluneCategoryRoutes.url('tables'), categoryId: '019e4726c20076f092111b3a35ebdc0e', categoryMediaId: '019e51166fea7e76a5e1c3e08c12146d', meta: 'veylune.home.collections.tables.meta', tone: 'is-ivory' },
-                        { title: 'veylune.home.collections.collectibleLighting.title', href: veyluneCategoryRoutes.url('lighting'), categoryId: '019e4726e79d7edfa7209e2333b29a58', categoryMediaId: '019e4c3ec019755ca6f737ba688a885d', meta: 'veylune.home.collections.collectibleLighting.meta', tone: 'is-charcoal' },
+                        { title: 'veylune.home.collections.seating.title', href: veyluneCategoryRoutes.url('seating'), categoryId: '019e472688de7a4488d2ccaa9f4c1aca', categoryMediaId: '019e4cf2dd9e78d292535317e4db4fdb', meta: 'veylune.home.collections.seating.meta', tone: 'is-bronze' },
+                        { title: 'veylune.home.collections.lighting.title', href: veyluneCategoryRoutes.url('lighting'), categoryId: '019e4726e79d7edfa7209e2333b29a58', categoryMediaId: '019e4c3ec019755ca6f737ba688a885d', meta: 'veylune.home.collections.lighting.meta', tone: 'is-charcoal' },
                         { title: 'veylune.home.collections.objects.title', href: veyluneCategoryRoutes.url('objects'), categoryId: '019e4727472c7ba280e48539675d26f3', categoryMediaId: '019e4c472dad7ed280fcdfd7809ac6a4', meta: 'veylune.home.collections.objects.meta', tone: 'is-stone' },
-                        { title: 'veylune.home.collections.decor.title', href: veyluneCategoryRoutes.url('decorObjects'), categoryId: '019e4c2460a47c3fa030916b63d77970', categoryMediaId: '019e569fc7d076a7b687a001fc10b841', meta: 'veylune.home.collections.decor.meta', tone: 'is-smoke' }
+                        { title: 'veylune.home.collections.editions.title', href: veyluneCategoryRoutes.url('collections'), categoryId: null, categoryMediaId: null, meta: 'veylune.home.collections.editions.meta', tone: 'is-smoke' }
                     ] %}
 
 					{% for collection in collections %}
-						{% set collectionTree = page.header.navigation.getChildren(collection.categoryId)|default(null) %}
+						{% set collectionTree = collection.categoryId ? page.header.navigation.getChildren(collection.categoryId)|default(null) : null %}
 						{% set collectionCategory = collectionTree.active|default(null) %}
 						{% set collectionMedia = collectionCategory.media|default(null) %}
 						{% set collectionMediaId = collectionCategory.mediaId|default(collection.categoryMediaId|default(null)) %}
@@ -192,29 +192,16 @@
 				</div>
 			</section>
 
-			<section class="veylune-home__scene veylune-atmosphere" data-veylune-reveal>
-				{% set atmosphereMediaId = '019e5666d41d750faf5381cc308d4c5c' %}
-				{% set atmosphereMediaCollection = searchMedia([atmosphereMediaId], context.context) %}
-				{% set atmosphereMedia = atmosphereMediaCollection.get(atmosphereMediaId) %}
-				<div class="veylune-atmosphere__image {% if not atmosphereMedia %}is-fallback{% endif %}" data-veylune-parallax aria-hidden="true">
-					{% if atmosphereMedia %}
-						{% sw_thumbnails 'veylune-home-atmosphere' with {
-							media: atmosphereMedia,
-							sizes: {
-								default: '100vw'
-							},
-							attributes: {
-								class: 'veylune-atmosphere__media',
-								alt: '',
-								loading: 'lazy'
-							}
-						} %}
-					{% endif %}
-				</div>
-				<div class="veylune-atmosphere__quote">
-					<p class="veylune-home__eyebrow">{{ 'veylune.home.interiorAtmosphere'|trans|sw_sanitize }}</p>
-					<blockquote>{{ 'veylune.home.atmosphereQuote'|trans|sw_sanitize }}</blockquote>
-					<span>{{ 'veylune.home.atmosphereMeta'|trans|sw_sanitize }}</span>
+			<section class="veylune-home__scene veylune-supplier-authority" data-veylune-reveal>
+				<div class="veylune-supplier-authority__inner">
+					<div>
+						<p class="veylune-home__eyebrow">{{ 'veylune.home.supplier.eyebrow'|trans|sw_sanitize }}</p>
+						<h2>{{ 'veylune.home.supplier.title'|trans|sw_sanitize }}</h2>
+					</div>
+					<div class="veylune-supplier-authority__content">
+						<p>{{ 'veylune.home.supplier.text'|trans|sw_sanitize }}</p>
+						<a class="veylune-home__link" href="{{ veyluneRoutes.partnership }}">{{ 'veylune.home.atelierPartnerships'|trans|sw_sanitize }}</a>
+					</div>
 				</div>
 			</section>
 
@@ -257,10 +244,38 @@
 								<span>{{ piece.type|trans|sw_sanitize }}</span>
 								<h3>{{ piece.name|trans|sw_sanitize }}</h3>
 								<p>{{ piece.note|trans|sw_sanitize }}</p>
-								<a href="{{ veyluneRoutes.consultation }}">{{ 'veylune.home.privateInquiry'|trans|sw_sanitize }}</a>
 							</div>
 						</article>
 					{% endfor %}
+				</div>
+				<div class="veylune-home__section-action">
+					<a class="veylune-home__link" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.home.privateConsultation'|trans|sw_sanitize }}</a>
+				</div>
+			</section>
+
+			<section class="veylune-home__scene veylune-atmosphere" data-veylune-reveal>
+				{% set atmosphereMediaId = '019e5666d41d750faf5381cc308d4c5c' %}
+				{% set atmosphereMediaCollection = searchMedia([atmosphereMediaId], context.context) %}
+				{% set atmosphereMedia = atmosphereMediaCollection.get(atmosphereMediaId) %}
+				<div class="veylune-atmosphere__image {% if not atmosphereMedia %}is-fallback{% endif %}" data-veylune-parallax aria-hidden="true">
+					{% if atmosphereMedia %}
+						{% sw_thumbnails 'veylune-home-atmosphere' with {
+							media: atmosphereMedia,
+							sizes: {
+								default: '100vw'
+							},
+							attributes: {
+								class: 'veylune-atmosphere__media',
+								alt: '',
+								loading: 'lazy'
+							}
+						} %}
+					{% endif %}
+				</div>
+				<div class="veylune-atmosphere__quote">
+					<p class="veylune-home__eyebrow">{{ 'veylune.home.interiorAtmosphere'|trans|sw_sanitize }}</p>
+					<blockquote>{{ 'veylune.home.atmosphereQuote'|trans|sw_sanitize }}</blockquote>
+					<span>{{ 'veylune.home.atmosphereMeta'|trans|sw_sanitize }}</span>
 				</div>
 			</section>
 
@@ -316,6 +331,9 @@
 						<strong>{{ 'veylune.home.ecosystem.exhibitions.title'|trans|sw_sanitize }}</strong>
 						<em>{{ 'veylune.home.ecosystem.exhibitions.text'|trans|sw_sanitize }}</em>
 					</a>
+				</div>
+				<div class="veylune-home__section-action">
+					<a class="veylune-home__link" href="{{ veyluneRoutes.world }}">{{ 'veylune.home.enterEditorialWorld'|trans|sw_sanitize }}</a>
 				</div>
 			</section>
 		</main>

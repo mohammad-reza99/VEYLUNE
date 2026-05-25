@@ -37,6 +37,11 @@
     letter-spacing: 0;
 }
 
+.veylune-home__section-action {
+    width: var(--veylune-container);
+    margin: clamp(2rem, 4vw, 3.5rem) auto 0;
+}
+
 .veylune-home__link {
     position: relative;
     display: inline-flex;
@@ -276,11 +281,12 @@
     box-shadow: 0 28px 80px rgba(33, 31, 27, 0.1);
 }
 
-.veylune-collection-card:nth-child(1) { grid-column: span 7; }
-.veylune-collection-card:nth-child(2) { grid-column: span 5; }
-.veylune-collection-card:nth-child(3) { grid-column: span 4; }
-.veylune-collection-card:nth-child(4) { grid-column: span 4; }
-.veylune-collection-card:nth-child(5) { grid-column: span 4; }
+.veylune-collection-card:nth-child(1),
+.veylune-collection-card:nth-child(2),
+.veylune-collection-card:nth-child(3),
+.veylune-collection-card:nth-child(4) {
+    grid-column: span 6;
+}
 
 .veylune-collection-card__media {
     position: absolute;
@@ -412,8 +418,47 @@
 }
 
 .veylune-pieces,
-.veylune-trade {
+.veylune-trade,
+.veylune-supplier-authority {
     padding: clamp(5rem, 10vw, 10rem) 0;
+}
+
+.veylune-supplier-authority {
+    background:
+        linear-gradient(180deg, rgba(255, 252, 246, 0.88), rgba(244, 239, 230, 0.62)),
+        var(--veylune-color-ivory);
+    border-block: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-supplier-authority__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.7fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: start;
+    width: var(--veylune-container);
+    margin: 0 auto;
+}
+
+.veylune-supplier-authority h2 {
+    max-width: 820px;
+    margin: 0;
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(2rem, 5vw, 5rem);
+    font-weight: 400;
+    line-height: 1;
+}
+
+.veylune-supplier-authority__content {
+    display: grid;
+    gap: 2rem;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    font-size: 1.04rem;
+    line-height: 1.85;
+}
+
+.veylune-supplier-authority__content p {
+    margin: 0;
 }
 
 .veylune-pieces {
@@ -553,7 +598,8 @@
 @include media-breakpoint-down(lg) {
     .veylune-home-hero__inner,
     .veylune-philosophy__inner,
-    .veylune-trade__inner {
+    .veylune-trade__inner,
+    .veylune-supplier-authority__inner {
         grid-template-columns: 1fr;
     }
 
