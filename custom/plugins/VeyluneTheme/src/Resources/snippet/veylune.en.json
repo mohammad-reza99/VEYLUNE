@@ -206,6 +206,77 @@
       "selectedPiece": "Selected Piece",
       "viewPiece": "View Piece"
     },
+    "editions": {
+      "seo": {
+        "title": "Editions | Veylune Studio",
+        "description": "Limited releases, atelier collaborations, material studies, and private previews within the Veylune collection system."
+      },
+      "cta": {
+        "atelierPartnerships": "Atelier Partnerships",
+        "privateConsultation": "Private Consultation",
+        "requestEditionInquiry": "Request Edition Inquiry"
+      },
+      "hero": {
+        "eyebrow": "Editions",
+        "title": "A governed release layer for collectible works.",
+        "text": "Editions bring selected furniture, lighting, and objects into controlled release contexts shaped by material logic, atelier collaboration, spatial relevance, and archive continuity."
+      },
+      "governance": {
+        "eyebrow": "Release Governance",
+        "title": "Editions are release records, not campaign pages.",
+        "text": "Each Edition defines why selected works belong together. A piece may remain part of Seating, Lighting, or Objects while the Edition records its release context, supplier collaboration, material study, or private preview status.",
+        "principles": {
+          "crossCollection": {
+            "title": "Cross-collection placement",
+            "text": "Editions can connect Seating, Lighting, and Objects without replacing the primary collection structure."
+          },
+          "releaseContext": {
+            "title": "Editorial release context",
+            "text": "A release is defined by material, spatial, supplier, or small-series logic rather than promotion."
+          },
+          "archiveContinuity": {
+            "title": "Archive continuity",
+            "text": "Edition records remain useful after active availability changes."
+          }
+        }
+      },
+      "releaseTypes": {
+        "eyebrow": "Release Types",
+        "title": "Five controlled formats define how Editions enter the platform.",
+        "items": {
+          "atelierCollaboration": {
+            "title": "Atelier Collaboration",
+            "text": "A supplier or studio release prepared through Veylune collection and editorial standards."
+          },
+          "materialStudy": {
+            "title": "Material Study",
+            "text": "A release organized around material clarity, finish, and spatial use."
+          },
+          "roomEdition": {
+            "title": "Room Edition",
+            "text": "A release framed by architectural interior context and room logic."
+          },
+          "smallSeries": {
+            "title": "Small Series",
+            "text": "A controlled production group presented only when availability is operationally clear."
+          },
+          "privatePreview": {
+            "title": "Private Preview",
+            "text": "A restrained inquiry path for works reviewed before wider publication."
+          }
+        }
+      },
+      "supplier": {
+        "eyebrow": "Studio and Atelier Context",
+        "title": "Editions provide a controlled context for selected collaborators.",
+        "text": "Supplier participation is handled through collection fit, material clarity, production readiness, and architectural relevance. Editions do not function as vendor pages or supplier directories."
+      },
+      "acquisition": {
+        "eyebrow": "Acquisition Path",
+        "title": "Edition inquiries are handled through consultation.",
+        "text": "Veylune uses a calm inquiry path for Editions so clients, architects, and interior professionals can discuss release context, availability, and project fit without pressure mechanics."
+      }
+    },
     "partnership": {
       "seo": {
         "title": "Atelier Partnerships | Veylune Studio",

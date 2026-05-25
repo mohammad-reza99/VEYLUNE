@@ -151,7 +151,7 @@
       "brandText": "Kuratiertes künstlerisches Wohnen für raffinierte Interieurs. Collectible Furniture, skulpturale Formen und atmosphärische Objekte, ausgewählt mit Galeriesensibilität.",
       "clientCare": "Client Care",
       "contactEcosystem": "Contact Ecosystem",
-      "privateConsultation": "Private Consultation",
+      "privateConsultation": "Private Beratung",
       "services": "Services",
       "studio": "Studio",
       "tradeAtelier": "Trade Atelier"
@@ -205,6 +205,77 @@
       "descriptionFallback": "Ein skulpturales Objekt für atmosphärische Interieurs.",
       "selectedPiece": "Selected Piece",
       "viewPiece": "Stück ansehen"
+    },
+    "editions": {
+      "seo": {
+        "title": "Editionen | Veylune Studio",
+        "description": "Limitierte Veröffentlichungen, Atelier-Kollaborationen, Materialstudien und private Vorschauen innerhalb des Veylune-Kollektionssystems."
+      },
+      "cta": {
+        "atelierPartnerships": "Atelier-Partnerschaften",
+        "privateConsultation": "Private Beratung",
+        "requestEditionInquiry": "Editionsanfrage stellen"
+      },
+      "hero": {
+        "eyebrow": "Editionen",
+        "title": "Eine kuratierte Veröffentlichungsstruktur für sammelwürdige Werke.",
+        "text": "Editionen bringen ausgewählte Möbel, Leuchten und Objekte in kontrollierte Veröffentlichungskontexte, geprägt von Materiallogik, Atelier-Kollaboration, räumlicher Relevanz und Archivkontinuität."
+      },
+      "governance": {
+        "eyebrow": "Veröffentlichungssteuerung",
+        "title": "Editionen sind Veröffentlichungsdokumente, keine Kampagnenseiten.",
+        "text": "Jede Edition definiert, warum ausgewählte Arbeiten zusammengehören. Ein Stück kann weiterhin Teil von Sitzmöbeln, Leuchten oder Objekten bleiben, während die Edition seinen Veröffentlichungskontext, seine Kollaboration, Materialstudie oder Rolle in der privaten Vorschau dokumentiert.",
+        "principles": {
+          "crossCollection": {
+            "title": "Kollektionsübergreifende Platzierung",
+            "text": "Editionen können Sitzmöbel, Leuchten und Objekte verbinden, ohne die primäre Kollektionsstruktur zu ersetzen."
+          },
+          "releaseContext": {
+            "title": "Redaktioneller Veröffentlichungskontext",
+            "text": "Eine Veröffentlichung wird über Material, Raum, Atelier-Kontext oder kleine Serien definiert, nicht über Promotion."
+          },
+          "archiveContinuity": {
+            "title": "Archivkontinuität",
+            "text": "Editions-Dokumente bleiben auch nach veränderter Verfügbarkeit sinnvoll."
+          }
+        }
+      },
+      "releaseTypes": {
+        "eyebrow": "Veröffentlichungsformate",
+        "title": "Fünf kontrollierte Formate definieren, wie Editionen in die Plattform eintreten.",
+        "items": {
+          "atelierCollaboration": {
+            "title": "Atelier-Kollaboration",
+            "text": "Eine Atelier- oder Studio-Veröffentlichung, vorbereitet nach Veylune-Kollektions- und Redaktionsstandards."
+          },
+          "materialStudy": {
+            "title": "Materialstudie",
+            "text": "Eine Veröffentlichung, organisiert über Materialklarheit, Finish und räumliche Verwendung."
+          },
+          "roomEdition": {
+            "title": "Raum-Edition",
+            "text": "Eine Veröffentlichung, gerahmt durch architektonischen Interior-Kontext und Raumlogik."
+          },
+          "smallSeries": {
+            "title": "Kleine Serie",
+            "text": "Eine kontrollierte Produktionsgruppe, nur dargestellt, wenn Verfügbarkeit operativ klar ist."
+          },
+          "privatePreview": {
+            "title": "Private Vorschau",
+            "text": "Ein zurückhaltender Anfrageweg für Arbeiten, die vor breiterer Veröffentlichung geprüft werden."
+          }
+        }
+      },
+      "supplier": {
+        "eyebrow": "Studio- und Atelier-Kontext",
+        "title": "Editionen schaffen einen kontrollierten Kontext für ausgewählte Kollaborationen.",
+        "text": "Die Beteiligung von Ateliers und Studios wird über Kollektionspassung, Materialklarheit, Produktionsreife und architektonische Relevanz geführt. Editionen funktionieren nicht als Anbieterseiten oder Lieferantenverzeichnisse."
+      },
+      "acquisition": {
+        "eyebrow": "Anfrageweg",
+        "title": "Editionsanfragen werden über Beratung geführt.",
+        "text": "Veylune nutzt für Editionen einen ruhigen Anfrageweg, damit Privatkunden, Architekten und Interior-Professionals Veröffentlichungskontext, Verfügbarkeit und Projektpassung ohne Druckmechanik besprechen können."
+      }
     },
     "partnership": {
       "seo": {
@@ -354,7 +425,7 @@
       "philosophyCopyOne": "Veylune bewertet jedes Stück über Materialpräsenz, Proportion, räumliche Rolle, Supplier-Fit und Kollektionskohärenz.",
       "philosophyCopyTwo": "Die Homepage ist keine Katalogeinführung. Sie ist die erste Ebene eines redaktionellen Commerce-Systems für architektonische Interieurs und Collectible Design.",
       "philosophyStatement": "Produkte werden als Kollektionseinträge ausgewählt, nicht als Listings hochgeladen.",
-      "privateConsultation": "Private Consultation",
+      "privateConsultation": "Private Beratung",
       "privateInquiry": "Private Inquiry",
       "selectedPieces": "Selected Pieces",
       "selectedPiecesTitle": "Ausgewählte Arbeiten als Kollektionseinträge platziert.",
@@ -363,7 +434,7 @@
       "tradeTitle": "Für Architekten, Interior Designer und private Wohnprojekte.",
       "collections": {
         "editions": {
-          "meta": "Limitierte Releases, Kollaborationen und Atelier-Auswahlen",
+          "meta": "Limitierte Veröffentlichungen, Kollaborationen und Atelier-Auswahlen",
           "title": "Editionen"
         },
         "lighting": {
@@ -406,8 +477,8 @@
         }
       },
       "supplier": {
-        "eyebrow": "Für Studios, Ateliers und Interior Professionals",
-        "text": "Veylune arbeitet mit Makern, Studios, Architekten und Interior Professionals, deren Arbeit in ein gesteuertes Kollektionssystem gehört. Produkte werden mit redaktionellem Kontext, Kollektionsplatzierung und architektonischer Relevanz vorbereitet, bevor sie in die Plattform eintreten.",
+        "eyebrow": "Für Studios, Ateliers und Interior-Professionals",
+        "text": "Veylune arbeitet mit Makern, Studios, Architekten und Interior-Professionals, deren Arbeit in ein gesteuertes Kollektionssystem gehört. Produkte werden mit redaktionellem Kontext, Kollektionsplatzierung und architektonischer Relevanz vorbereitet, bevor sie in die Plattform eintreten.",
         "title": "Eine kontrollierte Präsentationsumgebung für ausgewählte Designarbeit."
       },
         "pieces": {

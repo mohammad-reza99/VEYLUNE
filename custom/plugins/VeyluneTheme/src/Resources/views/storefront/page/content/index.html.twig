@@ -54,7 +54,8 @@
         culture: path('frontend.search.page', { search: 'culture' }),
         exhibitions: path('frontend.search.page', { search: 'future showrooms' }),
         consultation: veyluneCategoryRoutes.url('consultation'),
-        partnership: path('frontend.veylune.partnership.page')
+        partnership: path('frontend.veylune.partnership.page'),
+        editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page')
     } %}
 
 		{% if app.request.attributes.get('_route') == 'frontend.home.page' %}
@@ -154,7 +155,7 @@
                         { title: 'veylune.home.collections.seating.title', href: veyluneCategoryRoutes.url('seating'), categoryId: '019e472688de7a4488d2ccaa9f4c1aca', categoryMediaId: '019e4cf2dd9e78d292535317e4db4fdb', meta: 'veylune.home.collections.seating.meta', tone: 'is-bronze' },
                         { title: 'veylune.home.collections.lighting.title', href: veyluneCategoryRoutes.url('lighting'), categoryId: '019e4726e79d7edfa7209e2333b29a58', categoryMediaId: '019e4c3ec019755ca6f737ba688a885d', meta: 'veylune.home.collections.lighting.meta', tone: 'is-charcoal' },
                         { title: 'veylune.home.collections.objects.title', href: veyluneCategoryRoutes.url('objects'), categoryId: '019e4727472c7ba280e48539675d26f3', categoryMediaId: '019e4c472dad7ed280fcdfd7809ac6a4', meta: 'veylune.home.collections.objects.meta', tone: 'is-stone' },
-                        { title: 'veylune.home.collections.editions.title', href: veyluneCategoryRoutes.url('collections'), categoryId: null, categoryMediaId: null, meta: 'veylune.home.collections.editions.meta', tone: 'is-smoke' }
+                        { title: 'veylune.home.collections.editions.title', href: veyluneRoutes.editions, categoryId: null, categoryMediaId: null, meta: 'veylune.home.collections.editions.meta', tone: 'is-smoke' }
                     ] %}
 
 					{% for collection in collections %}
