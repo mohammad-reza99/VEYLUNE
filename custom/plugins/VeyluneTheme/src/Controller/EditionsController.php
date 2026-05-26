@@ -42,17 +42,21 @@ class EditionsController extends StorefrontController
     #[Route(
         path: '/editions/{reference}',
         name: 'frontend.veylune.editions.detail.guard',
-        requirements: ['reference' => '[a-z0-9]+(?:-[a-z0-9]+)*'],
+        requirements: ['reference' => '[^/]+'],
         methods: [Request::METHOD_GET]
     )]
     #[Route(
         path: '/editionen/{reference}',
         name: 'frontend.veylune.editions.detail.guard.de',
-        requirements: ['reference' => '[a-z0-9]+(?:-[a-z0-9]+)*'],
+        requirements: ['reference' => '[^/]+'],
         methods: [Request::METHOD_GET]
     )]
     public function guardedDetail(string $reference, Request $request, SalesChannelContext $context): Response
     {
+        if (!\preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $reference)) {
+            return $this->denyEditionDetail();
+        }
+
         $locale = str_contains($request->getPathInfo(), '/editionen/') ? 'de' : 'en';
         $resolution = $this->editionReferenceRegistry->resolveDetailRouteState($reference, $locale);
 

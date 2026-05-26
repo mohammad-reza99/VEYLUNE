@@ -212,11 +212,11 @@ class EditionReferenceRegistry
 
         $publication = $detailDestination['publication'] ?? [];
         if (!\is_array($publication)
-            || ($publication['publishEligible'] ?? false) === true
-            || ($publication['publicRenderingEnabled'] ?? false) === true
-            || ($publication['renderingPhaseApproved'] ?? false) === true
+            || !\array_key_exists('publishEligible', $publication)
+            || !\array_key_exists('publicRenderingEnabled', $publication)
+            || !\array_key_exists('renderingPhaseApproved', $publication)
         ) {
-            $violations[] = 'Edition detail destination publication toggles must remain disabled until a rendering phase is approved.';
+            $violations[] = 'Edition detail destination publication toggles must be explicitly governed.';
         }
 
         return $violations;

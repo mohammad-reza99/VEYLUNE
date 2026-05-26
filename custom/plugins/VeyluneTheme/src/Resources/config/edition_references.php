@@ -49,9 +49,9 @@ return [
                 'archiveContinuity' => true,
             ],
             'publication' => [
-                'publishEligible' => false,
-                'publicRenderingEnabled' => false,
-                'renderingPhaseApproved' => false,
+                'publishEligible' => true,
+                'publicRenderingEnabled' => true,
+                'renderingPhaseApproved' => true,
             ],
         ],
         'releaseState' => 'active',
