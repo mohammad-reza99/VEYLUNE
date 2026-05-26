@@ -8,6 +8,7 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Framework\Routing\StorefrontRouteScope;
 use Shopware\Storefront\Page\GenericPageLoader;
+use VeyluneTheme\Edition\EditionReferenceRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,7 +20,8 @@ class EditionsController extends StorefrontController
 {
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly EditionReferenceRegistry $editionReferenceRegistry
     ) {
     }
 
@@ -35,5 +37,30 @@ class EditionsController extends StorefrontController
             'page' => $page,
             'veylunePageType' => 'editions',
         ]);
+    }
+
+    #[Route(
+        path: '/editions/{reference}',
+        name: 'frontend.veylune.editions.detail.guard',
+        requirements: ['reference' => '[a-z0-9]+(?:-[a-z0-9]+)*'],
+        methods: [Request::METHOD_GET]
+    )]
+    #[Route(
+        path: '/editionen/{reference}',
+        name: 'frontend.veylune.editions.detail.guard.de',
+        requirements: ['reference' => '[a-z0-9]+(?:-[a-z0-9]+)*'],
+        methods: [Request::METHOD_GET]
+    )]
+    public function guardedDetail(string $reference, Request $request): Response
+    {
+        $locale = str_contains($request->getPathInfo(), '/editionen/') ? 'de' : 'en';
+        $resolution = $this->editionReferenceRegistry->resolveDetailRouteState($reference, $locale);
+
+        if ($resolution['state'] !== EditionReferenceRegistry::STATE_PUBLICLY_RENDERABLE || $resolution['exposureAllowed'] !== true) {
+            throw $this->createNotFoundException();
+        }
+
+        // Rendering remains intentionally locked until a dedicated rendering phase is approved.
+        throw $this->createNotFoundException();
     }
 }
