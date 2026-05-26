@@ -51,16 +51,31 @@ class EditionsController extends StorefrontController
         requirements: ['reference' => '[a-z0-9]+(?:-[a-z0-9]+)*'],
         methods: [Request::METHOD_GET]
     )]
-    public function guardedDetail(string $reference, Request $request): Response
+    public function guardedDetail(string $reference, Request $request, SalesChannelContext $context): Response
     {
         $locale = str_contains($request->getPathInfo(), '/editionen/') ? 'de' : 'en';
         $resolution = $this->editionReferenceRegistry->resolveDetailRouteState($reference, $locale);
 
         if ($resolution['state'] !== EditionReferenceRegistry::STATE_PUBLICLY_RENDERABLE || $resolution['exposureAllowed'] !== true) {
-            throw $this->createNotFoundException();
+            return $this->denyEditionDetail();
         }
 
-        // Rendering remains intentionally locked until a dedicated rendering phase is approved.
-        throw $this->createNotFoundException();
+        $payload = $this->editionReferenceRegistry->buildGuardedRenderingPayload($reference, $locale);
+
+        if ($payload === null) {
+            return $this->denyEditionDetail();
+        }
+
+        $page = $this->genericPageLoader->load($request, $context);
+
+        return $this->renderStorefront('@Storefront/storefront/veylune/edition-detail-skeleton.html.twig', [
+            'page' => $page,
+            'veyluneEdition' => $payload,
+        ]);
+    }
+
+    private function denyEditionDetail(): Response
+    {
+        return new Response('', Response::HTTP_NOT_FOUND);
     }
 }

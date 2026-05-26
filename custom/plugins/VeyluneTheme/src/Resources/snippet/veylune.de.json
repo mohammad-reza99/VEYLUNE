@@ -275,6 +275,14 @@
         "eyebrow": "Anfrageweg",
         "title": "Editionsanfragen werden über Beratung geführt.",
         "text": "Veylune nutzt für Editionen einen ruhigen Anfrageweg, damit Privatkunden, Architekten und Interior-Professionals Veröffentlichungskontext, Verfügbarkeit und Projektpassung ohne Druckmechanik besprechen können."
+      },
+      "detailSkeleton": {
+        "eyebrow": "Editionsdokument",
+        "title": "Gesteuerte Editionsdestination",
+        "reference": "Referenz",
+        "metadata": "Runtime-Metadaten",
+        "releaseState": "Veröffentlichungsstatus",
+        "canonicalRoute": "Kanonische Route"
       }
     },
     "partnership": {

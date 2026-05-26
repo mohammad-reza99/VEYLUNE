@@ -1,0 +1,36 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    <main data-veylune-edition-detail-skeleton>
+        {% block veylune_edition_detail_identity %}
+            <section>
+                <p>{{ 'veylune.editions.detailSkeleton.eyebrow'|trans|sw_sanitize }}</p>
+                <h1>{{ 'veylune.editions.detailSkeleton.title'|trans|sw_sanitize }}</h1>
+                {% if veyluneEdition.reference is defined %}
+                    <p>
+                        {{ 'veylune.editions.detailSkeleton.reference'|trans|sw_sanitize }}
+                        <span>{{ veyluneEdition.reference|sw_sanitize }}</span>
+                    </p>
+                {% endif %}
+            </section>
+        {% endblock %}
+
+        {% block veylune_edition_detail_metadata %}
+            <section>
+                <h2>{{ 'veylune.editions.detailSkeleton.metadata'|trans|sw_sanitize }}</h2>
+                {% if veyluneEdition.releaseState is defined %}
+                    <p>
+                        {{ 'veylune.editions.detailSkeleton.releaseState'|trans|sw_sanitize }}
+                        <span>{{ veyluneEdition.releaseState|sw_sanitize }}</span>
+                    </p>
+                {% endif %}
+                {% if veyluneEdition.canonicalRoute is defined %}
+                    <p>
+                        {{ 'veylune.editions.detailSkeleton.canonicalRoute'|trans|sw_sanitize }}
+                        <span>{{ veyluneEdition.canonicalRoute|sw_sanitize }}</span>
+                    </p>
+                {% endif %}
+            </section>
+        {% endblock %}
+    </main>
+{% endblock %}

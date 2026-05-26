@@ -34,6 +34,16 @@ class EditionReferenceRegistry
         'closed',
     ];
 
+    private const GUARDED_RENDERING_PAYLOAD_KEYS = [
+        'reference',
+        'locale',
+        'canonicalRoute',
+        'releaseState',
+        'acquisitionState',
+        'cmsDestination',
+        'archiveContinuity',
+    ];
+
     /**
      * @var array<string, array<string, mixed>>|null
      */
@@ -293,7 +303,7 @@ class EditionReferenceRegistry
             return null;
         }
 
-        return [
+        $payload = [
             'reference' => $reference,
             'locale' => $locale,
             'canonicalRoute' => $this->canonicalRoute($record, $locale),
@@ -305,6 +315,8 @@ class EditionReferenceRegistry
             ],
             'archiveContinuity' => ($record['archiveContinuity'] ?? false) === true,
         ];
+
+        return $this->isGuardedRenderingPayload($payload) ? $payload : null;
     }
 
     /**
@@ -636,5 +648,39 @@ class EditionReferenceRegistry
         $publication = $detailDestination['publication'] ?? [];
 
         return \is_array($publication) ? $publication : [];
+    }
+
+    /**
+     * @param array<string, mixed> $payload
+     */
+    private function isGuardedRenderingPayload(array $payload): bool
+    {
+        if (\array_keys($payload) !== self::GUARDED_RENDERING_PAYLOAD_KEYS) {
+            return false;
+        }
+
+        return \is_string($payload['reference'])
+            && \is_string($payload['locale'])
+            && \is_string($payload['canonicalRoute'])
+            && \is_string($payload['releaseState'])
+            && \is_bool($payload['archiveContinuity'])
+            && $this->isAcquisitionPayload($payload['acquisitionState'])
+            && $this->isCmsDestinationPayload($payload['cmsDestination']);
+    }
+
+    private function isAcquisitionPayload(mixed $payload): bool
+    {
+        return \is_array($payload)
+            && \array_keys($payload) === ['inquiryAllowed', 'ctaAllowed']
+            && \is_bool($payload['inquiryAllowed'])
+            && \is_bool($payload['ctaAllowed']);
+    }
+
+    private function isCmsDestinationPayload(mixed $payload): bool
+    {
+        return \is_array($payload)
+            && \array_keys($payload) === ['authority', 'blueprint']
+            && $payload['authority'] === 'edition_destination'
+            && $payload['blueprint'] === 'edition_detail';
     }
 }

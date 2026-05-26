@@ -275,6 +275,14 @@
         "eyebrow": "Acquisition Path",
         "title": "Edition inquiries are handled through consultation.",
         "text": "Veylune uses a calm inquiry path for Editions so clients, architects, and interior professionals can discuss release context, availability, and project fit without pressure mechanics."
+      },
+      "detailSkeleton": {
+        "eyebrow": "Edition Record",
+        "title": "Governed Edition destination",
+        "reference": "Reference",
+        "metadata": "Runtime metadata",
+        "releaseState": "Release state",
+        "canonicalRoute": "Canonical route"
       }
     },
     "partnership": {
