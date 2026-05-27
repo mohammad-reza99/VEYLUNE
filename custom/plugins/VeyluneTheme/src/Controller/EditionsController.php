@@ -53,11 +53,18 @@ class EditionsController extends StorefrontController
     )]
     public function guardedDetail(string $reference, Request $request, SalesChannelContext $context): Response
     {
+        $pathInfo = $request->getPathInfo();
+        $requestLocale = $request->getLocale();
+
+        if (str_starts_with($pathInfo, '/editionen/') && !str_starts_with($requestLocale, 'de')) {
+            return $this->denyEditionDetail();
+        }
+
         if (!\preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $reference)) {
             return $this->denyEditionDetail();
         }
 
-        $locale = str_contains($request->getPathInfo(), '/editionen/') ? 'de' : 'en';
+        $locale = str_starts_with($requestLocale, 'de') ? 'de' : 'en';
         $resolution = $this->editionReferenceRegistry->resolveDetailRouteState($reference, $locale);
 
         if ($resolution['state'] !== EditionReferenceRegistry::STATE_PUBLICLY_RENDERABLE || $resolution['exposureAllowed'] !== true) {

@@ -1,35 +1,79 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
+{% block base_head %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex,nofollow">
+        <title>{{ veyluneEdition.displayTitle|striptags }}</title>
+        {% set stylesheet = theme_config('assets.css')|first %}
+        {% if stylesheet %}
+            <link rel="stylesheet" href="{{ asset(stylesheet, 'theme') }}">
+        {% endif %}
+    </head>
+{% endblock %}
+
+{% block base_body_skip_to_content %}{% endblock %}
+{% block base_esi_header %}{% endblock %}
+{% block base_navigation_styling %}{% endblock %}
+{% block base_add_to_cart_alert_template %}{% endblock %}
+{% block base_esi_footer %}{% endblock %}
+{% block base_scroll_up %}{% endblock %}
+{% block base_pseudo_modal %}{% endblock %}
+{% block base_speculation_rules %}{% endblock %}
+
 {% block base_main_inner %}
-    <main data-veylune-edition-detail-skeleton>
+    <main class="veylune-edition-skeleton" data-veylune-edition-detail-skeleton>
         {% block veylune_edition_detail_identity %}
-            <section>
-                <p>{{ 'veylune.editions.detailSkeleton.eyebrow'|trans|sw_sanitize }}</p>
-                <h1>{{ 'veylune.editions.detailSkeleton.title'|trans|sw_sanitize }}</h1>
-                {% if veyluneEdition.reference is defined %}
-                    <p>
-                        {{ 'veylune.editions.detailSkeleton.reference'|trans|sw_sanitize }}
-                        <span>{{ veyluneEdition.reference|sw_sanitize }}</span>
-                    </p>
-                {% endif %}
+            <section class="veylune-edition-skeleton__section veylune-edition-skeleton__identity" aria-labelledby="veylune-edition-identity">
+                <p class="veylune-edition-skeleton__eyebrow">{{ 'veylune.editions.detailSkeleton.eyebrow'|trans|sw_sanitize }}</p>
+                <h1 id="veylune-edition-identity">{{ veyluneEdition.displayTitle|sw_sanitize }}</h1>
+                <dl class="veylune-edition-skeleton__facts">
+                    <div>
+                        <dt>{{ 'veylune.editions.detailSkeleton.reference'|trans|sw_sanitize }}</dt>
+                        <dd>{{ veyluneEdition.reference|sw_sanitize }}</dd>
+                    </div>
+                    <div>
+                        <dt>{{ 'veylune.editions.detailSkeleton.releaseState'|trans|sw_sanitize }}</dt>
+                        <dd>{{ veyluneEdition.releaseState|sw_sanitize }}</dd>
+                    </div>
+                </dl>
             </section>
         {% endblock %}
 
-        {% block veylune_edition_detail_metadata %}
-            <section>
-                <h2>{{ 'veylune.editions.detailSkeleton.metadata'|trans|sw_sanitize }}</h2>
-                {% if veyluneEdition.releaseState is defined %}
-                    <p>
-                        {{ 'veylune.editions.detailSkeleton.releaseState'|trans|sw_sanitize }}
-                        <span>{{ veyluneEdition.releaseState|sw_sanitize }}</span>
-                    </p>
-                {% endif %}
-                {% if veyluneEdition.canonicalRoute is defined %}
-                    <p>
-                        {{ 'veylune.editions.detailSkeleton.canonicalRoute'|trans|sw_sanitize }}
-                        <span>{{ veyluneEdition.canonicalRoute|sw_sanitize }}</span>
-                    </p>
-                {% endif %}
+        {% block veylune_edition_detail_context %}
+            <section class="veylune-edition-skeleton__section" aria-labelledby="veylune-edition-context">
+                <p class="veylune-edition-skeleton__eyebrow">{{ 'veylune.editions.detailSkeleton.contextEyebrow'|trans|sw_sanitize }}</p>
+                <h2 id="veylune-edition-context">{{ 'veylune.editions.detailSkeleton.context'|trans|sw_sanitize }}</h2>
+                <p class="veylune-edition-skeleton__summary">{{ veyluneEdition.summaryLabel|sw_sanitize }}</p>
+                <dl class="veylune-edition-skeleton__facts">
+                    <div>
+                        <dt>{{ 'veylune.editions.detailSkeleton.materialContext'|trans|sw_sanitize }}</dt>
+                        <dd>{{ veyluneEdition.materialContext|sw_sanitize }}</dd>
+                    </div>
+                    <div>
+                        <dt>{{ 'veylune.editions.detailSkeleton.spatialContext'|trans|sw_sanitize }}</dt>
+                        <dd>{{ veyluneEdition.spatialContext|sw_sanitize }}</dd>
+                    </div>
+                </dl>
+            </section>
+        {% endblock %}
+
+        {% block veylune_edition_detail_governance %}
+            <section class="veylune-edition-skeleton__section" aria-labelledby="veylune-edition-governance">
+                <p class="veylune-edition-skeleton__eyebrow">{{ 'veylune.editions.detailSkeleton.governanceEyebrow'|trans|sw_sanitize }}</p>
+                <h2 id="veylune-edition-governance">{{ 'veylune.editions.detailSkeleton.governance'|trans|sw_sanitize }}</h2>
+                <p class="veylune-edition-skeleton__summary">{{ veyluneEdition.governanceNote|sw_sanitize }}</p>
+                <dl class="veylune-edition-skeleton__facts">
+                    <div>
+                        <dt>{{ 'veylune.editions.detailSkeleton.canonicalRoute'|trans|sw_sanitize }}</dt>
+                        <dd>{{ veyluneEdition.canonicalRoute|sw_sanitize }}</dd>
+                    </div>
+                    <div>
+                        <dt>{{ 'veylune.editions.detailSkeleton.archiveContinuity'|trans|sw_sanitize }}</dt>
+                        <dd>{{ veyluneEdition.archiveContinuity ? 'true' : 'false' }}</dd>
+                    </div>
+                </dl>
             </section>
         {% endblock %}
     </main>

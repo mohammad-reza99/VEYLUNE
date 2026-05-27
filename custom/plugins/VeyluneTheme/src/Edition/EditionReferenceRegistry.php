@@ -42,6 +42,11 @@ class EditionReferenceRegistry
         'acquisitionState',
         'cmsDestination',
         'archiveContinuity',
+        'displayTitle',
+        'summaryLabel',
+        'materialContext',
+        'spatialContext',
+        'governanceNote',
     ];
 
     /**
@@ -272,7 +277,12 @@ class EditionReferenceRegistry
      *     releaseState: string,
      *     acquisitionState: array{inquiryAllowed: bool, ctaAllowed: bool},
      *     cmsDestination: array{authority: 'edition_destination', blueprint: 'edition_detail'},
-     *     archiveContinuity: bool
+     *     archiveContinuity: bool,
+     *     displayTitle: string,
+     *     summaryLabel: string,
+     *     materialContext: string,
+     *     spatialContext: string,
+     *     governanceNote: string
      * }|null
      */
     public function buildGuardedRenderingPayload(string $reference, string $locale): ?array
@@ -303,6 +313,21 @@ class EditionReferenceRegistry
             return null;
         }
 
+        $displayTitle = $this->localizedString($record, 'displayTitle', $locale);
+        $summaryLabel = $this->localizedString($record, 'summaryLabel', $locale);
+        $materialContext = $this->localizedString($record, 'materialContext', $locale);
+        $spatialContext = $this->localizedString($record, 'spatialContext', $locale);
+        $governanceNote = $this->localizedString($record, 'governanceNote', $locale);
+
+        if ($displayTitle === null
+            || $summaryLabel === null
+            || $materialContext === null
+            || $spatialContext === null
+            || $governanceNote === null
+        ) {
+            return null;
+        }
+
         $payload = [
             'reference' => $reference,
             'locale' => $locale,
@@ -314,6 +339,11 @@ class EditionReferenceRegistry
                 'blueprint' => 'edition_detail',
             ],
             'archiveContinuity' => ($record['archiveContinuity'] ?? false) === true,
+            'displayTitle' => $displayTitle,
+            'summaryLabel' => $summaryLabel,
+            'materialContext' => $materialContext,
+            'spatialContext' => $spatialContext,
+            'governanceNote' => $governanceNote,
         ];
 
         return $this->isGuardedRenderingPayload($payload) ? $payload : null;
@@ -474,6 +504,22 @@ class EditionReferenceRegistry
         }
 
         return $value === '' ? null : $value;
+    }
+
+    /**
+     * @param array<string, mixed> $record
+     */
+    private function localizedString(array $record, string $field, string $locale): ?string
+    {
+        $values = $record[$field] ?? null;
+
+        if (!\is_array($values)) {
+            return null;
+        }
+
+        $value = $this->stringValue($values[$locale] ?? null);
+
+        return $value;
     }
 
     /**
@@ -664,6 +710,11 @@ class EditionReferenceRegistry
             && \is_string($payload['canonicalRoute'])
             && \is_string($payload['releaseState'])
             && \is_bool($payload['archiveContinuity'])
+            && \is_string($payload['displayTitle'])
+            && \is_string($payload['summaryLabel'])
+            && \is_string($payload['materialContext'])
+            && \is_string($payload['spatialContext'])
+            && \is_string($payload['governanceNote'])
             && $this->isAcquisitionPayload($payload['acquisitionState'])
             && $this->isCmsDestinationPayload($payload['cmsDestination']);
     }

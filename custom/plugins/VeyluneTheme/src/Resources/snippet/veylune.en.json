@@ -278,11 +278,16 @@
       },
       "detailSkeleton": {
         "eyebrow": "Edition Record",
-        "title": "Governed Edition destination",
         "reference": "Reference",
-        "metadata": "Runtime metadata",
+        "contextEyebrow": "Context",
+        "context": "Material and spatial context",
+        "governanceEyebrow": "Governance",
+        "governance": "Public record boundary",
         "releaseState": "Release state",
-        "canonicalRoute": "Canonical route"
+        "canonicalRoute": "Canonical route",
+        "materialContext": "Material context",
+        "spatialContext": "Spatial context",
+        "archiveContinuity": "Archive continuity"
       }
     },
     "partnership": {

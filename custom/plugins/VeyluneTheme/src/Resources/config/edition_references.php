@@ -55,6 +55,26 @@ return [
             ],
         ],
         'releaseState' => 'active',
+        'displayTitle' => [
+            'en' => 'Travertine Material Study, Volume 01',
+            'de' => 'Travertin-Materialstudie, Volumen 01',
+        ],
+        'summaryLabel' => [
+            'en' => 'Governed public Edition record describing approved material, proportion, and spatial context.',
+            'de' => 'Gesteuertes oeffentliches Editionsdokument mit freigegebenem Material-, Proportions- und Raumkontext.',
+        ],
+        'materialContext' => [
+            'en' => 'Travertine surface, mineral variation, and edge alignment',
+            'de' => 'Travertinoberflaeche, mineralische Variation und Kantenausrichtung',
+        ],
+        'spatialContext' => [
+            'en' => 'Interior scale, wall adjacency, and horizontal placement without use-case framing',
+            'de' => 'Innenraummassstab, Wandbezug und horizontale Platzierung ohne Nutzungsszenario',
+        ],
+        'governanceNote' => [
+            'en' => 'This record remains bounded by approved Edition context, stable route identity, and public-record boundaries.',
+            'de' => 'Dieses Dokument bleibt an freigegebenen Editionskontext, stabile Routenidentitaet und oeffentliche Dokumentgrenzen gebunden.',
+        ],
         'allowedProductReleaseStates' => [
             'active',
             'private_preview',

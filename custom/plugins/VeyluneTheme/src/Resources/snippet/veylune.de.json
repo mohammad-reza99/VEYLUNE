@@ -278,11 +278,16 @@
       },
       "detailSkeleton": {
         "eyebrow": "Editionsdokument",
-        "title": "Gesteuerte Editionsdestination",
         "reference": "Referenz",
-        "metadata": "Runtime-Metadaten",
+        "contextEyebrow": "Kontext",
+        "context": "Material- und Raumkontext",
+        "governanceEyebrow": "Governance",
+        "governance": "Grenze des oeffentlichen Dokuments",
         "releaseState": "Veröffentlichungsstatus",
-        "canonicalRoute": "Kanonische Route"
+        "canonicalRoute": "Kanonische Route",
+        "materialContext": "Materialkontext",
+        "spatialContext": "Raumkontext",
+        "archiveContinuity": "Archivkontinuitaet"
       }
     },
     "partnership": {
