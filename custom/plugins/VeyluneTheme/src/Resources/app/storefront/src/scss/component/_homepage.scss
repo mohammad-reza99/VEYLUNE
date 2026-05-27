@@ -63,7 +63,7 @@
     background: currentColor;
     transform: scaleX(0.32);
     transform-origin: left;
-    transition: transform var(--veylune-duration-medium) var(--veylune-ease-out);
+    transition: transform 420ms var(--veylune-ease-soft);
     content: "";
 }
 
@@ -351,7 +351,7 @@
 
 .veylune-collection-card:hover .veylune-collection-card__media {
     filter: saturate(0.96) contrast(1);
-    transform: scale(1.055);
+    transform: scale(1.032);
 }
 
 .veylune-atmosphere {
@@ -374,7 +374,7 @@
         radial-gradient(circle at 78% 70%, rgba(139, 118, 90, 0.26), transparent 20rem),
         linear-gradient(135deg, #171512 0%, #7b6a51 50%, #d3c8b8 100%);
     filter: grayscale(0.1) sepia(0.14) brightness(0.56);
-    transform: scale(1.045);
+    transform: scale(1.026);
 }
 
 .veylune-atmosphere__image::after {

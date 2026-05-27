@@ -387,36 +387,6 @@ const initVeyluneAtmosphere = () => {
     document.body.dataset.veyluneAtmosphereInitialized = 'true';
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-    if (!reducedMotion && finePointer) {
-        const cursor = document.createElement('div');
-        cursor.className = 'veylune-cursor';
-        document.body.appendChild(cursor);
-
-        let cursorTicking = false;
-        let x = 0;
-        let y = 0;
-
-        const updateCursor = () => {
-            cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate3d(-50%, -50%, 0)`;
-            cursorTicking = false;
-        };
-
-        document.addEventListener('pointermove', (event) => {
-            x = event.clientX;
-            y = event.clientY;
-            cursor.classList.add('is-visible');
-
-            if (!cursorTicking) {
-                cursorTicking = true;
-                window.requestAnimationFrame(updateCursor);
-            }
-        }, { passive: true });
-
-        document.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
-    }
-
     let transition = document.querySelector('.veylune-page-transition');
 
     if (!transition) {
@@ -451,7 +421,7 @@ const initVeyluneAtmosphere = () => {
         transition.classList.add('is-active');
         window.setTimeout(() => {
             window.location.href = link.href;
-        }, reducedMotion ? 0 : 360);
+        }, reducedMotion ? 0 : 240);
     });
 };
 

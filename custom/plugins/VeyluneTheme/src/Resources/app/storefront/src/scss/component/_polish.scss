@@ -13,11 +13,11 @@ body::before {
     z-index: 1;
     pointer-events: none;
     content: "";
-    opacity: calc(0.16 + (var(--veylune-scroll-progress) * 0.08));
+    opacity: 0.11;
     background:
-        radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.56), transparent 18rem),
-        radial-gradient(circle at 84% 20%, rgba(139, 118, 90, 0.13), transparent 24rem),
-        linear-gradient(180deg, rgba(33, 31, 27, 0.02), rgba(33, 31, 27, 0.055));
+        radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.44), transparent 18rem),
+        radial-gradient(circle at 84% 20%, rgba(139, 118, 90, 0.09), transparent 24rem),
+        linear-gradient(180deg, rgba(33, 31, 27, 0.015), rgba(33, 31, 27, 0.038));
     mix-blend-mode: multiply;
 }
 
@@ -27,10 +27,10 @@ body::after {
     z-index: 1;
     pointer-events: none;
     content: "";
-    opacity: 0.115;
+    opacity: 0.065;
     background-image:
-        radial-gradient(circle at 24% 28%, rgba(33, 31, 27, 0.28) 0 0.7px, transparent 0.8px),
-        radial-gradient(circle at 72% 62%, rgba(139, 118, 90, 0.22) 0 0.8px, transparent 0.9px);
+        radial-gradient(circle at 24% 28%, rgba(33, 31, 27, 0.18) 0 0.7px, transparent 0.8px),
+        radial-gradient(circle at 72% 62%, rgba(139, 118, 90, 0.14) 0 0.8px, transparent 0.9px);
     background-size: 17px 17px, 29px 29px;
 }
 
@@ -144,8 +144,8 @@ body::after {
     transform: scaleX(0);
     transform-origin: right;
     transition:
-        transform 640ms var(--veylune-ease-out),
-        opacity 640ms var(--veylune-ease-soft);
+        transform 420ms var(--veylune-ease-soft),
+        opacity 420ms var(--veylune-ease-soft);
 }
 
 :where(.veylune-header__nav-link, .veylune-header__action-link, .veylune-footer__link, .veylune-home__link):hover::after,
@@ -168,13 +168,13 @@ body::after {
     pointer-events: none;
     opacity: 0;
     background:
-        radial-gradient(circle at var(--veylune-light-x) var(--veylune-light-y), rgba(255, 255, 255, 0.22), transparent 18rem),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(33, 31, 27, 0.1));
-    transition: opacity 680ms var(--veylune-ease-soft);
+        radial-gradient(circle at var(--veylune-light-x) var(--veylune-light-y), rgba(255, 255, 255, 0.14), transparent 18rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(33, 31, 27, 0.055));
+    transition: opacity 420ms var(--veylune-ease-soft);
 }
 
 .veylune-sensory-frame:hover > .veylune-sensory-frame__light {
-    opacity: 1;
+    opacity: 0.62;
 }
 
 .veylune-home__scene,
@@ -185,41 +185,41 @@ body::after {
 }
 
 .veylune-polish-ready :where(.veylune-home, .veylune-authority, .veylune-ecosystem, .veylune-legacy, .veylune-product-detail, .veylune-collection-page) {
-    animation: veylunePageArrive 420ms var(--veylune-ease-soft) both;
+    animation: veylunePageArrive 280ms var(--veylune-ease-soft) both;
 }
 
 @keyframes veylunePageArrive {
     0% {
         opacity: 0.001;
         filter: none;
-        transform: translate3d(0, 4px, 0);
+        transform: none;
     }
 
     100% {
         opacity: 1;
         filter: blur(0);
-        transform: translate3d(0, 0, 0);
+        transform: none;
     }
 }
 
 .veylune-scroll-deep .veylune-header__bar {
     box-shadow:
-        0 16px 60px rgba(33, 31, 27, 0.08),
-        0 1px 0 rgba(139, 118, 90, 0.11);
+        0 12px 42px rgba(33, 31, 27, 0.055),
+        0 1px 0 rgba(139, 118, 90, 0.09);
 }
 
 .veylune-page-transition {
     background:
-        radial-gradient(circle at 50% 18%, rgba(139, 118, 90, 0.2), transparent 28rem),
-        linear-gradient(180deg, rgba(248, 245, 239, 0.96), rgba(33, 31, 27, 0.9));
+        radial-gradient(circle at 50% 18%, rgba(139, 118, 90, 0.12), transparent 28rem),
+        linear-gradient(180deg, rgba(248, 245, 239, 0.96), rgba(33, 31, 27, 0.78));
 }
 
 .veylune-page-transition::after {
     position: absolute;
     inset: 0;
     content: "";
-    opacity: 0.16;
-    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px 8px);
+    opacity: 0.08;
+    background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 8px);
 }
 
 @media (max-width: 767px) {

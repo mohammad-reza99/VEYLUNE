@@ -20,7 +20,7 @@
     border-bottom: 1px solid var(--veylune-color-line);
     border-radius: 0;
     outline: 0;
-    transition: border-color var(--veylune-duration-fast) ease;
+    transition: border-color var(--veylune-duration-fast) var(--veylune-ease-soft);
 }
 
 .veylune-input:focus {

@@ -40,15 +40,6 @@ const initVeylunePolish = () => {
                 light.setAttribute('aria-hidden', 'true');
                 element.appendChild(light);
             }
-
-            element.addEventListener('pointermove', (event) => {
-                const rect = element.getBoundingClientRect();
-                const x = ((event.clientX - rect.left) / rect.width) * 100;
-                const y = ((event.clientY - rect.top) / rect.height) * 100;
-
-                element.style.setProperty('--veylune-light-x', `${x}%`);
-                element.style.setProperty('--veylune-light-y', `${y}%`);
-            }, { passive: true });
         });
     }
 

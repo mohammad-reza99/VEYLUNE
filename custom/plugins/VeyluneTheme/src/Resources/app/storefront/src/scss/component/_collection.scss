@@ -276,17 +276,17 @@
 .veylune-collection-overview-card:hover .veylune-collection-overview-card__media,
 .veylune-collection-overview-card:focus-visible .veylune-collection-overview-card__media {
     filter: saturate(0.92) contrast(1.04);
-    transform: scale(1.045);
+    transform: scale(1.026);
 }
 
 .veylune-collection-overview-card:hover .veylune-collection-overview-card__veil,
 .veylune-collection-overview-card:focus-visible .veylune-collection-overview-card__veil {
-    opacity: 0.92;
+    opacity: 0.86;
 }
 
 .veylune-collection-overview-card:hover strong span,
 .veylune-collection-overview-card:focus-visible strong span {
-    transform: translate3d(0, -0.18rem, 0);
+    transform: translate3d(0, -0.08rem, 0);
 }
 
 .veylune-collection-overview-card:hover .veylune-collection-overview-card__link,

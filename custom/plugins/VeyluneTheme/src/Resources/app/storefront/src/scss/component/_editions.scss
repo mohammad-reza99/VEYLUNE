@@ -44,7 +44,7 @@
     background: currentColor;
     transform: scaleX(0.32);
     transform-origin: left;
-    transition: transform var(--veylune-duration-medium) var(--veylune-ease-out);
+    transition: transform 420ms var(--veylune-ease-soft);
     content: "";
 }
 
