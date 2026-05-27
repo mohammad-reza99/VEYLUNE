@@ -21,6 +21,18 @@
 
         <service id="VeyluneTheme\Edition\EditionReferenceRegistry" />
 
+        <service id="VeyluneTheme\Semantic\SemanticRegistry" />
+
+        <service id="VeyluneTheme\Governance\GovernanceAuditService" />
+
+        <service id="VeyluneTheme\Command\SemanticAuditCommand" />
+
+        <service id="VeyluneTheme\Command\SemanticAuthoringAuditCommand" />
+
+        <service id="VeyluneTheme\Command\DistributedRuntimeAuditCommand" />
+
+        <service id="VeyluneTheme\Command\TopologyPressureAuditCommand" />
+
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
     </services>
 </container>

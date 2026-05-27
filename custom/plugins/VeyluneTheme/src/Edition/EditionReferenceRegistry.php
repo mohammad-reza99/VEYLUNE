@@ -2,6 +2,9 @@
 
 namespace VeyluneTheme\Edition;
 
+use VeyluneTheme\Semantic\SemanticAuditResult;
+use VeyluneTheme\Semantic\SemanticRegistry;
+
 class EditionReferenceRegistry
 {
     public const STATE_UNRESOLVED = 'unresolved';
@@ -53,6 +56,11 @@ class EditionReferenceRegistry
      * @var array<string, array<string, mixed>>|null
      */
     private ?array $references = null;
+
+    public function __construct(
+        private readonly SemanticRegistry $semanticRegistry
+    ) {
+    }
 
     public function has(string $reference): bool
     {
@@ -585,7 +593,81 @@ class EditionReferenceRegistry
             $violations[] = 'Edition detail route resolution requires archive continuity.';
         }
 
+        $semanticAudit = $this->auditRecordSemantics($record);
+        foreach ($semanticAudit->violations() as $violation) {
+            $violations[] = 'Edition detail route resolution requires semantic governance: ' . $violation;
+        }
+
         return $violations;
+    }
+
+    public function auditApprovedSemanticReferences(): SemanticAuditResult
+    {
+        $violations = [];
+        $warnings = [];
+        $observability = [];
+
+        foreach ($this->all() as $reference => $record) {
+            $result = $this->auditRecordSemantics($record);
+
+            foreach ($result->violations() as $violation) {
+                $violations[] = $reference . ': ' . $violation;
+            }
+
+            foreach ($result->warnings() as $warning) {
+                $warnings[] = $reference . ': ' . $warning;
+            }
+
+            $observability[$reference] = $result->internalObservability();
+        }
+
+        return new SemanticAuditResult($violations === [], $violations, $warnings, [
+            'semanticRegistry' => $this->semanticRegistry->governanceSummary(),
+            'references' => $observability,
+        ]);
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function approvedReferences(): array
+    {
+        return array_keys($this->all());
+    }
+
+    /**
+     * @param array<string, mixed> $record
+     */
+    private function auditRecordSemantics(array $record): SemanticAuditResult
+    {
+        $semanticVersionId = $this->stringValue($record['semanticVersionId'] ?? null) ?? '';
+        $rollbackTarget = $this->stringValue($record['semanticRollbackTarget'] ?? null) ?? '';
+        $routes = $record['routes'] ?? [];
+        $localizedFields = [];
+
+        foreach (['displayTitle', 'summaryLabel', 'materialContext', 'spatialContext', 'governanceNote'] as $field) {
+            $values = $record[$field] ?? [];
+
+            if (!\is_array($values)) {
+                continue;
+            }
+
+            foreach (['en', 'de'] as $locale) {
+                $value = $this->stringValue($values[$locale] ?? null);
+
+                if ($value !== null) {
+                    $localizedFields[$field . '.' . $locale] = $value;
+                }
+            }
+        }
+
+        return $this->semanticRegistry->auditSemanticChange(
+            $semanticVersionId,
+            $rollbackTarget,
+            $localizedFields,
+            \is_array($routes) ? array_values(array_filter($routes, 'is_string')) : [],
+            ['en', 'de']
+        );
     }
 
     /**

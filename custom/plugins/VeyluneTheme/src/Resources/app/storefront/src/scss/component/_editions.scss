@@ -187,18 +187,19 @@
 }
 
 .veylune-edition-skeleton {
-    width: min(var(--veylune-container), 1060px);
+    width: min(100% - 2rem, 1040px);
     margin: 0 auto;
-    padding: clamp(6rem, 10vw, 10rem) 0 clamp(4rem, 8vw, 7rem);
+    padding: 7rem 0 5.5rem;
     color: var(--veylune-color-charcoal);
+    text-rendering: optimizeLegibility;
 }
 
 .veylune-edition-skeleton__section {
     display: grid;
-    grid-template-columns: minmax(180px, 0.3fr) minmax(0, 0.7fr);
-    gap: clamp(1.5rem, 5vw, 4.5rem);
-    padding: clamp(2rem, 5vw, 4rem) 0;
-    border-top: 1px solid rgba(139, 118, 90, 0.18);
+    grid-template-columns: minmax(168px, 0.28fr) minmax(0, 0.72fr);
+    gap: 3.25rem;
+    padding: 3.5rem 0;
+    border-top: 1px solid rgba(139, 118, 90, 0.16);
 }
 
 .veylune-edition-skeleton__identity {
@@ -209,9 +210,10 @@
 .veylune-edition-skeleton__eyebrow {
     margin: 0;
     color: var(--veylune-color-bronze);
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     font-weight: 600;
-    letter-spacing: var(--veylune-letter-label);
+    line-height: 1.4;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
@@ -225,37 +227,40 @@
 
 .veylune-edition-skeleton h1 {
     max-width: 760px;
-    font-size: clamp(2.8rem, 6vw, 6.4rem);
-    line-height: 0.98;
+    font-size: 4.6rem;
+    line-height: 1;
 }
 
 .veylune-edition-skeleton h2 {
-    font-size: clamp(1.8rem, 3vw, 3.4rem);
-    line-height: 1.06;
+    max-width: 680px;
+    font-size: 2.65rem;
+    line-height: 1.08;
 }
 
 .veylune-edition-skeleton__summary {
-    max-width: 700px;
+    max-width: 660px;
     margin: var(--veylune-space-lg) 0 0;
     color: var(--veylune-color-ink-muted);
-    font-size: 1rem;
-    line-height: 1.85;
+    font-size: 1.02rem;
+    line-height: 1.78;
 }
 
 .veylune-edition-skeleton__facts {
     display: grid;
     gap: 1px;
-    margin: var(--veylune-space-xl) 0 0;
-    background: rgba(139, 118, 90, 0.14);
-    border: 1px solid rgba(139, 118, 90, 0.14);
+    max-width: 720px;
+    margin: 2.25rem 0 0;
+    background: rgba(139, 118, 90, 0.12);
+    border: 1px solid rgba(139, 118, 90, 0.12);
 }
 
 .veylune-edition-skeleton__facts div {
     display: grid;
-    grid-template-columns: minmax(140px, 0.34fr) minmax(0, 0.66fr);
-    gap: var(--veylune-space-md);
-    padding: 1rem 1.1rem;
-    background: rgba(251, 250, 247, 0.78);
+    grid-template-columns: minmax(150px, 0.32fr) minmax(0, 0.68fr);
+    gap: 1.1rem;
+    align-items: baseline;
+    padding: 1rem 1.25rem;
+    background: rgba(251, 250, 247, 0.82);
 }
 
 .veylune-edition-skeleton__facts dt,
@@ -265,15 +270,16 @@
 
 .veylune-edition-skeleton__facts dt {
     color: var(--veylune-color-bronze);
-    font-size: 0.68rem;
+    font-size: 0.64rem;
     font-weight: 600;
-    letter-spacing: var(--veylune-letter-label);
+    line-height: 1.4;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
 .veylune-edition-skeleton__facts dd {
     color: var(--veylune-color-charcoal);
-    line-height: 1.55;
+    line-height: 1.62;
     overflow-wrap: anywhere;
 }
 
@@ -285,12 +291,39 @@
         grid-template-columns: 1fr;
     }
 
+    .veylune-edition-skeleton__section {
+        gap: var(--veylune-space-lg);
+    }
+
     .veylune-editions-types__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 767px) {
+    .veylune-edition-skeleton {
+        width: min(100% - 1.25rem, 1040px);
+        padding: 4.5rem 0 4rem;
+    }
+
+    .veylune-edition-skeleton__section {
+        padding: 2.35rem 0;
+    }
+
+    .veylune-edition-skeleton h1 {
+        font-size: 2.85rem;
+        line-height: 1.04;
+    }
+
+    .veylune-edition-skeleton h2 {
+        font-size: 2rem;
+    }
+
+    .veylune-edition-skeleton__summary {
+        font-size: 0.98rem;
+        line-height: 1.74;
+    }
+
     .veylune-editions-hero {
         min-height: auto;
         padding-top: 7rem;
@@ -312,5 +345,7 @@
 
     .veylune-edition-skeleton__facts div {
         grid-template-columns: 1fr;
+        gap: var(--veylune-space-xs);
+        padding: 0.95rem 1rem;
     }
 }
