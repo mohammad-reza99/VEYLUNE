@@ -201,21 +201,21 @@
     min-height: 3.15rem;
     padding-inline: 1.65rem;
     color: var(--veylune-color-ivory);
-    background: var(--veylune-color-charcoal);
-    border: 1px solid var(--veylune-color-charcoal);
+    background: rgba(33, 31, 27, 0.94);
+    border: 1px solid rgba(33, 31, 27, 0.94);
     border-radius: var(--veylune-radius-sm);
     font-family: var(--veylune-font-sans);
     font-size: 0.92rem;
     font-weight: 600;
     letter-spacing: 0;
-    text-transform: uppercase;
+    text-transform: none;
     box-shadow: none;
 
     &:hover,
     &:focus {
         color: #fffdf7;
-        background: var(--veylune-color-bronze-dark);
-        border-color: var(--veylune-color-bronze-dark);
+        background: rgba(48, 44, 38, 0.96);
+        border-color: rgba(48, 44, 38, 0.96);
     }
 
     &:focus-visible {

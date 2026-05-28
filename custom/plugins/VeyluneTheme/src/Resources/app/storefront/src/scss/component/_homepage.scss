@@ -265,7 +265,7 @@
 .veylune-collections__grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: clamp(1rem, 2vw, 1.5rem);
+    gap: clamp(1.15rem, 2.4vw, 1.85rem);
     width: var(--veylune-container);
     margin: 0 auto;
 }
@@ -278,7 +278,7 @@
     text-decoration: none;
     background: var(--veylune-color-charcoal);
     border: 1px solid rgba(255, 252, 246, 0.16);
-    box-shadow: 0 28px 80px rgba(33, 31, 27, 0.1);
+    box-shadow: 0 18px 54px rgba(33, 31, 27, 0.07);
 }
 
 .veylune-collection-card:nth-child(1),
@@ -298,7 +298,7 @@
         linear-gradient(135deg, #76674f 0%, #3b352d 48%, #171512 100%);
     filter: saturate(0.9) contrast(0.96);
     transform: scale(1.015);
-    transition: transform 900ms var(--veylune-ease-out), filter 900ms ease;
+    transition: filter 700ms var(--veylune-ease-soft);
 }
 
 .veylune-collection-card__image {
@@ -342,6 +342,10 @@
     text-transform: uppercase;
 }
 
+.veylune-collection-card__index {
+    display: none;
+}
+
 .veylune-collection-card strong {
     font-family: var(--veylune-font-serif);
     font-size: clamp(1.6rem, 3.3vw, 3.4rem);
@@ -350,8 +354,7 @@
 }
 
 .veylune-collection-card:hover .veylune-collection-card__media {
-    filter: saturate(0.96) contrast(1);
-    transform: scale(1.032);
+    filter: saturate(0.92) contrast(0.98);
 }
 
 .veylune-atmosphere {
@@ -474,7 +477,7 @@
 .veylune-pieces__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1rem, 2.2vw, 2rem);
+    gap: clamp(1.25rem, 2.6vw, 2.35rem);
     width: var(--veylune-container);
     margin: 0 auto;
 }
@@ -493,8 +496,8 @@
         radial-gradient(70% 64% at 80% 84%, rgba(139, 118, 90, 0.22), transparent 62%),
         linear-gradient(145deg, #d8d0c3 0%, #a49683 54%, #625849 100%);
     border: 1px solid rgba(139, 118, 90, 0.16);
-    box-shadow: 0 20px 56px rgba(33, 31, 27, 0.08);
-    transition: transform 800ms var(--veylune-ease-out), filter 800ms ease;
+    box-shadow: 0 16px 44px rgba(33, 31, 27, 0.06);
+    transition: filter 700ms var(--veylune-ease-soft);
 }
 
 .veylune-piece-card__media::after {
@@ -517,8 +520,7 @@
 .veylune-piece-card:nth-child(3) .veylune-piece-card__media { background: radial-gradient(62% 66% at 48% 22%, rgba(255, 255, 255, 0.16), transparent 54%), linear-gradient(145deg, #3a352d 0%, #665b4c 48%, #b9a98f 100%); }
 
 .veylune-piece-card:hover .veylune-piece-card__media {
-    filter: saturate(1.06);
-    transform: translate3d(0, -6px, 0);
+    filter: saturate(0.98);
 }
 
 .veylune-piece-card__body span,

@@ -154,6 +154,16 @@
 
 .offcanvas-cart .begin-checkout-btn {
     width: 100%;
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 245, 0.46);
+    border-color: rgba(139, 118, 90, 0.34);
+}
+
+.offcanvas-cart .begin-checkout-btn:hover,
+.offcanvas-cart .begin-checkout-btn:focus-visible {
+    color: var(--veylune-color-charcoal);
+    background: rgba(139, 118, 90, 0.08);
+    border-color: rgba(139, 118, 90, 0.44);
 }
 
 .veylune-offcanvas-cart__empty {

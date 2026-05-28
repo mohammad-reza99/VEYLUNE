@@ -2,35 +2,35 @@
   "veylune": {
     "cart": {
       "cartTitle": "Your Private Selection",
-      "continueExploring": "Continue Exploring",
-      "emptyEyebrow": "Selected Pieces",
-      "emptyText": "Explore sculptural pieces curated for atmospheric interiors.",
-      "emptyTitle": "Your selection is waiting to be shaped.",
+      "continueExploring": "Continue Reviewing",
+      "emptyEyebrow": "Private Selection",
+      "emptyText": "A considered selection can begin with a quiet inquiry.",
+      "emptyTitle": "No pieces are selected.",
       "estimatedTotal": "Estimated Total",
-      "offcanvasTitle": "Selected Pieces",
-      "orderSummary": "Order Summary",
-      "proceedToCheckout": "Proceed to Checkout",
+      "offcanvasTitle": "Private Selection",
+      "orderSummary": "Selection Summary",
+      "proceedToCheckout": "Continue to Details",
       "selectionEyebrow": "Private Selection",
       "viewSelection": "View Selection"
     },
     "checkout": {
-      "completeOrder": "Complete Order",
+      "completeOrder": "Confirm Details",
       "confirmSelection": "Confirm Selection",
       "deliveryDetails": "Delivery Details",
       "paymentMethod": "Payment Method",
       "privateAcquisition": "Private Acquisition",
-      "secureCheckout": "Secure Checkout",
-      "thankYou": "Thank you for your acquisition"
+      "secureCheckout": "Secure Details",
+      "thankYou": "Thank you. Your request has been received."
     },
     "account": {
-      "acquisitionArchive": "Acquisition Archive",
+      "acquisitionArchive": "Request Archive",
       "areaLabel": "Your Veylune Account",
       "conciergeNavigation": "Concierge Navigation",
-      "continueCollection": "Continue your collection",
-      "loginIntro": "Access your saved details, delivery addresses, and acquisition archive.",
-      "noAcquisitionsYet": "No acquisitions yet",
-      "ordersIntro": "Review previous acquisitions and continue any open payment details without leaving your private client salon.",
-      "overviewIntro": "A calm place for your personal details, delivery addresses, newsletter preferences, and acquisition archive.",
+      "continueCollection": "Continue reviewing",
+      "loginIntro": "Access your saved details, delivery addresses, and request archive.",
+      "noAcquisitionsYet": "No completed requests yet",
+      "ordersIntro": "Review previous requests and continue any open details without leaving your private client salon.",
+      "overviewIntro": "A calm place for your personal details, delivery addresses, newsletter preferences, and request archive.",
       "personalDetails": "Personal Details",
       "privateClientSalon": "Private Client Salon",
       "savedDeliveryAddresses": "Saved Delivery Addresses",
@@ -42,7 +42,7 @@
       "contactSubmit": "Send Inquiry",
       "contactTitle": "Private Design Inquiry",
       "newsletterEyebrow": "Studio Notes",
-      "newsletterIntro": "Receive quiet updates on new collections, materials, and private releases.",
+      "newsletterIntro": "Receive quiet updates on materials, studio notes, and prepared releases.",
       "newsletterSubmit": "Join Studio Notes",
       "newsletterTitle": "Studio Notes"
     },
@@ -55,12 +55,12 @@
       "primaryNavAriaLabel": "VEYLUNE primary navigation",
       "topbarAriaLabel": "VEYLUNE editorial announcements",
       "topbar": {
-        "item1": "Curated collectible furniture for artistic living",
+        "item1": "Interior pieces with material discipline",
         "item2": "Selected European ateliers",
-        "item3": "Private interior consultation available",
+        "item3": "Private project consultation by request",
         "item4": "Sculptural forms for atmospheric spaces",
-        "item5": "VEYLUNE · Quiet Luxury Interiors",
-        "item6": "Trade program for designers & architects"
+        "item5": "VEYLUNE · Considered Interiors",
+        "item6": "Trade support for designers & architects"
       },
       "nav": {
         "brandStory": "Brand Story",
@@ -77,10 +77,10 @@
       },
       "search": {
         "closeAriaLabel": "Close search",
-        "inputAriaLabel": "Search sculptural pieces, rooms, collections",
+        "inputAriaLabel": "Search materials, rooms, and studio notes",
         "kicker": "Private design archive",
         "panelAriaLabel": "Search the VEYLUNE archive",
-        "placeholder": "Search sculptural pieces, rooms, collections...",
+        "placeholder": "Search materials, rooms, notes...",
         "resultCollectibleLighting": "Objects of glow and shadow",
         "resultMarbleObjects": "Material weight and permanence",
         "resultObjects": "Sculptural objects and vessels",
@@ -94,7 +94,7 @@
         "suggestionObjects": "Objects",
         "suggestionSculpturalSeating": "Sculptural Seating",
         "suggestionTables": "Tables",
-        "suggestionsAriaLabel": "Suggested search terms",
+        "suggestionsAriaLabel": "Reference terms",
         "toggle": "Search"
       },
       "mega": {
@@ -138,7 +138,7 @@
       "mobile": {
         "closeAriaLabel": "Close navigation",
         "navAriaLabel": "Mobile navigation",
-        "note": "Move through curated artistic living, collectible forms, and atmospheric interiors.",
+        "note": "Review material context, studio notes, and atmospheric interiors.",
         "searchAriaLabel": "Search VEYLUNE archive",
         "searchPlaceholder": "Enter the design archive"
       }
@@ -157,32 +157,32 @@
       "tradeAtelier": "Trade Atelier"
     },
     "listing": {
-      "collectionArchive": "Collection Archive",
+      "collectionArchive": "Material Context",
       "collectionChildFallbackText": "A curated interior chapter shaped by material, proportion, and atmospheric presence.",
       "collectionFallbackText": "Sculptural forms, quiet silhouettes, and collectible pieces shaped for atmospheric interiors.",
       "curatedCollection": "Curated Collection",
       "emptyKicker": "Quiet Selection",
-      "emptyText": "Refine the atmosphere or explore another collection.",
+      "emptyText": "Refine the atmosphere or return to the material context.",
       "emptyTitle": "No pieces were found for this selection.",
-      "exploreCategory": "Explore %name%",
-      "galleryArchive": "Gallery Archive",
+      "exploreCategory": "View %name%",
+      "galleryArchive": "Reference Archive",
       "materialMood": "Material Mood",
       "materialMoodText": "VEYLUNE collections are built as interior chapters, combining material weight, sculptural restraint, and a quiet gallery sensibility for refined residential and hospitality spaces.",
       "materialMoodTitle": "Each selection is edited for proportion, atmosphere, and spatial presence.",
       "overviewEyebrow": "Collection Rooms",
-      "overviewText": "Move through the parent archive by category. Each room opens into its own edited product selection.",
-      "overviewTitle": "Four collectible directions for atmospheric interiors.",
-      "selectedFormOne": "1 selected form",
-      "selectedFormsMany": "%count% selected forms"
+      "overviewText": "Review the primary material directions without implying sequence or product abundance.",
+      "overviewTitle": "Four restrained directions for atmospheric interiors.",
+      "selectedFormOne": "1 recorded form",
+      "selectedFormsMany": "%count% recorded forms"
     },
     "productDetail": {
       "atelier": "Atelier",
       "availability": "Availability",
       "availabilityOnRequest": "Availability on request",
-      "available": "Available for acquisition",
+      "available": "Available by inquiry",
       "dimensions": "Dimensions",
       "reference": "Reference",
-      "studioNoteTitle": "%name% as a collected interior object.",
+      "studioNoteTitle": "%name% as a considered interior object.",
       "studioNotes": "Studio Notes"
     },
     "productStory": {
@@ -199,22 +199,22 @@
     },
     "productCard": {
       "availabilityOnRequest": "Availability on request",
-      "available": "Available for acquisition",
+      "available": "Available by inquiry",
       "brandFallback": "VEYLUNE STUDIO",
       "categoryFallback": "Curated Object",
       "descriptionFallback": "A sculptural object selected for atmospheric interiors.",
       "selectedPiece": "Selected Piece",
-      "viewPiece": "View Piece"
+      "viewPiece": "View Record"
     },
     "editions": {
       "seo": {
         "title": "Editions | Veylune Studio",
-        "description": "Limited releases, atelier collaborations, material studies, and private previews within the Veylune collection system."
+        "description": "Controlled Edition records, atelier collaborations, material studies, and consultation-led previews within the Veylune system."
       },
       "cta": {
         "atelierPartnerships": "Atelier Partnerships",
         "privateConsultation": "Private Consultation",
-        "requestEditionInquiry": "Request Edition Inquiry"
+        "requestEditionInquiry": "Begin Edition Inquiry"
       },
       "hero": {
         "eyebrow": "Editions",
@@ -258,7 +258,7 @@
           },
           "smallSeries": {
             "title": "Small Series",
-            "text": "A controlled production group presented only when availability is operationally clear."
+            "text": "A controlled production context presented only when availability is operationally clear."
           },
           "privatePreview": {
             "title": "Private Preview",
@@ -338,7 +338,7 @@
       },
       "standards": {
         "eyebrow": "Editorial Standards",
-        "title": "Products are prepared as collection entries, not marketplace listings.",
+        "title": "Objects are prepared through context, media discipline, and review.",
         "items": {
           "context": {
             "title": "Product Context",
@@ -428,26 +428,26 @@
       "designCultureTitle": "Editorial pages for collection context, private access, room logic, and long-term platform development.",
       "designPartnerships": "Design Partnerships",
       "enterEditorialWorld": "Enter Editorial World",
-      "exploreCollections": "Explore Collections",
-      "featuredCollections": "Collection Pillars",
-      "featuredCollectionsTitle": "Four governed entry points into the Veylune collection system.",
+      "exploreCollections": "View Material Directions",
+      "featuredCollections": "Material Directions",
+      "featuredCollectionsTitle": "Four restrained contexts within the Veylune system.",
       "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
       "heroText": "Veylune Studio edits furniture, lighting, objects, and editions through collection logic, material discipline, and architectural relevance.",
       "heroTitle": "A governed platform for collectible interiors.",
       "interiorAtmosphere": "Interior Atmosphere",
       "philosophyCopyOne": "Veylune evaluates each piece through material presence, proportion, spatial role, supplier fit, and collection coherence.",
-      "philosophyCopyTwo": "The homepage is not a catalogue introduction. It is the first layer of an editorial-commerce system built for architectural interiors and collectible design.",
-      "philosophyStatement": "Products are selected as collection entries, not uploaded as listings.",
+      "philosophyCopyTwo": "The homepage is a quiet orientation layer for architectural interiors and collectible design.",
+      "philosophyStatement": "Objects are prepared as records, not uploaded as listings.",
       "privateConsultation": "Private Consultation",
       "privateInquiry": "Private Inquiry",
-      "selectedPieces": "Selected Pieces",
-      "selectedPiecesTitle": "Selected works placed as collection entries.",
+      "selectedPieces": "Reference Studies",
+      "selectedPiecesTitle": "A few records shown for material orientation.",
       "tradeEyebrow": "Trade / Designer Experience",
       "tradeProgram": "Trade Program",
       "tradeTitle": "For architects, interior designers, and private residential projects.",
       "collections": {
         "editions": {
-          "meta": "Limited releases, collaborations, and atelier selections",
+          "meta": "Controlled records, collaborations, and atelier selections",
           "title": "Editions"
         },
         "lighting": {
@@ -477,7 +477,7 @@
           "title": "Legacy System"
         },
         "privateAccess": {
-          "text": "Collector previews and invitation-based acquisition moments.",
+          "text": "Collector previews and conversation-led access moments.",
           "title": "Private Access"
         },
         "roomUniverse": {
@@ -503,13 +503,13 @@
           "name": "Calma Travertine Table",
           "note": "Stone presence for quiet rooms"
         },
-        "curatedObject": "Curated Object",
-        "madeToOrder": "Made To Order",
+        "curatedObject": "Material Object",
+        "madeToOrder": "Prepared On Request",
         "nocturne": {
           "name": "Nocturne Floor Lamp",
           "note": "Bronze glow with architectural line"
         },
-        "selectedPiece": "Selected Piece"
+        "selectedPiece": "Reference Study"
       }
     }
   }

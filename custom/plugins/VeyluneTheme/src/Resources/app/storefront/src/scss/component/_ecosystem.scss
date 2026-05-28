@@ -170,8 +170,8 @@ body.veylune-mood-charcoal .veylune-ecosystem :where(p, em) {
 .veylune-home-ecosystem__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    background: rgba(139, 118, 90, 0.17);
+    gap: clamp(0.75rem, 1.6vw, 1.25rem);
+    background: transparent;
     border: 1px solid rgba(139, 118, 90, 0.17);
 }
 
@@ -191,7 +191,6 @@ body.veylune-mood-charcoal .veylune-ecosystem :where(p, em) {
         var(--veylune-color-ivory);
     border: 0;
     transition:
-        transform 620ms var(--veylune-ease-soft),
         background-color 620ms var(--veylune-ease-soft),
         color 620ms var(--veylune-ease-soft);
 }
@@ -208,7 +207,6 @@ body.veylune-mood-charcoal .veylune-room-universe__timeline a {
 .veylune-home-ecosystem__grid a:hover,
 .veylune-private-access article:hover,
 .veylune-room-universe__timeline a:hover {
-    transform: translate3d(0, -9px, 0);
     background-color: rgba(255, 255, 255, 0.72);
 }
 
@@ -223,6 +221,10 @@ body.veylune-mood-charcoal .veylune-room-universe__timeline a {
     font-weight: 700;
     letter-spacing: var(--veylune-letter-label);
     text-transform: uppercase;
+}
+
+.veylune-home-ecosystem__grid span {
+    display: none;
 }
 
 .veylune-world-card strong,

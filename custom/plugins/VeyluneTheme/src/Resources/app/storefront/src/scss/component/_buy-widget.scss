@@ -177,12 +177,12 @@
     min-height: 3.15rem;
     color: #fffaf0;
     font-family: var(--veylune-font-serif);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 400;
-    letter-spacing: var(--veylune-letter-label);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: var(--veylune-color-charcoal);
-    border: 1px solid var(--veylune-color-charcoal);
+    background: rgba(33, 31, 27, 0.94);
+    border: 1px solid rgba(33, 31, 27, 0.94);
     border-radius: 0;
     box-shadow: none;
 }
@@ -190,8 +190,8 @@
 .veylune-product-detail .btn-buy:hover,
 .veylune-product-detail .btn-buy:focus-visible {
     color: #fffaf0;
-    background: var(--veylune-color-bronze-dark);
-    border-color: var(--veylune-color-bronze-dark);
+    background: rgba(48, 44, 38, 0.96);
+    border-color: rgba(48, 44, 38, 0.96);
 }
 
 .veylune-product-detail .product-wishlist {
@@ -242,7 +242,8 @@
 
 .veylune-product-detail .cms-element-buy-box .product-detail-price {
     margin: 0;
-    font-size: clamp(1.45rem, 2.15vw, 2.05rem);
+    color: rgba(33, 31, 27, 0.82);
+    font-size: clamp(1.28rem, 1.75vw, 1.72rem);
     letter-spacing: 0.01em;
 }
 
@@ -310,7 +311,7 @@
 .veylune-product-detail .cms-element-buy-box .btn-buy {
     min-height: 3.35rem;
     padding-inline: 1.35rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
 }
 
 .veylune-product-detail .cms-element-buy-box .product-detail-ordernumber-container {
