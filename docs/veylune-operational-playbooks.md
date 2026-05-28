@@ -11,6 +11,7 @@ doctrine or authorize public expansion.
    - `edition_references.php`
    - `semantic_registry.php`
    - audit service or command changes
+   - media/content workflow changes
 2. Run the aggregate governance check:
 
    ```bash
@@ -21,6 +22,11 @@ doctrine or authorize public expansion.
 4. Confirm no new public routes, navigation links, sitemap entries, product
    surfaces, relationship renderers, or debug outputs were added.
 5. Deploy only after the aggregate command passes.
+
+For content or media batches, complete
+`docs/veylune-quiet-premium-operations.md` first. The batch must remain
+internal until facts, media readiness, semantic parity, rollback metadata, and
+the aggregate governance check are complete.
 
 ## Rollback Procedure
 
@@ -61,6 +67,24 @@ fail-closed behavior conflict, fail-closed behavior wins.
 3. Do not silence violations by weakening forbidden terms, implication rules, or
    parity checks.
 4. Re-run the aggregate command.
+
+## Content Or Media Batch Recovery
+
+Symptoms:
+
+- semantic parity fails after real content preparation
+- media metadata implies grouping, sequence, catalog scale, or recommendation
+- a registry update lacks rollback or semantic version metadata
+- a batch creates pressure to add public navigation, sitemap entries, or route
+  directories
+
+Procedure:
+
+1. Keep the batch internal.
+2. Remove the smallest violating copy, metadata, media label, or registry field.
+3. Re-check EN/DE parity and rollback metadata.
+4. Run the aggregate governance check.
+5. Do not expose the batch publicly to recover schedule pressure.
 
 ## Semantic Corruption Recovery
 

@@ -32,6 +32,8 @@ semantic consistency, topology pressure, discovery, and regression safety.
 - `semantic_registry.php`: controlled vocabulary and workflow policy
 - `GovernanceAuditService.php`: shared command-only audit orchestration
 - `bin/veylune-governance-check`: aggregate CI-ready verification
+- `docs/veylune-quiet-premium-operations.md`: internal media and content
+  preparation workflow
 
 ## Registry Structure
 
@@ -74,6 +76,11 @@ bin/veylune-governance-check
 
 If it fails, fix the first failure and re-run the full command. Do not deploy
 with a failing governance check.
+
+For real content or media preparation, use
+`docs/veylune-quiet-premium-operations.md` before touching registry records.
+Facts and media readiness should be reviewed before semantic fields or route
+metadata change.
 
 ## Advanced Concepts
 
