@@ -23,7 +23,7 @@ $requiredAuthoringReviewGates = [
 ];
 
 return [
-    'registryVersion' => 'semver-18.6.0',
+    'registryVersion' => 'semver-20.1.0',
     'ownership' => [
         'semanticApprover' => 'constitutional_semantic_governance',
         'rollbackAuthority' => 'constitutional_semantic_governance',
@@ -33,8 +33,8 @@ return [
         'deploymentBlockingAuthority' => 'semantic_audit_pipeline',
     ],
     'versioning' => [
-        'currentSemanticVersionId' => 'sem-18-6-centralized-registry-001',
-        'rollbackTarget' => 'sem-18-4-single-route-enrichment-001',
+        'currentSemanticVersionId' => 'sem-20-1-identity-consolidation-001',
+        'rollbackTarget' => 'sem-18-6-centralized-registry-001',
         'deploymentStatus' => 'deployment_gated',
         'riskClassification' => 'controlled_low',
     ],
@@ -300,6 +300,18 @@ return [
         ],
     ],
     'auditHistory' => [
+        [
+            'semanticVersionId' => 'sem-20-1-identity-consolidation-001',
+            'approvedBy' => 'constitutional_semantic_governance',
+            'changeReason' => 'Post-marketplace identity language consolidation',
+            'affectedRoutes' => ['/editions/{reference}', '/de/editionen/{reference}'],
+            'affectedLocales' => ['en', 'de'],
+            'implicationAuditResult' => 'required',
+            'toneAuditResult' => 'required',
+            'rollbackTarget' => 'sem-18-6-centralized-registry-001',
+            'deploymentStatus' => 'deployment_gated',
+            'semanticRiskClassification' => 'controlled_low',
+        ],
         [
             'semanticVersionId' => 'sem-18-6-centralized-registry-001',
             'approvedBy' => 'constitutional_semantic_governance',

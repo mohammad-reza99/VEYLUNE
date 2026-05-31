@@ -2,57 +2,15 @@
 
 {% block layout_header %}
 		{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
-		{% set veyluneCollectionsUrl = path('frontend.navigation.page', { navigationId: '019e47255c4f7a8f947adc9f036f367f' }) %}
-		{% set veyluneSeatingUrl = path('frontend.navigation.page', { navigationId: '019e472688de7a4488d2ccaa9f4c1aca' }) %}
-		{% set veyluneTablesUrl = path('frontend.navigation.page', { navigationId: '019e4726c20076f092111b3a35ebdc0e' }) %}
-		{% set veyluneLightingUrl = path('frontend.navigation.page', { navigationId: '019e4726e79d7edfa7209e2333b29a58' }) %}
-		{% set veyluneObjectsUrl = path('frontend.navigation.page', { navigationId: '019e4727472c7ba280e48539675d26f3' }) %}
-		{% set veyluneDecorUrl = path('frontend.navigation.page', { navigationId: '019e4c2460a47c3fa030916b63d77970' }) %}
-		{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
-	{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
 	{% set veyluneRoutes = {
-        journal: path('frontend.search.page', { search: 'journal' }),
-        world: path('frontend.search.page', { search: 'living world' }),
-        legacy: path('frontend.search.page', { search: 'legacy' }),
-        culture: path('frontend.search.page', { search: 'culture' }),
-        about: path('frontend.search.page', { search: 'brand story' }),
-        trade: veyluneCategoryRoutes.url('trade'),
-        privateAccess: path('frontend.search.page', { search: 'private access' }),
-        partnership: path('frontend.veylune.partnership.page'),
+        editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page'),
         consultation: veyluneCategoryRoutes.url('consultation')
     } %}
 
 	<header class="veylune-header" data-veylune-header>
-		{% block veylune_topbar %}
-			<div class="veylune-topbar" aria-label="{{ 'veylune.header.topbarAriaLabel'|trans|striptags }}">
-				<div class="veylune-topbar__atmosphere" aria-hidden="true"></div>
-				<div class="veylune-topbar__viewport">
-					<div class="veylune-topbar__track">
-						{% for index in 1..2 %}
-							<div class="veylune-topbar__group" aria-hidden="{{ index == 2 ? 'true' : 'false' }}">
-								<span class="veylune-topbar__item">{{ 'veylune.header.topbar.item1'|trans|sw_sanitize }}</span>
-								<span class="veylune-topbar__dot" aria-hidden="true"></span>
-								<span class="veylune-topbar__item">{{ 'veylune.header.topbar.item2'|trans|sw_sanitize }}</span>
-								<span class="veylune-topbar__dot" aria-hidden="true"></span>
-								<span class="veylune-topbar__item">{{ 'veylune.header.topbar.item3'|trans|sw_sanitize }}</span>
-								<span class="veylune-topbar__dot" aria-hidden="true"></span>
-								<span class="veylune-topbar__item">{{ 'veylune.header.topbar.item4'|trans|sw_sanitize }}</span>
-								<span class="veylune-topbar__dot" aria-hidden="true"></span>
-								<span class="veylune-topbar__item">{{ 'veylune.header.topbar.item5'|trans|sw_sanitize }}</span>
-								<span class="veylune-topbar__dot" aria-hidden="true"></span>
-								<span class="veylune-topbar__item">{{ 'veylune.header.topbar.item6'|trans|sw_sanitize }}</span>
-								<span class="veylune-topbar__dot" aria-hidden="true"></span>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			</div>
-		{% endblock %}
+		{% block veylune_topbar %}{% endblock %}
 
 		{% block layout_header_navigation %}
-			{% set searchWidgetOptions = { searchWidgetMinChars: shopware.minSearchLength } %}
-			{% set offcanvasCartOptions = { autoFocus: true } %}
-
 			<div class="veylune-header__bar">
 				<div class="veylune-header__frame" aria-hidden="true"></div>
 				<div class="veylune-header__progress" data-veylune-header-progress aria-hidden="true"></div>
@@ -66,9 +24,8 @@
 					</div>
 
 					<nav class="veylune-header__nav veylune-header__nav--left" id="veylunePrimaryNavigation" aria-label="{{ 'veylune.header.primaryNavAriaLabel'|trans|striptags }}">
-						<a class="veylune-header__nav-link" href="{{ veyluneCollectionsUrl }}" data-veylune-mega-trigger="collections" aria-expanded="false" aria-controls="veyluneMegaPanel-collections">{{ 'veylune.header.nav.collections'|trans|sw_sanitize }}</a>
-						<a class="veylune-header__nav-link" href="{{ path('frontend.search.page', { search: 'rooms' }) }}" data-veylune-mega-trigger="rooms" aria-expanded="false" aria-controls="veyluneMegaPanel-rooms">{{ 'veylune.header.nav.rooms'|trans|sw_sanitize }}</a>
-						<a class="veylune-header__nav-link" href="{{ veyluneRoutes.journal }}" data-veylune-mega-trigger="journal" aria-expanded="false" aria-controls="veyluneMegaPanel-journal">{{ 'veylune.header.nav.journal'|trans|sw_sanitize }}</a>
+						<a class="veylune-header__nav-link" href="{{ path('frontend.home.page') }}#veylune-material-context">{{ 'veylune.header.nav.materialContext'|trans|sw_sanitize }}</a>
+						<a class="veylune-header__nav-link" href="{{ veyluneRoutes.editions }}">{{ 'veylune.header.nav.editions'|trans|sw_sanitize }}</a>
 					</nav>
 
 					{% block layout_header_logo %}
@@ -86,150 +43,11 @@
 					{% endblock %}
 
 					<div class="veylune-header__actions">
-						{% block layout_header_search %}
-							<div class="veylune-header__search" data-veylune-search>
-								<button class="veylune-header__search-toggle" id="veyluneHeaderSearchToggle" type="button" aria-expanded="false" aria-controls="veyluneHeaderSearchPanel" data-veylune-search-toggle>
-									<span class="veylune-header__search-toggle-text">{{ 'veylune.header.search.toggle'|trans|sw_sanitize }}</span>
-									<span class="veylune-header__search-toggle-icon" aria-hidden="true">
-										{% sw_icon 'search' %}
-									</span>
-								</button>
-
-								<div class="veylune-header__search-panel veylune-search-archive" id="veyluneHeaderSearchPanel" data-veylune-search-panel role="dialog" aria-modal="true" aria-label="{{ 'veylune.header.search.panelAriaLabel'|trans|striptags }}" aria-hidden="true">
-									<div class="veylune-search-archive__backdrop" aria-hidden="true"></div>
-									<div class="veylune-search-archive__inner">
-										<div class="veylune-header__search-kicker">{{ 'veylune.header.search.kicker'|trans|sw_sanitize }}</div>
-										<form action="{{ path('frontend.search.page') }}" method="get" data-search-widget="true" data-search-widget-options="{{ searchWidgetOptions|json_encode }}" data-url="{{ path('frontend.search.suggest') }}?search=" class="veylune-header__search-form header-search-form js-search-form">
-											<input type="search" id="header-main-search-input" name="search" class="veylune-header__search-input header-search-input" autocomplete="off" autocapitalize="off" placeholder="{{ 'veylune.header.search.placeholder'|trans|striptags }}" aria-label="{{ 'veylune.header.search.inputAriaLabel'|trans|striptags }}" data-veylune-search-input value="{{ page.searchTerm }}">
-
-											<button type="submit" class="veylune-header__search-submit header-search-btn" aria-label="{{ 'header.searchButton'|trans|striptags }}">
-												{% sw_icon 'search' %}
-											</button>
-										</form>
-
-										<button class="veylune-header__search-close" type="button" aria-label="{{ 'veylune.header.search.closeAriaLabel'|trans|striptags }}" data-veylune-search-close>
-											{% sw_icon 'x' %}
-										</button>
-
-										<div class="veylune-header__search-suggestions" aria-label="{{ 'veylune.header.search.suggestionsAriaLabel'|trans|striptags }}">
-											<a href="{{ veyluneCategoryRoutes.url('seating') }}">{{ 'veylune.header.search.suggestionSculpturalSeating'|trans|sw_sanitize }}</a>
-											<a href="{{ veyluneCategoryRoutes.url('tables') }}">{{ 'veylune.header.search.suggestionTables'|trans|sw_sanitize }}</a>
-											<a href="{{ veyluneCategoryRoutes.url('lighting') }}">{{ 'veylune.header.search.suggestionCollectibleLighting'|trans|sw_sanitize }}</a>
-											<a href="{{ veyluneCategoryRoutes.url('objects') }}">{{ 'veylune.header.search.suggestionObjects'|trans|sw_sanitize }}</a>
-											<a href="{{ veyluneCategoryRoutes.url('decorObjects') }}">{{ 'veylune.header.search.suggestionDecor'|trans|sw_sanitize }}</a>
-											<a href="{{ path('frontend.search.page', { search: 'interior inspiration' }) }}">{{ 'veylune.header.search.suggestionInteriorInspiration'|trans|sw_sanitize }}</a>
-										</div>
-
-										<div class="veylune-search-archive__results" data-veylune-search-results aria-live="polite">
-											<a href="{{ veyluneCategoryRoutes.url('seating') }}">
-												<span></span>
-												<strong>{{ 'veylune.header.search.suggestionSculpturalSeating'|trans|sw_sanitize }}</strong>
-												<em>{{ 'veylune.header.search.resultSculpturalSeating'|trans|sw_sanitize }}</em>
-											</a>
-											<a href="{{ veyluneCategoryRoutes.url('lighting') }}">
-												<span></span>
-												<strong>{{ 'veylune.header.search.suggestionCollectibleLighting'|trans|sw_sanitize }}</strong>
-												<em>{{ 'veylune.header.search.resultCollectibleLighting'|trans|sw_sanitize }}</em>
-											</a>
-											<a href="{{ veyluneCategoryRoutes.url('objects') }}">
-												<span></span>
-												<strong>{{ 'veylune.header.search.suggestionMarbleObjects'|trans|sw_sanitize }}</strong>
-												<em>{{ 'veylune.header.search.resultMarbleObjects'|trans|sw_sanitize }}</em>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						{% endblock %}
-
-						<a class="veylune-header__action-link" href="{{ veyluneRoutes.trade }}" data-veylune-mega-trigger="trade" aria-expanded="false" aria-controls="veyluneMegaPanel-trade">{{ 'veylune.header.nav.trade'|trans|sw_sanitize }}</a>
+						{% block layout_header_search %}{% endblock %}
 						<a class="veylune-header__action-link veylune-header__action-link--primary" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.header.nav.consultation'|trans|sw_sanitize }}</a>
 
-						{% block layout_header_actions_cart %}
-							<div class="veylune-header__action-widget header-cart" data-off-canvas-cart="true" data-off-canvas-cart-options="{{ offcanvasCartOptions|json_encode }}">
-								<a class="veylune-header__icon-button header-cart-btn header-actions-btn" href="{{ path('frontend.checkout.cart.page') }}" data-cart-widget="true" title="{{ 'veylune.header.bag'|trans|striptags }}" aria-labelledby="cart-widget-aria-label" aria-haspopup="dialog">
-									<span class="veylune-header__bag-label">{{ 'veylune.header.bag'|trans|sw_sanitize }}</span>
-									<span class="veylune-header__bag-widget">
-										{% sw_include '@Storefront/storefront/layout/header/actions/cart-widget.html.twig' %}
-									</span>
-								</a>
-							</div>
-						{% endblock %}
+						{% block layout_header_actions_cart %}{% endblock %}
 					</div>
-				</div>
-			</div>
-
-			<div class="veylune-mega" data-veylune-mega aria-hidden="true">
-				<div class="veylune-mega__backdrop" data-veylune-mega-close aria-hidden="true"></div>
-				<div class="veylune-mega__panel">
-					{% set megaMenus = {
-                        collections: {
-	                            title: 'veylune.header.mega.collections.title',
-	                            intro: 'veylune.header.mega.collections.intro',
-	                            items: [
-	                                { label: 'veylune.header.mega.itemSeating', href: veyluneSeatingUrl },
-	                                { label: 'veylune.header.mega.itemTables', href: veyluneTablesUrl },
-	                                { label: 'veylune.header.mega.itemLighting', href: veyluneLightingUrl },
-	                                { label: 'veylune.header.mega.itemObjects', href: veyluneObjectsUrl },
-	                                { label: 'veylune.header.mega.itemDecor', href: veyluneDecorUrl }
-	                            ]
-	                        },
-                        rooms: {
-                            title: 'veylune.header.mega.rooms.title',
-                            intro: 'veylune.header.mega.rooms.intro',
-                            items: [
-                                { label: 'veylune.header.mega.itemLivingRoom', href: path('frontend.search.page', { search: 'living room' }) },
-                                { label: 'veylune.header.mega.itemLounge', href: path('frontend.search.page', { search: 'lounge' }) },
-                                { label: 'veylune.header.mega.itemDining', href: path('frontend.search.page', { search: 'dining' }) },
-                                { label: 'veylune.header.mega.itemBedroom', href: path('frontend.search.page', { search: 'bedroom' }) },
-                                { label: 'veylune.header.mega.itemStudio', href: veyluneCategoryRoutes.url('studio') }
-                            ]
-                        },
-                        journal: {
-                            title: 'veylune.header.mega.journal.title',
-                            intro: 'veylune.header.mega.journal.intro',
-                            items: [
-                                { label: 'veylune.header.mega.itemInteriorStories', href: veyluneRoutes.journal },
-                                { label: 'veylune.header.mega.itemDesignPhilosophy', href: veyluneRoutes.journal },
-                                { label: 'veylune.header.mega.itemMaterialStudies', href: veyluneRoutes.journal },
-                                { label: 'veylune.header.mega.itemAtmosphere', href: veyluneRoutes.journal },
-                                { label: 'veylune.header.nav.livingWorld', href: veyluneRoutes.world },
-                                { label: 'veylune.header.nav.legacy', href: veyluneRoutes.legacy }
-                            ]
-                        },
-                        trade: {
-                            title: 'veylune.header.mega.trade.title',
-                            intro: 'veylune.header.mega.trade.intro',
-                            items: [
-                                { label: 'veylune.header.mega.itemDesigners', href: path('frontend.search.page', { search: 'designers' }) },
-                                { label: 'veylune.header.mega.itemArchitects', href: path('frontend.search.page', { search: 'architects' }) },
-                                { label: 'veylune.header.mega.itemHospitality', href: path('frontend.search.page', { search: 'hospitality' }) },
-                                { label: 'veylune.header.nav.consultation', href: veyluneRoutes.consultation },
-                                { label: 'veylune.header.nav.partnership', href: veyluneRoutes.partnership }
-                            ]
-                        }
-                    } %}
-
-					{% for key, menu in megaMenus %}
-						<div class="veylune-mega__scene" id="veyluneMegaPanel-{{ key }}" data-veylune-mega-panel="{{ key }}" aria-hidden="true">
-							<div>
-								<span class="veylune-mega__kicker">{{ 'veylune.header.mega.kicker'|trans|sw_sanitize }}</span>
-								<h2>{{ menu.title|trans|sw_sanitize }}</h2>
-								<p>{{ menu.intro|trans|sw_sanitize }}</p>
-							</div>
-							<nav class="veylune-mega__links" aria-label="{{ menu.title|trans|striptags }}">
-								{% for item in menu.items %}
-									<a href="{{ item.href }}">
-										<span>0{{ loop.index }}</span>
-										{{ item.label|trans|sw_sanitize }}
-									</a>
-								{% endfor %}
-							</nav>
-							<div class="veylune-mega__visual veylune-mega__visual--{{ key }}" aria-hidden="true">
-								<span>{{ key|capitalize }}</span>
-							</div>
-						</div>
-					{% endfor %}
 				</div>
 			</div>
 
@@ -239,21 +57,9 @@
 						{% sw_icon 'x' %}
 					</button>
 					<span class="veylune-mobile-nav__kicker">{{ 'veylune.header.logoText'|trans|sw_sanitize }}</span>
-					<form class="veylune-mobile-nav__search" action="{{ path('frontend.search.page') }}" method="get">
-						<input type="search" name="search" placeholder="{{ 'veylune.header.mobile.searchPlaceholder'|trans|striptags }}" aria-label="{{ 'veylune.header.mobile.searchAriaLabel'|trans|striptags }}">
-						<button type="submit">{% sw_icon 'search' %}</button>
-					</form>
 					<nav class="veylune-mobile-nav__links" aria-label="{{ 'veylune.header.mobile.navAriaLabel'|trans|striptags }}">
-						<a href="{{ veyluneCollectionsUrl }}">{{ 'veylune.header.nav.collections'|trans|sw_sanitize }}</a>
-						<a href="{{ path('frontend.search.page', { search: 'rooms' }) }}">{{ 'veylune.header.nav.rooms'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.journal }}">{{ 'veylune.header.nav.journal'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.world }}">{{ 'veylune.header.nav.livingWorld'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.legacy }}">{{ 'veylune.header.nav.legacy'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.culture }}">{{ 'veylune.header.nav.culture'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.about }}">{{ 'veylune.header.nav.brandStory'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.trade }}">{{ 'veylune.header.nav.trade'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.privateAccess }}">{{ 'veylune.header.nav.privateAccess'|trans|sw_sanitize }}</a>
-						<a href="{{ veyluneRoutes.partnership }}">{{ 'veylune.header.nav.partnership'|trans|sw_sanitize }}</a>
+						<a href="{{ path('frontend.home.page') }}#veylune-material-context">{{ 'veylune.header.nav.materialContext'|trans|sw_sanitize }}</a>
+						<a href="{{ veyluneRoutes.editions }}">{{ 'veylune.header.nav.editions'|trans|sw_sanitize }}</a>
 						<a href="{{ veyluneRoutes.consultation }}">{{ 'veylune.header.nav.consultation'|trans|sw_sanitize }}</a>
 					</nav>
 					<div class="veylune-mobile-nav__note">{{ 'veylune.header.mobile.note'|trans|sw_sanitize }}</div>

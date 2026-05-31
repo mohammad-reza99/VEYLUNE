@@ -1,0 +1,27 @@
+{% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
+
+{% set isVeyluneHome = app.request.attributes.get('_route') == 'frontend.home.page' %}
+
+{% block layout_head_meta_tags_description %}
+    {{ isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags : parent() }}
+{% endblock %}
+
+{% block layout_head_meta_tags_title_og %}
+    {{ isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : parent() }}
+{% endblock %}
+
+{% block layout_head_meta_tags_description_og %}
+    {{ isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags : parent() }}
+{% endblock %}
+
+{% block layout_head_meta_tags_title_twitter %}
+    {{ isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : parent() }}
+{% endblock %}
+
+{% block layout_head_meta_tags_description_twitter %}
+    {{ isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags : parent() }}
+{% endblock %}
+
+{% block layout_head_title_inner %}
+    {{- isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : parent() -}}
+{% endblock %}

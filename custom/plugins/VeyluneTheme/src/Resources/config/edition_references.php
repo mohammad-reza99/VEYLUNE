@@ -98,8 +98,8 @@ $governedAcquisitionStates = [
 return [
     'material-study-travertine-volume-01' => [
         'destinationApproved' => true,
-        'semanticVersionId' => 'sem-18-6-centralized-registry-001',
-        'semanticRollbackTarget' => 'sem-18-4-single-route-enrichment-001',
+        'semanticVersionId' => 'sem-20-1-identity-consolidation-001',
+        'semanticRollbackTarget' => 'sem-18-6-centralized-registry-001',
         'routes' => [
             'en' => '/editions/material-study-travertine-volume-01',
             'de' => '/de/editionen/material-study-travertine-volume-01',
@@ -111,8 +111,8 @@ return [
             'de' => 'Travertin-Materialstudie, Volumen 01',
         ],
         'summaryLabel' => [
-            'en' => 'Governed public Edition record describing approved material, proportion, and spatial context.',
-            'de' => 'Gesteuertes oeffentliches Editionsdokument mit freigegebenem Material-, Proportions- und Raumkontext.',
+            'en' => 'Edition record held to material clarity, proportion, and spatial context.',
+            'de' => 'Editionsdokument mit Materialklarheit, Proportion und Raumkontext.',
         ],
         'materialContext' => [
             'en' => 'Travertine surface, mineral variation, and edge alignment',
@@ -123,8 +123,8 @@ return [
             'de' => 'Innenraummassstab, Wandbezug und horizontale Platzierung ohne Nutzungsszenario',
         ],
         'governanceNote' => [
-            'en' => 'This record remains bounded by approved Edition context, stable route identity, and public-record boundaries.',
-            'de' => 'Dieses Dokument bleibt an freigegebenen Editionskontext, stabile Routenidentitaet und oeffentliche Dokumentgrenzen gebunden.',
+            'en' => 'This study remains singular: material, proportion, and placement without adjacent works.',
+            'de' => 'Diese Studie bleibt einzeln: Material, Proportion und Platzierung ohne benachbarte Arbeiten.',
         ],
         'allowedProductReleaseStates' => $allowedProductReleaseStates,
         'multilingual' => $multilingualReadiness,
@@ -140,8 +140,8 @@ return [
     ],
     'material-study-basalt-plane' => [
         'destinationApproved' => true,
-        'semanticVersionId' => 'sem-19-2-second-route-rehearsal-001',
-        'semanticRollbackTarget' => 'sem-18-6-centralized-registry-001',
+        'semanticVersionId' => 'sem-20-1-identity-consolidation-001',
+        'semanticRollbackTarget' => 'sem-19-2-second-route-rehearsal-001',
         'routes' => [
             'en' => '/editions/material-study-basalt-plane',
             'de' => '/de/editionen/material-study-basalt-plane',
@@ -153,8 +153,8 @@ return [
             'de' => 'Basalt-Materialstudie',
         ],
         'summaryLabel' => [
-            'en' => 'Governed public Edition record describing approved material, proportion, and spatial context.',
-            'de' => 'Gesteuertes oeffentliches Editionsdokument mit freigegebenem Material-, Proportions- und Raumkontext.',
+            'en' => 'Edition record held to material clarity, proportion, and spatial context.',
+            'de' => 'Editionsdokument mit Materialklarheit, Proportion und Raumkontext.',
         ],
         'materialContext' => [
             'en' => 'Basalt surface, mineral variation, and edge alignment',
@@ -165,8 +165,8 @@ return [
             'de' => 'Innenraummassstab, Wandbezug und horizontale Platzierung ohne Nutzungsszenario',
         ],
         'governanceNote' => [
-            'en' => 'This record remains bounded by approved Edition context, stable route identity, and public-record boundaries.',
-            'de' => 'Dieses Dokument bleibt an freigegebenen Editionskontext, stabile Routenidentitaet und oeffentliche Dokumentgrenzen gebunden.',
+            'en' => 'This study remains singular: material, proportion, and placement without adjacent works.',
+            'de' => 'Diese Studie bleibt einzeln: Material, Proportion und Platzierung ohne benachbarte Arbeiten.',
         ],
         'allowedProductReleaseStates' => $allowedProductReleaseStates,
         'multilingual' => $multilingualReadiness,

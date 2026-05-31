@@ -21,56 +21,6 @@
             </div>
         </section>
 
-        <section class="veylune-editions-section veylune-editions-governance" data-veylune-reveal>
-            <div class="veylune-editions-section__head">
-                <p class="veylune-editions__eyebrow">{{ 'veylune.editions.governance.eyebrow'|trans|sw_sanitize }}</p>
-                <h2>{{ 'veylune.editions.governance.title'|trans|sw_sanitize }}</h2>
-            </div>
-            <div class="veylune-editions-governance__body">
-                <p>{{ 'veylune.editions.governance.text'|trans|sw_sanitize }}</p>
-                <div class="veylune-editions-principles">
-                    {% for key in ['crossCollection', 'releaseContext', 'archiveContinuity'] %}
-                        <article>
-                            <span>0{{ loop.index }}</span>
-                            <h3>{{ ('veylune.editions.governance.principles.' ~ key ~ '.title')|trans|sw_sanitize }}</h3>
-                            <p>{{ ('veylune.editions.governance.principles.' ~ key ~ '.text')|trans|sw_sanitize }}</p>
-                        </article>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-
-        <section class="veylune-editions-section veylune-editions-types" data-veylune-reveal>
-            <div class="veylune-editions-section__head">
-                <p class="veylune-editions__eyebrow">{{ 'veylune.editions.releaseTypes.eyebrow'|trans|sw_sanitize }}</p>
-                <h2>{{ 'veylune.editions.releaseTypes.title'|trans|sw_sanitize }}</h2>
-            </div>
-            <div class="veylune-editions-types__grid">
-                {% for key in ['atelierCollaboration', 'materialStudy', 'roomEdition', 'smallSeries', 'privatePreview'] %}
-                    <article>
-                        <span>0{{ loop.index }}</span>
-                        <h3>{{ ('veylune.editions.releaseTypes.items.' ~ key ~ '.title')|trans|sw_sanitize }}</h3>
-                        <p>{{ ('veylune.editions.releaseTypes.items.' ~ key ~ '.text')|trans|sw_sanitize }}</p>
-                    </article>
-                {% endfor %}
-            </div>
-        </section>
-
-        <section class="veylune-editions-section veylune-editions-supplier" data-veylune-reveal>
-            <div class="veylune-editions-supplier__inner">
-                <div>
-                    <p class="veylune-editions__eyebrow">{{ 'veylune.editions.supplier.eyebrow'|trans|sw_sanitize }}</p>
-                    <h2>{{ 'veylune.editions.supplier.title'|trans|sw_sanitize }}</h2>
-                </div>
-                <div class="veylune-editions-supplier__content">
-                    <p>{{ 'veylune.editions.supplier.text'|trans|sw_sanitize }}</p>
-                    {% if partnershipUrl %}
-                        <a class="veylune-editions__link" href="{{ partnershipUrl }}">{{ 'veylune.editions.cta.atelierPartnerships'|trans|sw_sanitize }}</a>
-                    {% endif %}
-                </div>
-            </div>
-        </section>
-
         <section class="veylune-editions-section veylune-editions-acquisition" data-veylune-reveal>
             <div>
                 <p class="veylune-editions__eyebrow">{{ 'veylune.editions.acquisition.eyebrow'|trans|sw_sanitize }}</p>

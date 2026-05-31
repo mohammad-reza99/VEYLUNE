@@ -67,9 +67,11 @@
         "collections": "Kollektionen",
         "consultation": "Consultation",
         "culture": "Culture",
+        "editions": "Editionen",
         "journal": "Journal",
         "legacy": "Legacy",
         "livingWorld": "Living World",
+        "materialContext": "Materialkontext",
         "partnership": "Partnerschaft",
         "privateAccess": "Private Access",
         "rooms": "Räume",
@@ -138,7 +140,7 @@
       "mobile": {
         "closeAriaLabel": "Navigation schließen",
         "navAriaLabel": "Mobile Navigation",
-        "note": "Prüfen Sie Materialkontext, Studio Notes und atmosphärische Interieurs.",
+        "note": "Prüfen Sie Materialkontext oder beginnen Sie eine überlegte Beratung.",
         "searchAriaLabel": "VEYLUNE Archiv durchsuchen",
         "searchPlaceholder": "Designarchiv öffnen"
       }
@@ -148,8 +150,10 @@
       "atelierPartnerships": "Atelier-Partnerschaften",
       "bottomBrand": "VEYLUNE STUDIO · Collectible Interior Gallery",
       "bottomHouse": "· European Design House",
-      "brandText": "Kuratiertes künstlerisches Wohnen für raffinierte Interieurs. Collectible Furniture, skulpturale Formen und atmosphärische Objekte, ausgewählt mit Galeriesensibilität.",
+      "brandText": "Ein ruhiges Dokument für Objekte, Materialrichtung und räumliche Präsenz.",
       "clientCare": "Client Care",
+      "clientCareText": "Beratung bleibt für überlegte Fragen erreichbar.",
+      "contactStudio": "Studio kontaktieren",
       "contactEcosystem": "Contact Ecosystem",
       "privateConsultation": "Private Beratung",
       "services": "Services",
@@ -209,7 +213,7 @@
     "editions": {
       "seo": {
         "title": "Editionen | Veylune Studio",
-        "description": "Kontrollierte Editionsdokumente, Atelier-Kollaborationen, Materialstudien und beratungsgeführte Vorschauen im Veylune-System."
+        "description": "Ruhige Editionsdokumente für Material, Proportion, Raumkontext und überlegte Beratung."
       },
       "cta": {
         "atelierPartnerships": "Atelier-Partnerschaften",
@@ -218,8 +222,8 @@
       },
       "hero": {
         "eyebrow": "Editionen",
-        "title": "Eine kuratierte Veröffentlichungsstruktur für sammelwürdige Werke.",
-        "text": "Editionen bringen ausgewählte Möbel, Leuchten und Objekte in kontrollierte Veröffentlichungskontexte, geprägt von Materiallogik, Atelier-Kollaboration, räumlicher Relevanz und Archivkontinuität."
+        "title": "Materialstudien als ruhige Dokumente.",
+        "text": "Jede Edition bleibt einzeln: ein zurückhaltender Kontext für Material, Proportion und räumliche Präsenz."
       },
       "governance": {
         "eyebrow": "Veröffentlichungssteuerung",
@@ -272,9 +276,9 @@
         "text": "Die Beteiligung von Ateliers und Studios wird über Kollektionspassung, Materialklarheit, Produktionsreife und architektonische Relevanz geführt. Editionen funktionieren nicht als Anbieterseiten oder Lieferantenverzeichnisse."
       },
       "acquisition": {
-        "eyebrow": "Anfrageweg",
-        "title": "Editionsanfragen werden über Beratung geführt.",
-        "text": "Veylune nutzt für Editionen einen ruhigen Anfrageweg, damit Privatkunden, Architekten und Interior-Professionals Veröffentlichungskontext, Verfügbarkeit und Projektpassung ohne Druckmechanik besprechen können."
+        "eyebrow": "Beratungsrhythmus",
+        "title": "Fragen werden über Beratung geführt.",
+        "text": "Das Studio beantwortet überlegte Fragen zu Kontext und Verfügbarkeit ohne Dringlichkeit oder Werbedruck."
       },
       "detailSkeleton": {
         "eyebrow": "Editionsdokument",
@@ -283,6 +287,8 @@
         "context": "Material- und Raumkontext",
         "governanceEyebrow": "Governance",
         "governance": "Grenze des oeffentlichen Dokuments",
+        "noteEyebrow": "Dokumentnotiz",
+        "note": "Bewusste Begrenzung",
         "releaseState": "Veröffentlichungsstatus",
         "canonicalRoute": "Kanonische Route",
         "materialContext": "Materialkontext",
@@ -417,33 +423,37 @@
       "requestStudioConversation": "Studio-Gespräch anfragen."
     },
     "home": {
+      "seo": {
+        "title": "Veylune Studio | Material, Form und räumliche Präsenz",
+        "description": "Ein ruhiges Veylune-Studio-Dokument für Objekte, Editionen, Materialrichtung und räumliche Präsenz."
+      },
       "atmosphereMeta": "Atmosphäre, Proportion, Schatten, Material.",
-      "atmosphereQuote": "Das Leben in kuratierter Kunst beginnt mit Zurückhaltung.",
+      "atmosphereQuote": "Materialpräsenz beginnt mit Zurückhaltung.",
       "atmosphericInteriors": "Architektonische Interieurs",
       "atelierPartnerships": "Atelier-Partnerschaften",
       "beginPrivateDialogue": "Privaten Dialog beginnen",
       "brandPhilosophy": "Redaktionelle Steuerung",
-      "curatedSourcing": "Curated Sourcing",
+      "curatedSourcing": "Materialrichtung",
       "designCulture": "Timeless Design Culture",
       "designCultureTitle": "Redaktionelle Seiten für Kollektionskontext, Private Access, Raumlogik und langfristige Plattformentwicklung.",
-      "designPartnerships": "Design Partnerships",
+      "designPartnerships": "Studio-Dialog",
       "enterEditorialWorld": "Editorial World betreten",
-      "exploreCollections": "Materialrichtungen ansehen",
+      "exploreCollections": "Materialkontext lesen",
       "featuredCollections": "Materialrichtungen",
       "featuredCollectionsTitle": "Vier zurückhaltende Kontexte im Veylune-System.",
       "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
-      "heroText": "Veylune Studio editiert Möbel, Leuchten, Objekte und Editionen über Kollektionslogik, Materialdisziplin und architektonische Relevanz.",
-      "heroTitle": "Eine geführte Plattform für collectible Interiors.",
+      "heroText": "Veylune Studio hält Objekte und Editionen innerhalb von Materialdisziplin, Proportion und räumlicher Relevanz.",
+      "heroTitle": "Ein ruhiges Dokument für Material und Form.",
       "interiorAtmosphere": "Interior Atmosphere",
-      "philosophyCopyOne": "Veylune bewertet jedes Stück über Materialpräsenz, Proportion, räumliche Rolle, Supplier-Fit und Kollektionskohärenz.",
-      "philosophyCopyTwo": "Die Homepage ist eine ruhige Orientierungsebene für architektonische Interieurs und Collectible Design.",
+      "philosophyCopyOne": "Jedes Objekt wird über Materialpräsenz, Proportion und räumliche Rolle betrachtet.",
+      "philosophyCopyTwo": "Die öffentliche Oberfläche bleibt eine Orientierungsebene, bewusst frei von Dringlichkeit und Übermaß.",
       "philosophyStatement": "Objekte werden als Dokumente vorbereitet, nicht als Listings hochgeladen.",
       "privateConsultation": "Private Beratung",
       "privateInquiry": "Private Inquiry",
       "selectedPieces": "Referenzstudien",
       "selectedPiecesTitle": "Einige Dokumente zur Materialorientierung.",
-      "tradeEyebrow": "Trade / Designer Experience",
-      "tradeProgram": "Trade Program",
+      "tradeEyebrow": "Projektberatung",
+      "tradeProgram": "Projektkontext",
       "tradeTitle": "Für Architekten, Interior Designer und private Wohnprojekte.",
       "collections": {
         "editions": {

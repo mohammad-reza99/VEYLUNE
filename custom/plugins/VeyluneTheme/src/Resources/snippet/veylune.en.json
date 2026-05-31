@@ -67,9 +67,11 @@
         "collections": "Collections",
         "consultation": "Consultation",
         "culture": "Culture",
+        "editions": "Editions",
         "journal": "Journal",
         "legacy": "Legacy",
         "livingWorld": "Living World",
+        "materialContext": "Material Context",
         "partnership": "Partnership",
         "privateAccess": "Private Access",
         "rooms": "Rooms",
@@ -138,7 +140,7 @@
       "mobile": {
         "closeAriaLabel": "Close navigation",
         "navAriaLabel": "Mobile navigation",
-        "note": "Review material context, studio notes, and atmospheric interiors.",
+        "note": "Review material context or begin a considered consultation.",
         "searchAriaLabel": "Search VEYLUNE archive",
         "searchPlaceholder": "Enter the design archive"
       }
@@ -148,8 +150,10 @@
       "atelierPartnerships": "Atelier Partnerships",
       "bottomBrand": "VEYLUNE STUDIO · Collectible Interior Gallery",
       "bottomHouse": "· European Design House",
-      "brandText": "Curated artistic living for refined interiors. Collectible furniture, sculptural forms, and atmospheric objects selected with a gallery sensibility.",
+      "brandText": "A quiet record of objects, material direction, and spatial presence.",
       "clientCare": "Client Care",
+      "clientCareText": "Consultation remains available for considered questions.",
+      "contactStudio": "Contact Studio",
       "contactEcosystem": "Contact Ecosystem",
       "privateConsultation": "Private Consultation",
       "services": "Services",
@@ -209,7 +213,7 @@
     "editions": {
       "seo": {
         "title": "Editions | Veylune Studio",
-        "description": "Controlled Edition records, atelier collaborations, material studies, and consultation-led previews within the Veylune system."
+        "description": "Quiet Edition records for material, proportion, spatial context, and considered consultation."
       },
       "cta": {
         "atelierPartnerships": "Atelier Partnerships",
@@ -218,8 +222,8 @@
       },
       "hero": {
         "eyebrow": "Editions",
-        "title": "A governed release layer for collectible works.",
-        "text": "Editions bring selected furniture, lighting, and objects into controlled release contexts shaped by material logic, atelier collaboration, spatial relevance, and archive continuity."
+        "title": "Material studies held as quiet records.",
+        "text": "Each Edition stays singular: a restrained context for material, proportion, and spatial presence."
       },
       "governance": {
         "eyebrow": "Release Governance",
@@ -272,9 +276,9 @@
         "text": "Supplier participation is handled through collection fit, material clarity, production readiness, and architectural relevance. Editions do not function as vendor pages or supplier directories."
       },
       "acquisition": {
-        "eyebrow": "Acquisition Path",
-        "title": "Edition inquiries are handled through consultation.",
-        "text": "Veylune uses a calm inquiry path for Editions so clients, architects, and interior professionals can discuss release context, availability, and project fit without pressure mechanics."
+        "eyebrow": "Consultation Rhythm",
+        "title": "Questions are handled through consultation.",
+        "text": "The studio responds to considered questions about context and availability without urgency or promotional pressure."
       },
       "detailSkeleton": {
         "eyebrow": "Edition Record",
@@ -283,6 +287,8 @@
         "context": "Material and spatial context",
         "governanceEyebrow": "Governance",
         "governance": "Public record boundary",
+        "noteEyebrow": "Record Note",
+        "note": "Intentional boundary",
         "releaseState": "Release state",
         "canonicalRoute": "Canonical route",
         "materialContext": "Material context",
@@ -417,33 +423,37 @@
       "requestStudioConversation": "Request a studio conversation."
     },
     "home": {
+      "seo": {
+        "title": "Veylune Studio | Material, Form, and Spatial Presence",
+        "description": "A quiet Veylune Studio record of objects, Editions, material direction, and spatial presence."
+      },
       "atmosphereMeta": "Atmosphere, proportion, shadow, material.",
-      "atmosphereQuote": "Living inside curated art begins with restraint.",
+      "atmosphereQuote": "Material presence begins with restraint.",
       "atmosphericInteriors": "Architectural interiors",
       "atelierPartnerships": "Atelier Partnerships",
       "beginPrivateDialogue": "Begin a private dialogue",
       "brandPhilosophy": "Editorial Governance",
-      "curatedSourcing": "Curated Sourcing",
+      "curatedSourcing": "Material Direction",
       "designCulture": "Timeless Design Culture",
       "designCultureTitle": "Editorial pages for collection context, private access, room logic, and long-term platform development.",
-      "designPartnerships": "Design Partnerships",
+      "designPartnerships": "Studio Dialogue",
       "enterEditorialWorld": "Enter Editorial World",
-      "exploreCollections": "View Material Directions",
+      "exploreCollections": "Read Material Context",
       "featuredCollections": "Material Directions",
       "featuredCollectionsTitle": "Four restrained contexts within the Veylune system.",
       "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
-      "heroText": "Veylune Studio edits furniture, lighting, objects, and editions through collection logic, material discipline, and architectural relevance.",
-      "heroTitle": "A governed platform for collectible interiors.",
+      "heroText": "Veylune Studio holds objects and Editions within material discipline, proportion, and spatial relevance.",
+      "heroTitle": "A quiet record of material and form.",
       "interiorAtmosphere": "Interior Atmosphere",
-      "philosophyCopyOne": "Veylune evaluates each piece through material presence, proportion, spatial role, supplier fit, and collection coherence.",
-      "philosophyCopyTwo": "The homepage is a quiet orientation layer for architectural interiors and collectible design.",
+      "philosophyCopyOne": "Each object is considered through material presence, proportion, and spatial role.",
+      "philosophyCopyTwo": "The public surface remains an orientation layer, deliberately free of urgency and excess.",
       "philosophyStatement": "Objects are prepared as records, not uploaded as listings.",
       "privateConsultation": "Private Consultation",
       "privateInquiry": "Private Inquiry",
       "selectedPieces": "Reference Studies",
       "selectedPiecesTitle": "A few records shown for material orientation.",
-      "tradeEyebrow": "Trade / Designer Experience",
-      "tradeProgram": "Trade Program",
+      "tradeEyebrow": "Project Consultation",
+      "tradeProgram": "Project Context",
       "tradeTitle": "For architects, interior designers, and private residential projects.",
       "collections": {
         "editions": {

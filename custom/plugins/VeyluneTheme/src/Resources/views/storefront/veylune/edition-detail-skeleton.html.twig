@@ -34,10 +34,6 @@
                         <dt>{{ 'veylune.editions.detailSkeleton.reference'|trans|sw_sanitize }}</dt>
                         <dd>{{ veyluneEdition.reference|sw_sanitize }}</dd>
                     </div>
-                    <div>
-                        <dt>{{ 'veylune.editions.detailSkeleton.releaseState'|trans|sw_sanitize }}</dt>
-                        <dd>{{ veyluneEdition.releaseState|sw_sanitize }}</dd>
-                    </div>
                 </dl>
             </section>
         {% endblock %}
@@ -60,21 +56,11 @@
             </section>
         {% endblock %}
 
-        {% block veylune_edition_detail_governance %}
-            <section class="veylune-edition-skeleton__section" aria-labelledby="veylune-edition-governance">
-                <p class="veylune-edition-skeleton__eyebrow">{{ 'veylune.editions.detailSkeleton.governanceEyebrow'|trans|sw_sanitize }}</p>
-                <h2 id="veylune-edition-governance">{{ 'veylune.editions.detailSkeleton.governance'|trans|sw_sanitize }}</h2>
+        {% block veylune_edition_detail_note %}
+            <section class="veylune-edition-skeleton__section" aria-labelledby="veylune-edition-note">
+                <p class="veylune-edition-skeleton__eyebrow">{{ 'veylune.editions.detailSkeleton.noteEyebrow'|trans|sw_sanitize }}</p>
+                <h2 id="veylune-edition-note">{{ 'veylune.editions.detailSkeleton.note'|trans|sw_sanitize }}</h2>
                 <p class="veylune-edition-skeleton__summary">{{ veyluneEdition.governanceNote|sw_sanitize }}</p>
-                <dl class="veylune-edition-skeleton__facts">
-                    <div>
-                        <dt>{{ 'veylune.editions.detailSkeleton.canonicalRoute'|trans|sw_sanitize }}</dt>
-                        <dd>{{ veyluneEdition.canonicalRoute|sw_sanitize }}</dd>
-                    </div>
-                    <div>
-                        <dt>{{ 'veylune.editions.detailSkeleton.archiveContinuity'|trans|sw_sanitize }}</dt>
-                        <dd>{{ veyluneEdition.archiveContinuity ? 'true' : 'false' }}</dd>
-                    </div>
-                </dl>
             </section>
         {% endblock %}
     </main>

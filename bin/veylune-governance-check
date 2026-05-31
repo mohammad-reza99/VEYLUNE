@@ -170,6 +170,20 @@ for route in "${discoverability_routes[@]}"; do
     assert_absent_pattern "$file" 'other editions|route-network|route network|route-count|route count|edition directory|edition catalog|browse editions' "$route discoverability surface"
 done
 
+step 'public identity containment'
+identity_drift_pattern='data-cart-widget|data-veylune-search|data-veylune-mega|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
+
+for route in "${discoverability_routes[@]}"; do
+    file="${TMP_DIR}/identity_${route//\//_}.html"
+    assert_status "$route" 200 "$file"
+    assert_absent_pattern "$file" "$identity_drift_pattern" "$route public identity surface"
+done
+
+home_file="${TMP_DIR}/identity_home.html"
+assert_status '/' 200 "$home_file"
+assert_contains "$home_file" 'A quiet record of material and form.' '/ homepage identity surface'
+assert_contains "$home_file" 'Read Material Context' '/ homepage identity surface'
+
 step 'sitemap containment'
 if [[ -d public/sitemap ]]; then
     if find public/sitemap -type f \( -name '*.xml' -o -name '*.xml.gz' \) -print0 | grep -qz .; then

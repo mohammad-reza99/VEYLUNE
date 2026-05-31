@@ -44,17 +44,8 @@
 	{% elseif veyluneDetectedType in ['about', 'story', 'studio'] or 'veylune-page-about' in veyluneCmsClasses %}
 		{% set veylunePageType = 'about' %}
 	{% endif %}
-	{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
-	{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
 	{% set veyluneRoutes = {
-        world: path('frontend.search.page', { search: 'living world' }),
-        privateAccess: path('frontend.search.page', { search: 'private access' }),
-        rooms: path('frontend.search.page', { search: 'room universe' }),
-        legacy: path('frontend.search.page', { search: 'legacy' }),
-        culture: path('frontend.search.page', { search: 'culture' }),
-        exhibitions: path('frontend.search.page', { search: 'future showrooms' }),
         consultation: veyluneCategoryRoutes.url('consultation'),
-        partnership: path('frontend.veylune.partnership.page'),
         editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page')
     } %}
 
@@ -91,7 +82,7 @@
 							{{ 'veylune.home.heroText'|trans|sw_sanitize }}
 						</p>
 						<div class="veylune-home-hero__actions">
-							<a class="veylune-home__link" href="{{ veyluneCategoryRoutes.url('collections') }}">{{ 'veylune.home.exploreCollections'|trans|sw_sanitize }}</a>
+							<a class="veylune-home__link" href="#veylune-material-context">{{ 'veylune.home.exploreCollections'|trans|sw_sanitize }}</a>
 							<a class="veylune-home__link veylune-home__link--muted" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.home.privateConsultation'|trans|sw_sanitize }}</a>
 						</div>
 					</div>
@@ -144,7 +135,7 @@
 				</div>
 			</section>
 
-			<section class="veylune-home__scene veylune-collections" data-veylune-reveal>
+			<section class="veylune-home__scene veylune-collections" id="veylune-material-context" data-veylune-reveal>
 				<div class="veylune-home__section-head">
 					<p class="veylune-home__eyebrow">{{ 'veylune.home.featuredCollections'|trans|sw_sanitize }}</p>
 					<h2>{{ 'veylune.home.featuredCollectionsTitle'|trans|sw_sanitize }}</h2>
@@ -152,10 +143,10 @@
 
 				<div class="veylune-collections__grid">
 					{% set collections = [
-                        { title: 'veylune.home.collections.seating.title', href: veyluneCategoryRoutes.url('seating'), categoryId: '019e472688de7a4488d2ccaa9f4c1aca', categoryMediaId: '019e4cf2dd9e78d292535317e4db4fdb', meta: 'veylune.home.collections.seating.meta', tone: 'is-bronze' },
-                        { title: 'veylune.home.collections.lighting.title', href: veyluneCategoryRoutes.url('lighting'), categoryId: '019e4726e79d7edfa7209e2333b29a58', categoryMediaId: '019e4c3ec019755ca6f737ba688a885d', meta: 'veylune.home.collections.lighting.meta', tone: 'is-charcoal' },
-                        { title: 'veylune.home.collections.objects.title', href: veyluneCategoryRoutes.url('objects'), categoryId: '019e4727472c7ba280e48539675d26f3', categoryMediaId: '019e4c472dad7ed280fcdfd7809ac6a4', meta: 'veylune.home.collections.objects.meta', tone: 'is-stone' },
-                        { title: 'veylune.home.collections.editions.title', href: veyluneRoutes.editions, categoryId: null, categoryMediaId: null, meta: 'veylune.home.collections.editions.meta', tone: 'is-smoke' }
+                        { title: 'veylune.home.collections.seating.title', categoryId: '019e472688de7a4488d2ccaa9f4c1aca', categoryMediaId: '019e4cf2dd9e78d292535317e4db4fdb', meta: 'veylune.home.collections.seating.meta', tone: 'is-bronze' },
+                        { title: 'veylune.home.collections.lighting.title', categoryId: '019e4726e79d7edfa7209e2333b29a58', categoryMediaId: '019e4c3ec019755ca6f737ba688a885d', meta: 'veylune.home.collections.lighting.meta', tone: 'is-charcoal' },
+                        { title: 'veylune.home.collections.objects.title', categoryId: '019e4727472c7ba280e48539675d26f3', categoryMediaId: '019e4c472dad7ed280fcdfd7809ac6a4', meta: 'veylune.home.collections.objects.meta', tone: 'is-stone' },
+                        { title: 'veylune.home.collections.editions.title', categoryId: null, categoryMediaId: null, meta: 'veylune.home.collections.editions.meta', tone: 'is-smoke' }
                     ] %}
 
 					{% for collection in collections %}
@@ -167,7 +158,7 @@
 							{% set collectionMediaCollection = searchMedia([collectionMediaId], context.context) %}
 							{% set collectionMedia = collectionMediaCollection.get(collectionMediaId) %}
 						{% endif %}
-						<a class="veylune-collection-card {{ collection.tone }}" href="{{ collection.href }}">
+						<article class="veylune-collection-card {{ collection.tone }}">
 							<span class="veylune-collection-card__media {% if not collectionMedia %}is-fallback{% endif %}" aria-hidden="true">
 								{% if collectionMedia %}
 									{% sw_thumbnails 'veylune-home-collection-card' with {
@@ -188,21 +179,8 @@
 								<strong>{{ collection.title|trans|sw_sanitize }}</strong>
 								<em>{{ collection.meta|trans|sw_sanitize }}</em>
 							</span>
-						</a>
+						</article>
 					{% endfor %}
-				</div>
-			</section>
-
-			<section class="veylune-home__scene veylune-supplier-authority" data-veylune-reveal>
-				<div class="veylune-supplier-authority__inner">
-					<div>
-						<p class="veylune-home__eyebrow">{{ 'veylune.home.supplier.eyebrow'|trans|sw_sanitize }}</p>
-						<h2>{{ 'veylune.home.supplier.title'|trans|sw_sanitize }}</h2>
-					</div>
-					<div class="veylune-supplier-authority__content">
-						<p>{{ 'veylune.home.supplier.text'|trans|sw_sanitize }}</p>
-						<a class="veylune-home__link" href="{{ veyluneRoutes.partnership }}">{{ 'veylune.home.atelierPartnerships'|trans|sw_sanitize }}</a>
-					</div>
 				</div>
 			</section>
 
@@ -296,47 +274,6 @@
 				</div>
 			</section>
 
-			<section class="veylune-home__scene veylune-home-ecosystem" data-veylune-reveal data-veylune-atmosphere-zone="bronze">
-				<div class="veylune-home__section-head">
-					<p class="veylune-home__eyebrow">{{ 'veylune.home.designCulture'|trans|sw_sanitize }}</p>
-					<h2>{{ 'veylune.home.designCultureTitle'|trans|sw_sanitize }}</h2>
-				</div>
-				<div class="veylune-home-ecosystem__grid">
-					<a href="{{ veyluneRoutes.world }}">
-						<span>01</span>
-						<strong>{{ 'veylune.home.ecosystem.world.title'|trans|sw_sanitize }}</strong>
-						<em>{{ 'veylune.home.ecosystem.world.text'|trans|sw_sanitize }}</em>
-					</a>
-					<a href="{{ veyluneRoutes.privateAccess }}">
-						<span>02</span>
-						<strong>{{ 'veylune.home.ecosystem.privateAccess.title'|trans|sw_sanitize }}</strong>
-						<em>{{ 'veylune.home.ecosystem.privateAccess.text'|trans|sw_sanitize }}</em>
-					</a>
-					<a href="{{ veyluneRoutes.rooms }}">
-						<span>03</span>
-						<strong>{{ 'veylune.home.ecosystem.roomUniverse.title'|trans|sw_sanitize }}</strong>
-						<em>{{ 'veylune.home.ecosystem.roomUniverse.text'|trans|sw_sanitize }}</em>
-					</a>
-					<a href="{{ veyluneRoutes.legacy }}">
-						<span>04</span>
-						<strong>{{ 'veylune.home.ecosystem.legacy.title'|trans|sw_sanitize }}</strong>
-						<em>{{ 'veylune.home.ecosystem.legacy.text'|trans|sw_sanitize }}</em>
-					</a>
-					<a href="{{ veyluneRoutes.culture }}">
-						<span>05</span>
-						<strong>{{ 'veylune.home.ecosystem.culture.title'|trans|sw_sanitize }}</strong>
-						<em>{{ 'veylune.home.ecosystem.culture.text'|trans|sw_sanitize }}</em>
-					</a>
-					<a href="{{ veyluneRoutes.exhibitions }}">
-						<span>06</span>
-						<strong>{{ 'veylune.home.ecosystem.exhibitions.title'|trans|sw_sanitize }}</strong>
-						<em>{{ 'veylune.home.ecosystem.exhibitions.text'|trans|sw_sanitize }}</em>
-					</a>
-				</div>
-				<div class="veylune-home__section-action">
-					<a class="veylune-home__link" href="{{ veyluneRoutes.world }}">{{ 'veylune.home.enterEditorialWorld'|trans|sw_sanitize }}</a>
-				</div>
-			</section>
 		</main>
 	{% elseif veyluneLegacyType %}
 		{% sw_include '@Storefront/storefront/veylune/legacy.html.twig' with {

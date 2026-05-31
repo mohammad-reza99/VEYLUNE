@@ -51,14 +51,14 @@ $expectFail = static function (string $label, SemanticAuditResult $result) use (
 $approvedFields = [
     'displayTitle.en' => 'Travertine Material Study, Volume 01',
     'displayTitle.de' => 'Travertin-Materialstudie, Volumen 01',
-    'summaryLabel.en' => 'Governed public Edition record describing approved material, proportion, and spatial context.',
-    'summaryLabel.de' => 'Gesteuertes oeffentliches Editionsdokument mit freigegebenem Material-, Proportions- und Raumkontext.',
+    'summaryLabel.en' => 'Edition record held to material clarity, proportion, and spatial context.',
+    'summaryLabel.de' => 'Editionsdokument mit Materialklarheit, Proportion und Raumkontext.',
     'materialContext.en' => 'Travertine surface, mineral variation, and edge alignment',
     'materialContext.de' => 'Travertinoberflaeche, mineralische Variation und Kantenausrichtung',
     'spatialContext.en' => 'Interior scale, wall adjacency, and horizontal placement without use-case framing',
     'spatialContext.de' => 'Innenraummassstab, Wandbezug und horizontale Platzierung ohne Nutzungsszenario',
-    'governanceNote.en' => 'This record remains bounded by approved Edition context, stable route identity, and public-record boundaries.',
-    'governanceNote.de' => 'Dieses Dokument bleibt an freigegebenen Editionskontext, stabile Routenidentitaet und oeffentliche Dokumentgrenzen gebunden.',
+    'governanceNote.en' => 'This study remains singular: material, proportion, and placement without adjacent works.',
+    'governanceNote.de' => 'Diese Studie bleibt einzeln: Material, Proportion und Platzierung ohne benachbarte Arbeiten.',
 ];
 
 $routes = [
@@ -69,7 +69,7 @@ $locales = ['en', 'de'];
 
 $expectPass(
     'semantic approved state',
-    $registry->auditSemanticChange('sem-regression-approved-001', 'sem-18-6-centralized-registry-001', $approvedFields, $routes, $locales)
+    $registry->auditSemanticChange('sem-regression-approved-001', 'sem-20-1-identity-consolidation-001', $approvedFields, $routes, $locales)
 );
 
 $semanticFailureCases = [
@@ -109,7 +109,7 @@ $validContribution = [
     'reviewerRole' => 'semantic_reviewer',
     'approverRole' => 'semantic_approver',
     'semanticVersionId' => 'sem-authoring-regression-valid',
-    'rollbackTarget' => 'sem-18-6-centralized-registry-001',
+    'rollbackTarget' => 'sem-20-1-identity-consolidation-001',
     'template' => 'edition_scalar_context',
     'routes' => $routes,
     'locales' => $locales,
@@ -154,7 +154,7 @@ if ($approvedPayload === null || $relatedPayload === null) {
     ]);
     $corruptionResult = $registry->auditSemanticChange(
         'sem-regression-isolated-corruption',
-        'sem-18-6-centralized-registry-001',
+        'sem-20-1-identity-consolidation-001',
         $corruptedFields,
         ['/editions/material-study-travertine-volume-01'],
         $locales
