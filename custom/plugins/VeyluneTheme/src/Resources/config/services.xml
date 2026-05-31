@@ -34,5 +34,7 @@
         <service id="VeyluneTheme\Command\TopologyPressureAuditCommand" />
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
+
+        <service id="VeyluneTheme\Subscriber\IdentityIngressAllowlistSubscriber" />
     </services>
 </container>
