@@ -2,19 +2,22 @@
 
 use VeyluneTheme\Edition\EditionReferenceRegistry;
 use VeyluneTheme\Governance\GovernanceAuditService;
+use VeyluneTheme\Publication\PublicationStatePolicy;
 use VeyluneTheme\Semantic\SemanticAuditResult;
 use VeyluneTheme\Semantic\SemanticRegistry;
 
 require __DIR__ . '/../src/Semantic/SemanticAuditResult.php';
 require __DIR__ . '/../src/Semantic/SemanticRegistry.php';
+require __DIR__ . '/../src/Publication/PublicationStatePolicy.php';
 require __DIR__ . '/../src/Edition/EditionReferenceRegistry.php';
 require __DIR__ . '/../src/Governance/GovernanceAuditService.php';
 
 $failures = [];
 
 $registry = new SemanticRegistry();
-$editionRegistry = new EditionReferenceRegistry($registry);
-$auditService = new GovernanceAuditService($editionRegistry, $registry);
+$publicationStatePolicy = new PublicationStatePolicy();
+$editionRegistry = new EditionReferenceRegistry($registry, $publicationStatePolicy);
+$auditService = new GovernanceAuditService($editionRegistry, $registry, $publicationStatePolicy);
 
 $pass = static function (string $label) use (&$failures): void {
     echo '[OK] ' . $label . PHP_EOL;
@@ -139,6 +142,7 @@ foreach ($authoringFailureCases as $label => $mutations) {
 }
 
 $expectPass('approved semantic command fixture', $auditService->auditSemanticReferences());
+$expectPass('publication-state enforcement fixture', $auditService->auditPublicationStates());
 $expectPass('authoring audit command fixture', $auditService->auditSemanticAuthoringWorkflow());
 $expectPass('distributed runtime approved state', $auditService->auditDistributedRuntime());
 $expectPass('topology pressure approved state', $auditService->auditTopologyPressure());

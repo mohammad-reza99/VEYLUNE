@@ -4,6 +4,7 @@ namespace VeyluneTheme\Edition;
 
 use VeyluneTheme\Semantic\SemanticAuditResult;
 use VeyluneTheme\Semantic\SemanticRegistry;
+use VeyluneTheme\Publication\PublicationStatePolicy;
 
 class EditionReferenceRegistry
 {
@@ -58,7 +59,8 @@ class EditionReferenceRegistry
     private ?array $references = null;
 
     public function __construct(
-        private readonly SemanticRegistry $semanticRegistry
+        private readonly SemanticRegistry $semanticRegistry,
+        private readonly PublicationStatePolicy $publicationStatePolicy
     ) {
     }
 
@@ -150,10 +152,6 @@ class EditionReferenceRegistry
             $violations[] = 'Public Edition readiness requires archive continuity support.';
         }
 
-        if (($record['publicRenderingEnabled'] ?? false) === true) {
-            $violations[] = 'Public rendering must remain disabled until a rendering phase is approved.';
-        }
-
         return $violations;
     }
 
@@ -223,13 +221,8 @@ class EditionReferenceRegistry
             $violations[] = 'Edition detail destination gate requires archive continuity.';
         }
 
-        $publication = $detailDestination['publication'] ?? [];
-        if (!\is_array($publication)
-            || !\array_key_exists('publishEligible', $publication)
-            || !\array_key_exists('publicRenderingEnabled', $publication)
-            || !\array_key_exists('renderingPhaseApproved', $publication)
-        ) {
-            $violations[] = 'Edition detail destination publication toggles must be explicitly governed.';
+        if (!\array_key_exists('publicationState', $record)) {
+            $violations[] = 'Edition detail destination publication state must be explicitly governed.';
         }
 
         return $violations;
@@ -260,14 +253,13 @@ class EditionReferenceRegistry
             return $this->resolution(self::STATE_REGISTRY_VALID, $readinessViolations);
         }
 
-        $publication = $this->getPublication($record);
+        $publication = $this->publicationStatePolicy->resolve(
+            $record['publicationState'] ?? null,
+            ($record['archiveContinuity'] ?? false) === true
+        );
 
-        if (($publication['publishEligible'] ?? false) !== true) {
-            return $this->resolution(self::STATE_DESTINATION_READY, ['Edition destination is ready but not publication eligible.']);
-        }
-
-        if (($publication['renderingPhaseApproved'] ?? false) !== true || ($publication['publicRenderingEnabled'] ?? false) !== true) {
-            return $this->resolution(self::STATE_PUBLICATION_BLOCKED, ['Edition publication is eligible but public rendering is not approved.']);
+        if (!$publication['exposureAllowed']) {
+            return $this->resolution(self::STATE_PUBLICATION_BLOCKED, $publication['violations']);
         }
 
         return [
@@ -758,24 +750,6 @@ class EditionReferenceRegistry
             'exposureAllowed' => false,
             'violations' => $violations,
         ];
-    }
-
-    /**
-     * @param array<string, mixed> $record
-     *
-     * @return array<string, mixed>
-     */
-    private function getPublication(array $record): array
-    {
-        $detailDestination = $record['detailDestination'] ?? [];
-
-        if (!\is_array($detailDestination)) {
-            return [];
-        }
-
-        $publication = $detailDestination['publication'] ?? [];
-
-        return \is_array($publication) ? $publication : [];
     }
 
     /**

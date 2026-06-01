@@ -14,14 +14,14 @@
  * - seo.*: meta and canonical readiness gates
  * - acquisition.*: release-state inquiry and CTA eligibility rules
  * - archiveContinuity: whether archive metadata may preserve this reference
- * - publicRenderingEnabled: must remain false until a rendering phase is approved
+ * - publicationState: independent public-rendering lifecycle state
  *
  * Future rendering may consume only the minimal payload returned by
  * EditionReferenceRegistry::buildGuardedRenderingPayload(). It must not render
  * raw registry records, raw product entities, or uncontrolled custom fields.
  *
  * Product metadata may reference only keys present in this registry.
- * This registry is not a publication system and does not render frontend content.
+ * Only records with publicationState=published may become publicly renderable.
  */
 $requiredCmsBlocks = [
     'edition_record_header',
@@ -56,11 +56,6 @@ $detailDestinationContract = [
         'seo' => true,
         'acquisitionState' => true,
         'archiveContinuity' => true,
-    ],
-    'publication' => [
-        'publishEligible' => true,
-        'publicRenderingEnabled' => true,
-        'renderingPhaseApproved' => true,
     ],
 ];
 
@@ -105,6 +100,7 @@ return [
             'de' => '/de/editionen/material-study-travertine-volume-01',
         ],
         'detailDestination' => $detailDestinationContract,
+        'publicationState' => 'published',
         'releaseState' => 'active',
         'displayTitle' => [
             'en' => 'Travertine Material Study, Volume 01',
@@ -135,7 +131,6 @@ return [
         'seo' => $seoReadiness,
         'acquisition' => $governedAcquisitionStates,
         'archiveContinuity' => true,
-        'publicRenderingEnabled' => false,
         'internalValidationReference' => true,
     ],
     'material-study-basalt-plane' => [
@@ -147,6 +142,7 @@ return [
             'de' => '/de/editionen/material-study-basalt-plane',
         ],
         'detailDestination' => $detailDestinationContract,
+        'publicationState' => 'published',
         'releaseState' => 'active',
         'displayTitle' => [
             'en' => 'Basalt Material Study',
@@ -177,7 +173,6 @@ return [
         'seo' => $seoReadiness,
         'acquisition' => $governedAcquisitionStates,
         'archiveContinuity' => true,
-        'publicRenderingEnabled' => false,
         'internalValidationReference' => true,
     ],
 ];

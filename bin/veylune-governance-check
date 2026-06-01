@@ -86,6 +86,7 @@ run_console veylune:semantic:audit >/dev/null
 run_console veylune:semantic:authoring-audit >/dev/null
 run_console veylune:runtime:distributed-audit >/dev/null
 run_console veylune:runtime:topology-pressure-audit >/dev/null
+run_console veylune:publication-state:audit >/dev/null
 
 step 'semantic and authoring regression harness'
 run_ddev_php custom/plugins/VeyluneTheme/bin/governance-regression-check.php >/dev/null
@@ -95,7 +96,8 @@ for command in \
     'veylune:semantic:audit' \
     'veylune:semantic:authoring-audit' \
     'veylune:runtime:distributed-audit' \
-    'veylune:runtime:topology-pressure-audit'
+    'veylune:runtime:topology-pressure-audit' \
+    'veylune:publication-state:audit'
 do
     safe_name="${command//:/_}"
     previous_file=''

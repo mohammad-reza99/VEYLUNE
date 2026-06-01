@@ -59,6 +59,12 @@ Commands must format output and return exit status only.
   pressure resistance.
 - Delegates to `GovernanceAuditService::auditTopologyPressure()`.
 
+`veylune:publication-state:audit`
+
+- Verifies explicit publication-state enforcement, suspension withdrawal,
+  rollback restoration, archive terminal behavior, and EN/DE parity.
+- Delegates to `GovernanceAuditService::auditPublicationStates()`.
+
 ## Fixture Ownership
 
 Internal audit fixtures live in `GovernanceAuditService`.
@@ -76,6 +82,7 @@ The consolidation keeps these guarantees intact:
 - authoring contribution containment
 - two-route topology neutrality
 - topology-pressure resistance
+- explicit publication-state enforcement
 - discoverability containment
 - command-only cross-route scanning
 

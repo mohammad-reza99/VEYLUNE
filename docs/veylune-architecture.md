@@ -27,6 +27,8 @@ Governance is implemented as deployment-sensitive validation around controlled
 configuration. The main enforcement points are:
 
 - `EditionReferenceRegistry` for route readiness and guarded payload assembly
+- `PublicationStatePolicy` for explicit identity-record publication state and
+  transition enforcement
 - `SemanticRegistry` for vocabulary, implication, authoring, and semantic parity
   validation
 - `GovernanceAuditService` for command-only orchestration of shared audits
@@ -46,7 +48,7 @@ Request lifecycle:
    German.
 3. The controller rejects malformed references before registry lookup.
 4. `EditionReferenceRegistry::resolveDetailRouteState()` checks route contract,
-   readiness, publication toggles, and semantic readiness.
+   readiness, explicit publication state, and semantic readiness.
 5. Non-renderable states return an empty `404`.
 6. `buildGuardedRenderingPayload()` assembles a scalar payload only.
 7. Twig renders `edition-detail-skeleton.html.twig`.
@@ -118,6 +120,7 @@ Governance audit commands are thin wrappers around `GovernanceAuditService`:
 - `veylune:semantic:authoring-audit`
 - `veylune:runtime:distributed-audit`
 - `veylune:runtime:topology-pressure-audit`
+- `veylune:publication-state:audit`
 
 The service owns fixture composition, parity checks, topology checks, and
 implication checks. Commands format output and return exit status only.

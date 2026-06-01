@@ -3,6 +3,7 @@
 namespace VeyluneTheme\Governance;
 
 use VeyluneTheme\Edition\EditionReferenceRegistry;
+use VeyluneTheme\Publication\PublicationStatePolicy;
 use VeyluneTheme\Semantic\SemanticAuditResult;
 use VeyluneTheme\Semantic\SemanticRegistry;
 
@@ -55,13 +56,37 @@ final class GovernanceAuditService
 
     public function __construct(
         private readonly EditionReferenceRegistry $editionReferenceRegistry,
-        private readonly SemanticRegistry $semanticRegistry
+        private readonly SemanticRegistry $semanticRegistry,
+        private readonly PublicationStatePolicy $publicationStatePolicy
     ) {
     }
 
     public function auditSemanticReferences(): SemanticAuditResult
     {
         return $this->editionReferenceRegistry->auditApprovedSemanticReferences();
+    }
+
+    public function auditPublicationStates(): SemanticAuditResult
+    {
+        $violations = $this->publicationStatePolicy->auditPolicy();
+
+        foreach (self::LIVE_REFERENCES as $reference) {
+            $en = $this->editionReferenceRegistry->resolveDetailRouteState($reference, 'en');
+            $de = $this->editionReferenceRegistry->resolveDetailRouteState($reference, 'de');
+
+            if ($en['exposureAllowed'] !== true || $de['exposureAllowed'] !== true) {
+                $violations[] = $reference . ' is not explicitly published for both governed locales.';
+            }
+
+            if ($en['state'] !== $de['state'] || $en['exposureAllowed'] !== $de['exposureAllowed']) {
+                $violations[] = $reference . ' has publication-state locale parity drift.';
+            }
+        }
+
+        return $this->result($violations, [
+            'scope' => 'publication-state',
+            'liveReferences' => self::LIVE_REFERENCES,
+        ]);
     }
 
     public function auditSemanticAuthoringWorkflow(): SemanticAuditResult
