@@ -12,6 +12,11 @@ containment remain in force until later work packages explicitly evolve them.
 `StorefrontRouteOwnershipPolicy` records activation-pending route ownership and
 prerequisites without changing current public exposure.
 
+WP-07 Phase 1 adds static production-catalog contracts for product lifecycle,
+catalog ownership, supplier ownership, structured product facts, and taxonomy
+governance. These contracts are not request-runtime enforcement and do not
+activate any catalog surface.
+
 ## System Overview
 
 Veylune Studio currently exposes governed Edition detail surfaces through a
