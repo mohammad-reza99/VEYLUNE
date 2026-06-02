@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use VeyluneTheme\Storefront\StorefrontRoleRegistry;
+use VeyluneTheme\Storefront\StorefrontRouteOwnershipPolicy;
 
 #[Package('storefront')]
 final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterface
@@ -110,6 +111,12 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             return;
         }
 
+        if ($this->isActivationPendingRoute($request)) {
+            $event->setResponse($this->deniedResponse($request));
+
+            return;
+        }
+
         if ($this->isAllowed($request)) {
             return;
         }
@@ -165,6 +172,16 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         }
 
         return false;
+    }
+
+    private function isActivationPendingRoute(Request $request): bool
+    {
+        $navigationId = $request->attributes->get('navigationId');
+
+        return StorefrontRouteOwnershipPolicy::isActivationPendingRoute(
+            (string) $request->attributes->get('_route'),
+            \is_string($navigationId) ? $navigationId : null
+        );
     }
 
     /**

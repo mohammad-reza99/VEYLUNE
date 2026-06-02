@@ -9,6 +9,8 @@ WP-06 classifies the existing `VEYLUNE STUDIO` sales channel as the canonical
 public storefront. That ownership classification does not activate commerce or
 change the Edition runtime described here. Existing ingress and sitemap
 containment remain in force until later work packages explicitly evolve them.
+`StorefrontRouteOwnershipPolicy` records activation-pending route ownership and
+prerequisites without changing current public exposure.
 
 ## System Overview
 

@@ -174,19 +174,19 @@ for route in "${discoverability_routes[@]}"; do
     assert_absent_pattern "$file" 'other editions|route-network|route network|route-count|route count|edition directory|edition catalog|browse editions' "$route discoverability surface"
 done
 
-step 'public identity containment'
-identity_drift_pattern='data-cart-widget|data-veylune-search|data-veylune-mega|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
+step 'canonical storefront transitional containment'
+storefront_drift_pattern='data-cart-widget|data-veylune-search|data-veylune-mega|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
 
 for route in "${discoverability_routes[@]}"; do
-    file="${TMP_DIR}/identity_${route//\//_}.html"
+    file="${TMP_DIR}/storefront_${route//\//_}.html"
     assert_status "$route" 200 "$file"
-    assert_absent_pattern "$file" "$identity_drift_pattern" "$route public identity surface"
+    assert_absent_pattern "$file" "$storefront_drift_pattern" "$route canonical storefront transitional surface"
 done
 
-home_file="${TMP_DIR}/identity_home.html"
+home_file="${TMP_DIR}/storefront_home.html"
 assert_status '/' 200 "$home_file"
-assert_contains "$home_file" 'A quiet record of material and form.' '/ homepage identity surface'
-assert_contains "$home_file" 'Read Material Context' '/ homepage identity surface'
+assert_contains "$home_file" 'A quiet record of material and form.' '/ homepage transitional surface'
+assert_contains "$home_file" 'Read Material Context' '/ homepage transitional surface'
 
 step 'sitemap containment'
 run_console veylune:sitemap:audit >/dev/null
@@ -198,8 +198,8 @@ for route in "${approved_routes[@]}" "${discoverability_routes[@]}"; do
     assert_absent_pattern "$file" "$public_diagnostics|semanticRiskClassification|implicationAuditResult|toneAuditResult|deploymentStatus|rollbackTarget" "$route public observability"
 done
 
-step 'identity ingress allowlist'
-identity_denied_routes=(
+step 'canonical storefront activation-pending containment'
+activation_pending_routes=(
     '/search'
     '/suggest'
     '/wishlist'
@@ -213,18 +213,18 @@ identity_denied_routes=(
     '/not-public'
 )
 
-for route in "${identity_denied_routes[@]}"; do
-    file="${TMP_DIR}/identity_denied_${route//\//_}.html"
+for route in "${activation_pending_routes[@]}"; do
+    file="${TMP_DIR}/storefront_denied_${route//\//_}.html"
     assert_status "$route" 404 "$file"
-    assert_contains "$file" 'data-veylune-identity-denial' "$route identity ingress denial"
-    assert_contains "$file" '<meta name="robots" content="noindex,nofollow">' "$route identity ingress denial"
-    assert_absent_pattern "$file" 'checkout|cart|account|wishlist|product|category|store-api|search|login|register|detail' "$route identity ingress denial"
+    assert_contains "$file" 'data-veylune-identity-denial' "$route canonical storefront denial"
+    assert_contains "$file" '<meta name="robots" content="noindex,nofollow">' "$route canonical storefront denial"
+    assert_absent_pattern "$file" 'checkout|cart|account|wishlist|product|category|store-api|search|login|register|detail' "$route canonical storefront denial"
 done
 
-german_denied_file="${TMP_DIR}/identity_denied_de_detail.html"
+german_denied_file="${TMP_DIR}/storefront_denied_de_detail.html"
 assert_status '/de/detail/019e4c3232987add9b4d98318913cc4f' 404 "$german_denied_file"
-assert_contains "$german_denied_file" '<html lang="de">' '/de identity ingress denial'
-assert_contains "$german_denied_file" '<title>Seite nicht gefunden | VEYLUNE STUDIO</title>' '/de identity ingress denial'
+assert_contains "$german_denied_file" '<html lang="de">' '/de canonical storefront denial'
+assert_contains "$german_denied_file" '<title>Seite nicht gefunden | VEYLUNE STUDIO</title>' '/de canonical storefront denial'
 
 step 'complete'
 printf 'Veylune governance verification passed.\n'

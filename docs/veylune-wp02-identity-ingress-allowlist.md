@@ -12,6 +12,11 @@ storefront. The WP-02 allowlist remains a transitional containment policy: it
 preserves current public behavior until later, explicitly authorized work
 packages introduce governed commerce surfaces.
 
+WP-06 Sprint 2 introduces `StorefrontRouteOwnershipPolicy` as the successor
+contract. Commerce and acquisition route families remain denied while their
+state is `activation_pending`. The residual fallback remains deny-by-default for
+unclassified routes.
+
 ## Allowed Identity Ingress
 
 - homepage and localized homepage
