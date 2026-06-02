@@ -8,6 +8,8 @@ use VeyluneTheme\Publication\PublicationStatePolicy;
 
 class EditionReferenceRegistry
 {
+    private const REFERENCE_PATTERN = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
+
     public const STATE_UNRESOLVED = 'unresolved';
     public const STATE_REGISTRY_VALID = 'registry_valid';
     public const STATE_DESTINATION_READY = 'destination_ready';
@@ -51,6 +53,14 @@ class EditionReferenceRegistry
         'materialContext',
         'spatialContext',
         'governanceNote',
+    ];
+
+    private const SITEMAP_CANDIDATE_KEYS = [
+        'reference',
+        'locale',
+        'canonicalRoute',
+        'publicationState',
+        'sitemapEligible',
     ];
 
     /**
@@ -347,6 +357,75 @@ class EditionReferenceRegistry
         ];
 
         return $this->isGuardedRenderingPayload($payload) ? $payload : null;
+    }
+
+    /**
+     * @return list<array{
+     *     reference: string,
+     *     locale: string,
+     *     canonicalRoute: string,
+     *     publicationState: string,
+     *     sitemapEligible: bool
+     * }>
+     */
+    public function sitemapCandidates(string $locale): array
+    {
+        $references = array_keys($this->all());
+        sort($references, \SORT_STRING);
+
+        $candidates = [];
+
+        foreach ($references as $reference) {
+            $candidate = $this->buildSitemapCandidate($reference, $locale);
+
+            if ($candidate !== null) {
+                $candidates[] = $candidate;
+            }
+        }
+
+        return $candidates;
+    }
+
+    /**
+     * @return array{
+     *     reference: string,
+     *     locale: string,
+     *     canonicalRoute: string,
+     *     publicationState: string,
+     *     sitemapEligible: bool
+     * }|null
+     */
+    public function buildSitemapCandidate(string $reference, string $locale): ?array
+    {
+        $record = $this->all()[$reference] ?? null;
+
+        if ($record === null
+            || preg_match(self::REFERENCE_PATTERN, $reference) !== 1
+            || !\in_array($locale, ['en', 'de'], true)
+            || !$this->hasDetailRouteContract($reference, $record)
+            || $this->getDetailReadinessViolations($record) !== []
+        ) {
+            return null;
+        }
+
+        $publication = $this->publicationStatePolicy->resolve(
+            $record['publicationState'] ?? null,
+            ($record['archiveContinuity'] ?? false) === true
+        );
+
+        if ($publication['state'] === 'invalid') {
+            return null;
+        }
+
+        $candidate = [
+            'reference' => $reference,
+            'locale' => $locale,
+            'canonicalRoute' => $this->canonicalRoute($record, $locale),
+            'publicationState' => $publication['state'],
+            'sitemapEligible' => $publication['exposureAllowed'],
+        ];
+
+        return $this->isSitemapCandidate($candidate) ? $candidate : null;
     }
 
     /**
@@ -773,6 +852,19 @@ class EditionReferenceRegistry
             && \is_string($payload['governanceNote'])
             && $this->isAcquisitionPayload($payload['acquisitionState'])
             && $this->isCmsDestinationPayload($payload['cmsDestination']);
+    }
+
+    /**
+     * @param array<string, mixed> $candidate
+     */
+    private function isSitemapCandidate(array $candidate): bool
+    {
+        return \array_keys($candidate) === self::SITEMAP_CANDIDATE_KEYS
+            && \is_string($candidate['reference'])
+            && \is_string($candidate['locale'])
+            && \is_string($candidate['canonicalRoute'])
+            && \is_string($candidate['publicationState'])
+            && \is_bool($candidate['sitemapEligible']);
     }
 
     private function isAcquisitionPayload(mixed $payload): bool
