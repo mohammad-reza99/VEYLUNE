@@ -87,6 +87,7 @@ run_console veylune:semantic:authoring-audit >/dev/null
 run_console veylune:runtime:distributed-audit >/dev/null
 run_console veylune:runtime:topology-pressure-audit >/dev/null
 run_console veylune:publication-state:audit >/dev/null
+run_console veylune:sitemap:audit >/dev/null
 
 step 'semantic and authoring regression harness'
 run_ddev_php custom/plugins/VeyluneTheme/bin/governance-regression-check.php >/dev/null
@@ -97,7 +98,8 @@ for command in \
     'veylune:semantic:authoring-audit' \
     'veylune:runtime:distributed-audit' \
     'veylune:runtime:topology-pressure-audit' \
-    'veylune:publication-state:audit'
+    'veylune:publication-state:audit' \
+    'veylune:sitemap:audit'
 do
     safe_name="${command//:/_}"
     previous_file=''
@@ -187,24 +189,7 @@ assert_contains "$home_file" 'A quiet record of material and form.' '/ homepage 
 assert_contains "$home_file" 'Read Material Context' '/ homepage identity surface'
 
 step 'sitemap containment'
-if [[ -d public/sitemap ]]; then
-    if find public/sitemap -type f \( -name '*.xml' -o -name '*.xml.gz' \) -print0 | grep -qz .; then
-        while IFS= read -r -d '' sitemap_file; do
-            case "$sitemap_file" in
-                *.gz)
-                    if gzip -cd "$sitemap_file" | grep -Eiq "$detail_reference_pattern"; then
-                        fail "sitemap exposes governed detail reference: $sitemap_file"
-                    fi
-                    ;;
-                *)
-                    if grep -Eiq "$detail_reference_pattern" "$sitemap_file"; then
-                        fail "sitemap exposes governed detail reference: $sitemap_file"
-                    fi
-                    ;;
-            esac
-        done < <(find public/sitemap -type f \( -name '*.xml' -o -name '*.xml.gz' \) -print0)
-    fi
-fi
+run_console veylune:sitemap:audit >/dev/null
 
 step 'public observability containment'
 for route in "${approved_routes[@]}" "${discoverability_routes[@]}"; do

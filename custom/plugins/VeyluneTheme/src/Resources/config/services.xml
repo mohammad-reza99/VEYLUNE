@@ -27,6 +27,10 @@
 
         <service id="VeyluneTheme\Governance\GovernanceAuditService" />
 
+        <service id="VeyluneTheme\Governance\SitemapGovernanceAuditService">
+            <argument type="service" id="shopware.filesystem.sitemap" />
+        </service>
+
         <service id="VeyluneTheme\Command\SemanticAuditCommand" />
 
         <service id="VeyluneTheme\Command\SemanticAuthoringAuditCommand" />
@@ -36,6 +40,8 @@
         <service id="VeyluneTheme\Command\TopologyPressureAuditCommand" />
 
         <service id="VeyluneTheme\Command\PublicationStateAuditCommand" />
+
+        <service id="VeyluneTheme\Command\SitemapAuditCommand" />
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 

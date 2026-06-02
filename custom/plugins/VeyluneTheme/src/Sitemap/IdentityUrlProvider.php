@@ -69,7 +69,7 @@ final class IdentityUrlProvider extends AbstractUrlProvider
             }
 
             $emittedRoutes[$route] = true;
-            $urls[] = $this->buildUrl($route, $candidate['reference'], self::EDITION_PRIORITY);
+            $urls[] = $this->buildUrl($this->sitemapRoute($route, $locale), $candidate['reference'], self::EDITION_PRIORITY);
         }
 
         $page = \array_slice($urls, $offset, $limit);
@@ -126,5 +126,10 @@ final class IdentityUrlProvider extends AbstractUrlProvider
         $url->setIdentifier($identifier);
 
         return $url;
+    }
+
+    private function sitemapRoute(string $canonicalRoute, string $locale): string
+    {
+        return $locale === 'de' ? substr($canonicalRoute, \strlen('/de')) : $canonicalRoute;
     }
 }
