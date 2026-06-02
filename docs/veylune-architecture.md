@@ -17,6 +17,22 @@ catalog ownership, supplier ownership, structured product facts, and taxonomy
 governance. These contracts are not request-runtime enforcement and do not
 activate any catalog surface.
 
+WP-07 Phase 2 adds a static demo-residue quarantine contract and scalar rollback
+inventory. These artifacts document evidence-backed cleanup candidates and
+fail-closed review records only. They do not delete data, deactivate plugins,
+register services, or change storefront behavior.
+
+WP-07 Phase 3 adds static production taxonomy, category-lifecycle,
+property-dictionary, controlled-vocabulary, and facet-governance contracts.
+These definitions establish stable departments and bounded supplier mappings
+without restructuring catalog records, registering services, activating
+commerce, or changing storefront behavior.
+
+WP-07 Phase 4 adds static supplier master, canonical SKU, batch, import, and
+rollback governance contracts. These definitions prepare future supplier
+onboarding without onboarding suppliers, importing products, activating catalog
+records, registering services, or changing storefront behavior.
+
 ## System Overview
 
 Veylune Studio currently exposes governed Edition detail surfaces through a
