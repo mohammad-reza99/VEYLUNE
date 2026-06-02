@@ -21,6 +21,8 @@
 
         <service id="VeyluneTheme\Edition\EditionReferenceRegistry" />
 
+        <service id="VeyluneTheme\Retrieval\IdentityRetrievalMediator" />
+
         <service id="VeyluneTheme\Publication\PublicationStatePolicy" />
 
         <service id="VeyluneTheme\Semantic\SemanticRegistry" />

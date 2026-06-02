@@ -16,9 +16,10 @@
  * - archiveContinuity: whether archive metadata may preserve this reference
  * - publicationState: independent public-rendering lifecycle state
  *
- * Future rendering may consume only the minimal payload returned by
- * EditionReferenceRegistry::buildGuardedRenderingPayload(). It must not render
- * raw registry records, raw product entities, or uncontrolled custom fields.
+ * Rendering mediation may consume only the minimal payload returned by
+ * EditionReferenceRegistry::retrieveGuardedRenderingResult(). It must not
+ * render raw registry records, raw product entities, or uncontrolled custom
+ * fields.
  *
  * Product metadata may reference only keys present in this registry.
  * Only records with publicationState=published may become publicly renderable.

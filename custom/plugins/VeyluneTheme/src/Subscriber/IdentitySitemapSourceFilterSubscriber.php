@@ -7,7 +7,7 @@ use Shopware\Core\Content\Sitemap\Provider\CategoryUrlProvider;
 use Shopware\Core\Content\Sitemap\Provider\LandingPageUrlProvider;
 use Shopware\Core\Content\Sitemap\Provider\ProductUrlProvider;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use VeyluneTheme\Sitemap\IdentityUrlProvider;
+use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
 final class IdentitySitemapSourceFilterSubscriber implements EventSubscriberInterface
 {
@@ -26,7 +26,7 @@ final class IdentitySitemapSourceFilterSubscriber implements EventSubscriberInte
 
     public function suppressIdentityNativeSource(SitemapQueryEvent $event): void
     {
-        if ($event->getSalesChannelContext()->getSalesChannelId() !== IdentityUrlProvider::IDENTITY_SALES_CHANNEL_ID
+        if (!StorefrontRoleRegistry::isCanonicalPublicStorefront($event->getSalesChannelContext()->getSalesChannelId())
             || !\in_array($event->getName(), self::CONTAINED_QUERY_EVENTS, true)
         ) {
             return;

@@ -9,7 +9,7 @@ use Shopware\Core\Framework\Uuid\Uuid;
 use VeyluneTheme\Edition\EditionReferenceRegistry;
 use VeyluneTheme\Publication\PublicationStatePolicy;
 use VeyluneTheme\Semantic\SemanticAuditResult;
-use VeyluneTheme\Sitemap\IdentityUrlProvider;
+use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
 final class SitemapGovernanceAuditService
 {
@@ -41,9 +41,9 @@ final class SitemapGovernanceAuditService
 
                 $prefix = sprintf(
                     'sitemap/salesChannel-%s-%s/%s-%s-sitemap',
-                    IdentityUrlProvider::IDENTITY_SALES_CHANNEL_ID,
+                    StorefrontRoleRegistry::CANONICAL_PUBLIC_STOREFRONT_ID,
                     $domain['languageId'],
-                    IdentityUrlProvider::IDENTITY_SALES_CHANNEL_ID,
+                    StorefrontRoleRegistry::CANONICAL_PUBLIC_STOREFRONT_ID,
                     $domain['domainId']
                 );
                 $matches = array_values(array_filter(
@@ -102,7 +102,7 @@ final class SitemapGovernanceAuditService
              INNER JOIN locale ON locale.id = language.locale_id
              WHERE scd.sales_channel_id = :salesChannelId
              ORDER BY scd.language_id, scd.url',
-            ['salesChannelId' => Uuid::fromHexToBytes(IdentityUrlProvider::IDENTITY_SALES_CHANNEL_ID)]
+            ['salesChannelId' => Uuid::fromHexToBytes(StorefrontRoleRegistry::CANONICAL_PUBLIC_STOREFRONT_ID)]
         );
 
         if ($domains === []) {
@@ -118,7 +118,7 @@ final class SitemapGovernanceAuditService
     private function identityArtifactPaths(): array
     {
         $paths = [];
-        $prefix = 'sitemap/salesChannel-' . IdentityUrlProvider::IDENTITY_SALES_CHANNEL_ID . '-';
+        $prefix = 'sitemap/salesChannel-' . StorefrontRoleRegistry::CANONICAL_PUBLIC_STOREFRONT_ID . '-';
 
         foreach ($this->sitemapFilesystem->listContents('sitemap', true) as $attributes) {
             if (!$attributes instanceof StorageAttributes || !$attributes->isFile()) {

@@ -7,6 +7,11 @@ WP-02 adds a deny-by-default allowlist for the existing public-behavior
 domains, mediate Store API requests, replace sitemap generation, or create
 Acquisition or Commerce routing.
 
+WP-06 subsequently designates `VEYLUNE STUDIO` as the canonical public
+storefront. The WP-02 allowlist remains a transitional containment policy: it
+preserves current public behavior until later, explicitly authorized work
+packages introduce governed commerce surfaces.
+
 ## Allowed Identity Ingress
 
 - homepage and localized homepage

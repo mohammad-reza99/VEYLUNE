@@ -5,6 +5,7 @@ namespace VeyluneTheme\Sitemap;
 use Shopware\Core\Content\Sitemap\Provider\AbstractUrlProvider;
 use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
 final class IdentityScopedCustomUrlProvider extends AbstractUrlProvider
 {
@@ -25,7 +26,7 @@ final class IdentityScopedCustomUrlProvider extends AbstractUrlProvider
 
     public function getUrls(SalesChannelContext $context, int $limit, ?int $offset = null): UrlResult
     {
-        if ($context->getSalesChannelId() === IdentityUrlProvider::IDENTITY_SALES_CHANNEL_ID) {
+        if (StorefrontRoleRegistry::isCanonicalPublicStorefront($context->getSalesChannelId())) {
             return new UrlResult([], null);
         }
 

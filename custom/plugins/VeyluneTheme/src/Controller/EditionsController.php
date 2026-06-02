@@ -7,8 +7,9 @@ use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Framework\Routing\StorefrontRouteScope;
+use Shopware\Storefront\Framework\Routing\RequestTransformer;
 use Shopware\Storefront\Page\GenericPageLoader;
-use VeyluneTheme\Edition\EditionReferenceRegistry;
+use VeyluneTheme\Retrieval\IdentityRetrievalMediator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,7 +22,7 @@ class EditionsController extends StorefrontController
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
         private readonly TranslatorInterface $translator,
-        private readonly EditionReferenceRegistry $editionReferenceRegistry
+        private readonly IdentityRetrievalMediator $identityRetrievalMediator
     ) {
     }
 
@@ -53,27 +54,15 @@ class EditionsController extends StorefrontController
     )]
     public function guardedDetail(string $reference, Request $request, SalesChannelContext $context): Response
     {
-        $pathInfo = $request->getPathInfo();
-        $requestLocale = $request->getLocale();
+        $retrieval = $this->identityRetrievalMediator->retrieve(
+            $context->getSalesChannelId(),
+            (string) $request->attributes->get('_route'),
+            (string) $request->attributes->get(RequestTransformer::ORIGINAL_REQUEST_URI, $request->getRequestUri()),
+            $reference,
+            $request->getLocale()
+        );
 
-        if (str_starts_with($pathInfo, '/editionen/') && !str_starts_with($requestLocale, 'de')) {
-            return $this->denyEditionDetail();
-        }
-
-        if (!\preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $reference)) {
-            return $this->denyEditionDetail();
-        }
-
-        $locale = str_starts_with($requestLocale, 'de') ? 'de' : 'en';
-        $resolution = $this->editionReferenceRegistry->resolveDetailRouteState($reference, $locale);
-
-        if ($resolution['state'] !== EditionReferenceRegistry::STATE_PUBLICLY_RENDERABLE || $resolution['exposureAllowed'] !== true) {
-            return $this->denyEditionDetail();
-        }
-
-        $payload = $this->editionReferenceRegistry->buildGuardedRenderingPayload($reference, $locale);
-
-        if ($payload === null) {
+        if ($retrieval['status'] !== 'renderable') {
             return $this->denyEditionDetail();
         }
 
@@ -81,7 +70,7 @@ class EditionsController extends StorefrontController
 
         return $this->renderStorefront('@Storefront/storefront/veylune/edition-detail-skeleton.html.twig', [
             'page' => $page,
-            'veyluneEdition' => $payload,
+            'veyluneEdition' => $retrieval['payload'],
         ]);
     }
 

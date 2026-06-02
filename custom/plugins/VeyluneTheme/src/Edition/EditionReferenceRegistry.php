@@ -14,6 +14,7 @@ class EditionReferenceRegistry
     public const STATE_REGISTRY_VALID = 'registry_valid';
     public const STATE_DESTINATION_READY = 'destination_ready';
     public const STATE_PUBLICATION_BLOCKED = 'publication_blocked';
+    public const STATE_UNSUPPORTED_PUBLICATION_STATE = 'unsupported_publication_state';
     public const STATE_RENDERING_DISABLED = 'rendering_disabled';
     public const STATE_PUBLICLY_RENDERABLE = 'publicly_renderable';
 
@@ -268,6 +269,10 @@ class EditionReferenceRegistry
             ($record['archiveContinuity'] ?? false) === true
         );
 
+        if ($publication['state'] === 'invalid') {
+            return $this->resolution(self::STATE_UNSUPPORTED_PUBLICATION_STATE, $publication['violations']);
+        }
+
         if (!$publication['exposureAllowed']) {
             return $this->resolution(self::STATE_PUBLICATION_BLOCKED, $publication['violations']);
         }
@@ -297,16 +302,42 @@ class EditionReferenceRegistry
      */
     public function buildGuardedRenderingPayload(string $reference, string $locale): ?array
     {
+        return $this->retrieveGuardedRenderingResult($reference, $locale)['payload'];
+    }
+
+    /**
+     * @return array{
+     *     state: string,
+     *     exposureAllowed: bool,
+     *     violations: list<string>,
+     *     payload: array{
+     *         reference: string,
+     *         locale: string,
+     *         canonicalRoute: string,
+     *         releaseState: string,
+     *         acquisitionState: array{inquiryAllowed: bool, ctaAllowed: bool},
+     *         cmsDestination: array{authority: 'edition_destination', blueprint: 'edition_detail'},
+     *         archiveContinuity: bool,
+     *         displayTitle: string,
+     *         summaryLabel: string,
+     *         materialContext: string,
+     *         spatialContext: string,
+     *         governanceNote: string
+     *     }|null
+     * }
+     */
+    public function retrieveGuardedRenderingResult(string $reference, string $locale): array
+    {
         $resolution = $this->resolveDetailRouteState($reference, $locale);
 
         if ($resolution['state'] !== self::STATE_PUBLICLY_RENDERABLE || $resolution['exposureAllowed'] !== true) {
-            return null;
+            return [...$resolution, 'payload' => null];
         }
 
         $record = $this->all()[$reference] ?? null;
 
         if ($record === null) {
-            return null;
+            return $this->renderingFailure('Edition rendering payload record is unavailable.');
         }
 
         $detailDestination = $record['detailDestination'] ?? [];
@@ -314,13 +345,13 @@ class EditionReferenceRegistry
         $releaseState = $this->stringValue($record['releaseState'] ?? null);
 
         if (!\is_array($cmsAssignment) || $releaseState === null) {
-            return null;
+            return $this->renderingFailure('Edition rendering payload metadata is malformed.');
         }
 
         $acquisitionState = $this->getAcquisitionState($record, $releaseState);
 
         if ($acquisitionState === null) {
-            return null;
+            return $this->renderingFailure('Edition rendering acquisition state is malformed.');
         }
 
         $displayTitle = $this->localizedString($record, 'displayTitle', $locale);
@@ -335,7 +366,7 @@ class EditionReferenceRegistry
             || $spatialContext === null
             || $governanceNote === null
         ) {
-            return null;
+            return $this->renderingFailure('Edition rendering localized fields are malformed.');
         }
 
         $payload = [
@@ -356,7 +387,11 @@ class EditionReferenceRegistry
             'governanceNote' => $governanceNote,
         ];
 
-        return $this->isGuardedRenderingPayload($payload) ? $payload : null;
+        if (!$this->isGuardedRenderingPayload($payload)) {
+            return $this->renderingFailure('Edition rendering payload contract is malformed.');
+        }
+
+        return [...$resolution, 'payload' => $payload];
     }
 
     /**
@@ -828,6 +863,19 @@ class EditionReferenceRegistry
             'state' => $state,
             'exposureAllowed' => false,
             'violations' => $violations,
+        ];
+    }
+
+    /**
+     * @return array{state: string, exposureAllowed: false, violations: list<string>, payload: null}
+     */
+    private function renderingFailure(string $violation): array
+    {
+        return [
+            'state' => self::STATE_RENDERING_DISABLED,
+            'exposureAllowed' => false,
+            'violations' => [$violation],
+            'payload' => null,
         ];
     }
 

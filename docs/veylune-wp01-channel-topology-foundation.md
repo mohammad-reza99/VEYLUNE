@@ -8,7 +8,9 @@ domains, change the existing storefront, modify the existing Headless channel,
 or change sitemap ownership.
 
 The current `VEYLUNE STUDIO` storefront remains the active public-behavior
-baseline until later work packages are authorized.
+baseline until later work packages are authorized. WP-06 subsequently
+designates this existing channel as the canonical public storefront without
+activating any foundation channel.
 
 ## Foundations
 

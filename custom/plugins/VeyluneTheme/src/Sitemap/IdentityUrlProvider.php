@@ -9,11 +9,10 @@ use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use VeyluneTheme\Edition\EditionReferenceRegistry;
 use VeyluneTheme\Publication\PublicationStatePolicy;
+use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
 final class IdentityUrlProvider extends AbstractUrlProvider
 {
-    public const IDENTITY_SALES_CHANNEL_ID = '019e3bf9c220717884d2a4eaca77c2d1';
-
     private const CHANGE_FREQ = 'weekly';
     private const HOMEPAGE_PRIORITY = 1.0;
     private const EDITION_PRIORITY = 0.7;
@@ -46,7 +45,7 @@ final class IdentityUrlProvider extends AbstractUrlProvider
         $offset ??= 0;
         $locale = $this->resolveLocale($context);
 
-        if ($context->getSalesChannelId() !== self::IDENTITY_SALES_CHANNEL_ID
+        if (!StorefrontRoleRegistry::isCanonicalPublicStorefront($context->getSalesChannelId())
             || $locale === null
             || $limit < 1
             || $offset < 0

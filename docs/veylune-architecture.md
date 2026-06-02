@@ -5,6 +5,11 @@ runtime. It describes what exists now. It does not authorize new route classes,
 commerce, navigation, discoverability expansion, editorial systems, or topology
 systems.
 
+WP-06 classifies the existing `VEYLUNE STUDIO` sales channel as the canonical
+public storefront. That ownership classification does not activate commerce or
+change the Edition runtime described here. Existing ingress and sitemap
+containment remain in force until later work packages explicitly evolve them.
+
 ## System Overview
 
 Veylune Studio currently exposes governed Edition detail surfaces through a

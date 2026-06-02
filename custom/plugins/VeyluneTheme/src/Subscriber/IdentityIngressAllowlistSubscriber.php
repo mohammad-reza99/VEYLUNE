@@ -13,13 +13,12 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
 #[Package('storefront')]
 final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterface
 {
-    private const IDENTITY_SALES_CHANNEL_ID = '019e3bf9c220717884d2a4eaca77c2d1';
-
-    private const IDENTITY_HOSTS = [
+    private const CANONICAL_PUBLIC_STOREFRONT_HOSTS = [
         'veylune-shopware.ddev.site',
         'veylune.com',
     ];
@@ -82,7 +81,7 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
     {
         $request = $event->getRequest();
 
-        if ($request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) !== self::IDENTITY_SALES_CHANNEL_ID) {
+        if (!$this->isCanonicalPublicStorefrontRequest($request)) {
             return;
         }
 
@@ -101,13 +100,13 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
 
         $request = $event->getRequest();
 
-        if ($this->isIdentityApiRequest($request)) {
+        if ($this->isCanonicalPublicStorefrontApiRequest($request)) {
             $event->setResponse($this->deniedResponse($request));
 
             return;
         }
 
-        if ($request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) !== self::IDENTITY_SALES_CHANNEL_ID) {
+        if (!$this->isCanonicalPublicStorefrontRequest($request)) {
             return;
         }
 
@@ -118,7 +117,7 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         $event->setResponse($this->deniedResponse($request));
     }
 
-    private function isIdentityApiRequest(Request $request): bool
+    private function isCanonicalPublicStorefrontApiRequest(Request $request): bool
     {
         if (!$this->isIdentityIngressRequest($request)) {
             return false;
@@ -134,8 +133,15 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
 
     private function isIdentityIngressRequest(Request $request): bool
     {
-        return \in_array($request->getHost(), self::IDENTITY_HOSTS, true)
-            || $request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) === self::IDENTITY_SALES_CHANNEL_ID;
+        return \in_array($request->getHost(), self::CANONICAL_PUBLIC_STOREFRONT_HOSTS, true)
+            || $this->isCanonicalPublicStorefrontRequest($request);
+    }
+
+    private function isCanonicalPublicStorefrontRequest(Request $request): bool
+    {
+        return StorefrontRoleRegistry::isCanonicalPublicStorefront(
+            (string) $request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID)
+        );
     }
 
     private function isAllowed(Request $request): bool
