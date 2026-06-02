@@ -47,11 +47,17 @@
 
         <service id="VeyluneTheme\Command\StagingDryRunValidationCommand" />
 
+        <service id="VeyluneTheme\Command\LaunchSimulationCommand" />
+
         <service id="VeyluneTheme\Catalog\SupplierStagingRegistry" />
 
         <service id="VeyluneTheme\Catalog\SkuReservationRegistry" />
 
         <service id="VeyluneTheme\Catalog\BatchValidationEngine" />
+
+        <service id="VeyluneTheme\Catalog\LaunchSimulationFactory" />
+
+        <service id="VeyluneTheme\Catalog\LaunchSimulationRunner" />
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 

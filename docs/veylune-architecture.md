@@ -50,6 +50,11 @@ rollback snapshot metadata, and a dry-run manifest validation command. This
 does not onboard suppliers, create or import products, publish products,
 activate commerce, or change storefront behavior.
 
+WP-07 Phase 9 adds a command-only mock launch simulation for three mock
+suppliers, four generated batches, and 100 generated product candidates. The
+simulation validates the full staging chain without real suppliers, imports,
+product creation, publication, commerce activation, or database writes.
+
 ## System Overview
 
 Veylune Studio currently exposes governed Edition detail surfaces through a
