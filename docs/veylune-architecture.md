@@ -33,6 +33,23 @@ rollback governance contracts. These definitions prepare future supplier
 onboarding without onboarding suppliers, importing products, activating catalog
 records, registering services, or changing storefront behavior.
 
+WP-07 Phase 5 adds static product publication, sellability, readiness,
+quality-gate, and withdrawal governance contracts. These definitions keep
+product publication independent from Shopware activation, stock, visibility,
+supplier status, import approval, and sellability without onboarding products,
+activating commerce, registering services, or changing storefront behavior.
+
+WP-07 Phase 6 adds static supplier-staging, SKU-reservation, batch-manifest,
+product-readiness, media-QA, and content-QA harnesses. These validators operate
+only on staged array/manifests and do not onboard suppliers, import products,
+publish products, register services, or change storefront behavior.
+
+WP-07 Phase 8 adds command-only controlled staging validation infrastructure:
+file-backed staging registries, SKU-reservation validation, batch validation,
+rollback snapshot metadata, and a dry-run manifest validation command. This
+does not onboard suppliers, create or import products, publish products,
+activate commerce, or change storefront behavior.
+
 ## System Overview
 
 Veylune Studio currently exposes governed Edition detail surfaces through a

@@ -45,6 +45,14 @@
 
         <service id="VeyluneTheme\Command\SitemapAuditCommand" />
 
+        <service id="VeyluneTheme\Command\StagingDryRunValidationCommand" />
+
+        <service id="VeyluneTheme\Catalog\SupplierStagingRegistry" />
+
+        <service id="VeyluneTheme\Catalog\SkuReservationRegistry" />
+
+        <service id="VeyluneTheme\Catalog\BatchValidationEngine" />
+
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 
         <service id="VeyluneTheme\Subscriber\IdentityIngressAllowlistSubscriber" />
