@@ -40,5 +40,23 @@
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 
         <service id="VeyluneTheme\Subscriber\IdentityIngressAllowlistSubscriber" />
+
+        <service id="VeyluneTheme\Subscriber\IdentitySitemapSourceFilterSubscriber" />
+
+        <service id="VeyluneTheme\Sitemap\IdentityUrlProvider" autoconfigure="false">
+            <tag name="shopware.sitemap_url_provider" />
+        </service>
+
+        <service id="VeyluneTheme\Sitemap\IdentityScopedHomeUrlProvider"
+                 decorates="Shopware\Core\Content\Sitemap\Provider\HomeUrlProvider"
+                 autoconfigure="false">
+            <argument type="service" id=".inner" />
+        </service>
+
+        <service id="VeyluneTheme\Sitemap\IdentityScopedCustomUrlProvider"
+                 decorates="Shopware\Core\Content\Sitemap\Provider\CustomUrlProvider"
+                 autoconfigure="false">
+            <argument type="service" id=".inner" />
+        </service>
     </services>
 </container>
