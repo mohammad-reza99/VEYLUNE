@@ -72,12 +72,12 @@
 			{% set veyluneHomeHeroMedia = veyluneHomeHeroSlot ? veyluneHomeHeroSlot.data.media : null %}
 			{% set veyluneHomeHeroDisplayMode = veyluneHomeHeroSlot ? veyluneHomeHeroSlot.translated.config.displayMode.value|default('cover') : 'cover' %}
 			{% set veyluneDiscoveryRooms = [
-				{ key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', target: '#veylune-discovery-rooms' },
-				{ key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', target: '#veylune-discovery-rooms' },
-				{ key: 'bedroom', label: 'veylune.home.discovery.rooms.bedroom', target: '#veylune-discovery-rooms' },
-				{ key: 'workspace', label: 'veylune.home.discovery.rooms.workspace', target: '#veylune-discovery-rooms' },
-				{ key: 'hallway', label: 'veylune.home.discovery.rooms.hallway', target: '#veylune-discovery-rooms' },
-				{ key: 'outdoor', label: 'veylune.home.discovery.rooms.outdoor', target: '#veylune-discovery-rooms' }
+				{ key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'living-room' }) },
+				{ key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'dining-room' }) },
+				{ key: 'bedroom', label: 'veylune.home.discovery.rooms.bedroom', target: path('frontend.veylune.discovery.room', { roomKey: 'bedroom' }) },
+				{ key: 'workspace', label: 'veylune.home.discovery.rooms.workspace', target: path('frontend.veylune.discovery.room', { roomKey: 'workspace' }) },
+				{ key: 'hallway', label: 'veylune.home.discovery.rooms.hallway', target: path('frontend.veylune.discovery.room', { roomKey: 'hallway' }) },
+				{ key: 'outdoor', label: 'veylune.home.discovery.rooms.outdoor', target: path('frontend.veylune.discovery.room', { roomKey: 'outdoor' }) }
 			] %}
 			{% set veyluneDiscoveryCategories = [
 				{ key: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: path('frontend.search.page', { search: 'Furniture' }) },
@@ -88,10 +88,10 @@
 				{ key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: path('frontend.search.page', { search: 'Outdoor' }) }
 			] %}
 			{% set veyluneDiscoveryCollections = [
-				{ key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', target: '#veylune-founder-selection-foundation' },
-				{ key: 'permanent-collections', label: 'veylune.home.discovery.collections.permanentCollections', target: veyluneCategoryRoutes.url('collections') },
-				{ key: 'editorial-collections', label: 'veylune.home.discovery.collections.editorialCollections', target: veyluneRoutes.editions },
-				{ key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', target: '#veylune-new-arrivals-foundation' }
+				{ key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', target: path('frontend.veylune.discovery.collection', { collectionKey: 'founder-selection' }) },
+				{ key: 'permanent-collections', label: 'veylune.home.discovery.collections.permanentCollections', target: path('frontend.veylune.discovery.collection', { collectionKey: 'permanent-collections' }) },
+				{ key: 'editorial-collections', label: 'veylune.home.discovery.collections.editorialCollections', target: path('frontend.veylune.discovery.collection', { collectionKey: 'editorial-collections' }) },
+				{ key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', target: path('frontend.veylune.discovery.collection', { collectionKey: 'new-arrivals' }) }
 			] %}
 			<main class="veylune-home" data-veylune-home>
 				<section class="veylune-home__scene veylune-home-hero" data-veylune-reveal>

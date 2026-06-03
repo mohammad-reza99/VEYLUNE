@@ -228,7 +228,7 @@ body.veylune-overlay-active {
     display: none;
     grid-template-columns: minmax(0, 0.9fr) minmax(220px, 0.55fr) minmax(240px, 0.5fr);
     gap: clamp(1.5rem, 4vw, 4rem);
-    align-items: end;
+    align-items: start;
     min-height: 140px;
 }
 
@@ -260,10 +260,34 @@ body.veylune-overlay-active {
     line-height: 1.72;
 }
 
+.veylune-mega__group {
+    min-width: 0;
+}
+
+.veylune-mega__group--wide {
+    grid-column: 1 / -1;
+    max-width: 760px;
+}
+
+.veylune-mega__group h3 {
+    margin: 0 0 1rem;
+    color: var(--veylune-color-bronze-dark);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: var(--veylune-letter-label);
+    text-transform: uppercase;
+}
+
 .veylune-mega__links {
     display: grid;
     gap: 0;
     border-top: 1px solid rgba(139, 118, 90, 0.16);
+}
+
+.veylune-mega__links--columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(1.5rem, 4vw, 3rem);
 }
 
 .veylune-mega__links a {
@@ -275,7 +299,7 @@ body.veylune-overlay-active {
     color: var(--veylune-color-charcoal);
     border-bottom: 1px solid rgba(139, 118, 90, 0.16);
     font-family: var(--veylune-font-serif);
-    font-size: clamp(1.05rem, 1.6vw, 1.45rem);
+    font-size: clamp(1rem, 1.4vw, 1.28rem);
     line-height: 1;
     text-decoration: none;
     transition:

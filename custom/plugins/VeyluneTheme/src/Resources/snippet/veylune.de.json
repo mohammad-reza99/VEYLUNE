@@ -102,6 +102,11 @@
       },
       "mega": {
         "ariaLabel": "Navigationsgrundlage",
+        "groups": {
+          "categories": "Kategorien",
+          "collections": "Kollektionen",
+          "rooms": "Raeume"
+        },
         "collections": {
           "intro": "Skulpturale Stücke als kuratiertes Designarchiv.",
           "title": "Kollektionen"
@@ -180,6 +185,70 @@
       "overviewTitle": "Vier zurückhaltende Richtungen für atmosphärische Interieurs.",
       "selectedFormOne": "1 dokumentierte Form",
       "selectedFormsMany": "%count% dokumentierte Formen"
+    },
+    "destination": {
+      "meta": {
+        "description": "Eine gesteuerte Veylune Discovery-Destination, vorbereitet fuer kuenftige Product Readiness."
+      },
+      "roomEyebrow": "Raumdestination",
+      "collectionEyebrow": "Kollektionsdestination",
+      "shortcuts": {
+        "eyebrow": "Kategoriepfade",
+        "title": "Department-Pfade verbinden sich, sobald gesteuerte Mappings bereit sind."
+      },
+      "products": {
+        "eyebrow": "Produktstrom",
+        "title": "Freigegebene Produkte erscheinen hier nach Governance-Freigabe."
+      },
+      "empty": {
+        "title": "Wartet auf gesteuerte Produktbefuellung",
+        "roomText": "Diese Raumdestination ist als registry-gestuetzte Discovery-Huelle aktiv. Produktstroeme erscheinen erst nach Room Mapping, Product Readiness und Exposure-Regeln.",
+        "collectionText": "Diese Kollektionsdestination ist als registry-gestuetzte Discovery-Huelle aktiv. Produkte erscheinen erst nach Kollektionszuordnung, Product Readiness und Exposure-Regeln."
+      },
+      "rooms": {
+        "livingRoom": {
+          "title": "Wohnzimmer",
+          "text": "Eine Destination fuer Sitzmoebel, Tische, Leuchten und atmosphaerische Objekte rund um den zentralen Raum des Zuhauses."
+        },
+        "diningRoom": {
+          "title": "Esszimmer",
+          "text": "Eine Destination fuer Dining-Moebel, Leuchten und Hosting-Objekte rund um Zusammenkommen und Proportion."
+        },
+        "bedroom": {
+          "title": "Schlafzimmer",
+          "text": "Eine Destination fuer ruhige Moebel, Textilien, Leuchten und Stauraum rund um Ruhe und Materialweichheit."
+        },
+        "workspace": {
+          "title": "Workspace",
+          "text": "Eine Destination fuer Arbeitsflaechen, Sitzmoebel, Stauraum und Task Lighting rund um Fokus und Zurueckhaltung."
+        },
+        "hallway": {
+          "title": "Flur",
+          "text": "Eine Destination fuer Konsolen, Spiegel, Leuchten und Objekte rund um Eingangsrhythmus und ersten Eindruck."
+        },
+        "outdoor": {
+          "title": "Outdoor",
+          "text": "Eine Destination fuer Exterior-Moebel und Objekte rund um saisonales Wohnen und dauerhafte Materialpraesenz."
+        }
+      },
+      "collections": {
+        "founderSelection": {
+          "title": "Founder Selection",
+          "text": "Eine kuratierte Kollektionshuelle fuer founder-freigegebene Produkte, sobald Kuration und Readiness-Regeln erfuellt sind."
+        },
+        "newArrivals": {
+          "title": "New Arrivals",
+          "text": "Eine dynamische Kollektionshuelle fuer Produkte mit freigegebenem Exposure-Datum und vollstaendiger Readiness."
+        },
+        "permanentCollections": {
+          "title": "Permanent Collections",
+          "text": "Eine stabile Kollektionshuelle fuer dauerhafte Veylune Sortimentspfade und kuenftige registry-gestuetzte Kollektionskinder."
+        },
+        "editorialCollections": {
+          "title": "Editorial Collections",
+          "text": "Eine Campaign- und Story-Kollektionshuelle fuer freigegebenes Editorial Merchandising."
+        }
+      }
     },
     "productDetail": {
       "atelier": "Atelier",

@@ -19,6 +19,12 @@
             </call>
         </service>
 
+        <service id="VeyluneTheme\Controller\DiscoveryDestinationController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
         <service id="VeyluneTheme\Edition\EditionReferenceRegistry" />
 
         <service id="VeyluneTheme\Retrieval\IdentityRetrievalMediator" />

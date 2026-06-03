@@ -102,6 +102,11 @@
       },
       "mega": {
         "ariaLabel": "Navigation foundation",
+        "groups": {
+          "categories": "Categories",
+          "collections": "Collections",
+          "rooms": "Rooms"
+        },
         "collections": {
           "intro": "Sculptural pieces arranged as a collectible design archive.",
           "title": "Collections"
@@ -180,6 +185,70 @@
       "overviewTitle": "Four restrained directions for atmospheric interiors.",
       "selectedFormOne": "1 recorded form",
       "selectedFormsMany": "%count% recorded forms"
+    },
+    "destination": {
+      "meta": {
+        "description": "A governed Veylune discovery destination prepared for future product readiness."
+      },
+      "roomEyebrow": "Room Destination",
+      "collectionEyebrow": "Collection Destination",
+      "shortcuts": {
+        "eyebrow": "Category Shortcuts",
+        "title": "Department paths will connect once governed mappings are ready."
+      },
+      "products": {
+        "eyebrow": "Product Stream",
+        "title": "Ready products will appear here after governance approval."
+      },
+      "empty": {
+        "title": "Awaiting governed product population",
+        "roomText": "This room destination is active as a registry-backed discovery shell. Product streams will appear only after room mapping, product readiness, and exposure rules are satisfied.",
+        "collectionText": "This collection destination is active as a registry-backed discovery shell. Products will appear only after collection membership, product readiness, and exposure rules are satisfied."
+      },
+      "rooms": {
+        "livingRoom": {
+          "title": "Living Room",
+          "text": "A destination for seating, tables, lighting, and atmospheric objects prepared around the central room of the home."
+        },
+        "diningRoom": {
+          "title": "Dining Room",
+          "text": "A destination for dining furniture, lighting, and hosting objects prepared around gathering and proportion."
+        },
+        "bedroom": {
+          "title": "Bedroom",
+          "text": "A destination for quiet furniture, textiles, lighting, and storage prepared around calm and material softness."
+        },
+        "workspace": {
+          "title": "Workspace",
+          "text": "A destination for work surfaces, seating, storage, and task lighting prepared around focus and restraint."
+        },
+        "hallway": {
+          "title": "Hallway",
+          "text": "A destination for consoles, mirrors, lighting, and objects prepared around entrance rhythm and first impression."
+        },
+        "outdoor": {
+          "title": "Outdoor",
+          "text": "A destination for exterior furniture and objects prepared around seasonal living and durable material presence."
+        }
+      },
+      "collections": {
+        "founderSelection": {
+          "title": "Founder Selection",
+          "text": "A curated collection shell reserved for founder-approved products once curation and readiness rules are satisfied."
+        },
+        "newArrivals": {
+          "title": "New Arrivals",
+          "text": "A dynamic collection shell reserved for products with approved exposure dates and complete readiness."
+        },
+        "permanentCollections": {
+          "title": "Permanent Collections",
+          "text": "A stable collection shell for enduring Veylune assortment paths and future registry-backed collection children."
+        },
+        "editorialCollections": {
+          "title": "Editorial Collections",
+          "text": "A campaign and story collection shell reserved for approved editorial merchandising."
+        }
+      }
     },
     "productDetail": {
       "atelier": "Atelier",

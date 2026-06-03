@@ -4,7 +4,7 @@
 	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
 	{% set veyluneRoutes = {
         shop: path('frontend.search.page'),
-        rooms: path('frontend.home.page') ~ '#veylune-rooms',
+        rooms: veyluneCategoryRoutes.url('livingRoom'),
         collections: veyluneCategoryRoutes.url('collections'),
         editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page'),
         consultation: veyluneCategoryRoutes.url('consultation')
@@ -50,6 +50,28 @@
             desktop: true,
             mobile: true
         }
+    ] %}
+    {% set veyluneMegaCategories = [
+        { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
+        { key: 'lighting', label: 'veylune.home.discovery.categories.lighting', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
+        { key: 'decor-objects', label: 'veylune.home.discovery.categories.decorObjects', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
+        { key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
+        { key: 'dining-kitchen', label: 'veylune.home.discovery.categories.diningKitchen', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
+        { key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', url: path('frontend.home.page') ~ '#veylune-home-discovery' }
+    ] %}
+    {% set veyluneMegaRooms = [
+        { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: veyluneCategoryRoutes.url('livingRoom') },
+        { key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', url: veyluneCategoryRoutes.url('diningRoom') },
+        { key: 'bedroom', label: 'veylune.home.discovery.rooms.bedroom', url: veyluneCategoryRoutes.url('bedroom') },
+        { key: 'workspace', label: 'veylune.home.discovery.rooms.workspace', url: veyluneCategoryRoutes.url('workspace') },
+        { key: 'hallway', label: 'veylune.home.discovery.rooms.hallway', url: veyluneCategoryRoutes.url('hallway') },
+        { key: 'outdoor', label: 'veylune.home.discovery.rooms.outdoor', url: veyluneCategoryRoutes.url('outdoorRoom') }
+    ] %}
+    {% set veyluneMegaCollections = [
+        { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: veyluneCategoryRoutes.url('founderSelection') },
+        { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: veyluneCategoryRoutes.url('newArrivals') },
+        { key: 'permanent-collections', label: 'veylune.home.discovery.collections.permanentCollections', url: veyluneCategoryRoutes.url('permanentCollections') },
+        { key: 'editorial-collections', label: 'veylune.home.discovery.collections.editorialCollections', url: veyluneCategoryRoutes.url('editorialCollections') }
     ] %}
 
 	<header class="veylune-header" data-veylune-header>
@@ -163,6 +185,50 @@
                                      data-veylune-mega-panel="{{ item.mega }}"
                                      aria-label="{{ item.label|trans|striptags }}"
                                      aria-hidden="true">
+                                {% if item.mega == 'shop' %}
+                                    <div class="veylune-mega__group" data-veylune-registry-scope="mega-shop" data-veylune-registry-entity="departments">
+                                        <h3>{{ 'veylune.header.mega.groups.categories'|trans|sw_sanitize }}</h3>
+                                        <div class="veylune-mega__links">
+                                            {% for category in veyluneMegaCategories %}
+                                                <a href="{{ category.url }}" data-veylune-registry-key="{{ category.key }}" data-veylune-page-transition>{{ category.label|trans|sw_sanitize }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="veylune-mega__group" data-veylune-registry-scope="mega-shop" data-veylune-registry-entity="rooms">
+                                        <h3>{{ 'veylune.header.mega.groups.rooms'|trans|sw_sanitize }}</h3>
+                                        <div class="veylune-mega__links">
+                                            {% for room in veyluneMegaRooms %}
+                                                <a href="{{ room.url }}" data-veylune-registry-key="{{ room.key }}" data-veylune-page-transition>{{ room.label|trans|sw_sanitize }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="veylune-mega__group" data-veylune-registry-scope="mega-shop" data-veylune-registry-entity="collections">
+                                        <h3>{{ 'veylune.header.mega.groups.collections'|trans|sw_sanitize }}</h3>
+                                        <div class="veylune-mega__links">
+                                            {% for collection in veyluneMegaCollections %}
+                                                <a href="{{ collection.url }}" data-veylune-registry-key="{{ collection.key }}" data-veylune-page-transition>{{ collection.label|trans|sw_sanitize }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% elseif item.mega == 'rooms' %}
+                                    <div class="veylune-mega__group veylune-mega__group--wide" data-veylune-registry-scope="mega-rooms" data-veylune-registry-entity="rooms">
+                                        <h3>{{ 'veylune.header.mega.groups.rooms'|trans|sw_sanitize }}</h3>
+                                        <div class="veylune-mega__links veylune-mega__links--columns">
+                                            {% for room in veyluneMegaRooms %}
+                                                <a href="{{ room.url }}" data-veylune-registry-key="{{ room.key }}" data-veylune-page-transition>{{ room.label|trans|sw_sanitize }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% elseif item.mega == 'collections' %}
+                                    <div class="veylune-mega__group veylune-mega__group--wide" data-veylune-registry-scope="mega-collections" data-veylune-registry-entity="collections">
+                                        <h3>{{ 'veylune.header.mega.groups.collections'|trans|sw_sanitize }}</h3>
+                                        <div class="veylune-mega__links">
+                                            {% for collection in veyluneMegaCollections %}
+                                                <a href="{{ collection.url }}" data-veylune-registry-key="{{ collection.key }}" data-veylune-page-transition>{{ collection.label|trans|sw_sanitize }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </section>
                         {% endif %}
                     {% endfor %}
