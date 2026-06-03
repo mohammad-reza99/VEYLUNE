@@ -80,12 +80,12 @@
 				{ key: 'outdoor', label: 'veylune.home.discovery.rooms.outdoor', target: path('frontend.veylune.discovery.room', { roomKey: 'outdoor' }) }
 			] %}
 			{% set veyluneDiscoveryCategories = [
-				{ key: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: path('frontend.search.page', { search: 'Furniture' }) },
-				{ key: 'lighting', label: 'veylune.home.discovery.categories.lighting', target: path('frontend.search.page', { search: 'Lighting' }) },
-				{ key: 'decor-objects', label: 'veylune.home.discovery.categories.decorObjects', target: path('frontend.search.page', { search: 'Decor Objects' }) },
-				{ key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', target: path('frontend.search.page', { search: 'Textiles Rugs' }) },
-				{ key: 'dining-kitchen', label: 'veylune.home.discovery.categories.diningKitchen', target: path('frontend.search.page', { search: 'Dining Kitchen' }) },
-				{ key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: path('frontend.search.page', { search: 'Outdoor' }) }
+				{ key: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: veyluneCategoryRoutes.url('furniture') },
+				{ key: 'lighting', label: 'veylune.home.discovery.categories.lighting', target: veyluneCategoryRoutes.url('departmentLighting') },
+				{ key: 'decor-objects', label: 'veylune.home.discovery.categories.decorObjects', target: veyluneCategoryRoutes.url('departmentDecorObjects') },
+				{ key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', target: veyluneCategoryRoutes.url('textilesRugs') },
+				{ key: 'dining-kitchen', label: 'veylune.home.discovery.categories.diningKitchen', target: veyluneCategoryRoutes.url('diningKitchen') },
+				{ key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: veyluneCategoryRoutes.url('departmentOutdoor') }
 			] %}
 			{% set veyluneDiscoveryCollections = [
 				{ key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', target: path('frontend.veylune.discovery.collection', { collectionKey: 'founder-selection' }) },

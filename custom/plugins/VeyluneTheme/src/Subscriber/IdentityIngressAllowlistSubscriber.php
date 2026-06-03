@@ -40,6 +40,7 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.editions.detail.guard.de',
         'frontend.veylune.partnership.page',
         'frontend.veylune.discovery.room',
+        'frontend.veylune.discovery.category',
         'frontend.veylune.discovery.collection',
         'frontend.veylune.discovery.collection.permanent',
         'frontend.veylune.discovery.collection.editorial',

@@ -52,12 +52,12 @@
         }
     ] %}
     {% set veyluneMegaCategories = [
-        { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
-        { key: 'lighting', label: 'veylune.home.discovery.categories.lighting', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
-        { key: 'decor-objects', label: 'veylune.home.discovery.categories.decorObjects', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
-        { key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
-        { key: 'dining-kitchen', label: 'veylune.home.discovery.categories.diningKitchen', url: path('frontend.home.page') ~ '#veylune-home-discovery' },
-        { key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', url: path('frontend.home.page') ~ '#veylune-home-discovery' }
+        { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: veyluneCategoryRoutes.url('furniture') },
+        { key: 'lighting', label: 'veylune.home.discovery.categories.lighting', url: veyluneCategoryRoutes.url('departmentLighting') },
+        { key: 'decor-objects', label: 'veylune.home.discovery.categories.decorObjects', url: veyluneCategoryRoutes.url('departmentDecorObjects') },
+        { key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', url: veyluneCategoryRoutes.url('textilesRugs') },
+        { key: 'dining-kitchen', label: 'veylune.home.discovery.categories.diningKitchen', url: veyluneCategoryRoutes.url('diningKitchen') },
+        { key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', url: veyluneCategoryRoutes.url('departmentOutdoor') }
     ] %}
     {% set veyluneMegaRooms = [
         { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: veyluneCategoryRoutes.url('livingRoom') },

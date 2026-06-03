@@ -192,9 +192,46 @@
       },
       "roomEyebrow": "Raumdestination",
       "collectionEyebrow": "Kollektionsdestination",
+      "categoryEyebrow": "Kategoriedestination",
       "shortcuts": {
         "eyebrow": "Kategoriepfade",
         "title": "Department-Pfade verbinden sich, sobald gesteuerte Mappings bereit sind."
+      },
+      "categoryShortcuts": {
+        "eyebrow": "Discovery-Pfade",
+        "title": "Innerhalb dieser Kategorie navigieren, ohne ungepruefte Produktstroeme zu zeigen.",
+        "cushions": "Kissen",
+        "floorLamps": "Stehleuchten",
+        "mirrors": "Spiegel",
+        "outdoorSeating": "Outdoor-Sitzmoebel",
+        "outdoorTables": "Outdoor-Tische",
+        "pendants": "Pendelleuchten",
+        "planters": "Pflanzgefaesse",
+        "rugs": "Teppiche",
+        "sculpturalObjects": "Skulpturale Objekte",
+        "seating": "Sitzmoebel",
+        "sofas": "Sofas",
+        "storage": "Stauraum",
+        "tableLamps": "Tischleuchten",
+        "tables": "Tische",
+        "tableware": "Tableware",
+        "throws": "Plaids",
+        "vessels": "Gefaesse"
+      },
+      "materials": {
+        "eyebrow": "Materialautoritaet",
+        "title": "Materialeinstiege fuer kuenftige Attribution vorbereitet.",
+        "fabric": "Stoff",
+        "metal": "Metall",
+        "stone": "Stein",
+        "travertine": "Travertin",
+        "wood": "Holz"
+      },
+      "consultation": {
+        "eyebrow": "Beratungssicherheit",
+        "title": "Fuer Groesse, Materialfit oder Projektunsicherheit.",
+        "text": "Beratung bleibt eine ruhige Unterstuetzungsebene fuer ueberlegte Kategorieentscheidungen, kein Ersatz fuer Browsing.",
+        "cta": "Beratung anfragen"
       },
       "products": {
         "eyebrow": "Produktstrom",
@@ -203,7 +240,34 @@
       "empty": {
         "title": "Wartet auf gesteuerte Produktbefuellung",
         "roomText": "Diese Raumdestination ist als registry-gestuetzte Discovery-Huelle aktiv. Produktstroeme erscheinen erst nach Room Mapping, Product Readiness und Exposure-Regeln.",
+        "categoryText": "Diese Kategoriedestination ist als registry-gestuetzte Commerce-Huelle aktiv. Produkte erscheinen erst nach Kategorie-Mapping, Product Readiness, Materialattribution und Exposure-Regeln.",
         "collectionText": "Diese Kollektionsdestination ist als registry-gestuetzte Discovery-Huelle aktiv. Produkte erscheinen erst nach Kollektionszuordnung, Product Readiness und Exposure-Regeln."
+      },
+      "categories": {
+        "furniture": {
+          "title": "Furniture",
+          "text": "Eine Commerce-Destination fuer raumpraegende Formen wie Sitzmoebel, Tische, Stauraum und Oberflaechen, vorbereitet durch Kategorie-Governance."
+        },
+        "lighting": {
+          "title": "Lighting",
+          "text": "Eine Commerce-Destination fuer ambient, funktionale und skulpturale Lichtobjekte rund um Proportion, Finish und Raumnutzung."
+        },
+        "decorObjects": {
+          "title": "Decor Objects",
+          "text": "Eine Commerce-Destination fuer Gefaesse, Spiegel, skulpturale Objekte und Materialakzente, vorbereitet als Objektdokumente."
+        },
+        "textilesRugs": {
+          "title": "Textiles & Rugs",
+          "text": "Eine Commerce-Destination fuer Teppiche, Plaids, Kissen und textile Ebenen rund um Weichheit, Massstab und Materialfit."
+        },
+        "diningKitchen": {
+          "title": "Dining & Kitchen",
+          "text": "Eine Commerce-Destination fuer Dining-Oberflaechen, Sitzmoebel, Tableware und Hosting-Objekte rund um Zusammenkommen und Nutzung."
+        },
+        "outdoor": {
+          "title": "Outdoor",
+          "text": "Eine Commerce-Destination fuer Exterior-Moebel und Objekte rund um Haltbarkeit, Atmosphaere und saisonales Wohnen."
+        }
       },
       "rooms": {
         "livingRoom": {

@@ -192,9 +192,46 @@
       },
       "roomEyebrow": "Room Destination",
       "collectionEyebrow": "Collection Destination",
+      "categoryEyebrow": "Category Destination",
       "shortcuts": {
         "eyebrow": "Category Shortcuts",
         "title": "Department paths will connect once governed mappings are ready."
+      },
+      "categoryShortcuts": {
+        "eyebrow": "Discovery Shortcuts",
+        "title": "Move within this category without exposing unapproved product streams.",
+        "cushions": "Cushions",
+        "floorLamps": "Floor Lamps",
+        "mirrors": "Mirrors",
+        "outdoorSeating": "Outdoor Seating",
+        "outdoorTables": "Outdoor Tables",
+        "pendants": "Pendants",
+        "planters": "Planters",
+        "rugs": "Rugs",
+        "sculpturalObjects": "Sculptural Objects",
+        "seating": "Seating",
+        "sofas": "Sofas",
+        "storage": "Storage",
+        "tableLamps": "Table Lamps",
+        "tables": "Tables",
+        "tableware": "Tableware",
+        "throws": "Throws",
+        "vessels": "Vessels"
+      },
+      "materials": {
+        "eyebrow": "Material Authority",
+        "title": "Material entry points prepared for future attribution.",
+        "fabric": "Fabric",
+        "metal": "Metal",
+        "stone": "Stone",
+        "travertine": "Travertine",
+        "wood": "Wood"
+      },
+      "consultation": {
+        "eyebrow": "Consultation Confidence",
+        "title": "For sizing, material fit, or project uncertainty.",
+        "text": "Consultation remains a quiet support layer for considered category decisions, not a replacement for browsing.",
+        "cta": "Request consultation"
       },
       "products": {
         "eyebrow": "Product Stream",
@@ -203,7 +240,34 @@
       "empty": {
         "title": "Awaiting governed product population",
         "roomText": "This room destination is active as a registry-backed discovery shell. Product streams will appear only after room mapping, product readiness, and exposure rules are satisfied.",
+        "categoryText": "This category destination is active as a registry-backed commerce shell. Products will appear only after category mapping, product readiness, material attribution, and exposure rules are satisfied.",
         "collectionText": "This collection destination is active as a registry-backed discovery shell. Products will appear only after collection membership, product readiness, and exposure rules are satisfied."
+      },
+      "categories": {
+        "furniture": {
+          "title": "Furniture",
+          "text": "A commerce destination for room-defining forms including seating, tables, storage, and surfaces prepared through category governance."
+        },
+        "lighting": {
+          "title": "Lighting",
+          "text": "A commerce destination for ambient, task, and sculptural light objects prepared around proportion, finish, and room use."
+        },
+        "decorObjects": {
+          "title": "Decor Objects",
+          "text": "A commerce destination for vessels, mirrors, sculptural objects, and material accents prepared as object records."
+        },
+        "textilesRugs": {
+          "title": "Textiles & Rugs",
+          "text": "A commerce destination for rugs, throws, cushions, and textile layers prepared around softness, scale, and material fit."
+        },
+        "diningKitchen": {
+          "title": "Dining & Kitchen",
+          "text": "A commerce destination for dining surfaces, seating, tableware, and hosting objects prepared around gathering and use."
+        },
+        "outdoor": {
+          "title": "Outdoor",
+          "text": "A commerce destination for exterior furniture and objects prepared around durability, atmosphere, and seasonal living."
+        }
       },
       "rooms": {
         "livingRoom": {

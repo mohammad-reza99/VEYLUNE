@@ -17,6 +17,7 @@
 .veylune-destination__intro-inner,
 .veylune-destination__section-head,
 .veylune-destination__shortcut-grid,
+.veylune-destination__material-grid,
 .veylune-destination__empty {
     width: var(--veylune-container);
     margin: 0 auto;
@@ -60,11 +61,15 @@
 }
 
 .veylune-destination__shortcuts,
-.veylune-destination__products {
+.veylune-destination__materials,
+.veylune-destination__products,
+.veylune-destination__consultation {
     padding: clamp(3.5rem, 7vw, 6rem) 0;
 }
 
-.veylune-destination__shortcuts {
+.veylune-destination__shortcuts,
+.veylune-destination__materials,
+.veylune-destination__products {
     border-bottom: 1px solid var(--veylune-color-line-soft);
 }
 
@@ -85,6 +90,7 @@
 }
 
 .veylune-destination__shortcut,
+.veylune-destination__material,
 .veylune-destination__empty {
     background: rgba(255, 252, 246, 0.58);
     border: 1px solid var(--veylune-color-line-soft);
@@ -107,6 +113,18 @@
     border-color: rgba(139, 118, 90, 0.28);
 }
 
+.veylune-destination__material-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.veylune-destination__material {
+    padding: 0.82rem 1rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+}
+
 .veylune-destination__empty {
     display: grid;
     gap: 0.75rem;
@@ -125,6 +143,23 @@
     color: var(--veylune-color-ink-muted);
     font-family: var(--veylune-font-serif);
     line-height: 1.7;
+}
+
+.veylune-destination__consultation .veylune-destination__section-head p:last-of-type {
+    max-width: 48rem;
+    margin: 1.1rem 0 0;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.7;
+}
+
+.veylune-destination__quiet-link {
+    display: inline-block;
+    margin-top: 1.4rem;
+    color: var(--veylune-color-charcoal);
+    font-family: var(--veylune-font-serif);
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
 }
 
 .veylune-collection-intro {

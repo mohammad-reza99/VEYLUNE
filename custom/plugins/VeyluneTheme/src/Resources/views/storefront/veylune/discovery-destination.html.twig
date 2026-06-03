@@ -1,8 +1,9 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
 {% block base_content %}
-    {% set registryScope = veyluneDestinationType == 'room' ? 'room-destination' : 'collection-destination' %}
-    {% set registryEntity = veyluneDestinationType == 'room' ? 'rooms' : 'collections' %}
+    {% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
+    {% set registryScope = veyluneDestinationType == 'room' ? 'room-destination' : (veyluneDestinationType == 'category' ? 'category-destination' : 'collection-destination') %}
+    {% set registryEntity = veyluneDestinationType == 'room' ? 'rooms' : (veyluneDestinationType == 'category' ? 'departments' : 'collections') %}
 
     <main class="veylune-destination veylune-destination--{{ veyluneDestinationType }}"
           data-veylune-registry-scope="{{ registryScope }}"
@@ -11,28 +12,56 @@
         <section class="veylune-destination__intro" aria-labelledby="veylune-destination-title">
             <div class="veylune-destination__intro-inner">
                 <p class="veylune-destination__eyebrow">
-                    {{ (veyluneDestinationType == 'room' ? 'veylune.destination.roomEyebrow' : 'veylune.destination.collectionEyebrow')|trans|sw_sanitize }}
+                    {{ (veyluneDestinationType == 'room' ? 'veylune.destination.roomEyebrow' : (veyluneDestinationType == 'category' ? 'veylune.destination.categoryEyebrow' : 'veylune.destination.collectionEyebrow'))|trans|sw_sanitize }}
                 </p>
                 <h1 id="veylune-destination-title">{{ veyluneDestination.title|trans|sw_sanitize }}</h1>
                 <p>{{ veyluneDestination.text|trans|sw_sanitize }}</p>
             </div>
         </section>
 
-        {% if veyluneDestinationType == 'room' %}
+        {% if veyluneDestinationType == 'room' or veyluneDestinationType == 'category' %}
             <section class="veylune-destination__shortcuts" aria-labelledby="veylune-destination-shortcuts-title">
                 <div class="veylune-destination__section-head">
-                    <p class="veylune-destination__eyebrow">{{ 'veylune.destination.shortcuts.eyebrow'|trans|sw_sanitize }}</p>
-                    <h2 id="veylune-destination-shortcuts-title">{{ 'veylune.destination.shortcuts.title'|trans|sw_sanitize }}</h2>
+                    <p class="veylune-destination__eyebrow">
+                        {{ (veyluneDestinationType == 'category' ? 'veylune.destination.categoryShortcuts.eyebrow' : 'veylune.destination.shortcuts.eyebrow')|trans|sw_sanitize }}
+                    </p>
+                    <h2 id="veylune-destination-shortcuts-title">
+                        {{ (veyluneDestinationType == 'category' ? 'veylune.destination.categoryShortcuts.title' : 'veylune.destination.shortcuts.title')|trans|sw_sanitize }}
+                    </h2>
                 </div>
                 <div class="veylune-destination__shortcut-grid">
-                    {% for shortcut in veyluneCategoryShortcuts %}
+                    {% set shortcuts = veyluneDestinationType == 'category' ? veyluneDestinationShortcuts|default([]) : veyluneCategoryShortcuts %}
+                    {% for shortcut in shortcuts %}
                         <a class="veylune-destination__shortcut"
-                           href="#veylune-destination-products"
-                           data-veylune-registry-scope="room-category-shortcuts"
-                           data-veylune-registry-entity="departments"
+                           href="{{ veyluneDestinationType == 'category' ? '#veylune-destination-products' : veyluneCategoryRoutes.url(shortcut.routeKey) }}"
+                           data-veylune-registry-scope="{{ veyluneDestinationType == 'category' ? 'category-discovery-shortcuts' : 'room-category-shortcuts' }}"
+                           data-veylune-registry-entity="{{ veyluneDestinationType == 'category' ? 'category-segments' : 'departments' }}"
                            data-veylune-registry-key="{{ shortcut.key }}">
                             {{ shortcut.label|trans|sw_sanitize }}
                         </a>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+
+        {% if veyluneDestinationType == 'category' and veyluneMaterialKeys|default([]) is not empty %}
+            <section class="veylune-destination__materials"
+                     aria-labelledby="veylune-destination-materials-title"
+                     data-veylune-registry-scope="category-material-authority"
+                     data-veylune-registry-entity="materials"
+                     data-veylune-registry-key="{{ veyluneDestinationKey }}">
+                <div class="veylune-destination__section-head">
+                    <p class="veylune-destination__eyebrow">{{ 'veylune.destination.materials.eyebrow'|trans|sw_sanitize }}</p>
+                    <h2 id="veylune-destination-materials-title">{{ 'veylune.destination.materials.title'|trans|sw_sanitize }}</h2>
+                </div>
+                <div class="veylune-destination__material-grid">
+                    {% for materialKey in veyluneMaterialKeys %}
+                        <span class="veylune-destination__material"
+                              data-veylune-registry-scope="category-material-authority"
+                              data-veylune-registry-entity="materials"
+                              data-veylune-registry-key="{{ materialKey }}">
+                            {{ ('veylune.destination.materials.' ~ materialKey)|trans|sw_sanitize }}
+                        </span>
                     {% endfor %}
                 </div>
             </section>
@@ -51,9 +80,26 @@
             <div class="veylune-destination__empty" role="status">
                 <strong>{{ 'veylune.destination.empty.title'|trans|sw_sanitize }}</strong>
                 <p>
-                    {{ (veyluneDestinationType == 'room' ? 'veylune.destination.empty.roomText' : 'veylune.destination.empty.collectionText')|trans|sw_sanitize }}
+                    {{ (veyluneDestinationType == 'room' ? 'veylune.destination.empty.roomText' : (veyluneDestinationType == 'category' ? 'veylune.destination.empty.categoryText' : 'veylune.destination.empty.collectionText'))|trans|sw_sanitize }}
                 </p>
             </div>
         </section>
+
+        {% if veyluneDestinationType == 'category' %}
+            <section class="veylune-destination__consultation"
+                     aria-labelledby="veylune-destination-consultation-title"
+                     data-veylune-registry-scope="category-consultation-confidence"
+                     data-veylune-registry-entity="consultation"
+                     data-veylune-registry-key="{{ veyluneDestinationKey }}">
+                <div class="veylune-destination__section-head">
+                    <p class="veylune-destination__eyebrow">{{ 'veylune.destination.consultation.eyebrow'|trans|sw_sanitize }}</p>
+                    <h2 id="veylune-destination-consultation-title">{{ 'veylune.destination.consultation.title'|trans|sw_sanitize }}</h2>
+                    <p>{{ 'veylune.destination.consultation.text'|trans|sw_sanitize }}</p>
+                    <a class="veylune-destination__quiet-link" href="{{ veyluneCategoryRoutes.url('consultation') }}" data-veylune-page-transition>
+                        {{ 'veylune.destination.consultation.cta'|trans|sw_sanitize }}
+                    </a>
+                </div>
+            </section>
+        {% endif %}
     </main>
 {% endblock %}

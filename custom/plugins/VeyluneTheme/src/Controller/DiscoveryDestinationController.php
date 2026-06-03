@@ -33,13 +33,72 @@ class DiscoveryDestinationController extends StorefrontController
         'editorial-collections' => ['title' => 'veylune.destination.collections.editorialCollections.title', 'text' => 'veylune.destination.collections.editorialCollections.text'],
     ];
 
+    private const CATEGORIES = [
+        'furniture' => [
+            'title' => 'veylune.destination.categories.furniture.title',
+            'text' => 'veylune.destination.categories.furniture.text',
+            'shortcuts' => ['sofas', 'tables', 'storage', 'seating'],
+            'materials' => ['wood', 'fabric', 'metal', 'travertine'],
+        ],
+        'lighting' => [
+            'title' => 'veylune.destination.categories.lighting.title',
+            'text' => 'veylune.destination.categories.lighting.text',
+            'shortcuts' => ['pendants', 'floor-lamps', 'table-lamps'],
+            'materials' => ['metal', 'fabric', 'stone'],
+        ],
+        'decor-objects' => [
+            'title' => 'veylune.destination.categories.decorObjects.title',
+            'text' => 'veylune.destination.categories.decorObjects.text',
+            'shortcuts' => ['vessels', 'sculptural-objects', 'mirrors'],
+            'materials' => ['stone', 'wood', 'metal', 'travertine'],
+        ],
+        'textiles-rugs' => [
+            'title' => 'veylune.destination.categories.textilesRugs.title',
+            'text' => 'veylune.destination.categories.textilesRugs.text',
+            'shortcuts' => ['rugs', 'throws', 'cushions'],
+            'materials' => ['fabric'],
+        ],
+        'dining-kitchen' => [
+            'title' => 'veylune.destination.categories.diningKitchen.title',
+            'text' => 'veylune.destination.categories.diningKitchen.text',
+            'shortcuts' => ['tables', 'seating', 'tableware'],
+            'materials' => ['stone', 'wood', 'metal', 'travertine'],
+        ],
+        'outdoor' => [
+            'title' => 'veylune.destination.categories.outdoor.title',
+            'text' => 'veylune.destination.categories.outdoor.text',
+            'shortcuts' => ['outdoor-seating', 'outdoor-tables', 'planters'],
+            'materials' => ['stone', 'wood', 'metal', 'travertine'],
+        ],
+    ];
+
     private const CATEGORY_SHORTCUTS = [
-        ['key' => 'furniture', 'label' => 'veylune.home.discovery.categories.furniture'],
-        ['key' => 'lighting', 'label' => 'veylune.home.discovery.categories.lighting'],
-        ['key' => 'decor-objects', 'label' => 'veylune.home.discovery.categories.decorObjects'],
-        ['key' => 'textiles-rugs', 'label' => 'veylune.home.discovery.categories.textilesRugs'],
-        ['key' => 'dining-kitchen', 'label' => 'veylune.home.discovery.categories.diningKitchen'],
-        ['key' => 'outdoor', 'label' => 'veylune.home.discovery.categories.outdoor'],
+        ['key' => 'furniture', 'label' => 'veylune.home.discovery.categories.furniture', 'routeKey' => 'furniture'],
+        ['key' => 'lighting', 'label' => 'veylune.home.discovery.categories.lighting', 'routeKey' => 'departmentLighting'],
+        ['key' => 'decor-objects', 'label' => 'veylune.home.discovery.categories.decorObjects', 'routeKey' => 'departmentDecorObjects'],
+        ['key' => 'textiles-rugs', 'label' => 'veylune.home.discovery.categories.textilesRugs', 'routeKey' => 'textilesRugs'],
+        ['key' => 'dining-kitchen', 'label' => 'veylune.home.discovery.categories.diningKitchen', 'routeKey' => 'diningKitchen'],
+        ['key' => 'outdoor', 'label' => 'veylune.home.discovery.categories.outdoor', 'routeKey' => 'departmentOutdoor'],
+    ];
+
+    private const CATEGORY_SHORTCUT_LABELS = [
+        'cushions' => 'veylune.destination.categoryShortcuts.cushions',
+        'floor-lamps' => 'veylune.destination.categoryShortcuts.floorLamps',
+        'mirrors' => 'veylune.destination.categoryShortcuts.mirrors',
+        'outdoor-seating' => 'veylune.destination.categoryShortcuts.outdoorSeating',
+        'outdoor-tables' => 'veylune.destination.categoryShortcuts.outdoorTables',
+        'pendants' => 'veylune.destination.categoryShortcuts.pendants',
+        'planters' => 'veylune.destination.categoryShortcuts.planters',
+        'rugs' => 'veylune.destination.categoryShortcuts.rugs',
+        'sculptural-objects' => 'veylune.destination.categoryShortcuts.sculpturalObjects',
+        'seating' => 'veylune.destination.categoryShortcuts.seating',
+        'sofas' => 'veylune.destination.categoryShortcuts.sofas',
+        'storage' => 'veylune.destination.categoryShortcuts.storage',
+        'table-lamps' => 'veylune.destination.categoryShortcuts.tableLamps',
+        'tables' => 'veylune.destination.categoryShortcuts.tables',
+        'tableware' => 'veylune.destination.categoryShortcuts.tableware',
+        'throws' => 'veylune.destination.categoryShortcuts.throws',
+        'vessels' => 'veylune.destination.categoryShortcuts.vessels',
     ];
 
     public function __construct(
@@ -92,5 +151,41 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => [],
         ]);
+    }
+
+    #[Route(path: '/categories/{categoryKey}', name: 'frontend.veylune.discovery.category', requirements: ['categoryKey' => 'furniture|lighting|decor-objects|textiles-rugs|dining-kitchen|outdoor'], methods: [Request::METHOD_GET])]
+    public function category(string $categoryKey, Request $request, SalesChannelContext $context): Response
+    {
+        $destination = self::CATEGORIES[$categoryKey] ?? null;
+
+        if ($destination === null) {
+            return new Response('', Response::HTTP_NOT_FOUND);
+        }
+
+        $page = $this->genericPageLoader->load($request, $context);
+        $page->getMetaInformation()?->setMetaTitle($this->translator->trans($destination['title']));
+        $page->getMetaInformation()?->setMetaDescription($this->translator->trans('veylune.destination.meta.description'));
+
+        return $this->renderStorefront('@Storefront/storefront/veylune/discovery-destination.html.twig', [
+            'page' => $page,
+            'veyluneDestinationType' => 'category',
+            'veyluneDestinationKey' => $categoryKey,
+            'veyluneDestination' => $destination,
+            'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
+            'veyluneDestinationShortcuts' => $this->buildDestinationShortcuts($destination['shortcuts']),
+            'veyluneMaterialKeys' => $destination['materials'],
+        ]);
+    }
+
+    /**
+     * @param list<string> $shortcutKeys
+     * @return list<array{key: string, label: string}>
+     */
+    private function buildDestinationShortcuts(array $shortcutKeys): array
+    {
+        return array_map(static fn (string $shortcutKey): array => [
+            'key' => $shortcutKey,
+            'label' => self::CATEGORY_SHORTCUT_LABELS[$shortcutKey],
+        ], $shortcutKeys);
     }
 }
