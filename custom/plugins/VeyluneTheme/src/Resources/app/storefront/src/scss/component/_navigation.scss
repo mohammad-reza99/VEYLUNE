@@ -210,11 +210,26 @@ body.veylune-overlay-active {
     transform: translate3d(0, 0, 0);
 }
 
+.veylune-mega__close {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: var(--veylune-color-charcoal);
+    background: transparent;
+    border: 1px solid rgba(139, 118, 90, 0.18);
+}
+
 .veylune-mega__scene {
     display: none;
     grid-template-columns: minmax(0, 0.9fr) minmax(220px, 0.55fr) minmax(240px, 0.5fr);
     gap: clamp(1.5rem, 4vw, 4rem);
     align-items: end;
+    min-height: 140px;
 }
 
 .veylune-mega__scene.is-active {

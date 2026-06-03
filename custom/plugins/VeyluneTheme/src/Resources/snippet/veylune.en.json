@@ -75,6 +75,7 @@
         "partnership": "Partnership",
         "privateAccess": "Private Access",
         "rooms": "Rooms",
+        "shop": "Shop",
         "trade": "Trade"
       },
       "search": {
@@ -100,6 +101,7 @@
         "toggle": "Search"
       },
       "mega": {
+        "ariaLabel": "Navigation foundation",
         "collections": {
           "intro": "Sculptural pieces arranged as a collectible design archive.",
           "title": "Collections"

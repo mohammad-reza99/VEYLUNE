@@ -249,10 +249,14 @@ const initVeyluneHeader = () => {
         const isScrollingDown = currentScrollY > lastScrollY + 4;
         const isScrollingUp = currentScrollY < lastScrollY - 4;
 
+        header.classList.toggle('is-initial', !isScrolled);
+        header.classList.toggle('is-sticky', isScrolled);
         header.classList.toggle('is-scrolled', isScrolled);
         header.classList.toggle('is-header-hidden-text', isScrolled);
         header.classList.toggle('is-scrolling-down', isScrollingDown && isScrolled);
         header.classList.toggle('is-scrolling-up', isScrollingUp);
+        header.dataset.veyluneHeaderState = isScrolled ? 'sticky' : 'initial';
+        header.dataset.veyluneScrollDirection = isScrollingDown ? 'down' : (isScrollingUp ? 'up' : 'none');
 
         if (isScrollingDown && header.classList.contains('is-search-open')) {
             closeSearch();

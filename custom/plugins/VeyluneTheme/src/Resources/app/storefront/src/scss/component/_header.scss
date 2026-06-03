@@ -19,6 +19,14 @@
     display: none;
 }
 
+.veylune-header .top-bar {
+    position: relative;
+    z-index: 1141;
+    width: min(100% - 2.25rem, 1480px);
+    margin: 0 auto;
+    padding-top: 0.35rem;
+}
+
 .veylune-header__bar {
     position: relative;
     z-index: 1140;
@@ -81,7 +89,7 @@
 .veylune-header__nav {
     display: flex;
     justify-content: flex-start;
-    gap: clamp(0.9rem, 2vw, 2.35rem);
+    gap: clamp(0.76rem, 1.45vw, 1.55rem);
     min-width: 0;
 }
 
@@ -222,6 +230,14 @@
     align-items: center;
 }
 
+.veylune-header__action-widget .header-actions-btn,
+.veylune-header__bag-widget .header-actions-btn {
+    color: currentColor;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
 .veylune-header__bag-widget {
     margin-left: 0.3rem;
 }
@@ -270,11 +286,18 @@
 
 .veylune-header__search-toggle-icon,
 .veylune-header__icon-button .icon,
+.veylune-header__action-widget .icon,
+.veylune-header__bag-widget .icon,
 .veylune-header__search-toggle .icon,
 .veylune-header__search-submit .icon,
 .veylune-header__search-close .icon {
     display: inline-flex;
     color: currentColor;
+}
+
+.veylune-header__action-widget .dropdown-menu {
+    border-color: rgba(139, 118, 90, 0.16);
+    box-shadow: 0 18px 52px rgba(33, 31, 27, 0.075);
 }
 
 .veylune-header__search-toggle-icon {
@@ -426,6 +449,11 @@
     }
 
     .veylune-header__action-link {
+        display: none;
+    }
+
+    .veylune-header__action-widget--account,
+    .veylune-header__action-widget--wishlist {
         display: none;
     }
 

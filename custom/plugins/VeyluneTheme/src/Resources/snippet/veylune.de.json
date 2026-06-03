@@ -75,6 +75,7 @@
         "partnership": "Partnerschaft",
         "privateAccess": "Private Access",
         "rooms": "Räume",
+        "shop": "Shop",
         "trade": "Trade"
       },
       "search": {
@@ -100,6 +101,7 @@
         "toggle": "Suche"
       },
       "mega": {
+        "ariaLabel": "Navigationsgrundlage",
         "collections": {
           "intro": "Skulpturale Stücke als kuratiertes Designarchiv.",
           "title": "Kollektionen"
