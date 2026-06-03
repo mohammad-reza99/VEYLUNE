@@ -457,6 +457,52 @@
       "tradeEyebrow": "Projektberatung",
       "tradeProgram": "Projektkontext",
       "tradeTitle": "Für Architekten, Interior Designer und private Wohnprojekte.",
+      "discovery": {
+        "empty": {
+          "title": "Wartet auf gesteuerte Produktauswahl"
+        },
+        "rooms": {
+          "eyebrow": "Nach Raum shoppen",
+          "title": "Beginnen Sie mit dem Raum, den Sie formen.",
+          "cardCta": "Raumgrundlage",
+          "livingRoom": "Wohnzimmer",
+          "diningRoom": "Esszimmer",
+          "bedroom": "Schlafzimmer",
+          "workspace": "Workspace",
+          "hallway": "Flur",
+          "outdoor": "Outdoor"
+        },
+        "categories": {
+          "eyebrow": "Nach Kategorie shoppen",
+          "title": "Direkt in die primären Departments wechseln.",
+          "cardCta": "Kategoriegrundlage",
+          "furniture": "Furniture",
+          "lighting": "Lighting",
+          "decorObjects": "Decor Objects",
+          "textilesRugs": "Textiles & Rugs",
+          "diningKitchen": "Dining & Kitchen",
+          "outdoor": "Outdoor"
+        },
+        "collections": {
+          "eyebrow": "Featured Collections",
+          "title": "Vorbereitete Kollektionspfade für künftiges Merchandising.",
+          "cardCta": "Kollektionsgrundlage",
+          "founderSelection": "Founder Selection",
+          "permanentCollections": "Permanent Collections",
+          "editorialCollections": "Editorial Collections",
+          "newArrivals": "New Arrivals"
+        },
+        "newArrivals": {
+          "eyebrow": "New Arrivals",
+          "title": "Eine gesteuerte Hülle für künftige freigegebene Neuheiten.",
+          "emptyText": "Produkte erscheinen hier erst, wenn Readiness-, Exposure- und Verfügbarkeitsregeln erfüllt sind."
+        },
+        "founderSelection": {
+          "eyebrow": "Founder Selection",
+          "title": "Eine gesteuerte Hülle für Founder-Kuration.",
+          "emptyText": "Founder-ausgewählte Produkte erscheinen hier erst nach Kurationsfreigabe und Product-Readiness-Prüfung."
+        }
+      },
       "collections": {
         "editions": {
           "meta": "Kontrollierte Dokumente, Kollaborationen und Atelier-Auswahlen",

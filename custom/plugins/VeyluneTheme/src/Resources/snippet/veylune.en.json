@@ -457,6 +457,52 @@
       "tradeEyebrow": "Project Consultation",
       "tradeProgram": "Project Context",
       "tradeTitle": "For architects, interior designers, and private residential projects.",
+      "discovery": {
+        "empty": {
+          "title": "Awaiting governed product selection"
+        },
+        "rooms": {
+          "eyebrow": "Shop by Room",
+          "title": "Begin with the room you are shaping.",
+          "cardCta": "Room foundation",
+          "livingRoom": "Living Room",
+          "diningRoom": "Dining Room",
+          "bedroom": "Bedroom",
+          "workspace": "Workspace",
+          "hallway": "Hallway",
+          "outdoor": "Outdoor"
+        },
+        "categories": {
+          "eyebrow": "Shop by Category",
+          "title": "Move directly into the primary departments.",
+          "cardCta": "Category foundation",
+          "furniture": "Furniture",
+          "lighting": "Lighting",
+          "decorObjects": "Decor Objects",
+          "textilesRugs": "Textiles & Rugs",
+          "diningKitchen": "Dining & Kitchen",
+          "outdoor": "Outdoor"
+        },
+        "collections": {
+          "eyebrow": "Featured Collections",
+          "title": "Prepared collection paths for future merchandising.",
+          "cardCta": "Collection foundation",
+          "founderSelection": "Founder Selection",
+          "permanentCollections": "Permanent Collections",
+          "editorialCollections": "Editorial Collections",
+          "newArrivals": "New Arrivals"
+        },
+        "newArrivals": {
+          "eyebrow": "New Arrivals",
+          "title": "A governed shell for future approved arrivals.",
+          "emptyText": "Products will appear here only after readiness, exposure, and availability rules are satisfied."
+        },
+        "founderSelection": {
+          "eyebrow": "Founder Selection",
+          "title": "A governed shell for founder curation.",
+          "emptyText": "Founder-selected products will appear here only after curation approval and product readiness checks."
+        }
+      },
       "collections": {
         "editions": {
           "meta": "Controlled records, collaborations, and atelier selections",

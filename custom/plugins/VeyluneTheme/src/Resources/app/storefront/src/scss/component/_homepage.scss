@@ -207,6 +207,104 @@
     text-transform: uppercase;
 }
 
+.veylune-discovery-foundation {
+    padding: clamp(4rem, 8vw, 8rem) 0;
+    background:
+        linear-gradient(180deg, rgba(255, 252, 246, 0.82), rgba(248, 245, 239, 0.96)),
+        var(--veylune-color-ivory);
+    border-top: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-discovery-module + .veylune-discovery-module {
+    margin-top: clamp(3rem, 7vw, 6rem);
+}
+
+.veylune-discovery-grid {
+    display: grid;
+    gap: clamp(0.85rem, 1.8vw, 1.35rem);
+    width: var(--veylune-container);
+    margin: 0 auto;
+}
+
+.veylune-discovery-grid--rooms,
+.veylune-discovery-grid--categories {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.veylune-discovery-grid--collections {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.veylune-discovery-card,
+.veylune-discovery-empty {
+    color: var(--veylune-color-charcoal);
+    background: rgba(255, 252, 246, 0.56);
+    border: 1px solid var(--veylune-color-line-soft);
+}
+
+.veylune-discovery-card {
+    display: grid;
+    align-content: end;
+    min-height: clamp(180px, 19vw, 280px);
+    padding: clamp(1rem, 2.2vw, 1.7rem);
+    text-decoration: none;
+    transition:
+        border-color 260ms var(--veylune-ease-soft),
+        background-color 260ms var(--veylune-ease-soft);
+}
+
+.veylune-discovery-card--compact {
+    min-height: clamp(132px, 13vw, 190px);
+}
+
+.veylune-discovery-card:hover,
+.veylune-discovery-card:focus-visible {
+    background: rgba(255, 252, 246, 0.82);
+    border-color: rgba(139, 118, 90, 0.28);
+}
+
+.veylune-discovery-card__index,
+.veylune-discovery-card span {
+    color: var(--veylune-color-bronze);
+    font-family: var(--veylune-font-serif);
+    font-size: 0.66rem;
+    letter-spacing: var(--veylune-letter-editorial);
+    text-transform: uppercase;
+}
+
+.veylune-discovery-card__index {
+    align-self: start;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.veylune-discovery-card strong,
+.veylune-discovery-empty strong {
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.25rem, 2.4vw, 2.25rem);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.veylune-discovery-card span:last-child {
+    margin-top: 0.85rem;
+}
+
+.veylune-discovery-empty {
+    display: grid;
+    gap: 0.75rem;
+    width: var(--veylune-container);
+    margin: 0 auto;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.veylune-discovery-empty p {
+    max-width: 48rem;
+    margin: 0;
+    color: var(--veylune-color-ink-muted);
+    font-family: var(--veylune-font-serif);
+    line-height: 1.65;
+}
+
 .veylune-philosophy {
     position: relative;
     overflow: hidden;
@@ -623,6 +721,12 @@
     .veylune-pieces__grid {
         grid-template-columns: 1fr;
     }
+
+    .veylune-discovery-grid--rooms,
+    .veylune-discovery-grid--categories,
+    .veylune-discovery-grid--collections {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @include media-breakpoint-down(md) {
@@ -660,6 +764,16 @@
     .veylune-collection-card,
     .veylune-collection-card:nth-child(n) {
         grid-column: auto;
+    }
+
+    .veylune-discovery-grid--rooms,
+    .veylune-discovery-grid--categories,
+    .veylune-discovery-grid--collections {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-discovery-card {
+        min-height: 138px;
     }
 }
 
