@@ -17,6 +17,7 @@
 .veylune-destination__intro-inner,
 .veylune-destination__section-head,
 .veylune-destination__shortcut-grid,
+.veylune-destination__product-grid,
 .veylune-destination__material-grid,
 .veylune-destination__empty {
     width: var(--veylune-container);
@@ -87,6 +88,12 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(0.85rem, 1.6vw, 1.2rem);
+}
+
+.veylune-destination__product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.9rem, 1.6vw, 1.35rem);
 }
 
 .veylune-destination__shortcut,
@@ -615,7 +622,8 @@
 }
 
 @include media-breakpoint-down(lg) {
-    .veylune-destination__shortcut-grid {
+    .veylune-destination__shortcut-grid,
+    .veylune-destination__product-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -641,7 +649,8 @@
         grid-template-columns: 1fr;
     }
 
-    .veylune-destination__shortcut-grid {
+    .veylune-destination__shortcut-grid,
+    .veylune-destination__product-grid {
         grid-template-columns: 1fr;
     }
 

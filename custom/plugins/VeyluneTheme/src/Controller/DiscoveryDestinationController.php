@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use VeyluneTheme\Discovery\ProductExposureService;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
 #[Package('storefront')]
@@ -103,7 +104,8 @@ class DiscoveryDestinationController extends StorefrontController
 
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly ProductExposureService $productExposureService
     ) {
     }
 
@@ -126,6 +128,7 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestinationKey' => $roomKey,
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
+            'veyluneExposedProducts' => $this->productExposureService->productsForSurface('room', $roomKey, $context),
         ]);
     }
 
@@ -150,6 +153,7 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestinationKey' => $collectionKey,
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => [],
+            'veyluneExposedProducts' => $this->productExposureService->productsForSurface('collection', $collectionKey, $context),
         ]);
     }
 
@@ -174,6 +178,7 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
             'veyluneDestinationShortcuts' => $this->buildDestinationShortcuts($destination['shortcuts']),
             'veyluneMaterialKeys' => $destination['materials'],
+            'veyluneExposedProducts' => $this->productExposureService->productsForSurface('category', $categoryKey, $context),
         ]);
     }
 

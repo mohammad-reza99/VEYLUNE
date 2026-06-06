@@ -33,6 +33,10 @@
 
         <service id="VeyluneTheme\Semantic\SemanticRegistry" />
 
+        <service id="VeyluneTheme\Discovery\ProductExposureService">
+            <argument type="service" id="sales_channel.product.repository" />
+        </service>
+
         <service id="VeyluneTheme\Governance\GovernanceAuditService" />
 
         <service id="VeyluneTheme\Governance\SitemapGovernanceAuditService">
@@ -68,6 +72,8 @@
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 
         <service id="VeyluneTheme\Subscriber\IdentityIngressAllowlistSubscriber" />
+
+        <service id="VeyluneTheme\Subscriber\ProductExposurePageSubscriber" />
 
         <service id="VeyluneTheme\Subscriber\IdentitySitemapSourceFilterSubscriber" />
 

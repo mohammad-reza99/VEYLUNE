@@ -93,6 +93,9 @@
 				{ key: 'editorial-collections', label: 'veylune.home.discovery.collections.editorialCollections', target: path('frontend.veylune.discovery.collection', { collectionKey: 'editorial-collections' }) },
 				{ key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', target: path('frontend.veylune.discovery.collection', { collectionKey: 'new-arrivals' }) }
 			] %}
+			{% set veyluneProductExposure = page.extensions.veyluneProductExposure|default(null) %}
+			{% set veyluneNewArrivalProducts = veyluneProductExposure ? veyluneProductExposure.get('new-arrivals') : [] %}
+			{% set veyluneFounderSelectionProducts = veyluneProductExposure ? veyluneProductExposure.get('founder-selection') : [] %}
 			<main class="veylune-home" data-veylune-home>
 				<section class="veylune-home__scene veylune-home-hero" data-veylune-reveal>
 					<div class="veylune-home-hero__grain" aria-hidden="true"></div>
@@ -205,10 +208,28 @@
 						<p class="veylune-home__eyebrow">{{ 'veylune.home.discovery.newArrivals.eyebrow'|trans|sw_sanitize }}</p>
 						<h2 id="veylune-new-arrivals-title">{{ 'veylune.home.discovery.newArrivals.title'|trans|sw_sanitize }}</h2>
 					</div>
-					<div class="veylune-discovery-empty" role="status">
-						<strong>{{ 'veylune.home.discovery.empty.title'|trans|sw_sanitize }}</strong>
-						<p>{{ 'veylune.home.discovery.newArrivals.emptyText'|trans|sw_sanitize }}</p>
-					</div>
+					{% if veyluneNewArrivalProducts is not empty %}
+						<div class="veylune-discovery-product-grid">
+							{% for product in veyluneNewArrivalProducts %}
+								{% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
+									product: product,
+									layout: 'standard',
+									sizes: {
+										xs: '100vw',
+										sm: '50vw',
+										md: '50vw',
+										lg: '33vw',
+										xl: '25vw'
+									}
+								} %}
+							{% endfor %}
+						</div>
+					{% else %}
+						<div class="veylune-discovery-empty" role="status">
+							<strong>{{ 'veylune.home.discovery.empty.title'|trans|sw_sanitize }}</strong>
+							<p>{{ 'veylune.home.discovery.newArrivals.emptyText'|trans|sw_sanitize }}</p>
+						</div>
+					{% endif %}
 				</section>
 
 				<section class="veylune-discovery-module veylune-discovery-module--products" id="veylune-founder-selection-foundation" aria-labelledby="veylune-founder-selection-title" data-veylune-registry-entity="founder-selection">
@@ -216,10 +237,28 @@
 						<p class="veylune-home__eyebrow">{{ 'veylune.home.discovery.founderSelection.eyebrow'|trans|sw_sanitize }}</p>
 						<h2 id="veylune-founder-selection-title">{{ 'veylune.home.discovery.founderSelection.title'|trans|sw_sanitize }}</h2>
 					</div>
-					<div class="veylune-discovery-empty" role="status">
-						<strong>{{ 'veylune.home.discovery.empty.title'|trans|sw_sanitize }}</strong>
-						<p>{{ 'veylune.home.discovery.founderSelection.emptyText'|trans|sw_sanitize }}</p>
-					</div>
+					{% if veyluneFounderSelectionProducts is not empty %}
+						<div class="veylune-discovery-product-grid">
+							{% for product in veyluneFounderSelectionProducts %}
+								{% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
+									product: product,
+									layout: 'standard',
+									sizes: {
+										xs: '100vw',
+										sm: '50vw',
+										md: '50vw',
+										lg: '33vw',
+										xl: '25vw'
+									}
+								} %}
+							{% endfor %}
+						</div>
+					{% else %}
+						<div class="veylune-discovery-empty" role="status">
+							<strong>{{ 'veylune.home.discovery.empty.title'|trans|sw_sanitize }}</strong>
+							<p>{{ 'veylune.home.discovery.founderSelection.emptyText'|trans|sw_sanitize }}</p>
+						</div>
+					{% endif %}
 				</section>
 			</section>
 
