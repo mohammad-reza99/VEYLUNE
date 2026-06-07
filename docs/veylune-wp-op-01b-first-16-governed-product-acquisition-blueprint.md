@@ -1,474 +1,796 @@
-# VEYLUNE STUDIO - WP-OP-01B
+# VEYLUNE STUDIO
 
-## First 16 Governed Product Acquisition Blueprint
+## WP-OP-01B — Governed Assortment Blueprint
 
-## Scope
+**Status:** Architecture and acquisition blueprint
+**Scope:** Audit and planning only
+**Operating horizon:** 20 → 50 → 100 → 1000+ eligible products
+**Implementation authority:** None
 
-This is an acquisition blueprint only. It authorizes no product creation,
-import, database write, publication, exposure, collection membership, room
-attribution, or Founder Selection decision.
+---
 
-The blueprint uses the existing:
+## 1. Executive Decision
 
-- Commerce and Experience principles
-- identity and canonical SKU governance
-- material authority and controlled vocabulary
-- exposure eligibility rules
-- Product Readiness and Attribution Program
-- WP-OP-01A 2-to-20 operating plan
+Veylune should scale one governed assortment, not a collection of supplier catalogs.
 
-Every proposed attribution is a sourcing hypothesis. It becomes authoritative
-only after supplier evidence, product readiness review, relationship approval,
-and the applicable Level 3 or Level 4 decision.
+The six approved departments remain the permanent top-level structure:
 
-## Acquisition Decision
+1. Furniture
+2. Lighting
+3. Decor & Objects
+4. Textiles & Rugs
+5. Dining & Kitchen
+6. Outdoor
 
-Acquire a balanced 16-product set:
+Every product must have exactly one primary product type within one of these departments. Room, material, collection, style, supplier, and editorial relationships are governed attributes and discovery relationships; they must not create competing primary taxonomies.
 
-| Acquisition role | Products |
-| --- | ---: |
-| Lighting-led | 4 |
-| Decor-led | 4 |
-| Bedroom-led | 2 |
-| Workspace-led | 2 |
-| Hallway-led | 2 |
-| Outdoor-led | 2 |
-| Total | 16 |
+The complete product-type registry is approved now. Public category pages should be published only when they have sufficient eligible assortment depth. This allows Veylune to classify 20 products consistently and scale beyond 1000 without redesigning the category tree.
 
-The set is optimized for cross-surface usefulness, not maximum attribution
-count. It avoids generic commodity products, duplicate sofa/table dependence,
-trend-led novelty, and unsupported material claims.
+### Governing outcomes
 
-# A. Coverage Gap Map
+- No additional top-level department is required.
+- The internal product-type registry is stable from Stage A onward.
+- A product has one primary department and one primary product type.
+- Dining tables belong to Dining & Kitchen; dining chairs remain Furniture.
+- Outdoor furniture belongs to Outdoor; indoor furniture does not become Outdoor through collection assignment.
+- Outdoor-rated lighting remains Lighting, with Outdoor room relevance.
+- Bedroom textiles remain Textiles & Rugs, with Bedroom room relevance.
+- Founder Selection is an approval state, never a product type.
+- Sparse product types remain valid internally but are not automatically exposed as public category pages.
 
-## Current Baseline
+---
 
-Current means runtime-eligible coverage on June 6, 2026. Nocturne and Atelier
-remain remediation candidates and therefore do not count as current eligible
-coverage.
+# PART I — Final Product-Type Taxonomy
 
-| Area | Current coverage | Target from net-new 16 | Projected with remediated existing products | Gap priority | Why it limits discovery |
-| --- | ---: | ---: | ---: | --- | --- |
-| Lighting | 0 | 4 | 5 including Nocturne | Critical | An entire core category is empty; Bedroom, Workspace, Hallway, and atmospheric Living Room paths lack light objects |
-| Decor Objects | 0 | 4 | 5 including Atelier | Medium | Object-led and material-led discovery is absent, but one known remediation candidate already exists |
-| Bedroom | 0 | 8 supported relationships | 8, or 9 if Nocturne is approved | High | No credible room composition exists without bed-scale furniture, textile softness, lighting, mirror, and bedside objects |
-| Workspace | 0 | 6 supported relationships | 6, or 7 if Nocturne is approved | High | No task furniture or controlled task-light path exists |
-| Hallway | 0 | 8 supported relationships | 8, or 9 if Atelier is approved | High | Entry-space discovery lacks lighting, reflection, storage, surface, and object layers |
-| Outdoor | 0 | 2 | 2 | Critical | Both the Outdoor category and room are empty; no existing remediation product can solve the gap |
+## 2. Taxonomy Operating Rules
 
-## Priority Order
+### 2.1 Classification contract
 
-1. **Critical:** Outdoor and Lighting
-2. **High:** Bedroom, Workspace, and Hallway
-3. **Medium:** Decor Objects
-4. **Low:** none of the requested gaps
+Each product must possess:
 
-Lighting ranks first for cross-room leverage. Outdoor ranks first for structural
-category absence but has lower cross-room reach. Bedroom, Workspace, and
-Hallway require several product functions, not merely one attributed object.
+- one `department_key`;
+- one `product_type_key`;
+- one governed primary category derived from those keys;
+- zero or more governed room relationships;
+- one primary material and governed secondary materials;
+- zero or more collection memberships;
+- one consultation mode;
+- one readiness and exposure state.
 
-# B. First 16 Product Blueprint
+The product type answers **what the product is**. Room, material, collection, style, use case, and supplier must not alter that answer.
 
-## Acquisition Set
+### 2.2 Public category publication threshold
 
-| ID | Product archetype | Primary category | Evidence-supported room hypothesis | Primary material | Secondary material | Founder potential |
-| --- | --- | --- | --- | --- | --- | --- |
-| L1 | Counterweighted Brushed Metal Floor Lamp | Floor Lamps | Living Room, Bedroom, Home Office | `metal` | `glass` | High |
-| L2 | Honed Stone Cylinder Pendant | Pendant Lights | Dining Room, Living Room, Hallway | `stone` | `metal`, `glass` | High |
-| L3 | Opal Glass Bedside Lamp | Table Lamps | Bedroom, Living Room, Home Office | `glass` | `metal` | Medium |
-| L4 | Brushed Metal Pivot Wall Sconce | Wall Lighting | Hallway, Bedroom, Living Room | `metal` | `glass` | Medium |
-| D1 | Honed Travertine Footed Bowl | Vessels / Stone Objects | Living Room, Dining Room, Hallway | `travertine` | none expected | High |
-| D2 | Hand-Finished Ceramic Totem | Sculptural Objects / Ceramics | Living Room, Home Office, Hallway | `ceramic` | none expected | High |
-| D3 | Solid Oak Full-Length Mirror | Mirrors | Hallway, Bedroom, Living Room | `wood` | `glass`, `metal` | High |
-| D4 | Honed Marble Valet Tray | Trays / Stone Objects | Bedroom, Hallway, Home Office | `marble` | `leather` if documented | Low |
-| B1 | Low Upholstered Platform Bed | Beds | Bedroom | `upholstery_fabric` | `wood`, `metal` | High |
-| B2 | Hand-Loomed Wool Bedside Rug | Rugs | Bedroom, Living Room | `wool` | none expected | Medium |
-| W1 | Solid Oak Writing Desk | Desks | Home Office, Living Room | `wood` | `metal` | High |
-| W2 | Leather and Oak Task Chair | Office Chairs | Home Office | `leather` | `wood`, `metal` | Medium |
-| H1 | Travertine Hall Console | Consoles | Hallway, Living Room, Dining Room | `travertine` | `metal` if documented | High |
-| H2 | Oak Storage Bench with Upholstered Pad | Benches / Storage Seating | Hallway, Bedroom | `wood` | `upholstery_fabric`, `metal` | Medium |
-| O1 | Oiled Wood Outdoor Lounge Chair | Outdoor Seating | Outdoor | `wood` | `upholstery_fabric`, `metal` | High |
-| O2 | Powder-Coated Metal Outdoor Dining Table | Outdoor Tables | Outdoor | `metal` | `stone` only if documented | Medium |
+An approved product type may exist in the registry while hidden from navigation. A dedicated public category page requires:
 
-## Product Selection Requirements
+- at least four Level 3 Exposure Ready products;
+- at least two additional governed products in the 90-day pipeline;
+- distinct customer intent not already served by a sibling page;
+- complete filter, copy, image, and canonical-route governance;
+- Taxonomy Owner approval.
 
-### Lighting
+A new child type below the taxonomy defined here requires at least 24 eligible products in the parent, at least eight eligible products in each proposed child, and evidence of distinct customer intent. Supplier terminology alone is not evidence.
 
-- L1 must be plug-in, freestanding, and compositionally distinct from
-  Nocturne.
-- L2 must have documented ceiling load, drop range, electrical specification,
-  stone weight, and installation requirements.
-- L3 must be a complete standard product, not a configurable lamp family.
-- L4 must have documented hardwiring and mounting requirements.
+### 2.3 Duplication controls
 
-### Decor Objects
+- One product cannot have two primary product types.
+- “Dining furniture,” “bedroom furniture,” and “workspace furniture” are discovery groupings, not product types.
+- Materials never become product types.
+- Styles never become product types.
+- “New,” “best seller,” “exclusive,” and “founder selected” are governed states or collections.
+- `decorative_objects` is a controlled residual type and may not exceed 15% of Decor & Objects. Exceeding the limit triggers taxonomy review, not automatic category creation.
 
-- D1 must document actual travertine, finish, weight, and food-contact status if
-  marketed for serving.
-- D2 must document ceramic body, firing/finish, stability, and whether it is
-  watertight.
-- D3 must document timber species under the canonical `wood` value, glass
-  safety, mounting, and weight.
-- D4 must remain a functional valet or object tray; reject decorative trinket
-  trays with no material or spatial authority.
+## 3. Approved Product-Type Registry
 
-### Bedroom
+### 3.1 Furniture
 
-- B1 must have complete dimensions, mattress compatibility, support structure,
-  fire/compliance facts, assembly, and textile specifications.
-- B2 must have documented wool composition, pile, backing, care, and size
-  options.
-
-### Workspace
-
-- W1 must have usable task dimensions, load capacity, cable behavior if any,
-  assembly, and timber/finish documentation.
-- W2 must document ergonomics, seat height, load rating, leather type, finish,
-  and assembly.
-
-### Hallway
-
-- H1 must document stone selection, slab/construction method, wall stability,
-  weight, and freight requirements.
-- H2 must document storage function, seat load, lid/hinge safety, textile
-  composition, and footprint.
-
-### Outdoor
-
-- O1 must document exterior timber suitability, finish, UV/moisture behavior,
-  corrosion-resistant fittings, cushion performance, and storage guidance.
-- O2 must document exterior coating, corrosion resistance, drainage, stability,
-  wind/load behavior, care, and seasonal storage.
-
-# C. Material Authority Alignment
-
-## Per-Product Mapping
-
-| Product | Primary | Secondary | Operational authority contribution |
-| --- | --- | --- | --- |
-| L1 Counterweighted Floor Lamp | `metal` | `glass` | Establishes metal as a structural lighting material with documented finish, weight distribution, and electrical integration |
-| L2 Stone Cylinder Pendant | `stone` | `metal`, `glass` | Tests governed stone use in suspended products: exact weight, mounting, finish, and electrical assembly become mandatory facts |
-| L3 Opal Glass Bedside Lamp | `glass` | `metal` | Adds glass as the light-modifying primary material and requires diffuser, fragility, replacement, and care facts |
-| L4 Pivot Wall Sconce | `metal` | `glass` | Adds brushed metal finish authority and mounting/electrical evidence |
-| D1 Travertine Footed Bowl | `travertine` | none expected | Deepens the existing travertine vocabulary beyond tables while preserving specific-stone evidence |
-| D2 Ceramic Totem | `ceramic` | none expected | Activates an unused canonical material with body, finish, firing, stability, and care evidence |
-| D3 Oak Full-Length Mirror | `wood` | `glass`, `metal` | Establishes wood frame construction, finish, mounting hardware, glass safety, and weight as separate governed facts |
-| D4 Marble Valet Tray | `marble` | `leather` if documented | Activates marble as distinct from generic stone and requires insert composition and surface-care evidence |
-| B1 Upholstered Platform Bed | `upholstery_fabric` | `wood`, `metal` | Extends fabric authority into high-contact, structural furniture with composition, abrasion, care, and compliance facts |
-| B2 Wool Bedside Rug | `wool` | none expected | Activates wool with percentage composition, construction, backing, shedding, care, and size evidence |
-| W1 Oak Writing Desk | `wood` | `metal` | Builds wood authority around joinery, load, finish, task use, and assembly |
-| W2 Leather and Oak Task Chair | `leather` | `wood`, `metal` | Activates leather with type, finish, care, wear surface, structure, and load evidence |
-| H1 Travertine Hall Console | `travertine` | `metal` if documented | Extends travertine into narrow architectural furniture with stability, wall interface, weight, and freight controls |
-| H2 Oak Storage Bench | `wood` | `upholstery_fabric`, `metal` | Combines timber, textile, hinges, storage, and seating load in one documented construction |
-| O1 Outdoor Lounge Chair | `wood` | `upholstery_fabric`, `metal` | Adds environmental suitability, treatment, corrosion, UV, moisture, cushion, and storage evidence to wood/fabric authority |
-| O2 Outdoor Dining Table | `metal` | `stone` only if documented | Adds exterior coating, corrosion, drainage, load, and seasonal care evidence to metal authority |
-
-## Portfolio Material Result
-
-Primary-material coverage across the 16:
-
-| Canonical material | Primary products | Contribution |
-| --- | ---: | --- |
-| `metal` | 3 | Lighting structure and outdoor durability |
-| `stone` | 1 | Suspended stone construction |
-| `travertine` | 2 | Object and architectural furniture applications |
-| `marble` | 1 | Specific stone-object authority |
-| `glass` | 1 | Light diffusion and fragility governance |
-| `ceramic` | 1 | Fired-object authority |
-| `wood` | 4 | Mirror, task furniture, hallway seating, and outdoor use |
-| `upholstery_fabric` | 1 | Bedroom-scale upholstered furniture |
-| `wool` | 1 | Textile and rug authority |
-| `leather` | 1 | High-contact task seating |
-
-This set activates all ten existing canonical material values. Secondary
-materials broaden construction evidence without inflating primary-material
-counts.
-
-## Material Rejection Rules
-
-Reject a candidate when:
-
-- its named material is supported only by marketing copy or photography;
-- supplier terminology cannot map to an existing canonical value;
-- a specific claim such as travertine or marble lacks specific evidence;
-- material composition, finish, care, or rights documentation is incomplete;
-- outdoor suitability is asserted without environmental performance evidence;
-- a decorative finish is presented as the structural material.
-
-# D. Discovery Coverage Scorecard
-
-## Scoring Method
-
-Maximum score: 100.
-
-- **Category Reach, 0-20:** strength added to an empty or shallow category.
-- **Room Reach, 0-25:** number and quality of functionally defensible room
-  relationships.
-- **Material Reach, 0-25:** value added to controlled material breadth and
-  evidence quality.
-- **Founder Potential, 0-30:** distinct proportion, material clarity,
-  construction authority, and lasting curatorial value.
-
-Scores rank acquisition leverage. They do not approve attribution or Founder
-Selection.
-
-| Rank | Product | Category | Room | Material | Founder | Score |
-| ---: | --- | ---: | ---: | ---: | ---: | ---: |
-| 1 | L2 Honed Stone Cylinder Pendant | 20 | 25 | 25 | 28 | **98** |
-| 2 | H1 Travertine Hall Console | 18 | 25 | 25 | 28 | **96** |
-| 3 | D3 Solid Oak Full-Length Mirror | 20 | 25 | 22 | 27 | **94** |
-| 4 | L1 Counterweighted Brushed Metal Floor Lamp | 20 | 25 | 20 | 27 | **92** |
-| 5 | D2 Hand-Finished Ceramic Totem | 20 | 25 | 25 | 22 | **92** |
-| 6 | D1 Honed Travertine Footed Bowl | 20 | 25 | 25 | 20 | **90** |
-| 7 | W1 Solid Oak Writing Desk | 18 | 18 | 22 | 26 | **84** |
-| 8 | L4 Brushed Metal Pivot Wall Sconce | 20 | 25 | 18 | 18 | **81** |
-| 9 | D4 Honed Marble Valet Tray | 20 | 25 | 23 | 12 | **80** |
-| 10 | L3 Opal Glass Bedside Lamp | 20 | 25 | 18 | 16 | **79** |
-| 11 | H2 Oak Storage Bench with Upholstered Pad | 18 | 18 | 20 | 22 | **78** |
-| 12 | O1 Oiled Wood Outdoor Lounge Chair | 20 | 10 | 22 | 26 | **78** |
-| 13 | B1 Low Upholstered Platform Bed | 18 | 10 | 20 | 29 | **77** |
-| 14 | B2 Hand-Loomed Wool Bedside Rug | 18 | 18 | 22 | 17 | **75** |
-| 15 | O2 Powder-Coated Metal Outdoor Dining Table | 20 | 10 | 20 | 22 | **72** |
-| 16 | W2 Leather and Oak Task Chair | 18 | 10 | 22 | 20 | **70** |
-
-## Highest-Leverage Products
-
-The first six products exceed 89 because each combines an empty category or
-room path with strong material authority and a distinct object identity.
-
-The lower scores do not indicate weak products. The bed, task chair, and
-outdoor pieces have narrower room reach but are required to make those room
-destinations commercially credible rather than visually populated by unrelated
-objects.
-
-# E. Founder Selection Candidates
-
-Founder Selection remains a separate Level 4 decision. The following eight
-should be acquired with Founder eligibility in mind:
-
-| Candidate | Why it may qualify | Curatorial contribution | Identity fit |
-| --- | --- | --- | --- |
-| L1 Counterweighted Floor Lamp | Distinct balance, silhouette, and controlled material junctions | Adds a room-defining light object rather than a commodity lamp | Architectural proportion and restrained metal presence |
-| L2 Stone Cylinder Pendant | Uncommon but materially legible suspended stone construction | Connects lighting, stone authority, and architectural installation | Material weight expressed without ornament |
-| D2 Ceramic Totem | Singular form with documented ceramic process | Adds collectible object scale and fired-material depth | Sculptural restraint and atelier evidence |
-| D3 Oak Full-Length Mirror | Furniture-scale reflection with visible timber construction | Adds a functional architectural plane to curation | Calm proportion, wood clarity, and room utility |
-| B1 Upholstered Platform Bed | Strong low profile and complete bedroom composition | Gives Founder Selection a major room anchor | Quiet volume, textile restraint, and durable form |
-| W1 Oak Writing Desk | Clear work surface, joinery, and disciplined proportions | Extends founder curation beyond living-room display | Functional architecture with material clarity |
-| H1 Travertine Hall Console | Narrow proportion and stone authority | Creates a strong threshold/entry object | Architectural stone, restraint, and spatial purpose |
-| O1 Outdoor Lounge Chair | Exterior suitability without resort styling | Extends the Veylune point of view outdoors | Material calm, low profile, and considered seasonal use |
-
-Do not pre-qualify L3, L4, D1, D4, B2, W2, H2, or O2 for Founder Selection.
-They are valuable supporting assortment, but their archetypes are more easily
-commoditized. They may enter Founder review only if the sourced execution has
-exceptional proportion, construction, and provenance.
-
-Reject any sourced product that is:
-
-- a generic marketplace silhouette;
-- primarily trend-colored or novelty-shaped;
-- dependent on decorative surface treatment rather than construction;
-- materially ambiguous;
-- a near-duplicate of Aurelia, Calma, Nocturne, Atelier, or another candidate;
-- unable to support a durable product story from verified facts.
-
-# F. Consultation Assessment
-
-| Product | Consultation mode | Objective rationale |
+| Product Type | Registry Key | Scope |
 | --- | --- | --- |
-| L1 Floor Lamp | Recommended | Scale, placement, light direction, and room relationship may affect fit; standard plug-in purchase remains possible |
-| L2 Stone Pendant | Required | Ceiling load, drop, mounting, electrical specification, stone weight, and specialist installation must be confirmed |
-| L3 Bedside Lamp | Not needed | Standard plug-in product with fixed specification and conventional placement |
-| L4 Wall Sconce | Required | Hardwiring, mounting surface, electrical compliance, and installation must be confirmed |
-| D1 Travertine Bowl | Recommended | Natural variation, weight, finish, and intended use may need confirmation |
-| D2 Ceramic Totem | Not needed | Fixed-specification object when stability, care, and dimensions are complete |
-| D3 Full-Length Mirror | Required | Wall type, anchoring, weight, access, and placement must be confirmed |
-| D4 Marble Valet Tray | Not needed | Fixed-size object with standard delivery and complete care information |
-| B1 Platform Bed | Required | Mattress fit, textile/finish choice, access, assembly, and delivery constraints affect the order |
-| B2 Wool Bedside Rug | Recommended | Size, placement, pile, and floor relationship materially affect fit |
-| W1 Writing Desk | Recommended | Room scale, access, assembly, and task requirements may affect selection |
-| W2 Task Chair | Recommended | Seat height, ergonomics, finish, and user fit are meaningful but need not block standard purchase |
-| H1 Travertine Console | Required | Stone variation, wall stability, weight, access, freight, and placement require confirmation |
-| H2 Storage Bench | Recommended | Footprint, storage clearance, seat use, and textile choice may affect fit |
-| O1 Outdoor Lounge Chair | Recommended | Exposure, cushion storage, finish maintenance, and seasonal use should be reviewed |
-| O2 Outdoor Dining Table | Required | Site access, freight, ground stability, exterior exposure, assembly, and seasonal care must be confirmed |
+| Sofas | `sofas` | Fixed, modular, sectional, and daybed-scale upholstered seating |
+| Lounge Chairs | `lounge_chairs` | Indoor occasional and statement seating |
+| Dining Chairs | `dining_chairs` | Chairs designed for dining-table use |
+| Office Chairs | `office_chairs` | Desk and task seating |
+| Benches & Stools | `benches_stools` | Benches, ottomans, counter stools, and low stools |
+| Coffee Tables | `coffee_tables` | Primary low tables for living spaces |
+| Side Tables | `side_tables` | Occasional, bedside, and compact companion tables |
+| Consoles | `consoles` | Narrow display and hallway tables |
+| Desks | `desks` | Writing, executive, and compact work desks |
+| Beds | `beds` | Bed frames and upholstered beds |
+| Storage | `storage` | Cabinets, sideboards, shelving, and chests |
 
-Final mode is determined from the sourced product's actual configuration,
-installation, freight, compliance, and variation facts.
+**Boundary decision:** Dining tables are not duplicated here. They belong to Dining & Kitchen. Dining chairs remain Furniture because their construction, comparison behavior, and assortment governance align with seating.
 
-# G. Batch Acquisition Plan
+### 3.2 Lighting
 
-These are sourcing and diligence waves. WP-OP-01A's later governed validation
-may still package approved candidates into two controlled batches of eight.
+| Product Type | Registry Key | Scope |
+| --- | --- | --- |
+| Floor Lamps | `floor_lamps` | Freestanding ambient, reading, and architectural lamps |
+| Table Lamps | `table_lamps` | Portable desk, bedside, and occasional lamps |
+| Pendant Lights | `pendant_lights` | Suspended single and multi-light fixtures |
+| Wall Lighting | `wall_lighting` | Sconces and fixed wall-mounted fixtures |
 
-## Batch 1 - Immediate Coverage
+Ceiling-mounted products that are not pendants remain out of acquisition scope until assortment evidence justifies a controlled child type. They must not be placed in Pendant Lights merely for convenience.
 
-| Product | Reason for immediate acquisition |
+### 3.3 Decor & Objects
+
+| Product Type | Registry Key | Scope |
+| --- | --- | --- |
+| Vessels | `vessels` | Decorative vessels, vases, and non-tableware containers |
+| Sculptural Objects | `sculptural_objects` | Freestanding art objects and materially led forms |
+| Mirrors | `mirrors` | Wall, floor, and tabletop mirrors |
+| Trays | `trays` | Decorative and valet trays not governed as serveware |
+| Decorative Objects | `decorative_objects` | Controlled residual for bookends, candleholders, and objects without a stable dedicated type |
+
+Functional food-service objects belong to Dining & Kitchen even when visually decorative.
+
+### 3.4 Textiles & Rugs
+
+| Product Type | Registry Key | Scope |
+| --- | --- | --- |
+| Rugs | `rugs` | Area, runner, and outdoor-rated rugs |
+| Throws | `throws` | Decorative and functional throws |
+| Cushions | `cushions` | Filled cushions and governed cushion-cover products |
+
+Room-specific textiles use room attribution. “Bedroom textiles” and “outdoor textiles” must not become duplicate product types.
+
+### 3.5 Dining & Kitchen
+
+| Product Type | Registry Key | Scope |
+| --- | --- | --- |
+| Dining Tables | `dining_tables` | Indoor dining tables and materially equivalent dining-scale tables |
+| Tableware | `tableware` | Plates, bowls, cups, and place-setting objects |
+| Serveware | `serveware` | Serving boards, bowls, platters, and food-service trays |
+| Kitchen Objects | `kitchen_objects` | Governed preparation, storage, and countertop objects |
+
+Dining chairs remain Furniture. This department may present them through secondary discovery relationships but may not own a duplicate chair type.
+
+### 3.6 Outdoor
+
+| Product Type | Registry Key | Scope |
+| --- | --- | --- |
+| Outdoor Seating | `outdoor_seating` | Outdoor-rated lounge chairs, sofas, benches, and dining seating |
+| Outdoor Tables | `outdoor_tables` | Outdoor-rated dining, coffee, and side tables |
+| Planters & Objects | `planters_objects` | Outdoor-rated planters and materially durable decorative objects |
+
+Outdoor classification requires documented outdoor suitability. Visual styling or supplier naming is insufficient.
+
+---
+
+# PART II — Assortment Coverage Gap Analysis
+
+## 4. Baseline
+
+The known governed pipeline contains four products:
+
+- Aurelia Modular Sofa: eligible; Sofas
+- Calma Travertine Table: eligible; Dining Tables
+- Nocturne Floor Lamp: remediation required; Floor Lamps
+- Atelier Stone Vessel: remediation required; Vessels
+
+“Current” below distinguishes eligible coverage from remediation coverage. Targets are primary product-type counts, not room or collection memberships.
+
+## 5. Coverage Gap Map
+
+| Product Type | Current Coverage | Stage A Target (20) | Stage A Acquisition Gap | Stage C Target (100) | 1000+ Planning Count | Gap Priority |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Sofas | 1 eligible | 1 | 0 | 6 | 45 | Low |
+| Lounge Chairs | 0 | 0 | 0 | 5 | 45 | High |
+| Dining Chairs | 0 | 0 | 0 | 4 | 35 | High |
+| Office Chairs | 0 | 1 | 1 | 3 | 25 | Critical |
+| Benches & Stools | 0 | 1 | 1 | 3 | 35 | Critical |
+| Coffee Tables | 0 | 0 | 0 | 4 | 40 | High |
+| Side Tables | 0 | 0 | 0 | 3 | 45 | High |
+| Consoles | 0 | 1 | 1 | 2 | 25 | Critical |
+| Desks | 0 | 1 | 1 | 2 | 25 | Critical |
+| Beds | 0 | 1 | 1 | 2 | 20 | Critical |
+| Storage | 0 | 0 | 0 | 2 | 30 | High |
+| Floor Lamps | 1 remediation | 2 | 1 | 5 | 45 | Medium |
+| Table Lamps | 0 | 1 | 1 | 5 | 50 | Critical |
+| Pendant Lights | 0 | 1 | 1 | 4 | 45 | Critical |
+| Wall Lighting | 0 | 1 | 1 | 4 | 40 | Critical |
+| Vessels | 1 remediation | 2 | 1 | 4 | 35 | Medium |
+| Sculptural Objects | 0 | 1 | 1 | 4 | 35 | Critical |
+| Mirrors | 0 | 1 | 1 | 3 | 25 | Critical |
+| Trays | 0 | 1 | 1 | 3 | 30 | Critical |
+| Decorative Objects | 0 | 0 | 0 | 4 | 45 | Medium |
+| Rugs | 0 | 1 | 1 | 5 | 45 | Critical |
+| Throws | 0 | 0 | 0 | 2 | 25 | High |
+| Cushions | 0 | 0 | 0 | 3 | 30 | High |
+| Dining Tables | 1 eligible | 1 | 0 | 4 | 30 | Low |
+| Tableware | 0 | 0 | 0 | 2 | 30 | High |
+| Serveware | 0 | 0 | 0 | 2 | 25 | High |
+| Kitchen Objects | 0 | 0 | 0 | 2 | 15 | Medium |
+| Outdoor Seating | 0 | 1 | 1 | 3 | 35 | Critical |
+| Outdoor Tables | 0 | 1 | 1 | 3 | 25 | Critical |
+| Planters & Objects | 0 | 0 | 0 | 2 | 20 | Medium |
+
+The 1000-product planning counts total 1000 and are directional portfolio controls, not purchasing quotas.
+
+### 5.1 Priority interpretation
+
+**Critical:** Required to make the Stage A room and department destinations credible.
+**High:** Required during the move from 20 to 50 products to remove obvious assortment omissions.
+**Medium:** Adds depth or completes a department after core commerce coverage exists.
+**Low:** Already represented in the eligible baseline; depth still increases later.
+
+### 5.2 Stage B target allocation
+
+The 50-product portfolio should use this control:
+
+| Department | Stage A | Stage B | Stage C | 1000+ |
+| --- | ---: | ---: | ---: | ---: |
+| Furniture | 6 | 19 | 36 | 370 |
+| Lighting | 5 | 10 | 18 | 180 |
+| Decor & Objects | 5 | 9 | 18 | 170 |
+| Textiles & Rugs | 1 | 5 | 10 | 100 |
+| Dining & Kitchen | 1 | 4 | 10 | 100 |
+| Outdoor | 2 | 3 | 8 | 80 |
+| **Total** | **20** | **50** | **100** | **1000** |
+
+Stage B does not require every type to be populated. It requires every department to be credible and every critical or high-priority gap to have an approved acquisition decision.
+
+---
+
+# PART III — Discovery Coverage Mapping
+
+## 6. Product-Type Discovery Matrix
+
+Material entries indicate the most useful governed authority contributions, not decorative claims.
+
+| Product Type | Principal Room Reach | Material Reach | Founder Potential | Consultation Default | Leverage |
+| --- | --- | --- | --- | --- | --- |
+| Sofas | Living | Fabric, leather, wood | High | Recommended | High |
+| Lounge Chairs | Living, Bedroom, Workspace | Fabric, leather, wood, metal | High | Recommended | Very high |
+| Dining Chairs | Dining, Workspace | Wood, metal, leather, fabric | Medium | Optional | High |
+| Office Chairs | Workspace | Leather, fabric, wood, metal | Medium | Recommended | High |
+| Benches & Stools | Hallway, Bedroom, Living, Dining | Wood, fabric, leather, metal | High | Optional | Very high |
+| Coffee Tables | Living | Travertine, marble, stone, wood, glass, metal | High | Recommended | Very high |
+| Side Tables | Living, Bedroom, Hallway | Stone, wood, metal, glass | High | Optional | Very high |
+| Consoles | Hallway, Living, Dining | Travertine, marble, wood, metal | High | Recommended | Very high |
+| Desks | Workspace, Bedroom | Wood, metal, leather | High | Recommended | Very high |
+| Beds | Bedroom | Fabric, leather, wood | High | Recommended | High |
+| Storage | Living, Dining, Bedroom, Workspace, Hallway | Wood, metal, glass | Medium | Recommended | Very high |
+| Floor Lamps | Living, Bedroom, Workspace, Hallway | Metal, stone, glass, fabric | High | Optional | Very high |
+| Table Lamps | Living, Bedroom, Workspace, Hallway | Ceramic, glass, metal, stone | High | Optional | Very high |
+| Pendant Lights | Dining, Living, Hallway | Metal, glass, stone | High | Required | Very high |
+| Wall Lighting | Living, Bedroom, Hallway, Workspace | Metal, glass, stone | High | Required | Very high |
+| Vessels | Living, Dining, Bedroom, Hallway | Travertine, marble, stone, ceramic, glass | High | Optional | Very high |
+| Sculptural Objects | Living, Dining, Workspace, Hallway | Stone, wood, metal, glass, ceramic | High | Optional | Very high |
+| Mirrors | Hallway, Bedroom, Living | Glass, metal, wood, stone | High | Recommended | Very high |
+| Trays | Hallway, Living, Bedroom, Dining | Travertine, marble, stone, wood, metal | Medium | Optional | High |
+| Decorative Objects | Living, Dining, Bedroom, Workspace, Hallway | All governed hard materials | Medium | Optional | Medium |
+| Rugs | Living, Dining, Bedroom, Workspace, Hallway, Outdoor | Wool, fabric | High | Recommended | Very high |
+| Throws | Living, Bedroom, Outdoor | Wool, fabric | Medium | Optional | High |
+| Cushions | Living, Bedroom, Outdoor | Fabric, wool, leather | Medium | Optional | High |
+| Dining Tables | Dining, Workspace | Travertine, marble, stone, wood, metal, glass | High | Recommended | Very high |
+| Tableware | Dining | Ceramic, glass, stone, metal | Medium | Optional | Medium |
+| Serveware | Dining, Living, Outdoor | Wood, stone, marble, ceramic, metal, glass | High | Optional | High |
+| Kitchen Objects | Dining | Wood, stone, ceramic, metal, glass | Low | Optional | Low |
+| Outdoor Seating | Outdoor | Metal, wood, stone, fabric | High | Recommended | Very high |
+| Outdoor Tables | Outdoor | Travertine, stone, wood, metal, glass | High | Recommended | Very high |
+| Planters & Objects | Outdoor, Hallway | Stone, ceramic, metal, wood | High | Recommended | High |
+
+### 6.1 Highest-leverage acquisition types
+
+The strongest cross-surface types are:
+
+1. Side Tables
+2. Consoles
+3. Benches & Stools
+4. Floor and Table Lamps
+5. Mirrors
+6. Vessels and Sculptural Objects
+7. Rugs
+8. Storage
+9. Dining Tables
+10. Outdoor Seating and Tables
+
+They combine category demand with multiple credible rooms, governed material visibility, and Founder Selection potential. Reach alone does not qualify a product; each individual room and material relationship still requires evidence.
+
+---
+
+# PART IV — First 16 Governed Products Blueprint
+
+## 7. Acquisition Blueprint
+
+These are net-new products beyond the four-product known pipeline. Names are working acquisition archetypes, not product records.
+
+| ID | Product | Product Type | Department | Governed Rooms | Primary / Secondary Materials | Founder Potential |
+| --- | --- | --- | --- | --- | --- | --- |
+| P01 | Orbis Counterweighted Floor Lamp | Floor Lamps | Lighting | Living, Workspace | Metal / Travertine | Yes |
+| P02 | Halo Ribbed-Glass Pendant | Pendant Lights | Lighting | Dining, Hallway | Glass / Metal | Yes |
+| P03 | Lumen Ceramic Table Lamp | Table Lamps | Lighting | Bedroom, Living, Workspace | Ceramic / Fabric, Metal | Candidate |
+| P04 | Axis Alabaster Wall Sconce | Wall Lighting | Lighting | Hallway, Bedroom | Stone / Metal | Yes |
+| P05 | Tectona Travertine Vessel | Vessels | Decor & Objects | Hallway, Living, Dining | Travertine / None | Yes |
+| P06 | Meridian Cast-Metal Sculpture | Sculptural Objects | Decor & Objects | Living, Workspace, Hallway | Metal / Stone | Yes |
+| P07 | Arc Full-Length Oak Mirror | Mirrors | Decor & Objects | Bedroom, Hallway | Wood / Glass | Yes |
+| P08 | Strata Marble Valet Tray | Trays | Decor & Objects | Hallway, Bedroom, Living | Marble / Leather | Candidate |
+| P09 | Serein Upholstered Platform Bed | Beds | Furniture | Bedroom | Upholstery Fabric / Wood | Yes |
+| P10 | Tactile Hand-Knotted Wool Rug | Rugs | Textiles & Rugs | Living, Bedroom, Workspace | Wool / None | Yes |
+| P11 | Linea Solid-Oak Writing Desk | Desks | Furniture | Workspace, Bedroom | Wood / Leather, Metal | Yes |
+| P12 | Forma Leather and Oak Desk Chair | Office Chairs | Furniture | Workspace | Leather / Wood, Metal | Candidate |
+| P13 | Portico Travertine Console | Consoles | Furniture | Hallway, Living | Travertine / Metal | Yes |
+| P14 | Stillwater Upholstered Oak Bench | Benches & Stools | Furniture | Hallway, Bedroom, Dining | Wood / Upholstery Fabric | Candidate |
+| P15 | Terra Outdoor Lounge Chair | Outdoor Seating | Outdoor | Outdoor | Wood / Outdoor Fabric, Metal | Yes |
+| P16 | Monolith Outdoor Stone Table | Outdoor Tables | Outdoor | Outdoor | Stone / Metal | Yes |
+
+### 7.1 Selection rationale
+
+The 16 products close every Stage A critical gap, represent all six departments, create credible entry points for all six governed rooms, and establish all ten canonical material families. Each product contributes to at least three governed discovery dimensions: product type, room, material, or approved collection potential.
+
+### 7.2 Coverage scoring
+
+Scoring uses:
+
+- Category reach: 0–3
+- Room reach: 0–3
+- Material authority: 0–3
+- Founder potential: 0–3
+- Revenue utility: 0–3
+
+| Rank | Product | Category | Room | Material | Founder | Revenue | Score / 15 |
+| ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | Portico Travertine Console | 3 | 3 | 3 | 3 | 3 | 15 |
+| 2 | Orbis Counterweighted Floor Lamp | 3 | 3 | 3 | 3 | 3 | 15 |
+| 3 | Arc Full-Length Oak Mirror | 3 | 3 | 3 | 3 | 3 | 15 |
+| 4 | Axis Alabaster Wall Sconce | 3 | 3 | 3 | 3 | 3 | 15 |
+| 5 | Tactile Hand-Knotted Wool Rug | 3 | 3 | 3 | 3 | 3 | 15 |
+| 6 | Linea Solid-Oak Writing Desk | 3 | 3 | 3 | 3 | 3 | 15 |
+| 7 | Halo Ribbed-Glass Pendant | 3 | 3 | 3 | 3 | 2 | 14 |
+| 8 | Tectona Travertine Vessel | 3 | 3 | 3 | 3 | 2 | 14 |
+| 9 | Meridian Cast-Metal Sculpture | 3 | 3 | 3 | 3 | 2 | 14 |
+| 10 | Stillwater Upholstered Oak Bench | 3 | 3 | 3 | 2 | 3 | 14 |
+| 11 | Lumen Ceramic Table Lamp | 3 | 3 | 3 | 2 | 3 | 14 |
+| 12 | Serein Upholstered Platform Bed | 3 | 2 | 3 | 3 | 3 | 14 |
+| 13 | Terra Outdoor Lounge Chair | 3 | 2 | 3 | 3 | 3 | 14 |
+| 14 | Monolith Outdoor Stone Table | 3 | 2 | 3 | 3 | 3 | 14 |
+| 15 | Forma Leather and Oak Desk Chair | 3 | 2 | 3 | 2 | 3 | 13 |
+| 16 | Strata Marble Valet Tray | 3 | 3 | 3 | 2 | 2 | 13 |
+
+Scores rank acquisition leverage only. They do not confer exposure or Founder Selection eligibility.
+
+### 7.3 Acquisition batches
+
+**Batch 1 — Immediate coverage**
+
+- Portico Travertine Console
+- Orbis Counterweighted Floor Lamp
+- Halo Ribbed-Glass Pendant
+- Arc Full-Length Oak Mirror
+- Tactile Hand-Knotted Wool Rug
+- Linea Solid-Oak Writing Desk
+
+This batch opens Lighting depth and makes Hallway, Workspace, and Bedroom materially more credible.
+
+**Batch 2 — Room completion**
+
+- Axis Alabaster Wall Sconce
+- Lumen Ceramic Table Lamp
+- Serein Upholstered Platform Bed
+- Forma Leather and Oak Desk Chair
+- Stillwater Upholstered Oak Bench
+
+This batch completes the basic Bedroom and Workspace purchase systems and expands consultation-relevant furniture.
+
+**Batch 3 — Authority and outdoor**
+
+- Tectona Travertine Vessel
+- Meridian Cast-Metal Sculpture
+- Strata Marble Valet Tray
+- Terra Outdoor Lounge Chair
+- Monolith Outdoor Stone Table
+
+This batch strengthens Decor & Objects, material authority, Founder Selection supply, and the first credible Outdoor stream.
+
+No batch may be published as a group merely because it was acquired together. Every product must independently reach Level 3.
+
+---
+
+# PART V — Material Authority Coverage
+
+## 8. Material Portfolio Targets
+
+Primary material is the dominant construction or customer-decision material. Secondary materials must be structurally or experientially relevant. Packaging, minor fasteners, and decorative material language do not qualify.
+
+| Canonical Material | Known Pipeline | Stage A Minimum | Stage B Minimum | Stage C Target | 1000+ Primary Share | Acquisition Priority |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| Travertine | Calma verified | 3 | 4 | 8 | 6% | High |
+| Marble | None | 1 | 3 | 6 | 6% | Critical |
+| Stone | Atelier pending | 2 | 4 | 8 | 9% | Critical |
+| Wood | None confirmed | 4 | 10 | 22 | 24% | Critical |
+| Metal | Nocturne pending | 3 | 8 | 16 | 20% | Critical |
+| Glass | None | 1 | 4 | 8 | 8% | Critical |
+| Ceramic | None | 1 | 4 | 8 | 7% | Critical |
+| Upholstery Fabric | Aurelia verified | 2 | 6 | 12 | 12% | High |
+| Wool | None | 1 | 3 | 7 | 5% | Critical |
+| Leather | None | 1 | 2 | 5 | 3% | Critical |
+
+The Stage C target totals 100 primary-material assignments. The 1000+ shares total 100% and act as drift controls, not aesthetic quotas.
+
+## 9. Material Governance Controls
+
+- Only canonical material names may drive discovery.
+- Specific stones may retain their specific name and map upward to Stone.
+- “Natural,” “premium,” “luxury,” “artisan,” and color names are not materials.
+- Supplier declarations require documentary evidence or physical verification.
+- Composite, veneer, finish, and solid-material claims must remain distinguishable.
+- Material confidence must be `verified`, `documented`, `observed`, or `unverified`.
+- Only `verified` or `documented` primary materials qualify for material-led exposure.
+- `observed` may support remediation but not authority claims.
+- `unverified` blocks Level 3 exposure.
+- Material mappings are versioned; changing a canonical family requires Material Authority Owner approval.
+
+The first 16 close all Stage A material-family gaps. No acquisition should be approved solely to satisfy a percentage if the product lacks Veylune identity and commercial utility.
+
+---
+
+# PART VI — Room Coverage Strategy
+
+## 10. Commercial Credibility by Room
+
+| Room | Required Product Systems | Stage A Result |
+| --- | --- | --- |
+| Living Room | Sofa or lounge seating; coffee/side surface; floor/table lighting; rug; object or mirror | Credible entry stream, but coffee and side tables remain Stage B gaps |
+| Dining Room | Dining table; dining seating; pendant; tableware/serveware; object or console | Credible anchor stream, but dining chairs and tabletop depth remain Stage B gaps |
+| Bedroom | Bed; side surface; bedside/wall lighting; rug; mirror; bench or textile | Commercially credible after the first 16, with side tables and soft-textile depth still required |
+| Workspace | Desk; office chair; task/ambient lighting; storage; rug or object | Commercially credible after the first 16, with storage as the principal Stage B gap |
+| Hallway | Console or bench; mirror; wall/pendant lighting; tray/vessel/object; runner potential | Commercially credible after the first 16 |
+| Outdoor | Outdoor seating; outdoor table; optional lighting/textile; planter/object | Minimum viable destination after the first 16; depth and planters remain required |
+
+### 10.1 Room assignment rules
+
+- A room assignment must reflect normal intended use, dimensions, safety, durability, and installation context.
+- A product may have one primary room and multiple secondary rooms.
+- Secondary rooms require the same evidence standard as the primary room.
+- Search demand and SEO opportunity are not assignment evidence.
+- Outdoor requires documented outdoor suitability.
+- Dining assignment requires dining-scale function, not styling.
+- Bedroom assignment requires credible bedroom function or placement.
+- Room relationships are reviewed when product dimensions, construction, installation, or supplier evidence changes.
+- A relationship is revoked when evidence no longer supports use, returns identify incompatibility, or governance review finds promotional overreach.
+
+At 1000+ products, no room stream should depend on broad editorial tagging. It should be generated from governed room relationships and filtered by exposure state.
+
+---
+
+# PART VII — Founder Selection Pipeline
+
+## 11. Qualified Candidates
+
+### Strong candidates
+
+- Orbis Counterweighted Floor Lamp
+- Halo Ribbed-Glass Pendant
+- Axis Alabaster Wall Sconce
+- Tectona Travertine Vessel
+- Meridian Cast-Metal Sculpture
+- Arc Full-Length Oak Mirror
+- Serein Upholstered Platform Bed
+- Tactile Hand-Knotted Wool Rug
+- Linea Solid-Oak Writing Desk
+- Portico Travertine Console
+- Terra Outdoor Lounge Chair
+- Monolith Outdoor Stone Table
+
+These products can express material legibility, restrained form, spatial presence, and lasting commercial relevance. They also strengthen categories or rooms that would otherwise appear operational rather than curated.
+
+### Candidates requiring stronger evidence
+
+- Lumen Ceramic Table Lamp
+- Strata Marble Valet Tray
+- Forma Leather and Oak Desk Chair
+- Stillwater Upholstered Oak Bench
+
+These are commercially useful but can easily become generic. Founder approval should require a distinctive proportion, construction decision, material resolution, or supplier provenance visible in the product itself.
+
+## 12. Founder Selection Gate
+
+A product may enter Founder Selection only when:
+
+1. it is Level 3 Exposure Ready;
+2. its material claims are verified or documented;
+3. it has a clear Veylune identity rationale;
+4. it contributes something not already overrepresented in the selection;
+5. it is not included merely because it is new, expensive, or commercially convenient;
+6. the Founder or delegated Curatorial Owner records approval and rationale;
+7. it has a review or expiry date.
+
+Founder Selection should remain selective:
+
+| Stage | Suggested Active Range |
+| --- | ---: |
+| 20 products | 4–8 |
+| 50 products | 8–12 |
+| 100 products | 12–18 |
+| 1000+ products | 30–50 |
+
+These ranges are dilution controls, not quotas. Fewer products are acceptable; weak additions are not.
+
+---
+
+# PART VIII — Consultation Coverage Strategy
+
+## 13. Objective Consultation Rules
+
+### Consultation Required
+
+Required when any condition is true:
+
+- professional electrical installation is required;
+- wall or ceiling structure determines safe installation;
+- the product is made to order or materially configurable after purchase;
+- access, assembly, weight, or placement must be validated before order acceptance;
+- outdoor suitability depends on site exposure or anchoring;
+- the product cannot be safely or accurately purchased from standard PDP data alone.
+
+Typical types: Pendant Lights, Wall Lighting, configurable Sofas, oversized Mirrors, exceptional stone furniture, and anchored outdoor products.
+
+### Consultation Recommended
+
+Recommended when the PDP can support direct purchase but expert guidance materially reduces fit or expectation risk:
+
+- large furniture with access constraints;
+- scale-sensitive products;
+- natural-material variation is commercially significant;
+- seating comfort or upholstery selection affects the decision;
+- room planning or product pairing materially affects suitability.
+
+Typical types: Sofas, Lounge Chairs, Office Chairs, Coffee Tables, Consoles, Desks, Beds, Storage, Rugs, Dining Tables, Outdoor Seating, and Outdoor Tables.
+
+### Consultation Optional
+
+Optional when:
+
+- dimensions and use are straightforward;
+- no installation or configuration decision exists;
+- standard shipping and returns apply;
+- material variation is adequately disclosed;
+- purchase risk is low.
+
+Typical types: most Vessels, Sculptural Objects, Trays, Decorative Objects, Throws, Cushions, Tableware, Serveware, and Kitchen Objects.
+
+### 13.1 Per-product assignment for the first 16
+
+| Product | Consultation Mode | Governing reason |
+| --- | --- | --- |
+| Orbis Floor Lamp | Optional | Portable; standard placement and power |
+| Halo Pendant | Required | Ceiling installation and drop-height decision |
+| Lumen Table Lamp | Optional | Portable and dimensionally simple |
+| Axis Wall Sconce | Required | Electrical and wall installation |
+| Tectona Vessel | Optional | Low-complexity decorative object |
+| Meridian Sculpture | Optional | Standard scale; upgrade if exceptional weight |
+| Arc Mirror | Recommended | Placement, anchoring, and access risk |
+| Strata Tray | Optional | Low-risk standard purchase |
+| Serein Bed | Recommended | Mattress fit, access, assembly, and upholstery |
+| Tactile Rug | Recommended | Scale, placement, and material expectation |
+| Linea Desk | Recommended | Scale, access, and workspace fit |
+| Forma Desk Chair | Recommended | Ergonomic and material suitability |
+| Portico Console | Recommended | Stone variation, weight, access, and scale |
+| Stillwater Bench | Optional | Standard dimensions; recommend if configurable |
+| Terra Outdoor Chair | Recommended | Exposure, care, and placement |
+| Monolith Outdoor Table | Required | Weight, access, placement, and site suitability |
+
+Consultation mode is product data. It cannot be inferred from price, Founder Selection status, or supplier preference.
+
+---
+
+# PART IX — Scaling Blueprint
+
+## 14. Stage A — 20 Eligible Products
+
+### Taxonomy readiness
+
+- All 30 product types exist in the controlled registry.
+- Only populated departments and sufficiently credible discovery streams are exposed.
+- Sparse product types remain metadata, not standalone public destinations.
+
+### Material coverage
+
+- All ten canonical material families represented.
+- Every exposed product has governed primary and secondary materials.
+- No unverified primary material enters exposure.
+
+### Room coverage
+
+- All six room destinations have an anchor assortment.
+- Living and Dining retain priority for Stage B depth.
+- Bedroom, Workspace, Hallway, and Outdoor become credible through the first 16.
+
+### Founder coverage
+
+- Four to eight active selections.
+- Every selection has a written rationale and review date.
+
+### Consultation coverage
+
+- Every product has Required, Recommended, or Optional status.
+- Required consultations have an operational response path before exposure.
+
+## 15. Stage B — 50 Eligible Products
+
+### Taxonomy readiness
+
+- Critical gaps closed.
+- High-priority types represented or governed in the active pipeline.
+- Dedicated public product-type pages appear only at the publication threshold.
+
+### Material coverage
+
+- No canonical material depends on a single product.
+- Wood, metal, stone, glass, ceramic, and upholstery have cross-department representation.
+- Material confidence is audited quarterly.
+
+### Room coverage
+
+- Each room contains anchor, supporting, and finishing product systems.
+- Storage, side tables, coffee tables, dining chairs, tabletop, throws, and cushions receive priority.
+
+### Founder coverage
+
+- Eight to twelve active selections.
+- Selection balance reviewed across department, room, material, supplier, and price.
+
+### Consultation coverage
+
+- Consultation demand tracked by type and trigger.
+- Repeated questions become PDP data requirements, not automatic consultation expansion.
+
+## 16. Stage C — 100 Eligible Products
+
+### Taxonomy readiness
+
+- All 30 approved types represented or formally deferred with rationale.
+- Department and type allocations follow the Stage C portfolio control.
+- Child-category proposals must satisfy the 24/8 depth rule.
+
+### Material coverage
+
+- Primary-material targets total 100.
+- Each authority material appears in more than one product type where commercially credible.
+- Unsupported supplier language is rejected before ingestion.
+
+### Room coverage
+
+- Every room supports complete purchase journeys, not isolated products.
+- Secondary room assignments undergo sample audit.
+- Outdoor has seating, table, object, textile, and optional lighting relationships without taxonomy duplication.
+
+### Founder coverage
+
+- Twelve to eighteen active selections.
+- Additions require a portfolio contribution test; removals are routine.
+
+### Consultation coverage
+
+- Rules are applied automatically where objective triggers exist, then reviewed by exception.
+- Consultation outcomes feed dimensions, delivery, material, and installation data quality.
+
+## 17. Stage D — 1000+ Eligible Products
+
+### Taxonomy readiness
+
+- Six departments remain unchanged.
+- Product types remain canonical master data.
+- Child types are introduced only through the depth and intent gate.
+- Supplier categories map into Veylune types and never publish directly.
+- Public navigation remains demand-led and may show fewer nodes than the registry contains.
+
+### Material coverage
+
+- Portfolio drift monitored against primary-material shares.
+- Canonical names, aliases, evidence, and confidence are managed as versioned authority data.
+- Material-led pages exclude products below the confidence threshold.
+
+### Room coverage
+
+- Room streams are generated from governed relationships.
+- Assignment precision is sampled monthly and fully audited annually.
+- Low-performing SEO pages do not trigger broader room tagging.
+
+### Founder coverage
+
+- Thirty to fifty active selections.
+- Selection remains a narrow curatorial layer, not a best-seller feed.
+- Supplier concentration and material repetition are explicit review dimensions.
+
+### Consultation coverage
+
+- Objective triggers derive the default mode.
+- Exceptions require reason, owner, and review date.
+- Capacity planning uses Required and Recommended product exposure, not total catalog size.
+
+## 18. Governance Workload
+
+| Scale | Governance model | Review cadence |
+| --- | --- | --- |
+| 20 | Named owners may review every product manually | Pre-publication and monthly portfolio review |
+| 50 | Checklists, controlled registries, and exception logs required | Weekly intake; monthly attribution audit |
+| 100 | Batch ingestion with independent QA sampling | Weekly exceptions; monthly samples; quarterly portfolio review |
+| 1000+ | Rules-assisted validation with human approval for exceptions and curation | Continuous validation; monthly risk audit; quarterly taxonomy and founder review |
+
+Automation may validate completeness, canonical values, duplicate mappings, and thresholds. It must not approve material truth, room relevance, or Founder Selection without accountable human authority.
+
+---
+
+# PART X — Assortment Governance Risks
+
+## 19. Risk Register
+
+| Risk | Failure mode | Prevention control |
+| --- | --- | --- |
+| Category inflation | Every supplier term becomes a category | Controlled registry; publication threshold; Taxonomy Owner approval |
+| Taxonomy duplication | Dining, outdoor, room, or style copies the product tree | One primary type; rooms and collections remain relationships |
+| Style fragmentation | Trend labels become permanent branches | Styles remain governed attributes or editorial pages |
+| Residual-type growth | Decorative Objects becomes an ungoverned catch-all | 15% department cap and quarterly contents review |
+| Weak material attribution | Visual guesses become authority claims | Evidence and confidence gate before Level 3 |
+| Material alias drift | Similar names fragment discovery | Canonical dictionary with versioned aliases |
+| SEO-driven room assignment | Products are assigned to every searchable room | Evidence-based room rules and revocation audit |
+| Supplier-driven assortment | Supplier availability overrides portfolio need | Acquisition brief scores coverage before supplier fit |
+| Supplier taxonomy leakage | Imported categories appear publicly | Mandatory mapping into Veylune registry |
+| Founder dilution | Selection becomes a large promotional feed | Active-range control, rationale, expiry, and removal |
+| Consultation overreach | Consultation becomes a generic luxury signal | Objective trigger rules and exception review |
+| Consultation underreach | Complex products expose without support | Required-mode block in exposure eligibility |
+| Sparse public pages | Thin types reduce trust and discovery quality | Four-product plus pipeline publication threshold |
+| Coverage-score gaming | Low-authority products are acquired for reach | Level 3 and identity gates remain independent |
+| Collection duplication | Collections replace taxonomy or rooms | Collection purpose, owner, entry rule, and expiry required |
+| Founder/supplier concentration | Curation appears commercially biased | Portfolio review by supplier, type, room, and material |
+
+## 20. Decision Rights
+
+| Decision | Accountable owner |
 | --- | --- |
-| L1 Counterweighted Floor Lamp | High room reach; standard plug-in configuration can offer faster readiness than installed lighting |
-| L3 Opal Glass Bedside Lamp | Covers Lighting, Bedroom, Workspace, and Living Room with low consultation complexity |
-| D3 Oak Full-Length Mirror | Covers Decor, Hallway, Bedroom, and Living Room; strong Founder potential |
-| D4 Marble Valet Tray | Covers Decor and three empty room paths with straightforward fixed-product readiness |
-| W1 Oak Writing Desk | Establishes commercially credible Workspace furniture |
-| O1 Outdoor Lounge Chair | Opens the structurally empty Outdoor category and room |
+| Add or retire department | Executive governance; exceptional architecture decision |
+| Add, merge, or retire product type | Taxonomy Owner with Commerce approval |
+| Publish a product-type category | Taxonomy Owner and Commerce Owner |
+| Approve canonical material or alias | Material Authority Owner |
+| Approve or revoke room relevance | Catalog Governance Owner |
+| Approve collection membership | Named Collection Owner |
+| Approve Founder Selection | Founder or delegated Curatorial Owner |
+| Set consultation exception | Commerce Operations Owner |
+| Approve Level 3 exposure | Exposure Governance Owner |
 
-Batch 1 projected relationships:
+No supplier may hold a governance approval right.
 
-- Lighting: 2
-- Decor: 2
-- Bedroom: 4
-- Workspace: 4
-- Hallway: 2
-- Outdoor: 1
-- Founder candidates: 4
+---
 
-## Batch 2 - Authority and Room Anchors
+# DELIVERABLE SUMMARY
 
-| Product | Reason for second wave |
-| --- | --- |
-| L2 Stone Cylinder Pendant | Highest score, but requires installation and stone evidence |
-| L4 Pivot Wall Sconce | Completes the four-form lighting architecture |
-| D1 Travertine Footed Bowl | Deepens specific stone-object authority |
-| D2 Ceramic Totem | Activates ceramic and adds collectible object potential |
-| B1 Upholstered Platform Bed | Makes Bedroom commercially credible with an anchor product |
-| H1 Travertine Hall Console | Makes Hallway commercially credible with an anchor surface |
+## A. Final Product-Type Taxonomy
 
-Batch 2 projected incremental relationships:
+Six immutable departments and 30 governed product types are defined. Primary classification is unique; room, material, collection, and style are controlled relationships.
 
-- Lighting: +2, reaching 4
-- Decor: +2, reaching 4
-- Bedroom: +2
-- Workspace: +1
-- Hallway: +5
-- Founder candidates: +4
+## B. Coverage Gap Map
 
-## Batch 3 - Supporting Depth
+The baseline has two eligible types and two remediation types. Fourteen critical Stage A gaps are closed by the first 16 products. High-priority Stage B gaps concentrate on living, dining, storage, tabletop, and textile depth.
 
-| Product | Reason for third wave |
-| --- | --- |
-| B2 Wool Bedside Rug | Adds textile softness and bedroom scale |
-| W2 Leather and Oak Task Chair | Completes a usable Workspace pairing with W1 |
-| H2 Oak Storage Bench | Adds hallway storage and secondary bedroom use |
-| O2 Outdoor Dining Table | Adds an outdoor dining/revenue anchor after durability diligence |
+## C. Discovery Coverage Matrix
 
-Batch 3 projected incremental relationships:
+Every type has defined room reach, material reach, Founder potential, consultation default, and discovery leverage. Cross-surface value does not override attribution evidence.
 
-- Bedroom: +2
-- Workspace: +1
-- Hallway: +1
-- Outdoor: +1, reaching 2
-- Founder candidates: +0
+## D. First 16 Governed Products
 
-## Reserve Candidate Rules
+The acquisition blueprint delivers four lighting products, four decor products, six furniture/textile products, and two outdoor products while preserving the approved department model.
 
-Source at least four reserves, but do not define them as additional archetypes
-until a primary candidate fails. A reserve must replace the same coverage role
-and use existing canonical materials and rooms. It must not be selected merely
-because it is easier to source.
+## E. Material Coverage Plan
 
-# H. Discovery Impact Projection
+All ten authority materials receive Stage A representation and explicit 50-, 100-, and 1000-product controls. Material confidence remains an exposure gate.
 
-## Net-New 16 Impact
+## F. Founder Selection Pipeline
 
-| Surface | Before | After 16 | Change |
-| --- | ---: | ---: | ---: |
-| Lighting category | 0 | 4 | +4; floor, pendant, table, and wall lighting become represented |
-| Decor Objects category | 0 | 4 | +4; stone, ceramic, mirror, and tray functions become represented |
-| Bedroom room | 0 | 8 | +8; anchor furniture, textile, lighting, reflection, hallway crossover, and bedside object coverage |
-| Workspace room | 0 | 6 | +6; desk, chair, task/ambient lighting, object, and tray coverage |
-| Hallway room | 0 | 8 | +8; console, bench, mirror, lighting, and object layers |
-| Outdoor category/room | 0 | 2 | +2; seating and table functions establish a minimum credible stream |
+Twelve strong candidates and four conditional candidates are identified. Selection requires Level 3 readiness, material evidence, portfolio contribution, accountable approval, and review.
 
-## Combined First-20 Projection
+## G. Scaling Roadmap
 
-Assumes Aurelia, Calma, Nocturne, and Atelier complete their existing
-remediation path. Conditional Bedroom/Workspace attribution for Nocturne and
-Hallway attribution for Atelier are excluded from the guaranteed figures.
+The same registry supports 20, 50, 100, and 1000+ products. Public taxonomy depth grows only when product depth and customer intent justify it.
 
-| Coverage dimension | Projected result |
-| --- | --- |
-| Furniture primary products | 7: Aurelia, Calma, bed, desk, task chair, console, bench |
-| Lighting primary products | 5: Nocturne plus four new lighting forms |
-| Decor primary products | 5: Atelier plus four new object forms |
-| Textiles & Rugs primary products | 1: wool bedside rug |
-| Outdoor primary products | 2: lounge chair and dining table |
-| Living Room relationships | 14: four remediated existing products plus ten net-new |
-| Dining Room relationships | 4: Calma plus three net-new |
-| Bedroom relationships | 8 guaranteed |
-| Workspace relationships | 6 guaranteed |
-| Hallway relationships | 8 guaranteed |
-| Outdoor relationships | 2 guaranteed |
-| Canonical primary materials represented | 10 of 10 |
+## H. Governance Risks
 
-## Quality Interpretation
+The blueprint controls category inflation, duplication, weak attribution, SEO pressure, supplier influence, consultation misuse, and Founder Selection dilution.
 
-- Category coverage moves from two represented commercial families to six.
-- Every currently empty requested room obtains at least two products.
-- Bedroom and Hallway become composition-capable rather than single-product
-  destinations.
-- Workspace gains a usable desk/chair pair plus lighting and object support.
-- Outdoor remains deliberately narrow but credible; it should not be widened
-  without environmental evidence.
-- Material discovery can be supported across every existing canonical material,
-  subject to evidence and surface approval.
+---
 
-# I. Revenue Impact Projection
+## Final Acceptance Standard
 
-## Stream Effects
+The assortment architecture is successful when Veylune can add suppliers and products without changing the six-department model; every product resolves to one stable product type; discovery relationships remain evidence-based; material claims remain authoritative; consultation is objectively assigned; and Founder Selection stays intentionally narrow.
 
-| Revenue surface | Expected effect after all 16 reach Level 3 |
-| --- | --- |
-| New Arrivals | Up to 16 additional products during their governed availability windows; automatic expiry remains required |
-| Founder Selection | Eight acquisition candidates enter Level 4 consideration; expected selected range is 4-6, not all eight |
-| Lighting stream | Moves from empty to four net-new products, or five with remediated Nocturne; supports ambient, task, installed, and table-light demand |
-| Decor stream | Moves from empty to four net-new products, or five with remediated Atelier; introduces lower-ticket entry objects without lowering material standards |
-| Bedroom stream | Eight products support anchor, lighting, textile, mirror, storage, and bedside functions |
-| Workspace stream | Six products support desk, chair, lighting, and object functions |
-| Hallway stream | Eight products support console, bench, mirror, lighting, and objects |
-| Outdoor stream | Two products create seating and dining anchors; consultation and freight controls protect revenue quality |
-
-## Revenue Readiness
-
-The 16-product set improves revenue readiness in four ways:
-
-1. **Broader entry price architecture:** lamps, tray, bowl, ceramic object, and
-   rug complement high-consideration furniture.
-2. **Room-level basket potential:** Bedroom, Workspace, and Hallway can support
-   more than one product function.
-3. **Consultation-qualified value:** bed, pendant, sconce, mirror, stone
-   console, and outdoor table create objective consultation opportunities.
-4. **Founder curation depth:** Founder Selection can expand beyond sofa and
-   table without becoming a general new-arrival feed.
-
-No revenue projection should use sales values until real supplier cost, price,
-lead time, returns, freight, and availability facts exist. The defensible
-forecast is readiness coverage:
-
-| Metric | Current | Projected |
-| --- | ---: | ---: |
-| Eligible products | 2 | 20 after four remediations plus 16 acquisitions |
-| Non-empty primary category streams | 2 | 6 |
-| Non-empty requested gap surfaces | 0 of 6 | 6 of 6 |
-| Founder-selected products | 2 | 6-8 total, assuming 4-6 of the new candidates are selected |
-| Consultation-required net-new products | 0 | 6 |
-| Consultation-recommended net-new products | 0 | 7 |
-| Standard purchase / no consultation net-new products | 0 | 3 |
-
-# Acquisition Gate
-
-Before a supplier candidate may occupy one of these 16 blueprint positions, it
-must provide:
-
-- active supplier and source-batch lineage;
-- complete canonical identity and SKU eligibility;
-- positive price, tax, lead time, delivery, returns, and availability facts;
-- physical, assembly, care, safety, and applicable compliance facts;
-- five rights-cleared approved images;
-- EN/DE factual and SEO content;
-- documented or verified primary and secondary materials;
-- mappings to existing canonical category, room, finish, color, and material
-  values;
-- objective consultation triggers;
-- no unresolved blocker that prevents Level 3.
-
-The blueprint position remains empty when no candidate meets the contract. A
-weaker product is not substituted to preserve the count.
+Product count alone is not progress. Governed coverage is progress.
