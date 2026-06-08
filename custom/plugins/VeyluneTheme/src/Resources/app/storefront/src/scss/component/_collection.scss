@@ -690,3 +690,68 @@
         margin-top: 0;
     }
 }
+
+// WP-DES-06 Wave A: products lead every populated destination.
+.veylune-destination__intro {
+    padding: clamp(3rem, 5vw, 4.5rem) 0;
+}
+
+.veylune-destination__shortcuts,
+.veylune-destination__materials,
+.veylune-destination__products,
+.veylune-destination__consultation {
+    padding: clamp(3rem, 5vw, 4.5rem) 0;
+}
+
+.veylune-destination__product-grid,
+.veylune-destination__product-grid--edited {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .veylune-destination__product-grid,
+    .veylune-destination__product-grid--edited {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-destination__product-grid,
+    .veylune-destination__product-grid--edited {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+}
+
+// WP-DES-03 Wave 1: complete destinations use restrained editorial scale.
+.veylune-destination__intro {
+    padding: clamp(4rem, 7vw, 6rem) 0;
+}
+
+.veylune-destination__intro h1 {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+}
+
+.veylune-destination__shortcuts,
+.veylune-destination__materials,
+.veylune-destination__products,
+.veylune-destination__consultation {
+    padding: clamp(4rem, 7vw, 6rem) 0;
+}
+
+.veylune-destination__section-head h2 {
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.veylune-destination__product-grid--edited {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-destination__product-grid,
+    .veylune-destination__product-grid--edited {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.875rem;
+    }
+}

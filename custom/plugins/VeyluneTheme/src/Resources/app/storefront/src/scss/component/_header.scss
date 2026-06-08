@@ -496,3 +496,164 @@
         scroll-behavior: auto !important;
     }
 }
+
+// WP-DES-03 Wave 1: quiet, opaque commerce orientation.
+.veylune-header {
+    background: var(--veylune-color-ivory);
+    border-bottom: 1px solid var(--veylune-color-line-soft);
+
+    .veylune-header__bar {
+        overflow: visible;
+        background: var(--veylune-color-ivory);
+        border-bottom: 0;
+        backdrop-filter: none;
+    }
+
+    .veylune-header__inner {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 0;
+        width: var(--veylune-container);
+        min-height: 76px;
+        padding: 0;
+    }
+
+    .veylune-header__logo {
+        grid-column: 1;
+        align-items: flex-start;
+        justify-self: start;
+        width: clamp(150px, 13vw, 180px);
+    }
+
+    .veylune-header__logo-image {
+        width: 100%;
+        max-height: 44px;
+    }
+
+    .veylune-header__nav {
+        grid-column: 2;
+        justify-self: start;
+        gap: clamp(1.5rem, 2.2vw, 2rem);
+        margin-left: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .veylune-header__actions {
+        grid-column: 3;
+        gap: clamp(1.125rem, 1.8vw, 1.5rem);
+    }
+
+    .veylune-header__nav-link,
+    .veylune-header__search-toggle,
+    .veylune-header__utility,
+    .veylune-header__bag-label {
+        font-family: var(--veylune-font-sans);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        text-transform: none;
+    }
+
+    .veylune-header__nav-link,
+    .veylune-header__search-toggle,
+    .veylune-header__utility,
+    .veylune-header__bag {
+        min-height: 40px;
+    }
+
+    .veylune-header__utility,
+    .veylune-header__search-toggle,
+    .veylune-header__bag {
+        display: inline-flex;
+        align-items: center;
+        color: var(--veylune-header-ink);
+    }
+
+    .veylune-header__utility,
+    .veylune-header__search-toggle,
+    .veylune-header__bag[aria-disabled="true"] {
+        cursor: default;
+    }
+
+    &.is-scrolled .veylune-header__inner {
+        min-height: 68px;
+        padding: 0;
+    }
+
+    &.is-scrolled .veylune-header__logo-image {
+        width: 100%;
+        max-height: 40px;
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .veylune-header {
+        .veylune-header__inner {
+            grid-template-columns: 44px minmax(112px, 1fr) auto;
+            width: var(--veylune-container);
+            min-height: 68px;
+            gap: 0.25rem;
+        }
+
+        .veylune-header__mobile-toggle {
+            grid-column: 1;
+        }
+
+        .veylune-header__logo {
+            grid-column: 2;
+            justify-self: center;
+            width: clamp(112px, 32vw, 132px);
+        }
+
+        .veylune-header__actions {
+            grid-column: 3;
+            gap: 0;
+        }
+
+        .veylune-header__utility {
+            display: none;
+        }
+
+        .veylune-header__search-toggle,
+        .veylune-header__bag {
+            position: relative;
+            justify-content: center;
+            width: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 0;
+        }
+
+        .veylune-header__search-toggle-text,
+        .veylune-header__bag-label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .veylune-header__bag::after {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            display: grid;
+            place-items: center;
+            min-width: 15px;
+            height: 15px;
+            padding: 0 4px;
+            color: var(--veylune-color-ivory);
+            background: var(--veylune-color-charcoal);
+            border-radius: 999px;
+            font-family: var(--veylune-font-sans);
+            font-size: 0.625rem;
+            line-height: 1;
+            content: "0";
+        }
+
+        &.is-scrolled .veylune-header__inner {
+            min-height: 62px;
+        }
+    }
+}

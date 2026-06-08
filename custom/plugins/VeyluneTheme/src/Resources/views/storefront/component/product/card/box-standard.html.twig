@@ -4,7 +4,6 @@
         {% set name = product.translated.name %}
         {% set brand = product.manufacturer.translated.name|default('veylune.productCard.brandFallback'|trans) %}
         {% set cover = product.cover.media %}
-        {% set description = product.translated.description|default('')|striptags %}
         {% set searchTerm = page.searchTerm %}
         {% set childCount = product.childCount %}
         {% set routeArguments = childCount > 0 and searchTerm ? { productId: id, search: searchTerm } : { productId: id } %}
@@ -86,14 +85,6 @@
                     </div>
                 {% endif %}
 
-                <p class="veylune-product-card__mood">
-                    {% if description %}
-                        {{ description|length > 96 ? description|slice(0, 96) ~ '...' : description }}
-                    {% else %}
-                        {{ 'veylune.productCard.descriptionFallback'|trans|sw_sanitize }}
-                    {% endif %}
-                </p>
-
                 <div class="veylune-product-card__footer">
                     <div class="veylune-product-card__price">
                         {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
@@ -114,9 +105,6 @@
                     </p>
                 {% endif %}
 
-                <div class="veylune-product-card__action">
-                    {% sw_include '@Storefront/storefront/component/product/card/action.html.twig' %}
-                </div>
             </div>
         </article>
     {% endif %}

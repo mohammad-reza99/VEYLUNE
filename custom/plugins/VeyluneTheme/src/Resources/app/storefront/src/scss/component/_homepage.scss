@@ -795,3 +795,234 @@
         transform: none !important;
     }
 }
+
+// WP-DES-03 Wave 1 supporting state: credible modules, compact hierarchy.
+.veylune-home__section-head {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.veylune-home__section-head h2 {
+    max-width: 760px;
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    line-height: 1.02;
+}
+
+.veylune-home-hero {
+    min-height: 0;
+    padding: clamp(4rem, 7vw, 6rem) 0;
+}
+
+.veylune-home-hero__inner {
+    width: var(--veylune-container);
+    min-height: 0;
+}
+
+.veylune-home-hero__title {
+    font-size: clamp(3.25rem, 6vw, 5.5rem);
+    line-height: 0.94;
+}
+
+.veylune-home-hero__visual {
+    min-height: clamp(480px, 52vw, 680px);
+}
+
+.veylune-discovery-foundation {
+    padding: clamp(5rem, 8vw, 8rem) 0;
+}
+
+.veylune-discovery-module + .veylune-discovery-module {
+    margin-top: clamp(4rem, 7vw, 6rem);
+}
+
+.veylune-discovery-grid--categories {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.veylune-discovery-grid--rooms,
+.veylune-discovery-grid--collections,
+.veylune-discovery-product-grid--edited {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.veylune-discovery-card {
+    min-height: clamp(160px, 17vw, 240px);
+}
+
+.veylune-discovery-card--compact {
+    min-height: clamp(128px, 12vw, 170px);
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-home-hero__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-home-hero__visual {
+        min-height: clamp(360px, 112vw, 560px);
+    }
+
+    .veylune-discovery-product-grid--edited {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.875rem;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .veylune-home__section-head h2 {
+        font-size: clamp(2rem, 10vw, 2.75rem);
+    }
+
+    .veylune-discovery-grid--rooms,
+    .veylune-discovery-grid--collections {
+        grid-template-columns: 1fr;
+    }
+}
+
+// WP-DES-06 Wave A: move product proof forward and increase scroll reward.
+.veylune-home-hero {
+    padding: 2rem 0;
+}
+
+.veylune-home-hero__inner {
+    grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
+    gap: clamp(2rem, 3vw, 3.5rem);
+}
+
+.veylune-home-hero__visual {
+    min-height: clamp(380px, 34vw, 450px);
+}
+
+.veylune-discovery-foundation {
+    padding: 1.5rem 0 clamp(3rem, 5vw, 4.5rem);
+}
+
+.veylune-discovery-module--products .veylune-home__section-head {
+    margin-bottom: 1.5rem;
+}
+
+.veylune-discovery-module + .veylune-discovery-module {
+    margin-top: clamp(3rem, 5vw, 4.5rem);
+}
+
+.veylune-discovery-product-grid,
+.veylune-discovery-product-grid--edited {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.veylune-discovery-card,
+.veylune-discovery-card--compact {
+    min-height: 0;
+}
+
+.veylune-discovery-card--compact {
+    height: clamp(120px, 10vw, 145px);
+}
+
+.veylune-discovery-grid--rooms,
+.veylune-discovery-grid--collections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.veylune-discovery-card--with-products,
+.veylune-discovery-card--with-preview {
+    display: grid;
+    overflow: hidden;
+    padding: 0;
+    background: rgba(255, 252, 246, 0.72);
+}
+
+.veylune-discovery-card--with-products {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+}
+
+.veylune-discovery-card--with-preview {
+    grid-template-columns: minmax(180px, 0.82fr) minmax(0, 1.18fr);
+    height: clamp(150px, 13vw, 180px);
+}
+
+.veylune-discovery-card__content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-content: end;
+    padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.veylune-discovery-card__content > span:last-child {
+    margin-top: 0.6rem;
+}
+
+.veylune-discovery-card__previews {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
+    margin-top: 0;
+}
+
+.veylune-discovery-card__preview {
+    display: block;
+    min-width: 0;
+    height: 100%;
+    margin-top: 0;
+    overflow: hidden;
+    background: var(--veylune-color-limestone);
+}
+
+.veylune-discovery-card__preview picture,
+.veylune-discovery-card__preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.veylune-discovery-card__preview img {
+    object-fit: cover;
+    filter: saturate(0.84) contrast(0.98);
+    transition: transform 520ms var(--veylune-ease-soft);
+}
+
+.veylune-discovery-card:hover .veylune-discovery-card__preview img,
+.veylune-discovery-card:focus-visible .veylune-discovery-card__preview img {
+    transform: scale(1.025);
+}
+
+.veylune-discovery-card__index {
+    margin-bottom: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .veylune-discovery-product-grid,
+    .veylune-discovery-product-grid--edited {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-home-hero__inner {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-home-hero__visual {
+        min-height: clamp(320px, 100vw, 460px);
+    }
+
+    .veylune-discovery-product-grid,
+    .veylune-discovery-product-grid--edited {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+    }
+
+    .veylune-discovery-card--with-products,
+    .veylune-discovery-card--with-preview {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .veylune-discovery-card__previews {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-discovery-card__previews .veylune-discovery-card__preview:nth-child(n + 2) {
+        display: none;
+    }
+}

@@ -101,7 +101,7 @@
         "toggle": "Search"
       },
       "mega": {
-        "ariaLabel": "Navigation foundation",
+        "ariaLabel": "Veylune discovery navigation",
         "groups": {
           "categories": "Categories",
           "collections": "Collections",
@@ -188,18 +188,18 @@
     },
     "destination": {
       "meta": {
-        "description": "A governed Veylune discovery destination prepared for future product readiness."
+        "description": "Explore a considered Veylune selection shaped by material, proportion, and spatial relevance."
       },
       "roomEyebrow": "Room Destination",
       "collectionEyebrow": "Collection Destination",
       "categoryEyebrow": "Category Destination",
       "shortcuts": {
         "eyebrow": "Category Shortcuts",
-        "title": "Department paths will connect once governed mappings are ready."
+        "title": "Explore furniture selected for this room."
       },
       "categoryShortcuts": {
         "eyebrow": "Discovery Shortcuts",
-        "title": "Move within this category without exposing unapproved product streams.",
+        "title": "Explore the forms within this department.",
         "cushions": "Cushions",
         "floorLamps": "Floor Lamps",
         "mirrors": "Mirrors",
@@ -220,7 +220,7 @@
       },
       "materials": {
         "eyebrow": "Material Authority",
-        "title": "Material entry points prepared for future attribution.",
+        "title": "Materials represented in this selection.",
         "fabric": "Fabric",
         "metal": "Metal",
         "stone": "Stone",
@@ -235,7 +235,7 @@
       },
       "products": {
         "eyebrow": "Product Stream",
-        "title": "Ready products will appear here after governance approval."
+        "title": "Selected pieces"
       },
       "empty": {
         "title": "Awaiting governed product population",
@@ -246,71 +246,71 @@
       "categories": {
         "furniture": {
           "title": "Furniture",
-          "text": "A commerce destination for room-defining forms including seating, tables, storage, and surfaces prepared through category governance."
+          "text": "Room-defining seating, tables, storage, and surfaces selected for proportion, material presence, and daily use."
         },
         "lighting": {
           "title": "Lighting",
-          "text": "A commerce destination for ambient, task, and sculptural light objects prepared around proportion, finish, and room use."
+          "text": "Ambient, task, and sculptural lighting selected for proportion, finish, and room use."
         },
         "decorObjects": {
           "title": "Decor Objects",
-          "text": "A commerce destination for vessels, mirrors, sculptural objects, and material accents prepared as object records."
+          "text": "Vessels, mirrors, sculptural objects, and material accents chosen for quiet spatial presence."
         },
         "textilesRugs": {
           "title": "Textiles & Rugs",
-          "text": "A commerce destination for rugs, throws, cushions, and textile layers prepared around softness, scale, and material fit."
+          "text": "Rugs, throws, cushions, and textile layers considered through softness, scale, and material fit."
         },
         "diningKitchen": {
           "title": "Dining & Kitchen",
-          "text": "A commerce destination for dining surfaces, seating, tableware, and hosting objects prepared around gathering and use."
+          "text": "Dining surfaces, seating, tableware, and hosting objects selected around gathering and use."
         },
         "outdoor": {
           "title": "Outdoor",
-          "text": "A commerce destination for exterior furniture and objects prepared around durability, atmosphere, and seasonal living."
+          "text": "Exterior furniture and objects chosen for durability, atmosphere, and seasonal living."
         }
       },
       "rooms": {
         "livingRoom": {
           "title": "Living Room",
-          "text": "A destination for seating, tables, lighting, and atmospheric objects prepared around the central room of the home."
+          "text": "Seating, tables, lighting, and atmospheric objects for the central room of the home."
         },
         "diningRoom": {
           "title": "Dining Room",
-          "text": "A destination for dining furniture, lighting, and hosting objects prepared around gathering and proportion."
+          "text": "Dining furniture, lighting, and hosting objects considered around gathering and proportion."
         },
         "bedroom": {
           "title": "Bedroom",
-          "text": "A destination for quiet furniture, textiles, lighting, and storage prepared around calm and material softness."
+          "text": "Quiet furniture, textiles, lighting, and storage for calm and material softness."
         },
         "workspace": {
           "title": "Workspace",
-          "text": "A destination for work surfaces, seating, storage, and task lighting prepared around focus and restraint."
+          "text": "Work surfaces, seating, storage, and task lighting for focus and restraint."
         },
         "hallway": {
           "title": "Hallway",
-          "text": "A destination for consoles, mirrors, lighting, and objects prepared around entrance rhythm and first impression."
+          "text": "Consoles, mirrors, lighting, and objects for entrance rhythm and first impression."
         },
         "outdoor": {
           "title": "Outdoor",
-          "text": "A destination for exterior furniture and objects prepared around seasonal living and durable material presence."
+          "text": "Exterior furniture and objects for seasonal living and durable material presence."
         }
       },
       "collections": {
         "founderSelection": {
           "title": "Founder Selection",
-          "text": "A curated collection shell reserved for founder-approved products once curation and readiness rules are satisfied."
+          "text": "A tightly edited selection of forms chosen for material presence, proportion, and lasting relevance."
         },
         "newArrivals": {
           "title": "New Arrivals",
-          "text": "A dynamic collection shell reserved for products with approved exposure dates and complete readiness."
+          "text": "The latest pieces to enter the Veylune Studio selection."
         },
         "permanentCollections": {
           "title": "Permanent Collections",
-          "text": "A stable collection shell for enduring Veylune assortment paths and future registry-backed collection children."
+          "text": "Enduring selections arranged around lasting material and spatial themes."
         },
         "editorialCollections": {
           "title": "Editorial Collections",
-          "text": "A campaign and story collection shell reserved for approved editorial merchandising."
+          "text": "Editorial studies that connect objects through room, material, and atmosphere."
         }
       }
     },
@@ -567,13 +567,13 @@
       "atmosphericInteriors": "Architectural interiors",
       "atelierPartnerships": "Atelier Partnerships",
       "beginPrivateDialogue": "Begin a private dialogue",
-      "brandPhilosophy": "Editorial Governance",
+      "brandPhilosophy": "Our Point of View",
       "curatedSourcing": "Material Direction",
       "designCulture": "Timeless Design Culture",
       "designCultureTitle": "Editorial pages for collection context, private access, room logic, and long-term platform development.",
       "designPartnerships": "Studio Dialogue",
       "enterEditorialWorld": "Enter Editorial World",
-      "exploreCollections": "Read Material Context",
+      "exploreCollections": "Shop furniture",
       "featuredCollections": "Material Directions",
       "featuredCollectionsTitle": "Four restrained contexts within the Veylune system.",
       "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
@@ -582,7 +582,7 @@
       "interiorAtmosphere": "Interior Atmosphere",
       "philosophyCopyOne": "Each object is considered through material presence, proportion, and spatial role.",
       "philosophyCopyTwo": "The public surface remains an orientation layer, deliberately free of urgency and excess.",
-      "philosophyStatement": "Objects are prepared as records, not uploaded as listings.",
+      "philosophyStatement": "Objects are selected for material presence, proportion, and spatial relevance.",
       "privateConsultation": "Private Consultation",
       "privateInquiry": "Private Inquiry",
       "selectedPieces": "Reference Studies",
@@ -592,12 +592,12 @@
       "tradeTitle": "For architects, interior designers, and private residential projects.",
       "discovery": {
         "empty": {
-          "title": "Awaiting governed product selection"
+          "title": "Selected pieces"
         },
         "rooms": {
           "eyebrow": "Shop by Room",
           "title": "Begin with the room you are shaping.",
-          "cardCta": "Room foundation",
+          "cardCta": "Explore the room",
           "livingRoom": "Living Room",
           "diningRoom": "Dining Room",
           "bedroom": "Bedroom",
@@ -608,7 +608,7 @@
         "categories": {
           "eyebrow": "Shop by Category",
           "title": "Move directly into the primary departments.",
-          "cardCta": "Category foundation",
+          "cardCta": "Explore furniture",
           "furniture": "Furniture",
           "lighting": "Lighting",
           "decorObjects": "Decor Objects",
@@ -618,8 +618,8 @@
         },
         "collections": {
           "eyebrow": "Featured Collections",
-          "title": "Prepared collection paths for future merchandising.",
-          "cardCta": "Collection foundation",
+          "title": "Two current ways to enter the selection.",
+          "cardCta": "Explore the collection",
           "founderSelection": "Founder Selection",
           "permanentCollections": "Permanent Collections",
           "editorialCollections": "Editorial Collections",
@@ -627,12 +627,12 @@
         },
         "newArrivals": {
           "eyebrow": "New Arrivals",
-          "title": "A governed shell for future approved arrivals.",
+          "title": "The latest pieces to enter the studio selection.",
           "emptyText": "Products will appear here only after readiness, exposure, and availability rules are satisfied."
         },
         "founderSelection": {
           "eyebrow": "Founder Selection",
-          "title": "A governed shell for founder curation.",
+          "title": "A tightly edited selection chosen by the founder.",
           "emptyText": "Founder-selected products will appear here only after curation approval and product readiness checks."
         }
       },

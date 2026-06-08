@@ -10,6 +10,7 @@ use Shopware\Storefront\Framework\Routing\StorefrontRouteScope;
 use Shopware\Storefront\Page\GenericPageLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use VeyluneTheme\Discovery\ProductExposureService;
@@ -75,11 +76,6 @@ class DiscoveryDestinationController extends StorefrontController
 
     private const CATEGORY_SHORTCUTS = [
         ['key' => 'furniture', 'label' => 'veylune.home.discovery.categories.furniture', 'routeKey' => 'furniture'],
-        ['key' => 'lighting', 'label' => 'veylune.home.discovery.categories.lighting', 'routeKey' => 'departmentLighting'],
-        ['key' => 'decor-objects', 'label' => 'veylune.home.discovery.categories.decorObjects', 'routeKey' => 'departmentDecorObjects'],
-        ['key' => 'textiles-rugs', 'label' => 'veylune.home.discovery.categories.textilesRugs', 'routeKey' => 'textilesRugs'],
-        ['key' => 'dining-kitchen', 'label' => 'veylune.home.discovery.categories.diningKitchen', 'routeKey' => 'diningKitchen'],
-        ['key' => 'outdoor', 'label' => 'veylune.home.discovery.categories.outdoor', 'routeKey' => 'departmentOutdoor'],
     ];
 
     private const CATEGORY_SHORTCUT_LABELS = [
@@ -115,7 +111,13 @@ class DiscoveryDestinationController extends StorefrontController
         $destination = self::ROOMS[$roomKey] ?? null;
 
         if ($destination === null) {
-            return new Response('', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException();
+        }
+
+        $products = $this->productExposureService->productsForSurface('room', $roomKey, $context);
+
+        if ($products === []) {
+            throw new NotFoundHttpException();
         }
 
         $page = $this->genericPageLoader->load($request, $context);
@@ -128,7 +130,7 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestinationKey' => $roomKey,
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
-            'veyluneExposedProducts' => $this->productExposureService->productsForSurface('room', $roomKey, $context),
+            'veyluneExposedProducts' => $products,
         ]);
     }
 
@@ -140,7 +142,13 @@ class DiscoveryDestinationController extends StorefrontController
         $destination = self::COLLECTIONS[$collectionKey] ?? null;
 
         if ($destination === null) {
-            return new Response('', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException();
+        }
+
+        $products = $this->productExposureService->productsForSurface('collection', $collectionKey, $context);
+
+        if ($products === []) {
+            throw new NotFoundHttpException();
         }
 
         $page = $this->genericPageLoader->load($request, $context);
@@ -153,7 +161,7 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestinationKey' => $collectionKey,
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => [],
-            'veyluneExposedProducts' => $this->productExposureService->productsForSurface('collection', $collectionKey, $context),
+            'veyluneExposedProducts' => $products,
         ]);
     }
 
@@ -163,7 +171,13 @@ class DiscoveryDestinationController extends StorefrontController
         $destination = self::CATEGORIES[$categoryKey] ?? null;
 
         if ($destination === null) {
-            return new Response('', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException();
+        }
+
+        $products = $this->productExposureService->productsForSurface('category', $categoryKey, $context);
+
+        if ($products === []) {
+            throw new NotFoundHttpException();
         }
 
         $page = $this->genericPageLoader->load($request, $context);
@@ -178,7 +192,7 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
             'veyluneDestinationShortcuts' => $this->buildDestinationShortcuts($destination['shortcuts']),
             'veyluneMaterialKeys' => $destination['materials'],
-            'veyluneExposedProducts' => $this->productExposureService->productsForSurface('category', $categoryKey, $context),
+            'veyluneExposedProducts' => $products,
         ]);
     }
 

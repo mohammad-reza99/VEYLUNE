@@ -18,9 +18,9 @@
     --veylune-letter-label: 0.22em;
     --veylune-letter-seal: 0.34em;
 
-    --veylune-container: min(100% - 2.25rem, 1520px);
-    --veylune-container-narrow: min(100% - 2rem, 1120px);
-    --veylune-page-gutter: clamp(1.25rem, 3vw, 2rem);
+    --veylune-container: min(100% - 5rem, 1360px);
+    --veylune-container-narrow: min(100% - 4rem, 760px);
+    --veylune-page-gutter: clamp(1rem, 3vw, 3rem);
 
     --veylune-space-2xs: 0.25rem;
     --veylune-space-xs: 0.5rem;
@@ -47,4 +47,11 @@
     --veylune-duration-medium: 520ms;
     --veylune-duration-slow: 820ms;
     --veylune-duration-iconic: 1280ms;
+}
+
+@media (max-width: 767.98px) {
+    :root {
+        --veylune-container: min(100% - 2rem, 1360px);
+        --veylune-container-narrow: min(100% - 2rem, 760px);
+    }
 }

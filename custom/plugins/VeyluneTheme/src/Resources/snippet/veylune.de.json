@@ -101,7 +101,7 @@
         "toggle": "Suche"
       },
       "mega": {
-        "ariaLabel": "Navigationsgrundlage",
+        "ariaLabel": "Veylune Entdeckungsnavigation",
         "groups": {
           "categories": "Kategorien",
           "collections": "Kollektionen",
@@ -188,18 +188,18 @@
     },
     "destination": {
       "meta": {
-        "description": "Eine gesteuerte Veylune Discovery-Destination, vorbereitet fuer kuenftige Product Readiness."
+        "description": "Entdecken Sie eine Veylune Auswahl, geprägt von Material, Proportion und räumlicher Relevanz."
       },
       "roomEyebrow": "Raumdestination",
       "collectionEyebrow": "Kollektionsdestination",
       "categoryEyebrow": "Kategoriedestination",
       "shortcuts": {
         "eyebrow": "Kategoriepfade",
-        "title": "Department-Pfade verbinden sich, sobald gesteuerte Mappings bereit sind."
+        "title": "Entdecken Sie Möbel für diesen Raum."
       },
       "categoryShortcuts": {
         "eyebrow": "Discovery-Pfade",
-        "title": "Innerhalb dieser Kategorie navigieren, ohne ungepruefte Produktstroeme zu zeigen.",
+        "title": "Entdecken Sie die Formen dieses Bereichs.",
         "cushions": "Kissen",
         "floorLamps": "Stehleuchten",
         "mirrors": "Spiegel",
@@ -220,7 +220,7 @@
       },
       "materials": {
         "eyebrow": "Materialautoritaet",
-        "title": "Materialeinstiege fuer kuenftige Attribution vorbereitet.",
+        "title": "Materialien in dieser Auswahl.",
         "fabric": "Stoff",
         "metal": "Metall",
         "stone": "Stein",
@@ -235,7 +235,7 @@
       },
       "products": {
         "eyebrow": "Produktstrom",
-        "title": "Freigegebene Produkte erscheinen hier nach Governance-Freigabe."
+        "title": "Ausgewählte Stücke"
       },
       "empty": {
         "title": "Wartet auf gesteuerte Produktbefuellung",
@@ -246,7 +246,7 @@
       "categories": {
         "furniture": {
           "title": "Furniture",
-          "text": "Eine Commerce-Destination fuer raumpraegende Formen wie Sitzmoebel, Tische, Stauraum und Oberflaechen, vorbereitet durch Kategorie-Governance."
+          "text": "Raumprägende Sitzmöbel, Tische, Stauraum und Oberflächen, ausgewählt nach Proportion, Materialpräsenz und täglicher Nutzung."
         },
         "lighting": {
           "title": "Lighting",
@@ -272,11 +272,11 @@
       "rooms": {
         "livingRoom": {
           "title": "Wohnzimmer",
-          "text": "Eine Destination fuer Sitzmoebel, Tische, Leuchten und atmosphaerische Objekte rund um den zentralen Raum des Zuhauses."
+          "text": "Sitzmöbel, Tische, Leuchten und atmosphärische Objekte für den zentralen Raum des Zuhauses."
         },
         "diningRoom": {
           "title": "Esszimmer",
-          "text": "Eine Destination fuer Dining-Moebel, Leuchten und Hosting-Objekte rund um Zusammenkommen und Proportion."
+          "text": "Esszimmermöbel, Leuchten und Objekte für Zusammenkommen und Proportion."
         },
         "bedroom": {
           "title": "Schlafzimmer",
@@ -298,19 +298,19 @@
       "collections": {
         "founderSelection": {
           "title": "Founder Selection",
-          "text": "Eine kuratierte Kollektionshuelle fuer founder-freigegebene Produkte, sobald Kuration und Readiness-Regeln erfuellt sind."
+          "text": "Eine präzise Auswahl von Formen, gewählt nach Materialpräsenz, Proportion und dauerhafter Relevanz."
         },
         "newArrivals": {
           "title": "New Arrivals",
-          "text": "Eine dynamische Kollektionshuelle fuer Produkte mit freigegebenem Exposure-Datum und vollstaendiger Readiness."
+          "text": "Die neuesten Stücke der Veylune Studio Auswahl."
         },
         "permanentCollections": {
           "title": "Permanent Collections",
-          "text": "Eine stabile Kollektionshuelle fuer dauerhafte Veylune Sortimentspfade und kuenftige registry-gestuetzte Kollektionskinder."
+          "text": "Dauerhafte Auswahlen rund um beständige Material- und Raumthemen."
         },
         "editorialCollections": {
           "title": "Editorial Collections",
-          "text": "Eine Campaign- und Story-Kollektionshuelle fuer freigegebenes Editorial Merchandising."
+          "text": "Redaktionelle Studien, die Objekte durch Raum, Material und Atmosphäre verbinden."
         }
       }
     },
@@ -567,13 +567,13 @@
       "atmosphericInteriors": "Architektonische Interieurs",
       "atelierPartnerships": "Atelier-Partnerschaften",
       "beginPrivateDialogue": "Privaten Dialog beginnen",
-      "brandPhilosophy": "Redaktionelle Steuerung",
+      "brandPhilosophy": "Unsere Haltung",
       "curatedSourcing": "Materialrichtung",
       "designCulture": "Timeless Design Culture",
       "designCultureTitle": "Redaktionelle Seiten für Kollektionskontext, Private Access, Raumlogik und langfristige Plattformentwicklung.",
       "designPartnerships": "Studio-Dialog",
       "enterEditorialWorld": "Editorial World betreten",
-      "exploreCollections": "Materialkontext lesen",
+      "exploreCollections": "Möbel entdecken",
       "featuredCollections": "Materialrichtungen",
       "featuredCollectionsTitle": "Vier zurückhaltende Kontexte im Veylune-System.",
       "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
@@ -582,7 +582,7 @@
       "interiorAtmosphere": "Interior Atmosphere",
       "philosophyCopyOne": "Jedes Objekt wird über Materialpräsenz, Proportion und räumliche Rolle betrachtet.",
       "philosophyCopyTwo": "Die öffentliche Oberfläche bleibt eine Orientierungsebene, bewusst frei von Dringlichkeit und Übermaß.",
-      "philosophyStatement": "Objekte werden als Dokumente vorbereitet, nicht als Listings hochgeladen.",
+      "philosophyStatement": "Objekte werden nach Materialpräsenz, Proportion und räumlicher Relevanz ausgewählt.",
       "privateConsultation": "Private Beratung",
       "privateInquiry": "Private Inquiry",
       "selectedPieces": "Referenzstudien",
@@ -592,12 +592,12 @@
       "tradeTitle": "Für Architekten, Interior Designer und private Wohnprojekte.",
       "discovery": {
         "empty": {
-          "title": "Wartet auf gesteuerte Produktauswahl"
+          "title": "Ausgewählte Stücke"
         },
         "rooms": {
           "eyebrow": "Nach Raum shoppen",
           "title": "Beginnen Sie mit dem Raum, den Sie formen.",
-          "cardCta": "Raumgrundlage",
+          "cardCta": "Raum entdecken",
           "livingRoom": "Wohnzimmer",
           "diningRoom": "Esszimmer",
           "bedroom": "Schlafzimmer",
@@ -608,7 +608,7 @@
         "categories": {
           "eyebrow": "Nach Kategorie shoppen",
           "title": "Direkt in die primären Departments wechseln.",
-          "cardCta": "Kategoriegrundlage",
+          "cardCta": "Möbel entdecken",
           "furniture": "Furniture",
           "lighting": "Lighting",
           "decorObjects": "Decor Objects",
@@ -618,8 +618,8 @@
         },
         "collections": {
           "eyebrow": "Featured Collections",
-          "title": "Vorbereitete Kollektionspfade für künftiges Merchandising.",
-          "cardCta": "Kollektionsgrundlage",
+          "title": "Zwei aktuelle Wege in die Auswahl.",
+          "cardCta": "Kollektion entdecken",
           "founderSelection": "Founder Selection",
           "permanentCollections": "Permanent Collections",
           "editorialCollections": "Editorial Collections",
@@ -627,12 +627,12 @@
         },
         "newArrivals": {
           "eyebrow": "New Arrivals",
-          "title": "Eine gesteuerte Hülle für künftige freigegebene Neuheiten.",
+          "title": "Die neuesten Stücke der Studioauswahl.",
           "emptyText": "Produkte erscheinen hier erst, wenn Readiness-, Exposure- und Verfügbarkeitsregeln erfüllt sind."
         },
         "founderSelection": {
           "eyebrow": "Founder Selection",
-          "title": "Eine gesteuerte Hülle für Founder-Kuration.",
+          "title": "Eine präzise Auswahl des Gründers.",
           "emptyText": "Founder-ausgewählte Produkte erscheinen hier erst nach Kurationsfreigabe und Product-Readiness-Prüfung."
         }
       },

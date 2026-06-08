@@ -19,6 +19,33 @@
             </div>
         </section>
 
+        <section class="veylune-destination__products"
+                 id="veylune-destination-products"
+                 aria-labelledby="veylune-destination-products-title"
+                 data-veylune-registry-scope="{{ registryScope }}-product-stream"
+                 data-veylune-registry-entity="product-stream"
+                 data-veylune-registry-key="{{ veyluneDestinationKey }}">
+            <div class="veylune-destination__section-head">
+                <p class="veylune-destination__eyebrow">{{ 'veylune.destination.products.eyebrow'|trans|sw_sanitize }}</p>
+                <h2 id="veylune-destination-products-title">{{ 'veylune.destination.products.title'|trans|sw_sanitize }}</h2>
+            </div>
+            <div class="veylune-destination__product-grid">
+                {% for product in veyluneExposedProducts %}
+                    {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
+                        product: product,
+                        layout: 'standard',
+                        sizes: {
+                            xs: '50vw',
+                            sm: '50vw',
+                            md: '33vw',
+                            lg: '25vw',
+                            xl: '25vw'
+                        }
+                    } %}
+                {% endfor %}
+            </div>
+        </section>
+
         {% if veyluneDestinationType == 'room' or veyluneDestinationType == 'category' %}
             <section class="veylune-destination__shortcuts" aria-labelledby="veylune-destination-shortcuts-title">
                 <div class="veylune-destination__section-head">
@@ -66,42 +93,6 @@
                 </div>
             </section>
         {% endif %}
-
-        <section class="veylune-destination__products"
-                 id="veylune-destination-products"
-                 aria-labelledby="veylune-destination-products-title"
-                 data-veylune-registry-scope="{{ registryScope }}-product-stream"
-                 data-veylune-registry-entity="product-stream"
-                 data-veylune-registry-key="{{ veyluneDestinationKey }}">
-            <div class="veylune-destination__section-head">
-                <p class="veylune-destination__eyebrow">{{ 'veylune.destination.products.eyebrow'|trans|sw_sanitize }}</p>
-                <h2 id="veylune-destination-products-title">{{ 'veylune.destination.products.title'|trans|sw_sanitize }}</h2>
-            </div>
-            {% if veyluneExposedProducts|default([]) is not empty %}
-                <div class="veylune-destination__product-grid">
-                    {% for product in veyluneExposedProducts %}
-                        {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
-                            product: product,
-                            layout: 'standard',
-                            sizes: {
-                                xs: '100vw',
-                                sm: '50vw',
-                                md: '50vw',
-                                lg: '33vw',
-                                xl: '25vw'
-                            }
-                        } %}
-                    {% endfor %}
-                </div>
-            {% else %}
-                <div class="veylune-destination__empty" role="status">
-                    <strong>{{ 'veylune.destination.empty.title'|trans|sw_sanitize }}</strong>
-                    <p>
-                        {{ (veyluneDestinationType == 'room' ? 'veylune.destination.empty.roomText' : (veyluneDestinationType == 'category' ? 'veylune.destination.empty.categoryText' : 'veylune.destination.empty.collectionText'))|trans|sw_sanitize }}
-                    </p>
-                </div>
-            {% endif %}
-        </section>
 
         {% if veyluneDestinationType == 'category' %}
             <section class="veylune-destination__consultation"
