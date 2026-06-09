@@ -594,6 +594,10 @@
         "empty": {
           "title": "Ausgewählte Stücke"
         },
+        "layer": {
+          "eyebrow": "Entdecken",
+          "title": "Nach Kategorie, Raum oder Kollektion shoppen."
+        },
         "rooms": {
           "eyebrow": "Nach Raum shoppen",
           "title": "Beginnen Sie mit dem Raum, den Sie formen.",

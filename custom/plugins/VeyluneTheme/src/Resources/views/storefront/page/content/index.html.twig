@@ -140,17 +140,20 @@
 						<h2 id="veylune-new-arrivals-title">{{ 'veylune.home.discovery.newArrivals.title'|trans|sw_sanitize }}</h2>
 					</div>
 					{% if veyluneNewArrivalProducts is not empty %}
-						<div class="veylune-discovery-product-grid veylune-discovery-product-grid--edited">
+						<div class="veylune-new-arrivals-rail"
+							 role="region"
+							 aria-label="{{ 'veylune.home.discovery.newArrivals.title'|trans|striptags }}"
+							 tabindex="0">
 							{% for product in veyluneNewArrivalProducts %}
 								{% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
 									product: product,
 									layout: 'standard',
 									sizes: {
-										xs: '100vw',
-										sm: '50vw',
-										md: '50vw',
-										lg: '33vw',
-										xl: '25vw'
+										xs: '82vw',
+										sm: '46vw',
+										md: '44vw',
+										lg: '32vw',
+										xl: '32vw'
 									}
 								} %}
 							{% endfor %}
@@ -158,102 +161,93 @@
 					{% endif %}
 				</section>
 
-				<section class="veylune-discovery-module veylune-discovery-module--categories" aria-labelledby="veylune-discovery-categories-title" data-veylune-registry-entity="departments">
+				<section class="veylune-discovery-module veylune-discovery-module--navigation" aria-labelledby="veylune-discovery-layer-title">
 					<div class="veylune-home__section-head">
-						<p class="veylune-home__eyebrow">{{ 'veylune.home.discovery.categories.eyebrow'|trans|sw_sanitize }}</p>
-						<h2 id="veylune-discovery-categories-title">{{ 'veylune.home.discovery.categories.title'|trans|sw_sanitize }}</h2>
+						<p class="veylune-home__eyebrow">{{ 'veylune.home.discovery.layer.eyebrow'|trans|sw_sanitize }}</p>
+						<h2 id="veylune-discovery-layer-title">{{ 'veylune.home.discovery.layer.title'|trans|sw_sanitize }}</h2>
 					</div>
 
-					<div class="veylune-discovery-grid veylune-discovery-grid--categories">
-						{% for category in veyluneDiscoveryCategories %}
-							<a class="veylune-discovery-card veylune-discovery-card--compact veylune-discovery-card--with-products"
-							   href="{{ category.target }}"
-							   data-veylune-registry-key="{{ category.key }}"
-							   data-veylune-discovery-type="department">
-								<span class="veylune-discovery-card__content">
-									<strong>{{ category.label|trans|sw_sanitize }}</strong>
-									<span>{{ 'veylune.home.discovery.categories.cardCta'|trans|sw_sanitize }}</span>
-								</span>
-								<span class="veylune-discovery-card__previews" aria-hidden="true">
-									{% for previewProduct in category.previewProducts|slice(0, 2) %}
-										{% set previewMedia = previewProduct.cover.media|default(null) %}
+					<div class="veylune-discovery-layer">
+						<section class="veylune-discovery-layer__group" aria-labelledby="veylune-discovery-categories-label" data-veylune-registry-entity="departments">
+							<h3 id="veylune-discovery-categories-label">{{ 'veylune.home.discovery.categories.eyebrow'|trans|sw_sanitize }}</h3>
+							<div class="veylune-discovery-layer__cards">
+								{% for category in veyluneDiscoveryCategories %}
+									<a class="veylune-discovery-layer__card"
+									   href="{{ category.target }}"
+									   data-veylune-registry-key="{{ category.key }}"
+									   data-veylune-discovery-type="department">
+										{% set previewMedia = category.previewProducts|first ? (category.previewProducts|first).cover.media|default(null) : null %}
 										{% if previewMedia %}
-											<span class="veylune-discovery-card__preview" data-veylune-product-impression="{{ previewProduct.id }}">
+											<span class="veylune-discovery-layer__media" data-veylune-product-impression="{{ (category.previewProducts|first).id }}" aria-hidden="true">
 												{% sw_thumbnails 'veylune-home-category-preview' with {
 													media: previewMedia,
-													sizes: { default: '180px' },
+													sizes: { default: '120px' },
 													attributes: { alt: '', loading: 'lazy' }
 												} %}
 											</span>
 										{% endif %}
-									{% endfor %}
-								</span>
-							</a>
-						{% endfor %}
-					</div>
-				</section>
+										<span class="veylune-discovery-layer__content">
+											<strong>{{ category.label|trans|sw_sanitize }}</strong>
+											<span>{{ 'veylune.home.discovery.categories.cardCta'|trans|sw_sanitize }}</span>
+										</span>
+									</a>
+								{% endfor %}
+							</div>
+						</section>
 
-				<section class="veylune-discovery-module veylune-discovery-module--rooms" id="veylune-discovery-rooms" aria-labelledby="veylune-discovery-rooms-title" data-veylune-registry-entity="rooms">
-					<div class="veylune-home__section-head">
-						<p class="veylune-home__eyebrow">{{ 'veylune.home.discovery.rooms.eyebrow'|trans|sw_sanitize }}</p>
-						<h2 id="veylune-discovery-rooms-title">{{ 'veylune.home.discovery.rooms.title'|trans|sw_sanitize }}</h2>
-					</div>
+						<section class="veylune-discovery-layer__group" id="veylune-discovery-rooms" aria-labelledby="veylune-discovery-rooms-label" data-veylune-registry-entity="rooms">
+							<h3 id="veylune-discovery-rooms-label">{{ 'veylune.home.discovery.rooms.eyebrow'|trans|sw_sanitize }}</h3>
+							<div class="veylune-discovery-layer__cards">
+								{% for room in veyluneDiscoveryRooms %}
+									<a class="veylune-discovery-layer__card"
+									   href="{{ room.target }}"
+									   data-veylune-registry-key="{{ room.key }}"
+									   data-veylune-discovery-type="room">
+										{% set previewMedia = room.previewProduct.cover.media|default(null) %}
+										{% if previewMedia %}
+											<span class="veylune-discovery-layer__media" data-veylune-product-impression="{{ room.previewProduct.id }}" aria-hidden="true">
+												{% sw_thumbnails 'veylune-home-room-preview' with {
+													media: previewMedia,
+													sizes: { default: '120px' },
+													attributes: { alt: '', loading: 'lazy' }
+												} %}
+											</span>
+										{% endif %}
+										<span class="veylune-discovery-layer__content">
+											<strong>{{ room.label|trans|sw_sanitize }}</strong>
+											<span>{{ 'veylune.home.discovery.rooms.cardCta'|trans|sw_sanitize }}</span>
+										</span>
+									</a>
+								{% endfor %}
+							</div>
+						</section>
 
-					<div class="veylune-discovery-grid veylune-discovery-grid--rooms">
-						{% for room in veyluneDiscoveryRooms %}
-							<a class="veylune-discovery-card veylune-discovery-card--with-preview"
-							   href="{{ room.target }}"
-							   data-veylune-registry-key="{{ room.key }}"
-							   data-veylune-discovery-type="room">
-								{% set previewMedia = room.previewProduct.cover.media|default(null) %}
-								{% if previewMedia %}
-									<span class="veylune-discovery-card__preview" data-veylune-product-impression="{{ room.previewProduct.id }}" aria-hidden="true">
-										{% sw_thumbnails 'veylune-home-room-preview' with {
-											media: previewMedia,
-											sizes: { default: '360px' },
-											attributes: { alt: '', loading: 'lazy' }
-										} %}
-									</span>
-								{% endif %}
-								<span class="veylune-discovery-card__content">
-									<span class="veylune-discovery-card__index">0{{ loop.index }}</span>
-									<strong>{{ room.label|trans|sw_sanitize }}</strong>
-									<span>{{ 'veylune.home.discovery.rooms.cardCta'|trans|sw_sanitize }}</span>
-								</span>
-							</a>
-						{% endfor %}
-					</div>
-				</section>
-
-				<section class="veylune-discovery-module veylune-discovery-module--collections" aria-labelledby="veylune-discovery-collections-title" data-veylune-registry-entity="collections">
-					<div class="veylune-home__section-head">
-						<p class="veylune-home__eyebrow">{{ 'veylune.home.discovery.collections.eyebrow'|trans|sw_sanitize }}</p>
-						<h2 id="veylune-discovery-collections-title">{{ 'veylune.home.discovery.collections.title'|trans|sw_sanitize }}</h2>
-					</div>
-
-					<div class="veylune-discovery-grid veylune-discovery-grid--collections">
-						{% for collection in veyluneDiscoveryCollections %}
-							<a class="veylune-discovery-card veylune-discovery-card--with-preview"
-							   href="{{ collection.target }}"
-							   data-veylune-registry-key="{{ collection.key }}"
-							   data-veylune-discovery-type="collection">
-								{% set previewMedia = collection.previewProduct.cover.media|default(null) %}
-								{% if previewMedia %}
-									<span class="veylune-discovery-card__preview" data-veylune-product-impression="{{ collection.previewProduct.id }}" aria-hidden="true">
-										{% sw_thumbnails 'veylune-home-collection-preview' with {
-											media: previewMedia,
-											sizes: { default: '360px' },
-											attributes: { alt: '', loading: 'lazy' }
-										} %}
-									</span>
-								{% endif %}
-								<span class="veylune-discovery-card__content">
-									<span class="veylune-discovery-card__index">0{{ loop.index }}</span>
-									<strong>{{ collection.label|trans|sw_sanitize }}</strong>
-									<span>{{ 'veylune.home.discovery.collections.cardCta'|trans|sw_sanitize }}</span>
-								</span>
-							</a>
-						{% endfor %}
+						<section class="veylune-discovery-layer__group" aria-labelledby="veylune-discovery-collections-label" data-veylune-registry-entity="collections">
+							<h3 id="veylune-discovery-collections-label">{{ 'veylune.home.discovery.collections.eyebrow'|trans|sw_sanitize }}</h3>
+							<div class="veylune-discovery-layer__cards">
+								{% for collection in veyluneDiscoveryCollections %}
+									<a class="veylune-discovery-layer__card"
+									   href="{{ collection.target }}"
+									   data-veylune-registry-key="{{ collection.key }}"
+									   data-veylune-discovery-type="collection">
+										{% set previewMedia = collection.previewProduct.cover.media|default(null) %}
+										{% if previewMedia %}
+											<span class="veylune-discovery-layer__media" data-veylune-product-impression="{{ collection.previewProduct.id }}" aria-hidden="true">
+												{% sw_thumbnails 'veylune-home-collection-preview' with {
+													media: previewMedia,
+													sizes: { default: '120px' },
+													attributes: { alt: '', loading: 'lazy' }
+												} %}
+											</span>
+										{% endif %}
+										<span class="veylune-discovery-layer__content">
+											<strong>{{ collection.label|trans|sw_sanitize }}</strong>
+											<span>{{ 'veylune.home.discovery.collections.cardCta'|trans|sw_sanitize }}</span>
+										</span>
+									</a>
+								{% endfor %}
+							</div>
+						</section>
 					</div>
 				</section>
 			</section>
