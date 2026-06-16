@@ -573,12 +573,13 @@
       "designCultureTitle": "Redaktionelle Seiten für Kollektionskontext, Private Access, Raumlogik und langfristige Plattformentwicklung.",
       "designPartnerships": "Studio-Dialog",
       "enterEditorialWorld": "Editorial World betreten",
-      "exploreCollections": "Möbel entdecken",
+      "departmentStripAriaLabel": "Nach Department shoppen",
+      "exploreCollections": "Kollektion entdecken",
       "featuredCollections": "Materialrichtungen",
       "featuredCollectionsTitle": "Vier zurückhaltende Kontexte im Veylune-System.",
-      "heroEyebrow": "VEYLUNE STUDIO · Collectible Interior Gallery",
-      "heroText": "Veylune Studio hält Objekte und Editionen innerhalb von Materialdisziplin, Proportion und räumlicher Relevanz.",
-      "heroTitle": "Ein ruhiges Dokument für Material und Form.",
+      "heroEyebrow": "Möbel, Leuchten und Objekte für durchdachte Interieurs",
+      "heroText": "Eine fokussierte Auswahl, geprägt von Material, Proportion und dauerhafter räumlicher Präsenz.",
+      "heroTitle": "Objekte, die den Raum definieren.",
       "interiorAtmosphere": "Interior Atmosphere",
       "philosophyCopyOne": "Jedes Objekt wird über Materialpräsenz, Proportion und räumliche Rolle betrachtet.",
       "philosophyCopyTwo": "Die öffentliche Oberfläche bleibt eine Orientierungsebene, bewusst frei von Dringlichkeit und Übermaß.",
@@ -590,6 +591,7 @@
       "tradeEyebrow": "Projektberatung",
       "tradeProgram": "Projektkontext",
       "tradeTitle": "Für Architekten, Interior Designer und private Wohnprojekte.",
+      "viewAll": "Alle ansehen",
       "discovery": {
         "empty": {
           "title": "Ausgewählte Stücke"

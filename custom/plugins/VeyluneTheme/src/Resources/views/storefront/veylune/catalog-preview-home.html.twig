@@ -1,0 +1,58 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <main class="veylune-preview">
+        <header class="veylune-preview__masthead">
+            <div>
+                <p class="veylune-preview__eyebrow">Development preview · WP-DES-CAT-01</p>
+                <h1>Draft Catalog Theater</h1>
+                <p>Fifty governed draft records rendered for visual review. Products remain inactive, non-sellable, unindexed, and outside public discovery.</p>
+            </div>
+            <span class="veylune-preview__guard">Private preview</span>
+        </header>
+
+        <nav class="veylune-preview__navigation" aria-label="Draft catalog preview destinations">
+            <div>
+                <strong>Categories</strong>
+                {% for key, label in veylunePreviewCategories %}
+                    <a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: key, token: veylunePreviewToken }) }}">{{ label }}</a>
+                {% endfor %}
+            </div>
+            <div>
+                <strong>Rooms</strong>
+                {% for key, label in veylunePreviewRooms %}
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: key, token: veylunePreviewToken }) }}">{{ label }}</a>
+                {% endfor %}
+            </div>
+            <div>
+                <strong>Collections</strong>
+                {% for key, label in veylunePreviewCollections %}
+                    <a href="{{ path('frontend.veylune.preview.catalog.collection', { collectionKey: key, token: veylunePreviewToken }) }}">{{ label }}</a>
+                {% endfor %}
+            </div>
+        </nav>
+
+        {% set railTitles = {
+            'new-arrivals': 'New Arrivals',
+            'founder-selection': 'Founder Selection',
+            'living-room': 'Living Room'
+        } %}
+
+        {% for railKey, products in veylunePreviewRails %}
+            <section class="veylune-preview-rail" aria-labelledby="preview-rail-{{ railKey }}">
+                <div class="veylune-preview-rail__head">
+                    <div>
+                        <p class="veylune-preview__eyebrow">Draft product rail</p>
+                        <h2 id="preview-rail-{{ railKey }}">{{ railTitles[railKey] }}</h2>
+                    </div>
+                    <span>{{ products|length }} products</span>
+                </div>
+                <div class="veylune-preview-rail__track" tabindex="0">
+                    {% for product in products %}
+                        {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: product } %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    </main>
+{% endblock %}

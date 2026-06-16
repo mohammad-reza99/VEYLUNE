@@ -25,6 +25,12 @@
             </call>
         </service>
 
+        <service id="VeyluneTheme\Controller\DraftCatalogPreviewController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
         <service id="VeyluneTheme\Edition\EditionReferenceRegistry" />
 
         <service id="VeyluneTheme\Retrieval\IdentityRetrievalMediator" />
@@ -59,6 +65,8 @@
 
         <service id="VeyluneTheme\Command\LaunchSimulationCommand" />
 
+        <service id="VeyluneTheme\Command\DraftCatalogSeedCommand" />
+
         <service id="VeyluneTheme\Catalog\SupplierStagingRegistry" />
 
         <service id="VeyluneTheme\Catalog\SkuReservationRegistry" />
@@ -68,6 +76,25 @@
         <service id="VeyluneTheme\Catalog\LaunchSimulationFactory" />
 
         <service id="VeyluneTheme\Catalog\LaunchSimulationRunner" />
+
+        <service id="VeyluneTheme\Catalog\DraftCatalogSeeder">
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="category.repository" />
+            <argument type="service" id="property_group.repository" />
+            <argument type="service" id="custom_field_set.repository" />
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument>%kernel.project_dir%</argument>
+        </service>
+
+        <service id="VeyluneTheme\Preview\DraftCatalogPreviewAccess">
+            <argument>%kernel.environment%</argument>
+            <argument>%env(bool:VEYLUNE_DRAFT_PREVIEW_ENABLED)%</argument>
+            <argument>%env(VEYLUNE_DRAFT_PREVIEW_TOKEN)%</argument>
+        </service>
+
+        <service id="VeyluneTheme\Preview\DraftCatalogPreviewService">
+            <argument type="service" id="product.repository" />
+        </service>
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 

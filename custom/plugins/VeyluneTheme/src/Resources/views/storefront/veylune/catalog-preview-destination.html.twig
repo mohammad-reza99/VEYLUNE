@@ -1,0 +1,22 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <main class="veylune-preview veylune-preview--destination">
+        <header class="veylune-preview__masthead">
+            <div>
+                <p class="veylune-preview__eyebrow">Development preview · {{ veylunePreviewType }}</p>
+                <h1>{{ veylunePreviewTitle }}</h1>
+                <p>{{ veylunePreviewProducts|length }} governed draft products. This route is not a public catalog destination.</p>
+            </div>
+            <a class="veylune-preview__back" href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">All preview rails</a>
+        </header>
+
+        <section class="veylune-preview-grid" aria-label="{{ veylunePreviewTitle }} draft products">
+            {% for product in veylunePreviewProducts %}
+                {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: product } %}
+            {% else %}
+                <p class="veylune-preview__empty">No governed draft products are assigned to this destination.</p>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}
