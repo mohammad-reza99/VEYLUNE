@@ -1,0 +1,18 @@
+{
+  "../../../config/plugin.png": {
+    "file": "assets/plugin-QE9B37Xj.png",
+    "src": "../../../config/plugin.png"
+  },
+  "main.js": {
+    "file": "assets/cws-development-tools-BW5-jNAS.js",
+    "name": "cws-development-tools",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/cws-development-tools-BAXayUR0.css"
+    ],
+    "assets": [
+      "assets/plugin-QE9B37Xj.png"
+    ]
+  }
+}

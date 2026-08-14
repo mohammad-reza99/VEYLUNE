@@ -1,0 +1,230 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+DDEV_BIN="${DDEV_BIN:-ddev}"
+HOST_HEADER="${VEYLUNE_HOST_HEADER:-veylune-shopware.ddev.site}"
+BASE_URL="${VEYLUNE_INTERNAL_BASE_URL:-http://localhost}"
+
+cd "$ROOT_DIR"
+
+step() {
+    printf '[veylune-governance] %s\n' "$1"
+}
+
+fail() {
+    printf '[veylune-governance][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+run_console() {
+    "$DDEV_BIN" exec php bin/console "$@"
+}
+
+run_ddev_php() {
+    "$DDEV_BIN" exec php "$@"
+}
+
+fetch_path() {
+    local path="$1"
+    local output_file="$2"
+    local response
+    local status
+    local body
+
+    response="$("$DDEV_BIN" exec curl -sS -H "Host: ${HOST_HEADER}" -H "X-Forwarded-Proto: https" -w $'\n__STATUS__:%{http_code}' "${BASE_URL}${path}")"
+    status="${response##*__STATUS__:}"
+    body="${response%$'\n'__STATUS__:*}"
+
+    printf '%s' "$body" > "$output_file"
+    printf '%s' "$status"
+}
+
+assert_status() {
+    local path="$1"
+    local expected="$2"
+    local output_file="$3"
+    local status
+
+    status="$(fetch_path "$path" "$output_file")"
+    [[ "$status" == "$expected" ]] || fail "$path returned HTTP $status, expected $expected"
+}
+
+assert_contains() {
+    local file="$1"
+    local needle="$2"
+    local label="$3"
+
+    grep -Fq "$needle" "$file" || fail "$label did not contain required marker: $needle"
+}
+
+assert_absent_pattern() {
+    local file="$1"
+    local pattern="$2"
+    local label="$3"
+
+    if grep -Eiq "$pattern" "$file"; then
+        fail "$label exposed blocked public language matching: $pattern"
+    fi
+}
+
+step 'syntax checks'
+bash -n bin/veylune-governance-check
+while IFS= read -r -d '' file; do
+    php -l "$file" >/dev/null
+done < <(find custom/plugins/VeyluneTheme/src custom/plugins/VeyluneTheme/bin -name '*.php' -print0)
+php -l bin/console >/dev/null
+
+step 'container lint'
+run_console lint:container >/dev/null
+
+step 'governance command audits'
+run_console veylune:semantic:audit >/dev/null
+run_console veylune:semantic:authoring-audit >/dev/null
+run_console veylune:runtime:distributed-audit >/dev/null
+run_console veylune:runtime:topology-pressure-audit >/dev/null
+run_console veylune:publication-state:audit >/dev/null
+run_console veylune:sitemap:audit >/dev/null
+
+step 'semantic and authoring regression harness'
+run_ddev_php custom/plugins/VeyluneTheme/bin/governance-regression-check.php >/dev/null
+
+step 'audit determinism'
+for command in \
+    'veylune:semantic:audit' \
+    'veylune:semantic:authoring-audit' \
+    'veylune:runtime:distributed-audit' \
+    'veylune:runtime:topology-pressure-audit' \
+    'veylune:publication-state:audit' \
+    'veylune:sitemap:audit'
+do
+    safe_name="${command//:/_}"
+    previous_file=''
+
+    for run in 1 2 3; do
+        output_file="${TMP_DIR}/${safe_name}_${run}.out"
+        run_console "$command" > "$output_file"
+
+        if [[ -n "$previous_file" ]] && ! cmp -s "$previous_file" "$output_file"; then
+            fail "$command output was not deterministic across repeated runs"
+        fi
+
+        previous_file="$output_file"
+    done
+done
+
+public_diagnostics='route-network|route-count|topology|audit|classification|rollback|authoring|approval|semantic maturity|diagnostic|x-debug-token|governance diagnostics'
+commerce_surfaces='add-to-cart|buy-widget|product-detail|cms-element-product|line-item|checkout|cart-widget|price-unit|purchase|relationship|recommend|recommended|collection|reserve|inquire'
+adjacency_surfaces='next|previous|related|featured|grouped|other editions|route network|route count|one of [0-9]+|[0-9]+ routes|[0-9]+ editions'
+
+step 'runtime route regression'
+approved_routes=(
+    '/editions/material-study-travertine-volume-01'
+    '/de/editionen/material-study-travertine-volume-01'
+    '/editions/material-study-basalt-plane'
+    '/de/editionen/material-study-basalt-plane'
+)
+
+for route in "${approved_routes[@]}"; do
+    file="${TMP_DIR}/approved_${route//\//_}.html"
+    assert_status "$route" 200 "$file"
+    assert_contains "$file" 'data-veylune-edition-detail-skeleton' "$route"
+    assert_absent_pattern "$file" "$public_diagnostics" "$route"
+    assert_absent_pattern "$file" "$commerce_surfaces" "$route"
+    assert_absent_pattern "$file" "$adjacency_surfaces" "$route"
+done
+
+denied_routes=(
+    '/editions/not-approved'
+    '/editions/Bad_Reference'
+    '/editions/material-study-basalt-plane-02'
+    '/editionen/material-study-basalt-plane'
+    '/editions/material-study-limestone-field'
+)
+
+for route in "${denied_routes[@]}"; do
+    file="${TMP_DIR}/denied_${route//\//_}.html"
+    assert_status "$route" 404 "$file"
+    if [[ -s "$file" ]]; then
+        assert_absent_pattern "$file" "$public_diagnostics|exception|stack trace|traceable|debug" "$route denied body"
+    fi
+done
+
+step 'browser-surface verification'
+for route in "${approved_routes[@]}"; do
+    file="${TMP_DIR}/browser_${route//\//_}.html"
+    assert_status "$route" 200 "$file"
+    assert_contains "$file" '<!DOCTYPE html>' "$route browser surface"
+    assert_contains "$file" '<main class="veylune-edition-skeleton"' "$route browser surface"
+    assert_contains "$file" '<meta name="robots" content="noindex,nofollow">' "$route browser surface"
+    assert_absent_pattern "$file" 'other editions|recommended alongside|paired with|browse|edition catalog|route-network|route network|topology|semanticRiskClassification|x-debug-token' "$route browser surface"
+done
+
+step 'discoverability containment'
+discoverability_routes=('/' '/editions')
+detail_reference_pattern='material-study-travertine-volume-01|material-study-basalt-plane|material-study-limestone-field|material-study-granite-surface|material-study-slate-line|material-study-porphyry-plane|material-study-tuff-surface'
+
+for route in "${discoverability_routes[@]}"; do
+    file="${TMP_DIR}/discoverability_${route//\//_}.html"
+    assert_status "$route" 200 "$file"
+    assert_absent_pattern "$file" "$detail_reference_pattern" "$route discoverability surface"
+    assert_absent_pattern "$file" 'other editions|route-network|route network|route-count|route count|edition directory|edition catalog|browse editions' "$route discoverability surface"
+done
+
+step 'canonical storefront transitional containment'
+storefront_drift_pattern='data-cart-widget|data-veylune-search|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
+
+for route in "${discoverability_routes[@]}"; do
+    file="${TMP_DIR}/storefront_${route//\//_}.html"
+    assert_status "$route" 200 "$file"
+    assert_absent_pattern "$file" "$storefront_drift_pattern" "$route canonical storefront transitional surface"
+done
+
+home_file="${TMP_DIR}/storefront_home.html"
+assert_status '/' 200 "$home_file"
+assert_contains "$home_file" 'data-veylune-home' '/ homepage transitional surface'
+assert_contains "$home_file" 'veylune-new-arrivals-foundation' '/ homepage transitional surface'
+
+step 'sitemap containment'
+run_console veylune:sitemap:audit >/dev/null
+
+step 'public observability containment'
+for route in "${approved_routes[@]}" "${discoverability_routes[@]}"; do
+    file="${TMP_DIR}/observability_${route//\//_}.html"
+    assert_status "$route" 200 "$file"
+    assert_absent_pattern "$file" "$public_diagnostics|semanticRiskClassification|implicationAuditResult|toneAuditResult|deploymentStatus|rollbackTarget" "$route public observability"
+done
+
+step 'canonical storefront activation-pending containment'
+activation_pending_routes=(
+    '/search'
+    '/suggest'
+    '/wishlist'
+    '/account/login'
+    '/checkout/cart'
+    '/detail/019e4c3232987add9b4d98318913cc4f'
+    '/navigation/019e47255c4f7a8f947adc9f036f367f'
+    '/store-api/category'
+    '/store-api/_info/routes'
+    '/api/_info/version'
+    '/not-public'
+)
+
+for route in "${activation_pending_routes[@]}"; do
+    file="${TMP_DIR}/storefront_denied_${route//\//_}.html"
+    assert_status "$route" 404 "$file"
+    assert_contains "$file" 'data-veylune-identity-denial' "$route canonical storefront denial"
+    assert_contains "$file" '<meta name="robots" content="noindex,nofollow">' "$route canonical storefront denial"
+    assert_absent_pattern "$file" 'checkout|cart|account|wishlist|product|category|store-api|search|login|register|detail' "$route canonical storefront denial"
+done
+
+german_denied_file="${TMP_DIR}/storefront_denied_de_detail.html"
+assert_status '/de/detail/019e4c3232987add9b4d98318913cc4f' 404 "$german_denied_file"
+assert_contains "$german_denied_file" '<html lang="de">' '/de canonical storefront denial'
+assert_contains "$german_denied_file" '<title>Seite nicht gefunden | VEYLUNE STUDIO</title>' '/de canonical storefront denial'
+
+step 'complete'
+printf 'Veylune governance verification passed.\n'

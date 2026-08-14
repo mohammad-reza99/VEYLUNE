@@ -1,0 +1,111 @@
+{% block component_product_box %}
+    {% if product %}
+        {% set id = product.id %}
+        {% set name = product.translated.name %}
+        {% set brand = product.manufacturer.translated.name|default('veylune.productCard.brandFallback'|trans) %}
+        {% set cover = product.cover.media %}
+        {% set searchTerm = page.searchTerm %}
+        {% set childCount = product.childCount %}
+        {% set routeArguments = childCount > 0 and searchTerm ? { productId: id, search: searchTerm } : { productId: id } %}
+        {% set price = product.calculatedPrice %}
+
+        {% if referrerCategoryId %}
+            {% set routeArguments = routeArguments|merge({ referrerCategoryId: referrerCategoryId }) %}
+        {% endif %}
+
+	        <article class="veylune-product-card product-box box-{{ layout }}"
+	                 data-product-information="{{ { id: id, name: name, brand: brand, price: price.unitPrice|default(null) }|json_encode }}">
+	            <a class="veylune-product-card__media-link"
+	               href="{{ seoUrl('frontend.detail.page', routeArguments) }}"
+	               title="{{ name }}">
+	                <span class="veylune-product-card__edition" aria-hidden="true">
+	                    {{ 'veylune.productCard.selectedPiece'|trans|sw_sanitize }}
+	                </span>
+	                <span class="veylune-product-card__media">
+	                    {% if cover.url and cover.isSpatialObject() == false %}
+	                        {% set attributes = {
+                            class: 'veylune-product-card__image product-image',
+                            alt: (cover.translated.alt ?: name),
+                            title: (cover.translated.title ?: name),
+                            loading: 'lazy'
+                        } %}
+
+                        {% sw_thumbnails 'product-image-thumbnails' with {
+                            media: cover,
+                            sizes: sizes,
+                            attributes: attributes
+                        } %}
+	                    {% else %}
+	                        <span class="veylune-product-card__placeholder" aria-hidden="true"></span>
+	                    {% endif %}
+	                </span>
+	                <span class="veylune-product-card__image-veil" aria-hidden="true"></span>
+
+	                <span class="veylune-product-card__badges">
+	                    {% sw_include '@Storefront/storefront/component/product/card/badges.html.twig' %}
+                </span>
+            </a>
+
+            {% if config('core.cart.wishlistEnabled') %}
+                <div class="veylune-product-card__wishlist">
+                    {% sw_include '@Storefront/storefront/component/product/card/wishlist.html.twig' with {
+                        showText: false,
+                        size: 'sm',
+                        productId: id
+                    } %}
+                </div>
+            {% endif %}
+
+            <div class="veylune-product-card__body">
+                <div class="veylune-product-card__meta">
+                    <span>{{ product.categories.first.translated.name|default('veylune.productCard.categoryFallback'|trans|sw_sanitize) }}</span>
+                    <span>{{ brand }}</span>
+                </div>
+
+	                <h3 class="veylune-product-card__title">
+	                    <a href="{{ seoUrl('frontend.detail.page', routeArguments) }}" title="{{ name }}">
+	                        <span>{{ name }}</span>
+	                    </a>
+	                </h3>
+
+                {% if config('core.listing.showReview') and product.ratingAverage %}
+                    <div class="veylune-product-card__rating">
+                        {% sw_include '@Storefront/storefront/component/review/rating.html.twig' with {
+                            points: product.ratingAverage,
+                            style: 'text-primary'
+                        } %}
+                    </div>
+                {% endif %}
+
+                {% if product.variation %}
+                    <div class="veylune-product-card__variants">
+                        {% for variation in product.variation %}
+                            <span>{{ variation.group }}: {{ variation.option }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="veylune-product-card__footer">
+                    <div class="veylune-product-card__price">
+                        {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
+                    </div>
+                    <a class="veylune-product-card__cta"
+                       href="{{ seoUrl('frontend.detail.page', routeArguments) }}">
+                        {{ 'veylune.productCard.viewPiece'|trans|sw_sanitize }}
+                    </a>
+                </div>
+
+                {% if product.available is defined %}
+                    <p class="veylune-product-card__availability">
+                        {% if product.available %}
+                            {{ 'veylune.productCard.available'|trans|sw_sanitize }}
+                        {% else %}
+                            {{ 'veylune.productCard.availabilityOnRequest'|trans|sw_sanitize }}
+                        {% endif %}
+                    </p>
+                {% endif %}
+
+            </div>
+        </article>
+    {% endif %}
+{% endblock %}

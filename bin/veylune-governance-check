@@ -175,7 +175,7 @@ for route in "${discoverability_routes[@]}"; do
 done
 
 step 'canonical storefront transitional containment'
-storefront_drift_pattern='data-cart-widget|data-veylune-search|data-veylune-mega|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
+storefront_drift_pattern='data-cart-widget|data-veylune-search|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
 
 for route in "${discoverability_routes[@]}"; do
     file="${TMP_DIR}/storefront_${route//\//_}.html"
@@ -185,8 +185,15 @@ done
 
 home_file="${TMP_DIR}/storefront_home.html"
 assert_status '/' 200 "$home_file"
-assert_contains "$home_file" 'A quiet record of material and form.' '/ homepage transitional surface'
-assert_contains "$home_file" 'Read Material Context' '/ homepage transitional surface'
+assert_contains "$home_file" 'data-veylune-home' '/ homepage transitional surface'
+
+for governed_module in 'veylune-new-arrivals-foundation' 'veylune-founder-selection-title'; do
+    if grep -Fq "$governed_module" "$home_file"; then
+        assert_contains "$home_file" 'product-box' "/ homepage governed module ${governed_module}"
+    fi
+done
+
+assert_absent_pattern "$home_file" 'No pieces were found|Awaiting governed product population' '/ homepage public empty-state suppression'
 
 step 'sitemap containment'
 run_console veylune:sitemap:audit >/dev/null

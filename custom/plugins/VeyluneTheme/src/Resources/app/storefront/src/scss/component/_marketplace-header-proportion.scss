@@ -1,0 +1,108 @@
+/* Phase 2.5: exact 2/7/3 header grid and outlined-search anatomy. */
+
+@media (min-width: 992px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 2fr 7fr 3fr;
+        grid-template-rows: 72px 48px;
+        column-gap: 24px;
+        row-gap: 0;
+        min-height: 120px;
+        padding: 0;
+    }
+
+    .veylune-header__logo {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: start;
+    }
+
+    .veylune-header__logo-image {
+        width: 150px;
+        max-width: 150px;
+        max-height: 48px;
+    }
+
+    .veylune-marketplace-search {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+    }
+
+    .veylune-header__actions {
+        grid-column: 3;
+        grid-row: 1;
+        min-width: 0;
+        align-self: center;
+        justify-content: flex-end;
+        gap: 16px;
+    }
+
+    .veylune-marketplace-action {
+        min-width: 0;
+        min-height: 48px;
+        flex-direction: row;
+        gap: 8px;
+        padding: 8px;
+        border-radius: var(--veylune-marketplace-radius-md);
+    }
+
+    .veylune-marketplace-action__label,
+    .veylune-header__bag-label.veylune-marketplace-action__label {
+        font-size: var(--veylune-marketplace-font-size-500);
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    .veylune-header .veylune-header__nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        min-height: 48px;
+        align-self: stretch;
+    }
+}
+
+.veylune-marketplace-search__form {
+    grid-template-columns: minmax(0, 1fr) 56px;
+    height: 48px;
+    min-height: 48px;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: var(--veylune-marketplace-radius-lg);
+}
+
+.veylune-marketplace-search__input {
+    height: 46px;
+    min-height: 46px;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: var(--veylune-marketplace-radius-lg) 0 0 var(--veylune-marketplace-radius-lg);
+    font-size: var(--veylune-marketplace-font-size-1000);
+    line-height: 1.5;
+}
+
+.veylune-marketplace-search__submit {
+    width: 56px;
+    height: 46px;
+    min-height: 46px;
+    border: 0;
+    border-radius: 0 var(--veylune-marketplace-radius-lg) var(--veylune-marketplace-radius-lg) 0;
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary-hover);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-rows: 56px 48px;
+        min-height: 104px;
+        row-gap: 8px;
+    }
+
+    .veylune-marketplace-search__form {
+        width: 100%;
+    }
+}

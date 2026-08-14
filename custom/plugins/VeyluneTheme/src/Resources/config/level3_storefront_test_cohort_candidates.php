@@ -1,0 +1,58 @@
+<?php declare(strict_types=1);
+
+return [
+    'reviewed_at' => '2026-08-14',
+    'status' => 'official_reference_screened_outreach_required',
+    'cohort' => [
+        'F02' => [
+            'draft_name' => 'Liora Curved Sofa',
+            'manufacturer' => 'Ethnicraft',
+            'candidate_product' => 'Ellipse Sofa - 3 Seater - Oatmeal',
+            'manufacturer_item_number' => '20145',
+            'dimensions_cm' => ['width' => 217, 'depth' => 98, 'height' => 71],
+            'materials' => '45% viscose, 20% polyester, 17% linen, 10% polyacrylic, 8% cotton',
+            'official_reference' => 'https://ethnicraft.com/p/10120145/ellipse-sofa-3-seater-oatmeal',
+            'official_spec_reference' => 'https://inspiration.ethnicraft.com/hubfs/2.%20WEBSITE%20CATALOGUES/Commercial%20catalogue.pdf',
+            'status' => 'supplier_outreach_required',
+        ],
+        'F03' => [
+            'draft_name' => 'Oris Leather Lounge Chair',
+            'manufacturer' => 'Ethnicraft',
+            'candidate_product' => 'DC Lounge Chair - Chocolate Leather',
+            'manufacturer_item_number' => '60087',
+            'official_reference' => 'https://inspiration.ethnicraft.com/en/public-space-amsterdam-netherlands',
+            'status' => 'exact_variant_spec_and_supplier_outreach_required',
+        ],
+        'F05' => [
+            'draft_name' => 'Edda Dining Chair',
+            'manufacturer' => 'Muuto',
+            'candidate_product' => 'Workshop Chair - Oak',
+            'manufacturer_item_number' => '26051',
+            'dimensions_cm' => ['width' => 39.9, 'depth' => 46.2, 'height' => 79.2, 'seat_height' => 45.0],
+            'materials' => 'Solid oak frame and legs; shape-pressed oak veneer seat and back; water-based lacquer',
+            'official_reference' => 'https://www.muuto.com/product/workshop-chair--p13653/26051/',
+            'official_spec_reference' => 'https://content.muuto.com/Perfion/File.aspx?action=save&id=98596ec7-4dca-4e4f-95c2-61588df2cf1e',
+            'status' => 'supplier_outreach_required',
+        ],
+        'F10' => [
+            'draft_name' => 'Elara Travertine Coffee Table',
+            'manufacturer' => 'GUBI',
+            'candidate_product' => 'IOI Coffee Table - Rippled Beige - Black Semi Matt / Brass - Dia 100 cm',
+            'manufacturer_item_number' => '10129143',
+            'dimensions_cm' => ['diameter' => 100],
+            'materials' => 'Rippled Beige travertine, black semi-matt steel base, brass sphere',
+            'official_reference' => 'https://gubi.com/en/nl/products/ioi-coffee-table?variant=10129143',
+            'status' => 'territory_price_and_supplier_outreach_required',
+        ],
+    ],
+    'unresolved_acceptance_gates' => [
+        'authorized_supplier_or_reseller',
+        'territory_specific_wholesale_price_and_tax',
+        'current_stock_and_lead_time',
+        'returns_delivery_and_damage_terms',
+        'written_media_license_for_veylune_channels_and_crops',
+        'exact_variant_confirmation',
+        'source_owner_and_independent_reviewer',
+    ],
+    'publication_authority' => false,
+];

@@ -113,6 +113,54 @@ final class ProductExposureService
     }
 
     /**
+     * @return array<string, bool>
+     */
+    public function publicSurfaceAvailability(SalesChannelContext $context): array
+    {
+        $surfaces = [
+            'category:furniture' => ['category', 'furniture'],
+            'category:lighting' => ['category', 'lighting'],
+            'category:decor-objects' => ['category', 'decor-objects'],
+            'category:textiles-rugs' => ['category', 'textiles-rugs'],
+            'category:dining-kitchen' => ['category', 'dining-kitchen'],
+            'category:outdoor' => ['category', 'outdoor'],
+            'room:living-room' => ['room', 'living-room'],
+            'room:dining-room' => ['room', 'dining-room'],
+            'collection:founder-selection' => ['collection', 'founder-selection'],
+            'collection:new-arrivals' => ['collection', 'new-arrivals'],
+        ];
+        $products = $this->loadRegistryProducts($context);
+        $availability = array_fill_keys(array_keys($surfaces), false);
+
+        foreach ($surfaces as $surface => [$type, $key]) {
+            foreach ($products as $product) {
+                if ($this->isEligibleForSurface($product, $type, $key)) {
+                    $availability[$surface] = true;
+                    break;
+                }
+            }
+        }
+
+        $availability['catalog'] = false;
+        $availability['rooms'] = false;
+        $availability['collections'] = false;
+
+        foreach ($availability as $surface => $available) {
+            if (str_starts_with($surface, 'category:') && $available) {
+                $availability['catalog'] = true;
+            }
+            if (str_starts_with($surface, 'room:') && $available) {
+                $availability['rooms'] = true;
+            }
+            if (str_starts_with($surface, 'collection:') && $available) {
+                $availability['collections'] = true;
+            }
+        }
+
+        return $availability;
+    }
+
+    /**
      * @return array<string, array{eligible: int, rejected: int, reasons: list<string>}>
      */
     public function surfaceAudit(SalesChannelContext $context): array

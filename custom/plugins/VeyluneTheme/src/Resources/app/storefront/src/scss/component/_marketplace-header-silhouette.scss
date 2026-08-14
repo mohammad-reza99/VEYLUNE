@@ -1,0 +1,45 @@
+/* Phase 2.4: full-bleed header silhouette and legacy-offset removal. */
+
+.header-main > .container {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+}
+
+.header-main .veylune-header,
+.header-main .veylune-marketplace-utility,
+.header-main .veylune-header__bar {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+}
+
+.veylune-header .veylune-header__bar,
+.veylune-header.is-initial .veylune-header__bar,
+.veylune-header.is-scrolled .veylune-header__bar {
+    background: var(--veylune-marketplace-white);
+    border-bottom: 1px solid var(--veylune-marketplace-border);
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.veylune-marketplace-utility__inner,
+.veylune-header .veylune-header__inner {
+    width: min(calc(100% - 48px), 1600px);
+    max-width: 1600px;
+    margin-inline: auto;
+}
+
+.veylune-header .veylune-header__nav {
+    width: 100%;
+    margin: 0;
+    padding: 2px 0;
+}
+
+@media (max-width: 767.98px) {
+    .veylune-marketplace-utility__inner,
+    .veylune-header .veylune-header__inner {
+        width: calc(100% - 24px);
+    }
+}

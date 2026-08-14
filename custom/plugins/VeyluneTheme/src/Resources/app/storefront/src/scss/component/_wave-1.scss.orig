@@ -1,0 +1,208 @@
+// VEYLUNE Style Constitution v1 - Wave 1 visual foundation.
+:root {
+    --veylune-font-serif: "Iowan Old Style", "Baskerville", "Palatino Linotype", Georgia, serif;
+    --veylune-font-sans: Inter, "Helvetica Neue", Arial, sans-serif;
+    --veylune-section-space: clamp(3.5rem, 6vw, 6.5rem);
+    --veylune-grid-gap: clamp(1.1rem, 1.8vw, 1.65rem);
+    --veylune-action-ink: #332d25;
+}
+
+.veylune-home {
+    background: var(--veylune-color-ivory);
+}
+
+.veylune-home-hero--commerce {
+    min-height: auto;
+    padding: clamp(1rem, 2vw, 1.75rem) 0 clamp(2.25rem, 4vw, 4rem);
+}
+
+.veylune-home-hero--commerce::before {
+    background:
+        radial-gradient(70% 80% at 10% 20%, rgba(255, 255, 255, 0.78), transparent 66%),
+        var(--veylune-color-ivory);
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(330px, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 4vw, 4.75rem);
+    align-items: stretch;
+    width: min(100% - calc(var(--veylune-page-gutter) * 2), 1480px);
+    min-height: clamp(560px, 66vw, 760px);
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    padding-block: clamp(2rem, 5vw, 5rem);
+}
+
+.veylune-home-hero--commerce .veylune-home__eyebrow {
+    margin: 0 0 1.4rem;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__title {
+    max-width: 650px;
+    font-size: clamp(3.4rem, 6.1vw, 7.2rem);
+    line-height: 0.91;
+    letter-spacing: -0.035em;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__text {
+    max-width: 480px;
+    margin-top: 1.75rem;
+    font-size: clamp(1.02rem, 1.35vw, 1.25rem);
+    line-height: 1.62;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__actions {
+    margin-top: 2rem;
+}
+
+.veylune-home-hero__editorial-visual {
+    position: relative;
+    min-width: 0;
+    min-height: clamp(520px, 62vw, 740px);
+    overflow: hidden;
+    background:
+        linear-gradient(180deg, rgba(21, 20, 18, 0.02), rgba(21, 20, 18, 0.22)),
+        url("#{$app-css-relative-asset-path}/veylune-home-hero-architectural-warm-v1.png") center center / cover no-repeat,
+        var(--veylune-color-limestone);
+}
+
+.veylune-home-hero__editorial-visual::after {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    padding-top: 0.85rem;
+    color: rgba(255, 255, 255, 0.88);
+    border-top: 1px solid rgba(255, 255, 255, 0.52);
+    font-family: var(--veylune-font-sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    content: "Architectural study / Warm materiality";
+}
+
+.veylune-home__link {
+    color: var(--veylune-action-ink);
+    font-family: var(--veylune-font-sans);
+    font-size: 0.71rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+}
+
+.veylune-trade {
+    padding: var(--veylune-section-space) 0;
+    background: var(--veylune-color-parchment);
+}
+
+.veylune-header__bar {
+    background: rgba(248, 245, 239, 0.9);
+    border-color: rgba(111, 96, 75, 0.17);
+    backdrop-filter: blur(14px) saturate(1.04);
+}
+
+.veylune-header__inner {
+    min-height: 70px;
+}
+
+.veylune-header__nav-link,
+.veylune-header__action-link,
+.veylune-header__search-toggle,
+.veylune-header__bag-label,
+.veylune-header__utility {
+    font-family: var(--veylune-font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+}
+
+.veylune-product-card {
+    background: transparent;
+}
+
+.veylune-product-card__media {
+    aspect-ratio: 4 / 5;
+    background: var(--veylune-color-limestone);
+}
+
+.veylune-product-card__title {
+    font-family: var(--veylune-font-serif);
+    font-size: clamp(1.08rem, 1.4vw, 1.35rem);
+    line-height: 1.12;
+}
+
+.veylune-product-card__price,
+.veylune-product-card__meta,
+.veylune-product-card__availability {
+    font-family: var(--veylune-font-sans);
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-home-hero--commerce .veylune-home-hero__inner {
+        grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
+        min-height: 560px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__title {
+        font-size: clamp(3rem, 6.5vw, 5rem);
+    }
+
+    .veylune-home-hero__editorial-visual {
+        min-height: 540px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-home-hero--commerce {
+        padding: 0 0 2.25rem;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__content {
+        order: 2;
+        padding: 2.25rem var(--veylune-page-gutter) 0;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__title {
+        font-size: clamp(3rem, 14vw, 4.8rem);
+    }
+
+    .veylune-home-hero__editorial-visual {
+        order: 1;
+        min-height: min(118vw, 540px);
+        background-position: 62% center;
+    }
+
+    .veylune-home-hero__editorial-visual::after {
+        right: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        font-size: 0.62rem;
+    }
+
+    .veylune-header__inner {
+        min-height: 64px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-home-hero__editorial-visual,
+    .veylune-home-hero--commerce * {
+        animation: none;
+        transition-duration: 0.01ms;
+    }
+}

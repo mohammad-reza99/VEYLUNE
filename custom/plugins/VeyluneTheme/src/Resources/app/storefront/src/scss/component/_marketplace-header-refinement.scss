@@ -1,0 +1,167 @@
+/* Phase 2.1: high-density marketplace header refinement. */
+
+.veylune-marketplace-utility {
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    border-bottom: 1px solid var(--veylune-marketplace-border);
+    font-size: 0.75rem;
+}
+
+.veylune-marketplace-utility__inner {
+    min-height: 36px;
+}
+
+.veylune-marketplace-utility__links {
+    gap: 20px;
+}
+
+.veylune-marketplace-utility__links a,
+.veylune-marketplace-utility__links span {
+    color: var(--veylune-marketplace-ink);
+    font-weight: 700;
+}
+
+.veylune-marketplace-utility__shipping {
+    display: inline-flex;
+    min-height: 26px;
+    align-items: center;
+    padding: 3px 12px;
+    border-radius: var(--veylune-marketplace-radius-pill);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+    font-weight: 800;
+}
+
+.veylune-header__inner {
+    grid-template-columns: 190px minmax(480px, 1fr) minmax(136px, auto);
+    gap: 8px 22px;
+    padding-top: 12px;
+}
+
+.veylune-marketplace-search__form {
+    min-height: 46px;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    border-width: 1px;
+    border-color: var(--veylune-marketplace-ink);
+    border-radius: var(--veylune-marketplace-radius-md);
+}
+
+.veylune-marketplace-search__form:focus-within {
+    border-color: var(--veylune-marketplace-primary);
+}
+
+.veylune-marketplace-search__submit {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-white);
+    border-left: 1px solid var(--veylune-marketplace-border);
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-header__utility {
+    display: none;
+}
+
+.veylune-header__nav {
+    justify-content: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+}
+
+.veylune-header__nav::-webkit-scrollbar {
+    display: none;
+}
+
+.veylune-header__nav-link,
+.veylune-header__nav-link--pending {
+    flex: 0 0 auto;
+    padding: 9px 12px;
+    border-radius: 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.veylune-header__nav-link--pending {
+    color: var(--veylune-marketplace-ink);
+    cursor: default;
+}
+
+.veylune-header__nav-link--pending:hover {
+    color: var(--veylune-marketplace-ink);
+    background: transparent;
+}
+
+.veylune-header__nav-link:not(.veylune-header__nav-link--pending):hover,
+.veylune-header__nav-link:not(.veylune-header__nav-link--pending):focus-visible {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+@media (min-width: 1200px) {
+    .veylune-header__inner {
+        grid-template-columns: 200px minmax(620px, 1fr) auto;
+    }
+}
+
+@media (max-width: 1199.98px) and (min-width: 992px) {
+    .veylune-header__inner {
+        grid-template-columns: 170px minmax(420px, 1fr) auto;
+    }
+
+    .veylune-marketplace-action {
+        min-width: 56px;
+        padding-inline: 5px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .veylune-marketplace-utility__inner {
+        min-height: 32px;
+    }
+
+    .veylune-marketplace-utility__links span:nth-child(2) {
+        display: none;
+    }
+
+    .veylune-marketplace-utility__shipping {
+        min-height: 24px;
+        padding-inline: 9px;
+        font-size: 0.6875rem;
+    }
+
+    .veylune-header__inner {
+        grid-template-columns: 44px minmax(100px, 1fr) auto;
+    }
+
+    .veylune-marketplace-search__form {
+        border-radius: var(--veylune-marketplace-radius-md);
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-marketplace-utility__links {
+        display: flex;
+    }
+
+    .veylune-marketplace-utility__links span,
+    .veylune-marketplace-utility__links a {
+        display: none;
+    }
+
+    .veylune-marketplace-utility__links span:first-child {
+        display: inline;
+    }
+
+    .veylune-marketplace-utility__shipping {
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

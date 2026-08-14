@@ -1,0 +1,79 @@
+@import "abstracts/tokens";
+@import "base/foundation";
+@import "component/topbar";
+@import "component/header";
+@import "component/navigation";
+@import "component/ui";
+@import "component/buttons";
+@import "component/forms";
+@import "component/inquiry-forms";
+@import "component/cms-pages";
+@import "component/cms-blocks";
+@import "component/editorial";
+@import "component/media-storytelling";
+@import "component/homepage";
+@import "component/catalog-preview";
+@import "component/editions";
+@import "component/product-card";
+@import "component/collection";
+@import "component/filters";
+@import "component/pagination";
+@import "component/product-detail";
+@import "component/gallery";
+@import "component/buy-widget";
+@import "component/tabs";
+@import "component/cart";
+@import "component/offcanvas-cart";
+@import "component/cart-summary";
+@import "component/checkout";
+@import "component/checkout-forms";
+@import "component/checkout-summary";
+@import "component/checkout-steps";
+@import "component/checkout-success";
+@import "component/account";
+@import "component/account-sidebar";
+@import "component/account-orders";
+@import "component/account-forms";
+@import "component/authority";
+@import "component/ecosystem";
+@import "component/legacy";
+@import "component/polish";
+@import "component/wave-1";
+@import "component/wave-2";
+@import "component/wave-3";
+@import "component/footer";
+@import "utilities/utilities";
+@import "component/marketplace-design-system";
+@import "component/marketplace-visible-bridge";
+@import "component/marketplace-header";
+@import "component/marketplace-header-refinement";
+@import "component/marketplace-header-precision";
+@import "component/marketplace-header-source-alignment";
+@import "component/marketplace-homebase-token-alignment";
+@import "component/marketplace-header-silhouette";
+@import "component/marketplace-header-proportion";
+@import "component/marketplace-mega-menu";
+@import "component/marketplace-mega-precision";
+
+.header-logo-picture {
+    width: clamp(210px, 22vw, 260px);
+    min-width: 0;
+    max-width: 260px;
+}
+
+.header-logo-main-img {
+    width: 100%;
+    max-height: 72px;
+    object-fit: contain;
+}
+
+@include media-breakpoint-down(md) {
+    .header-logo-picture {
+        width: 210px;
+        max-width: 210px;
+    }
+
+    .header-logo-main-img {
+        max-height: 64px;
+    }
+}

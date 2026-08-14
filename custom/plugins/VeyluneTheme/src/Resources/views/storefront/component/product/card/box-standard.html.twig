@@ -8,13 +8,23 @@
         {% set childCount = product.childCount %}
         {% set routeArguments = childCount > 0 and searchTerm ? { productId: id, search: searchTerm } : { productId: id } %}
         {% set price = product.calculatedPrice %}
+        {% set productCustomFields = product.translated.customFields|default(product.customFields|default({})) %}
+        {% set commercePosture = productCustomFields.veylune_consultation_mode|default(product.available ? 'direct' : 'consultation') %}
+        {% set materialLabels = [] %}
+        {% for property in product.properties|default([]) %}
+            {% set propertyGroupName = property.group.translated.name|default(property.group.name|default('')) %}
+            {% if propertyGroupName == 'Material' and materialLabels|length < 2 %}
+                {% set materialLabels = materialLabels|merge([property.translated.name|default(property.name)]) %}
+            {% endif %}
+        {% endfor %}
 
         {% if referrerCategoryId %}
             {% set routeArguments = routeArguments|merge({ referrerCategoryId: referrerCategoryId }) %}
         {% endif %}
 
 	        <article class="veylune-product-card product-box box-{{ layout }}"
-	                 data-product-information="{{ { id: id, name: name, brand: brand, price: price.unitPrice|default(null) }|json_encode }}">
+	                 data-product-information="{{ { id: id, name: name, brand: brand, price: price.unitPrice|default(null) }|json_encode }}"
+                     data-veylune-commerce-posture="{{ commercePosture|e('html_attr') }}">
 	            <a class="veylune-product-card__media-link"
 	               href="{{ seoUrl('frontend.detail.page', routeArguments) }}"
 	               title="{{ name }}">
@@ -61,6 +71,9 @@
                     <span>{{ product.categories.first.translated.name|default('veylune.productCard.categoryFallback'|trans|sw_sanitize) }}</span>
                     <span>{{ brand }}</span>
                 </div>
+                {% if materialLabels is not empty %}
+                    <p class="veylune-product-card__material">{{ materialLabels|join(' / ') }}</p>
+                {% endif %}
 
 	                <h3 class="veylune-product-card__title">
 	                    <a href="{{ seoUrl('frontend.detail.page', routeArguments) }}" title="{{ name }}">
@@ -85,16 +98,6 @@
                     </div>
                 {% endif %}
 
-                <div class="veylune-product-card__footer">
-                    <div class="veylune-product-card__price">
-                        {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
-                    </div>
-                    <a class="veylune-product-card__cta"
-                       href="{{ seoUrl('frontend.detail.page', routeArguments) }}">
-                        {{ 'veylune.productCard.viewPiece'|trans|sw_sanitize }}
-                    </a>
-                </div>
-
                 {% if product.available is defined %}
                     <p class="veylune-product-card__availability">
                         {% if product.available %}
@@ -104,6 +107,16 @@
                         {% endif %}
                     </p>
                 {% endif %}
+
+                <div class="veylune-product-card__footer">
+                    <div class="veylune-product-card__price">
+                        {% sw_include '@Storefront/storefront/component/product/card/price-unit.html.twig' %}
+                    </div>
+                    <a class="veylune-product-card__cta"
+                       href="{{ seoUrl('frontend.detail.page', routeArguments) }}">
+                        {{ 'veylune.productCard.viewPiece'|trans|sw_sanitize }}
+                    </a>
+                </div>
 
             </div>
         </article>

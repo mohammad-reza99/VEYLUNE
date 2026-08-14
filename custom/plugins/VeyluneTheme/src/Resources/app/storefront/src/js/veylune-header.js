@@ -38,6 +38,7 @@ const initVeyluneHeader = () => {
     const focusableSelector = [
         'a[href]',
         'button:not([disabled])',
+        'summary',
         'input:not([disabled])',
         'select:not([disabled])',
         'textarea:not([disabled])',

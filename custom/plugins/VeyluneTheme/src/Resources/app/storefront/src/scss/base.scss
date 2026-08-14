@@ -38,8 +38,24 @@
 @import "component/ecosystem";
 @import "component/legacy";
 @import "component/polish";
+@import "component/wave-1";
+@import "component/wave-2";
+@import "component/wave-3";
 @import "component/footer";
 @import "utilities/utilities";
+@import "component/marketplace-design-system";
+@import "component/marketplace-visible-bridge";
+@import "component/marketplace-header";
+@import "component/marketplace-header-refinement";
+@import "component/marketplace-header-precision";
+@import "component/marketplace-header-source-alignment";
+@import "component/marketplace-homebase-token-alignment";
+@import "component/marketplace-header-silhouette";
+@import "component/marketplace-header-proportion";
+@import "component/marketplace-mega-menu";
+@import "component/marketplace-mega-precision";
+@import "component/marketplace-mobile-drawer";
+@import "component/marketplace-sticky-header";
 
 .header-logo-picture {
     width: clamp(210px, 22vw, 260px);

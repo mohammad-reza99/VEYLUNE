@@ -67,6 +67,13 @@
 
         <service id="VeyluneTheme\Command\DraftCatalogSeedCommand" />
 
+        <service id="VeyluneTheme\Command\DemoResidueCleanupCommand" />
+        <service id="VeyluneTheme\Command\Level3CohortBaselineAuditCommand" />
+        <service id="VeyluneTheme\Command\Level3SupplierIntakeAuditCommand" />
+        <service id="VeyluneTheme\Command\Level1ReadinessEvaluationCommand" />
+        <service id="VeyluneTheme\Command\CalmaRuntimeQuarantineCommand" />
+        <service id="VeyluneTheme\Command\AureliaRuntimeQuarantineCommand" />
+
         <service id="VeyluneTheme\Catalog\SupplierStagingRegistry" />
 
         <service id="VeyluneTheme\Catalog\SkuReservationRegistry" />

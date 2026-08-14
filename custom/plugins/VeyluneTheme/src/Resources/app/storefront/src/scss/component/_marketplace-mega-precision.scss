@@ -1,0 +1,18 @@
+@media (min-width: 992px) {
+    .veylune-header .veylune-mega .veylune-mega__panel {
+        top: 166px;
+        right: auto;
+        left: 50%;
+        width: min(calc(100% - 48px), 1600px);
+        transform: translate3d(-50%, -4px, 0);
+    }
+
+    .veylune-header .veylune-mega.is-open .veylune-mega__panel {
+        transform: translate3d(-50%, 0, 0);
+    }
+
+    .veylune-header .veylune-mega__scene.veylune-mega__scene--marketplace {
+        grid-template-columns: minmax(280px, 36fr) repeat(4, minmax(140px, 16fr));
+        gap: 16px;
+    }
+}

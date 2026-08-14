@@ -1,0 +1,107 @@
+/* Phase 2.8: compact, stable marketplace header states. */
+
+.header-main {
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+}
+
+.header-main .veylune-header {
+    position: relative;
+    top: auto;
+}
+
+.veylune-header {
+    --veylune-marketplace-header-shadow: 0 2px 8px rgb(33 30 34 / 10%);
+
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-marketplace-utility {
+    max-height: 32px;
+    overflow: hidden;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+        max-height 180ms ease,
+        opacity 140ms ease,
+        transform 180ms ease;
+}
+
+.veylune-header .veylune-header__bar {
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.veylune-header.is-scrolled .veylune-marketplace-utility {
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+.veylune-header.is-scrolled .veylune-header__bar {
+    border-bottom-color: var(--veylune-marketplace-border);
+    box-shadow: var(--veylune-marketplace-header-shadow);
+}
+
+.veylune-header.is-scrolled .veylune-header__progress {
+    background: var(--veylune-marketplace-primary);
+}
+
+@media (min-width: 992px) {
+    .veylune-header.is-scrolled .veylune-header__inner,
+    .veylune-header.is-scrolling-up.is-scrolled .veylune-header__inner {
+        grid-template-rows: 64px 44px;
+        min-height: 108px;
+        padding: 0;
+        column-gap: 24px;
+        row-gap: 0;
+    }
+
+    .veylune-header.is-scrolled .veylune-header__logo-image {
+        width: 142px;
+        max-width: 142px;
+        max-height: 42px;
+    }
+
+    .veylune-header.is-scrolled .veylune-marketplace-search__form {
+        height: 44px;
+        min-height: 44px;
+    }
+
+    .veylune-header.is-scrolled .veylune-marketplace-search__input,
+    .veylune-header.is-scrolled .veylune-marketplace-search__submit {
+        height: 42px;
+        min-height: 42px;
+    }
+
+    .veylune-header.is-scrolled .veylune-header__nav {
+        min-height: 44px;
+    }
+
+    .veylune-header.is-scrolled .veylune-mega__panel {
+        top: 108px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header.is-scrolled .veylune-header__inner,
+    .veylune-header.is-scrolling-up.is-scrolled .veylune-header__inner {
+        min-height: 104px;
+        padding: 0;
+        row-gap: 8px;
+    }
+
+    .veylune-header.is-scrolled .veylune-header__logo-image {
+        max-height: 38px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-marketplace-utility,
+    .veylune-header .veylune-header__bar {
+        transition-duration: 1ms;
+    }
+}

@@ -3,6 +3,7 @@
 namespace VeyluneTheme\Subscriber;
 
 use Shopware\Core\Framework\Log\Package;
+use Shopware\Storefront\Event\StorefrontRenderEvent;
 use Shopware\Core\Framework\Struct\ArrayStruct;
 use Shopware\Storefront\Page\Navigation\NavigationPageLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,6 +21,7 @@ final class ProductExposurePageSubscriber implements EventSubscriberInterface
     {
         return [
             NavigationPageLoadedEvent::class => 'onNavigationPageLoaded',
+            StorefrontRenderEvent::class => 'onStorefrontRender',
         ];
     }
 
@@ -32,6 +34,14 @@ final class ProductExposurePageSubscriber implements EventSubscriberInterface
         $event->getPage()->addExtension(
             'veyluneProductExposure',
             new ArrayStruct($this->productExposureService->homepageProducts($event->getSalesChannelContext()))
+        );
+    }
+
+    public function onStorefrontRender(StorefrontRenderEvent $event): void
+    {
+        $event->setParameter(
+            'veylunePublicSurfaces',
+            $this->productExposureService->publicSurfaceAvailability($event->getSalesChannelContext())
         );
     }
 }

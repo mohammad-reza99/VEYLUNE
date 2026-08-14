@@ -1,0 +1,62 @@
+// VEYLUNE Style Constitution v1 - Wave 3 responsive and accessibility polish.
+.veylune-home__link,
+.veylune-preview__navigation a,
+.veylune-preview__back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.veylune-preview__navigation a:focus-visible,
+.veylune-preview__back:focus-visible,
+.veylune-preview-rail__track:focus-visible {
+    outline: 2px solid var(--veylune-color-bronze-dark);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 7px rgba(139, 118, 90, 0.12);
+}
+
+.veylune-preview-rail__track {
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: 1px;
+}
+
+@media (max-width: 767.98px) {
+    .veylune-header .veylune-header__icon-button,
+    .veylune-header .veylune-header__search-toggle,
+    .veylune-header .veylune-header__menu-toggle,
+    .veylune-mobile-nav__close,
+    .veylune-mobile-nav__links a,
+    .veylune-footer .veylune-footer__link {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .veylune-mobile-nav__links a,
+    .veylune-footer .veylune-footer__link {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .veylune-preview-rail__track {
+        grid-auto-columns: minmax(250px, calc(100vw - 3rem));
+    }
+}
+
+@media (max-width: 639.98px) {
+    .veylune-home-hero--commerce .veylune-home-hero__title {
+        font-size: clamp(2.75rem, 13vw, 4.25rem);
+        overflow-wrap: anywhere;
+    }
+
+    .veylune-preview__masthead h1 {
+        font-size: clamp(2.7rem, 14vw, 4.4rem);
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-preview-rail__track {
+        scroll-behavior: auto;
+        scroll-snap-type: none;
+    }
+}

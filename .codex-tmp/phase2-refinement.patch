@@ -1,0 +1,45 @@
+diff --git a/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig b/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig
+--- a/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig
++++ b/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig
+@@ -66,6 +66,17 @@
+         { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: veyluneCategoryRoutes.url('newArrivals') }
+     ] %}
++    {% set veyluneMarketplaceDepartments = [
++        'Furniture',
++        'Outdoor',
++        'Bedding & Bath',
++        'Rugs',
++        'Decor & Pillows',
++        'Lighting',
++        'Kitchen',
++        'Baby & Kids',
++        'Organization',
++        'Sale'
++    ] %}
+ 
+ 	<header class="veylune-header" data-veylune-header>
+@@ -73,10 +84,12 @@
+             <div class="veylune-marketplace-utility" aria-label="Store services">
+                 <div class="veylune-marketplace-utility__inner">
+-                    <span class="veylune-marketplace-utility__promise">Curated furniture and objects for considered homes</span>
+-                    <nav class="veylune-marketplace-utility__links" aria-label="Service links">
+-                        <a href="{{ veyluneRoutes.editions }}">Journal</a>
+-                        <a href="{{ veyluneRoutes.consultation }}">Design consultation</a>
+-                        <span>Secure shopping</span>
++                    <nav class="veylune-marketplace-utility__links" aria-label="Programs and services">
++                        <span>Veylune Rewards</span>
++                        <span>Financing</span>
++                        <a href="{{ veyluneRoutes.consultation }}">Professional</a>
+                     </nav>
++                    <span class="veylune-marketplace-utility__shipping">Fast & free delivery on eligible orders</span>
+                 </div>
+             </div>
+@@ -130,6 +143,11 @@
+ 
+ 					<nav class="veylune-header__nav" id="veylunePrimaryNavigation" aria-label="{{ 'veylune.header.primaryNavAriaLabel'|trans|striptags }}">
++                        {% for department in veyluneMarketplaceDepartments %}
++                            <span class="veylune-header__nav-link veylune-header__nav-link--pending" aria-disabled="true">
++                                {{ department }}
++                            </span>
++                        {% endfor %}
+                         {% for item in veyluneNavigationRegistry %}

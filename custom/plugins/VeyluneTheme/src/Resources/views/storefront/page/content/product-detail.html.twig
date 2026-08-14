@@ -20,9 +20,11 @@
 
 {% block cms_content %}
     {% set product = page.product %}
+    {% set productCustomFields = product.translated.customFields|default(product.customFields|default({})) %}
+    {% set commercePosture = productCustomFields.veylune_consultation_mode|default(product.available ? 'direct' : 'consultation') %}
     {% set cmsPageClasses = ('cms-page veylune-product-detail__cms ' ~ page.cmsPage.cssClass|striptags)|trim %}
 
-    <article class="veylune-product-detail">
+    <article class="veylune-product-detail" data-veylune-commerce-posture="{{ commercePosture|e('html_attr') }}">
         <div class="veylune-product-detail__frame">
             <div class="{{ cmsPageClasses }}"
                  {% if not feature('JSON_LD_DATA') %}
@@ -33,6 +35,27 @@
                 {% endblock %}
             </div>
         </div>
+
+        <section class="veylune-product-detail__commerce-state" aria-label="{{ 'veylune.productDetail.availability'|trans|striptags }}">
+            <div>
+                <span>{{ 'veylune.productDetail.availability'|trans|sw_sanitize }}</span>
+                <strong>
+                    {% if product.available %}
+                        {{ 'veylune.productDetail.available'|trans|sw_sanitize }}
+                    {% else %}
+                        {{ 'veylune.productDetail.availabilityOnRequest'|trans|sw_sanitize }}
+                    {% endif %}
+                </strong>
+            </div>
+            <div>
+                <span>{{ 'veylune.productDetail.atelier'|trans|sw_sanitize }}</span>
+                <strong>{{ product.manufacturer.translated.name|default('veylune.header.logoText'|trans|sw_sanitize) }}</strong>
+            </div>
+            <div>
+                <span>{{ 'veylune.productDetail.reference'|trans|sw_sanitize }}</span>
+                <strong>{{ product.productNumber }}</strong>
+            </div>
+        </section>
 
         <section class="veylune-product-detail__studio-note" aria-labelledby="veylune-product-studio-note">
             <div>

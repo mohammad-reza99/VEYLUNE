@@ -17,6 +17,12 @@ final class DraftCatalogPreviewService
         'founder-selection' => 10,
         'living-room' => 12,
     ];
+    private const STOREFRONT_TEST_COHORT = [
+        'F02', // Liora Curved Sofa
+        'F03', // Oris Leather Lounge Chair
+        'F05', // Edda Dining Chair
+        'F10', // Elara Travertine Coffee Table
+    ];
 
     /**
      * @param EntityRepository<\Shopware\Core\Content\Product\ProductCollection> $productRepository
@@ -75,6 +81,7 @@ final class DraftCatalogPreviewService
     public function homepageRails(): array
     {
         return [
+            'storefront-test-cohort' => $this->storefrontTestCohort(),
             'new-arrivals' => \array_slice(
                 $this->filter(static fn (array $product): bool => \in_array('New Arrivals', $product['rails'], true)),
                 0,
@@ -91,6 +98,22 @@ final class DraftCatalogPreviewService
                 self::HOMEPAGE_RAIL_LIMITS['living-room']
             ),
         ];
+    }
+
+    /**
+     * @return list<array<string, mixed>>
+     */
+    private function storefrontTestCohort(): array
+    {
+        $productsByRecord = [];
+        foreach ($this->products() as $product) {
+            $productsByRecord[$product['recordId']] = $product;
+        }
+
+        return \array_values(\array_filter(\array_map(
+            static fn (string $recordId): ?array => $productsByRecord[$recordId] ?? null,
+            self::STOREFRONT_TEST_COHORT
+        )));
     }
 
     /**

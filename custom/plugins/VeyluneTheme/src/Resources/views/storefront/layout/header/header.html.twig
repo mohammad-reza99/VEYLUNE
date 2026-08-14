@@ -2,6 +2,7 @@
 
 {% block layout_header %}
 	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
+    {% set publicSurfaces = veylunePublicSurfaces|default({}) %}
 	{% set veyluneRoutes = {
         shop: veyluneCategoryRoutes.url('furniture'),
         rooms: veyluneCategoryRoutes.url('livingRoom'),
@@ -15,24 +16,24 @@
             label: 'veylune.header.nav.shop',
             url: veyluneRoutes.shop,
             mega: 'shop',
-            desktop: true,
-            mobile: true
+            desktop: publicSurfaces['category:furniture']|default(false),
+            mobile: publicSurfaces['category:furniture']|default(false)
         },
         {
             key: 'rooms',
             label: 'veylune.header.nav.rooms',
             url: veyluneRoutes.rooms,
             mega: 'rooms',
-            desktop: true,
-            mobile: true
+            desktop: publicSurfaces['room:living-room']|default(false),
+            mobile: publicSurfaces['room:living-room']|default(false)
         },
         {
             key: 'collections',
             label: 'veylune.header.nav.collections',
             url: veyluneRoutes.collections,
             mega: 'collections',
-            desktop: true,
-            mobile: true
+            desktop: publicSurfaces['collection:founder-selection']|default(false),
+            mobile: publicSurfaces['collection:founder-selection']|default(false)
         },
         {
             key: 'editions',
@@ -62,11 +63,50 @@
         { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: veyluneCategoryRoutes.url('founderSelection') },
         { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: veyluneCategoryRoutes.url('newArrivals') }
     ] %}
+    {% set veyluneMarketplaceDepartments = [
+        'Verified',
+        'New Arrivals',
+        'Best Sellers',
+        'Trending',
+        'Collaborations',
+        'Shop by Room',
+        'Design Services',
+        'Inspiration',
+        'Services',
+        'Furniture',
+        'Outdoor',
+        'Bedding & Bath',
+        'Mattresses',
+        'Rugs',
+        'Decor & Pillows',
+        'Lighting',
+        'Organization',
+        'Sale'
+    ] %}
 
 	<header class="veylune-header" data-veylune-header>
 		{% block layout_header_navigation %}
+            <div class="veylune-marketplace-utility" aria-label="Store services">
+                <div class="veylune-marketplace-utility__inner">
+                    <div class="veylune-marketplace-family" aria-label="Veylune family">
+                        <a class="veylune-marketplace-family__primary" href="{{ path('frontend.home.page') }}">Veylune</a>
+                        <a href="{{ veyluneRoutes.editions }}">Editions</a>
+                        <a href="{{ veyluneRoutes.editions }}">Journal</a>
+                        <a href="{{ veyluneRoutes.consultation }}">Trade</a>
+                    </div>
+                    <div class="veylune-marketplace-utility__right">
+                        <nav class="veylune-marketplace-utility__links" aria-label="Programs and services">
+                            <span>Rewards</span>
+                            <span>Financing</span>
+                            <a href="{{ veyluneRoutes.consultation }}">Professional</a>
+                        </nav>
+                        <span class="veylune-marketplace-utility__shipping">Fast & free delivery on eligible orders</span>
+                    </div>
+                </div>
+            </div>
 			<div class="veylune-header__bar">
 				<div class="veylune-header__inner">
+
 					<div class="veylune-header__mobile-toggle">
 						{% block layout_header_navigation_toggle %}
 							<button class="veylune-header__icon-button nav-main-toggle-btn header-actions-btn" type="button" data-veylune-mobile-toggle aria-expanded="false" aria-controls="veyluneMobileNav" aria-label="{{ 'general.menuLink'|trans|striptags }}">
@@ -87,7 +127,33 @@
 						</a>
 					{% endblock %}
 
+                    <div class="veylune-marketplace-search" role="search">
+                        <form class="veylune-marketplace-search__form" action="{{ path('frontend.search.page') }}" method="get" data-search-form>
+                            <label class="visually-hidden" for="veyluneMarketplaceSearch">{{ 'header.searchPlaceholder'|trans|striptags }}</label>
+                            <input id="veyluneMarketplaceSearch"
+                                   class="veylune-marketplace-search__input"
+                                   type="search"
+                                   name="search"
+                                   autocomplete="off"
+                                   placeholder="Find anything home..."
+                                   aria-label="{{ 'header.searchPlaceholder'|trans|striptags }}">
+                            <button class="veylune-marketplace-search__submit" type="submit" aria-label="{{ 'header.searchButton'|trans|striptags }}">{% sw_icon 'search' %}</button>
+                        </form>
+                    </div>
 					<nav class="veylune-header__nav" id="veylunePrimaryNavigation" aria-label="{{ 'veylune.header.primaryNavAriaLabel'|trans|striptags }}">
+                        {% for department in veyluneMarketplaceDepartments %}
+                            {% if department in ['Verified', 'Trending', 'Collaborations', 'Shop by Room', 'Services', 'Furniture', 'Outdoor', 'Bedding & Bath', 'Lighting', 'Organization'] %}
+                                <button class="veylune-header__nav-link veylune-header__nav-link--button"
+                                        type="button"
+                                        data-veylune-mega-trigger="marketplace"
+                                        aria-expanded="false"
+                                        aria-controls="veyluneMegaPanel-marketplace">{{ department }}</button>
+                            {% else %}
+                                <span class="veylune-header__nav-link veylune-header__nav-link--pending" aria-disabled="true">
+                                    {{ department }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
                         {% for item in veyluneNavigationRegistry %}
                             {% if item.desktop %}
                                 <a class="veylune-header__nav-link"
@@ -103,18 +169,16 @@
 
 					<div class="veylune-header__actions">
 						{% block layout_header_search %}
-                            <span class="veylune-header__search-toggle"
-                                  aria-label="{{ 'header.searchButton'|trans|striptags }}"
-                                  aria-disabled="true">
+                            <a class="veylune-header__search-toggle veylune-header__search-toggle--mobile" href="#veyluneMarketplaceSearch" aria-label="{{ 'header.searchButton'|trans|striptags }}">
                                 <span class="veylune-header__search-toggle-icon" aria-hidden="true">{% sw_icon 'search' %}</span>
-                                <span class="veylune-header__search-toggle-text">{{ 'veylune.header.search.toggle'|trans|sw_sanitize }}</span>
-                            </span>
+                            </a>
                         {% endblock %}
 
                         {% block layout_header_actions_account %}
-                            <span class="veylune-header__utility veylune-header__utility--desktop" aria-disabled="true">
-                                {{ 'account.myAccount'|trans|sw_sanitize }}
-                            </span>
+                            <a class="veylune-marketplace-action" href="{{ path('frontend.account.home.page') }}" aria-label="{{ 'account.myAccount'|trans|striptags }}">
+                                <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
+                                <span class="veylune-marketplace-action__label">Sign In</span>
+                            </a>
                         {% endblock %}
 
                         {% if config('core.cart.wishlistEnabled') %}
@@ -126,10 +190,10 @@
                         {% endif %}
 
 						{% block layout_header_actions_cart %}
-                            <span class="veylune-header__bag" aria-disabled="true">
+                            <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}">
                                 <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
-                                <span class="veylune-header__bag-label">{{ 'veylune.header.bag'|trans|sw_sanitize }} (0)</span>
-                            </span>
+                                <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">0</span></span>
+                            </a>
                         {% endblock %}
 					</div>
 				</div>
@@ -141,9 +205,10 @@
                     <button class="veylune-mega__close" type="button" data-veylune-mega-close aria-label="{{ 'general.close'|trans|striptags }}">
                         {% sw_icon 'x' %}
                     </button>
+                    {% sw_include '@VeyluneTheme/storefront/layout/header/marketplace-mega-panel.html.twig' %}
 
                     {% for item in veyluneNavigationRegistry %}
-                        {% if item.mega %}
+                        {% if item.mega and item.desktop %}
                             <section class="veylune-mega__scene"
                                      id="veyluneMegaPanel-{{ item.mega }}"
                                      data-veylune-mega-panel="{{ item.mega }}"
@@ -218,6 +283,7 @@
                             <span class="veylune-mobile-nav__pending">{{ 'header.wishlist'|trans|sw_sanitize }}</span>
                         {% endif %}
 					</nav>
+                    {% sw_include '@VeyluneTheme/storefront/layout/header/marketplace-mobile-drawer.html.twig' %}
 					<div class="veylune-mobile-nav__note">{{ 'veylune.header.mobile.note'|trans|sw_sanitize }}</div>
 				</div>
 			</div>

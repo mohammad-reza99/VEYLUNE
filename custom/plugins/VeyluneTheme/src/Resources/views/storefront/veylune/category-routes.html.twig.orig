@@ -1,0 +1,33 @@
+{% macro url(key) %}
+    {% set veyluneCategoryRoutes = {
+        collections: path('frontend.navigation.page', { navigationId: '019e47255c4f7a8f947adc9f036f367f' }),
+        seating: path('frontend.navigation.page', { navigationId: '019e472688de7a4488d2ccaa9f4c1aca' }),
+        sofas: path('frontend.navigation.page', { navigationId: '019e4c1eedd87901a119c903e1448101' }),
+        loungeChairs: path('frontend.navigation.page', { navigationId: '019e4c1f17307cfaa31e85f5f158e7dc' }),
+        tables: path('frontend.navigation.page', { navigationId: '019e4726c20076f092111b3a35ebdc0e' }),
+        lighting: path('frontend.navigation.page', { navigationId: '019e4726e79d7edfa7209e2333b29a58' }),
+        objects: path('frontend.navigation.page', { navigationId: '019e4727472c7ba280e48539675d26f3' }),
+        decorObjects: path('frontend.navigation.page', { navigationId: '019e4c2460a47c3fa030916b63d77970' }),
+        furniture: path('frontend.veylune.discovery.category', { categoryKey: 'furniture' }),
+        departmentLighting: path('frontend.veylune.discovery.category', { categoryKey: 'lighting' }),
+        departmentDecorObjects: path('frontend.veylune.discovery.category', { categoryKey: 'decor-objects' }),
+        textilesRugs: path('frontend.veylune.discovery.category', { categoryKey: 'textiles-rugs' }),
+        diningKitchen: path('frontend.veylune.discovery.category', { categoryKey: 'dining-kitchen' }),
+        departmentOutdoor: path('frontend.veylune.discovery.category', { categoryKey: 'outdoor' }),
+        livingRoom: path('frontend.veylune.discovery.room', { roomKey: 'living-room' }),
+        diningRoom: path('frontend.veylune.discovery.room', { roomKey: 'dining-room' }),
+        bedroom: path('frontend.veylune.discovery.room', { roomKey: 'bedroom' }),
+        workspace: path('frontend.veylune.discovery.room', { roomKey: 'workspace' }),
+        hallway: path('frontend.veylune.discovery.room', { roomKey: 'hallway' }),
+        outdoorRoom: path('frontend.veylune.discovery.room', { roomKey: 'outdoor' }),
+        founderSelection: path('frontend.veylune.discovery.collection', { collectionKey: 'founder-selection' }),
+        newArrivals: path('frontend.veylune.discovery.collection', { collectionKey: 'new-arrivals' }),
+        permanentCollections: path('frontend.veylune.discovery.collection.permanent'),
+        editorialCollections: path('frontend.veylune.discovery.collection.editorial'),
+        trade: path('frontend.navigation.page', { navigationId: '019e4718ad6c79efb2b928230271e814' }),
+        consultation: path('frontend.navigation.page', { navigationId: '019e4718d96272ac9fbbe508ccc6c6a6' }),
+        studio: path('frontend.navigation.page', { navigationId: '019e471907d0771baabb7d73ec1caea2' })
+    } %}
+
+    {{- veyluneCategoryRoutes[key]|default('#') -}}
+{% endmacro %}

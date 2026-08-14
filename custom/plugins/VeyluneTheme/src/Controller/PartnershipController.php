@@ -35,4 +35,17 @@ class PartnershipController extends StorefrontController
             'veylunePageType' => 'partnership',
         ]);
     }
+
+    #[Route(path: '/private-consultation', name: 'frontend.veylune.consultation.page', methods: [Request::METHOD_GET])]
+    public function consultation(Request $request, SalesChannelContext $context): Response
+    {
+        $page = $this->genericPageLoader->load($request, $context);
+        $page->getMetaInformation()?->setMetaTitle('Private Consultation | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription('A private design conversation for considered interiors, sourcing, and material direction.');
+
+        return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
+            'page' => $page,
+            'veylunePageType' => 'consultation',
+        ]);
+    }
 }

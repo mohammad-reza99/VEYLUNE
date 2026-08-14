@@ -39,6 +39,7 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.editions.detail.guard',
         'frontend.veylune.editions.detail.guard.de',
         'frontend.veylune.partnership.page',
+        'frontend.veylune.consultation.page',
         'frontend.veylune.discovery.room',
         'frontend.veylune.discovery.category',
         'frontend.veylune.discovery.collection',
@@ -218,6 +219,8 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         $text = $isGerman
             ? 'Die angeforderte Seite ist nicht Teil des oeffentlichen Veylune Studios.'
             : 'The requested page is not part of the public Veylune Studio.';
+        $eyebrow = $isGerman ? 'Kontrollierter Zugang' : 'Governed access';
+        $action = $isGerman ? 'Zum Studio' : 'Return to the studio';
 
         $html = sprintf(
             <<<'HTML'
@@ -228,20 +231,38 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <meta name="robots" content="noindex,nofollow">
                         <title>%s | VEYLUNE STUDIO</title>
+                        <style>
+                            :root { color-scheme: light; }
+                            * { box-sizing: border-box; }
+                            body { margin: 0; color: #25221d; background: #f4f0e8; font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+                            main { display: grid; min-height: 100svh; place-items: center; padding: clamp(1.25rem, 5vw, 5rem); }
+                            article { width: min(100%%, 58rem); padding: clamp(2rem, 7vw, 6rem); background: #27241f; color: #f5efe4; }
+                            .eyebrow { margin: 0 0 1.5rem; color: #cbbb9f; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; }
+                            h1 { max-width: 10ch; margin: 0; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(3rem, 9vw, 7rem); font-weight: 400; line-height: .92; letter-spacing: -.04em; }
+                            .copy { max-width: 38rem; margin: 1.75rem 0 2.25rem; color: rgba(245,239,228,.72); font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
+                            a { display: inline-flex; align-items: center; min-height: 44px; padding-bottom: .2rem; color: #f5efe4; border-bottom: 1px solid rgba(245,239,228,.45); font-size: .72rem; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
+                            a:focus-visible { outline: 2px solid #cbbb9f; outline-offset: 6px; }
+                            @media (max-width: 30rem) { article { padding-inline: 1.5rem; } }
+                        </style>
                     </head>
                     <body>
                         <main data-veylune-identity-denial>
-                            <p>VEYLUNE STUDIO</p>
-                            <h1>%s</h1>
-                            <p>%s</p>
+                            <article>
+                                <p class="eyebrow">VEYLUNE STUDIO · %s</p>
+                                <h1>%s</h1>
+                                <p class="copy">%s</p>
+                                <a href="/">%s</a>
+                            </article>
                         </main>
                     </body>
                 </html>
                 HTML,
             $isGerman ? 'de' : 'en',
             $title,
+            $eyebrow,
             $title,
-            $text
+            $text,
+            $action
         );
 
         return new Response($html, Response::HTTP_NOT_FOUND, [

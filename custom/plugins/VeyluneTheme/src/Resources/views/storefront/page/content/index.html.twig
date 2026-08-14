@@ -51,6 +51,7 @@
     } %}
 
 			{% if app.request.attributes.get('_route') == 'frontend.home.page' %}
+                {% set publicSurfaces = veylunePublicSurfaces|default({}) %}
 				{% set veyluneProductExposure = page.extensions.veyluneProductExposure|default(null) %}
 				{% set veyluneNewArrivalProducts = veyluneProductExposure ? veyluneProductExposure.get('new-arrivals') : [] %}
 				{% set veyluneFounderSelectionProducts = veyluneProductExposure ? veyluneProductExposure.get('founder-selection') : [] %}
@@ -67,6 +68,7 @@
 					{ key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'dining-room' }) }
 				] %}
 				<main class="veylune-home" data-veylune-home>
+                    {% if publicSurfaces.catalog|default(false) %}
 					<nav class="veylune-department-strip" aria-label="{{ 'veylune.home.departmentStripAriaLabel'|trans|striptags }}" data-veylune-registry-scope="homepage-departments">
 						<div class="veylune-department-strip__track">
 							{% for department in veyluneDepartments %}
@@ -78,6 +80,7 @@
 							{% endfor %}
 						</div>
 					</nav>
+                    {% endif %}
 
 					<section class="veylune-home__scene veylune-home-hero veylune-home-hero--commerce" data-veylune-reveal>
 						<div class="veylune-home-hero__inner">
@@ -88,13 +91,23 @@
 								{{ 'veylune.home.heroText'|trans|sw_sanitize }}
 							</p>
 							<div class="veylune-home-hero__actions">
-								<a class="veylune-home__link" href="{{ veyluneRoutes.shop }}">{{ 'veylune.home.exploreCollections'|trans|sw_sanitize }}</a>
+                                {% if publicSurfaces['category:furniture']|default(false) %}
+                                    <a class="veylune-home__link" href="{{ veyluneRoutes.shop }}">{{ 'veylune.home.exploreCollections'|trans|sw_sanitize }}</a>
+                                {% else %}
+                                    <a class="veylune-home__link" href="{{ veyluneRoutes.editions }}">{{ 'veylune.header.nav.journal'|trans|sw_sanitize }}</a>
+                                {% endif %}
 							</div>
 						</div>
+                        <div class="veylune-home-hero__editorial-visual"
+                             role="img"
+                             aria-label="Warm architectural interior with a sculptural chair, travertine table, bronze floor lamp, and ceramic object">
+                        </div>
 					</div>
 				</section>
 
+                {% if veyluneNewArrivalProducts is not empty or veyluneFounderSelectionProducts is not empty or publicSurfaces.rooms|default(false) %}
 				<section class="veylune-home__scene veylune-discovery-foundation" id="veylune-home-discovery" data-veylune-reveal data-veylune-registry-scope="homepage-discovery">
+                    {% if veyluneNewArrivalProducts is not empty %}
 					<section class="veylune-discovery-module veylune-discovery-module--products veylune-discovery-module--primary" id="veylune-new-arrivals-foundation" aria-labelledby="veylune-new-arrivals-title" data-veylune-registry-entity="new-arrivals">
 						<div class="veylune-home__section-head veylune-home__section-head--with-action">
 							<div>
@@ -124,7 +137,9 @@
 						</div>
 						{% endif %}
 					</section>
+                    {% endif %}
 
+                    {% if veyluneFounderSelectionProducts is not empty %}
 					<section class="veylune-discovery-module veylune-discovery-module--products veylune-discovery-module--secondary" aria-labelledby="veylune-founder-selection-title" data-veylune-registry-entity="founder-selection">
 						<div class="veylune-home__section-head veylune-home__section-head--with-action">
 							<div>
@@ -154,7 +169,9 @@
 							</div>
 						{% endif %}
 					</section>
+                    {% endif %}
 
+                    {% if publicSurfaces.rooms|default(false) %}
 					<section class="veylune-discovery-module veylune-room-strip" id="veylune-discovery-rooms" aria-labelledby="veylune-discovery-rooms-label" data-veylune-registry-entity="rooms">
 						<p class="veylune-home__eyebrow" id="veylune-discovery-rooms-label">{{ 'veylune.home.discovery.rooms.eyebrow'|trans|sw_sanitize }}</p>
 						<div class="veylune-room-strip__track">
@@ -168,7 +185,9 @@
 							{% endfor %}
 						</div>
 					</section>
+                    {% endif %}
 				</section>
+                {% endif %}
 
 			<section class="veylune-home__scene veylune-trade" data-veylune-reveal>
 				<div class="veylune-trade__inner">

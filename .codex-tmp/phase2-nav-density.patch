@@ -1,0 +1,11 @@
+diff --git a/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig b/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig
+--- a/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig
++++ b/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig
+@@ -127,2 +127,7 @@
+ 					<nav class="veylune-header__nav" id="veylunePrimaryNavigation" aria-label="{{ 'veylune.header.primaryNavAriaLabel'|trans|striptags }}">
++                        {% for department in veyluneMarketplaceDepartments %}
++                            <span class="veylune-header__nav-link veylune-header__nav-link--pending" aria-disabled="true">
++                                {{ department }}
++                            </span>
++                        {% endfor %}
+                         {% for item in veyluneNavigationRegistry %}

@@ -44,6 +44,12 @@ product-readiness, media-QA, and content-QA harnesses. These validators operate
 only on staged array/manifests and do not onboard suppliers, import products,
 publish products, register services, or change storefront behavior.
 
+WP-07 Phase 7 adds the canonical batch-manifest boundary used by later dry-run
+validation. It requires batch provenance, ownership, rollback metadata, and a
+complete governed field set for every staged item. The contract is static and
+does not read files, write database records, reserve SKUs, onboard suppliers,
+publish products, activate commerce, or change storefront behavior.
+
 WP-07 Phase 8 adds command-only controlled staging validation infrastructure:
 file-backed staging registries, SKU-reservation validation, batch validation,
 rollback snapshot metadata, and a dry-run manifest validation command. This

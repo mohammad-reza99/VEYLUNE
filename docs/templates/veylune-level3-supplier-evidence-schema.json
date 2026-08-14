@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://veylune.invalid/schemas/level3-supplier-evidence.json",
+  "title": "Veylune Level 3 Supplier Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "veylune_sku", "supplier", "source_batch", "pricing", "availability",
+    "specifications", "media_rights", "materials", "review"
+  ],
+  "properties": {
+    "veylune_sku": { "type": "string", "pattern": "^VLS-[A-Z]{3}-[0-9]{3,6}$" },
+    "supplier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supplier_id", "legal_name", "supplier_sku", "country", "primary_contact"],
+      "properties": {
+        "supplier_id": { "type": "string", "minLength": 3, "not": { "pattern": "[Mm][Oo][Cc][Kk]|[Pp][Ll][Aa][Cc][Ee][Hh][Oo][Ll][Dd][Ee][Rr]|[Tt][Ee][Ss][Tt]" } },
+        "legal_name": { "type": "string", "minLength": 2 },
+        "supplier_sku": { "type": "string", "minLength": 1 },
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "primary_contact": { "type": "string", "minLength": 3 }
+      }
+    },
+    "source_batch": { "type": "string", "minLength": 3 },
+    "pricing": {
+      "type": "object",
+      "required": ["authority_reference", "currency", "gross", "net", "tax_rate"],
+      "properties": {
+        "authority_reference": { "type": "string", "minLength": 3 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+        "gross": { "type": "number", "exclusiveMinimum": 0 },
+        "net": { "type": "number", "exclusiveMinimum": 0 },
+        "tax_rate": { "type": "number", "minimum": 0 }
+      }
+    },
+    "availability": {
+      "type": "object",
+      "required": ["authority_reference", "status", "verified_at", "lead_time", "delivery_class", "returns_class"],
+      "properties": {
+        "authority_reference": { "type": "string", "minLength": 3 },
+        "status": { "enum": ["in_stock", "made_to_order", "preorder", "unavailable"] },
+        "verified_at": { "type": "string", "format": "date-time" },
+        "lead_time": { "type": "string", "minLength": 1 },
+        "delivery_class": { "type": "string", "minLength": 1 },
+        "returns_class": { "type": "string", "minLength": 1 }
+      }
+    },
+    "specifications": {
+      "type": "object",
+      "required": ["source_reference", "width", "height", "depth", "weight", "dimensions_unit"],
+      "properties": {
+        "source_reference": { "type": "string", "minLength": 3 },
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "depth": { "type": "number", "exclusiveMinimum": 0 },
+        "weight": { "type": "number", "exclusiveMinimum": 0 },
+        "dimensions_unit": { "enum": ["mm", "cm"] }
+      }
+    },
+    "media_rights": {
+      "type": "object",
+      "required": ["schedule_reference", "territories", "channels", "expiry"],
+      "properties": {
+        "schedule_reference": { "type": "string", "minLength": 3 },
+        "territories": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "channels": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "expiry": { "type": ["string", "null"], "format": "date" }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "required": ["evidence_reference", "primary_material", "finish", "color"],
+      "properties": {
+        "evidence_reference": { "type": "string", "minLength": 3 },
+        "primary_material": { "type": "string", "minLength": 1 },
+        "finish": { "type": "string", "minLength": 1 },
+        "color": { "type": "string", "minLength": 1 }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["source_owner", "reviewer", "reviewed_at"],
+      "properties": {
+        "source_owner": { "type": "string", "minLength": 2 },
+        "reviewer": { "type": "string", "minLength": 2 },
+        "reviewed_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

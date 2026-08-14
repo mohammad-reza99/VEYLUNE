@@ -33,6 +33,7 @@
         </nav>
 
         {% set railTitles = {
+            'storefront-test-cohort': 'Wave 4 Storefront Test Cohort',
             'new-arrivals': 'New Arrivals',
             'founder-selection': 'Founder Selection',
             'living-room': 'Living Room'
@@ -42,7 +43,7 @@
             <section class="veylune-preview-rail" aria-labelledby="preview-rail-{{ railKey }}">
                 <div class="veylune-preview-rail__head">
                     <div>
-                        <p class="veylune-preview__eyebrow">Draft product rail</p>
+                        <p class="veylune-preview__eyebrow">{{ railKey == 'storefront-test-cohort' ? 'Governed visual test · inactive drafts' : 'Draft product rail' }}</p>
                         <h2 id="preview-rail-{{ railKey }}">{{ railTitles[railKey] }}</h2>
                     </div>
                     <span>{{ products|length }} products</span>

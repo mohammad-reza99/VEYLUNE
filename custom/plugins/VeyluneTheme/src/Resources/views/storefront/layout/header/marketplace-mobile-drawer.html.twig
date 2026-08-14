@@ -1,0 +1,73 @@
+<div class="veylune-mobile-marketplace">
+    <form class="veylune-mobile-marketplace__search" action="{{ path('frontend.search.page') }}" method="get" role="search">
+        <label class="visually-hidden" for="veyluneMobileMarketplaceSearch">{{ 'header.searchPlaceholder'|trans|striptags }}</label>
+        <input id="veyluneMobileMarketplaceSearch" type="search" name="search" placeholder="Find anything home..." autocomplete="off">
+        <button type="submit" aria-label="{{ 'header.searchButton'|trans|striptags }}">{% sw_icon 'search' %}</button>
+    </form>
+
+    <div class="veylune-mobile-marketplace__shortcuts">
+        <a href="{{ path('frontend.account.home.page') }}">
+            <span aria-hidden="true">{% sw_icon 'avatar' %}</span>
+            <strong>Sign In</strong>
+        </a>
+        <a href="{{ path('frontend.checkout.cart.page') }}">
+            <span aria-hidden="true">{% sw_icon 'basket' %}</span>
+            <strong>Cart</strong>
+        </a>
+    </div>
+
+    <div class="veylune-mobile-marketplace__accordions">
+        <details name="veylune-mobile-departments" open>
+            <summary>Featured</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                <span>Verified</span>
+                <span>New Arrivals</span>
+                <span>Best Sellers</span>
+                <span>Trending</span>
+                <span>Collaborations</span>
+            </div>
+        </details>
+
+        <details name="veylune-mobile-departments">
+            <summary>Departments</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                {% if publicSurfaces['category:furniture']|default(false) %}
+                    <a href="{{ veyluneRoutes.shop }}" data-veylune-page-transition>Furniture</a>
+                {% else %}
+                    <span>Furniture</span>
+                {% endif %}
+                <span>Outdoor</span>
+                <span>Bedding &amp; Bath</span>
+                <span>Rugs</span>
+                <span>Decor &amp; Pillows</span>
+                <span>Lighting</span>
+                <span>Organization</span>
+            </div>
+        </details>
+
+        <details name="veylune-mobile-departments">
+            <summary>Shop by Room</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                {% if publicSurfaces['room:living-room']|default(false) %}
+                    <a href="{{ veyluneRoutes.rooms }}" data-veylune-page-transition>Living Room</a>
+                {% else %}
+                    <span>Living Room</span>
+                {% endif %}
+                <span>Bedroom</span>
+                <span>Dining Room</span>
+                <span>Home Office</span>
+                <span>Outdoor</span>
+            </div>
+        </details>
+
+        <details name="veylune-mobile-departments">
+            <summary>Services &amp; Inspiration</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                <a href="{{ veyluneRoutes.consultation }}" data-veylune-page-transition>Design Consultation</a>
+                <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Journal</a>
+                <span>Financing</span>
+                <span>Trade Program</span>
+            </div>
+        </details>
+    </div>
+</div>

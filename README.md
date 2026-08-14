@@ -1,5 +1,7 @@
 # Veylune Studio
 
+![Veylune Shopware screenshot](docs/screenshots/project-screenshot.png)
+
 **Veylune Studio** is a luxury furniture and home decor commerce platform built on **Shopware 6.7**, designed around curated collections, architectural product discovery, and a scalable supplier-driven catalog architecture.
 
 The project focuses on creating a premium shopping experience inspired by modern commerce systems while maintaining strict governance, controlled publication workflows, and long-term scalability.
