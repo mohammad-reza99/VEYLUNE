@@ -1,0 +1,109 @@
+document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
+    const saveButton = root.querySelector('.veylune-pdp-buybox__save');
+    const productName = root.querySelector('.veylune-pdp-buybox h1')?.textContent.trim() || 'piece';
+    const storageKey = `veylune-preview-pdp-${productName}`;
+    const galleryStage = root.querySelector('[data-pdp-gallery-stage]');
+    const galleryDescription = root.querySelector('[data-pdp-gallery-description]');
+    const galleryThumbs = Array.from(root.querySelectorAll('[data-pdp-gallery-thumb]'));
+    const lightbox = root.querySelector('[data-pdp-lightbox]');
+    const lightboxStage = root.querySelector('[data-pdp-lightbox-stage]');
+    const lightboxCaption = root.querySelector('[data-pdp-lightbox-caption]');
+    const zoomOpen = root.querySelector('[data-pdp-zoom-open]');
+    const zoomClose = root.querySelector('[data-pdp-zoom-close]');
+    const variantButtons = Array.from(root.querySelectorAll('[data-pdp-variant]'));
+    const variantLabel = root.querySelector('[data-pdp-variant-label]');
+    const deliveryForm = root.querySelector('[data-pdp-delivery-form]');
+    const deliveryStatus = root.querySelector('[data-pdp-delivery-status]');
+    const serviceInputs = Array.from(root.querySelectorAll('[name="veylunePdpService"]'));
+    const serviceStatus = root.querySelector('[data-pdp-service-status]');
+    const viewLabels = {
+        front: 'Front view',
+        profile: 'Side profile',
+        detail: 'Material detail',
+        scale: 'Room scale',
+    };
+    let activeView = 'front';
+
+    const selectView = (view, focusThumb = false) => {
+        if (!viewLabels[view]) return;
+        activeView = view;
+        galleryStage.dataset.galleryView = view;
+        galleryDescription.textContent = `${viewLabels[view]} concept study for ${productName}`;
+        galleryThumbs.forEach((thumb) => {
+            const selected = thumb.dataset.pdpGalleryThumb === view;
+            thumb.setAttribute('aria-pressed', String(selected));
+            if (selected && focusThumb) thumb.focus();
+        });
+    };
+
+    galleryThumbs.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => selectView(thumb.dataset.pdpGalleryThumb));
+        thumb.addEventListener('keydown', (event) => {
+            if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault();
+            let nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? galleryThumbs.length - 1 : index + (event.key === 'ArrowRight' ? 1 : -1);
+            nextIndex = (nextIndex + galleryThumbs.length) % galleryThumbs.length;
+            selectView(galleryThumbs[nextIndex].dataset.pdpGalleryThumb, true);
+        });
+    });
+
+    zoomOpen?.addEventListener('click', () => {
+        lightboxStage.dataset.galleryView = activeView;
+        lightboxCaption.textContent = `${viewLabels[activeView]} of ${productName}`;
+        lightbox.showModal();
+    });
+    zoomClose?.addEventListener('click', () => lightbox.close());
+    lightbox?.addEventListener('click', (event) => {
+        if (event.target === lightbox) lightbox.close();
+    });
+    lightbox?.addEventListener('close', () => zoomOpen?.focus());
+
+    variantButtons.forEach((button) => button.addEventListener('click', () => {
+        variantButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        variantLabel.textContent = button.dataset.pdpVariantName;
+        const url = new URL(window.location.href);
+        url.searchParams.set('material', button.dataset.pdpVariant);
+        window.history.replaceState({}, '', url);
+    }));
+
+    deliveryForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const input = deliveryForm.elements.postalCode;
+        const postalCode = input.value.trim();
+        if (!/^[a-z0-9][a-z0-9 -]{2,8}[a-z0-9]$/i.test(postalCode)) {
+            input.setAttribute('aria-invalid', 'true');
+            deliveryStatus.textContent = 'Enter a valid postal code.';
+            input.focus();
+            return;
+        }
+        input.removeAttribute('aria-invalid');
+        deliveryStatus.textContent = `Destination ${postalCode.toUpperCase()} saved. Exact delivery scope remains subject to consultation.`;
+    });
+
+    serviceInputs.forEach((input) => input.addEventListener('change', () => {
+        const label = input.closest('label')?.querySelector('strong')?.textContent.trim() || 'Service';
+        serviceStatus.textContent = `${label} selected.`;
+    }));
+
+    if (!saveButton) return;
+
+    try {
+        const selected = window.localStorage.getItem(storageKey) === 'true';
+        saveButton.setAttribute('aria-pressed', String(selected));
+        saveButton.textContent = selected ? 'Saved for later' : 'Save for later';
+    } catch (error) {
+        // The in-session control remains usable when storage is unavailable.
+    }
+
+    saveButton.addEventListener('click', () => {
+        const selected = saveButton.getAttribute('aria-pressed') !== 'true';
+        saveButton.setAttribute('aria-pressed', String(selected));
+        saveButton.textContent = selected ? 'Saved for later' : 'Save for later';
+
+        try {
+            window.localStorage.setItem(storageKey, String(selected));
+        } catch (error) {
+            // Pressed state still communicates the current-session action.
+        }
+    });
+});

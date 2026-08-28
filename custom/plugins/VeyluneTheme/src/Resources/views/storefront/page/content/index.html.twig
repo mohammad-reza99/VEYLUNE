@@ -56,18 +56,21 @@
 				{% set veyluneNewArrivalProducts = veyluneProductExposure ? veyluneProductExposure.get('new-arrivals') : [] %}
 				{% set veyluneFounderSelectionProducts = veyluneProductExposure ? veyluneProductExposure.get('founder-selection') : [] %}
 				{% set veyluneDepartments = [
-					{ key: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: veyluneCategoryRoutes.url('furniture') },
-					{ key: 'lighting', label: 'veylune.home.discovery.categories.lighting', target: veyluneCategoryRoutes.url('departmentLighting') },
-					{ key: 'decor', label: 'veylune.home.discovery.categories.decorObjects', target: veyluneCategoryRoutes.url('departmentDecorObjects') },
-					{ key: 'textiles', label: 'veylune.home.discovery.categories.textilesRugs', target: veyluneCategoryRoutes.url('textilesRugs') },
-					{ key: 'dining', label: 'veylune.home.discovery.categories.diningKitchen', target: veyluneCategoryRoutes.url('diningKitchen') },
-					{ key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: veyluneCategoryRoutes.url('departmentOutdoor') }
+					{ key: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: veyluneCategoryRoutes.url('furniture'), image: 'veylune-category-furniture-v1.webp' },
+					{ key: 'lighting', label: 'veylune.home.discovery.categories.lighting', target: veyluneCategoryRoutes.url('departmentLighting'), image: 'veylune-category-lighting-v1.webp' },
+					{ key: 'decor', label: 'veylune.home.discovery.categories.decorObjects', target: veyluneCategoryRoutes.url('departmentDecorObjects'), image: 'veylune-category-decor-v1.webp' },
+					{ key: 'textiles', label: 'veylune.home.discovery.categories.textilesRugs', target: veyluneCategoryRoutes.url('textilesRugs'), image: 'veylune-category-textiles-v1.webp' },
+					{ key: 'dining', label: 'veylune.home.discovery.categories.diningKitchen', target: veyluneCategoryRoutes.url('diningKitchen'), image: 'veylune-category-dining-v1.webp' },
+					{ key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: veyluneCategoryRoutes.url('departmentOutdoor'), image: 'veylune-category-outdoor-v1.webp' }
 				] %}
 				{% set veyluneDiscoveryRooms = [
-					{ key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'living-room' }) },
-					{ key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'dining-room' }) }
+					{ key: 'living-room', mediaKey: 'living', label: 'veylune.home.discovery.rooms.livingRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'living-room' }) },
+					{ key: 'dining-room', mediaKey: 'dining', label: 'veylune.home.discovery.rooms.diningRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'dining-room' }) },
+                    { key: 'bedroom', mediaKey: 'bedroom', label: 'veylune.home.discovery.rooms.bedroom', target: path('frontend.veylune.discovery.room', { roomKey: 'bedroom' }) },
+                    { key: 'workspace', mediaKey: 'workspace', label: 'veylune.home.discovery.rooms.workspace', target: path('frontend.veylune.discovery.room', { roomKey: 'workspace' }) },
+                    { key: 'outdoor', mediaKey: 'outdoor', label: 'veylune.home.discovery.rooms.outdoor', target: path('frontend.veylune.discovery.room', { roomKey: 'outdoor' }) }
 				] %}
-				<main class="veylune-home" data-veylune-home>
+				<div class="veylune-home" data-veylune-home>
                     {% if publicSurfaces.catalog|default(false) %}
 					<nav class="veylune-department-strip" aria-label="{{ 'veylune.home.departmentStripAriaLabel'|trans|striptags }}" data-veylune-registry-scope="homepage-departments">
 						<div class="veylune-department-strip__track">
@@ -105,6 +108,12 @@
 					</div>
 				</section>
 
+                {% sw_include '@VeyluneTheme/storefront/veylune/marketplace-category-discovery.html.twig' %}
+
+                {% sw_include '@VeyluneTheme/storefront/veylune/marketplace-promo-banner.html.twig' %}
+
+                {% sw_include '@VeyluneTheme/storefront/veylune/marketplace-room-carousel.html.twig' %}
+
                 {% if veyluneNewArrivalProducts is not empty or veyluneFounderSelectionProducts is not empty or publicSurfaces.rooms|default(false) %}
 				<section class="veylune-home__scene veylune-discovery-foundation" id="veylune-home-discovery" data-veylune-reveal data-veylune-registry-scope="homepage-discovery">
                     {% if veyluneNewArrivalProducts is not empty %}
@@ -117,8 +126,13 @@
 							<a class="veylune-home__link" href="{{ veyluneCategoryRoutes.url('newArrivals') }}">{{ 'veylune.home.viewAll'|trans|sw_sanitize }}</a>
 						</div>
 						{% if veyluneNewArrivalProducts is not empty %}
+                            <div class="veylune-product-slider" data-veylune-product-slider>
+                                <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="veylune-new-arrivals-slider" aria-label="Previous products">‹</button>
 							<div class="veylune-product-rail veylune-product-rail--primary"
+                                 id="veylune-new-arrivals-slider"
+                                 data-veylune-product-slider-track
 								 role="region"
+                                 aria-roledescription="carousel"
 								 aria-label="{{ 'veylune.home.discovery.newArrivals.title'|trans|striptags }}"
 								 tabindex="0">
 							{% for product in veyluneNewArrivalProducts %}
@@ -135,6 +149,8 @@
 								} %}
 							{% endfor %}
 						</div>
+                                <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="veylune-new-arrivals-slider" aria-label="Next products">›</button>
+                            </div>
 						{% endif %}
 					</section>
                     {% endif %}
@@ -149,8 +165,13 @@
 							<a class="veylune-home__link" href="{{ veyluneCategoryRoutes.url('founderSelection') }}">{{ 'veylune.home.viewAll'|trans|sw_sanitize }}</a>
 						</div>
 						{% if veyluneFounderSelectionProducts is not empty %}
+                            <div class="veylune-product-slider" data-veylune-product-slider>
+                                <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="veylune-founder-selection-slider" aria-label="Previous products">‹</button>
 							<div class="veylune-product-rail veylune-product-rail--secondary"
+                                 id="veylune-founder-selection-slider"
+                                 data-veylune-product-slider-track
 								 role="region"
+                                 aria-roledescription="carousel"
 								 aria-label="{{ 'veylune.home.discovery.founderSelection.title'|trans|striptags }}"
 								 tabindex="0">
 								{% for product in veyluneFounderSelectionProducts %}
@@ -167,27 +188,16 @@
 									} %}
 								{% endfor %}
 							</div>
+                                <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="veylune-founder-selection-slider" aria-label="Next products">›</button>
+                            </div>
 						{% endif %}
 					</section>
                     {% endif %}
 
-                    {% if publicSurfaces.rooms|default(false) %}
-					<section class="veylune-discovery-module veylune-room-strip" id="veylune-discovery-rooms" aria-labelledby="veylune-discovery-rooms-label" data-veylune-registry-entity="rooms">
-						<p class="veylune-home__eyebrow" id="veylune-discovery-rooms-label">{{ 'veylune.home.discovery.rooms.eyebrow'|trans|sw_sanitize }}</p>
-						<div class="veylune-room-strip__track">
-							{% for room in veyluneDiscoveryRooms %}
-								<a href="{{ room.target }}"
-								   data-veylune-registry-key="{{ room.key }}"
-								   data-veylune-discovery-type="room">
-									<span>{{ room.label|trans|sw_sanitize }}</span>
-									<span aria-hidden="true">→</span>
-								</a>
-							{% endfor %}
-						</div>
-					</section>
-                    {% endif %}
 				</section>
                 {% endif %}
+
+            {% sw_include '@VeyluneTheme/storefront/veylune/marketplace-trust-services.html.twig' %}
 
 			<section class="veylune-home__scene veylune-trade" data-veylune-reveal>
 				<div class="veylune-trade__inner">
@@ -205,7 +215,9 @@
 				</div>
 			</section>
 
-		</main>
+            {% sw_include '@VeyluneTheme/storefront/veylune/marketplace-closing-capture.html.twig' %}
+
+		</div>
 	{% elseif veyluneLegacyType %}
 		{% sw_include '@Storefront/storefront/veylune/legacy.html.twig' with {
             veyluneLegacyType: veyluneLegacyType
@@ -219,7 +231,7 @@
             veylunePageType: veylunePageType
         } %}
 	{% elseif isVeyluneCollectionPage %}
-		<main class="veylune-collection-page">
+		<div class="veylune-collection-page">
 				{% set cmsPageClasses = ('cms-page ' ~ cmsPage.cssClass|striptags)|trim %}
 				{% set landingPage = page.landingPage ? page.landingPage : {} %}
 				{% set activeCategory = page.category|default(page.header.navigation.active) %}
@@ -355,17 +367,17 @@
 					</p>
 				</div>
 			</section>
-		</main>
+		</div>
 	{% else %}
 		{% set cmsPageClasses = ('cms-page ' ~ cmsPage.cssClass|striptags)|trim %}
 		{% set landingPage = page.landingPage ? page.landingPage : {} %}
 
-		<main class="veylune-cms-page-main">
+		<div class="veylune-cms-page-main">
 			<div class="{{ cmsPageClasses }} veylune-cms-page veylune-cms-page--content">
 				{% block veylune_generic_page_content_blocks %}
 					{% sw_include '@Storefront/storefront/page/content/detail.html.twig' with {cmsPage: cmsPage, landingPage: landingPage} %}
 				{% endblock %}
 			</div>
-		</main>
+		</div>
 	{% endif %}
 {% endblock %}

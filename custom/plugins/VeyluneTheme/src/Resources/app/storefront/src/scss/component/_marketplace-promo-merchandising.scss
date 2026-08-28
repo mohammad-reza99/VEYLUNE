@@ -1,0 +1,167 @@
+/* Phase 3.4: promotional merchandising without artificial urgency. */
+
+.veylune-promo-merchandising {
+    width: min(calc(100% - 48px), 1600px);
+    margin: 0 auto 64px;
+}
+
+.veylune-promo-merchandising__banner {
+    display: grid;
+    grid-template-columns: minmax(360px, 38%) minmax(0, 62%);
+    min-height: 440px;
+    overflow: hidden;
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-promo-merchandising__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(32px, 4vw, 64px);
+}
+
+.veylune-promo-merchandising__eyebrow {
+    margin: 0 0 10px;
+    color: var(--veylune-marketplace-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.veylune-promo-merchandising__content h2 {
+    max-width: 500px;
+    margin: 0;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: clamp(2.25rem, 3.2vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+}
+
+.veylune-promo-merchandising__content > p:not(.veylune-promo-merchandising__eyebrow) {
+    max-width: 450px;
+    margin: 18px 0 0;
+    color: var(--veylune-marketplace-muted);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.veylune-promo-merchandising__content > a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+    padding: 10px 24px;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.veylune-promo-merchandising__content > a:hover,
+.veylune-promo-merchandising__content > a:focus-visible {
+    background: var(--veylune-marketplace-primary-hover);
+}
+
+.veylune-promo-merchandising__image {
+    min-height: 440px;
+    background: url("#{$app-css-relative-asset-path}/veylune-promo-living-room-v1.webp") center / cover no-repeat;
+}
+
+.veylune-promo-merchandising__paths {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 16px;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-md);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-promo-merchandising__paths > a,
+.veylune-promo-merchandising__paths > div {
+    display: flex;
+    min-width: 0;
+    min-height: 88px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px 24px;
+    color: var(--veylune-marketplace-ink);
+    text-decoration: none;
+}
+
+.veylune-promo-merchandising__paths > * + * {
+    border-left: 1px solid var(--veylune-marketplace-border);
+}
+
+.veylune-promo-merchandising__paths strong {
+    font-size: 0.9375rem;
+    font-weight: 800;
+}
+
+.veylune-promo-merchandising__paths span {
+    margin-top: 4px;
+    color: var(--veylune-marketplace-muted);
+    font-size: 0.8125rem;
+    line-height: 1.35;
+}
+
+.veylune-promo-merchandising__paths > a:hover,
+.veylune-promo-merchandising__paths > a:focus-visible {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-promo-merchandising__banner {
+        grid-template-columns: minmax(300px, 44%) minmax(0, 56%);
+        min-height: 400px;
+    }
+
+    .veylune-promo-merchandising__image {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-promo-merchandising {
+        width: calc(100% - 24px);
+        margin-bottom: 48px;
+    }
+
+    .veylune-promo-merchandising__banner {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(250px, 62vw) auto;
+        min-height: 0;
+    }
+
+    .veylune-promo-merchandising__image {
+        grid-row: 1;
+        min-height: 250px;
+    }
+
+    .veylune-promo-merchandising__content {
+        grid-row: 2;
+        padding: 28px 24px 32px;
+    }
+
+    .veylune-promo-merchandising__content h2 {
+        font-size: clamp(2rem, 10vw, 2.75rem);
+    }
+
+    .veylune-promo-merchandising__paths {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-promo-merchandising__paths > * + * {
+        border-top: 1px solid var(--veylune-marketplace-border);
+        border-left: 0;
+    }
+}

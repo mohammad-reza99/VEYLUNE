@@ -1,0 +1,153 @@
+/* Phase 5.2: live Wayfair PDP structure alignment and gallery interactions. */
+@include media-breakpoint-up(lg) {
+    .veylune-pdp-preview__hero {
+        grid-template-columns: minmax(0, 2.12fr) minmax(330px, 0.88fr);
+        gap: clamp(2rem, 3vw, 3.5rem);
+    }
+
+    .veylune-pdp-gallery {
+        grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+        gap: 0.6rem;
+    }
+
+    .veylune-pdp-gallery__stage {
+        min-height: 0;
+        aspect-ratio: 1;
+    }
+
+    .veylune-pdp-gallery__support { gap: 0.6rem; }
+
+    .veylune-pdp-buybox {
+        padding: 0.5rem 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .veylune-pdp-buybox h1 {
+        font-family: var(--veylune-marketplace-font);
+        font-size: clamp(1.45rem, 1.8vw, 1.85rem);
+        font-weight: 700;
+        line-height: 1.18;
+        letter-spacing: -0.025em;
+    }
+}
+
+.veylune-pdp-gallery__thumbs {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.15rem 0 0.35rem;
+}
+
+.veylune-pdp-gallery__thumbs button {
+    position: relative;
+    display: grid;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    place-items: center;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-sm);
+    background: linear-gradient(145deg, #ded5c3, #9b876d);
+}
+
+.veylune-pdp-gallery__thumbs button[aria-pressed="true"] {
+    border: 2px solid var(--veylune-marketplace-primary);
+    box-shadow: 0 0 0 1px var(--veylune-marketplace-white) inset;
+}
+
+.veylune-pdp-gallery__thumb-object {
+    width: 62%;
+    height: 34%;
+    border-radius: 45% 45% 10% 10%;
+    background: rgb(44 39 32 / 66%);
+}
+
+.veylune-pdp-gallery__thumbs button:nth-child(2) .veylune-pdp-gallery__thumb-object { width: 38%; transform: skewY(-4deg); }
+.veylune-pdp-gallery__thumbs button:nth-child(3) { background: linear-gradient(135deg, #8d7660, #d3c4af); }
+.veylune-pdp-gallery__thumbs button:nth-child(3) .veylune-pdp-gallery__thumb-object { width: 78%; height: 78%; border-radius: 50%; opacity: 0.35; }
+.veylune-pdp-gallery__thumbs button:nth-child(4) { background: linear-gradient(150deg, #e5e1db 62%, #aaa29b 62%); }
+
+.veylune-pdp-gallery__stage[data-gallery-view="profile"] .veylune-pdp-gallery__object,
+.veylune-pdp-lightbox__stage[data-gallery-view="profile"] .veylune-pdp-gallery__object { width: 36%; transform: skewY(-3deg); }
+.veylune-pdp-gallery__stage[data-gallery-view="detail"],
+.veylune-pdp-lightbox__stage[data-gallery-view="detail"] { background: radial-gradient(circle at center, #8b735e 0 22%, #cbbb9f 23% 45%, #75604f 46% 100%); }
+.veylune-pdp-gallery__stage[data-gallery-view="detail"] .veylune-pdp-gallery__object,
+.veylune-pdp-lightbox__stage[data-gallery-view="detail"] .veylune-pdp-gallery__object { width: 72%; height: 72%; border-radius: 50%; opacity: 0.2; }
+.veylune-pdp-gallery__stage[data-gallery-view="scale"],
+.veylune-pdp-lightbox__stage[data-gallery-view="scale"] { background: linear-gradient(180deg, #ede9e3 0 67%, #b7aea4 67% 100%); }
+.veylune-pdp-gallery__stage[data-gallery-view="scale"] .veylune-pdp-gallery__object,
+.veylune-pdp-lightbox__stage[data-gallery-view="scale"] .veylune-pdp-gallery__object { width: 46%; height: 28%; transform: translateY(38%); }
+
+.veylune-pdp-gallery__zoom {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+    min-height: 42px;
+    padding: 0 0.9rem;
+    border: 1px solid rgb(33 30 34 / 18%);
+    border-radius: var(--veylune-marketplace-radius-pill);
+    color: var(--veylune-marketplace-ink);
+    background: rgb(255 255 255 / 92%);
+    font-size: 0.72rem;
+    font-weight: 800;
+    box-shadow: var(--veylune-marketplace-shadow-sm);
+}
+
+.veylune-pdp-lightbox {
+    width: min(92vw, 1100px);
+    max-width: none;
+    height: min(90vh, 920px);
+    max-height: none;
+    padding: 3rem;
+    border: 0;
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-white);
+    box-shadow: 0 30px 90px rgb(33 30 34 / 35%);
+}
+.veylune-pdp-lightbox::backdrop { background: rgb(20 17 21 / 72%); backdrop-filter: blur(4px); }
+.veylune-pdp-lightbox__stage { display: grid; width: 100%; height: calc(100% - 2rem); place-items: center; overflow: hidden; background: linear-gradient(145deg, #ded5c3, #9b876d); }
+.veylune-pdp-lightbox__close { position: absolute; top: 0.65rem; right: 0.75rem; min-height: 38px; border: 0; background: transparent; font-size: 0.75rem; font-weight: 850; }
+.veylune-pdp-lightbox > p { margin: 0.7rem 0 0; font-size: 0.76rem; text-align: center; }
+
+.veylune-pdp-mobile-bar { display: none; }
+
+@include media-breakpoint-down(md) {
+    .veylune-pdp-preview { padding-bottom: 6rem; }
+    .veylune-pdp-gallery { grid-template-columns: 1fr; }
+    .veylune-pdp-gallery__stage {
+        min-height: 0;
+        aspect-ratio: 1;
+    }
+    .veylune-pdp-gallery__thumbs { grid-row: 2; }
+    .veylune-pdp-gallery__support { grid-row: 3; }
+    .veylune-pdp-lightbox { width: calc(100vw - 1rem); height: min(82vh, 720px); padding: 2.6rem 0.5rem 0.5rem; }
+    .veylune-pdp-mobile-bar {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 45;
+        display: flex;
+        min-height: 72px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem max(1rem, env(safe-area-inset-right)) calc(0.75rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+        border-top: 1px solid var(--veylune-marketplace-border);
+        background: rgb(255 255 255 / 96%);
+        box-shadow: 0 -10px 30px rgb(33 30 34 / 12%);
+        backdrop-filter: blur(12px);
+    }
+    .veylune-pdp-mobile-bar strong { font-size: 1rem; }
+    .veylune-pdp-mobile-bar a { display: inline-flex; min-height: 46px; align-items: center; padding: 0 1rem; border-radius: 999px; color: #fff; background: var(--veylune-marketplace-primary); font-size: 0.76rem; font-weight: 850; text-decoration: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-pdp-lightbox::backdrop { backdrop-filter: none; }
+}

@@ -1,0 +1,318 @@
+/* Council creative direction pass: a distinctive editorial-commerce rhythm. */
+
+.veylune-home {
+    --veylune-creative-plum: #4f0d68;
+    --veylune-creative-lilac: #efe7f3;
+    --veylune-creative-wash: #f7f4f8;
+}
+
+/* Hero: repair inherited grid placement and create an intentional 40/60 campaign split. */
+.veylune-home-hero--commerce {
+    min-height: 480px;
+    margin-top: 18px;
+    margin-bottom: 72px;
+    border-radius: 0;
+    background: var(--veylune-creative-lilac);
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__inner {
+    grid-template-columns: minmax(400px, 40%) minmax(0, 60%);
+    min-height: 480px;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__content {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: stretch;
+    padding: clamp(40px, 5vw, 80px);
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__title {
+    max-width: 560px;
+    font-size: clamp(3rem, 4vw, 4.5rem);
+    line-height: 0.94;
+}
+
+.veylune-home-hero__editorial-visual {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    min-height: 480px;
+}
+
+/* Category: replace generic circles with Veylune's soft architectural arch. */
+.veylune-category-discovery {
+    margin-bottom: 88px;
+}
+
+.veylune-category-discovery__head {
+    max-width: 720px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.veylune-category-discovery__head h2,
+.veylune-room-carousel__head h2 {
+    font-size: clamp(2rem, 3vw, 3.25rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+}
+
+.veylune-category-discovery__rail {
+    gap: 20px;
+    padding: 8px 4px 20px;
+}
+
+.veylune-category-discovery__item {
+    flex-basis: calc((100% - 80px) / 5);
+}
+
+.veylune-category-tile {
+    gap: 14px;
+    text-align: left;
+}
+
+.veylune-category-tile__media {
+    aspect-ratio: 4 / 5;
+    border-radius: 999px 999px 20px 20px;
+    box-shadow: inset 0 0 0 1px rgb(33 30 34 / 8%);
+}
+
+.veylune-category-tile__label {
+    min-height: auto;
+    justify-content: flex-start;
+    padding: 0 4px;
+    font-size: 1rem;
+    line-height: 1.25;
+}
+
+.veylune-category-discovery__item:nth-child(even) {
+    padding-top: 28px;
+}
+
+.veylune-category-discovery__slider .veylune-product-slider__control {
+    top: 46%;
+}
+
+/* Promo: a confident brand block, not another pale split card. */
+.veylune-promo-merchandising {
+    margin-bottom: 96px;
+}
+
+.veylune-promo-merchandising__banner {
+    grid-template-columns: minmax(380px, 36%) minmax(0, 64%);
+    min-height: 500px;
+    border-radius: 0;
+    background: var(--veylune-creative-plum);
+}
+
+.veylune-promo-merchandising__content {
+    position: relative;
+    z-index: 2;
+    color: var(--veylune-marketplace-white);
+}
+
+.veylune-promo-merchandising__eyebrow,
+.veylune-promo-merchandising__content h2,
+.veylune-promo-merchandising__content > p:not(.veylune-promo-merchandising__eyebrow) {
+    color: var(--veylune-marketplace-white);
+}
+
+.veylune-promo-merchandising__eyebrow {
+    opacity: 0.72;
+}
+
+.veylune-promo-merchandising__content h2 {
+    font-size: clamp(2.75rem, 3.5vw, 4rem);
+    line-height: 0.96;
+}
+
+.veylune-promo-merchandising__content > p:not(.veylune-promo-merchandising__eyebrow) {
+    opacity: 0.78;
+}
+
+.veylune-promo-merchandising__content > a {
+    border-color: var(--veylune-marketplace-white);
+    color: var(--veylune-creative-plum);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-promo-merchandising__content > a:hover,
+.veylune-promo-merchandising__content > a:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: transparent;
+}
+
+.veylune-promo-merchandising__image {
+    min-height: 500px;
+}
+
+.veylune-promo-merchandising__paths {
+    position: relative;
+    z-index: 3;
+    width: calc(100% - 64px);
+    margin: -28px auto 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 0 14px 40px rgb(33 30 34 / 13%);
+}
+
+.veylune-promo-merchandising__paths > a,
+.veylune-promo-merchandising__paths > div {
+    min-height: 104px;
+    padding-inline: 28px;
+}
+
+/* Room carousel: cinematic image cards with integrated labels. */
+.veylune-room-carousel {
+    margin-bottom: 96px;
+}
+
+.veylune-room-carousel__head {
+    max-width: 720px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.veylune-room-carousel__track {
+    gap: 20px;
+    padding: 8px 4px 24px;
+}
+
+.veylune-room-carousel__item {
+    flex-basis: calc((100% - 40px) / 2.65);
+}
+
+.veylune-room-card {
+    position: relative;
+    min-height: 560px;
+    border-radius: 0;
+    background: var(--veylune-marketplace-ink);
+}
+
+.veylune-room-card__media {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+}
+
+.veylune-room-card::after {
+    content: "";
+    position: absolute;
+    inset: 40% 0 0;
+    background: linear-gradient(180deg, transparent, rgb(20 14 22 / 76%));
+    pointer-events: none;
+}
+
+.veylune-room-card__content {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    min-height: 104px;
+    align-items: flex-end;
+    padding: 24px;
+    border: 0;
+    border-radius: 0;
+    color: var(--veylune-marketplace-white);
+}
+
+.veylune-room-card__content strong {
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+}
+
+.veylune-room-card__content > span {
+    color: rgb(255 255 255 / 72%);
+}
+
+.veylune-room-card:hover,
+.veylune-room-card:focus-visible {
+    color: var(--veylune-marketplace-white);
+}
+
+.veylune-room-carousel__item:nth-child(even) .veylune-room-card {
+    min-height: 510px;
+    margin-top: 50px;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-home-hero--commerce .veylune-home-hero__inner {
+        grid-template-columns: minmax(320px, 44%) minmax(0, 56%);
+    }
+
+    .veylune-room-card,
+    .veylune-room-carousel__item:nth-child(even) .veylune-room-card {
+        min-height: 480px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-home-hero--commerce {
+        margin-bottom: 48px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(280px, 70vw) auto;
+    }
+
+    .veylune-home-hero__editorial-visual {
+        grid-column: 1;
+        grid-row: 1;
+        min-height: 280px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__content {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 32px 24px 38px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__title {
+        font-size: clamp(2.6rem, 13vw, 3.5rem);
+    }
+
+    .veylune-category-discovery,
+    .veylune-promo-merchandising,
+    .veylune-room-carousel {
+        margin-bottom: 64px;
+    }
+
+    .veylune-category-discovery__item:nth-child(even) {
+        padding-top: 18px;
+    }
+
+    .veylune-category-tile__media {
+        border-radius: 999px 999px 16px 16px;
+    }
+
+    .veylune-promo-merchandising__banner {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(280px, 72vw) auto;
+    }
+
+    .veylune-promo-merchandising__image {
+        min-height: 280px;
+    }
+
+    .veylune-promo-merchandising__paths {
+        width: calc(100% - 24px);
+        margin-top: -16px;
+    }
+
+    .veylune-room-carousel__item {
+        flex-basis: 84vw;
+        max-width: 340px;
+    }
+
+    .veylune-room-card,
+    .veylune-room-carousel__item:nth-child(even) .veylune-room-card {
+        min-height: 500px;
+        margin-top: 0;
+    }
+}

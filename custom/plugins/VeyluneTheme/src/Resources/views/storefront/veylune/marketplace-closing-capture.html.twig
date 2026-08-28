@@ -1,0 +1,27 @@
+<section class="veylune-closing-capture" aria-labelledby="veylune-closing-capture-title" data-veylune-reveal>
+    <div class="veylune-closing-capture__content">
+        <p class="veylune-closing-capture__eyebrow">The Veylune Edit</p>
+        <h2 id="veylune-closing-capture-title">A quieter way to discover what belongs at home.</h2>
+        <p class="veylune-closing-capture__text">
+            New objects, room edits, and material notes—shared with intention, never simply for volume.
+        </p>
+
+        <div class="veylune-closing-capture__signals" aria-label="Newsletter content">
+            <span><strong>01</strong> New forms</span>
+            <span><strong>02</strong> Room edits</span>
+            <span><strong>03</strong> Material notes</span>
+        </div>
+    </div>
+
+    <div class="veylune-closing-capture__form-wrap">
+        <span class="veylune-closing-capture__form-label">Editorial access</span>
+        <div class="veylune-closing-capture__status" role="status" aria-live="polite">
+            <strong>Email delivery is in verification.</strong>
+            <span>No address is collected until consent and delivery controls are active.</span>
+            <a href="{{ path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page') }}">Read current editions <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="veylune-closing-capture__privacy">
+            Editorial email access will open after consent and delivery verification.
+        </p>
+    </div>
+</section>

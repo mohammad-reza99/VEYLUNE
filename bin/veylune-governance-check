@@ -21,11 +21,19 @@ fail() {
 }
 
 run_console() {
-    "$DDEV_BIN" exec php bin/console "$@"
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        php bin/console "$@"
+    else
+        "$DDEV_BIN" exec php bin/console "$@"
+    fi
 }
 
 run_ddev_php() {
-    "$DDEV_BIN" exec php "$@"
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        php "$@"
+    else
+        "$DDEV_BIN" exec php "$@"
+    fi
 }
 
 fetch_path() {
@@ -35,7 +43,11 @@ fetch_path() {
     local status
     local body
 
-    response="$("$DDEV_BIN" exec curl -sS -H "Host: ${HOST_HEADER}" -H "X-Forwarded-Proto: https" -w $'\n__STATUS__:%{http_code}' "${BASE_URL}${path}")"
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        response="$(curl -sS -H "Host: ${HOST_HEADER}" -H "X-Forwarded-Proto: https" -w $'\n__STATUS__:%{http_code}' "${BASE_URL}${path}")"
+    else
+        response="$("$DDEV_BIN" exec curl -sS -H "Host: ${HOST_HEADER}" -H "X-Forwarded-Proto: https" -w $'\n__STATUS__:%{http_code}' "${BASE_URL}${path}")"
+    fi
     status="${response##*__STATUS__:}"
     body="${response%$'\n'__STATUS__:*}"
 
@@ -69,6 +81,15 @@ assert_absent_pattern() {
     if grep -Eiq "$pattern" "$file"; then
         fail "$label exposed blocked public language matching: $pattern"
     fi
+}
+
+assert_single_main() {
+    local file="$1"
+    local label="$2"
+    local count
+
+    count="$(awk 'BEGIN { count = 0 } { line = $0; while (match(line, /<main([[:space:]>])/)) { count++; line = substr(line, RSTART + RLENGTH) } } END { print count }' "$file")"
+    [[ "$count" == '1' ]] || fail "$label rendered $count main landmarks, expected exactly 1"
 }
 
 step 'syntax checks'
@@ -158,10 +179,117 @@ for route in "${approved_routes[@]}"; do
     file="${TMP_DIR}/browser_${route//\//_}.html"
     assert_status "$route" 200 "$file"
     assert_contains "$file" '<!DOCTYPE html>' "$route browser surface"
-    assert_contains "$file" '<main class="veylune-edition-skeleton"' "$route browser surface"
+    assert_contains "$file" '<div class="veylune-edition-skeleton"' "$route browser surface"
     assert_contains "$file" '<meta name="robots" content="noindex,nofollow">' "$route browser surface"
     assert_absent_pattern "$file" 'other editions|recommended alongside|paired with|browse|edition catalog|route-network|route network|topology|semanticRiskClassification|x-debug-token' "$route browser surface"
 done
+
+step 'phase 8 storefront hardening'
+optimized_asset_dir='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets'
+optimized_asset_count="$(find "$optimized_asset_dir" -maxdepth 1 -type f -name 'veylune-*.webp' | wc -l | tr -d ' ')"
+optimized_asset_bytes="$(find "$optimized_asset_dir" -maxdepth 1 -type f -name 'veylune-*.webp' -printf '%s\n' | awk '{ total += $1 } END { print total + 0 }')"
+[[ "$optimized_asset_count" -ge 13 ]] || fail "optimized storefront asset set has $optimized_asset_count WebP files, expected at least 13"
+[[ "$optimized_asset_bytes" -le 2500000 ]] || fail "optimized storefront asset set is ${optimized_asset_bytes} bytes, budget is 2500000"
+if grep -REq --include='*.scss' --include='*.twig' 'veylune-(category|room|promo)-[^[:space:]]+\.png' custom/plugins/VeyluneTheme/src/Resources/app/storefront/src custom/plugins/VeyluneTheme/src/Resources/views/storefront; then
+    fail 'optimized storefront surfaces reintroduced a legacy PNG reference'
+fi
+
+assert_contains '.ddev/nginx_full/nginx-site.conf' 'public, max-age=31536000, immutable' 'immutable theme asset cache policy'
+assert_absent_pattern '.ddev/nginx_full/nginx-site.conf' '^#ddev-generated$' 'custom nginx ownership marker'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/base/_foundation.scss' 'animation-duration: 0.01ms !important' 'global reduced-motion fallback'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/base/_foundation.scss' 'transition-duration: 0.01ms !important' 'global reduced-motion fallback'
+
+hardening_routes=(
+    '/'
+    '/account/login'
+    '/__veylune-preview/catalog/category/furniture?token=wp-des-cat-01-8f46c2d19a'
+    '/__veylune-preview/catalog/product/F03?token=wp-des-cat-01-8f46c2d19a'
+    '/__veylune-preview/account?token=wp-des-cat-01-8f46c2d19a'
+    '/__veylune-preview/checkout?token=wp-des-cat-01-8f46c2d19a'
+)
+
+for route in "${hardening_routes[@]}"; do
+    file="${TMP_DIR}/hardening_$(printf '%s' "$route" | tr '/?=&' '____').html"
+    assert_status "$route" 200 "$file"
+    assert_single_main "$file" "$route hardening surface"
+    assert_contains "$file" '<h1' "$route hardening surface"
+done
+
+assert_contains "${TMP_DIR}/hardening__.html" 'content="index,follow"' '/ public robots policy'
+assert_contains "${TMP_DIR}/hardening__.html" '<link rel="canonical" href="https://veylune-shopware.ddev.site/">' '/ public canonical URL'
+assert_contains "${TMP_DIR}/hardening__.html" 'content="summary_large_image"' '/ public Twitter card policy'
+assert_contains "${TMP_DIR}/hardening__.html" 'veylune-home-hero-architectural-warm-v1.webp' '/ public social image policy'
+assert_contains "${TMP_DIR}/hardening__.html" 'rel="preload"' '/ public critical resource preload policy'
+assert_contains "${TMP_DIR}/hardening__.html" 'fetchpriority="high"' '/ public LCP priority policy'
+assert_contains "${TMP_DIR}/hardening__.html" 'Inter-Variable-Roman-Latin.woff2' '/ public critical font preload policy'
+assert_contains "${TMP_DIR}/hardening__.html" '"@type": "WebSite"' '/ public WebSite schema'
+assert_contains "${TMP_DIR}/hardening__.html" '"@type": "Organization"' '/ public Organization schema'
+assert_contains "${TMP_DIR}/hardening__.html" '"@type": "CollectionPage"' '/ public CollectionPage schema'
+assert_contains "${TMP_DIR}/hardening__.html" '"name": "Veylune Studio"' '/ public organization identity'
+assert_contains "${TMP_DIR}/hardening__account_login.html" 'content="noindex,follow"' '/account/login robots policy'
+assert_absent_pattern "${TMP_DIR}/hardening__account_login.html" 'application/ld\+json' '/account/login structured-data containment'
+for file in "${TMP_DIR}"/hardening____veylune-preview_*.html; do
+    assert_contains "$file" 'content="noindex,nofollow,noarchive,nosnippet"' 'private preview robots policy'
+    assert_absent_pattern "$file" 'application/ld\+json' 'private preview structured-data containment'
+done
+
+invalid_preview_file="${TMP_DIR}/hardening_invalid_preview.html"
+assert_status '/__veylune-preview/account?token=invalid' 404 "$invalid_preview_file"
+invalid_product_file="${TMP_DIR}/hardening_invalid_product.html"
+assert_status '/__veylune-preview/catalog/product/not-real?token=wp-des-cat-01-8f46c2d19a' 404 "$invalid_product_file"
+
+step 'phase 9 reference gap closure'
+legacy_consultation_file="${TMP_DIR}/phase9_legacy_consultation.html"
+assert_status '/consultation' 301 "$legacy_consultation_file"
+
+partnership_file="${TMP_DIR}/phase9_partnership.html"
+assert_status '/atelier-partnerships' 200 "$partnership_file"
+assert_contains "$partnership_file" 'href="/atelier-partnerships"' 'partnership trade self-route'
+assert_absent_pattern "$partnership_file" '/search\?search=trade' 'partnership dead trade route removal'
+
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-header-reference-refinement.scss' 'grid-template-rows: 60px 74px' 'reference-aligned header height'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-header-premium-polish.scss' 'grid-template-columns: 227px minmax(500px, 1fr) 308px' 'reference-aligned desktop search width'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-plp-discovery.scss' 'grid-template-columns: repeat(4, minmax(0, 1fr))' 'reference-aligned PLP category grid'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-plp-discovery.scss' 'font-size: 2rem' 'reference-aligned PLP title scale'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-pdp-wayfair-alignment.scss' 'grid-template-columns: minmax(0, 0.98fr) minmax(0, 1fr)' 'reference-aligned PDP columns'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-pdp-wayfair-alignment.scss' 'width: min(calc(100% - 10px), 1600px)' 'reference-aligned PDP canvas'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-mobile-closure.scss' '.veylune-pdp-gallery__support' 'mobile PDP gallery support-image containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-mobile-closure.scss' 'display: none' 'mobile PDP gallery single-stage rule'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-mobile-closure.scss' 'font-size: clamp(2.35rem, 11vw, 2.7rem)' 'mobile homepage hero scale'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-commerce-closure.scss' '.veylune-cart-preview__header h1' 'reference-scaled cart title'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-commerce-closure.scss' '.veylune-account-preview__hero h1' 'reference-scaled account title'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-commerce-closure.scss' '.veylune-checkout-preview > header h1' 'reference-scaled checkout title'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-commerce-closure.scss' 'font-size: clamp(1.85rem, 2.5vw, 2.25rem)' 'reference commerce heading scale'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-commerce-closure.scss' '.veylune-cart-preview > nav' 'reference cart breadcrumb containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-checkout.js' 'const invalidFields = requiredFields.filter' 'checkout complete required-field validation'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-checkout.html.twig' 'role="status" aria-live="polite"' 'checkout accessible validation status'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-checkout-closure.scss' 'min-height: 72px' 'checkout delivery touch target'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-checkout-closure.scss' 'accent-color: var(--veylune-marketplace-primary)' 'checkout native control branding'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-account.js' 'const invalid = fields.filter' 'account complete required-field validation'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-account.html.twig' 'data-account-recovery-dialog' 'account recovery preview dialog'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-closure.scss' 'min-height: 48px' 'account access touch targets'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-closure.scss' 'scroll-snap-type: x proximity' 'mobile account navigation containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-cart.html.twig' 'data-cart-page-undo' 'cart recoverable remove control'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-cart-page.js' 'removedSelection = selection ? { ...selection } : null' 'cart removed-selection recovery state'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-cart-closure.scss' 'min-width: 48px' 'cart primary touch targets'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-cart-closure.scss' 'grid-template-columns: minmax(0, 1fr) auto' 'mobile cart form containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'veyluneMarketplaceActiveLinks' 'header truthful active route registry'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'Catalog activation pending' 'header pending destination disclosure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/marketplace-mobile-drawer.html.twig' 'frontend.veylune.preview.catalog.category' 'private mobile category routing'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/marketplace-mobile-drawer.html.twig' 'veyluneRoutes.partnership' 'mobile trade routing'
+assert_contains 'custom/plugins/VeyluneTheme/src/Migration/Migration1787846400CleanLegacyCmsContent.php' 'The complete jurisdiction-specific privacy policy is being prepared' 'legacy privacy placeholder replacement'
+assert_contains 'custom/plugins/VeyluneTheme/src/Migration/Migration1787846400CleanLegacyCmsContent.php' 'Your inquiry has reached the studio' 'contact confirmation closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Migration/Migration1787846500CleanRemainingLegalCmsPlaceholders.php' 'Pre-launch legal information' 'remaining legal CMS placeholder closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Controller/LegalPageController.php' "'/legal/{document}'" 'standalone legal page routing'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/footer/footer.html.twig' 'frontend.veylune.legal.page' 'footer legal navigation'
+assert_contains 'custom/plugins/VeyluneTheme/src/Controller/ContactStudioController.php' 'AbstractCmsRoute' 'native standalone contact CMS loading'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/contact-studio-page.html.twig' 'data-veylune-contact-page' 'standalone contact page surface'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-legacy-cms-closure.scss' '.veylune-legal-notice' 'governed legal page styling'
+
+pdp_commerce_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-product-commerce.html.twig'
+pdp_purchase_line="$(grep -n 'class="veylune-pdp-purchase"' "$pdp_commerce_template" | cut -d: -f1)"
+pdp_services_line="$(grep -n 'class="veylune-pdp-services"' "$pdp_commerce_template" | cut -d: -f1)"
+[[ "$pdp_purchase_line" -lt "$pdp_services_line" ]] || fail 'PDP primary purchase action must precede optional services'
 
 step 'discoverability containment'
 discoverability_routes=('/' '/editions')
@@ -186,6 +314,17 @@ done
 home_file="${TMP_DIR}/storefront_home.html"
 assert_status '/' 200 "$home_file"
 assert_contains "$home_file" 'data-veylune-home' '/ homepage transitional surface'
+assert_contains "$home_file" 'Catalog access opens after product verification.' '/ homepage truthful catalog pending disclosure'
+assert_contains "$home_file" 'Room shopping opens after catalog verification.' '/ homepage truthful room pending disclosure'
+assert_contains "$home_file" 'Email delivery is in verification.' '/ homepage truthful newsletter pending disclosure'
+assert_absent_pattern "$home_file" 'Coming soon →|Explore the room →' '/ homepage misleading pending actions'
+assert_contains "$home_file" 'Clarity before public commerce opens.' '/ homepage truthful trust hierarchy'
+assert_contains "$home_file" 'Verification pending' '/ homepage commerce readiness disclosure'
+assert_absent_pattern "$home_file" 'Support around every considered purchase.|eligible orders|financing options at checkout' '/ homepage unverified commerce promises'
+assert_contains "$home_file" 'aria-label="Home categories"' '/ homepage category carousel accessible name'
+assert_contains "$home_file" 'aria-label="Home rooms"' '/ homepage room carousel accessible name'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-home-accessibility-closure.scss' 'min-height: 44px' 'homepage mobile touch target closure'
+assert_absent_pattern "$home_file" 'cws-devtools-toolbar|CWS Development Tools' '/ homepage development-toolbar containment'
 
 for governed_module in 'veylune-new-arrivals-foundation' 'veylune-founder-selection-title'; do
     if grep -Fq "$governed_module" "$home_file"; then
@@ -205,12 +344,52 @@ for route in "${approved_routes[@]}" "${discoverability_routes[@]}"; do
     assert_absent_pattern "$file" "$public_diagnostics|semanticRiskClassification|implicationAuditResult|toneAuditResult|deploymentStatus|rollbackTarget" "$route public observability"
 done
 
+step 'legacy CMS route closure'
+contact_file="${TMP_DIR}/contact_studio.html"
+assert_status '/contact-studio' 200 "$contact_file"
+assert_contains "$contact_file" 'data-veylune-contact-page' '/contact-studio standalone surface'
+assert_contains "$contact_file" 'data-form-cms-handler="true"' '/contact-studio native CMS form handler'
+assert_contains "$contact_file" 'rel="canonical" href="https://veylune-shopware.ddev.site/contact-studio"' '/contact-studio canonical metadata'
+assert_absent_pattern "$contact_file" 'data-veylune-identity-denial|Lorem ipsum|CWS Development Tools' '/contact-studio legacy residue containment'
+
+for legal_document in privacy imprint terms payment-delivery cancellation; do
+    legal_file="${TMP_DIR}/legal_${legal_document}.html"
+    assert_status "/legal/${legal_document}" 200 "$legal_file"
+    assert_contains "$legal_file" "data-veylune-legal-page=\"${legal_document}\"" "/legal/${legal_document} standalone surface"
+    assert_contains "$legal_file" "rel=\"canonical\" href=\"https://veylune-shopware.ddev.site/legal/${legal_document}\"" "/legal/${legal_document} canonical metadata"
+    assert_absent_pattern "$legal_file" 'data-veylune-identity-denial|Lorem ipsum|CWS Development Tools' "/legal/${legal_document} legacy residue containment"
+done
+
+assert_contains "$home_file" 'href="/contact-studio"' '/ homepage standalone contact routing'
+for legal_document in privacy imprint terms payment-delivery cancellation; do
+    assert_contains "$home_file" "href=\"/legal/${legal_document}\"" "/ homepage legal routing ${legal_document}"
+done
+
 step 'canonical storefront activation-pending containment'
+account_login_file="${TMP_DIR}/storefront_account_login.html"
+assert_status '/account/login' 200 "$account_login_file"
+assert_contains "$account_login_file" 'Sign in or create account | VEYLUNE' '/account/login governed public account metadata'
+assert_absent_pattern "$account_login_file" 'data-veylune-identity-denial' '/account/login governed public account access'
+assert_contains "$account_login_file" 'href="https://veylune-shopware.ddev.site/account/recover"' '/account/login password recovery route'
+
+account_recover_file="${TMP_DIR}/storefront_account_recover.html"
+assert_status '/account/recover' 200 "$account_recover_file"
+assert_contains "$account_recover_file" 'Password recovery | VEYLUNE' '/account/recover governed metadata'
+assert_contains "$account_recover_file" 'action="/account/recover"' '/account/recover native recovery form'
+assert_absent_pattern "$account_recover_file" 'data-veylune-identity-denial' '/account/recover governed public access'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-public-account-closure.scss' 'min-height: 44px' 'public account mobile recovery touch target'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/profile/index.html.twig' '<h2 class="veylune-account-section-title">' 'account profile semantic section heading'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/sidebar.html.twig' "activeRoute starts with('frontend.account.address')" 'account address navigation active route semantics'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/addressbook/address-item.html.twig' "'address-item-dropdown-' ~ address.id" 'account address deterministic dropdown identity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-dashboard-closure.scss' 'min-width: 44px' 'account dashboard touch target closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/addressbook/address-item.html.twig' 'data-form-submit-loader="true"' 'account address mutation double-submit containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-actions-closure.scss' '.profile-form-submit' 'account profile action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-actions-closure.scss' '.order-table-header-context-menu' 'account order action closure'
+
 activation_pending_routes=(
     '/search'
     '/suggest'
     '/wishlist'
-    '/account/login'
     '/checkout/cart'
     '/detail/019e4c3232987add9b4d98318913cc4f'
     '/navigation/019e47255c4f7a8f947adc9f036f367f'

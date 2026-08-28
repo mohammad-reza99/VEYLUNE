@@ -1,0 +1,42 @@
+<section class="veylune-pdp-commerce-options" aria-label="Product configuration">
+    <div class="veylune-pdp-variants">
+        <div class="veylune-pdp-commerce-options__label"><span>Material direction:</span><strong data-pdp-variant-label>{{ product.materialLabel }}</strong></div>
+        <div class="veylune-pdp-variants__grid" role="group" aria-label="Choose a material direction">
+            <button type="button" data-pdp-variant="{{ product.material }}" data-pdp-variant-name="{{ product.materialLabel }}" aria-pressed="true"><span></span>{{ product.materialLabel }}</button>
+            {% for material in product.materials %}
+                {% if material != product.material %}
+                    <button type="button" data-pdp-variant="{{ material }}" data-pdp-variant-name="{{ material|replace({'_': ' '})|title }}" aria-pressed="false"><span></span>{{ material|replace({'_': ' '})|title }}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <p>Material directions are exploratory until the exact supplier variant is approved.</p>
+    </div>
+
+    <form class="veylune-pdp-delivery" data-pdp-delivery-form novalidate>
+        <div><strong>Delivery destination</strong><span>Check project-delivery readiness</span></div>
+        <label for="veylunePdpPostalCode">Postal code</label>
+        <div class="veylune-pdp-delivery__control"><input id="veylunePdpPostalCode" name="postalCode" inputmode="text" autocomplete="postal-code" minlength="4" maxlength="10" required aria-describedby="veylunePdpDeliveryStatus"><button type="submit" aria-controls="veylunePdpDeliveryStatus">Check</button></div>
+        <p id="veylunePdpDeliveryStatus" data-pdp-delivery-status aria-live="polite">Lead time and delivery scope are confirmed during consultation.</p>
+    </form>
+
+    <div class="veylune-pdp-purchase" aria-label="Selection quantity">
+        <div>
+            <strong>Quantity</strong>
+            <div class="veylune-pdp-quantity" data-pdp-quantity>
+                <button type="button" data-pdp-quantity-decrease aria-label="Decrease quantity">−</button>
+                <input type="text" inputmode="numeric" value="1" data-pdp-quantity-input aria-label="Desired quantity" aria-live="polite">
+                <button type="button" data-pdp-quantity-increase aria-label="Increase quantity">+</button>
+            </div>
+        </div>
+        <button class="veylune-pdp-purchase__add" type="button" data-pdp-add-selection>Add to private selection</button>
+        <p data-pdp-add-status aria-live="polite">No payment or public order is created in this private preview.</p>
+    </div>
+
+    <fieldset class="veylune-pdp-services" data-pdp-services>
+        <legend>Services</legend>
+        <label><input type="radio" name="veylunePdpService" value="studio" checked><span><strong>Studio consultation</strong><small>Included with every approved specification</small></span></label>
+        <label><input type="radio" name="veylunePdpService" value="delivery"><span><strong>Project delivery planning</strong><small>Scope and quote confirmed separately</small></span></label>
+        <label><input type="radio" name="veylunePdpService" value="care"><span><strong>Care and coverage review</strong><small>Supplier warranty and care terms checked before order</small></span></label>
+        <p data-pdp-service-status aria-live="polite">Studio consultation selected.</p>
+    </fieldset>
+</section>

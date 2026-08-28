@@ -1,0 +1,70 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <main class="veylune-preview veylune-preview--destination" data-veylune-plp>
+        <header class="veylune-preview__masthead">
+            <div>
+                <p class="veylune-preview__eyebrow">Development preview · {{ veylunePreviewType }}</p>
+                <h1>{{ veylunePreviewTitle }}</h1>
+                <p>{{ veylunePreviewProducts|length }} governed draft products. This route is not a public catalog destination.</p>
+            </div>
+            <a class="veylune-preview__back" href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">All preview rails</a>
+        </header>
+
+        <nav class="veylune-plp-shortcuts" aria-label="Browse {{ veylunePreviewTitle }}">
+            <button class="veylune-plp-chip is-active" type="button" data-plp-type="all" aria-pressed="true">All {{ veylunePreviewTitle }}</button>
+            {% if veylunePreviewType == 'category' and veylunePreviewKey == 'furniture' %}
+                <button class="veylune-plp-chip" type="button" data-plp-type="sofas" aria-pressed="false">Sofas</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="chairs" aria-pressed="false">Chairs</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="tables" aria-pressed="false">Tables</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="beds" aria-pressed="false">Beds</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="storage" aria-pressed="false">Storage</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="desks" aria-pressed="false">Desks</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="benches-stools" aria-pressed="false">Benches &amp; Stools</button>
+            {% else %}
+                <button class="veylune-plp-chip" type="button" data-plp-type="all" aria-pressed="false">New arrivals</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="all" aria-pressed="false">Veylune verified</button>
+                <button class="veylune-plp-chip" type="button" data-plp-type="all" aria-pressed="false">Ready to ship</button>
+            {% endif %}
+        </nav>
+
+        <div class="veylune-plp-toolbar">
+            <p class="veylune-plp-toolbar__count" aria-live="polite"><strong data-plp-count>{{ veylunePreviewProducts|length }}</strong> considered pieces</p>
+            <div class="veylune-plp-toolbar__actions" aria-label="Listing controls">
+                <div class="veylune-plp-menu">
+                    <button class="veylune-plp-control" type="button" data-plp-filter-toggle aria-expanded="false" aria-controls="veylunePlpFilters">Filter</button>
+                    <div class="veylune-plp-popover" id="veylunePlpFilters" data-plp-filter-panel hidden>
+                        <p>Material</p>
+                        {% for value, label in { wood: 'Wood', upholstery_fabric: 'Upholstery fabric', leather: 'Leather', travertine: 'Travertine', marble: 'Marble', metal: 'Metal', glass: 'Glass' } %}
+                            <label><input type="checkbox" value="{{ value }}" data-plp-material> <span>{{ label }}</span></label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="veylune-plp-menu">
+                    <button class="veylune-plp-control" type="button" data-plp-sort-toggle aria-expanded="false" aria-controls="veylunePlpSort">Sort: Featured</button>
+                    <div class="veylune-plp-popover veylune-plp-popover--sort" id="veylunePlpSort" data-plp-sort-panel role="menu" hidden>
+                        <button type="button" role="menuitemradio" aria-checked="true" data-plp-sort="featured">Featured</button>
+                        <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="price-low">Price: Low to high</button>
+                        <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="price-high">Price: High to low</button>
+                        <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="name">Name</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="veylune-preview-grid" data-plp-grid aria-label="{{ veylunePreviewTitle }} draft products">
+            {% for product in veylunePreviewProducts %}
+                {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: product, productIndex: loop.index0 } %}
+            {% else %}
+                <p class="veylune-preview__empty">No governed draft products are assigned to this destination.</p>
+            {% endfor %}
+            <p class="veylune-plp-empty" data-plp-empty hidden>No pieces match these filters.</p>
+        </section>
+
+        <div class="veylune-plp-progress">
+            <p>Showing <strong data-plp-showing>{{ veylunePreviewProducts|length > 12 ? 12 : veylunePreviewProducts|length }}</strong> of <strong>{{ veylunePreviewProducts|length }}</strong> pieces</p>
+            <div class="veylune-plp-progress__bar" aria-hidden="true"><span></span></div>
+            <button class="veylune-plp-load-more" type="button" data-plp-load-more>Load more</button>
+        </div>
+    </main>
+{% endblock %}

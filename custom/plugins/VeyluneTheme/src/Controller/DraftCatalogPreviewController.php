@@ -126,6 +126,81 @@ final class DraftCatalogPreviewController extends StorefrontController
         );
     }
 
+    #[Route(path: '/__veylune-preview/catalog/product/{recordId}', name: 'frontend.veylune.preview.catalog.product', requirements: ['recordId' => '[A-Z][0-9]{2}'], methods: [Request::METHOD_GET])]
+    public function product(string $recordId, Request $request, SalesChannelContext $context): Response
+    {
+        $this->denyUnlessAllowed($request);
+        $product = $this->previewService->forRecordId($recordId);
+
+        if ($product === null) {
+            throw new NotFoundHttpException();
+        }
+
+        $related = \array_values(\array_filter(
+            $this->previewService->forCategory($product['department']),
+            static fn (array $candidate): bool => $candidate['recordId'] !== $recordId
+        ));
+
+        $page = $this->page($request, $context, $product['name'] . ' Preview');
+        $page->getMetaInformation()?->setMetaDescription(\sprintf(
+            '%s in %s. Private Veylune product preview with material direction, project delivery planning and consultation details.',
+            $product['name'],
+            $product['materialLabel']
+        ));
+
+        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-product.html.twig', [
+            'page' => $page,
+            'veylunePreviewToken' => $this->access->token(),
+            'veylunePreviewProduct' => $product,
+            'veylunePreviewRelated' => \array_slice($related, 0, 4),
+        ]);
+    }
+
+    #[Route(path: '/__veylune-preview/cart', name: 'frontend.veylune.preview.cart', methods: [Request::METHOD_GET])]
+    public function cart(Request $request, SalesChannelContext $context): Response
+    {
+        $this->denyUnlessAllowed($request);
+        $page = $this->page($request, $context, 'Private Selection Preview');
+        $page->getMetaInformation()?->setMetaDescription(
+            'Review a private Veylune project selection, estimated pricing and delivery readiness before consultation.'
+        );
+
+        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-cart.html.twig', [
+            'page' => $page,
+            'veylunePreviewToken' => $this->access->token(),
+        ]);
+    }
+
+    #[Route(path: '/__veylune-preview/checkout', name: 'frontend.veylune.preview.checkout', methods: [Request::METHOD_GET])]
+    public function checkout(Request $request, SalesChannelContext $context): Response
+    {
+        $this->denyUnlessAllowed($request);
+        $page = $this->page($request, $context, 'Private Checkout Preview');
+        $page->getMetaInformation()?->setMetaDescription(
+            'Preview contact, delivery and review steps for a private Veylune project selection without creating an order.'
+        );
+
+        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-checkout.html.twig', [
+            'page' => $page,
+            'veylunePreviewToken' => $this->access->token(),
+        ]);
+    }
+
+    #[Route(path: '/__veylune-preview/account', name: 'frontend.veylune.preview.account', methods: [Request::METHOD_GET])]
+    public function account(Request $request, SalesChannelContext $context): Response
+    {
+        $this->denyUnlessAllowed($request);
+        $page = $this->page($request, $context, 'Private Account Preview');
+        $page->getMetaInformation()?->setMetaDescription(
+            'Preview Veylune account access, saved project selections and private client services without creating an account.'
+        );
+
+        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-account.html.twig', [
+            'page' => $page,
+            'veylunePreviewToken' => $this->access->token(),
+        ]);
+    }
+
     /**
      * @param list<array<string, mixed>> $products
      */

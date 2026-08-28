@@ -1,0 +1,503 @@
+.veylune-cart-preview__checkout {
+    display: grid;
+    min-height: 3.1rem;
+    place-items: center;
+    border-radius: 4px;
+    background: #5b2b82;
+    color: #fff !important;
+    font-weight: 750;
+    text-decoration: none !important;
+}
+
+.veylune-checkout-preview {
+    width: min(1240px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: clamp(1.25rem, 3vw, 2.5rem) 0 5rem;
+    color: #211f1d;
+
+    > nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(.8rem, 4vw, 3rem);
+        margin-bottom: clamp(2rem, 5vw, 4rem);
+
+        > * {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            color: #6b6661;
+            font-size: .8rem;
+            font-weight: 700;
+            text-decoration: none;
+
+            > span {
+                display: grid;
+                width: 1.8rem;
+                height: 1.8rem;
+                place-items: center;
+                border: 1px solid #a39d97;
+                border-radius: 50%;
+            }
+        }
+
+        > [aria-current="step"] {
+            color: #5b2b82;
+
+            > span {
+                border-color: #5b2b82;
+                background: #5b2b82;
+                color: #fff;
+            }
+        }
+    }
+
+    > header {
+        max-width: 52rem;
+        margin-bottom: clamp(2rem, 5vw, 3.5rem);
+
+        > p:first-child {
+            color: #6b376f;
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: .35rem 0 .7rem;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            line-height: 1;
+        }
+
+        > p:last-child {
+            margin: 0;
+            color: #625d58;
+        }
+    }
+}
+
+.veylune-checkout-preview__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 25rem);
+    align-items: start;
+    gap: clamp(2rem, 5vw, 5rem);
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+.veylune-checkout-preview__forms {
+    display: grid;
+    gap: 1.5rem;
+
+    > section,
+    > fieldset {
+        padding: clamp(1.1rem, 3vw, 1.8rem);
+        border: 1px solid #d4cfca;
+        background: #fff;
+    }
+}
+
+.veylune-checkout-preview__section-head {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: .8rem;
+    margin-bottom: 1.2rem;
+
+    > span {
+        color: #6b376f;
+        font-weight: 800;
+    }
+
+    p,
+    h2 {
+        margin: 0;
+    }
+
+    p {
+        color: #6b376f;
+        font-size: .7rem;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    h2 {
+        margin-top: .2rem;
+        font-size: 1.35rem;
+    }
+}
+
+.veylune-checkout-preview__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.veylune-checkout-preview__field--wide {
+    grid-column: 1 / -1;
+}
+
+.veylune-checkout-preview__fields label {
+    display: grid;
+    gap: .35rem;
+    color: #4f4a45;
+    font-size: .82rem;
+    font-weight: 700;
+
+    small {
+        font-weight: 400;
+    }
+
+    input,
+    select {
+        width: 100%;
+        min-height: 3rem;
+        padding-inline: .75rem;
+        border: 1px solid #918b85;
+        border-radius: 2px;
+        background: #fff;
+        color: #211f1d;
+    }
+}
+
+.veylune-checkout-preview__delivery {
+    display: grid;
+    gap: .75rem;
+
+    legend {
+        display: flex;
+        gap: .8rem;
+        margin-bottom: .7rem;
+        font-size: 1.2rem;
+
+        span {
+            color: #6b376f;
+        }
+    }
+
+    > label {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: start;
+        gap: .8rem;
+        padding: 1rem;
+        border: 1px solid #d4cfca;
+
+        &:has(input:checked) {
+            border-color: #5b2b82;
+            box-shadow: 0 0 0 1px #5b2b82;
+        }
+
+        span {
+            display: grid;
+            gap: .2rem;
+        }
+
+        small {
+            color: #625d58;
+            line-height: 1.4;
+        }
+
+        em {
+            color: #625d58;
+            font-size: .75rem;
+            font-style: normal;
+            white-space: nowrap;
+        }
+    }
+}
+
+.veylune-checkout-preview__payment {
+    > div:last-child {
+        margin-left: 2.8rem;
+        padding: 1rem;
+        border-left: 4px solid #6b376f;
+        background: #f5f1f5;
+
+        p {
+            margin: .35rem 0 0;
+            color: #625d58;
+            line-height: 1.5;
+        }
+    }
+}
+
+.veylune-checkout-preview__summary {
+    position: sticky;
+    top: 8.5rem;
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.1rem, 3vw, 1.6rem);
+    border: 1px solid #cbc6c1;
+
+    > div:first-child p,
+    > div:first-child h2 {
+        margin: 0;
+    }
+
+    > div:first-child p {
+        color: #6b376f;
+        font-size: .7rem;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    > article {
+        display: grid;
+        grid-template-columns: 4.5rem 1fr auto;
+        gap: .7rem;
+        align-items: start;
+        padding-block: 1rem;
+        border-block: 1px solid #d4cfca;
+
+        > div {
+            position: relative;
+            min-height: 5.5rem;
+            background: #e6ddd4;
+
+            span {
+                position: absolute;
+                inset: 30% 15% 12%;
+                border-radius: 40% 40% 15% 15%;
+                background: #816b5b;
+            }
+        }
+
+        h3,
+        p {
+            margin: 0 0 .25rem;
+        }
+
+        h3 {
+            font-size: .92rem;
+        }
+
+        p {
+            color: #625d58;
+            font-size: .78rem;
+        }
+
+        > strong {
+            font-size: .85rem;
+            white-space: nowrap;
+        }
+    }
+
+    > dl {
+        display: grid;
+        gap: .65rem;
+        margin: 0;
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        dd {
+            margin: 0;
+            text-align: right;
+        }
+
+        div:last-child {
+            padding-top: .7rem;
+            border-top: 1px solid #d4cfca;
+            font-weight: 800;
+        }
+    }
+
+    > button {
+        min-height: 3.2rem;
+        border: 1px solid #5b2b82;
+        border-radius: 4px;
+        background: #5b2b82;
+        color: #fff;
+        font-weight: 800;
+    }
+
+    > a {
+        color: #211f1d;
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    > p {
+        margin: 0;
+        color: #625d58;
+        font-size: .76rem;
+        line-height: 1.45;
+    }
+}
+
+.veylune-checkout-preview__consent {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: .65rem;
+    font-size: .78rem;
+    line-height: 1.45;
+}
+
+.veylune-checkout-preview__empty {
+    display: grid;
+    justify-items: center;
+    margin: 5rem auto;
+    text-align: center;
+
+    &[hidden] {
+        display: none;
+    }
+
+    h2 {
+        margin: .3rem 0 1rem;
+    }
+
+    a {
+        padding: .9rem 1.2rem;
+        border-radius: 4px;
+        background: #5b2b82;
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.veylune-checkout-review {
+    width: min(42rem, calc(100% - 1.5rem));
+    max-width: 42rem;
+    padding: 0;
+    border: 0;
+
+    &::backdrop {
+        background: rgba(20, 17, 15, .52);
+    }
+
+    > div {
+        display: grid;
+        gap: 1rem;
+        padding: clamp(1.4rem, 5vw, 2.5rem);
+
+        > button {
+            justify-self: end;
+            border: 0;
+            background: transparent;
+            text-decoration: underline;
+        }
+
+        > p,
+        h2 {
+            margin: 0;
+        }
+
+        > p {
+            color: #6b376f;
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+        }
+
+        dl {
+            display: grid;
+            gap: .7rem;
+            margin: 0;
+
+            div {
+                display: grid;
+                grid-template-columns: 8rem 1fr;
+                gap: 1rem;
+                padding-bottom: .6rem;
+                border-bottom: 1px solid #d4cfca;
+            }
+
+            dd {
+                margin: 0;
+            }
+        }
+
+        > a {
+            display: grid;
+            min-height: 3.2rem;
+            place-items: center;
+            border-radius: 4px;
+            background: #5b2b82;
+            color: #fff;
+            font-weight: 800;
+            text-decoration: none;
+        }
+    }
+}
+
+.veylune-checkout-review__guard {
+    padding: 1rem;
+    border-left: 4px solid #6b376f;
+    background: #f5f1f5;
+
+    p {
+        margin: .3rem 0 0;
+    }
+}
+
+.veylune-checkout-preview :is(button, a, input, select):focus-visible,
+.veylune-checkout-review :is(button, a):focus-visible {
+    outline: 3px solid #2457d6;
+    outline-offset: 3px;
+}
+
+.veylune-checkout-preview [aria-invalid="true"] {
+    border-color: #b42318 !important;
+    box-shadow: 0 0 0 2px rgba(180, 35, 24, .12);
+}
+
+@media (max-width: 899.98px) {
+    .veylune-checkout-preview__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-checkout-preview__summary {
+        position: static;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-checkout-preview {
+        width: min(100% - 1.25rem, 1240px);
+    }
+
+    .veylune-checkout-preview > nav {
+        gap: .55rem;
+
+        > * {
+            gap: .3rem;
+            font-size: .7rem;
+        }
+    }
+
+    .veylune-checkout-preview__fields {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-checkout-preview__field--wide {
+        grid-column: auto;
+    }
+
+    .veylune-checkout-preview__delivery > label {
+        grid-template-columns: auto 1fr;
+
+        em {
+            grid-column: 2;
+        }
+    }
+
+    .veylune-checkout-review > div dl div {
+        grid-template-columns: 1fr;
+        gap: .25rem;
+    }
+}

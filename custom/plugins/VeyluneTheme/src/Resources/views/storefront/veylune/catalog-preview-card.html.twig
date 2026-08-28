@@ -1,15 +1,36 @@
-<article class="veylune-preview-card" data-preview-record="{{ product.recordId }}">
+<article class="veylune-preview-card"
+         data-preview-record="{{ product.recordId }}"
+         data-plp-card
+         data-plp-type="{{ product.productType }}"
+         data-plp-material="{{ product.material }}"
+         data-plp-price="{{ product.targetPrice }}"
+         data-plp-name="{{ product.name }}"
+         data-plp-index="{{ productIndex|default(0) }}">
     <div class="veylune-preview-card__visual veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}" role="img" aria-label="{{ product.name }} placeholder study">
+        <button class="veylune-preview-card__wishlist"
+                type="button"
+                aria-label="Save {{ product.name }}"
+                aria-pressed="false"
+                data-plp-wishlist></button>
         <span class="veylune-preview-card__status">{{ product.status }}</span>
         <span class="veylune-preview-card__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>
         <span class="veylune-preview-card__material">{{ product.materialLabel }}</span>
     </div>
     <div class="veylune-preview-card__body">
         <p class="veylune-preview-card__type">{{ product.productType|replace({'_': ' '})|title }}</p>
-        <h3>{{ product.name }}</h3>
+        <h3>
+            <a href="{{ path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) }}">
+                {{ product.name }}
+            </a>
+        </h3>
+        <div class="veylune-preview-card__rating" aria-label="No customer reviews yet">
+            <span class="veylune-preview-card__stars" aria-hidden="true">☆☆☆☆☆</span>
+            <span class="veylune-preview-card__review-copy">New · no reviews yet</span>
+        </div>
         <div class="veylune-preview-card__commerce">
             <span>Target price</span>
             <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong>
         </div>
+        <p class="veylune-preview-card__availability">Availability under review</p>
     </div>
 </article>

@@ -1,0 +1,352 @@
+/* Veylune Home Index: a distinctive editorial-marketplace header system. */
+
+.veylune-header {
+    --veylune-index-ink: #211e22;
+    --veylune-index-plum: #5a176f;
+    --veylune-index-paper: #fbfaf8;
+    --veylune-index-wash: #f2edf3;
+    --veylune-index-rule: rgb(33 30 34 / 13%);
+}
+
+/* Topbar becomes a quiet service ledger instead of a promotional ribbon. */
+.veylune-marketplace-utility {
+    color: var(--veylune-index-ink);
+    background: var(--veylune-index-paper);
+    border-bottom: 1px solid var(--veylune-index-rule);
+    font-size: 0.6875rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+}
+
+.veylune-marketplace-utility__inner {
+    min-height: 36px;
+}
+
+.veylune-marketplace-family,
+.veylune-marketplace-utility__right,
+.veylune-marketplace-utility__links {
+    display: flex;
+    align-items: stretch;
+    min-height: 36px;
+}
+
+.veylune-marketplace-family > a,
+.veylune-marketplace-utility__links > a,
+.veylune-marketplace-utility__links > span {
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 16px;
+    border-left: 1px solid var(--veylune-index-rule);
+    color: rgb(33 30 34 / 66%);
+    text-decoration: none;
+}
+
+.veylune-marketplace-family > a:first-child {
+    padding-left: 0;
+    border-left: 0;
+}
+
+.veylune-marketplace-family__primary {
+    color: var(--veylune-index-ink) !important;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+}
+
+.veylune-marketplace-family__primary::before {
+    content: "01";
+    display: inline-grid;
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--veylune-index-plum);
+    font-size: 0.57rem;
+    font-weight: 800;
+}
+
+.veylune-marketplace-utility__right {
+    gap: 0;
+}
+
+.veylune-marketplace-utility__shipping {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 16px;
+    padding: 0 14px;
+    border: 1px solid var(--veylune-index-rule);
+    border-radius: 999px;
+    color: var(--veylune-index-ink);
+    background: #fff;
+}
+
+.veylune-marketplace-utility__shipping::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: #25a56a;
+    box-shadow: 0 0 0 3px rgb(37 165 106 / 12%);
+}
+
+/* Main workspace: strong logo cell, material search field, compact utility cells. */
+.veylune-header .veylune-header__bar,
+.veylune-header.is-initial .veylune-header__bar,
+.veylune-header.is-scrolled .veylune-header__bar {
+    background: var(--veylune-index-paper);
+    border-bottom-color: var(--veylune-index-rule);
+}
+
+@media (min-width: 992px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: minmax(190px, 1.8fr) minmax(460px, 6.4fr) minmax(245px, 2.4fr);
+        grid-template-rows: 88px 52px;
+        column-gap: 0;
+        min-height: 140px;
+    }
+
+    .veylune-header__logo {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        padding-right: 28px;
+        border-right: 1px solid var(--veylune-index-rule);
+    }
+
+    .veylune-header__logo::after {
+        content: "HOME INDEX";
+        margin-left: auto;
+        color: rgb(33 30 34 / 42%);
+        font-size: 0.56rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        writing-mode: vertical-rl;
+    }
+
+    .veylune-marketplace-search {
+        padding: 18px 22px;
+        border-right: 1px solid var(--veylune-index-rule);
+    }
+
+    .veylune-header__actions {
+        height: 100%;
+        gap: 0;
+        padding-left: 10px;
+    }
+
+    .veylune-marketplace-action {
+        position: relative;
+        height: 56px;
+        min-height: 56px;
+        padding: 8px 14px;
+        border-radius: 0;
+    }
+
+    .veylune-marketplace-action + .veylune-marketplace-action {
+        border-left: 1px solid var(--veylune-index-rule);
+    }
+}
+
+.veylune-header__logo-image {
+    filter: contrast(1.18);
+}
+
+.veylune-marketplace-search__form {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr) 58px;
+    height: 52px;
+    min-height: 52px;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--veylune-index-ink);
+}
+
+.veylune-marketplace-search__form::before {
+    content: "SEARCH / OBJECTS";
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    z-index: 2;
+    width: 94px;
+    padding-right: 14px;
+    border-right: 1px solid var(--veylune-index-rule);
+    color: var(--veylune-index-plum);
+    font-size: 0.59rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    transform: translateY(-50%);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.veylune-marketplace-search__input {
+    height: 52px;
+    min-height: 52px;
+    padding: 9px 18px 9px 142px;
+    border-radius: 0;
+    font-size: 0.9375rem;
+}
+
+.veylune-marketplace-search__input::placeholder {
+    color: rgb(33 30 34 / 52%);
+    opacity: 1;
+}
+
+.veylune-marketplace-search__submit {
+    position: relative;
+    width: 58px;
+    height: 52px;
+    min-height: 52px;
+    border-radius: 0;
+    color: #fff;
+    background: var(--veylune-index-ink);
+    transition: background 180ms ease;
+}
+
+.veylune-marketplace-search__submit::after {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgb(255 255 255 / 25%);
+    pointer-events: none;
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    background: var(--veylune-index-plum);
+}
+
+.veylune-marketplace-search__form:focus-within {
+    box-shadow: inset 0 0 0 2px var(--veylune-index-plum), 0 12px 30px rgb(79 13 104 / 10%);
+}
+
+.veylune-marketplace-action {
+    color: var(--veylune-index-ink);
+    background: transparent;
+}
+
+.veylune-marketplace-action:hover,
+.veylune-marketplace-action:focus-visible {
+    color: var(--veylune-index-plum);
+    background: var(--veylune-index-wash);
+}
+
+.veylune-marketplace-action__icon,
+.veylune-header__bag-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.veylune-marketplace-action__count {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    min-width: 17px;
+    height: 17px;
+    border: 2px solid var(--veylune-index-paper);
+    background: var(--veylune-index-plum);
+    font-size: 0.58rem;
+}
+
+/* Department navigation becomes a numbered, horizontally browsable index. */
+.veylune-header .veylune-header__nav {
+    position: relative;
+    justify-content: flex-start;
+    gap: 0;
+    min-height: 52px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0;
+    border-top: 1px solid var(--veylune-index-rule);
+    scrollbar-width: none;
+}
+
+.veylune-header .veylune-header__nav::-webkit-scrollbar {
+    display: none;
+}
+
+.veylune-header .veylune-header__nav::before {
+    content: "THE HOME INDEX /";
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    display: inline-flex;
+    width: 154px;
+    min-width: 154px;
+    min-height: 51px;
+    align-items: center;
+    padding-left: 18px;
+    border-right: 1px solid var(--veylune-index-rule);
+    color: #fff;
+    background: var(--veylune-index-plum);
+    font-size: 0.61rem;
+    font-weight: 850;
+    letter-spacing: 0.11em;
+}
+
+.veylune-header__nav-link {
+    min-height: 51px;
+    flex: 0 0 auto;
+    padding: 0 18px;
+    border-right: 1px solid var(--veylune-index-rule);
+    color: rgb(33 30 34 / 76%);
+    font-size: 0.78rem;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.veylune-header__nav-link:hover,
+.veylune-header__nav-link:focus-visible {
+    color: var(--veylune-index-plum);
+    background: var(--veylune-index-wash);
+}
+
+.veylune-header__nav-link--pending {
+    color: rgb(33 30 34 / 38%);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-marketplace-utility {
+        display: none;
+    }
+
+    .veylune-header .veylune-header__inner {
+        grid-template-rows: 58px 52px;
+        min-height: 118px;
+        row-gap: 8px;
+        padding: 0 0 8px;
+    }
+
+    .veylune-header__mobile-toggle,
+    .veylune-header__actions {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+    }
+
+    .veylune-marketplace-search__form::before {
+        display: none;
+    }
+
+    .veylune-marketplace-search__input {
+        padding-left: 16px;
+    }
+
+    .veylune-marketplace-search__form,
+    .veylune-marketplace-search__input,
+    .veylune-marketplace-search__submit {
+        height: 52px;
+        min-height: 52px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-marketplace-search__submit {
+        transition: none;
+    }
+}

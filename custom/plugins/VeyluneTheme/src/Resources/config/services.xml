@@ -13,6 +13,20 @@
             </call>
         </service>
 
+        <service id="VeyluneTheme\Controller\LegalPageController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="VeyluneTheme\Controller\ContactStudioController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <argument type="service" id="Shopware\Core\Content\Cms\SalesChannel\CmsRoute" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
         <service id="VeyluneTheme\Controller\EditionsController" public="true">
             <call method="setContainer">
                 <argument type="service" id="service_container" />

@@ -1,0 +1,21 @@
+/* Phase 9.1 P4: authenticated account dashboard closure. */
+.veylune-address-card__menu,
+.veylune-account-sidebar__logout {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.veylune-account-sidebar__logout {
+    justify-content: flex-start;
+}
+
+.veylune-dropdown-item {
+    min-height: 44px;
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-empty .btn,
+    .account-profile-change {
+        min-height: 48px;
+    }
+}

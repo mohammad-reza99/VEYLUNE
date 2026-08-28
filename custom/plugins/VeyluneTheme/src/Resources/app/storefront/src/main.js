@@ -1,5 +1,14 @@
 import './js/veylune-header';
 import './js/veylune-home';
+import './js/veylune-product-slider';
 import './js/veylune-polish';
 import './js/veylune-ecosystem';
 import './js/veylune-legacy';
+import './js/veylune-marketplace-motion';
+import './js/veylune-plp-v2';
+import './js/veylune-plp-wishlist';
+import './js/veylune-preview-selection-bridge';
+import './js/veylune-pdp-preview';
+import './js/veylune-preview-cart-page';
+import './js/veylune-preview-checkout';
+import './js/veylune-preview-account';

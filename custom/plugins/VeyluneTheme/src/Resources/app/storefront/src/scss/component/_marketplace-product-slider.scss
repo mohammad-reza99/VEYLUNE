@@ -1,0 +1,85 @@
+/* Phase 3.3: accessible marketplace product sliders. */
+
+.veylune-product-slider {
+    position: relative;
+    width: min(calc(100% - 48px), 1600px);
+    margin-inline: auto;
+}
+
+.veylune-product-slider .veylune-product-rail {
+    width: 100%;
+    margin: 0;
+    padding: 4px 2px 16px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.veylune-product-slider .veylune-product-rail::-webkit-scrollbar {
+    display: none;
+}
+
+.veylune-product-slider__control {
+    position: absolute;
+    top: 38%;
+    z-index: 3;
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: 50%;
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    box-shadow: 0 2px 8px rgb(33 30 34 / 14%);
+    font-size: 1.75rem;
+    line-height: 1;
+    transform: translateY(-50%);
+}
+
+.veylune-product-slider__control--previous {
+    left: -22px;
+}
+
+.veylune-product-slider__control--next {
+    right: -22px;
+}
+
+.veylune-product-slider__control:hover,
+.veylune-product-slider__control:focus-visible {
+    color: var(--veylune-marketplace-white);
+    border-color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-product-slider__control:focus-visible {
+    outline: 3px solid var(--veylune-marketplace-focus);
+    outline-offset: 2px;
+}
+
+.veylune-product-slider__control:disabled {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+    .veylune-product-slider {
+        width: 100%;
+    }
+
+    .veylune-product-slider .veylune-product-rail {
+        padding-inline: 12px;
+        scroll-padding-inline: 12px;
+    }
+
+    .veylune-product-slider__control {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-product-slider .veylune-product-rail {
+        scroll-behavior: auto;
+    }
+}

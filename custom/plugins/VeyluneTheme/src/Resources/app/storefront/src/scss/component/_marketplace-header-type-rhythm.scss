@@ -1,0 +1,106 @@
+/* Three-tier type rhythm: signature, interface and index. */
+
+.veylune-header {
+    --veylune-type-signature-size: 1.95rem;
+    --veylune-type-interface-size: 0.875rem;
+    --veylune-type-index-size: 0.72rem;
+    --veylune-type-signature-weight: 900;
+    --veylune-type-interface-weight: 700;
+    --veylune-type-index-weight: 650;
+}
+
+/* Tier 3 / Tier 2 / Tier 1 across the utility bar. */
+.veylune-marketplace-family a,
+.veylune-marketplace-utility__links > *,
+.veylune-marketplace-utility__shipping {
+    line-height: 1;
+}
+
+.veylune-marketplace-family__primary {
+    font-size: 0.84rem;
+    font-weight: 850;
+    letter-spacing: -0.025em;
+}
+
+.veylune-marketplace-family a:not(.veylune-marketplace-family__primary) {
+    font-size: 0.7rem;
+    font-weight: 650;
+    letter-spacing: 0.015em;
+}
+
+.veylune-marketplace-utility__links > * {
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0.025em;
+}
+
+.veylune-marketplace-utility__shipping {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+}
+
+/* Tier 1 / Tier 2 / Tier 3 across the main workspace. */
+@media (min-width: 992px) {
+    .veylune-header__logo-main::before {
+        font-size: var(--veylune-type-signature-size);
+        font-weight: var(--veylune-type-signature-weight);
+        letter-spacing: -0.06em;
+    }
+
+    .veylune-header__logo-main::after {
+        font-size: 0.5rem;
+        font-weight: 800;
+        letter-spacing: 0.17em;
+    }
+}
+
+.veylune-header .veylune-marketplace-search__input {
+    font-size: 0.9375rem;
+    font-weight: 450;
+    letter-spacing: -0.012em;
+}
+
+.veylune-marketplace-action__label,
+.veylune-header__bag-label.veylune-marketplace-action__label {
+    font-size: var(--veylune-type-interface-size);
+    font-weight: var(--veylune-type-interface-weight);
+    letter-spacing: -0.018em;
+}
+
+/* The two nav rows alternate scale and weight to create a three-beat pattern. */
+.veylune-header__nav-link:nth-child(-n + 9) {
+    font-size: 0.775rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+}
+
+.veylune-header__nav-link:nth-child(n + 10) {
+    font-size: var(--veylune-type-index-size);
+    font-weight: 760;
+    letter-spacing: 0.005em;
+}
+
+.veylune-header__nav-link:nth-child(3n + 1) {
+    letter-spacing: -0.018em;
+}
+
+.veylune-header__nav-link:nth-child(3n + 2) {
+    letter-spacing: 0;
+}
+
+.veylune-header__nav-link:nth-child(3n) {
+    letter-spacing: 0.012em;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header__logo-main::before {
+        font-size: 1.25rem;
+        font-weight: 900;
+        letter-spacing: -0.06em;
+    }
+
+    .veylune-header .veylune-marketplace-search__input {
+        font-size: 1rem;
+    }
+}

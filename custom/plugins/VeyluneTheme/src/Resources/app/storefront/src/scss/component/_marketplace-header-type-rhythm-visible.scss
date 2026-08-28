@@ -1,0 +1,52 @@
+/* Visible three-beat typography pattern requested for the header system. */
+
+.veylune-marketplace-family .veylune-marketplace-family__primary {
+    font-size: 0.94rem;
+    font-weight: 850;
+    letter-spacing: -0.04em;
+}
+
+.veylune-marketplace-family a:not(.veylune-marketplace-family__primary) {
+    font-size: 0.74rem;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+}
+
+.veylune-marketplace-utility__links > * {
+    font-size: 0.65rem;
+    font-weight: 650;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+}
+
+.veylune-marketplace-utility__shipping {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: -0.018em;
+}
+
+.veylune-header__nav-link:nth-child(-n + 9) {
+    font-size: 0.81rem;
+    font-weight: 600;
+}
+
+.veylune-header__nav-link:nth-child(n + 10) {
+    font-size: 0.735rem;
+    font-weight: 760;
+}
+
+.veylune-header__nav-link:nth-child(3n + 1) {
+    font-size: 0.82rem;
+    letter-spacing: -0.025em;
+}
+
+.veylune-header__nav-link:nth-child(3n + 2) {
+    font-size: 0.75rem;
+    letter-spacing: 0;
+}
+
+.veylune-header__nav-link:nth-child(3n) {
+    font-size: 0.7rem;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}

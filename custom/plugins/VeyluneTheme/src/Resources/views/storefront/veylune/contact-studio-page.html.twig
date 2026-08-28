@@ -1,0 +1,18 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    <main class="veylune-contact-page" data-veylune-contact-page>
+        <header class="veylune-contact-page__intro">
+            <p class="veylune-legal-notice__eyebrow">Direct studio dialogue</p>
+            <h1>Contact the studio</h1>
+            <p>Share the context, scale, and timing of your inquiry. The studio will route it to the right conversation.</p>
+        </header>
+        <section class="veylune-contact-page__form" aria-label="Studio inquiry form">
+            {% sw_include '@Storefront/storefront/page/content/detail.html.twig' with { cmsPage: cmsPage } %}
+        </section>
+        <aside class="veylune-contact-page__aside" aria-label="Private consultation">
+            <p>For architectural, interior, and private residential projects requiring material direction:</p>
+            <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private consultation</a>
+        </aside>
+    </main>
+{% endblock %}

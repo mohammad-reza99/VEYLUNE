@@ -56,6 +56,32 @@
 @import "component/marketplace-mega-precision";
 @import "component/marketplace-mobile-drawer";
 @import "component/marketplace-sticky-header";
+@import "component/marketplace-home-shell";
+@import "component/marketplace-category-discovery";
+@import "component/marketplace-category-assets";
+@import "component/marketplace-product-slider";
+@import "component/marketplace-category-slider";
+@import "component/marketplace-product-card";
+@import "component/marketplace-promo-merchandising";
+@import "component/marketplace-room-carousel";
+@import "component/marketplace-creative-direction";
+@import "component/marketplace-creative-detail";
+@import "component/marketplace-header-reference-refinement";
+@import "component/marketplace-header-premium-polish";
+@import "component/marketplace-header-type-rhythm";
+@import "component/marketplace-header-type-rhythm-visible";
+@import "component/marketplace-menu-premium-refinement";
+@import "component/marketplace-trust-services";
+@import "component/marketplace-trust-services-premium";
+@import "component/marketplace-closing-capture";
+@import "component/marketplace-motion-system";
+@import "component/marketplace-plp-shell";
+@import "component/marketplace-plp-interactions";
+@import "component/marketplace-plp-card-commerce";
+@import "component/marketplace-plp-pagination";
+@import "component/marketplace-plp-discovery";
+@import "component/marketplace-project-consultation";
+@import "component/marketplace-plp-accessibility";
 
 .header-logo-picture {
     width: clamp(210px, 22vw, 260px);
@@ -79,3 +105,28 @@
         max-height: 64px;
     }
 }
+
+@import "component/marketplace-pdp-preview";
+@import "component/marketplace-pdp-wayfair-alignment";
+@import "component/marketplace-pdp-information";
+@import "component/marketplace-pdp-commerce-options";
+@import "component/marketplace-pdp-quality";
+@import "component/marketplace-preview-cart";
+@import "component/marketplace-preview-cart-page";
+@import "component/marketplace-preview-checkout";
+@import "component/marketplace-preview-selection-bridge";
+@import "component/marketplace-preview-account";
+@import "component/marketplace-route-safety";
+@import "component/marketplace-phase-9-mobile-closure";
+@import "component/marketplace-phase-9-commerce-closure";
+@import "component/marketplace-phase-9-checkout-closure";
+@import "component/marketplace-phase-9-account-closure";
+@import "component/marketplace-phase-9-public-account-closure";
+@import "component/marketplace-phase-9-account-dashboard-closure";
+@import "component/marketplace-phase-9-account-actions-closure";
+@import "component/marketplace-phase-9-cart-closure";
+@import "component/marketplace-phase-9-header-ia-closure";
+@import "component/marketplace-phase-9-legacy-cms-closure";
+@import "component/marketplace-phase-9-home-pending-closure";
+@import "component/marketplace-phase-9-home-hierarchy-closure";
+@import "component/marketplace-phase-9-home-accessibility-closure";

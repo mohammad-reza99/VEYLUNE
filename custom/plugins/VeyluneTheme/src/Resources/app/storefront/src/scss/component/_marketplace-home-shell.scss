@@ -1,0 +1,200 @@
+/* Phase 3.1: marketplace homepage shell and merchandising hierarchy. */
+
+.veylune-home {
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    font-family: var(--veylune-marketplace-font);
+}
+
+.veylune-department-strip {
+    border-top: 0;
+    border-bottom: 1px solid var(--veylune-marketplace-border);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-department-strip__track {
+    width: min(calc(100% - 48px), 1600px);
+    min-height: 48px;
+    margin-inline: auto;
+    justify-content: center;
+}
+
+.veylune-department-strip a,
+.veylune-department-strip a:first-child {
+    min-height: 48px;
+    padding: 0 24px;
+    border: 0;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.veylune-department-strip a:hover,
+.veylune-department-strip a:focus-visible {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-home-hero--commerce {
+    width: min(calc(100% - 48px), 1600px);
+    min-height: 520px;
+    margin: 24px auto 48px;
+    padding: 0;
+    overflow: hidden;
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-home-hero--commerce::before {
+    display: none;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(360px, 38%) minmax(0, 62%);
+    width: 100%;
+    min-height: 520px;
+    margin: 0;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    min-width: 0;
+    padding: clamp(32px, 4vw, 64px);
+}
+
+.veylune-home-hero--commerce .veylune-home__eyebrow {
+    margin: 0 0 12px;
+    color: var(--veylune-marketplace-primary);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__title {
+    max-width: 520px;
+    margin: 0;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: clamp(2.5rem, 3.6vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__text {
+    max-width: 470px;
+    margin: 20px 0 0;
+    color: var(--veylune-marketplace-muted);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.veylune-home-hero--commerce .veylune-home-hero__actions {
+    margin-top: 24px;
+}
+
+.veylune-home-hero--commerce .veylune-home__link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.veylune-home-hero--commerce .veylune-home__link::after {
+    display: none;
+}
+
+.veylune-home-hero--commerce .veylune-home__link:hover,
+.veylune-home-hero--commerce .veylune-home__link:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary-hover);
+}
+
+.veylune-home-hero__editorial-visual {
+    width: 100%;
+    min-height: 520px;
+    border-radius: 0;
+}
+
+.veylune-discovery-foundation,
+.veylune-trade__inner {
+    width: min(calc(100% - 48px), 1600px);
+    margin-inline: auto;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-home-hero--commerce {
+        min-height: 0;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__inner {
+        grid-template-columns: minmax(300px, 42%) minmax(0, 58%);
+        min-height: 440px;
+    }
+
+    .veylune-home-hero__editorial-visual {
+        min-height: 440px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-department-strip__track {
+        width: 100%;
+        justify-content: flex-start;
+        padding-inline: 12px;
+    }
+
+    .veylune-department-strip a,
+    .veylune-department-strip a:first-child {
+        padding-inline: 16px;
+    }
+
+    .veylune-home-hero--commerce {
+        width: calc(100% - 24px);
+        margin: 12px auto 32px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(260px, 54vw) auto;
+        min-height: 0;
+    }
+
+    .veylune-home-hero__editorial-visual {
+        grid-row: 1;
+        min-height: 260px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__content {
+        grid-row: 2;
+        padding: 28px 24px 32px;
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__title {
+        font-size: clamp(2rem, 10vw, 2.75rem);
+    }
+
+    .veylune-home-hero--commerce .veylune-home-hero__text {
+        margin-top: 16px;
+    }
+
+    .veylune-discovery-foundation,
+    .veylune-trade__inner {
+        width: calc(100% - 24px);
+    }
+}

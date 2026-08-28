@@ -24,7 +24,7 @@
 {% block base_speculation_rules %}{% endblock %}
 
 {% block base_main_inner %}
-    <main class="veylune-edition-skeleton" data-veylune-edition-detail-skeleton>
+    <div class="veylune-edition-skeleton" data-veylune-edition-detail-skeleton>
         {% block veylune_edition_detail_identity %}
             <section class="veylune-edition-skeleton__section veylune-edition-skeleton__identity" aria-labelledby="veylune-edition-identity">
                 <p class="veylune-edition-skeleton__eyebrow">{{ 'veylune.editions.detailSkeleton.eyebrow'|trans|sw_sanitize }}</p>
@@ -63,5 +63,5 @@
                 <p class="veylune-edition-skeleton__summary">{{ veyluneEdition.governanceNote|sw_sanitize }}</p>
             </section>
         {% endblock %}
-    </main>
+    </div>
 {% endblock %}

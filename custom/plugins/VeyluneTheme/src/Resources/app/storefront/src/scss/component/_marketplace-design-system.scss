@@ -4,32 +4,46 @@
  */
 
 :root {
-    --veylune-marketplace-primary: #6f2da8;
-    --veylune-marketplace-primary-hover: #562181;
-    --veylune-marketplace-primary-soft: #f1e9f7;
-    --veylune-marketplace-focus: #8b5cf6;
-    --veylune-marketplace-ink: #2f2b32;
-    --veylune-marketplace-muted: #6f6874;
-    --veylune-marketplace-border: #d9d5dc;
-    --veylune-marketplace-surface: #f7f5f8;
+    --veylune-marketplace-primary: #7b189f;
+    --veylune-marketplace-primary-hover: #5c1277;
+    --veylune-marketplace-primary-soft: #f8f3fa;
+    --veylune-marketplace-focus: #1364f1;
+    --veylune-marketplace-ink: #211e22;
+    --veylune-marketplace-muted: #4d4a4f;
+    --veylune-marketplace-border: #d1d1d6;
+    --veylune-marketplace-surface: #f5f5f5;
     --veylune-marketplace-white: #fff;
-    --veylune-marketplace-promo: #c8244f;
-    --veylune-marketplace-success: #18794e;
-    --veylune-marketplace-rating: #9a5b00;
+    --veylune-marketplace-promo: #c4113f;
+    --veylune-marketplace-success: #247139;
+    --veylune-marketplace-rating: #f6b71d;
     --veylune-marketplace-font: Inter, "Helvetica Neue", Arial, sans-serif;
-    --veylune-marketplace-space-1: 4px;
-    --veylune-marketplace-space-2: 8px;
-    --veylune-marketplace-space-3: 12px;
-    --veylune-marketplace-space-4: 16px;
-    --veylune-marketplace-space-5: 24px;
-    --veylune-marketplace-space-6: 32px;
-    --veylune-marketplace-radius-sm: 6px;
-    --veylune-marketplace-radius-md: 8px;
-    --veylune-marketplace-radius-lg: 12px;
+    --veylune-marketplace-space-1: 2px;
+    --veylune-marketplace-space-2: 4px;
+    --veylune-marketplace-space-3: 8px;
+    --veylune-marketplace-space-4: 12px;
+    --veylune-marketplace-space-5: 16px;
+    --veylune-marketplace-space-6: 24px;
+    --veylune-marketplace-radius-sm: 2px;
+    --veylune-marketplace-radius-md: 4px;
+    --veylune-marketplace-radius-lg: 8px;
     --veylune-marketplace-radius-pill: 999px;
-    --veylune-marketplace-shadow-sm: 0 1px 2px rgb(47 43 50 / 10%);
-    --veylune-marketplace-shadow-md: 0 6px 20px rgb(47 43 50 / 12%);
+    --veylune-marketplace-shadow-sm: 0 1px 2px rgb(33 30 34 / 20%);
+    --veylune-marketplace-shadow-md: 0 3px 6px rgb(33 30 34 / 20%);
+    --veylune-marketplace-shadow-lg: 0 7px 14px rgb(33 30 34 / 20%);
     --veylune-marketplace-control-height: 44px;
+    --veylune-marketplace-container: min(calc(100% - 48px), 1600px);
+    --veylune-marketplace-section-space: clamp(3rem, 6vw, 6.5rem);
+    --veylune-marketplace-panel-radius: 18px;
+    --veylune-marketplace-font-size-500: 0.8125rem;
+    --veylune-marketplace-font-size-1000: 1rem;
+    --veylune-marketplace-font-size-2000: 1.25rem;
+    --veylune-marketplace-font-size-3000: 1.5625rem;
+    --veylune-marketplace-font-size-4000: 1.9375rem;
+    --veylune-marketplace-font-size-5000: 2.4375rem;
+    --veylune-marketplace-font-size-6000: 3.0625rem;
+    --veylune-marketplace-font-size-7000: 3.815rem;
+    --veylune-marketplace-line-height: 1.5;
+    --veylune-marketplace-display-font: var(--veylune-font-display, var(--veylune-marketplace-font));
 }
 
 html,
@@ -66,7 +80,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-    outline: 3px solid rgb(139 92 246 / 45%);
+    outline: 3px solid rgb(19 100 241 / 42%);
     outline-offset: 2px;
 }
 
@@ -174,7 +188,7 @@ input:focus,
 textarea:focus,
 select:focus {
     border-color: var(--veylune-marketplace-primary);
-    box-shadow: 0 0 0 3px rgb(139 92 246 / 24%);
+    box-shadow: 0 0 0 3px rgb(19 100 241 / 22%);
 }
 
 .veylune-marketplace-icon,

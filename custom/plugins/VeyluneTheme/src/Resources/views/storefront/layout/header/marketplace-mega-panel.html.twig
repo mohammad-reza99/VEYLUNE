@@ -5,13 +5,13 @@
          aria-hidden="true">
     <div class="veylune-marketplace-mega__feature">
         <span class="veylune-marketplace-mega__eyebrow">Veylune Verified</span>
-        <h2>Considered pieces for every room</h2>
+        <p class="veylune-marketplace-mega__title">Considered pieces for every room</p>
         <p>Explore edited furniture, objects and practical guidance for a more intentional home.</p>
         <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Explore the journal</a>
     </div>
 
     <div class="veylune-marketplace-mega__column">
-        <h3>Featured</h3>
+        <p class="veylune-marketplace-mega__column-title">Featured</p>
         <span>Verified</span>
         <span>New Arrivals</span>
         <span>Best Sellers</span>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="veylune-marketplace-mega__column">
-        <h3>Shop by Room</h3>
+        <p class="veylune-marketplace-mega__column-title">Shop by Room</p>
         {% if publicSurfaces['room:living-room']|default(false) %}
             <a href="{{ veyluneRoutes.rooms }}" data-veylune-page-transition>Living Room</a>
         {% else %}
@@ -33,7 +33,7 @@
     </div>
 
     <div class="veylune-marketplace-mega__column">
-        <h3>Departments</h3>
+        <p class="veylune-marketplace-mega__column-title">Departments</p>
         {% if publicSurfaces['category:furniture']|default(false) %}
             <a href="{{ veyluneRoutes.shop }}" data-veylune-page-transition>Furniture</a>
         {% else %}
@@ -46,7 +46,7 @@
     </div>
 
     <div class="veylune-marketplace-mega__column">
-        <h3>Services</h3>
+        <p class="veylune-marketplace-mega__column-title">Services</p>
         <a href="{{ veyluneRoutes.consultation }}" data-veylune-page-transition>Design Consultation</a>
         <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Inspiration</a>
         <span>Delivery</span>

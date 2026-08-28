@@ -1,0 +1,166 @@
+/* Premium polish: restrained character layered onto the approved reference structure. */
+
+.veylune-marketplace-utility {
+    background: linear-gradient(90deg, #6f146f 0%, #861b86 52%, #741474 100%);
+    box-shadow: inset 0 -1px rgb(255 255 255 / 14%);
+}
+
+.veylune-marketplace-family a,
+.veylune-marketplace-utility__links a,
+.veylune-marketplace-utility__links span {
+    opacity: 0.86;
+    transition: opacity 160ms ease;
+}
+
+.veylune-marketplace-family a:hover,
+.veylune-marketplace-family a:focus-visible,
+.veylune-marketplace-utility__links a:hover,
+.veylune-marketplace-utility__links a:focus-visible {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.veylune-marketplace-utility__shipping {
+    font-weight: 750;
+}
+
+@media (min-width: 992px) {
+    .veylune-header .veylune-header__inner,
+    .veylune-marketplace-utility__inner {
+        width: min(calc(100% - 64px), 1310px);
+        max-width: 1310px;
+    }
+
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 200px minmax(500px, 1fr) 270px;
+        column-gap: 22px;
+    }
+
+    .veylune-header__logo-main {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .veylune-header__logo-image {
+        display: none;
+    }
+
+    .veylune-header__logo-main::before {
+        content: "veylune";
+        color: #7f187f;
+        font-family: var(--veylune-marketplace-font);
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.055em;
+    }
+
+    .veylune-header__logo-main::after {
+        content: "HOME";
+        align-self: flex-end;
+        margin: 0 0 1px 9px;
+        color: rgb(47 43 49 / 48%);
+        font-size: 0.54rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+    }
+}
+
+.veylune-marketplace-search__form {
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.veylune-marketplace-search__form:hover {
+    border-color: #7f187f;
+}
+
+.veylune-marketplace-search__form:focus-within {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgb(83 25 83 / 11%), 0 0 0 2px rgb(127 24 127 / 14%);
+}
+
+.veylune-marketplace-search__submit {
+    background: linear-gradient(145deg, #8b208b, #741474);
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    background: #651065;
+}
+
+.veylune-marketplace-action {
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.veylune-marketplace-action:hover,
+.veylune-marketplace-action:focus-visible {
+    color: #7f187f;
+    background: #f7f0f7;
+}
+
+.veylune-header__nav-link:first-child::before {
+    content: "✓";
+    display: inline-grid;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #7f187f;
+    font-size: 0.65rem;
+    font-weight: 900;
+}
+
+.veylune-header__nav-link:nth-child(18) {
+    color: #c61d46;
+}
+
+.veylune-header__nav-link:hover,
+.veylune-header__nav-link:focus-visible {
+    text-decoration: none;
+}
+
+.veylune-header__nav-link {
+    position: relative;
+}
+
+.veylune-header__nav-link::after {
+    content: "";
+    position: absolute;
+    right: 9px;
+    bottom: 4px;
+    left: 9px;
+    display: block;
+    height: 2px;
+    background: #7f187f;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 160ms ease;
+}
+
+.veylune-header__nav-link:hover::after,
+.veylune-header__nav-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header__logo-image {
+        filter: contrast(1.25);
+    }
+
+    .veylune-marketplace-search__form:focus-within {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-marketplace-family a,
+    .veylune-marketplace-utility__links a,
+    .veylune-marketplace-search__form,
+    .veylune-marketplace-action,
+    .veylune-header__nav-link::after {
+        transition: none;
+    }
+}

@@ -76,6 +76,20 @@ final class DraftCatalogPreviewService
     }
 
     /**
+     * @return array<string, mixed>|null
+     */
+    public function forRecordId(string $recordId): ?array
+    {
+        foreach ($this->products() as $product) {
+            if (\strtoupper(\trim((string) $product['recordId'])) === \strtoupper(\trim($recordId))) {
+                return $product;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return array<string, list<array<string, mixed>>>
      */
     public function homepageRails(): array

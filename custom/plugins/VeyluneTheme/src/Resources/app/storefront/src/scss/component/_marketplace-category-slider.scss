@@ -1,0 +1,51 @@
+/* Visible category cards are a carousel at every viewport. */
+
+.veylune-category-discovery__slider {
+    position: relative;
+}
+
+.veylune-category-discovery__rail {
+    display: flex;
+    grid-template-columns: none;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 14px;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: 2px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.veylune-category-discovery__rail::-webkit-scrollbar {
+    display: none;
+}
+
+.veylune-category-discovery__item {
+    flex: 0 0 calc((100% - 64px) / 5);
+    max-width: none;
+    scroll-snap-align: start;
+}
+
+.veylune-category-discovery__slider .veylune-product-slider__control {
+    top: 43%;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .veylune-category-discovery__item {
+        flex-basis: calc((100% - 32px) / 3);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-category-discovery__rail {
+        gap: 14px;
+        padding: 4px 12px 12px;
+        scroll-padding-inline: 12px;
+    }
+
+    .veylune-category-discovery__item {
+        flex-basis: 38vw;
+        max-width: 168px;
+    }
+}

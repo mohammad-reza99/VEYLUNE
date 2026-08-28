@@ -1,0 +1,11 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    <main class="veylune-legal-notice" data-veylune-legal-page="{{ veyluneLegalDocument }}">
+        <p class="veylune-legal-notice__eyebrow">Pre-launch legal information</p>
+        <h1>{{ veyluneLegalCopy[0] }}</h1>
+        <p>{{ veyluneLegalCopy[1] }}</p>
+        <p>{{ veyluneLegalCopy[2] }}</p>
+        <p><a href="{{ path('frontend.veylune.consultation.page') }}">Contact the studio</a></p>
+    </main>
+{% endblock %}

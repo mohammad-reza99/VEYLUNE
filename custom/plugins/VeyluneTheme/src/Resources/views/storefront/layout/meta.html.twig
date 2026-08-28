@@ -1,27 +1,97 @@
 {% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
 
 {% set isVeyluneHome = app.request.attributes.get('_route') == 'frontend.home.page' %}
+{% set veyluneRoute = app.request.attributes.get('_route')|default('') %}
+{% set isVeyluneAccount = veyluneRoute starts with 'frontend.account.' %}
+{% set veyluneAccountTitle = 'recover' in veyluneRoute ? 'Password recovery | VEYLUNE' : (veyluneRoute in ['frontend.account.login.page', 'frontend.account.register.page'] ? 'Sign in or create account | VEYLUNE' : 'Your account | VEYLUNE') %}
+{% set veyluneAccountDescription = 'Securely access your Veylune account, addresses, saved projects and order history.' %}
+{% set isVeyluneIndexable = page.metaInformation.robots|default('') == 'index,follow' %}
+{% set veyluneHomeShareImage = absolute_url(asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme')) %}
 
 {% block layout_head_meta_tags_description %}
-    {{ isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags : parent() }}
+    {{- isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountDescription : parent()) -}}
 {% endblock %}
 
 {% block layout_head_meta_tags_title_og %}
-    {{ isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : parent() }}
+    {{- isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountTitle : parent()) -}}
 {% endblock %}
 
 {% block layout_head_meta_tags_description_og %}
-    {{ isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags : parent() }}
+    {{- isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountDescription : parent()) -}}
 {% endblock %}
 
+{% block layout_head_meta_tags_sitename_og %}VEYLUNE{% endblock %}
+
+{% block layout_head_meta_tags_image_og %}{{- isVeyluneHome ? veyluneHomeShareImage : parent() -}}{% endblock %}
+
+{% block layout_head_meta_tags_card_twitter %}{{- isVeyluneHome ? 'summary_large_image' : parent() -}}{% endblock %}
+
+{% block layout_head_meta_tags_sitename_twitter %}VEYLUNE{% endblock %}
+
 {% block layout_head_meta_tags_title_twitter %}
-    {{ isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : parent() }}
+    {{- isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountTitle : parent()) -}}
 {% endblock %}
 
 {% block layout_head_meta_tags_description_twitter %}
-    {{ isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags : parent() }}
+    {{- isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountDescription : parent()) -}}
+{% endblock %}
+
+{% block layout_head_meta_tags_image_twitter %}{{- isVeyluneHome ? veyluneHomeShareImage : parent() -}}{% endblock %}
+
+{% block layout_head_json_ld_global %}
+    {% if isVeyluneIndexable %}
+        {% set veyluneWebsiteData = {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            '@id': app.request.schemeAndHttpHost ~ '/#website',
+            name: 'Veylune Studio',
+            url: app.request.schemeAndHttpHost ~ '/'
+        } %}
+        <script type="application/ld+json">
+            {{ veyluneWebsiteData|json_encode(jsonLdFlags)|raw }}
+        </script>
+        {% set veyluneOrganizationData = {
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            '@id': app.request.schemeAndHttpHost ~ '/#organization',
+            name: 'Veylune Studio',
+            url: app.request.schemeAndHttpHost ~ '/',
+            logo: {
+                '@type': 'ImageObject',
+                url: absolute_url(theme_config('sw-logo-desktop'))
+            }
+        } %}
+        <script type="application/ld+json">
+            {{ veyluneOrganizationData|json_encode(jsonLdFlags)|raw }}
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block layout_head_json_ld %}
+    {% if isVeyluneIndexable %}
+        {% sw_include '@Storefront/storefront/layout/structured-data/json-ld-webpage.html.twig' %}
+        {% sw_include '@Storefront/storefront/layout/structured-data/json-ld-breadcrumb.html.twig' with {
+            breadcrumbItems: page.breadcrumb
+        } only %}
+    {% endif %}
+{% endblock %}
+
+{% block layout_head_stylesheet %}
+    {% if isVeyluneHome %}
+        <link rel="preload"
+              as="image"
+              href="{{ veyluneHomeShareImage }}"
+              type="image/webp"
+              fetchpriority="high">
+    {% endif %}
+    <link rel="preload"
+          as="font"
+          href="{{ asset('assets/font/Inter-Variable-Roman-Latin.woff2', 'theme') }}"
+          type="font/woff2"
+          crossorigin>
+    {{ parent() }}
 {% endblock %}
 
 {% block layout_head_title_inner %}
-    {{- isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : parent() -}}
+    {{- isVeyluneHome ? 'veylune.home.seo.title'|trans|striptags : (isVeyluneAccount ? veyluneAccountTitle : parent()) -}}
 {% endblock %}

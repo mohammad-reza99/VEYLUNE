@@ -1,0 +1,92 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <div class="veylune-checkout-preview" data-veylune-checkout-preview>
+        <nav aria-label="Checkout progress">
+            <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}"><span>1</span>Selection</a>
+            <span aria-current="step"><span>2</span>Delivery</span>
+            <span><span>3</span>Review</span>
+        </nav>
+
+        <header>
+            <p>Private checkout preview</p>
+            <h1>Delivery and project details</h1>
+            <p>No payment is collected and no order is created on this page.</p>
+        </header>
+
+        <section class="veylune-checkout-preview__empty" data-checkout-empty hidden>
+            <p>Selection required</p>
+            <h2>Your private selection is empty.</h2>
+            <a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore private catalog</a>
+        </section>
+
+        <form class="veylune-checkout-preview__layout" data-checkout-form aria-describedby="veyluneCheckoutStatus" novalidate>
+            <div class="veylune-checkout-preview__forms">
+                <section aria-labelledby="veyluneCheckoutContactTitle">
+                    <div class="veylune-checkout-preview__section-head"><span>01</span><div><p>Contact</p><h2 id="veyluneCheckoutContactTitle">Who should the studio contact?</h2></div></div>
+                    <div class="veylune-checkout-preview__fields">
+                        <label class="veylune-checkout-preview__field--wide">Email address<input type="email" name="email" autocomplete="email" required></label>
+                        <label>First name<input name="firstName" autocomplete="given-name" required></label>
+                        <label>Last name<input name="lastName" autocomplete="family-name" required></label>
+                        <label class="veylune-checkout-preview__field--wide">Phone number <small>Optional</small><input type="tel" name="phone" autocomplete="tel"></label>
+                    </div>
+                </section>
+
+                <section aria-labelledby="veyluneCheckoutAddressTitle">
+                    <div class="veylune-checkout-preview__section-head"><span>02</span><div><p>Project address</p><h2 id="veyluneCheckoutAddressTitle">Where is the selection going?</h2></div></div>
+                    <div class="veylune-checkout-preview__fields">
+                        <label class="veylune-checkout-preview__field--wide">Street address<input name="address" autocomplete="street-address" required></label>
+                        <label>City<input name="city" autocomplete="address-level2" required></label>
+                        <label>Postal code<input name="postalCode" autocomplete="postal-code" maxlength="10" required></label>
+                        <label class="veylune-checkout-preview__field--wide">Country<select name="country" autocomplete="country-name" required><option value="">Choose country</option><option value="DE">Germany</option><option value="AT">Austria</option><option value="CH">Switzerland</option><option value="NL">Netherlands</option><option value="FR">France</option></select></label>
+                    </div>
+                </section>
+
+                <fieldset class="veylune-checkout-preview__delivery">
+                    <legend><span>03</span><strong>Delivery method</strong></legend>
+                    <label><input type="radio" name="deliveryMethod" value="project" checked><span><strong>Project delivery planning</strong><small>Lead time, access and final quote confirmed by the studio</small></span><em>Quote pending</em></label>
+                    <label><input type="radio" name="deliveryMethod" value="collection"><span><strong>Studio or partner collection</strong><small>Availability depends on the approved supplier and destination</small></span><em>Review required</em></label>
+                </fieldset>
+
+                <section class="veylune-checkout-preview__payment" aria-labelledby="veyluneCheckoutPaymentTitle">
+                    <div class="veylune-checkout-preview__section-head"><span>04</span><div><p>Payment</p><h2 id="veyluneCheckoutPaymentTitle">Payment follows approval.</h2></div></div>
+                    <div role="status"><strong>No card details required</strong><p>Secure payment options only appear after product, supplier, delivery and commercial terms have been approved.</p></div>
+                </section>
+            </div>
+
+            <aside class="veylune-checkout-preview__summary" aria-labelledby="veyluneCheckoutSummaryTitle">
+                <div><p>Review</p><h2 id="veyluneCheckoutSummaryTitle">Project summary</h2></div>
+                <article>
+                    <div aria-hidden="true"><span></span></div>
+                    <section><h3 data-checkout-product-name>Selected piece</h3><p data-checkout-product-material>Material pending</p><p>Qty <span data-checkout-product-quantity>0</span></p></section>
+                    <strong data-checkout-line-total>€0</strong>
+                </article>
+                <dl>
+                    <div><dt>Subtotal estimate</dt><dd data-checkout-subtotal>€0</dd></div>
+                    <div><dt>Delivery</dt><dd>Quote pending</dd></div>
+                    <div><dt>Estimated total</dt><dd data-checkout-total>€0</dd></div>
+                </dl>
+                <label class="veylune-checkout-preview__consent"><input type="checkbox" name="reviewConsent" required><span>I understand this is a non-binding private preview and final terms require studio approval.</span></label>
+                <button type="submit" data-checkout-review>Review private request</button>
+                <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">Return to selection</a>
+                <p id="veyluneCheckoutStatus" data-checkout-status role="status" aria-live="polite">Complete the required details to review this request.</p>
+            </aside>
+        </form>
+
+        <dialog class="veylune-checkout-review" data-checkout-review-dialog aria-labelledby="veyluneCheckoutReviewTitle">
+            <div>
+                <button type="button" data-checkout-review-close aria-label="Close request review">Close</button>
+                <p>Final review</p>
+                <h2 id="veyluneCheckoutReviewTitle">Ready for studio dialogue.</h2>
+                <dl>
+                    <div><dt>Contact</dt><dd data-review-contact></dd></div>
+                    <div><dt>Destination</dt><dd data-review-destination></dd></div>
+                    <div><dt>Delivery</dt><dd data-review-delivery></dd></div>
+                    <div><dt>Selection estimate</dt><dd data-review-total></dd></div>
+                </dl>
+                <div class="veylune-checkout-review__guard"><strong>Activation guard</strong><p>This preview cannot submit an order, reserve inventory or collect payment.</p></div>
+                <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue</a>
+            </div>
+        </dialog>
+    </div>
+{% endblock %}

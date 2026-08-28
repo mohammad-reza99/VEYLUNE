@@ -1,0 +1,192 @@
+/* Phase 3.6 refinement: compact assurance rail plus a dominant advisory feature. */
+
+.veylune-trust-services {
+    position: relative;
+    padding: clamp(40px, 5vw, 64px);
+    overflow: hidden;
+    border: 0;
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 88% 8%, rgb(127 24 127 / 9%), transparent 28%),
+        #f7f3f8;
+}
+
+.veylune-trust-services::before {
+    content: "SERVICE / 01—04";
+    position: absolute;
+    top: 22px;
+    right: 28px;
+    color: rgb(127 24 127 / 45%);
+    font-size: 0.58rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+}
+
+.veylune-trust-services__intro {
+    grid-template-columns: minmax(330px, 1.25fr) minmax(300px, 0.75fr);
+    gap: 24px 70px;
+    margin-bottom: 40px;
+}
+
+.veylune-trust-services__intro h2 {
+    max-width: 720px;
+}
+
+.veylune-trust-services__intro > p:last-child {
+    padding-left: 22px;
+    border-left: 2px solid #7f187f;
+}
+
+.veylune-trust-services__grid {
+    position: relative;
+    grid-template-columns: repeat(3, minmax(0, 0.9fr)) minmax(280px, 1.3fr);
+    gap: 12px;
+    border: 0;
+}
+
+.veylune-trust-services__grid::before {
+    content: "";
+    position: absolute;
+    top: 47px;
+    left: 34px;
+    z-index: 0;
+    width: calc(63% - 24px);
+    height: 1px;
+    background: linear-gradient(90deg, #7f187f, rgb(127 24 127 / 12%));
+}
+
+.veylune-trust-service {
+    z-index: 1;
+    min-height: 238px;
+    gap: 22px;
+    padding: 24px 22px 22px;
+    border: 1px solid rgb(47 43 49 / 9%);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 86%);
+    box-shadow: 0 8px 24px rgb(46 25 48 / 5%);
+}
+
+.veylune-trust-service:last-child,
+.veylune-trust-service:nth-child(2) {
+    border-right: 1px solid rgb(47 43 49 / 9%);
+}
+
+.veylune-trust-service__index {
+    display: inline-grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid rgb(127 24 127 / 24%);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 7px #f7f3f8;
+}
+
+.veylune-trust-service h3 {
+    font-size: 1.08rem;
+}
+
+.veylune-trust-service__meta {
+    width: fit-content;
+    padding-top: 9px;
+    border-top: 1px solid rgb(47 43 49 / 12%);
+}
+
+.veylune-trust-service--consultation {
+    padding: 28px;
+    border-color: #7f187f;
+    border-radius: 12px;
+    background:
+        linear-gradient(145deg, rgb(255 255 255 / 5%), transparent 45%),
+        #7f187f;
+    box-shadow: 0 16px 34px rgb(83 25 83 / 20%);
+}
+
+.veylune-trust-service--consultation .veylune-trust-service__index {
+    border-color: rgb(255 255 255 / 35%);
+    color: #fff;
+    background: transparent;
+    box-shadow: none;
+}
+
+.veylune-trust-service--consultation h3 {
+    max-width: 240px;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    line-height: 1;
+}
+
+.veylune-trust-service--consultation p {
+    max-width: 290px;
+}
+
+.veylune-trust-service--consultation .veylune-trust-service__meta {
+    padding-top: 10px;
+    border-top-color: rgb(255 255 255 / 25%);
+}
+
+@media (max-width: 1199.98px) {
+    .veylune-trust-services__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .veylune-trust-services__grid::before {
+        display: none;
+    }
+
+    .veylune-trust-service--consultation {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-trust-services {
+        width: calc(100% - 24px);
+        padding: 38px 16px 16px;
+        border-radius: 14px;
+    }
+
+    .veylune-trust-services::before {
+        top: 16px;
+        right: 16px;
+    }
+
+    .veylune-trust-services__intro {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 26px;
+    }
+
+    .veylune-trust-services__intro > p:last-child {
+        padding: 0;
+        border-left: 0;
+    }
+
+    .veylune-trust-services__grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .veylune-trust-service,
+    .veylune-trust-service--consultation {
+        grid-column: 1;
+        min-height: 0;
+        padding: 20px 16px;
+        border: 1px solid rgb(47 43 49 / 9%);
+        border-radius: 10px;
+    }
+
+    .veylune-trust-service__index {
+        width: 34px;
+        height: 34px;
+        box-shadow: none;
+    }
+
+    .veylune-trust-service--consultation {
+        padding: 24px 18px;
+        border-color: #7f187f;
+    }
+
+    .veylune-trust-service--consultation h3 {
+        font-size: 1.5rem;
+    }
+}

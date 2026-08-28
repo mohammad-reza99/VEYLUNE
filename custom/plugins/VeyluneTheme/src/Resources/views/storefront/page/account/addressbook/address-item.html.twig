@@ -12,7 +12,7 @@
                 {% endblock %}
 
                 {% block address_item_dropdown %}
-                    {% set addressItemDropdownId = 'address-item-dropdown-' ~ random() %}
+                    {% set addressItemDropdownId = 'address-item-dropdown-' ~ address.id %}
 
                     <div class="dropdown veylune-address-card__dropdown">
                         {% block address_item_dropdown_button %}
@@ -43,6 +43,7 @@
                                         <form
                                             action="{{ path('frontend.account.address.set-default-address', {type: 'shipping', addressId: address.id}) }}"
                                             method="post"
+                                            data-form-submit-loader="true"
                                         >
                                             <button
                                                 type="submit"
@@ -59,6 +60,7 @@
                                         <form
                                             action="{{ path('frontend.account.address.set-default-address', {type: 'billing', addressId: address.id}) }}"
                                             method="post"
+                                            data-form-submit-loader="true"
                                         >
                                             <button
                                                 type="submit"
@@ -75,8 +77,13 @@
                                         <form
                                             action="{{ path('frontend.account.address.delete', {addressId: address.id}) }}"
                                             method="post"
+                                            data-form-submit-loader="true"
                                         >
-                                            <button type="submit" class="veylune-dropdown-item veylune-dropdown-item--danger">
+                                            <button
+                                                type="submit"
+                                                class="veylune-dropdown-item veylune-dropdown-item--danger"
+                                                title="{{ 'account.addressesContentItemActionDelete'|trans|striptags }}"
+                                            >
                                                 {{ 'account.addressesContentItemActionDelete'|trans|sw_sanitize }}
                                             </button>
                                         </form>

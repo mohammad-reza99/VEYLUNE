@@ -1,0 +1,46 @@
+{% sw_extends '@Storefront/storefront/page/content/meta.html.twig' %}
+
+{% block layout_head_json_ld %}
+    {% if page.metaInformation.robots|default('') == 'index,follow' %}
+        {% set jsonLdWebPageType = page.landingPage is not empty ? 'WebPage' : 'CollectionPage' %}
+        {% if app.request.attributes.get('_route') == 'frontend.home.page' %}
+            {% set veyluneHomePageData = {
+                '@context': 'https://schema.org',
+                '@type': 'CollectionPage',
+                '@id': page.metaInformation.canonical ~ '#webpage',
+                name: 'veylune.home.seo.title'|trans|striptags|trim,
+                description: 'veylune.home.seo.description'|trans|striptags|trim,
+                url: page.metaInformation.canonical,
+                isPartOf: {
+                    '@id': app.request.schemeAndHttpHost ~ '/#website'
+                },
+                inLanguage: context.languageInfo.localeCode,
+                copyrightHolder: {
+                    '@id': app.request.schemeAndHttpHost ~ '/#organization'
+                },
+                primaryImageOfPage: absolute_url(asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme'))
+            } %}
+            <script type="application/ld+json">
+                {{ veyluneHomePageData|json_encode(jsonLdFlags)|raw }}
+            </script>
+        {% else %}
+            {% sw_include '@Storefront/storefront/layout/structured-data/json-ld-webpage.html.twig' %}
+        {% endif %}
+        {% if feature('v6.8.0.0') or feature('BREADCRUMB_REWORK') %}
+            {% sw_include '@Storefront/storefront/layout/structured-data/json-ld-breadcrumb.html.twig' with {
+                breadcrumbItems: page.breadcrumb
+            } only %}
+        {% else %}
+            {% sw_include '@Storefront/storefront/layout/structured-data/json-ld-breadcrumb.html.twig' with {
+                categoryId: shopware.navigation.id
+            } only %}
+        {% endif %}
+
+        {% set listingSlot = page.cmsPage ? page.cmsPage.getFirstElementOfType('product-listing') : null %}
+        {% if listingSlot and listingSlot.data and listingSlot.data.listing %}
+            {% sw_include '@Storefront/storefront/layout/structured-data/json-ld-item-list.html.twig' with {
+                searchResult: listingSlot.data.listing
+            } only %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

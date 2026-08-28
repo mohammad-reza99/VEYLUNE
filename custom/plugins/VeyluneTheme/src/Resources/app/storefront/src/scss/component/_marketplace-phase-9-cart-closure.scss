@@ -1,0 +1,62 @@
+/* Phase 9.1 Batch F: cart interaction and recovery refinement. */
+.veylune-cart-preview__alert {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.veylune-cart-preview__alert button {
+    flex: none;
+    min-height: 32px;
+    padding-inline: .75rem;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: 4px;
+    color: var(--veylune-marketplace-primary);
+    background: #fff;
+    font-weight: 800;
+}
+
+.veylune-cart-preview .veylune-pdp-quantity button,
+.veylune-cart-preview__delivery button,
+.veylune-cart-preview__promo button {
+    min-width: 48px;
+    min-height: 48px;
+}
+
+.veylune-cart-preview__delivery input,
+.veylune-cart-preview__promo input {
+    min-height: 48px;
+    border-radius: 4px 0 0 4px;
+}
+
+.veylune-cart-preview__delivery button,
+.veylune-cart-preview__promo button {
+    border-radius: 0 4px 4px 0;
+}
+
+.veylune-cart-preview__item-actions > button {
+    min-height: 44px;
+    padding-inline: .5rem;
+}
+
+.veylune-cart-preview [role="status"] {
+    min-height: 1.5rem;
+}
+
+@media (max-width: 575.98px) {
+    .veylune-cart-preview__alert {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .veylune-cart-preview__alert button {
+        min-height: 44px;
+    }
+
+    .veylune-cart-preview__delivery form > div,
+    .veylune-cart-preview__promo > div {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+}

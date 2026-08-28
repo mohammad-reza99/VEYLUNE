@@ -1,0 +1,152 @@
+/* Phase 4.6.1: consolidate the legacy trade block into the marketplace system. */
+.veylune-home .veylune-trade {
+    padding: var(--veylune-marketplace-section-space) 0;
+    border-top: 1px solid var(--veylune-marketplace-border);
+    background: #f7f3f7;
+}
+
+.veylune-home .veylune-trade__inner {
+    position: relative;
+    display: grid;
+    grid-template-areas: "intro services" "action services";
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.65fr);
+    gap: 1.75rem clamp(2rem, 7vw, 8rem);
+    width: var(--veylune-marketplace-container);
+    margin-inline: auto;
+    padding: clamp(2.25rem, 5vw, 5.5rem);
+    overflow: hidden;
+    border: 1px solid rgb(47 43 49 / 12%);
+    border-radius: var(--veylune-marketplace-panel-radius);
+    background: radial-gradient(circle at 92% 6%, rgb(127 24 127 / 12%), transparent 32%), #fff;
+    box-shadow: 0 22px 64px rgb(47 43 49 / 8%);
+}
+
+.veylune-home .veylune-trade__inner::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    background: var(--veylune-marketplace-primary);
+    content: "";
+}
+
+.veylune-home .veylune-trade__inner > div:first-child {
+    grid-area: intro;
+    align-self: end;
+}
+
+.veylune-home .veylune-trade .veylune-home__eyebrow {
+    margin-bottom: 1rem;
+    color: var(--veylune-marketplace-primary);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.veylune-home .veylune-trade h2 {
+    max-width: 16ch;
+    margin: 0;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(2.35rem, 4.7vw, 5.5rem);
+    font-weight: 520;
+    line-height: 0.98;
+    letter-spacing: -0.048em;
+}
+
+.veylune-home .veylune-trade__list {
+    grid-area: services;
+    display: grid;
+    align-content: center;
+    gap: 0;
+    padding-left: clamp(1.25rem, 3vw, 3rem);
+    border-left: 1px solid rgb(47 43 49 / 12%);
+}
+
+.veylune-home .veylune-trade__list span {
+    position: relative;
+    min-height: 56px;
+    padding: 1.05rem 2rem 1.05rem 0;
+    border-bottom: 1px solid rgb(47 43 49 / 12%);
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: clamp(0.86rem, 1vw, 1rem);
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.veylune-home .veylune-trade__list span::after {
+    position: absolute;
+    top: 50%;
+    right: 0.15rem;
+    color: var(--veylune-marketplace-primary);
+    font-size: 1rem;
+    transform: translateY(-50%);
+    content: "↗";
+}
+
+.veylune-home .veylune-trade__list span:last-child {
+    border-bottom: 0;
+}
+
+.veylune-home .veylune-trade .veylune-home__link {
+    grid-area: action;
+    display: inline-flex;
+    width: fit-content;
+    min-height: 46px;
+    align-items: center;
+    align-self: start;
+    padding: 0 1.25rem;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: 999px;
+    color: #fff;
+    background: var(--veylune-marketplace-primary);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-transform: none;
+}
+
+.veylune-home .veylune-trade .veylune-home__link:hover,
+.veylune-home .veylune-trade .veylune-home__link:focus-visible {
+    border-color: var(--veylune-marketplace-primary-hover);
+    background: var(--veylune-marketplace-primary-hover);
+}
+
+@media (max-width: 767.98px) {
+    .veylune-home .veylune-trade__inner {
+        grid-template-areas: "intro" "services" "action";
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        width: min(calc(100% - 32px), 1600px);
+        padding: 2rem 1.25rem;
+        border-radius: 14px;
+    }
+
+    .veylune-home .veylune-trade h2 {
+        max-width: 13ch;
+        font-size: clamp(2.2rem, 11vw, 3.65rem);
+    }
+
+    .veylune-home .veylune-trade__list {
+        padding: 0;
+        border-top: 1px solid rgb(47 43 49 / 12%);
+        border-left: 0;
+    }
+
+    .veylune-home .veylune-trade .veylune-home__link {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-home .veylune-trade .veylune-home__link {
+        transition: none;
+    }
+}
+

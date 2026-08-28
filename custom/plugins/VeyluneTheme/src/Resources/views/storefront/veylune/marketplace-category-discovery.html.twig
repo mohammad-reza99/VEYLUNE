@@ -1,0 +1,38 @@
+<section class="veylune-category-discovery" aria-labelledby="veylune-category-discovery-title" data-veylune-reveal data-veylune-registry-scope="homepage-category-tiles">
+    <div class="veylune-category-discovery__head">
+        <h2 id="veylune-category-discovery-title">{{ 'veylune.home.discovery.categories.eyebrow'|trans|sw_sanitize }}</h2>
+        <p>{{ 'veylune.home.discovery.categories.title'|trans|sw_sanitize }}</p>
+        {% if not publicSurfaces.catalog|default(false) %}
+            <span class="veylune-home-pending-note" id="veylune-category-pending-note">Catalog access opens after product verification.</span>
+        {% endif %}
+    </div>
+
+    <div class="veylune-category-discovery__slider" data-veylune-product-slider{% if not publicSurfaces.catalog|default(false) %} aria-describedby="veylune-category-pending-note"{% endif %}>
+        <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="veylune-category-slider" aria-label="Previous categories">‹</button>
+        <div class="veylune-category-discovery__rail" id="veylune-category-slider" data-veylune-product-slider-track role="list" aria-roledescription="carousel" aria-label="Home categories" tabindex="0">
+        {% for department in veyluneDepartments %}
+            <div class="veylune-category-discovery__item" role="listitem">
+                {% if publicSurfaces.catalog|default(false) %}
+                    <a class="veylune-category-tile"
+                       href="{{ department.target }}"
+                       data-veylune-registry-key="{{ department.key }}"
+                       data-veylune-discovery-type="department">
+                {% else %}
+                    <article class="veylune-category-tile veylune-category-tile--preview" aria-disabled="true">
+                {% endif %}
+                        <span class="veylune-category-tile__media veylune-category-tile__media--{{ department.key }}" aria-hidden="true"></span>
+                        <span class="veylune-category-tile__label">{{ department.label|trans|sw_sanitize }}</span>
+                        {% if not publicSurfaces.catalog|default(false) %}
+                            <span class="veylune-home-card-status">Catalog activation pending</span>
+                        {% endif %}
+                {% if publicSurfaces.catalog|default(false) %}
+                    </a>
+                {% else %}
+                    </article>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+        <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="veylune-category-slider" aria-label="Next categories">›</button>
+    </div>
+</section>

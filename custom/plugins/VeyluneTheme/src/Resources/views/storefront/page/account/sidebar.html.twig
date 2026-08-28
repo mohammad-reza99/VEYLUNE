@@ -43,7 +43,7 @@
                                 <a href="{{ path('frontend.account.address.page') }}"
                                    title="{{ 'account.addressLink'|trans|striptags }}"
                                    class="list-group-item list-group-item-action account-aside-item veylune-account-sidebar__item{% if activeRoute starts with('frontend.account.address') %} is-active{% endif %}"
-                                   {% if activeRoute starts with('frontend.account.address.page') %} aria-current="page"{% endif %}>
+                                   {% if activeRoute starts with('frontend.account.address') %} aria-current="page"{% endif %}>
                                     {% sw_icon 'map' style { size: 'sm' } %}
                                     <span>{{ 'account.addressLink'|trans|sw_sanitize }}</span>
                                 </a>

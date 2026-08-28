@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block single_cms_page_main %}
-    <main class="content-main veylune-single-cms__main">
+    <div class="content-main veylune-single-cms__main">
         {% block single_cms_page_main_content %}
             {% set cmsPage = page.cmsPage %}
             {% set cmsPageClasses = ('cms-page ' ~ cmsPage.cssClass|striptags)|trim %}
@@ -15,7 +15,7 @@
                 {% endblock %}
             </div>
         {% endblock %}
-    </main>
+    </div>
 {% endblock %}
 
 {% block single_cms_page_footer %}

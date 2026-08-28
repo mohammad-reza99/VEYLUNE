@@ -1,0 +1,21 @@
+/* Phase 9 public/private header information architecture closure. */
+.veylune-header__nav-link--pending,
+.veylune-mobile-marketplace__panel span[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: .58;
+}
+
+.veylune-header__nav-link[href] {
+    text-decoration: none;
+}
+
+.veylune-mobile-marketplace__panel a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.veylune-mobile-marketplace__panel a:hover,
+.veylune-mobile-marketplace__panel a:focus-visible {
+    color: var(--veylune-marketplace-primary);
+    text-decoration: underline;
+}

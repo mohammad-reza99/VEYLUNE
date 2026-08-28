@@ -1,0 +1,89 @@
+/* Phase 9.1 Batch E: account access and recovery refinement. */
+.veylune-account-preview__auth input:not([type="checkbox"]),
+.veylune-account-recovery-dialog input {
+    min-height: 48px;
+    border-radius: 4px;
+}
+
+.veylune-account-preview__auth button[type="submit"],
+.veylune-account-recovery-dialog button[type="submit"] {
+    min-height: 48px;
+}
+
+.veylune-account-preview__auth [role="status"] {
+    min-height: 2.25rem;
+}
+
+.veylune-account-recovery-dialog {
+    width: min(28rem, calc(100% - 1.5rem));
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+}
+
+.veylune-account-recovery-dialog::backdrop {
+    background: rgb(20 17 15 / 56%);
+}
+
+.veylune-account-recovery-dialog form {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.25rem, 5vw, 2rem);
+}
+
+.veylune-account-recovery-dialog form > button:first-child {
+    justify-self: end;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-decoration: underline;
+}
+
+.veylune-account-recovery-dialog p,
+.veylune-account-recovery-dialog h2 {
+    margin: 0;
+}
+
+.veylune-account-recovery-dialog form > p:first-of-type {
+    color: var(--veylune-marketplace-primary);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.veylune-account-recovery-dialog label {
+    display: grid;
+    gap: .35rem;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.veylune-account-recovery-dialog input {
+    width: 100%;
+    padding-inline: .75rem;
+    border: 1px solid #918b85;
+}
+
+.veylune-account-recovery-dialog button[type="submit"] {
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: 4px;
+    color: #fff;
+    background: var(--veylune-marketplace-primary);
+    font-weight: 800;
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-preview__nav {
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+    }
+
+    .veylune-account-preview__nav a,
+    .veylune-account-preview__nav button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        scroll-snap-align: start;
+    }
+}

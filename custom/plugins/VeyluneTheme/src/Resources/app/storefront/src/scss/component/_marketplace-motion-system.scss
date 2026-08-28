@@ -1,0 +1,195 @@
+/* Phase 3.8: coherent motion, media loading and interaction feedback. */
+
+.veylune-home {
+    --veylune-motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --veylune-motion-fast: 180ms;
+    --veylune-motion-medium: 420ms;
+    --veylune-motion-slow: 700ms;
+}
+
+.veylune-marketplace-motion-ready .veylune-home [data-veylune-reveal] {
+    transform: translate3d(0, 20px, 0);
+    filter: blur(3px);
+    opacity: 0;
+    transition:
+        opacity var(--veylune-motion-slow) var(--veylune-motion-ease),
+        transform var(--veylune-motion-slow) var(--veylune-motion-ease),
+        filter var(--veylune-motion-slow) var(--veylune-motion-ease);
+}
+
+.veylune-marketplace-motion-ready .veylune-home [data-veylune-reveal].is-visible {
+    transform: translate3d(0, 0, 0);
+    filter: none;
+    opacity: 1;
+}
+
+.veylune-marketplace-motion-ready .veylune-home-hero--commerce.is-visible .veylune-home-hero__content > *,
+.veylune-marketplace-motion-ready .veylune-category-discovery.is-visible .veylune-category-discovery__item,
+.veylune-marketplace-motion-ready .veylune-room-carousel.is-visible .veylune-room-carousel__item,
+.veylune-marketplace-motion-ready .veylune-trust-services.is-visible .veylune-trust-service,
+.veylune-marketplace-motion-ready .veylune-closing-capture.is-visible .veylune-closing-capture__signals span {
+    animation: veylune-marketplace-rise var(--veylune-motion-medium) var(--veylune-motion-ease) both;
+}
+
+.veylune-home-hero--commerce.is-visible .veylune-home-hero__content > *:nth-child(2),
+.veylune-category-discovery.is-visible .veylune-category-discovery__item:nth-child(2),
+.veylune-room-carousel.is-visible .veylune-room-carousel__item:nth-child(2),
+.veylune-trust-services.is-visible .veylune-trust-service:nth-child(2),
+.veylune-closing-capture.is-visible .veylune-closing-capture__signals span:nth-child(2) {
+    animation-delay: 70ms;
+}
+
+.veylune-home-hero--commerce.is-visible .veylune-home-hero__content > *:nth-child(3),
+.veylune-category-discovery.is-visible .veylune-category-discovery__item:nth-child(3),
+.veylune-room-carousel.is-visible .veylune-room-carousel__item:nth-child(3),
+.veylune-trust-services.is-visible .veylune-trust-service:nth-child(3),
+.veylune-closing-capture.is-visible .veylune-closing-capture__signals span:nth-child(3) {
+    animation-delay: 140ms;
+}
+
+.veylune-home-hero--commerce.is-visible .veylune-home-hero__content > *:nth-child(n + 4),
+.veylune-category-discovery.is-visible .veylune-category-discovery__item:nth-child(n + 4),
+.veylune-room-carousel.is-visible .veylune-room-carousel__item:nth-child(n + 4),
+.veylune-trust-services.is-visible .veylune-trust-service:nth-child(n + 4) {
+    animation-delay: 210ms;
+}
+
+@keyframes veylune-marketplace-rise {
+    from {
+        transform: translate3d(0, 12px, 0);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+.veylune-home img {
+    transition: opacity var(--veylune-motion-medium) ease;
+}
+
+.veylune-marketplace-motion-ready .veylune-home img:not(.is-media-ready) {
+    opacity: 0;
+}
+
+.veylune-marketplace-motion-ready .veylune-home img.is-media-ready {
+    opacity: 1;
+}
+
+.veylune-product-card__media:has(img:not(.is-media-ready))::after,
+.veylune-category-tile__media:has(img:not(.is-media-ready))::after,
+.veylune-room-card__media:has(img:not(.is-media-ready))::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: linear-gradient(100deg, transparent 18%, rgb(255 255 255 / 52%) 42%, transparent 66%) #eee9ef;
+    background-size: 220% 100%;
+    animation: veylune-marketplace-shimmer 1.3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes veylune-marketplace-shimmer {
+    to {
+        background-position-x: -220%;
+    }
+}
+
+.veylune-category-tile,
+.veylune-room-card,
+.veylune-trust-service,
+.veylune-promo-merchandising__paths > * {
+    transition:
+        transform var(--veylune-motion-fast) var(--veylune-motion-ease),
+        box-shadow var(--veylune-motion-fast) ease,
+        border-color var(--veylune-motion-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .veylune-category-tile:hover,
+    .veylune-category-tile:focus-visible {
+        transform: translateY(-5px);
+    }
+
+    .veylune-room-card:hover,
+    .veylune-room-card:focus-visible {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgb(33 25 34 / 17%);
+    }
+
+    .veylune-trust-service:hover {
+        transform: translateY(-4px);
+        border-color: rgb(127 24 127 / 22%);
+        box-shadow: 0 14px 30px rgb(46 25 48 / 10%);
+    }
+
+    .veylune-trust-service--consultation:hover {
+        box-shadow: 0 20px 44px rgb(83 25 83 / 28%);
+    }
+}
+
+.veylune-product-slider.is-motion-active .veylune-product-slider__control:not(:disabled) {
+    box-shadow: 0 0 0 5px rgb(127 24 127 / 10%), 0 8px 24px rgb(33 25 34 / 14%);
+}
+
+.veylune-closing-capture__form[aria-busy="true"] {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.veylune-closing-capture__form[aria-busy="true"] button::after {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 9px;
+    border: 1px solid rgb(255 255 255 / 42%);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: veylune-marketplace-spin 700ms linear infinite;
+}
+
+@keyframes veylune-marketplace-spin {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.veylune-home :where(a, button, input, summary):focus-visible {
+    outline: 2px solid #7f187f;
+    outline-offset: 3px;
+}
+
+.veylune-closing-capture :where(a, button, input):focus-visible {
+    outline-color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-marketplace-motion-ready .veylune-home [data-veylune-reveal],
+    .veylune-marketplace-motion-ready .veylune-home [data-veylune-reveal].is-visible,
+    .veylune-marketplace-motion-ready .veylune-home-hero--commerce.is-visible .veylune-home-hero__content > *,
+    .veylune-marketplace-motion-ready .veylune-category-discovery.is-visible .veylune-category-discovery__item,
+    .veylune-marketplace-motion-ready .veylune-room-carousel.is-visible .veylune-room-carousel__item,
+    .veylune-marketplace-motion-ready .veylune-trust-services.is-visible .veylune-trust-service,
+    .veylune-marketplace-motion-ready .veylune-closing-capture.is-visible .veylune-closing-capture__signals span,
+    .veylune-home img,
+    .veylune-category-tile,
+    .veylune-room-card,
+    .veylune-trust-service,
+    .veylune-promo-merchandising__paths > * {
+        transform: none;
+        filter: none;
+        opacity: 1;
+        animation: none;
+        transition: none;
+    }
+
+    .veylune-product-card__media:has(img:not(.is-media-ready))::after,
+    .veylune-category-tile__media:has(img:not(.is-media-ready))::after,
+    .veylune-room-card__media:has(img:not(.is-media-ready))::after,
+    .veylune-closing-capture__form[aria-busy="true"] button::after {
+        animation: none;
+    }
+}

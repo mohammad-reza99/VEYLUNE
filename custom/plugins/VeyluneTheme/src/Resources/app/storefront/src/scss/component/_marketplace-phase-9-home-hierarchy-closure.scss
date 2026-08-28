@@ -1,0 +1,24 @@
+.veylune-home .veylune-trade h2 {
+    max-width: 18ch;
+    font-size: clamp(2.25rem, 4.2vw, 3.1rem);
+    line-height: 0.98;
+}
+
+.veylune-home .veylune-trade__inner {
+    align-items: center;
+}
+
+.veylune-trust-service:not(.veylune-trust-service--consultation) {
+    cursor: default;
+}
+
+.veylune-trust-service__meta {
+    line-height: 1.35;
+}
+
+@media (max-width: 767px) {
+    .veylune-home .veylune-trade h2 {
+        max-width: 16ch;
+        font-size: clamp(2.1rem, 10vw, 2.9rem);
+    }
+}

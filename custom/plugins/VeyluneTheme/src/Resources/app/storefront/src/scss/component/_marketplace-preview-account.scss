@@ -1,0 +1,1197 @@
+.veylune-account-preview {
+    width: min(1240px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3.5rem) 0 5rem;
+    color: #211f1d;
+}
+
+.veylune-account-preview__hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #cbc6c1;
+
+    p,
+    h1 {
+        margin: 0;
+    }
+
+    > div > p:first-child {
+        color: #6b376f;
+        font-size: .72rem;
+        font-weight: 800;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        margin: .35rem 0 .7rem;
+        font-size: clamp(2.4rem, 6vw, 5rem);
+        line-height: .95;
+    }
+
+    > div > p:last-child {
+        max-width: 42rem;
+        color: #625d58;
+    }
+
+    > span {
+        flex: none;
+        padding: .45rem .7rem;
+        border: 1px solid #9c9690;
+        border-radius: 999px;
+        font-size: .72rem;
+        font-weight: 750;
+    }
+}
+
+.veylune-account-preview__layout {
+    display: grid;
+    grid-template-columns: minmax(19rem, 26rem) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(2rem, 5vw, 5rem);
+}
+
+.veylune-account-preview__auth,
+.veylune-account-preview__dashboard > article,
+.veylune-account-preview__tiles article {
+    border: 1px solid #d4cfca;
+    background: #fff;
+}
+
+.veylune-account-preview__auth {
+    position: sticky;
+    top: 8.5rem;
+
+    > section {
+        padding: clamp(1.2rem, 3vw, 1.8rem);
+
+        &[hidden] {
+            display: none;
+        }
+
+        > p,
+        h2 {
+            margin: 0;
+        }
+
+        > p {
+            color: #6b376f;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: .25rem 0 1rem;
+            font-size: 1.8rem;
+        }
+    }
+}
+
+.veylune-account-preview__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-bottom: 1px solid #d4cfca;
+
+    button {
+        min-height: 3.2rem;
+        border: 0;
+        border-bottom: 3px solid transparent;
+        background: #f5f2ee;
+        font-weight: 750;
+    }
+
+    button[aria-selected="true"] {
+        border-bottom-color: #5b2b82;
+        background: #fff;
+        color: #5b2b82;
+    }
+}
+
+.veylune-account-preview__auth form {
+    display: grid;
+    gap: .9rem;
+
+    > label,
+    > div > label,
+    > div:first-child label {
+        display: grid;
+        gap: .35rem;
+        color: #4f4a45;
+        font-size: .8rem;
+        font-weight: 700;
+    }
+
+    input:not([type="checkbox"]) {
+        width: 100%;
+        min-height: 3rem;
+        padding-inline: .75rem;
+        border: 1px solid #918b85;
+    }
+
+    > div {
+        display: flex;
+        justify-content: space-between;
+        gap: .8rem;
+
+        > label {
+            grid-template-columns: auto 1fr;
+            align-items: center;
+        }
+
+        > button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            text-decoration: underline;
+        }
+    }
+
+    > div:first-child:has(input[name="firstName"]) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    > button[type="submit"] {
+        min-height: 3.15rem;
+        border: 1px solid #5b2b82;
+        border-radius: 4px;
+        background: #5b2b82;
+        color: #fff;
+        font-weight: 800;
+    }
+
+    > p {
+        margin: 0;
+        color: #625d58;
+        font-size: .76rem;
+        line-height: 1.45;
+    }
+}
+
+.veylune-account-preview__consent {
+    grid-template-columns: auto 1fr !important;
+    align-items: start !important;
+    line-height: 1.45;
+}
+
+.veylune-account-preview__dashboard {
+    display: grid;
+    gap: 1.3rem;
+
+    > div:first-child p,
+    > div:first-child h2 {
+        margin: 0;
+    }
+
+    > div:first-child p {
+        color: #6b376f;
+        font-size: .7rem;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    > div:first-child h2 {
+        margin-top: .25rem;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+    }
+
+    > article {
+        padding: clamp(1.2rem, 3vw, 1.7rem);
+
+        [hidden] {
+            display: none;
+        }
+
+        h3,
+        p {
+            margin: 0 0 .5rem;
+        }
+
+        a {
+            display: inline-flex;
+            margin-top: .7rem;
+            color: #5b2b82;
+            font-weight: 750;
+        }
+    }
+}
+
+.veylune-account-preview__project-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: .8rem;
+    border-bottom: 1px solid #d4cfca;
+    color: #625d58;
+    font-size: .78rem;
+}
+
+.veylune-account-preview__tiles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    article {
+        display: grid;
+        align-content: start;
+        min-height: 13rem;
+        padding: 1rem;
+
+        > span {
+            color: #6b376f;
+            font-size: .72rem;
+            font-weight: 800;
+        }
+
+        h3 {
+            margin: .7rem 0 .45rem;
+            font-size: 1.05rem;
+        }
+
+        p {
+            margin: 0;
+            color: #625d58;
+            font-size: .82rem;
+            line-height: 1.45;
+        }
+
+        button,
+        a {
+            align-self: end;
+            justify-self: start;
+            margin-top: 1rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #5b2b82;
+            font-size: .8rem;
+            font-weight: 750;
+            text-decoration: underline;
+        }
+
+        button:disabled {
+            color: #89837d;
+        }
+    }
+
+    [data-account-settings-summary],
+    [data-account-readiness-summary] {
+        background: linear-gradient(110deg, #fff 0%, #f5f1f5 100%);
+    }
+}
+
+.veylune-account-preview__nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(.7rem, 2vw, 1.4rem);
+    margin-bottom: 1rem;
+    padding: .8rem 1rem;
+    border: 1px solid #d4cfca;
+    background: #fff;
+    overflow-x: auto;
+
+    a,
+    button {
+        flex: 0 0 auto;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #4f4a45;
+        font-size: .76rem;
+        font-weight: 750;
+        text-decoration: none;
+    }
+
+    a:hover,
+    button:hover {
+        color: #5b2b82;
+        text-decoration: underline;
+    }
+
+    a:last-child {
+        margin-left: auto;
+        color: #5b2b82;
+    }
+}
+
+.veylune-account-preview :is(button, a, input):focus-visible {
+    outline: 3px solid #2457d6;
+    outline-offset: 3px;
+}
+
+.veylune-account-preview [aria-invalid="true"] {
+    border-color: #b42318 !important;
+    box-shadow: 0 0 0 2px rgba(180, 35, 24, .12);
+}
+
+@media (max-width: 899.98px) {
+    .veylune-account-preview__layout {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-account-preview__auth {
+        position: static;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-preview {
+        width: min(100% - 1.25rem, 1240px);
+    }
+
+    .veylune-account-preview__hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .veylune-account-preview__tiles {
+        grid-template-columns: 1fr;
+
+    }
+
+    .veylune-account-preview__auth form > div:first-child:has(input[name="firstName"]) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.veylune-account-readiness__intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #d4cfca;
+    background: linear-gradient(110deg, #f7f5f2 0%, #f5f1f5 100%);
+
+    strong,
+    p {
+        margin: 0;
+    }
+
+    strong {
+        font-size: 1.1rem;
+    }
+
+    p {
+        margin-top: .2rem;
+        color: #625d58;
+        font-size: .78rem;
+    }
+
+    a {
+        flex: 0 0 auto;
+        color: #5b2b82;
+        font-size: .78rem;
+        font-weight: 800;
+    }
+}
+
+.veylune-account-readiness {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .7rem;
+
+    article {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: start;
+        gap: .7rem;
+        padding: 1rem;
+        border: 1px solid #d4cfca;
+    }
+
+    article > span {
+        padding: .2rem .45rem;
+        background: #eeeae6;
+        color: #625d58;
+        font-size: .65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    article[data-readiness-state="ready"] > span {
+        background: #e8f2eb;
+        color: #245c35;
+    }
+
+    h3,
+    p {
+        margin: 0;
+    }
+
+    h3 {
+        font-size: .92rem;
+    }
+
+    p {
+        margin-top: .2rem;
+        color: #625d58;
+        font-size: .75rem;
+        line-height: 1.4;
+    }
+}
+
+.veylune-account-readiness__guard {
+    padding: .9rem 1rem;
+    border-left: 3px solid #6b376f;
+    background: #f5f1f5;
+
+    strong,
+    p {
+        margin: 0;
+    }
+
+    p {
+        margin-top: .2rem;
+        color: #625d58;
+        font-size: .76rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-readiness__intro {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .veylune-account-readiness {
+        grid-template-columns: 1fr;
+    }
+}
+
+.veylune-account-settings__guard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #d4cfca;
+    background: #f7f5f2;
+
+    strong,
+    p {
+        margin: 0;
+    }
+
+    p {
+        max-width: 34rem;
+        margin-top: .25rem;
+        color: #625d58;
+        font-size: .78rem;
+        line-height: 1.45;
+    }
+
+    a {
+        flex: 0 0 auto;
+        color: #5b2b82;
+        font-size: .78rem;
+        font-weight: 800;
+    }
+}
+
+.veylune-account-settings {
+    display: grid;
+    gap: 1rem;
+
+    > section {
+        display: grid;
+        gap: 1rem;
+        padding: clamp(1rem, 3vw, 1.4rem);
+        border: 1px solid #d4cfca;
+    }
+}
+
+.veylune-account-settings__heading {
+    display: flex;
+    align-items: start;
+    gap: .8rem;
+
+    > span {
+        color: #6b376f;
+        font-size: .68rem;
+        font-weight: 800;
+    }
+
+    h3,
+    p {
+        margin: 0;
+    }
+
+    h3 {
+        font-size: 1.05rem;
+    }
+
+    p {
+        margin-top: .2rem;
+        color: #625d58;
+        font-size: .76rem;
+    }
+}
+
+.veylune-account-settings__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8rem;
+
+    label {
+        display: grid;
+        gap: .3rem;
+        color: #4f4a45;
+        font-size: .76rem;
+        font-weight: 750;
+    }
+
+    label > span {
+        color: #77716b;
+        font-size: .68rem;
+        font-weight: 500;
+    }
+
+    input {
+        width: 100%;
+        min-height: 2.8rem;
+        padding-inline: .7rem;
+        border: 1px solid #918b85;
+        background: #fff;
+    }
+}
+
+.veylune-account-settings__choices {
+    display: grid;
+    gap: .55rem;
+
+    label {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: start;
+        gap: .65rem;
+        padding: .8rem;
+        border: 1px solid #ded9d4;
+        cursor: pointer;
+
+        &:has(input:checked) {
+            border-color: #6b376f;
+            background: #f5f1f5;
+        }
+    }
+
+    input {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-top: .1rem;
+    }
+
+    span {
+        display: grid;
+        gap: .15rem;
+    }
+
+    small {
+        color: #625d58;
+        line-height: 1.4;
+    }
+}
+
+.veylune-account-settings__security {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .9rem;
+    border: 1px solid #ded9d4;
+
+    > div {
+        display: grid;
+        gap: .15rem;
+    }
+
+    span {
+        color: #625d58;
+        font-size: .76rem;
+    }
+
+    a {
+        color: #5b2b82;
+        font-size: .78rem;
+        font-weight: 800;
+    }
+}
+
+.veylune-account-settings__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    p {
+        margin: 0;
+        color: #625d58;
+        font-size: .76rem;
+    }
+
+    button {
+        flex: 0 0 auto;
+        min-height: 2.9rem;
+        padding-inline: 1rem;
+        border: 1px solid #5b2b82;
+        border-radius: 3px;
+        background: #5b2b82;
+        color: #fff;
+        font-weight: 800;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-settings__guard,
+    .veylune-account-settings__security,
+    .veylune-account-settings__footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .veylune-account-settings__fields {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-account-settings__footer button {
+        width: 100%;
+    }
+}
+
+.veylune-account-panel-dialog {
+    width: min(46rem, calc(100% - 1.5rem));
+    max-height: min(50rem, calc(100dvh - 1.5rem));
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    color: #27231f;
+
+    &::backdrop {
+        background: rgba(20, 17, 15, .56);
+    }
+}
+
+.veylune-account-panel-dialog__shell {
+    display: grid;
+    gap: 1rem;
+    max-height: inherit;
+    padding: clamp(1.2rem, 4vw, 2rem);
+    overflow: auto;
+
+    > header {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #d4cfca;
+
+        p,
+        h2 {
+            margin: 0;
+        }
+
+        p {
+            color: #6b376f;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin-top: .2rem;
+            font-size: clamp(1.35rem, 4vw, 1.8rem);
+        }
+
+        button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #5b2b82;
+            font-weight: 750;
+            text-decoration: underline;
+        }
+    }
+}
+
+.veylune-account-panel-dialog__notice {
+    margin: 0;
+    padding: .7rem .8rem;
+    border-left: 3px solid #6b376f;
+    background: #f5f1f5;
+    color: #5e5853;
+    font-size: .76rem;
+}
+
+.veylune-account-addresses,
+.veylune-account-archive,
+.veylune-account-orders {
+    display: grid;
+    gap: .7rem;
+
+    article {
+        display: grid;
+        gap: .45rem;
+        padding: 1rem;
+        border: 1px solid #d4cfca;
+
+        h3,
+        p {
+            margin: 0;
+        }
+
+        p {
+            color: #625d58;
+            font-size: .8rem;
+            line-height: 1.45;
+        }
+
+        > div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: .65rem;
+        }
+
+        span {
+            padding: .2rem .45rem;
+            background: #eee7f1;
+            color: #5b2b82;
+            font-size: .68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #5b2b82;
+            font-size: .76rem;
+            font-weight: 750;
+            text-decoration: underline;
+        }
+    }
+}
+
+.veylune-account-orders__guard {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .25rem 1rem;
+    padding: 1rem;
+    border: 1px solid #d4cfca;
+    background: #f7f5f2;
+
+    strong,
+    p {
+        margin: 0;
+    }
+
+    p {
+        color: #625d58;
+        font-size: .78rem;
+        line-height: 1.45;
+    }
+
+    a {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+        color: #5b2b82;
+        font-size: .78rem;
+        font-weight: 800;
+    }
+}
+
+.veylune-account-orders__controls {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(9rem, 1fr);
+    gap: .8rem;
+
+    label {
+        display: grid;
+        gap: .3rem;
+        color: #4f4a45;
+        font-size: .76rem;
+        font-weight: 750;
+    }
+
+    input,
+    select {
+        min-height: 2.8rem;
+        padding-inline: .7rem;
+        border: 1px solid #918b85;
+        background: #fff;
+    }
+}
+
+.veylune-account-addresses__empty {
+    padding: 1.4rem;
+    border: 1px dashed #b9b3ad;
+    text-align: center;
+
+    &[hidden] {
+        display: none;
+    }
+
+    h3,
+    p {
+        margin: 0;
+    }
+
+    p {
+        margin-top: .35rem;
+        color: #625d58;
+        font-size: .8rem;
+    }
+}
+
+.veylune-account-address-form {
+    display: grid;
+    gap: .8rem;
+    padding-top: 1rem;
+    border-top: 1px solid #d4cfca;
+
+    > div:not(.veylune-account-address-form__actions) {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .8rem;
+    }
+
+    label {
+        display: grid;
+        gap: .3rem;
+        color: #4f4a45;
+        font-size: .76rem;
+        font-weight: 750;
+    }
+
+    input,
+    select {
+        width: 100%;
+        min-height: 2.8rem;
+        padding-inline: .7rem;
+        border: 1px solid #918b85;
+        background: #fff;
+    }
+
+    .veylune-account-address-form__default {
+        display: flex;
+        align-items: center;
+        gap: .55rem;
+
+        input {
+            width: 1.1rem;
+            min-height: 1.1rem;
+        }
+    }
+}
+
+.veylune-account-address-form__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .7rem;
+
+    button {
+        min-height: 2.8rem;
+        padding-inline: 1rem;
+        border: 1px solid #5b2b82;
+        background: #fff;
+        color: #5b2b82;
+        font-weight: 800;
+    }
+
+    button[type="submit"] {
+        background: #5b2b82;
+        color: #fff;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-address-form > div:not(.veylune-account-address-form__actions) {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-account-address-form__actions {
+        display: grid;
+
+        button {
+            width: 100%;
+        }
+    }
+
+    .veylune-account-preview__nav a:last-child {
+        margin-left: 0;
+    }
+
+    .veylune-account-orders__guard,
+    .veylune-account-orders__controls {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-account-orders__guard a {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+.veylune-account-projects {
+    padding: clamp(1.2rem, 3vw, 1.7rem);
+    border: 1px solid #d4cfca;
+    background: #fff;
+
+    > header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #d4cfca;
+
+        p,
+        h3 {
+            margin: 0;
+        }
+
+        p {
+            color: #6b376f;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            margin-top: .2rem;
+            font-size: 1.35rem;
+        }
+
+        > strong {
+            white-space: nowrap;
+        }
+    }
+}
+
+.veylune-account-projects__controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(8rem, 1fr)) auto;
+    align-items: end;
+    gap: .8rem;
+    padding-block: 1rem;
+
+    label {
+        display: grid;
+        gap: .3rem;
+        color: #625d58;
+        font-size: .72rem;
+        font-weight: 750;
+    }
+
+    select,
+    button {
+        min-height: 2.7rem;
+        border: 1px solid #918b85;
+        background: #fff;
+    }
+
+    select {
+        padding-inline: .65rem;
+    }
+
+    > button {
+        padding-inline: .9rem;
+        border-color: #5b2b82;
+        border-radius: 3px;
+        background: #5b2b82;
+        color: #fff;
+        font-weight: 750;
+    }
+
+    > button:disabled {
+        border-color: #b9b3ad;
+        background: #eeeae6;
+        color: #77716b;
+        cursor: not-allowed;
+    }
+}
+
+.veylune-account-projects__notice {
+    margin-bottom: .8rem;
+    padding: .7rem .8rem;
+    border-left: 3px solid #6b376f;
+    background: #f5f1f5;
+    color: #5e5853;
+    font-size: .76rem;
+}
+
+.veylune-account-projects__empty {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+
+    &[hidden] {
+        display: none;
+    }
+
+    h4,
+    p {
+        margin: 0 0 .6rem;
+    }
+
+    a {
+        color: #5b2b82;
+        font-weight: 750;
+    }
+}
+
+.veylune-account-projects__list {
+    display: grid;
+    gap: .8rem;
+}
+
+.veylune-account-project-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .45rem 1rem;
+    padding: 1rem;
+    border: 1px solid #d4cfca;
+
+    &[data-project-status="archived"] {
+        background: #f5f2ee;
+    }
+
+    > div:first-child {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        color: #6b376f;
+        font-size: .7rem;
+        font-weight: 750;
+        text-transform: uppercase;
+    }
+
+    h4,
+    p {
+        margin: 0;
+    }
+
+    h4 {
+        font-size: 1.05rem;
+    }
+
+    > p {
+        grid-column: 1;
+        color: #625d58;
+        font-size: .8rem;
+    }
+
+    > strong {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        white-space: nowrap;
+    }
+
+    > div:last-child {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .8rem;
+        padding-top: .6rem;
+        border-top: 1px solid #e1dcd7;
+
+        a,
+        button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #5b2b82;
+            font-size: .76rem;
+            font-weight: 750;
+            text-decoration: underline;
+        }
+    }
+}
+
+.veylune-account-project-dialog {
+    width: min(31rem, calc(100% - 1.5rem));
+    padding: 0;
+    border: 0;
+
+    &::backdrop {
+        background: rgba(20, 17, 15, .52);
+    }
+
+    form {
+        display: grid;
+        gap: .9rem;
+        padding: clamp(1.3rem, 5vw, 2rem);
+
+        > button:first-child {
+            justify-self: end;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            text-decoration: underline;
+        }
+
+        > p,
+        h2 {
+            margin: 0;
+        }
+
+        > p:first-of-type {
+            color: #6b376f;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        label {
+            display: grid;
+            gap: .35rem;
+            font-size: .8rem;
+            font-weight: 750;
+        }
+
+        input {
+            min-height: 3rem;
+            padding-inline: .75rem;
+            border: 1px solid #918b85;
+        }
+
+        > button[type="submit"] {
+            min-height: 3rem;
+            border: 1px solid #5b2b82;
+            border-radius: 3px;
+            background: #5b2b82;
+            color: #fff;
+            font-weight: 800;
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account-projects__controls {
+        grid-template-columns: 1fr;
+    }
+
+    .veylune-account-project-card {
+        grid-template-columns: 1fr;
+
+        > strong {
+            grid-column: 1;
+            grid-row: auto;
+        }
+    }
+}

@@ -1,0 +1,41 @@
+<section class="veylune-promo-merchandising" aria-labelledby="veylune-promo-title" data-veylune-reveal>
+    <div class="veylune-promo-merchandising__banner">
+        <div class="veylune-promo-merchandising__content">
+            <p class="veylune-promo-merchandising__eyebrow">The Veylune Edit</p>
+            <h2 id="veylune-promo-title">A room, considered from every angle.</h2>
+            <p>Layer furniture, lighting, texture, and objects into one composed interior.</p>
+            {% if publicSurfaces['category:furniture']|default(false) %}
+                <a href="{{ veyluneRoutes.shop }}">Shop the edit</a>
+            {% else %}
+                <a href="{{ veyluneRoutes.editions }}">Explore the edit</a>
+            {% endif %}
+        </div>
+        <div class="veylune-promo-merchandising__image" role="img" aria-label="Warm contemporary living room with a sculptural sofa, oak table, neutral rug, and bronze lighting"></div>
+    </div>
+
+    <div class="veylune-promo-merchandising__paths" aria-label="Featured ways to explore Veylune">
+        {% if publicSurfaces.catalog|default(false) %}
+            <a href="{{ veyluneCategoryRoutes.url('newArrivals') }}">
+                <strong>New arrivals</strong>
+                <span>Fresh forms for considered rooms</span>
+            </a>
+            <a href="{{ veyluneCategoryRoutes.url('founderSelection') }}">
+                <strong>Founder selection</strong>
+                <span>A focused edit of enduring pieces</span>
+            </a>
+        {% else %}
+            <div>
+                <strong>New arrivals</strong>
+                <span>Fresh forms for considered rooms</span>
+            </div>
+            <div>
+                <strong>Founder selection</strong>
+                <span>A focused edit of enduring pieces</span>
+            </div>
+        {% endif %}
+        <a href="{{ veyluneRoutes.consultation }}">
+            <strong>Design consultation</strong>
+            <span>Personal guidance for your space</span>
+        </a>
+    </div>
+</section>

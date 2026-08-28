@@ -1,0 +1,128 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    {% set product = veylunePreviewProduct %}
+    <div class="veylune-pdp-preview" data-veylune-pdp-preview data-product-id="{{ product.recordId }}" data-product-name="{{ product.name }}" data-product-price="{{ product.targetPrice }}">
+        <nav class="veylune-pdp-preview__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">Home</a><span aria-hidden="true">/</span>
+            <a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: product.department == 'decor_objects' ? 'decor-objects' : product.department, token: veylunePreviewToken }) }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
+            <span aria-current="page">{{ product.name }}</span>
+        </nav>
+
+        <article class="veylune-pdp-preview__hero">
+            <section class="veylune-pdp-gallery" aria-label="{{ product.name }} gallery">
+                <div class="veylune-pdp-gallery__stage veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}" data-pdp-gallery-stage data-gallery-view="front">
+                    <span class="veylune-pdp-gallery__badge">{{ product.status }}</span>
+                    <span class="veylune-pdp-gallery__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>
+                    <span class="visually-hidden" data-pdp-gallery-description>Front concept study for {{ product.name }} in {{ product.materialLabel }}</span>
+                    <button class="veylune-pdp-gallery__zoom" type="button" data-pdp-zoom-open aria-haspopup="dialog">View larger</button>
+                </div>
+                <div class="veylune-pdp-gallery__support" aria-hidden="true">
+                    <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--material"><span>{{ product.materialLabel }}</span></div>
+                    <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--silhouette"><span>Silhouette study</span></div>
+                </div>
+                <div class="veylune-pdp-gallery__thumbs" role="group" aria-label="Choose a product view">
+                    {% for view, label in { front: 'Front view', profile: 'Side profile', detail: 'Material detail', scale: 'Room scale' } %}
+                        <button type="button" data-pdp-gallery-thumb="{{ view }}" aria-pressed="{{ loop.first ? 'true' : 'false' }}" aria-label="{{ label }}">
+                            <span class="veylune-pdp-gallery__thumb-object" aria-hidden="true"></span>
+                        </button>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <dialog class="veylune-pdp-lightbox" data-pdp-lightbox aria-label="Expanded product view">
+                <button class="veylune-pdp-lightbox__close" type="button" data-pdp-zoom-close aria-label="Close expanded view">Close</button>
+                <div class="veylune-pdp-lightbox__stage" data-pdp-lightbox-stage>
+                    <span class="veylune-pdp-gallery__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>
+                </div>
+                <p data-pdp-lightbox-caption>Front view of {{ product.name }}</p>
+            </dialog>
+
+            <aside class="veylune-pdp-buybox" aria-labelledby="veylunePdpTitle">
+                <p class="veylune-pdp-buybox__eyebrow">{{ product.productType|replace({'_': ' '})|title }}</p>
+                <h1 id="veylunePdpTitle">{{ product.name }}</h1>
+                <div class="veylune-pdp-buybox__rating" aria-label="New piece, no customer reviews yet">
+                    <span aria-hidden="true">☆☆☆☆☆</span><span>New piece</span>
+                </div>
+                <p class="veylune-pdp-buybox__price"><span>Target price</span><strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
+                <p class="veylune-pdp-buybox__finance">Final pricing, lead time and configuration are confirmed during consultation.</p>
+
+                {% sw_include '@Storefront/storefront/veylune/catalog-preview-product-commerce.html.twig' with { product: product } %}
+
+                <a class="veylune-pdp-buybox__cta" href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue</a>
+                <button class="veylune-pdp-buybox__save" type="button" aria-pressed="false">Save for later</button>
+
+            </aside>
+        </article>
+
+        {% sw_include '@Storefront/storefront/veylune/catalog-preview-product-information.html.twig' with { product: product } %}
+
+        <section class="veylune-pdp-story" aria-labelledby="veylunePdpStoryTitle">
+            <p>Veylune material edit</p>
+            <h2 id="veylunePdpStoryTitle">Designed to give the room presence without visual noise.</h2>
+            <div><span>{{ product.materialLabel }}</span><span>{{ product.productType|replace({'_': ' '})|title }}</span><span>Reference {{ product.recordId }}</span></div>
+        </section>
+
+        {% if veylunePreviewRelated|length %}
+            <section class="veylune-pdp-related veylune-pdp-bundle" aria-labelledby="veylunePdpRelatedTitle" data-pdp-bundle>
+                <div class="veylune-pdp-related__head"><p>Get Everything You Need</p><h2 id="veylunePdpRelatedTitle">Complete the room</h2></div>
+                <div class="veylune-pdp-bundle__summary" aria-live="polite">
+                    <span><strong data-pdp-bundle-count>0</strong> complementary pieces selected</span>
+                    <span>Combined target estimate <strong data-pdp-bundle-total>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></span>
+                </div>
+                <div class="veylune-pdp-related__grid">
+                    {% for related in veylunePreviewRelated %}
+                        <div class="veylune-pdp-bundle__item">
+                            <label><input type="checkbox" data-pdp-bundle-item data-price="{{ related.targetPrice }}"><span>Add to project edit</span></label>
+                            {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: related, productIndex: loop.index0 } %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="veylune-pdp-bundle__cta" href="{{ path('frontend.veylune.consultation.page') }}">Discuss this project edit</a>
+            </section>
+        {% endif %}
+
+        <dialog class="veylune-preview-cart" data-pdp-cart-drawer aria-labelledby="veylunePreviewCartTitle">
+            <div class="veylune-preview-cart__shell">
+                <header>
+                    <div><p>Private preview</p><h2 id="veylunePreviewCartTitle">Your selection</h2></div>
+                    <button type="button" data-pdp-cart-close aria-label="Close selection drawer">Close</button>
+                </header>
+                <div class="veylune-preview-cart__empty" data-pdp-cart-empty>
+                    <strong>Your selection is empty.</strong>
+                    <p>Add a piece to begin planning delivery and configuration.</p>
+                </div>
+                <div class="veylune-preview-cart__content" data-pdp-cart-content hidden>
+                    <article class="veylune-preview-cart__item">
+                        <div class="veylune-preview-cart__visual" aria-hidden="true"><span class="veylune-pdp-gallery__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}"></span></div>
+                        <div>
+                            <h3 data-pdp-cart-name>{{ product.name }}</h3>
+                            <p>Material: <span data-pdp-cart-material>{{ product.materialLabel }}</span></p>
+                            <p>Target price: <strong data-pdp-cart-unit>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
+                            <div class="veylune-pdp-quantity" aria-label="Selection quantity">
+                                <button type="button" data-pdp-cart-decrease aria-label="Decrease selection quantity">−</button>
+                                <span data-pdp-cart-quantity aria-live="polite">1</span>
+                                <button type="button" data-pdp-cart-increase aria-label="Increase selection quantity">+</button>
+                            </div>
+                            <button class="veylune-preview-cart__remove" type="button" data-pdp-cart-remove>Remove</button>
+                        </div>
+                    </article>
+                    <dl class="veylune-preview-cart__summary">
+                        <div><dt>Subtotal estimate</dt><dd data-pdp-cart-subtotal>€{{ product.targetPrice|number_format(0, '.', ',') }}</dd></div>
+                        <div><dt>Project delivery</dt><dd>Confirmed in consultation</dd></div>
+                        <div><dt>Estimated total</dt><dd data-pdp-cart-total>€{{ product.targetPrice|number_format(0, '.', ',') }}</dd></div>
+                    </dl>
+                    <p class="veylune-preview-cart__notice">Target pricing is not a binding offer. Variant, delivery and final total require studio approval.</p>
+                    <a class="veylune-preview-cart__review" href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">Review private selection</a>
+                    <button class="veylune-preview-cart__checkout" type="button" aria-disabled="true" data-pdp-cart-checkout>Continue to delivery details</button>
+                    <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue instead</a>
+                </div>
+                <p class="visually-hidden" data-pdp-cart-status aria-live="polite"></p>
+            </div>
+        </dialog>
+
+        <div class="veylune-pdp-mobile-bar" data-pdp-mobile-bar role="region" aria-label="Product consultation action">
+            <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong><button type="button" data-pdp-add-selection-mobile>Add to selection</button>
+        </div>
+    </div>
+{% endblock %}

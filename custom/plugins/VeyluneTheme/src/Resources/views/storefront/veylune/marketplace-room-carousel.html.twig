@@ -1,0 +1,44 @@
+<section class="veylune-room-carousel" aria-labelledby="veylune-room-carousel-title" data-veylune-reveal data-veylune-registry-scope="homepage-room-carousel">
+    <div class="veylune-room-carousel__head">
+        <h2 id="veylune-room-carousel-title">{{ 'veylune.home.discovery.rooms.eyebrow'|trans|sw_sanitize }}</h2>
+        <p>{{ 'veylune.home.discovery.rooms.title'|trans|sw_sanitize }}</p>
+        {% set hasPublicRoom = publicSurfaces['room:living-room']|default(false)
+            or publicSurfaces['room:dining-room']|default(false)
+            or publicSurfaces['room:bedroom']|default(false)
+            or publicSurfaces['room:workspace']|default(false)
+            or publicSurfaces['room:outdoor']|default(false) %}
+        {% if not hasPublicRoom %}
+            <span class="veylune-home-pending-note" id="veylune-room-pending-note">Room shopping opens after catalog verification.</span>
+        {% endif %}
+    </div>
+
+    <div class="veylune-room-carousel__slider" data-veylune-product-slider{% if not hasPublicRoom %} aria-describedby="veylune-room-pending-note"{% endif %}>
+        <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="veylune-room-carousel-track" aria-label="Previous rooms">‹</button>
+        <div class="veylune-room-carousel__track" id="veylune-room-carousel-track" data-veylune-product-slider-track role="list" aria-roledescription="carousel" aria-label="Home rooms" tabindex="0">
+            {% for room in veyluneDiscoveryRooms %}
+                <div class="veylune-room-carousel__item" role="listitem">
+                    {% if publicSurfaces['room:' ~ room.key]|default(false) %}
+                        <a class="veylune-room-card" href="{{ room.target }}" data-veylune-registry-key="{{ room.key }}" data-veylune-discovery-type="room">
+                    {% else %}
+                        <article class="veylune-room-card veylune-room-card--preview" aria-disabled="true">
+                    {% endif %}
+                            <span class="veylune-room-card__media veylune-room-card__media--{{ room.mediaKey }}" aria-hidden="true"></span>
+                            <span class="veylune-room-card__content">
+                                <strong>{{ room.label|trans|sw_sanitize }}</strong>
+                                {% if publicSurfaces['room:' ~ room.key]|default(false) %}
+                                    <span>{{ 'veylune.home.discovery.rooms.cardCta'|trans|sw_sanitize }} <span aria-hidden="true">→</span></span>
+                                {% else %}
+                                    <span class="veylune-home-card-status">Room catalog pending</span>
+                                {% endif %}
+                            </span>
+                    {% if publicSurfaces['room:' ~ room.key]|default(false) %}
+                        </a>
+                    {% else %}
+                        </article>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="veylune-room-carousel-track" aria-label="Next rooms">›</button>
+    </div>
+</section>

@@ -1,0 +1,90 @@
+<div class="veylune-mobile-marketplace">
+    <div class="veylune-mobile-marketplace__search is-pending" role="search" aria-label="Catalog activation pending">
+        <label class="visually-hidden" for="veyluneMobileMarketplaceSearch">{{ 'header.searchPlaceholder'|trans|striptags }}</label>
+        <input id="veyluneMobileMarketplaceSearch" type="search" name="search" placeholder="Find anything home..." autocomplete="off" disabled>
+        <button type="button" aria-label="Catalog activation pending" disabled>{% sw_icon 'search' %}</button>
+    </div>
+
+    <div class="veylune-mobile-marketplace__shortcuts">
+        {% if veylunePreviewToken is defined and veylunePreviewToken %}
+            <a href="{{ path('frontend.veylune.preview.account', { token: veylunePreviewToken }) }}">
+                <span aria-hidden="true">{% sw_icon 'avatar' %}</span>
+                <strong>Sign In</strong>
+            </a>
+            <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">
+                <span aria-hidden="true">{% sw_icon 'basket' %}</span>
+                <strong>Cart</strong>
+            </a>
+        {% else %}
+            <a href="{{ path('frontend.account.home.page') }}">
+                <span aria-hidden="true">{% sw_icon 'avatar' %}</span>
+                <strong>Sign In</strong>
+            </a>
+            <span aria-disabled="true" title="Private selection is coming soon" data-veylune-cart-pending>
+                <span aria-hidden="true">{% sw_icon 'basket' %}</span>
+                <strong>Cart</strong>
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="veylune-mobile-marketplace__accordions">
+        <details name="veylune-mobile-departments" open>
+            <summary>Featured</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                <a href="{{ isPrivatePreview ? path('frontend.veylune.preview.catalog.home', { token: veyluneHeaderPreviewToken }) : veyluneRoutes.editions }}">Verified</a>
+                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.collection', { collectionKey: 'new-arrivals', token: veyluneHeaderPreviewToken }) }}">New Arrivals</a>{% else %}<span aria-disabled="true">New Arrivals</span>{% endif %}
+                <span>Best Sellers</span>
+                <a href="{{ veyluneRoutes.editions }}">Trending</a>
+                <a href="{{ veyluneRoutes.partnership }}">Collaborations</a>
+            </div>
+        </details>
+
+        <details name="veylune-mobile-departments">
+            <summary>Departments</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                {% if isPrivatePreview or publicSurfaces['category:furniture']|default(false) %}
+                    <a href="{{ veyluneRoutes.shop }}" data-veylune-page-transition>Furniture</a>
+                {% else %}
+                    <span>Furniture</span>
+                {% endif %}
+                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: 'outdoor', token: veyluneHeaderPreviewToken }) }}">Outdoor</a>{% else %}<span aria-disabled="true">Outdoor</span>{% endif %}
+                <span>Bedding &amp; Bath</span>
+                <span>Rugs</span>
+                <span>Decor &amp; Pillows</span>
+                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: 'lighting', token: veyluneHeaderPreviewToken }) }}">Lighting</a>{% else %}<span aria-disabled="true">Lighting</span>{% endif %}
+                <span>Organization</span>
+            </div>
+        </details>
+
+        <details name="veylune-mobile-departments">
+            <summary>Shop by Room</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                {% if isPrivatePreview or publicSurfaces['room:living-room']|default(false) %}
+                    <a href="{{ veyluneRoutes.rooms }}" data-veylune-page-transition>Living Room</a>
+                {% else %}
+                    <span>Living Room</span>
+                {% endif %}
+                {% if isPrivatePreview %}
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'bedroom', token: veyluneHeaderPreviewToken }) }}">Bedroom</a>
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'dining-room', token: veyluneHeaderPreviewToken }) }}">Dining Room</a>
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'workspace', token: veyluneHeaderPreviewToken }) }}">Home Office</a>
+                {% else %}
+                    <span aria-disabled="true">Bedroom</span>
+                    <span aria-disabled="true">Dining Room</span>
+                    <span aria-disabled="true">Home Office</span>
+                {% endif %}
+                <span>Outdoor</span>
+            </div>
+        </details>
+
+        <details name="veylune-mobile-departments">
+            <summary>Services &amp; Inspiration</summary>
+            <div class="veylune-mobile-marketplace__panel">
+                <a href="{{ veyluneRoutes.consultation }}" data-veylune-page-transition>Design Consultation</a>
+                <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Journal</a>
+                <span>Financing</span>
+                <a href="{{ veyluneRoutes.partnership }}" data-veylune-page-transition>Trade Program</a>
+            </div>
+        </details>
+    </div>
+</div>

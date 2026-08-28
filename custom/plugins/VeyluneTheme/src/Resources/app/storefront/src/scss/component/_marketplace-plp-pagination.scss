@@ -1,0 +1,13 @@
+.veylune-plp-progress {
+    display: grid;
+    justify-items: center;
+    gap: 0.8rem;
+    padding: clamp(2.5rem, 5vw, 4.5rem) 0 1rem;
+    border-top: 1px solid var(--veylune-plp-border);
+}
+.veylune-plp-progress p { margin: 0; color: rgb(47 43 49 / 65%); font-size: 0.78rem; }
+.veylune-plp-progress__bar { width: min(220px, 65vw); height: 3px; overflow: hidden; border-radius: 99px; background: #ece7ec; }
+.veylune-plp-progress__bar span { display: block; width: 100%; height: 100%; background: #7f187f; transform: scaleX(var(--veylune-plp-progress, 1)); transform-origin: left; transition: transform 220ms ease; }
+.veylune-plp-load-more { min-width: 180px; min-height: 46px; padding: 0 1.4rem; border: 1px solid #2f2b31; border-radius: 999px; color: #2f2b31; background: #fff; font-size: 0.82rem; font-weight: 800; }
+.veylune-plp-load-more:hover { color: #fff; background: #2f2b31; }
+.veylune-plp-load-more[hidden] { display: none; }

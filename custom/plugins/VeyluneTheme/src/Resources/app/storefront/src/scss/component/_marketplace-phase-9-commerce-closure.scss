@@ -1,0 +1,50 @@
+/* Phase 9.1 Batch C: Wayfair-scale cart, account and checkout shells. */
+.veylune-cart-preview,
+.veylune-account-preview,
+.veylune-checkout-preview {
+    padding-top: 1rem;
+}
+
+.veylune-cart-preview > nav,
+.veylune-cart-preview__header > div > p {
+    display: none;
+}
+
+.veylune-cart-preview__header h1 {
+    margin-top: 0;
+}
+
+.veylune-cart-preview__header h1,
+.veylune-account-preview__hero h1,
+.veylune-checkout-preview > header h1 {
+    font-family: var(--veylune-marketplace-font);
+    font-size: clamp(1.85rem, 2.5vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+}
+
+.veylune-account-preview__hero {
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.veylune-checkout-preview > nav {
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.veylune-checkout-preview > header {
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+@media (max-width: 575.98px) {
+    .veylune-cart-preview__header h1,
+    .veylune-account-preview__hero h1,
+    .veylune-checkout-preview > header h1 {
+        font-size: 1.75rem;
+    }
+
+    .veylune-account-preview__hero,
+    .veylune-checkout-preview > header {
+        margin-bottom: 1.5rem;
+    }
+}

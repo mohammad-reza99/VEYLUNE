@@ -1,0 +1,30 @@
+/* Phase 9.1 P3: public account and authentication closure. */
+.login-password-recover {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: 0.125rem 0.5rem;
+}
+
+.login-form .login-submit,
+.register-form .register-submit {
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 575.98px) {
+    .login-card .card-body,
+    .register-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .login-form .btn,
+    .register-form .btn {
+        min-height: 48px;
+    }
+
+    .register-form .form-check-label {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+}

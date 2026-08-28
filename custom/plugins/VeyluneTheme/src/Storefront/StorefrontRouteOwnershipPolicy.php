@@ -72,9 +72,9 @@ final class StorefrontRouteOwnershipPolicy
             'activationPrerequisites' => ['cart_activation', 'payment_shipping_readiness', 'checkout_runtime_verification'],
         ],
         self::SURFACE_ACCOUNT => [
-            'state' => self::STATE_ACTIVATION_PENDING,
+            'state' => self::STATE_GOVERNED_PUBLIC,
             'owner' => self::OWNER_NATIVE_COMMERCE,
-            'activationPrerequisites' => ['customer_account_policy', 'account_runtime_verification'],
+            'activationPrerequisites' => [],
         ],
         self::SURFACE_WISHLIST => [
             'state' => self::STATE_ACTIVATION_PENDING,

@@ -1,0 +1,28 @@
+.veylune-pdp-preview {
+    :is(button, a, input):focus-visible {
+        outline: 3px solid #2457d6;
+        outline-offset: 3px;
+    }
+
+    input[aria-invalid="true"] {
+        border-color: #b42318;
+        box-shadow: 0 0 0 2px rgba(180, 35, 24, .14);
+    }
+
+    button[aria-busy="true"] {
+        cursor: progress;
+        opacity: .72;
+    }
+
+    :is(.veylune-pdp-information > section, .veylune-pdp-story, .veylune-pdp-related) {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 720px;
+        scroll-margin-top: 9rem;
+    }
+}
+
+@media print {
+    .veylune-pdp-preview :is(.veylune-pdp-mobile-bar, .veylune-pdp-lightbox) {
+        display: none !important;
+    }
+}

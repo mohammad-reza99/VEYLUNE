@@ -1,0 +1,68 @@
+.veylune-preview--destination .veylune-preview-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.veylune-preview-card__wishlist {
+    position: absolute;
+    top: 2rem;
+    right: 0.75rem;
+    z-index: 4;
+    display: grid;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid rgb(47 43 49 / 14%);
+    border-radius: 50%;
+    color: #2f2b31;
+    background: rgb(255 255 255 / 94%);
+    box-shadow: 0 2px 10px rgb(47 43 49 / 10%);
+}
+
+.veylune-preview-card__wishlist::before { content: "♡"; font: 1.45rem/1 sans-serif; }
+.veylune-preview-card__wishlist[aria-pressed="true"] { color: #7f187f; background: #fff4fb; border-color: #7f187f; }
+.veylune-preview-card__wishlist[aria-pressed="true"]::before { content: "♥"; }
+
+.veylune-preview--destination .veylune-preview-card__visual,
+.veylune-preview--destination .veylune-preview-card__object { transition: transform 240ms ease, box-shadow 240ms ease; }
+.veylune-preview--destination .veylune-preview-card:hover .veylune-preview-card__visual { box-shadow: 0 14px 34px rgb(47 43 49 / 12%); transform: translateY(-2px); }
+.veylune-preview--destination .veylune-preview-card:hover .veylune-preview-card__object { transform: translateY(1%) scale(1.025); }
+
+.veylune-preview-card__rating {
+    display: flex;
+    min-height: 20px;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.45rem;
+    color: #7f187f;
+    font-size: 0.76rem;
+}
+.veylune-preview-card__stars { font-size: 0.9rem; letter-spacing: 0.06em; }
+.veylune-preview-card__review-copy { color: rgb(47 43 49 / 58%); }
+.veylune-preview-card__availability {
+    margin: 0.55rem 0 0;
+    color: #276548;
+    font-size: 0.74rem;
+    font-weight: 700;
+}
+.veylune-preview-card__availability::before { display: inline-block; width: 6px; height: 6px; margin-right: 0.4rem; border-radius: 50%; background: currentColor; content: ""; vertical-align: 0.08em; }
+.veylune-preview--destination .veylune-preview-card__commerce { margin-top: auto; }
+
+.veylune-preview-card__wishlist:focus-visible,
+.veylune-preview--destination .veylune-preview-card:focus-within .veylune-preview-card__visual {
+    outline: 3px solid rgb(127 24 127 / 35%);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-preview--destination .veylune-preview-card__visual,
+    .veylune-preview--destination .veylune-preview-card__object { transition: none; }
+}
+
+@include media-breakpoint-down(sm) {
+    .veylune-preview-card__wishlist { top: 1.8rem; right: 0.55rem; width: 40px; height: 40px; }
+    .veylune-preview-card__review-copy { font-size: 0.68rem; }
+}

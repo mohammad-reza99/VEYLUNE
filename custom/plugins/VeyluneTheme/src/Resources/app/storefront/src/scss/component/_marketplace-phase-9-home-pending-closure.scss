@@ -1,0 +1,47 @@
+.veylune-home-pending-note,
+.veylune-home-card-status {
+    color: var(--veylune-marketplace-muted, #625c57);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+}
+
+.veylune-home-pending-note {
+    display: block;
+    margin-top: 0.75rem;
+}
+
+.veylune-home-card-status {
+    display: block;
+    margin-top: 0.35rem;
+    text-transform: uppercase;
+}
+
+.veylune-closing-capture__status {
+    display: grid;
+    gap: 0.65rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid rgba(245, 239, 228, 0.24);
+    border-radius: 0.75rem;
+
+    strong {
+        color: inherit;
+        font-size: 1rem;
+    }
+
+    span {
+        max-width: 42ch;
+        color: rgba(245, 239, 228, 0.7);
+        line-height: 1.55;
+    }
+
+    a {
+        width: fit-content;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        color: inherit;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-underline-offset: 0.3em;
+    }
+}

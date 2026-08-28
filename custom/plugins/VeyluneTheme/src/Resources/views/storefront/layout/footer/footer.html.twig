@@ -3,7 +3,7 @@
 {% block layout_footer_inner_container %}
 	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
 	{% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
-	{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : veyluneCategoryRoutes.url('consultation') %}
+	{% set veyluneInquiryUrl = path('frontend.veylune.contact.page') %}
 	{% set veyluneRoutes = {
         partnership: path('frontend.veylune.partnership.page'),
         consultation: veyluneCategoryRoutes.url('consultation'),
@@ -40,8 +40,14 @@
 
 		<div class="veylune-footer__bottom">
 			<span>{{ 'veylune.footer.bottomBrand'|trans|sw_sanitize }}</span>
-			<span>{{ "now"|date("Y") }}
-				{{ 'veylune.footer.bottomHouse'|trans|sw_sanitize }}</span>
+			<nav class="veylune-footer__legal" aria-label="Legal information">
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'privacy' }) }}">Privacy</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'imprint' }) }}">Imprint</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'terms' }) }}">Terms</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'payment-delivery' }) }}">Payment &amp; Delivery</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'cancellation' }) }}">Cancellation</a>
+			</nav>
+			<span>{{ "now"|date("Y") }} {{ 'veylune.footer.bottomHouse'|trans|sw_sanitize }}</span>
 		</div>
 	</footer>
 {% endblock %}

@@ -1,0 +1,80 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <div class="veylune-cart-preview" data-veylune-cart-preview>
+        <nav aria-label="Breadcrumb"><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Catalog preview</a><span aria-hidden="true">/</span><span aria-current="page">Private selection</span></nav>
+
+        <header class="veylune-cart-preview__header">
+            <div><p>Private project edit</p><h1>Your selection</h1></div>
+            <span data-cart-page-count aria-live="polite">0 items</span>
+        </header>
+
+        <div class="veylune-cart-preview__alert" data-cart-page-alert role="status" aria-live="polite">
+            <span data-cart-page-alert-copy>This preview does not create a public order or reserve stock.</span>
+            <button type="button" data-cart-page-undo hidden>Undo remove</button>
+        </div>
+
+        <section class="veylune-cart-preview__empty" data-cart-page-empty>
+            <p>Selection empty</p>
+            <h2>Start with a considered piece.</h2>
+            <p>Add a product from the private catalog to review quantity, delivery readiness and target pricing here.</p>
+            <a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore private catalog</a>
+        </section>
+
+        <div class="veylune-cart-preview__layout" data-cart-page-content hidden>
+            <section class="veylune-cart-preview__items" aria-labelledby="veyluneCartItemsTitle">
+                <div class="veylune-cart-preview__section-head">
+                    <h2 id="veyluneCartItemsTitle">Selected pieces</h2>
+                    <span>Target pricing</span>
+                </div>
+                <article class="veylune-cart-preview__item">
+                    <div class="veylune-cart-preview__visual" aria-hidden="true"><span></span></div>
+                    <div class="veylune-cart-preview__item-copy">
+                        <p>Veylune draft reference</p>
+                        <h3 data-cart-page-name>Selected piece</h3>
+                        <dl>
+                            <div><dt>Material</dt><dd data-cart-page-material>Pending</dd></div>
+                            <div><dt>Unit estimate</dt><dd data-cart-page-unit>€0</dd></div>
+                        </dl>
+                        <div class="veylune-cart-preview__item-actions">
+                            <div class="veylune-pdp-quantity" aria-label="Item quantity">
+                                <button type="button" data-cart-page-decrease aria-label="Decrease item quantity">−</button>
+                                <span data-cart-page-quantity aria-live="polite">1</span>
+                                <button type="button" data-cart-page-increase aria-label="Increase item quantity">+</button>
+                            </div>
+                            <button type="button" data-cart-page-remove>Remove</button>
+                        </div>
+                    </div>
+                    <strong data-cart-page-line-total>€0</strong>
+                </article>
+
+                <section class="veylune-cart-preview__delivery" aria-labelledby="veyluneCartDeliveryTitle">
+                    <div><p>Delivery</p><h2 id="veyluneCartDeliveryTitle">Check project readiness</h2></div>
+                    <form data-cart-page-delivery novalidate>
+                        <label for="veyluneCartPostalCode">Delivery postal code</label>
+                        <div><input id="veyluneCartPostalCode" name="postalCode" autocomplete="postal-code" maxlength="10" required aria-describedby="veyluneCartDeliveryStatus"><button type="submit" aria-controls="veyluneCartDeliveryStatus">Check</button></div>
+                        <p id="veyluneCartDeliveryStatus" data-cart-page-delivery-status role="status" aria-live="polite">Exact lead time and delivery scope require studio confirmation.</p>
+                    </form>
+                </section>
+            </section>
+
+            <aside class="veylune-cart-preview__summary" aria-labelledby="veyluneCartSummaryTitle">
+                <h2 id="veyluneCartSummaryTitle">Order summary</h2>
+                <dl>
+                    <div><dt>Subtotal estimate</dt><dd data-cart-page-subtotal>€0</dd></div>
+                    <div><dt>Project delivery</dt><dd>To be confirmed</dd></div>
+                    <div><dt>Estimated total</dt><dd data-cart-page-total>€0</dd></div>
+                </dl>
+                <form class="veylune-cart-preview__promo" data-cart-page-promo novalidate>
+                    <label for="veyluneCartPromo">Project or invitation code</label>
+                    <div><input id="veyluneCartPromo" name="promoCode" maxlength="24" aria-describedby="veyluneCartPromoStatus"><button type="submit" aria-controls="veyluneCartPromoStatus">Apply</button></div>
+                    <p id="veyluneCartPromoStatus" data-cart-page-promo-status role="status" aria-live="polite">Codes are validated only after activation.</p>
+                </form>
+                <p class="veylune-cart-preview__terms">Target prices are planning estimates. Supplier availability, delivery, taxes and final commercial terms are confirmed before commitment.</p>
+                <a class="veylune-cart-preview__checkout" data-cart-page-checkout href="{{ path('frontend.veylune.preview.checkout', { token: veylunePreviewToken }) }}">Continue to checkout preview</a>
+                <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue</a>
+                <p class="visually-hidden" data-cart-page-status aria-live="polite"></p>
+            </aside>
+        </div>
+    </div>
+{% endblock %}

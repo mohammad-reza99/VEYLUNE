@@ -1,0 +1,22 @@
+.veylune-marketplace-action.is-pending,
+.veylune-mobile-marketplace__shortcuts > span[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: .58;
+}
+
+.veylune-mobile-marketplace__shortcuts > span[aria-disabled="true"] {
+    display: grid;
+    justify-items: center;
+    gap: .25rem;
+}
+
+.veylune-marketplace-search__form.is-pending,
+.veylune-mobile-marketplace__search.is-pending,
+.veylune-closing-capture__form.is-pending {
+    cursor: not-allowed;
+
+    :is(input, button):disabled {
+        cursor: not-allowed;
+        opacity: .68;
+    }
+}

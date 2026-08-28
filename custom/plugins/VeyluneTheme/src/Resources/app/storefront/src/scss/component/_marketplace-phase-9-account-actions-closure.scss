@@ -1,0 +1,38 @@
+/* Phase 9.1 P5: authenticated account action and form closure. */
+.veylune-account {
+    .profile-form-submit,
+    .address-manager-modal-address-form,
+    .order-table-header-context-menu,
+    .order-hide-btn,
+    .order-table-header-context-menu-content-link,
+    .account-profile-delete .btn {
+        min-height: 44px;
+    }
+
+    .order-table-header-context-menu {
+        min-width: 44px;
+    }
+
+    .profile-form-submit,
+    .address-manager-modal-address-form {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    form[data-form-submit-loader="true"] .veylune-dropdown-item {
+        width: 100%;
+        text-align: start;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-account {
+        .profile-form-submit,
+        .address-manager-modal-address-form,
+        .order-hide-btn,
+        .account-profile-delete .btn {
+            min-height: 48px;
+        }
+    }
+}

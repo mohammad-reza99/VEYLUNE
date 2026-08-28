@@ -8,6 +8,7 @@ use Shopware\Core\PlatformRequest;
 use Shopware\Storefront\Framework\Routing\RequestTransformer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -40,6 +41,8 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.editions.detail.guard.de',
         'frontend.veylune.partnership.page',
         'frontend.veylune.consultation.page',
+        'frontend.veylune.legal.page',
+        'frontend.veylune.contact.page',
         'frontend.veylune.discovery.room',
         'frontend.veylune.discovery.category',
         'frontend.veylune.discovery.collection',
@@ -49,6 +52,10 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.preview.catalog.category',
         'frontend.veylune.preview.catalog.room',
         'frontend.veylune.preview.catalog.collection',
+        'frontend.veylune.preview.catalog.product',
+        'frontend.veylune.preview.cart',
+        'frontend.veylune.preview.checkout',
+        'frontend.veylune.preview.account',
         'frontend.form.contact.send',
         'frontend.captcha.basic-captcha.load',
         'frontend.captcha.basic-captcha.validate',
@@ -110,6 +117,14 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         }
 
         $request = $event->getRequest();
+        $originalRequestUri = (string) $request->attributes->get(RequestTransformer::ORIGINAL_REQUEST_URI, $request->getRequestUri());
+        $originalPath = parse_url($originalRequestUri, \PHP_URL_PATH) ?: $request->getPathInfo();
+
+        if ($this->isCanonicalPublicStorefrontRequest($request) && $originalPath === '/consultation') {
+            $event->setResponse(new RedirectResponse('/private-consultation', Response::HTTP_MOVED_PERMANENTLY));
+
+            return;
+        }
 
         if ($this->isCanonicalPublicStorefrontApiRequest($request)) {
             $event->setResponse($this->deniedResponse($request));
@@ -164,6 +179,10 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
     private function isAllowed(Request $request): bool
     {
         $route = (string) $request->attributes->get('_route');
+
+        if (str_starts_with($route, 'frontend.account.')) {
+            return true;
+        }
 
         if (\in_array($route, self::ALLOWED_ROUTE_NAMES, true)) {
             return true;

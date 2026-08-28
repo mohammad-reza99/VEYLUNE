@@ -1,0 +1,28 @@
+<section class="veylune-category-discovery" aria-labelledby="veylune-category-discovery-title" data-veylune-reveal data-veylune-registry-scope="homepage-category-tiles">
+    <div class="veylune-category-discovery__head">
+        <h2 id="veylune-category-discovery-title">{{ 'veylune.home.discovery.categories.eyebrow'|trans|sw_sanitize }}</h2>
+        <p>{{ 'veylune.home.discovery.categories.title'|trans|sw_sanitize }}</p>
+    </div>
+
+    <div class="veylune-category-discovery__rail" role="list">
+        {% for department in veyluneDepartments %}
+            <div class="veylune-category-discovery__item" role="listitem">
+                {% if publicSurfaces.catalog|default(false) %}
+                    <a class="veylune-category-tile"
+                       href="{{ department.target }}"
+                       data-veylune-registry-key="{{ department.key }}"
+                       data-veylune-discovery-type="department">
+                {% else %}
+                    <article class="veylune-category-tile veylune-category-tile--preview" aria-disabled="true">
+                {% endif %}
+                        <span class="veylune-category-tile__media veylune-category-tile__media--{{ department.key }}" aria-hidden="true"></span>
+                        <span class="veylune-category-tile__label">{{ department.label|trans|sw_sanitize }}</span>
+                {% if publicSurfaces.catalog|default(false) %}
+                    </a>
+                {% else %}
+                    </article>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</section>

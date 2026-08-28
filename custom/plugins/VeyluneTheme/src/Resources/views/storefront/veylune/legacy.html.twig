@@ -27,7 +27,7 @@
 
 {% set current = legacyPages[veyluneLegacyType]|default(legacyPages.legacy) %}
 
-<main class="veylune-legacy veylune-legacy--{{ veyluneLegacyType }}" data-veylune-legacy>
+<div class="veylune-legacy veylune-legacy--{{ veyluneLegacyType }}" data-veylune-legacy>
     <section class="veylune-legacy-hero" data-veylune-reveal data-veylune-atmosphere-zone="limestone">
         <div class="veylune-legacy-hero__ambient" aria-hidden="true"></div>
         <div class="veylune-legacy-hero__inner">
@@ -143,4 +143,4 @@
             <span>Elegance</span>
         </div>
     </section>
-</main>
+</div>

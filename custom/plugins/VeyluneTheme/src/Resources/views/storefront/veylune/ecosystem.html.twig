@@ -27,9 +27,9 @@
 
 {% set current = ecosystemPages[veyluneEcosystemType]|default(ecosystemPages.world) %}
 {% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
-{% set veyluneInquiryUrl = veyluneContactPageId ? path('frontend.cms.page.full', { id: veyluneContactPageId }) : path('frontend.search.page', { search: 'private consultation' }) %}
+{% set veyluneInquiryUrl = path('frontend.veylune.contact.page') %}
 
-<main class="veylune-ecosystem veylune-ecosystem--{{ veyluneEcosystemType }}" data-veylune-ecosystem>
+<div class="veylune-ecosystem veylune-ecosystem--{{ veyluneEcosystemType }}" data-veylune-ecosystem>
     <section class="veylune-ecosystem-hero" data-veylune-reveal data-veylune-atmosphere-zone="limestone">
         <div class="veylune-ecosystem-hero__field" aria-hidden="true"></div>
         <div class="veylune-ecosystem-hero__inner">
@@ -146,4 +146,4 @@
             <p data-veylune-memory-interest>Begin by choosing an editorial pillar or room narrative.</p>
         </div>
     </section>
-</main>
+</div>

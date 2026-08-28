@@ -1,0 +1,56 @@
+<section class="veylune-mega__scene veylune-mega__scene--marketplace"
+         id="veyluneMegaPanel-marketplace"
+         data-veylune-mega-panel="marketplace"
+         aria-label="Browse Veylune departments"
+         aria-hidden="true">
+    <div class="veylune-marketplace-mega__feature">
+        <span class="veylune-marketplace-mega__eyebrow">Veylune Verified</span>
+        <h2>Considered pieces for every room</h2>
+        <p>Explore edited furniture, objects and practical guidance for a more intentional home.</p>
+        <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Explore the journal</a>
+    </div>
+
+    <div class="veylune-marketplace-mega__column">
+        <h3>Featured</h3>
+        <span>Verified</span>
+        <span>New Arrivals</span>
+        <span>Best Sellers</span>
+        <span>Trending</span>
+        <span>Collaborations</span>
+    </div>
+
+    <div class="veylune-marketplace-mega__column">
+        <h3>Shop by Room</h3>
+        {% if publicSurfaces['room:living-room']|default(false) %}
+            <a href="{{ veyluneRoutes.rooms }}" data-veylune-page-transition>Living Room</a>
+        {% else %}
+            <span>Living Room</span>
+        {% endif %}
+        <span>Bedroom</span>
+        <span>Dining Room</span>
+        <span>Home Office</span>
+        <span>Outdoor</span>
+    </div>
+
+    <div class="veylune-marketplace-mega__column">
+        <h3>Departments</h3>
+        {% if publicSurfaces['category:furniture']|default(false) %}
+            <a href="{{ veyluneRoutes.shop }}" data-veylune-page-transition>Furniture</a>
+        {% else %}
+            <span>Furniture</span>
+        {% endif %}
+        <span>Rugs</span>
+        <span>Lighting</span>
+        <span>Decor &amp; Pillows</span>
+        <span>Organization</span>
+    </div>
+
+    <div class="veylune-marketplace-mega__column">
+        <h3>Services</h3>
+        <a href="{{ veyluneRoutes.consultation }}" data-veylune-page-transition>Design Consultation</a>
+        <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Inspiration</a>
+        <span>Delivery</span>
+        <span>Financing</span>
+        <span>Trade Program</span>
+    </div>
+</section>

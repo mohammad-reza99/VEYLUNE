@@ -5,7 +5,7 @@
     {% set registryScope = veyluneDestinationType == 'room' ? 'room-destination' : (veyluneDestinationType == 'category' ? 'category-destination' : 'collection-destination') %}
     {% set registryEntity = veyluneDestinationType == 'room' ? 'rooms' : (veyluneDestinationType == 'category' ? 'departments' : 'collections') %}
 
-    <main class="veylune-destination veylune-destination--{{ veyluneDestinationType }}"
+    <div class="veylune-destination veylune-destination--{{ veyluneDestinationType }}"
           data-veylune-registry-scope="{{ registryScope }}"
           data-veylune-registry-entity="{{ registryEntity }}"
           data-veylune-registry-key="{{ veyluneDestinationKey }}">
@@ -110,5 +110,5 @@
                 </div>
             </section>
         {% endif %}
-    </main>
+    </div>
 {% endblock %}

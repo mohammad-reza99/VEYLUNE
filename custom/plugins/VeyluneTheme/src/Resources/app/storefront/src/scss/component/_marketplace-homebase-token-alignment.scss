@@ -1,41 +1,5 @@
 /* Phase 2.3: token alignment from the supplied computed-style snapshot. */
 
-:root {
-    --veylune-marketplace-primary: #7b189f;
-    --veylune-marketplace-primary-hover: #5c1277;
-    --veylune-marketplace-primary-soft: #f8f3fa;
-    --veylune-marketplace-focus: #1364f1;
-    --veylune-marketplace-ink: #211e22;
-    --veylune-marketplace-muted: #4d4a4f;
-    --veylune-marketplace-border: #d1d1d6;
-    --veylune-marketplace-surface: #f5f5f5;
-    --veylune-marketplace-white: #fff;
-    --veylune-marketplace-promo: #c4113f;
-    --veylune-marketplace-success: #247139;
-    --veylune-marketplace-rating: #f6b71d;
-    --veylune-marketplace-space-1: 2px;
-    --veylune-marketplace-space-2: 4px;
-    --veylune-marketplace-space-3: 8px;
-    --veylune-marketplace-space-4: 12px;
-    --veylune-marketplace-space-5: 16px;
-    --veylune-marketplace-space-6: 24px;
-    --veylune-marketplace-radius-sm: 2px;
-    --veylune-marketplace-radius-md: 4px;
-    --veylune-marketplace-radius-lg: 8px;
-    --veylune-marketplace-shadow-sm: 0 1px 2px rgb(33 30 34 / 20%);
-    --veylune-marketplace-shadow-md: 0 3px 6px rgb(33 30 34 / 20%);
-    --veylune-marketplace-shadow-lg: 0 7px 14px rgb(33 30 34 / 20%);
-    --veylune-marketplace-font-size-500: 0.8125rem;
-    --veylune-marketplace-font-size-1000: 1rem;
-    --veylune-marketplace-font-size-2000: 1.25rem;
-    --veylune-marketplace-font-size-3000: 1.5625rem;
-    --veylune-marketplace-font-size-4000: 1.9375rem;
-    --veylune-marketplace-font-size-5000: 2.4375rem;
-    --veylune-marketplace-font-size-6000: 3.0625rem;
-    --veylune-marketplace-font-size-7000: 3.815rem;
-    --veylune-marketplace-line-height: 1.5;
-}
-
 body {
     color: var(--veylune-marketplace-ink);
     background-color: var(--veylune-marketplace-white);

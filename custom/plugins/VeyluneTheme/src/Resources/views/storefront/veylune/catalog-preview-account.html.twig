@@ -1,0 +1,179 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <div class="veylune-account-preview" data-veylune-account-preview>
+        <header class="veylune-account-preview__hero">
+            <div><p>Private client account</p><h1>Your Veylune space</h1><p>Keep project selections, delivery details and studio conversations together.</p></div>
+            <span>Preview mode</span>
+        </header>
+
+        <nav class="veylune-account-preview__nav" aria-label="Account sections">
+            <a href="#veyluneAccountDashboardTitle">Overview</a>
+            <a href="#veyluneSavedProjectsTitle">Saved projects</a>
+            <button type="button" data-account-orders-open>Order history</button>
+            <button type="button" data-account-address-open>Address book</button>
+            <button type="button" data-account-settings-open>Profile settings</button>
+            <button type="button" data-account-readiness-open>Activation readiness</button>
+            <a href="{{ path('frontend.account.home.page') }}" data-veylune-native-account>Native account</a>
+        </nav>
+
+        <div class="veylune-account-preview__layout">
+            <section class="veylune-account-preview__auth" aria-labelledby="veyluneAccountAccessTitle">
+                <div class="veylune-account-preview__tabs" role="tablist" aria-label="Account access">
+                    <button type="button" role="tab" id="veyluneAccountLoginTab" aria-controls="veyluneAccountLoginPanel" aria-selected="true" data-account-tab="login">Sign in</button>
+                    <button type="button" role="tab" id="veyluneAccountRegisterTab" aria-controls="veyluneAccountRegisterPanel" aria-selected="false" tabindex="-1" data-account-tab="register">Create account</button>
+                </div>
+
+                <section id="veyluneAccountLoginPanel" role="tabpanel" aria-labelledby="veyluneAccountLoginTab" data-account-panel="login">
+                    <p>Account access</p><h2 id="veyluneAccountAccessTitle">Welcome back.</h2>
+                    <form data-account-login novalidate>
+                        <label>Email address<input type="email" name="email" autocomplete="email" required></label>
+                        <label>Password<input type="password" name="password" autocomplete="current-password" minlength="8" required></label>
+                        <div><label><input type="checkbox" name="remember"><span>Keep me signed in</span></label><button type="button" data-account-forgot>Forgot password?</button></div>
+                        <button type="submit">Sign in preview</button>
+                        <p data-account-login-status role="status" aria-live="polite">Authentication remains disabled in this private preview.</p>
+                    </form>
+                </section>
+
+                <section id="veyluneAccountRegisterPanel" role="tabpanel" aria-labelledby="veyluneAccountRegisterTab" data-account-panel="register" hidden>
+                    <p>New private client</p><h2>Create your account.</h2>
+                    <form data-account-register novalidate>
+                        <div><label>First name<input name="firstName" autocomplete="given-name" required></label><label>Last name<input name="lastName" autocomplete="family-name" required></label></div>
+                        <label>Email address<input type="email" name="email" autocomplete="email" required></label>
+                        <label>Password<input type="password" name="password" autocomplete="new-password" minlength="8" required aria-describedby="veyluneAccountPasswordHint"></label>
+                        <p id="veyluneAccountPasswordHint">Use at least 8 characters.</p>
+                        <label class="veylune-account-preview__consent"><input type="checkbox" name="terms" required><span>I understand account creation is not active in this preview.</span></label>
+                        <button type="submit">Create preview account</button>
+                        <p data-account-register-status role="status" aria-live="polite">No customer record will be created.</p>
+                    </form>
+                </section>
+            </section>
+
+            <aside class="veylune-account-preview__dashboard" aria-labelledby="veyluneAccountDashboardTitle">
+                <div><p>Project dashboard</p><h2 id="veyluneAccountDashboardTitle">Continue where you left off.</h2></div>
+                <section class="veylune-account-projects" data-account-projects aria-labelledby="veyluneSavedProjectsTitle">
+                    <header>
+                        <div><p>Saved projects</p><h3 id="veyluneSavedProjectsTitle">Your project edits</h3></div>
+                        <strong data-account-project-count aria-live="polite">0 projects</strong>
+                    </header>
+                    <div class="veylune-account-projects__controls">
+                        <label>Status<select data-account-project-filter><option value="all">All projects</option><option value="active">Active</option><option value="archived">Archived</option></select></label>
+                        <label>Sort<select data-account-project-sort><option value="updated">Recently updated</option><option value="name">Project name</option><option value="status">Status</option></select></label>
+                        <button type="button" data-account-project-save>Save current selection</button>
+                    </div>
+                    <div class="veylune-account-projects__notice" data-account-project-notice aria-live="polite">Projects are stored only in this private preview browser.</div>
+                    <div class="veylune-account-projects__empty" data-account-project-empty>
+                        <h4>No saved projects yet.</h4><p>Add a piece to your private selection, then save it as a project edit.</p><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore catalog</a>
+                    </div>
+                    <div class="veylune-account-projects__list" data-account-project-list></div>
+                </section>
+                <div class="veylune-account-preview__tiles">
+                    <article data-account-address-summary><span>01</span><h3>Address book</h3><p data-account-address-count>No delivery addresses saved.</p><button type="button" data-account-address-open>Manage addresses</button></article>
+                    <article data-account-archive-summary><span>02</span><h3>Project archive</h3><p data-account-archive-count>No projects archived.</p><button type="button" data-account-archive-open>View archive</button></article>
+                    <article><span>03</span><h3>Studio dialogue</h3><p>Continue a private conversation with the Veylune studio.</p><a href="{{ path('frontend.veylune.consultation.page') }}">Begin dialogue</a></article>
+                    <article data-account-orders-summary><span>04</span><h3>Order history</h3><p data-account-orders-count>No checkout reviews saved.</p><button type="button" data-account-orders-open>View history</button></article>
+                    <article data-account-settings-summary><span>05</span><h3>Profile settings</h3><p data-account-settings-summary-copy>Profile and communication preferences are ready to review.</p><button type="button" data-account-settings-open>Manage settings</button></article>
+                    <article data-account-readiness-summary><span>06</span><h3>Activation readiness</h3><p data-account-readiness-summary-copy>Review the private data prepared for account activation.</p><button type="button" data-account-readiness-open>Review readiness</button></article>
+                </div>
+            </aside>
+        </div>
+
+        <dialog class="veylune-account-recovery-dialog" data-account-recovery-dialog aria-labelledby="veyluneRecoveryTitle">
+            <form data-account-recovery-form novalidate>
+                <button type="button" data-account-recovery-close aria-label="Close password recovery">Close</button>
+                <p>Password recovery</p>
+                <h2 id="veyluneRecoveryTitle">Reset your password</h2>
+                <p>Enter the email used for your account. This preview validates the request without sending a message.</p>
+                <label>Email address<input type="email" name="recoveryEmail" autocomplete="email" required></label>
+                <button type="submit">Continue</button>
+                <p data-account-recovery-status role="status" aria-live="polite">No recovery email will be sent.</p>
+            </form>
+        </dialog>
+
+        <dialog class="veylune-account-project-dialog" data-account-project-dialog aria-labelledby="veyluneProjectRenameTitle">
+            <form method="dialog" data-account-project-rename>
+                <button type="button" data-account-project-dialog-close aria-label="Close project rename">Close</button>
+                <p>Project details</p><h2 id="veyluneProjectRenameTitle">Rename project</h2>
+                <label>Project name<input name="projectName" maxlength="60" required></label>
+                <button type="submit">Save project name</button>
+                <p data-account-project-dialog-status aria-live="polite"></p>
+            </form>
+        </dialog>
+
+        <dialog class="veylune-account-panel-dialog" data-account-address-dialog aria-labelledby="veyluneAddressTitle">
+            <div class="veylune-account-panel-dialog__shell">
+                <header><div><p>Delivery details</p><h2 id="veyluneAddressTitle">Address book</h2></div><button type="button" data-account-address-close aria-label="Close address book">Close</button></header>
+                <p class="veylune-account-panel-dialog__notice" data-account-address-notice aria-live="polite">Addresses stay only in this private preview browser.</p>
+                <div class="veylune-account-addresses" data-account-address-list></div>
+                <div class="veylune-account-addresses__empty" data-account-address-empty><h3>No saved address yet.</h3><p>Add a delivery address to prepare a future checkout.</p></div>
+                <form class="veylune-account-address-form" data-account-address-form novalidate>
+                    <input type="hidden" name="addressId">
+                    <div><label>First name<input name="firstName" autocomplete="given-name" maxlength="40" required></label><label>Last name<input name="lastName" autocomplete="family-name" maxlength="40" required></label></div>
+                    <label>Street address<input name="street" autocomplete="street-address" maxlength="80" required></label>
+                    <div><label>Postal code<input name="postalCode" autocomplete="postal-code" maxlength="16" required></label><label>City<input name="city" autocomplete="address-level2" maxlength="50" required></label></div>
+                    <label>Country<select name="country" autocomplete="country-name" required><option value="">Select country</option><option>Germany</option><option>France</option><option>Italy</option><option>Netherlands</option><option>United Kingdom</option></select></label>
+                    <label class="veylune-account-address-form__default"><input type="checkbox" name="isDefault"><span>Use as default delivery address</span></label>
+                    <div class="veylune-account-address-form__actions"><button type="button" data-account-address-cancel hidden>Cancel edit</button><button type="submit" data-account-address-submit>Add address</button></div>
+                </form>
+            </div>
+        </dialog>
+
+        <dialog class="veylune-account-panel-dialog" data-account-archive-dialog aria-labelledby="veyluneArchiveTitle">
+            <div class="veylune-account-panel-dialog__shell">
+                <header><div><p>Project history</p><h2 id="veyluneArchiveTitle">Project archive</h2></div><button type="button" data-account-archive-close aria-label="Close project archive">Close</button></header>
+                <p class="veylune-account-panel-dialog__notice" data-account-archive-notice aria-live="polite">Archived edits remain available for review or restoration.</p>
+                <div class="veylune-account-archive" data-account-archive-list></div>
+                <div class="veylune-account-addresses__empty" data-account-archive-empty><h3>Your archive is clear.</h3><p>Archive a saved project edit to keep it here.</p></div>
+            </div>
+        </dialog>
+
+        <dialog class="veylune-account-panel-dialog" data-account-orders-dialog aria-labelledby="veyluneOrdersTitle">
+            <div class="veylune-account-panel-dialog__shell">
+                <header><div><p>Checkout activity</p><h2 id="veyluneOrdersTitle">Order history</h2></div><button type="button" data-account-orders-close aria-label="Close order history">Close</button></header>
+                <div class="veylune-account-orders__guard"><strong>Preview records only</strong><p>These are checkout reviews, not paid or submitted orders. Activated Shopware orders remain in the native customer account.</p><a href="{{ path('frontend.account.home.page') }}" data-veylune-native-account>Open native account</a></div>
+                <div class="veylune-account-orders__controls">
+                    <label>Find review<input type="search" data-account-orders-search placeholder="Review number or product"></label>
+                    <label>Status<select data-account-orders-filter><option value="all">All statuses</option><option value="reviewed">Reviewed</option><option value="expired">Expired</option></select></label>
+                </div>
+                <p class="veylune-account-panel-dialog__notice" data-account-orders-notice aria-live="polite">Checkout reviews stay only in this private preview browser.</p>
+                <div class="veylune-account-orders" data-account-orders-list></div>
+                <div class="veylune-account-addresses__empty" data-account-orders-empty><h3 data-account-orders-empty-title>No checkout reviews yet.</h3><p data-account-orders-empty-copy>Complete the private checkout review to create a safe preview record.</p><a href="{{ path('frontend.veylune.preview.checkout', { token: veylunePreviewToken }) }}">Open private checkout</a></div>
+            </div>
+        </dialog>
+
+        <dialog class="veylune-account-panel-dialog" data-account-settings-dialog aria-labelledby="veyluneSettingsTitle">
+            <div class="veylune-account-panel-dialog__shell">
+                <header><div><p>Account preferences</p><h2 id="veyluneSettingsTitle">Profile settings</h2></div><button type="button" data-account-settings-close aria-label="Close profile settings">Close</button></header>
+                <div class="veylune-account-settings__guard"><div><strong>Private preview profile</strong><p>Profile and communication preferences stay in this browser. Email, password and customer records are managed only by Shopware after activation.</p></div><a href="{{ path('frontend.account.home.page') }}" data-veylune-native-account>Open secure account</a></div>
+                <form class="veylune-account-settings" data-account-settings-form novalidate>
+                    <section aria-labelledby="veyluneProfileDetailsTitle">
+                        <div class="veylune-account-settings__heading"><span>01</span><div><h3 id="veyluneProfileDetailsTitle">Personal details</h3><p>Used to personalize this private preview.</p></div></div>
+                        <div class="veylune-account-settings__fields"><label>First name<input name="firstName" autocomplete="given-name" maxlength="40" required></label><label>Last name<input name="lastName" autocomplete="family-name" maxlength="40" required></label><label>Email address<input type="email" name="email" autocomplete="email" maxlength="100" required></label><label>Phone number <span>Optional</span><input type="tel" name="phone" autocomplete="tel" maxlength="30"></label></div>
+                    </section>
+                    <section aria-labelledby="veyluneCommunicationTitle">
+                        <div class="veylune-account-settings__heading"><span>02</span><div><h3 id="veyluneCommunicationTitle">Communication</h3><p>Choose the studio notes you want in this preview.</p></div></div>
+                        <div class="veylune-account-settings__choices">
+                            <label><input type="checkbox" name="editorial"><span><strong>Editorial notes</strong><small>New collections, material stories and room direction.</small></span></label>
+                            <label><input type="checkbox" name="project"><span><strong>Project updates</strong><small>Saved-project milestones and consultation follow-up.</small></span></label>
+                            <label><input type="checkbox" name="service"><span><strong>Service notices</strong><small>Delivery planning and account-service information.</small></span></label>
+                        </div>
+                    </section>
+                    <section aria-labelledby="veyluneSecurityTitle">
+                        <div class="veylune-account-settings__heading"><span>03</span><div><h3 id="veyluneSecurityTitle">Security</h3><p>Password changes and recovery require the secure native account.</p></div></div>
+                        <div class="veylune-account-settings__security"><div><strong>Password</strong><span>Managed by Shopware authentication</span></div><a href="{{ path('frontend.account.home.page') }}" data-veylune-native-account>Manage sign-in securely</a></div>
+                    </section>
+                    <div class="veylune-account-settings__footer"><p data-account-settings-status aria-live="polite">No profile settings have been saved in this browser.</p><button type="submit">Save preview settings</button></div>
+                </form>
+            </div>
+        </dialog>
+
+        <dialog class="veylune-account-panel-dialog" data-account-readiness-dialog aria-labelledby="veyluneReadinessTitle">
+            <div class="veylune-account-panel-dialog__shell">
+                <header><div><p>Activation handoff</p><h2 id="veyluneReadinessTitle">Account readiness</h2></div><button type="button" data-account-readiness-close aria-label="Close account readiness">Close</button></header>
+                <div class="veylune-account-readiness__intro"><div><strong data-account-readiness-score>0 of 4 ready</strong><p>Preview data remains local until a secure migration flow is approved and activated.</p></div><a href="{{ path('frontend.account.home.page') }}" data-veylune-native-account>Open native account</a></div>
+                <div class="veylune-account-readiness" data-account-readiness-list aria-live="polite"></div>
+                <div class="veylune-account-readiness__guard"><strong>No automatic migration</strong><p>This audit does not create a customer, submit an order, transfer personal data or bypass Shopware authentication.</p></div>
+            </div>
+        </dialog>
+    </div>
+{% endblock %}

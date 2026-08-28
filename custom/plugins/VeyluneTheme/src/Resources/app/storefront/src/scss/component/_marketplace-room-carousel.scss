@@ -1,0 +1,180 @@
+/* Phase 3.5: Shop by Room visual carousel. */
+
+.veylune-room-carousel {
+    width: min(calc(100% - 48px), 1600px);
+    margin: 0 auto 64px;
+}
+
+.veylune-room-carousel__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.veylune-room-carousel__head h2 {
+    margin: 0;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.veylune-room-carousel__head p {
+    max-width: 520px;
+    margin: 0;
+    color: var(--veylune-marketplace-muted);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+}
+
+.veylune-room-carousel__slider {
+    position: relative;
+}
+
+.veylune-room-carousel__track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 16px;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: 2px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.veylune-room-carousel__track::-webkit-scrollbar {
+    display: none;
+}
+
+.veylune-room-carousel__item {
+    flex: 0 0 calc((100% - 48px) / 3.35);
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.veylune-room-card {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    text-decoration: none;
+}
+
+.veylune-room-card__media {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background-color: var(--veylune-marketplace-surface);
+    background-position: center;
+    background-size: cover;
+    transition: transform 240ms ease;
+}
+
+.veylune-room-card__media--living {
+    background-image: url("#{$app-css-relative-asset-path}/veylune-room-living-v1.webp");
+}
+
+.veylune-room-card__media--dining {
+    background-image: url("#{$app-css-relative-asset-path}/veylune-room-dining-v1.webp");
+}
+
+.veylune-room-card__media--bedroom {
+    background-image: url("#{$app-css-relative-asset-path}/veylune-room-bedroom-v1.webp");
+}
+
+.veylune-room-card__media--workspace {
+    background-image: url("#{$app-css-relative-asset-path}/veylune-room-workspace-v1.webp");
+}
+
+.veylune-room-card__media--outdoor {
+    background-image: url("#{$app-css-relative-asset-path}/veylune-room-outdoor-v1.webp");
+}
+
+.veylune-room-card__content {
+    display: flex;
+    min-height: 78px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-top: 0;
+    border-radius: 0 0 var(--veylune-marketplace-radius-md) var(--veylune-marketplace-radius-md);
+}
+
+.veylune-room-card__content strong {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.veylune-room-card__content > span {
+    color: var(--veylune-marketplace-muted);
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    text-align: right;
+}
+
+.veylune-room-card:hover,
+.veylune-room-card:focus-visible {
+    color: var(--veylune-marketplace-primary);
+}
+
+.veylune-room-card:hover .veylune-room-card__media,
+.veylune-room-card:focus-visible .veylune-room-card__media {
+    transform: scale(1.018);
+}
+
+.veylune-room-card:focus-visible {
+    outline: 3px solid var(--veylune-marketplace-focus);
+    outline-offset: 3px;
+}
+
+.veylune-room-carousel__slider .veylune-product-slider__control {
+    top: 43%;
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .veylune-room-carousel__item {
+        flex-basis: calc((100% - 16px) / 2.25);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .veylune-room-carousel {
+        width: 100%;
+        margin-bottom: 48px;
+    }
+
+    .veylune-room-carousel__head {
+        display: block;
+        margin: 0 12px 16px;
+    }
+
+    .veylune-room-carousel__head p {
+        margin-top: 6px;
+    }
+
+    .veylune-room-carousel__track {
+        gap: 14px;
+        padding: 4px 12px 14px;
+        scroll-padding-inline: 12px;
+    }
+
+    .veylune-room-carousel__item {
+        flex-basis: 76vw;
+        max-width: 310px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-room-card__media {
+        transition-duration: 1ms;
+    }
+}

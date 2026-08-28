@@ -1,0 +1,78 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    {% set product = veylunePreviewProduct %}
+    <main class="veylune-pdp-preview" data-veylune-pdp-preview>
+        <nav class="veylune-pdp-preview__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">Home</a><span aria-hidden="true">/</span>
+            <a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: product.department == 'decor_objects' ? 'decor-objects' : product.department, token: veylunePreviewToken }) }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
+            <span aria-current="page">{{ product.name }}</span>
+        </nav>
+
+        <article class="veylune-pdp-preview__hero">
+            <section class="veylune-pdp-gallery" aria-label="{{ product.name }} gallery">
+                <div class="veylune-pdp-gallery__stage veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}">
+                    <span class="veylune-pdp-gallery__badge">{{ product.status }}</span>
+                    <span class="veylune-pdp-gallery__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>
+                    <span class="visually-hidden">Concept study for {{ product.name }} in {{ product.materialLabel }}</span>
+                </div>
+                <div class="veylune-pdp-gallery__support" aria-hidden="true">
+                    <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--material"><span>{{ product.materialLabel }}</span></div>
+                    <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--silhouette"><span>Silhouette study</span></div>
+                </div>
+            </section>
+
+            <aside class="veylune-pdp-buybox" aria-labelledby="veylunePdpTitle">
+                <p class="veylune-pdp-buybox__eyebrow">{{ product.productType|replace({'_': ' '})|title }}</p>
+                <h1 id="veylunePdpTitle">{{ product.name }}</h1>
+                <div class="veylune-pdp-buybox__rating" aria-label="New piece, no customer reviews yet">
+                    <span aria-hidden="true">☆☆☆☆☆</span><span>New piece</span>
+                </div>
+                <p class="veylune-pdp-buybox__price"><span>Target price</span><strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
+                <p class="veylune-pdp-buybox__finance">Final pricing, lead time and configuration are confirmed during consultation.</p>
+
+                <div class="veylune-pdp-buybox__option" aria-label="Selected material">
+                    <span>Material</span><strong>{{ product.materialLabel }}</strong>
+                </div>
+                <div class="veylune-pdp-buybox__swatch" aria-hidden="true"><span></span>{{ product.materialLabel }}</div>
+
+                <div class="veylune-pdp-buybox__availability">
+                    <span aria-hidden="true"></span>
+                    <div><strong>Availability under review</strong><small>Supplier selection and specification in progress</small></div>
+                </div>
+
+                <a class="veylune-pdp-buybox__cta" href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue</a>
+                <button class="veylune-pdp-buybox__save" type="button" aria-pressed="false">Save for later</button>
+
+                <ul class="veylune-pdp-buybox__services" aria-label="Service commitments">
+                    <li><strong>Curated sourcing</strong><span>Reviewed by the Veylune studio</span></li>
+                    <li><strong>Project delivery</strong><span>Logistics planned around your space</span></li>
+                    <li><strong>Private support</strong><span>One point of contact throughout</span></li>
+                </ul>
+
+                <div class="veylune-pdp-buybox__accordions">
+                    <details open><summary>Product details</summary><p>A considered {{ product.productType|replace({'_': ' '}) }} shaped around proportion, material presence and long-term use.</p></details>
+                    <details><summary>Materials and care</summary><p>Primary material: {{ product.materialLabel }}. Final finishes and care guidance are supplied with the approved specification.</p></details>
+                    <details><summary>Delivery and returns</summary><p>Delivery scope and return conditions are confirmed before the order is placed.</p></details>
+                </div>
+            </aside>
+        </article>
+
+        <section class="veylune-pdp-story" aria-labelledby="veylunePdpStoryTitle">
+            <p>Veylune material edit</p>
+            <h2 id="veylunePdpStoryTitle">Designed to give the room presence without visual noise.</h2>
+            <div><span>{{ product.materialLabel }}</span><span>{{ product.productType|replace({'_': ' '})|title }}</span><span>Reference {{ product.recordId }}</span></div>
+        </section>
+
+        {% if veylunePreviewRelated|length %}
+            <section class="veylune-pdp-related" aria-labelledby="veylunePdpRelatedTitle">
+                <div class="veylune-pdp-related__head"><p>Continue the edit</p><h2 id="veylunePdpRelatedTitle">You may also consider</h2></div>
+                <div class="veylune-pdp-related__grid">
+                    {% for related in veylunePreviewRelated %}
+                        {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: related, productIndex: loop.index0 } %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}

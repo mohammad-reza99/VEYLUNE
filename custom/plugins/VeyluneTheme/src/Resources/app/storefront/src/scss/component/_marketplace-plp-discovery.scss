@@ -1,0 +1,148 @@
+.veylune-plp-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 20px;
+    color: rgb(47 43 49 / 62%);
+    font-size: 0.74rem;
+}
+
+/* Phase 9 gap closure: keep category entry marketplace-first, like the
+   reference PLP, instead of delaying products behind an editorial hero. */
+.veylune-preview--destination {
+    margin-top: -1.1875rem;
+    padding-top: 0.5rem;
+}
+
+.veylune-preview--destination .veylune-preview__masthead {
+    display: block;
+    padding: 0.25rem 0 0.875rem;
+}
+
+.veylune-preview--destination .veylune-preview__masthead h1 {
+    margin: 0;
+    font-family: var(--veylune-marketplace-font, sans-serif);
+    font-size: 2rem;
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+}
+
+.veylune-preview--destination .veylune-preview__eyebrow,
+.veylune-preview--destination .veylune-plp-hero__summary,
+.veylune-preview--destination .veylune-plp-hero__cta,
+.veylune-preview--destination .veylune-plp-hero__media,
+.veylune-preview--destination .veylune-preview__back {
+    display: none;
+}
+
+.veylune-plp-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    overflow: visible;
+    padding: 0 0 1rem;
+}
+
+.veylune-plp-shortcuts .veylune-plp-chip {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    text-align: left;
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-preview--destination {
+        margin-top: 0;
+    }
+
+    .veylune-plp-shortcuts {
+        display: flex;
+        gap: 0.6rem;
+        overflow-x: auto;
+        padding: 1rem 0;
+    }
+
+    .veylune-plp-shortcuts .veylune-plp-chip {
+        min-height: 44px;
+        justify-content: center;
+        border-radius: 999px;
+        text-align: center;
+    }
+}
+.veylune-plp-breadcrumb a { color: inherit; text-decoration: none; }
+.veylune-plp-breadcrumb a:hover { color: #7f187f; text-decoration: underline; text-underline-offset: 3px; }
+.veylune-plp-breadcrumb span[aria-hidden="true"] { color: rgb(47 43 49 / 32%); }
+
+.veylune-preview--destination .veylune-preview__masthead {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(340px, 0.78fr);
+    align-items: stretch;
+    gap: clamp(2rem, 5vw, 6rem);
+}
+.veylune-plp-hero__copy { display: flex; flex-direction: column; justify-content: center; }
+.veylune-plp-hero__summary { max-width: 58ch; }
+.veylune-plp-hero__cta {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 44px;
+    align-items: center;
+    margin-top: 1.25rem;
+    padding: 0 1.15rem;
+    border-radius: 999px;
+    color: #fff;
+    background: #7f187f;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+.veylune-plp-hero__media {
+    min-height: clamp(280px, 31vw, 460px);
+    border-radius: 2px;
+    background-color: #eee8ee;
+    background-position: center;
+    background-size: cover;
+}
+.veylune-plp-hero__media--furniture { background-image: url("#{$app-css-relative-asset-path}/veylune-category-furniture-v1.webp"); }
+.veylune-plp-hero__media--lighting { background-image: url("#{$app-css-relative-asset-path}/veylune-category-lighting-v1.webp"); }
+.veylune-plp-hero__media--decor-objects { background-image: url("#{$app-css-relative-asset-path}/veylune-category-decor-v1.webp"); }
+.veylune-plp-hero__media--textiles-rugs { background-image: url("#{$app-css-relative-asset-path}/veylune-category-textiles-v1.webp"); }
+.veylune-plp-hero__media--dining-kitchen { background-image: url("#{$app-css-relative-asset-path}/veylune-category-dining-v1.webp"); }
+.veylune-plp-hero__media--outdoor { background-image: url("#{$app-css-relative-asset-path}/veylune-category-outdoor-v1.webp"); }
+.veylune-preview--destination .veylune-preview__back { position: absolute; top: 1rem; right: 0; z-index: 2; background: rgb(255 255 255 / 88%); backdrop-filter: blur(8px); }
+
+.veylune-plp-seo {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    margin-top: clamp(3rem, 7vw, 7rem);
+    padding: clamp(2rem, 5vw, 5rem) 0;
+    border-top: 1px solid var(--veylune-plp-border);
+}
+.veylune-plp-seo__eyebrow { margin: 0 0 0.7rem; color: #7f187f; font-size: 0.68rem; font-weight: 850; letter-spacing: 0.12em; text-transform: uppercase; }
+.veylune-plp-seo h2 { max-width: 14ch; margin: 0; font-family: var(--veylune-font-display, serif); font-size: clamp(2rem, 3.5vw, 4rem); font-weight: 500; line-height: 1; letter-spacing: -0.04em; }
+.veylune-plp-seo__body { columns: 2; column-gap: 2rem; color: rgb(47 43 49 / 70%); font-size: 0.92rem; line-height: 1.75; }
+.veylune-plp-seo__body p { margin: 0 0 1rem; break-inside: avoid; }
+
+@include media-breakpoint-down(md) {
+    .veylune-preview--destination .veylune-preview__masthead { grid-template-columns: 1fr; gap: 1.5rem; }
+    .veylune-plp-hero__media { min-height: 48vw; grid-row: 1; }
+    .veylune-preview--destination .veylune-preview__back { top: 1rem; right: 1rem; }
+    .veylune-plp-seo { grid-template-columns: 1fr; }
+}
+
+@include media-breakpoint-down(sm) {
+    .veylune-plp-breadcrumb { overflow: hidden; white-space: nowrap; }
+    .veylune-plp-hero__media { min-height: 62vw; }
+    .veylune-plp-seo__body { columns: 1; }
+}
+
+.veylune-preview--destination .veylune-preview__masthead {
+    display: block;
+    grid-template-columns: none;
+    gap: 0;
+}

@@ -1,0 +1,46 @@
+/* Phase 9.1 Batch D: checkout interaction and form refinement. */
+.veylune-checkout-preview__fields input,
+.veylune-checkout-preview__fields select {
+    border-radius: 4px;
+}
+
+.veylune-checkout-preview__fields input:focus,
+.veylune-checkout-preview__fields select:focus {
+    border-color: var(--veylune-marketplace-primary);
+    box-shadow: 0 0 0 1px var(--veylune-marketplace-primary);
+    outline: 0;
+}
+
+.veylune-checkout-preview__delivery > label {
+    min-height: 72px;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.veylune-checkout-preview__delivery input[type="radio"],
+.veylune-checkout-preview__consent input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--veylune-marketplace-primary);
+}
+
+.veylune-checkout-preview__summary > button {
+    min-height: 48px;
+}
+
+.veylune-checkout-preview__summary [role="status"] {
+    min-height: 2.25rem;
+}
+
+@media (max-width: 575.98px) {
+    .veylune-checkout-preview__forms {
+        gap: 1rem;
+    }
+
+    .veylune-checkout-preview__forms > section,
+    .veylune-checkout-preview__forms > fieldset,
+    .veylune-checkout-preview__summary {
+        padding: 1rem;
+    }
+}

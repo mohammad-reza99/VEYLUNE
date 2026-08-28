@@ -1,0 +1,84 @@
+/* Phase 4.6.3: accessible PLP interaction and feedback states. */
+.veylune-preview--destination {
+    .veylune-plp-chip.is-active,
+    .veylune-plp-chip:first-child.is-active {
+        border-color: var(--veylune-marketplace-primary);
+        color: var(--veylune-marketplace-white);
+        background: var(--veylune-marketplace-primary);
+    }
+
+    .veylune-plp-chip:first-child:not(.is-active) {
+        border-color: var(--veylune-plp-border);
+        color: var(--veylune-marketplace-ink);
+        background: var(--veylune-marketplace-white);
+    }
+
+    .veylune-plp-chip:hover,
+    .veylune-plp-control:hover {
+        border-color: var(--veylune-marketplace-primary);
+    }
+
+    .veylune-plp-popover input {
+        accent-color: var(--veylune-marketplace-primary);
+    }
+
+    .veylune-plp-popover--sort button:hover,
+    .veylune-plp-popover--sort button[aria-checked="true"] {
+        color: var(--veylune-marketplace-primary-hover);
+        background: var(--veylune-marketplace-primary-soft);
+    }
+
+    .veylune-plp-popover--sort button[aria-checked="true"]::after {
+        float: right;
+        content: "Check";
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .veylune-plp-chip:focus-visible,
+    .veylune-plp-control:focus-visible,
+    .veylune-plp-load-more:focus-visible,
+    .veylune-preview-card__wishlist:focus-visible,
+    .veylune-plp-popover button:focus-visible,
+    .veylune-plp-popover input:focus-visible + span {
+        outline: 3px solid rgb(19 100 241 / 44%);
+        outline-offset: 3px;
+    }
+
+    .veylune-preview-grid {
+        transition: opacity 140ms ease;
+    }
+
+    .veylune-preview-grid.is-updating {
+        opacity: 0.58;
+        pointer-events: none;
+    }
+
+    .veylune-plp-load-more[aria-disabled="true"] {
+        cursor: progress;
+        opacity: 0.68;
+    }
+
+    .veylune-plp-empty {
+        min-height: 220px;
+        place-content: center;
+        color: var(--veylune-marketplace-muted);
+        background: var(--veylune-marketplace-surface);
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .veylune-preview--destination .veylune-plp-popover {
+        max-width: 100%;
+        overscroll-behavior: contain;
+        box-shadow: 0 18px 48px rgb(33 30 34 / 18%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-preview--destination .veylune-preview-grid {
+        transition: none;
+    }
+}
