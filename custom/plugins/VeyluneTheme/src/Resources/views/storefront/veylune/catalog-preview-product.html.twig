@@ -5,7 +5,7 @@
     <div class="veylune-pdp-preview" data-veylune-pdp-preview data-product-id="{{ product.recordId }}" data-product-name="{{ product.name }}" data-product-price="{{ product.targetPrice }}">
         <nav class="veylune-pdp-preview__breadcrumb" aria-label="Breadcrumb">
             <a href="{{ path('frontend.home.page') }}">Home</a><span aria-hidden="true">/</span>
-            <a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: product.department == 'decor_objects' ? 'decor-objects' : product.department, token: veylunePreviewToken }) }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
+            <a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: product.department|replace({'_': '-'}), token: veylunePreviewToken }) }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
             <span aria-current="page">{{ product.name }}</span>
         </nav>
 

@@ -1,0 +1,115 @@
+/* P7.3: final marketplace PLP density, hierarchy and viewport containment. */
+
+.veylune-preview--destination {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+.veylune-plp-shortcuts {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0 0 1rem;
+    scroll-padding-inline: 1px;
+}
+
+.veylune-plp-shortcuts .veylune-plp-chip {
+    min-height: 48px;
+    flex: 0 0 auto;
+    justify-content: center;
+    padding-inline: 1.15rem;
+    border-radius: 999px;
+    text-align: center;
+}
+
+.veylune-plp-toolbar {
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--veylune-plp-border);
+}
+
+.veylune-preview--destination .veylune-preview-grid {
+    width: 100%;
+    min-width: 0;
+    border-top: 0;
+}
+
+.veylune-preview--destination .veylune-preview-card,
+.veylune-preview--destination .veylune-preview-card__visual,
+.veylune-preview--destination .veylune-preview-card__body {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.veylune-preview--destination .veylune-preview-card h3 a {
+    color: var(--veylune-marketplace-ink);
+    text-decoration: none;
+    text-underline-offset: 0.18em;
+}
+
+.veylune-preview--destination .veylune-preview-card h3 a:hover,
+.veylune-preview--destination .veylune-preview-card h3 a:focus-visible {
+    color: var(--veylune-marketplace-primary-hover);
+    text-decoration: underline;
+}
+
+@media (max-width: 575.98px) {
+    .veylune-preview--destination {
+        width: 100%;
+        padding-inline: 0.75rem;
+    }
+
+    .veylune-preview--destination .veylune-preview__masthead h1 {
+        font-size: 1.75rem;
+    }
+
+    .veylune-plp-shortcuts {
+        margin-inline: 0;
+        padding-block: 0.75rem;
+    }
+
+    .veylune-plp-shortcuts .veylune-plp-chip {
+        min-height: 44px;
+        padding-inline: 1rem;
+    }
+
+    .veylune-plp-toolbar__actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .veylune-plp-menu,
+    .veylune-plp-control {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .veylune-plp-control {
+        padding-inline: 0.85rem;
+        font-size: 0.75rem;
+    }
+
+    .veylune-preview--destination .veylune-preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem 0.75rem;
+    }
+
+    .veylune-preview--destination .veylune-preview-card {
+        padding-top: 1rem;
+    }
+
+    .veylune-preview--destination .veylune-preview-card h3 {
+        min-height: 2.7em;
+        overflow: hidden;
+        font-size: 0.875rem;
+        line-height: 1.35;
+    }
+
+    .veylune-preview-card__review-copy {
+        display: none;
+    }
+
+    .veylune-preview-card__rating {
+        gap: 0;
+    }
+}

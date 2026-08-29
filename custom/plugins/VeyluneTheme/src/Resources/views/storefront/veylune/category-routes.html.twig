@@ -1,5 +1,5 @@
-{% macro url(key) %}
-    {% set veyluneCategoryRoutes = {
+{% macro url(key) -%}
+    {%- set veyluneCategoryRoutes = {
         collections: path('frontend.navigation.page', { navigationId: '019e47255c4f7a8f947adc9f036f367f' }),
         seating: path('frontend.navigation.page', { navigationId: '019e472688de7a4488d2ccaa9f4c1aca' }),
         sofas: path('frontend.navigation.page', { navigationId: '019e4c1eedd87901a119c903e1448101' }),
@@ -24,10 +24,10 @@
         newArrivals: path('frontend.veylune.discovery.collection', { collectionKey: 'new-arrivals' }),
         permanentCollections: path('frontend.veylune.discovery.collection.permanent'),
         editorialCollections: path('frontend.veylune.discovery.collection.editorial'),
-        trade: path('frontend.navigation.page', { navigationId: '019e4718ad6c79efb2b928230271e814' }),
+        trade: path('frontend.veylune.trade.page'),
         consultation: path('frontend.veylune.consultation.page'),
-        studio: path('frontend.navigation.page', { navigationId: '019e471907d0771baabb7d73ec1caea2' })
-    } %}
+        studio: path('frontend.veylune.studio.page')
+    } -%}
 
     {{- veyluneCategoryRoutes[key]|default('#') -}}
-{% endmacro %}
+{%- endmacro %}

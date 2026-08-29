@@ -14,7 +14,13 @@
 		{% set veylunePageType = null %}
 	{% set veyluneEcosystemType = null %}
 	{% set veyluneLegacyType = null %}
-	{% set veyluneDetectedType = categoryCustomFields.veylune_page_type|default(cmsCustomFields.veylune_page_type|default(veyluneIdentifier)) %}
+	{% set veyluneNavigationPageTypes = {
+        '019e4718ad6c79efb2b928230271e814': 'trade',
+        '019e4718d96272ac9fbbe508ccc6c6a6': 'consultation',
+        '019e471907d0771baabb7d73ec1caea2': 'about'
+    } %}
+    {% set veyluneNavigationPageType = veyluneNavigationPageTypes[activeCategory.id|default('')]|default(null) %}
+	{% set veyluneDetectedType = categoryCustomFields.veylune_page_type|default(cmsCustomFields.veylune_page_type|default(veyluneIdentifier|default(veyluneNavigationPageType))) %}
 	{% if veyluneDetectedType in ['partnership', 'supplier', 'atelier'] or 'veylune-page-partnership' in veyluneCmsClasses %}
 		{% set veylunePageType = 'partnership' %}
 	{% elseif veyluneDetectedType in ['legacy', 'mythology'] or 'veylune-page-legacy' in veyluneCmsClasses %}
@@ -56,12 +62,12 @@
 				{% set veyluneNewArrivalProducts = veyluneProductExposure ? veyluneProductExposure.get('new-arrivals') : [] %}
 				{% set veyluneFounderSelectionProducts = veyluneProductExposure ? veyluneProductExposure.get('founder-selection') : [] %}
 				{% set veyluneDepartments = [
-					{ key: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: veyluneCategoryRoutes.url('furniture'), image: 'veylune-category-furniture-v1.webp' },
-					{ key: 'lighting', label: 'veylune.home.discovery.categories.lighting', target: veyluneCategoryRoutes.url('departmentLighting'), image: 'veylune-category-lighting-v1.webp' },
-					{ key: 'decor', label: 'veylune.home.discovery.categories.decorObjects', target: veyluneCategoryRoutes.url('departmentDecorObjects'), image: 'veylune-category-decor-v1.webp' },
-					{ key: 'textiles', label: 'veylune.home.discovery.categories.textilesRugs', target: veyluneCategoryRoutes.url('textilesRugs'), image: 'veylune-category-textiles-v1.webp' },
-					{ key: 'dining', label: 'veylune.home.discovery.categories.diningKitchen', target: veyluneCategoryRoutes.url('diningKitchen'), image: 'veylune-category-dining-v1.webp' },
-					{ key: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: veyluneCategoryRoutes.url('departmentOutdoor'), image: 'veylune-category-outdoor-v1.webp' }
+					{ key: 'furniture', surfaceKey: 'furniture', label: 'veylune.home.discovery.categories.furniture', target: veyluneCategoryRoutes.url('furniture'), image: 'veylune-category-furniture-v1.webp' },
+					{ key: 'lighting', surfaceKey: 'lighting', label: 'veylune.home.discovery.categories.lighting', target: veyluneCategoryRoutes.url('departmentLighting'), image: 'veylune-category-lighting-v1.webp' },
+					{ key: 'decor', surfaceKey: 'decor-objects', label: 'veylune.home.discovery.categories.decorObjects', target: veyluneCategoryRoutes.url('departmentDecorObjects'), image: 'veylune-category-decor-v1.webp' },
+					{ key: 'textiles', surfaceKey: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', target: veyluneCategoryRoutes.url('textilesRugs'), image: 'veylune-category-textiles-v1.webp' },
+					{ key: 'dining', surfaceKey: 'dining-kitchen', label: 'veylune.home.discovery.categories.diningKitchen', target: veyluneCategoryRoutes.url('diningKitchen'), image: 'veylune-category-dining-v1.webp' },
+					{ key: 'outdoor', surfaceKey: 'outdoor', label: 'veylune.home.discovery.categories.outdoor', target: veyluneCategoryRoutes.url('departmentOutdoor'), image: 'veylune-category-outdoor-v1.webp' }
 				] %}
 				{% set veyluneDiscoveryRooms = [
 					{ key: 'living-room', mediaKey: 'living', label: 'veylune.home.discovery.rooms.livingRoom', target: path('frontend.veylune.discovery.room', { roomKey: 'living-room' }) },
@@ -75,11 +81,15 @@
 					<nav class="veylune-department-strip" aria-label="{{ 'veylune.home.departmentStripAriaLabel'|trans|striptags }}" data-veylune-registry-scope="homepage-departments">
 						<div class="veylune-department-strip__track">
 							{% for department in veyluneDepartments %}
+                                {% if publicSurfaces['category:' ~ department.surfaceKey]|default(false) %}
 								<a href="{{ department.target }}"
 								   data-veylune-registry-key="{{ department.key }}"
 								   data-veylune-discovery-type="department">
 									{{ department.label|trans|sw_sanitize }}
 								</a>
+                                {% else %}
+                                    <span aria-disabled="true">{{ department.label|trans|sw_sanitize }}</span>
+                                {% endif %}
 							{% endfor %}
 						</div>
 					</nav>

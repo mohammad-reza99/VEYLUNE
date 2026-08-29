@@ -2,6 +2,6 @@
 
 {% block base_main_inner %}
     {% sw_include '@Storefront/storefront/veylune/professional-pages.html.twig' with {
-        veylunePageType: 'consultation'
+        veylunePageType: veylunePageType|default('consultation')
     } %}
 {% endblock %}

@@ -14,21 +14,24 @@
     </div>
 
     <div class="veylune-promo-merchandising__paths" aria-label="Featured ways to explore Veylune">
-        {% if publicSurfaces.catalog|default(false) %}
+        {% if publicSurfaces['collection:new-arrivals']|default(false) %}
             <a href="{{ veyluneCategoryRoutes.url('newArrivals') }}">
                 <strong>New arrivals</strong>
                 <span>Fresh forms for considered rooms</span>
             </a>
+        {% else %}
+            <div aria-disabled="true">
+                <strong>New arrivals</strong>
+                <span>Fresh forms for considered rooms</span>
+            </div>
+        {% endif %}
+        {% if publicSurfaces['collection:founder-selection']|default(false) %}
             <a href="{{ veyluneCategoryRoutes.url('founderSelection') }}">
                 <strong>Founder selection</strong>
                 <span>A focused edit of enduring pieces</span>
             </a>
         {% else %}
-            <div>
-                <strong>New arrivals</strong>
-                <span>Fresh forms for considered rooms</span>
-            </div>
-            <div>
+            <div aria-disabled="true">
                 <strong>Founder selection</strong>
                 <span>A focused edit of enduring pieces</span>
             </div>

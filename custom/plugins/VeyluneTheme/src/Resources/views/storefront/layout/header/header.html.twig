@@ -3,7 +3,9 @@
 {% block layout_header %}
 	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
     {% set publicSurfaces = veylunePublicSurfaces|default({}) %}
-	{% set veyluneHeaderPreviewToken = app.request.pathInfo starts with '/__veylune-preview/' ? app.request.query.get('token') : null %}
+	{% set veyluneHeaderPreviewToken = veylunePreviewToken|default(
+        app.request.pathInfo starts with '/__veylune-preview/' ? app.request.query.get('token') : null
+    ) %}
 	{% set isPrivatePreview = veyluneHeaderPreviewToken is not empty %}
 	{% set veyluneRoutes = {
         shop: isPrivatePreview ? path('frontend.veylune.preview.catalog.category', { categoryKey: 'furniture', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('furniture'),
@@ -11,7 +13,8 @@
         collections: isPrivatePreview ? path('frontend.veylune.preview.catalog.collection', { collectionKey: 'founder-selection', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('founderSelection'),
         editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page'),
         consultation: veyluneCategoryRoutes.url('consultation'),
-        partnership: path('frontend.veylune.partnership.page')
+        partnership: path('frontend.veylune.partnership.page'),
+        trade: path('frontend.veylune.trade.page')
     } %}
     {% set veyluneNavigationRegistry = [
         {
@@ -56,15 +59,15 @@
         }
     ] %}
     {% set veyluneMegaCategories = [
-        { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: veyluneRoutes.shop }
+        { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: veyluneRoutes.shop, available: isPrivatePreview or publicSurfaces['category:furniture']|default(false) }
     ] %}
     {% set veyluneMegaRooms = [
-        { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: veyluneRoutes.rooms },
-        { key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', url: isPrivatePreview ? path('frontend.veylune.preview.catalog.room', { roomKey: 'dining-room', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('diningRoom') }
+        { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: veyluneRoutes.rooms, available: isPrivatePreview or publicSurfaces['room:living-room']|default(false) },
+        { key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', url: isPrivatePreview ? path('frontend.veylune.preview.catalog.room', { roomKey: 'dining-room', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('diningRoom'), available: isPrivatePreview or publicSurfaces['room:dining-room']|default(false) }
     ] %}
     {% set veyluneMegaCollections = [
-        { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: veyluneRoutes.collections },
-        { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: isPrivatePreview ? path('frontend.veylune.preview.catalog.collection', { collectionKey: 'new-arrivals', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('newArrivals') }
+        { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: veyluneRoutes.collections, available: isPrivatePreview or publicSurfaces['collection:founder-selection']|default(false) },
+        { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: isPrivatePreview ? path('frontend.veylune.preview.catalog.collection', { collectionKey: 'new-arrivals', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('newArrivals'), available: isPrivatePreview or publicSurfaces['collection:new-arrivals']|default(false) }
     ] %}
     {% set veyluneMarketplaceDepartments = [
         'Verified',
@@ -106,7 +109,7 @@
                         <a class="veylune-marketplace-family__primary" href="{{ path('frontend.home.page') }}">Veylune</a>
                         <a href="{{ veyluneRoutes.editions }}">Editions</a>
                         <a href="{{ veyluneRoutes.editions }}">Journal</a>
-                        <a href="{{ veyluneRoutes.partnership }}">Trade</a>
+                        <a href="{{ veyluneRoutes.trade }}">Trade</a>
                     </div>
                     <div class="veylune-marketplace-utility__right">
                         <nav class="veylune-marketplace-utility__links" aria-label="Programs and services">
@@ -189,8 +192,8 @@
                         {% endblock %}
 
                         {% block layout_header_actions_account %}
-                            {% if veylunePreviewToken is defined and veylunePreviewToken %}
-                                <a class="veylune-marketplace-action" href="{{ path('frontend.veylune.preview.account', { token: veylunePreviewToken }) }}" aria-label="Private account preview" data-veylune-preview-account>
+                            {% if isPrivatePreview %}
+                                <a class="veylune-marketplace-action" href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" aria-label="Private account preview" data-veylune-preview-account>
                                     <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
                                     <span class="veylune-marketplace-action__label">Sign In</span>
                                 </a>
@@ -211,8 +214,8 @@
                         {% endif %}
 
 						{% block layout_header_actions_cart %}
-                            {% if veylunePreviewToken is defined and veylunePreviewToken %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}" aria-label="Private selection, 0 items" data-veylune-preview-cart>
+                            {% if isPrivatePreview %}
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Private selection, 0 items" data-veylune-preview-cart>
                                     <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
                                     <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">0</span></span>
                                 </a>
@@ -247,7 +250,9 @@
                                         <h3>{{ 'veylune.header.mega.groups.categories'|trans|sw_sanitize }}</h3>
                                         <div class="veylune-mega__links">
                                             {% for category in veyluneMegaCategories %}
+                                                {% if category.available %}
                                                 <a href="{{ category.url }}" data-veylune-registry-key="{{ category.key }}" data-veylune-page-transition>{{ category.label|trans|sw_sanitize }}</a>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -255,7 +260,9 @@
                                         <h3>{{ 'veylune.header.mega.groups.rooms'|trans|sw_sanitize }}</h3>
                                         <div class="veylune-mega__links">
                                             {% for room in veyluneMegaRooms %}
+                                                {% if room.available %}
                                                 <a href="{{ room.url }}" data-veylune-registry-key="{{ room.key }}" data-veylune-page-transition>{{ room.label|trans|sw_sanitize }}</a>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -263,7 +270,9 @@
                                         <h3>{{ 'veylune.header.mega.groups.collections'|trans|sw_sanitize }}</h3>
                                         <div class="veylune-mega__links">
                                             {% for collection in veyluneMegaCollections %}
+                                                {% if collection.available %}
                                                 <a href="{{ collection.url }}" data-veylune-registry-key="{{ collection.key }}" data-veylune-page-transition>{{ collection.label|trans|sw_sanitize }}</a>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -272,7 +281,9 @@
                                         <h3>{{ 'veylune.header.mega.groups.rooms'|trans|sw_sanitize }}</h3>
                                         <div class="veylune-mega__links veylune-mega__links--columns">
                                             {% for room in veyluneMegaRooms %}
+                                                {% if room.available %}
                                                 <a href="{{ room.url }}" data-veylune-registry-key="{{ room.key }}" data-veylune-page-transition>{{ room.label|trans|sw_sanitize }}</a>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -281,7 +292,9 @@
                                         <h3>{{ 'veylune.header.mega.groups.collections'|trans|sw_sanitize }}</h3>
                                         <div class="veylune-mega__links">
                                             {% for collection in veyluneMegaCollections %}
+                                                {% if collection.available %}
                                                 <a href="{{ collection.url }}" data-veylune-registry-key="{{ collection.key }}" data-veylune-page-transition>{{ collection.label|trans|sw_sanitize }}</a>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>

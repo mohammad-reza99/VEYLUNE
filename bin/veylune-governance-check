@@ -242,6 +242,15 @@ step 'phase 9 reference gap closure'
 legacy_consultation_file="${TMP_DIR}/phase9_legacy_consultation.html"
 assert_status '/consultation' 301 "$legacy_consultation_file"
 
+for legacy_cms_route in \
+    '/page/cms/019e3bf907a971b3a48974fb8e7f7fbe' \
+    '/page/cms/019e3bf90c8271f2ab585548d3e747f9' \
+    '/page/cms/019e3bf90c7f7226a8cb32e3f0ceac6b'
+do
+    legacy_cms_file="${TMP_DIR}/phase9_legacy_cms_${legacy_cms_route##*/}.html"
+    assert_status "$legacy_cms_route" 301 "$legacy_cms_file"
+done
+
 partnership_file="${TMP_DIR}/phase9_partnership.html"
 assert_status '/atelier-partnerships' 200 "$partnership_file"
 assert_contains "$partnership_file" 'href="/atelier-partnerships"' 'partnership trade self-route'
@@ -313,9 +322,38 @@ done
 
 home_file="${TMP_DIR}/storefront_home.html"
 assert_status '/' 200 "$home_file"
+assert_contains "$home_file" 'href="/legal/privacy" title="More information"' '/ homepage canonical cookie privacy routing'
+assert_absent_pattern "$home_file" 'href="[[:space:]]+/' '/ homepage whitespace-prefixed internal routing'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.cookie-permission-container' 'global cookie control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.dropdown-menu' 'global dropdown control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.modal-content' 'global modal surface closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.offcanvas' 'global offcanvas surface closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.form-control' 'global form control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.accordion-button' 'global disclosure control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-preview-card__wishlist' 'preview card action target closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-plp-popover--sort button' 'preview listing dropdown action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-pdp-delivery__control button' 'preview product delivery action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-cart-preview__alert button' 'preview cart recovery action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/sidebar.html.twig' 'veylune-account-sidebar__marker' 'account sidebar duplicate SVG identity closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/addressbook/address-item.html.twig' "addressItemRole" 'account address role-scoped dropdown identity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'veylunePreviewToken|default' 'preview header token continuity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig' 'veyluneMobilePreviewToken' 'preview mobile navigation token continuity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-product.html.twig' "product.department|replace({'_': '-'})" 'preview product department route normalization'
+
+if [[ -n "${VEYLUNE_DRAFT_PREVIEW_TOKEN:-}" ]]; then
+    preview_home_file="${TMP_DIR}/private_preview_home.html"
+    assert_status "/__veylune-preview/catalog?token=${VEYLUNE_DRAFT_PREVIEW_TOKEN}" 200 "$preview_home_file"
+
+    for preview_record in K01 K02 K04; do
+        preview_product_file="${TMP_DIR}/private_preview_product_${preview_record}.html"
+        assert_status "/__veylune-preview/catalog/product/${preview_record}?token=${VEYLUNE_DRAFT_PREVIEW_TOKEN}" 200 "$preview_product_file"
+    done
+
+    assert_absent_pattern "$preview_home_file" 'href="/__veylune-preview/catalog/(category|collection|room)/[^"?]+"' 'private preview tokenless navigation containment'
+fi
 assert_contains "$home_file" 'data-veylune-home' '/ homepage transitional surface'
-assert_contains "$home_file" 'Catalog access opens after product verification.' '/ homepage truthful catalog pending disclosure'
-assert_contains "$home_file" 'Room shopping opens after catalog verification.' '/ homepage truthful room pending disclosure'
+assert_contains "$home_file" 'Online catalog opening soon.' '/ homepage truthful catalog pending disclosure'
+assert_contains "$home_file" 'Room collections opening soon.' '/ homepage truthful room pending disclosure'
 assert_contains "$home_file" 'Email delivery is in verification.' '/ homepage truthful newsletter pending disclosure'
 assert_absent_pattern "$home_file" 'Coming soon →|Explore the room →' '/ homepage misleading pending actions'
 assert_contains "$home_file" 'Clarity before public commerce opens.' '/ homepage truthful trust hierarchy'
@@ -411,6 +449,65 @@ german_denied_file="${TMP_DIR}/storefront_denied_de_detail.html"
 assert_status '/de/detail/019e4c3232987add9b4d98318913cc4f' 404 "$german_denied_file"
 assert_contains "$german_denied_file" '<html lang="de">' '/de canonical storefront denial'
 assert_contains "$german_denied_file" '<title>Seite nicht gefunden | VEYLUNE STUDIO</title>' '/de canonical storefront denial'
+
+step 'phase 7 responsive regression contract'
+assert_contains "$home_file" 'name="viewport"' '/ responsive viewport contract'
+assert_contains "$home_file" 'data-veylune-mobile-toggle' '/ mobile navigation trigger'
+assert_contains "$home_file" 'data-veylune-mobile-nav' '/ mobile navigation dialog'
+assert_contains "$home_file" 'role="dialog"' '/ mobile dialog semantics'
+assert_contains "$home_file" 'aria-modal="true"' '/ mobile modal semantics'
+assert_contains "$home_file" 'data-veylune-product-slider-previous' '/ slider previous control'
+assert_contains "$home_file" 'data-veylune-product-slider-next' '/ slider next control'
+assert_contains "$home_file" 'data-veylune-product-slider-track' '/ slider keyboard track'
+assert_contains "$home_file" 'veylune-category-tile--preview' '/ unavailable category non-link state'
+assert_contains "$home_file" 'veylune-room-card--preview' '/ unavailable room non-link state'
+assert_absent_pattern "$home_file" 'href="/(categories|rooms|collections)/' '/ unavailable discovery links'
+
+slider_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-product-slider.js'
+header_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js'
+interaction_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-7-interaction-closure.scss'
+residual_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-7-residual-closure.scss'
+assert_contains "$slider_js" "event.key === 'Home'" 'slider Home key contract'
+assert_contains "$slider_js" "event.key === 'End'" 'slider End key contract'
+assert_contains "$slider_js" "setAttribute('aria-disabled'" 'slider ARIA disabled state'
+assert_contains "$header_js" 'closeMega({ restoreFocus: true })' 'mega Escape focus restoration'
+assert_contains "$header_js" "event.target.closest('a[href]')" 'mobile navigation link close'
+assert_contains "$header_js" "matchMedia('(min-width: 992px)')" 'mobile-to-desktop drawer reset'
+assert_contains "$interaction_css" 'min-width: 44px' 'slider touch target'
+assert_contains "$interaction_css" 'max-height: 100dvh' 'mobile dynamic viewport containment'
+assert_contains "$interaction_css" '@media (prefers-reduced-motion: reduce)' 'interaction reduced-motion contract'
+assert_contains "$residual_css" '@media (max-width: 991.98px)' 'tablet layout contract'
+assert_contains "$residual_css" '@media (max-width: 575.98px)' 'mobile layout contract'
+
+step 'phase 7 final public residue audit'
+public_surface_routes=(
+    '/'
+    '/editions'
+    '/atelier-partnerships'
+    '/private-consultation'
+    '/trade-program'
+    '/about-studio'
+    '/contact-studio'
+    '/account/login'
+    '/account/recover'
+    '/legal/privacy'
+    '/legal/imprint'
+    '/legal/terms'
+    '/legal/payment-delivery'
+    '/legal/cancellation'
+)
+
+for route in "${public_surface_routes[@]}"; do
+    file="${TMP_DIR}/final_residue_$(printf '%s' "$route" | tr '/?=&' '____').html"
+    assert_status "$route" 200 "$file"
+    assert_single_main "$file" "$route final public surface"
+    assert_contains "$file" '<h1' "$route final public surface"
+    assert_absent_pattern "$file" 'Lorem ipsum|CWS Development Tools|data-veylune-identity-denial|page not found' "$route final public surface"
+done
+
+assert_absent_pattern "$home_file" 'href="/(categories|rooms|collections)/' '/ blocked discovery-link residue'
+assert_contains "$home_file" 'href="/contact-studio"' '/ contact action continuity'
+assert_contains "$home_file" 'href="/private-consultation"' '/ consultation action continuity'
 
 step 'complete'
 printf 'Veylune governance verification passed.\n'

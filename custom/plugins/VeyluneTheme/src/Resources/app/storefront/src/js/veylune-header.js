@@ -32,6 +32,7 @@ const initVeyluneHeader = () => {
     let lastScrollY = window.scrollY;
     let megaCloseTimer = null;
     let activeMegaKey = null;
+    let activeMegaTrigger = null;
     let searchReturnFocus = null;
     let mobileReturnFocus = null;
 
@@ -157,6 +158,7 @@ const initVeyluneHeader = () => {
         mega.setAttribute('aria-hidden', 'false');
         setInertState(mega, false);
         activeMegaKey = key;
+        activeMegaTrigger = megaTriggers.find((trigger) => trigger.dataset.veyluneMegaTrigger === key) || null;
 
         megaTriggers.forEach((trigger) => {
             trigger.setAttribute('aria-expanded', trigger.dataset.veyluneMegaTrigger === key ? 'true' : 'false');
@@ -170,7 +172,7 @@ const initVeyluneHeader = () => {
         });
     }
 
-    function closeMega() {
+    function closeMega({ restoreFocus = false } = {}) {
         if (!mega) {
             return;
         }
@@ -190,6 +192,12 @@ const initVeyluneHeader = () => {
             panel.setAttribute('aria-hidden', 'true');
             setInertState(panel, true);
         });
+
+        if (restoreFocus && activeMegaTrigger instanceof HTMLElement) {
+            activeMegaTrigger.focus();
+        }
+
+        activeMegaTrigger = null;
     }
 
     const scheduleMegaClose = () => {
@@ -349,6 +357,9 @@ const initVeyluneHeader = () => {
         closeMobileNav({ restoreFocus: true });
     });
     mobileNav?.addEventListener('keydown', (event) => trapFocus(event, mobileNav));
+    mobileNav?.addEventListener('click', (event) => {
+        if (event.target.closest('a[href]')) closeMobileNav();
+    });
 
     document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') {
@@ -362,7 +373,7 @@ const initVeyluneHeader = () => {
 
         if (header.classList.contains('is-mega-open')) {
             event.preventDefault();
-            closeMega();
+            closeMega({ restoreFocus: true });
         }
 
         if (header.classList.contains('is-mobile-nav-open')) {
@@ -382,6 +393,12 @@ const initVeyluneHeader = () => {
             closeSearch({ restoreFocus: true });
         }
     });
+
+    window.addEventListener('resize', () => {
+        if (window.matchMedia('(min-width: 992px)').matches && header.classList.contains('is-mobile-nav-open')) {
+            closeMobileNav({ restoreFocus: true });
+        }
+    }, { passive: true });
 };
 
 const initVeyluneAtmosphere = () => {

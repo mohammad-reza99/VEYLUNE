@@ -1,3 +1,4 @@
+{% set veyluneMobileDrawerPreviewToken = veyluneHeaderPreviewToken|default(veylunePreviewToken|default(null)) %}
 <div class="veylune-mobile-marketplace">
     <div class="veylune-mobile-marketplace__search is-pending" role="search" aria-label="Catalog activation pending">
         <label class="visually-hidden" for="veyluneMobileMarketplaceSearch">{{ 'header.searchPlaceholder'|trans|striptags }}</label>
@@ -6,12 +7,12 @@
     </div>
 
     <div class="veylune-mobile-marketplace__shortcuts">
-        {% if veylunePreviewToken is defined and veylunePreviewToken %}
-            <a href="{{ path('frontend.veylune.preview.account', { token: veylunePreviewToken }) }}">
+        {% if veyluneMobileDrawerPreviewToken %}
+            <a href="{{ path('frontend.veylune.preview.account', { token: veyluneMobileDrawerPreviewToken }) }}">
                 <span aria-hidden="true">{% sw_icon 'avatar' %}</span>
                 <strong>Sign In</strong>
             </a>
-            <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">
+            <a href="{{ path('frontend.veylune.preview.cart', { token: veyluneMobileDrawerPreviewToken }) }}">
                 <span aria-hidden="true">{% sw_icon 'basket' %}</span>
                 <strong>Cart</strong>
             </a>
@@ -31,8 +32,8 @@
         <details name="veylune-mobile-departments" open>
             <summary>Featured</summary>
             <div class="veylune-mobile-marketplace__panel">
-                <a href="{{ isPrivatePreview ? path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) : veyluneRoutes.editions }}">Verified</a>
-                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.collection', { collectionKey: 'new-arrivals', token: veylunePreviewToken }) }}">New Arrivals</a>{% else %}<span aria-disabled="true">New Arrivals</span>{% endif %}
+                <a href="{{ isPrivatePreview ? path('frontend.veylune.preview.catalog.home', { token: veyluneMobileDrawerPreviewToken }) : veyluneRoutes.editions }}">Verified</a>
+                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.collection', { collectionKey: 'new-arrivals', token: veyluneMobileDrawerPreviewToken }) }}">New Arrivals</a>{% else %}<span aria-disabled="true">New Arrivals</span>{% endif %}
                 <span>Best Sellers</span>
                 <a href="{{ veyluneRoutes.editions }}">Trending</a>
                 <a href="{{ veyluneRoutes.partnership }}">Collaborations</a>
@@ -47,11 +48,11 @@
                 {% else %}
                     <span>Furniture</span>
                 {% endif %}
-                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: 'outdoor', token: veylunePreviewToken }) }}">Outdoor</a>{% else %}<span aria-disabled="true">Outdoor</span>{% endif %}
+                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: 'outdoor', token: veyluneMobileDrawerPreviewToken }) }}">Outdoor</a>{% else %}<span aria-disabled="true">Outdoor</span>{% endif %}
                 <span>Bedding &amp; Bath</span>
                 <span>Rugs</span>
                 <span>Decor &amp; Pillows</span>
-                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: 'lighting', token: veylunePreviewToken }) }}">Lighting</a>{% else %}<span aria-disabled="true">Lighting</span>{% endif %}
+                {% if isPrivatePreview %}<a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: 'lighting', token: veyluneMobileDrawerPreviewToken }) }}">Lighting</a>{% else %}<span aria-disabled="true">Lighting</span>{% endif %}
                 <span>Organization</span>
             </div>
         </details>
@@ -65,9 +66,9 @@
                     <span>Living Room</span>
                 {% endif %}
                 {% if isPrivatePreview %}
-                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'bedroom', token: veylunePreviewToken }) }}">Bedroom</a>
-                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'dining-room', token: veylunePreviewToken }) }}">Dining Room</a>
-                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'workspace', token: veylunePreviewToken }) }}">Home Office</a>
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'bedroom', token: veyluneMobileDrawerPreviewToken }) }}">Bedroom</a>
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'dining-room', token: veyluneMobileDrawerPreviewToken }) }}">Dining Room</a>
+                    <a href="{{ path('frontend.veylune.preview.catalog.room', { roomKey: 'workspace', token: veyluneMobileDrawerPreviewToken }) }}">Home Office</a>
                 {% else %}
                     <span aria-disabled="true">Bedroom</span>
                     <span aria-disabled="true">Dining Room</span>
@@ -83,7 +84,7 @@
                 <a href="{{ veyluneRoutes.consultation }}" data-veylune-page-transition>Design Consultation</a>
                 <a href="{{ veyluneRoutes.editions }}" data-veylune-page-transition>Journal</a>
                 <span>Financing</span>
-                <a href="{{ veyluneRoutes.partnership }}" data-veylune-page-transition>Trade Program</a>
+                <a href="{{ veyluneRoutes.trade }}" data-veylune-page-transition>Trade Program</a>
             </div>
         </details>
     </div>

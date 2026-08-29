@@ -37,32 +37,45 @@ const initVeyluneProductSliders = () => {
 
             previous.disabled = !hasOverflow || atStart;
             next.disabled = !hasOverflow || atEnd;
+            previous.setAttribute('aria-disabled', previous.disabled ? 'true' : 'false');
+            next.setAttribute('aria-disabled', next.disabled ? 'true' : 'false');
             slider.classList.toggle('is-scrollable', hasOverflow);
             slider.classList.toggle('is-at-start', atStart);
             slider.classList.toggle('is-at-end', atEnd);
         };
 
         const move = (direction) => {
-            track.scrollBy({
-                left: getStep() * direction,
+            track.scrollTo({
+                left: track.scrollLeft + (getStep() * direction),
                 behavior: reducedMotion ? 'auto' : 'smooth',
             });
+            window.setTimeout(updateControls, reducedMotion ? 0 : 360);
+        };
+
+        const moveToEdge = (edge) => {
+            track.scrollTo({
+                left: edge === 'start' ? 0 : track.scrollWidth,
+                behavior: reducedMotion ? 'auto' : 'smooth',
+            });
+            window.setTimeout(updateControls, reducedMotion ? 0 : 360);
         };
 
         previous.addEventListener('click', () => move(-1));
         next.addEventListener('click', () => move(1));
         track.addEventListener('scroll', updateControls, { passive: true });
         track.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft') {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
                 event.preventDefault();
-                move(-1);
+                move(event.key === 'ArrowLeft' ? -1 : 1);
+                return;
             }
 
-            if (event.key === 'ArrowRight') {
+            if (event.key === 'Home' || event.key === 'End') {
                 event.preventDefault();
-                move(1);
+                moveToEdge(event.key === 'Home' ? 'start' : 'end');
             }
         });
+        track.addEventListener('scrollend', updateControls);
 
         if ('ResizeObserver' in window) {
             new ResizeObserver(updateControls).observe(track);

@@ -1,0 +1,90 @@
+/* L1: shared marketplace foundation for every pre-marketplace landing family. */
+
+:where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) {
+    --veylune-legacy-container: var(--veylune-marketplace-container);
+    --veylune-legacy-copy: min(100%, 72ch);
+    --veylune-legacy-section-space: clamp(3rem, 5vw, 5.5rem);
+    --veylune-legacy-grid-gap: clamp(1rem, 2vw, 1.5rem);
+    --veylune-legacy-radius: var(--veylune-marketplace-radius-lg);
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    font-family: var(--veylune-marketplace-font);
+    line-height: var(--veylune-marketplace-line-height);
+}
+
+:where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) :where(h1, h2, h3, p, ul, ol, dl) {
+    min-width: 0;
+}
+
+:where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) :where(h1, h2, h3) {
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-display-font);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+:where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) :where(p, li, dd) {
+    color: var(--veylune-marketplace-muted);
+}
+
+:where(.veylune-editions__eyebrow, .veylune-authority__eyebrow, .veylune-edition-skeleton__eyebrow, .veylune-destination__eyebrow, .veylune-collection-intro__eyebrow, .veylune-ecosystem__eyebrow, .veylune-legacy__eyebrow, .veylune-legal-notice__eyebrow) {
+    color: var(--veylune-marketplace-primary);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+:where(.veylune-editions__link, .veylune-destination__quiet-link, .veylune-authority-closing__links a, .veylune-ecosystem a, .veylune-legacy a, .veylune-legal-notice a) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--veylune-marketplace-primary);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0;
+    text-transform: none;
+    text-underline-offset: 0.2em;
+}
+
+:where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) :where(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid rgb(19 100 241 / 42%);
+    outline-offset: 2px;
+}
+
+:where(.veylune-authority-card, .veylune-editions-principles article, .veylune-editions-types__grid article, .veylune-destination__shortcut, .veylune-destination__material, .veylune-collection-overview article) {
+    min-width: 0;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-legacy-radius);
+    background: var(--veylune-marketplace-white);
+    box-shadow: none;
+}
+
+@media (max-width: 767.98px) {
+    :where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) {
+        --veylune-legacy-container: min(calc(100% - 24px), 1600px);
+        --veylune-legacy-section-space: 2.5rem;
+        --veylune-legacy-grid-gap: 0.75rem;
+    }
+
+    :where(.veylune-editions, .veylune-authority, .veylune-edition-skeleton, .veylune-destination, .veylune-collection-page, .veylune-ecosystem, .veylune-legacy, .veylune-legal-notice) :where(h1, h2, h3, p, li, dd, a) {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :where(.veylune-editions, .veylune-authority, .veylune-destination, .veylune-ecosystem, .veylune-legacy) [data-veylune-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

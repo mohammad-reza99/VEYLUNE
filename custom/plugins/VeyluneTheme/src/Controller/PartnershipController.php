@@ -48,4 +48,30 @@ class PartnershipController extends StorefrontController
             'veylunePageType' => 'consultation',
         ]);
     }
+
+    #[Route(path: '/trade-program', name: 'frontend.veylune.trade.page', methods: [Request::METHOD_GET])]
+    public function trade(Request $request, SalesChannelContext $context): Response
+    {
+        $page = $this->genericPageLoader->load($request, $context);
+        $page->getMetaInformation()?->setMetaTitle('Trade Program | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription('Professional sourcing and studio support for designers, architects, and considered projects.');
+
+        return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
+            'page' => $page,
+            'veylunePageType' => 'trade',
+        ]);
+    }
+
+    #[Route(path: '/about-studio', name: 'frontend.veylune.studio.page', methods: [Request::METHOD_GET])]
+    public function studio(Request $request, SalesChannelContext $context): Response
+    {
+        $page = $this->genericPageLoader->load($request, $context);
+        $page->getMetaInformation()?->setMetaTitle('Studio | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription('The design point of view, material direction, and interior philosophy behind Veylune Studio.');
+
+        return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
+            'page' => $page,
+            'veylunePageType' => 'about',
+        ]);
+    }
 }

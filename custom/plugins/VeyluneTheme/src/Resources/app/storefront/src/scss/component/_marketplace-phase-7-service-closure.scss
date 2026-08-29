@@ -1,0 +1,335 @@
+/* L3: marketplace closure for Consultation, Contact, Trade and Studio. */
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) {
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-authority--consultation::before,
+.veylune-authority--trade::before,
+.veylune-authority--about::before,
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__grain {
+    display: none;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero {
+    min-height: 0;
+    padding: clamp(2rem, 4vw, 4rem) 0;
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__inner {
+    width: var(--veylune-marketplace-container);
+    max-width: 1600px;
+    grid-template-columns: minmax(0, 0.62fr) minmax(280px, 0.38fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero h1 {
+    max-width: 800px;
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(2.25rem, 4.4vw, 4.75rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__content > p:not(.veylune-authority__eyebrow) {
+    max-width: 64ch;
+    margin-top: 1rem;
+    color: var(--veylune-marketplace-muted);
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    line-height: 1.6;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__visual {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    border-radius: var(--veylune-marketplace-panel-radius);
+    background:
+        radial-gradient(circle at 68% 26%, rgb(255 255 255 / 74%), transparent 22%),
+        linear-gradient(145deg, #e5d1ec, #7b189f 58%, #3c0c4d);
+    box-shadow: var(--veylune-marketplace-shadow-md);
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__visual span {
+    color: var(--veylune-marketplace-white);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-section,
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-closing {
+    width: var(--veylune-marketplace-container);
+    max-width: 1600px;
+    padding: var(--veylune-legacy-section-space) 0;
+    border-top: 1px solid var(--veylune-marketplace-border);
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--about) .veylune-inquiry {
+    grid-template-columns: minmax(240px, 0.4fr) minmax(0, 0.6fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--about) .veylune-inquiry__intro h2,
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--consultation) .veylune-authority-section__head h2 {
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(1.75rem, 3vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--about) .veylune-inquiry__form {
+    min-height: 180px;
+    align-content: center;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-white);
+    box-shadow: none;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--consultation) .veylune-trade-program__grid,
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--consultation) .veylune-manifesto__grid {
+    gap: var(--veylune-legacy-grid-gap);
+    background: transparent;
+    border: 0;
+}
+
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--consultation) .veylune-authority-card {
+    min-height: 0;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-contact-page {
+    display: grid;
+    grid-template-columns: minmax(0, 0.68fr) minmax(260px, 0.32fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: var(--veylune-marketplace-container);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 5rem) 0;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+}
+
+.veylune-contact-page__intro {
+    grid-column: 1 / -1;
+    max-width: 760px;
+}
+
+.veylune-contact-page__intro h1 {
+    margin: 0;
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(2.25rem, 4.4vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.veylune-contact-page__intro > p:last-child {
+    margin: 1rem 0 0;
+    color: var(--veylune-marketplace-muted);
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+.veylune-contact-page__form,
+.veylune-contact-page__aside {
+    min-width: 0;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-contact-page__form .cms-section,
+.veylune-contact-page__form .cms-block,
+.veylune-contact-page__form .cms-block-container,
+.veylune-contact-page__form .cms-element-form {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+.veylune-contact-page__form .form-control,
+.veylune-contact-page__form .form-select,
+.veylune-contact-page__form textarea {
+    width: 100%;
+    border-color: var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-md);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-contact-page__form .btn-primary,
+.veylune-contact-page__form button[type="submit"] {
+    min-height: 48px;
+    border-color: var(--veylune-marketplace-primary);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-contact-page__aside {
+    align-self: start;
+    border-color: #e5d1ec;
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-contact-page__aside p {
+    color: var(--veylune-marketplace-muted);
+    line-height: 1.6;
+}
+
+.veylune-contact-page__aside a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 0.75rem;
+    padding: 0.65rem 1rem;
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+    .veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__inner,
+    .veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--about) .veylune-inquiry,
+    .veylune-contact-page {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership) .veylune-authority-hero__visual {
+        aspect-ratio: 16 / 9;
+    }
+
+    .veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--consultation) .veylune-trade-program__grid,
+.veylune-authority[data-veylune-authority]:not(.veylune-authority--partnership):not(.veylune-authority--consultation) .veylune-manifesto__grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .veylune-contact-page__intro {
+        grid-column: auto;
+    }
+}
+
+/* Contact form owns one shell; neutralize the legacy CMS and authority layers. */
+.veylune-contact-page__form {
+    padding: 0;
+    overflow: hidden;
+}
+
+.veylune-contact-page__form .cms-block-container {
+    padding: 0 !important;
+}
+
+.veylune-contact-page__form .veylune-cms-block,
+.veylune-contact-page__form .veylune-cms-block__grid,
+.veylune-contact-page__form .cms-element-form,
+.veylune-contact-page__form .veylune-inquiry {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+}
+
+.veylune-contact-page__form .veylune-inquiry__card {
+    width: 100%;
+    max-width: none;
+    border: 0;
+    border-radius: 0;
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-contact-page__form .veylune-inquiry__body {
+    padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.veylune-contact-page__form .veylune-inquiry__header {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.veylune-contact-page__form .veylune-inquiry__eyebrow {
+    color: var(--veylune-marketplace-primary);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-contact-page__form .veylune-inquiry__title {
+    max-width: none;
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+.veylune-contact-page__form .veylune-inquiry__intro {
+    color: var(--veylune-marketplace-muted);
+    line-height: 1.55;
+}
+
+.veylune-contact-page__form .veylune-inquiry__form {
+    gap: 1rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.veylune-contact-page__form .veylune-inquiry__form label,
+.veylune-contact-page__form .veylune-inquiry__form span {
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-contact-page__form .veylune-inquiry__form input,
+.veylune-contact-page__form .veylune-inquiry__form select,
+.veylune-contact-page__form .veylune-inquiry__form textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    box-shadow: none;
+}
+
+.veylune-contact-page__form .veylune-inquiry__form textarea {
+    min-height: 10rem;
+}
+
+.veylune-contact-page__form .veylune-inquiry__form input:focus,
+.veylune-contact-page__form .veylune-inquiry__form select:focus,
+.veylune-contact-page__form .veylune-inquiry__form textarea:focus {
+    border-color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-white);
+    box-shadow: 0 0 0 3px rgb(19 100 241 / 22%);
+}
+
+@media (max-width: 575.98px) {
+    .veylune-contact-page__form .veylune-inquiry__actions,
+    .veylune-contact-page__form .veylune-inquiry__submit {
+        width: 100%;
+    }
+}

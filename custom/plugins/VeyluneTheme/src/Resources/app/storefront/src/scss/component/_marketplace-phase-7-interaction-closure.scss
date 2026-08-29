@@ -1,0 +1,46 @@
+/* L6: responsive interaction and keyboard closure. */
+
+.veylune-product-slider [data-veylune-product-slider-track],
+.veylune-category-discovery__rail,
+.veylune-room-carousel__track {
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: thin;
+}
+
+.veylune-product-slider [data-veylune-product-slider-track] > *,
+.veylune-category-discovery__rail > *,
+.veylune-room-carousel__track > * {
+    scroll-snap-align: start;
+}
+
+.veylune-product-slider__control {
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+.veylune-product-slider__control:disabled {
+    cursor: default;
+    opacity: 0.35;
+}
+
+[data-veylune-product-slider]:not(.is-scrollable) .veylune-product-slider__control {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.veylune-mobile-nav {
+    overscroll-behavior: contain;
+}
+
+.veylune-mobile-nav__inner {
+    max-height: 100dvh;
+    overflow-y: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-veylune-product-slider-track] {
+        scroll-behavior: auto !important;
+    }
+}

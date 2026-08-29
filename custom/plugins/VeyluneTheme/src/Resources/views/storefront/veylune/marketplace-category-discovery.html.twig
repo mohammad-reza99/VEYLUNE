@@ -3,7 +3,7 @@
         <h2 id="veylune-category-discovery-title">{{ 'veylune.home.discovery.categories.eyebrow'|trans|sw_sanitize }}</h2>
         <p>{{ 'veylune.home.discovery.categories.title'|trans|sw_sanitize }}</p>
         {% if not publicSurfaces.catalog|default(false) %}
-            <span class="veylune-home-pending-note" id="veylune-category-pending-note">Catalog access opens after product verification.</span>
+            <span class="veylune-home-pending-note" id="veylune-category-pending-note">Online catalog opening soon.</span>
         {% endif %}
     </div>
 
@@ -12,7 +12,7 @@
         <div class="veylune-category-discovery__rail" id="veylune-category-slider" data-veylune-product-slider-track role="list" aria-roledescription="carousel" aria-label="Home categories" tabindex="0">
         {% for department in veyluneDepartments %}
             <div class="veylune-category-discovery__item" role="listitem">
-                {% if publicSurfaces.catalog|default(false) %}
+                {% if publicSurfaces['category:' ~ department.surfaceKey]|default(false) %}
                     <a class="veylune-category-tile"
                        href="{{ department.target }}"
                        data-veylune-registry-key="{{ department.key }}"
@@ -22,10 +22,7 @@
                 {% endif %}
                         <span class="veylune-category-tile__media veylune-category-tile__media--{{ department.key }}" aria-hidden="true"></span>
                         <span class="veylune-category-tile__label">{{ department.label|trans|sw_sanitize }}</span>
-                        {% if not publicSurfaces.catalog|default(false) %}
-                            <span class="veylune-home-card-status">Catalog activation pending</span>
-                        {% endif %}
-                {% if publicSurfaces.catalog|default(false) %}
+                {% if publicSurfaces['category:' ~ department.surfaceKey]|default(false) %}
                     </a>
                 {% else %}
                     </article>

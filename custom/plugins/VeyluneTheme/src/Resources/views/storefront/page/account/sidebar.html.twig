@@ -34,7 +34,7 @@
                                    title="{{ 'account.profileLink'|trans|striptags }}"
                                    class="list-group-item list-group-item-action account-aside-item veylune-account-sidebar__item{% if activeRoute is same as('frontend.account.profile.page') %} is-active{% endif %}"
                                    {% if activeRoute is same as('frontend.account.profile.page') %} aria-current="page"{% endif %}>
-                                    {% sw_icon 'avatar' style { size: 'sm' } %}
+                                    <span class="veylune-account-sidebar__marker" aria-hidden="true"></span>
                                     <span>{{ 'account.profileLink'|trans|sw_sanitize }}</span>
                                 </a>
                             {% endblock %}

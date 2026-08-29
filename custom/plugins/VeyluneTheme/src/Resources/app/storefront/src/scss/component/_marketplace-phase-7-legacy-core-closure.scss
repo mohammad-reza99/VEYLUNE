@@ -1,0 +1,291 @@
+/* L2: marketplace closure for Trending, Collaborations and Edition Detail. */
+
+.veylune-editions,
+.veylune-authority--partnership {
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-editions-hero,
+.veylune-authority--partnership .veylune-authority-hero {
+    min-height: 0;
+    padding: clamp(2rem, 4vw, 4rem) 0;
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-authority--partnership::before,
+.veylune-authority--partnership .veylune-authority-hero__grain {
+    display: none;
+}
+
+.veylune-editions-hero__inner,
+.veylune-authority--partnership .veylune-authority-hero__inner {
+    width: var(--veylune-marketplace-container);
+    max-width: 1600px;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+}
+
+.veylune-editions-hero__content,
+.veylune-authority--partnership .veylune-authority-hero__content {
+    max-width: 760px;
+}
+
+.veylune-editions-hero h1,
+.veylune-authority--partnership .veylune-authority-hero h1 {
+    max-width: 800px;
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(2.25rem, 4.4vw, 4.75rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.veylune-editions-hero__content > p:not(.veylune-editions__eyebrow),
+.veylune-authority--partnership .veylune-authority-hero__content > p:not(.veylune-authority__eyebrow) {
+    max-width: 65ch;
+    margin-top: 1rem;
+    color: var(--veylune-marketplace-muted);
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    line-height: 1.6;
+}
+
+.veylune-authority--partnership .veylune-authority-hero__visual {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    border-radius: var(--veylune-marketplace-panel-radius);
+    background:
+        radial-gradient(circle at 68% 26%, rgb(255 255 255 / 72%), transparent 22%),
+        linear-gradient(145deg, #e5d1ec, #7b189f 58%, #3c0c4d);
+    box-shadow: var(--veylune-marketplace-shadow-md);
+}
+
+.veylune-authority--partnership .veylune-authority-hero__visual::before {
+    inset: 8%;
+    border-color: rgb(255 255 255 / 34%);
+    border-radius: calc(var(--veylune-marketplace-panel-radius) - 6px);
+}
+
+.veylune-authority--partnership .veylune-authority-hero__visual span {
+    color: var(--veylune-marketplace-white);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-editions__actions {
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.veylune-editions__link {
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+    text-decoration: none;
+}
+
+.veylune-editions__link::after {
+    display: none;
+}
+
+.veylune-editions__link:hover,
+.veylune-editions__link:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary-hover);
+    border-color: var(--veylune-marketplace-primary-hover);
+}
+
+.veylune-editions-section,
+.veylune-authority--partnership :where(.veylune-authority-section, .veylune-authority-closing) {
+    width: var(--veylune-marketplace-container);
+    max-width: 1600px;
+    padding: var(--veylune-legacy-section-space) 0;
+    border-top: 1px solid var(--veylune-marketplace-border);
+}
+
+.veylune-editions-acquisition,
+.veylune-authority--partnership :where(.veylune-authority-section__head, .veylune-partnership-fit, .veylune-partnership-submission) {
+    grid-template-columns: minmax(220px, 0.34fr) minmax(0, 0.66fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.veylune-editions-section h2,
+.veylune-authority--partnership :where(.veylune-authority-section__head h2, .veylune-partnership-fit h2, .veylune-partnership-submission h2, .veylune-authority-closing h2) {
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(1.75rem, 3vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+}
+
+.veylune-editions-acquisition__content p,
+.veylune-authority--partnership :where(.veylune-partnership__panel p, .veylune-authority-card p, .veylune-partnership-standards__list p, .veylune-partnership-process__steps p) {
+    color: var(--veylune-marketplace-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.veylune-authority--partnership :where(.veylune-partnership-curation__grid, .veylune-partnership-standards__list, .veylune-partnership-process__steps) {
+    gap: var(--veylune-legacy-grid-gap);
+    background: transparent;
+    border: 0;
+}
+
+.veylune-authority--partnership :where(.veylune-authority-card, .veylune-partnership-standards__list article, .veylune-partnership-process__steps article, .veylune-partnership__panel) {
+    min-height: 0;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-authority--partnership :where(.veylune-authority-card, .veylune-partnership-standards__list article, .veylune-partnership-process__steps article) > span {
+    margin-bottom: 1.25rem;
+    color: var(--veylune-marketplace-primary);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.veylune-authority--partnership :where(.veylune-authority-card h3, .veylune-partnership__panel h3, .veylune-partnership-standards__list h3, .veylune-partnership-process__steps h3) {
+    font-family: var(--veylune-marketplace-display-font);
+    font-size: clamp(1.125rem, 1.5vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.veylune-authority--partnership .veylune-partnership__list {
+    gap: 0.75rem;
+}
+
+.veylune-authority--partnership :where(.veylune-partnership__list span, .veylune-partnership-fit__signals span) {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-pill);
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-authority--partnership .veylune-partnership-fit {
+    border: 1px solid #e5d1ec;
+    border-radius: var(--veylune-marketplace-panel-radius);
+    background: var(--veylune-marketplace-primary-soft);
+    padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.veylune-authority--partnership .veylune-partnership-submission {
+    border: 0;
+    border-radius: var(--veylune-marketplace-panel-radius);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+    padding-inline: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.veylune-authority--partnership .veylune-partnership-submission :where(h2, p, li) {
+    color: var(--veylune-marketplace-white);
+}
+
+.veylune-authority--partnership .veylune-partnership-submission .veylune-button {
+    border-color: var(--veylune-marketplace-white);
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-edition-skeleton {
+    width: var(--veylune-marketplace-container);
+    max-width: 1120px;
+    padding: clamp(2rem, 5vw, 4.5rem) 0;
+}
+
+.veylune-edition-skeleton__section {
+    grid-template-columns: minmax(150px, 0.24fr) minmax(0, 0.76fr);
+    gap: clamp(1.25rem, 3vw, 3rem);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-lg);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-edition-skeleton__section + .veylune-edition-skeleton__section {
+    margin-top: 1rem;
+}
+
+.veylune-edition-skeleton h1,
+.veylune-edition-skeleton h2 {
+    font-family: var(--veylune-marketplace-display-font);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+}
+
+.veylune-edition-skeleton h1 {
+    font-size: clamp(2rem, 4vw, 3.75rem);
+}
+
+.veylune-edition-skeleton h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+}
+
+.veylune-edition-skeleton__facts {
+    gap: 0.75rem;
+}
+
+.veylune-edition-skeleton__facts div {
+    padding: 1rem;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: var(--veylune-marketplace-radius-md);
+    background: var(--veylune-marketplace-surface);
+}
+
+.veylune-edition-skeleton__facts dt {
+    color: var(--veylune-marketplace-muted);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+@media (max-width: 767.98px) {
+    .veylune-editions-hero,
+    .veylune-authority--partnership .veylune-authority-hero {
+        padding: 1.5rem 0 2rem;
+    }
+
+    .veylune-authority--partnership .veylune-authority-hero__inner,
+    .veylune-editions-acquisition,
+    .veylune-authority--partnership :where(.veylune-authority-section__head, .veylune-partnership-fit, .veylune-partnership-submission),
+    .veylune-edition-skeleton__section {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .veylune-authority--partnership .veylune-authority-hero__visual {
+        aspect-ratio: 16 / 9;
+    }
+
+    .veylune-editions-hero h1,
+    .veylune-authority--partnership .veylune-authority-hero h1 {
+        font-size: clamp(2rem, 10vw, 2.85rem);
+    }
+
+    .veylune-authority--partnership :where(.veylune-partnership-curation__grid, .veylune-partnership-standards__list, .veylune-partnership-process__steps) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .veylune-edition-skeleton__section {
+        padding: 1.25rem;
+    }
+}

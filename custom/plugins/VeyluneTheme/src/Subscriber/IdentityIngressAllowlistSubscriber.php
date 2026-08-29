@@ -41,6 +41,8 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.editions.detail.guard.de',
         'frontend.veylune.partnership.page',
         'frontend.veylune.consultation.page',
+        'frontend.veylune.trade.page',
+        'frontend.veylune.studio.page',
         'frontend.veylune.legal.page',
         'frontend.veylune.contact.page',
         'frontend.veylune.discovery.room',
@@ -124,6 +126,21 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             $event->setResponse(new RedirectResponse('/private-consultation', Response::HTTP_MOVED_PERMANENTLY));
 
             return;
+        }
+
+        if ($this->isCanonicalPublicStorefrontRequest($request)) {
+            $legacyCmsCanonicalPath = match ($originalPath) {
+                '/page/cms/' . self::CONTACT_PAGE_ID => '/contact-studio',
+                '/page/cms/' . self::IMPRINT_PAGE_ID => '/legal/imprint',
+                '/page/cms/' . self::PRIVACY_PAGE_ID => '/legal/privacy',
+                default => null,
+            };
+
+            if ($legacyCmsCanonicalPath !== null) {
+                $event->setResponse(new RedirectResponse($legacyCmsCanonicalPath, Response::HTTP_MOVED_PERMANENTLY));
+
+                return;
+            }
         }
 
         if ($this->isCanonicalPublicStorefrontApiRequest($request)) {

@@ -8,7 +8,7 @@
             or publicSurfaces['room:workspace']|default(false)
             or publicSurfaces['room:outdoor']|default(false) %}
         {% if not hasPublicRoom %}
-            <span class="veylune-home-pending-note" id="veylune-room-pending-note">Room shopping opens after catalog verification.</span>
+            <span class="veylune-home-pending-note" id="veylune-room-pending-note">Room collections opening soon.</span>
         {% endif %}
     </div>
 
@@ -27,8 +27,6 @@
                                 <strong>{{ room.label|trans|sw_sanitize }}</strong>
                                 {% if publicSurfaces['room:' ~ room.key]|default(false) %}
                                     <span>{{ 'veylune.home.discovery.rooms.cardCta'|trans|sw_sanitize }} <span aria-hidden="true">→</span></span>
-                                {% else %}
-                                    <span class="veylune-home-card-status">Room catalog pending</span>
                                 {% endif %}
                             </span>
                     {% if publicSurfaces['room:' ~ room.key]|default(false) %}

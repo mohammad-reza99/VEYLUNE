@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/layout/cookie/cookie-permission.html.twig' %}
+
+{% block layout_cookie_permission_inner_content %}
+    <div class="col cookie-permission-content">
+        {{ 'cookie.messageTextPage'|trans({
+            '%url%': path('frontend.veylune.legal.page', { document: 'privacy' })
+        })|raw }}
+    </div>
+{% endblock %}
