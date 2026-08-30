@@ -2,11 +2,15 @@
          data-preview-record="{{ product.recordId }}"
          data-plp-card
          data-plp-type="{{ product.productType }}"
-         data-plp-material="{{ product.material }}"
+         data-plp-materials="{{ product.materials|default([product.material])|join(',') }}"
+         data-plp-status="{{ product.status|lower|replace({' ': '_'}) }}"
          data-plp-price="{{ product.targetPrice }}"
          data-plp-name="{{ product.name }}"
          data-plp-index="{{ productIndex|default(0) }}">
-    <div class="veylune-preview-card__visual veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}" role="img" aria-label="{{ product.name }} placeholder study">
+    <div class="veylune-preview-card__visual veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}" role="img" aria-label="{{ product.name }} concept product image">
+        <a class="veylune-preview-card__image-link"
+           href="{{ path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) }}"
+           aria-label="View {{ product.name }} details"></a>
         <button class="veylune-preview-card__wishlist"
                 type="button"
                 aria-label="Save {{ product.name }}"
@@ -31,6 +35,7 @@
             <span>Target price</span>
             <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong>
         </div>
+        <p class="veylune-preview-card__price-note">Final price confirmed after supplier approval</p>
         <p class="veylune-preview-card__availability">Availability under review</p>
     </div>
 </article>

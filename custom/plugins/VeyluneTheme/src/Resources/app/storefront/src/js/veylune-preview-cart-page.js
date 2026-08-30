@@ -65,6 +65,11 @@ document.querySelectorAll('[data-veylune-cart-preview]').forEach((root) => {
 
     const render = () => {
         const hasSelection = Boolean(selection);
+        if (selection) {
+            root.dataset.productId = selection.productId;
+        } else {
+            delete root.dataset.productId;
+        }
         empty.hidden = hasSelection;
         content.hidden = !hasSelection;
         count.textContent = hasSelection ? `${selection.quantity} item${selection.quantity === 1 ? '' : 's'}` : '0 items';

@@ -1,0 +1,73 @@
+/* Replace abstract service placeholders with approved editorial room imagery. */
+.veylune-authority.veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual,
+.veylune-authority.veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual,
+.veylune-authority.veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual {
+    isolation: isolate;
+    background-color: #e8e0d4;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.veylune-authority.veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual {
+    background-image:
+        linear-gradient(180deg, rgb(20 16 12 / 4%), rgb(20 16 12 / 24%)),
+        url("#{$app-css-relative-asset-path}/veylune-room-workspace-v1.webp");
+    background-position: center 58%;
+}
+
+.veylune-authority.veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual {
+    background-image:
+        linear-gradient(180deg, rgb(20 16 12 / 2%), rgb(20 16 12 / 22%)),
+        url("#{$app-css-relative-asset-path}/veylune-promo-living-room-v1.webp");
+    background-position: 58% center;
+}
+
+.veylune-authority.veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual {
+    background-image:
+        linear-gradient(180deg, rgb(20 16 12 / 2%), rgb(20 16 12 / 26%)),
+        url("#{$app-css-relative-asset-path}/veylune-home-hero-architectural-warm-v1.webp");
+    background-position: 62% center;
+}
+
+.veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual::before,
+.veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual::before,
+.veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual::before {
+    inset: 0;
+    z-index: 0;
+    border: 0;
+    background: linear-gradient(180deg, transparent 54%, rgb(20 16 12 / 24%));
+}
+
+.veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual::after,
+.veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual::after,
+.veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual::after {
+    display: none;
+}
+
+.veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual span,
+.veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual span,
+.veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual span {
+    z-index: 1;
+    max-width: calc(100% - 3rem);
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: #fff;
+    background: rgb(20 16 12 / 62%);
+    backdrop-filter: blur(8px);
+}
+
+@media (max-width: 767.98px) {
+    .veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual,
+    .veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual,
+    .veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual {
+        aspect-ratio: 4 / 3;
+    }
+
+    .veylune-authority--trade[data-veylune-authority] .veylune-authority-hero__visual span,
+    .veylune-authority--consultation[data-veylune-authority] .veylune-authority-hero__visual span,
+    .veylune-authority--partnership[data-veylune-authority] .veylune-authority-hero__visual span {
+        bottom: 1rem;
+        left: 1rem;
+    }
+}

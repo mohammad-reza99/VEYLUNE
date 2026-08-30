@@ -1,0 +1,28 @@
+<fieldset>
+    <legend>Material</legend>
+    {% for value, label in { wood: 'Wood', upholstery_fabric: 'Upholstery fabric', leather: 'Leather', travertine: 'Travertine', marble: 'Marble', metal: 'Metal', glass: 'Glass' } %}
+        <label><input type="checkbox" value="{{ value }}" data-plp-material> <span>{{ label }}</span></label>
+    {% endfor %}
+</fieldset>
+
+<fieldset>
+    <legend>Price</legend>
+    {% for value, label in {
+        under_500: 'Under EUR 500',
+        '500_1000': 'EUR 500 - EUR 1,000',
+        '1000_2000': 'EUR 1,000 - EUR 2,000',
+        '2000_plus': 'EUR 2,000 and above'
+    } %}
+        <label><input type="checkbox" value="{{ value }}" data-plp-price-range> <span>{{ label }}</span></label>
+    {% endfor %}
+</fieldset>
+
+<fieldset>
+    <legend>Status</legend>
+    {% for value, label in {
+        supplier_selection: 'Supplier selection',
+        coming_soon: 'Coming soon'
+    } %}
+        <label><input type="checkbox" value="{{ value }}" data-plp-status-filter> <span>{{ label }}</span></label>
+    {% endfor %}
+</fieldset>

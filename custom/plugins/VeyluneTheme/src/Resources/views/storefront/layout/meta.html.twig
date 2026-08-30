@@ -7,6 +7,25 @@
 {% set veyluneAccountDescription = 'Securely access your Veylune account, addresses, saved projects and order history.' %}
 {% set isVeyluneIndexable = page.metaInformation.robots|default('') == 'index,follow' %}
 {% set veyluneHomeShareImage = absolute_url(asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme')) %}
+{% set veyluneRouteShareAssets = {
+    'frontend.veylune.editions.page': 'veylune-category-decor-v1.webp',
+    'frontend.veylune.editions.page.de': 'veylune-category-decor-v1.webp',
+    'frontend.veylune.studio.page': 'veylune-room-living-v1.webp',
+    'frontend.veylune.trade.page': 'veylune-room-workspace-v1.webp',
+    'frontend.veylune.consultation.page': 'veylune-promo-living-room-v1.webp',
+    'frontend.veylune.partnership.page': 'veylune-home-hero-architectural-warm-v1.webp',
+    'frontend.veylune.contact.page': 'veylune-promo-living-room-v1.webp'
+} %}
+{% set veyluneRouteShareAsset = veyluneRouteShareAssets[veyluneRoute]|default(null) %}
+{% set veyluneRouteShareImage = veyluneRouteShareAsset ? absolute_url(asset('assets/' ~ veyluneRouteShareAsset, 'theme')) : null %}
+{% set veyluneHeroPreloadRoutes = [
+    'frontend.veylune.editions.page',
+    'frontend.veylune.editions.page.de',
+    'frontend.veylune.studio.page',
+    'frontend.veylune.trade.page',
+    'frontend.veylune.consultation.page',
+    'frontend.veylune.partnership.page'
+] %}
 
 {% block layout_head_meta_tags_description %}
     {{- isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountDescription : parent()) -}}
@@ -22,9 +41,9 @@
 
 {% block layout_head_meta_tags_sitename_og %}VEYLUNE{% endblock %}
 
-{% block layout_head_meta_tags_image_og %}{{- isVeyluneHome ? veyluneHomeShareImage : parent() -}}{% endblock %}
+{% block layout_head_meta_tags_image_og %}{{- isVeyluneHome ? veyluneHomeShareImage : (veyluneRouteShareImage ?: parent()) -}}{% endblock %}
 
-{% block layout_head_meta_tags_card_twitter %}{{- isVeyluneHome ? 'summary_large_image' : parent() -}}{% endblock %}
+{% block layout_head_meta_tags_card_twitter %}{{- (isVeyluneHome or veyluneRouteShareImage) ? 'summary_large_image' : parent() -}}{% endblock %}
 
 {% block layout_head_meta_tags_sitename_twitter %}VEYLUNE{% endblock %}
 
@@ -36,7 +55,7 @@
     {{- isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountDescription : parent()) -}}
 {% endblock %}
 
-{% block layout_head_meta_tags_image_twitter %}{{- isVeyluneHome ? veyluneHomeShareImage : parent() -}}{% endblock %}
+{% block layout_head_meta_tags_image_twitter %}{{- isVeyluneHome ? veyluneHomeShareImage : (veyluneRouteShareImage ?: parent()) -}}{% endblock %}
 
 {% block layout_head_json_ld_global %}
     {% if isVeyluneIndexable %}
@@ -81,6 +100,12 @@
         <link rel="preload"
               as="image"
               href="{{ veyluneHomeShareImage }}"
+              type="image/webp"
+              fetchpriority="high">
+    {% elseif veyluneRoute in veyluneHeroPreloadRoutes and veyluneRouteShareImage %}
+        <link rel="preload"
+              as="image"
+              href="{{ veyluneRouteShareImage }}"
               type="image/webp"
               fetchpriority="high">
     {% endif %}

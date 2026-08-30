@@ -242,6 +242,29 @@
     margin: 0;
 }
 
+.veylune-contact-page__form .veylune-inquiry {
+    display: block;
+}
+
+.veylune-contact-page__form .cms-section-default,
+.veylune-contact-page__form .cms-block,
+.veylune-contact-page__form .cms-block-container-row,
+.veylune-contact-page__form .veylune-cms-block,
+.veylune-contact-page__form .veylune-cms-block__grid,
+.veylune-contact-page__form .veylune-inquiry > .row,
+.veylune-contact-page__form .veylune-inquiry > .row > .col-lg-12 {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.veylune-contact-page__form .veylune-cms-block,
+.veylune-contact-page__form .veylune-cms-block__grid > .col-12,
+.veylune-contact-page__form .veylune-inquiry > .row > .col-lg-12 {
+    flex: 0 0 100%;
+}
+
 .veylune-contact-page__form .veylune-inquiry__card {
     width: 100%;
     max-width: none;

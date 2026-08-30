@@ -41,8 +41,8 @@
 {% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
 {% set veyluneInquiryUrl = path('frontend.veylune.contact.page') %}
 {% set veyluneRoutes = {
-    trade: path('frontend.veylune.partnership.page'),
-    consultation: veyluneInquiryUrl,
+    trade: path('frontend.veylune.trade.page'),
+    consultation: path('frontend.veylune.consultation.page'),
     partnership: path('frontend.veylune.partnership.page'),
     contact: veyluneInquiryUrl
 } %}

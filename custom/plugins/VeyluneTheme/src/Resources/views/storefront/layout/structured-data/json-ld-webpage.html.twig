@@ -1,0 +1,32 @@
+{% sw_extends '@Storefront/storefront/layout/structured-data/json-ld-webpage.html.twig' %}
+
+{% block layout_structured_data_webpage_script %}
+    {% set veyluneStructuredRoute = app.request.attributes.get('_route')|default('') %}
+    {% set veyluneStructuredAssets = {
+        'frontend.veylune.editions.page': 'veylune-category-decor-v1.webp',
+        'frontend.veylune.editions.page.de': 'veylune-category-decor-v1.webp',
+        'frontend.veylune.studio.page': 'veylune-room-living-v1.webp',
+        'frontend.veylune.trade.page': 'veylune-room-workspace-v1.webp',
+        'frontend.veylune.consultation.page': 'veylune-promo-living-room-v1.webp',
+        'frontend.veylune.partnership.page': 'veylune-home-hero-architectural-warm-v1.webp',
+        'frontend.veylune.contact.page': 'veylune-promo-living-room-v1.webp'
+    } %}
+    {% set veyluneStructuredAsset = veyluneStructuredAssets[veyluneStructuredRoute]|default(null) %}
+    {% set webPageData = webPageData|merge({
+        copyrightHolder: {
+            '@type': 'Organization',
+            '@id': app.request.schemeAndHttpHost ~ '/#organization',
+            name: 'Veylune Studio'
+        }
+    }) %}
+    {% if veyluneStructuredAsset %}
+        {% set veyluneStructuredImage = absolute_url(asset('assets/' ~ veyluneStructuredAsset, 'theme')) %}
+        {% set webPageData = webPageData|merge({
+            image: veyluneStructuredImage,
+            primaryImageOfPage: veyluneStructuredImage
+        }) %}
+    {% endif %}
+    <script type="application/ld+json">
+        {{ webPageData|json_encode(jsonLdFlags)|raw }}
+    </script>
+{% endblock %}

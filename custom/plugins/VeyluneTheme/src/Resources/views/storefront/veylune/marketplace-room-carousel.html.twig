@@ -22,7 +22,14 @@
                     {% else %}
                         <article class="veylune-room-card veylune-room-card--preview" aria-disabled="true">
                     {% endif %}
-                            <span class="veylune-room-card__media veylune-room-card__media--{{ room.mediaKey }}" aria-hidden="true"></span>
+                            <span class="veylune-room-card__media" aria-hidden="true">
+                                <img src="{{ asset('assets/veylune-room-' ~ room.mediaKey ~ '-v1.webp', 'theme') }}"
+                                     alt=""
+                                     width="1024"
+                                     height="1536"
+                                     loading="lazy"
+                                     decoding="async">
+                            </span>
                             <span class="veylune-room-card__content">
                                 <strong>{{ room.label|trans|sw_sanitize }}</strong>
                                 {% if publicSurfaces['room:' ~ room.key]|default(false) %}

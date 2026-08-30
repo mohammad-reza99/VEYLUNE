@@ -29,6 +29,7 @@ class PartnershipController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle($this->translator->trans('veylune.partnership.seo.title'));
         $page->getMetaInformation()?->setMetaDescription($this->translator->trans('veylune.partnership.seo.description'));
+        $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/partnership-page.html.twig', [
             'page' => $page,
@@ -42,6 +43,7 @@ class PartnershipController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle('Private Consultation | VEYLUNE STUDIO');
         $page->getMetaInformation()?->setMetaDescription('A private design conversation for considered interiors, sourcing, and material direction.');
+        $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
             'page' => $page,
@@ -55,6 +57,7 @@ class PartnershipController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle('Trade Program | VEYLUNE STUDIO');
         $page->getMetaInformation()?->setMetaDescription('Professional sourcing and studio support for designers, architects, and considered projects.');
+        $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
             'page' => $page,
@@ -68,10 +71,21 @@ class PartnershipController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle('Studio | VEYLUNE STUDIO');
         $page->getMetaInformation()?->setMetaDescription('The design point of view, material direction, and interior philosophy behind Veylune Studio.');
+        $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
             'page' => $page,
             'veylunePageType' => 'about',
         ]);
+    }
+
+    #[Route(path: '/about', name: 'frontend.veylune.studio.alias', methods: [Request::METHOD_GET])]
+    public function studioAlias(): Response
+    {
+        return $this->redirectToRoute(
+            'frontend.veylune.studio.page',
+            [],
+            Response::HTTP_MOVED_PERMANENTLY
+        );
     }
 }

@@ -342,6 +342,26 @@
     }
 }
 
+@media (min-width: 576px) and (max-width: 899.98px) {
+    .veylune-account-preview__nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+        gap: .5rem 1rem;
+        overflow: visible;
+    }
+
+    .veylune-account-preview__nav a,
+    .veylune-account-preview__nav button {
+        display: inline-flex;
+        min-height: 2.5rem;
+        align-items: center;
+    }
+
+    .veylune-account-preview__nav a:last-child {
+        margin-left: 0;
+    }
+}
+
 @media (max-width: 575.98px) {
     .veylune-account-preview {
         width: min(100% - 1.25rem, 1240px);

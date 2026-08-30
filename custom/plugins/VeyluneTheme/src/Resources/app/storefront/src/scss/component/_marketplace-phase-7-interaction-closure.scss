@@ -39,6 +39,29 @@
     overflow-y: auto;
 }
 
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 150px minmax(300px, 1fr) 140px;
+    }
+
+    .veylune-header__actions {
+        width: 140px;
+        gap: 0.25rem;
+        justify-content: flex-end;
+    }
+
+    .veylune-marketplace-action {
+        width: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0;
+    }
+
+    .veylune-marketplace-action__label {
+        display: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     [data-veylune-product-slider-track] {
         scroll-behavior: auto !important;

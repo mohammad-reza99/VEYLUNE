@@ -1,0 +1,42 @@
+/* Reuse approved product media across cards, PDP, drawer, and cart surfaces. */
+[data-preview-record="F01"], [data-product-id="F01"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f01-aurelia-modular-sofa-v1.webp"); }
+[data-preview-record="F02"], [data-product-id="F02"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f02-liora-curved-sofa-v1.webp"); }
+[data-preview-record="F03"], [data-product-id="F03"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f03-oris-leather-lounge-chair-v1.webp"); }
+[data-preview-record="F04"], [data-product-id="F04"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f04-selene-oak-lounge-chair-v1.webp"); }
+[data-preview-record="F05"], [data-product-id="F05"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f05-edda-dining-chair-v1.webp"); }
+[data-preview-record="F06"], [data-product-id="F06"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f06-noma-metal-dining-chair-v1.webp"); }
+[data-preview-record="F07"], [data-product-id="F07"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f07-forma-desk-chair-v1.webp"); }
+[data-preview-record="F08"], [data-product-id="F08"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f08-talo-counter-stool-v1.webp"); }
+[data-preview-record="F09"], [data-product-id="F09"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f09-stillwater-oak-bench-v1.webp"); }
+[data-preview-record="F10"], [data-product-id="F10"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f10-elara-travertine-coffee-table-v1.webp"); }
+[data-preview-record="F11"], [data-product-id="F11"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f11-varo-oak-coffee-table-v1.webp"); }
+[data-preview-record="F12"], [data-product-id="F12"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f12-neri-marble-side-table-v1.webp"); }
+[data-preview-record="F13"], [data-product-id="F13"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f13-portico-travertine-console-v1.webp"); }
+[data-preview-record="F14"], [data-product-id="F14"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f14-linea-writing-desk-v1.webp"); }
+[data-preview-record="F15"], [data-product-id="F15"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f15-serein-platform-bed-v1.webp"); }
+[data-preview-record="F16"], [data-product-id="F16"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f16-vale-low-cabinet-v1.webp"); }
+[data-preview-record="F17"], [data-product-id="F17"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f17-canto-tall-cabinet-v1.webp"); }
+[data-preview-record="F18"], [data-product-id="F18"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f18-mira-leather-day-chair-v1.webp"); }
+[data-preview-record="F19"], [data-product-id="F19"] { --veylune-product-media: url("#{$app-css-relative-asset-path}/products/f19-plinth-glass-side-table-v1.webp"); }
+
+[data-preview-record^="F"] .veylune-preview-card__visual,
+[data-product-id^="F"] .veylune-pdp-gallery__stage[data-gallery-view="front"],
+[data-product-id^="F"] .veylune-pdp-lightbox__stage,
+[data-product-id^="F"] .veylune-preview-cart__visual,
+.veylune-cart-preview[data-product-id^="F"] .veylune-cart-preview__visual {
+    background-color: #f3efe9;
+    background-image: var(--veylune-product-media);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+[data-preview-record^="F"] .veylune-preview-card__visual::before,
+[data-preview-record^="F"] .veylune-preview-card__object,
+[data-preview-record^="F"] .veylune-preview-card__material,
+[data-product-id^="F"] .veylune-pdp-gallery__stage[data-gallery-view="front"] .veylune-pdp-gallery__object,
+[data-product-id^="F"] .veylune-pdp-lightbox__stage .veylune-pdp-gallery__object,
+[data-product-id^="F"] .veylune-preview-cart__visual > span,
+.veylune-cart-preview[data-product-id^="F"] .veylune-cart-preview__visual > span {
+    display: none;
+}

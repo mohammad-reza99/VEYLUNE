@@ -1,0 +1,676 @@
+/* Phase 4 visual precision: marketplace-first PLP hierarchy based on the
+   reference category-page model, expressed through Veylune tokens. */
+.veylune-preview--destination {
+    --veylune-plp-accent: var(--veylune-marketplace-primary, #7f187f);
+    --veylune-plp-soft: #f8f3fa;
+    --veylune-plp-line: #ded9df;
+    width: min(100%, 1680px);
+    margin-inline: auto;
+    padding: 0.65rem clamp(1rem, 2.4vw, 2.5rem) 4rem;
+}
+
+.veylune-preview--destination .veylune-plp-breadcrumb {
+    min-height: 36px;
+    gap: 0.45rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+}
+
+.veylune-preview--destination .veylune-preview__masthead {
+    padding: 0.35rem 0 1rem;
+    border: 0;
+}
+
+.veylune-preview--destination .veylune-preview__masthead h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 2.5vw, 2.45rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+}
+
+.veylune-preview--destination .veylune-plp-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(112px, 1fr));
+    gap: 0.65rem;
+    overflow-x: auto;
+    padding: 0 0 1.35rem;
+    border-bottom: 0;
+    scrollbar-width: thin;
+}
+
+.veylune-preview--destination .veylune-plp-shortcuts .veylune-plp-chip {
+    position: relative;
+    min-height: 76px;
+    justify-content: flex-start;
+    overflow: hidden;
+    padding: 2.25rem 0.85rem 0.65rem;
+    border-color: var(--veylune-plp-line);
+    border-radius: 4px;
+    color: #2f2b31;
+    background: linear-gradient(135deg, #fff 0 58%, var(--veylune-plp-soft) 58% 100%);
+    font-size: 0.79rem;
+    text-align: left;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.veylune-preview--destination .veylune-plp-shortcuts .veylune-plp-chip::before {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.85rem;
+    width: 18px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top: 0;
+    opacity: 0.52;
+    content: "";
+}
+
+.veylune-preview--destination .veylune-plp-shortcuts .veylune-plp-chip:hover {
+    border-color: var(--veylune-plp-accent);
+    box-shadow: 0 5px 16px rgb(47 43 49 / 9%);
+    transform: translateY(-1px);
+}
+
+.veylune-preview--destination .veylune-plp-shortcuts .veylune-plp-chip.is-active {
+    border-color: var(--veylune-plp-accent);
+    color: #fff;
+    background: var(--veylune-plp-accent);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 18%);
+}
+
+.veylune-plp-marketplace-layout {
+    display: grid;
+    grid-template-columns: clamp(224px, 15vw, 252px) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.25rem, 2vw, 2rem);
+}
+
+.veylune-plp-results { min-width: 0; }
+
+.veylune-plp-filter-rail {
+    position: sticky;
+    top: calc(var(--veylune-header-offset, 0px) + 0.75rem);
+    padding-right: 1.15rem;
+    border-right: 1px solid var(--veylune-plp-line);
+}
+
+.veylune-plp-filter-rail__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0 0 1rem;
+    border-bottom: 1px solid var(--veylune-plp-line);
+}
+
+.veylune-plp-filter-rail__heading strong { font-size: 1rem; }
+.veylune-plp-filter-rail__heading span { color: #706a72; font-size: 0.72rem; }
+
+.veylune-plp-filter-rail fieldset {
+    margin: 0;
+    padding: 1rem 0 0.5rem;
+    border: 0;
+}
+
+.veylune-plp-filter-rail fieldset + fieldset {
+    border-top: 1px solid var(--veylune-plp-line);
+}
+
+.veylune-plp-filter-rail legend {
+    width: 100%;
+    margin-bottom: 0.55rem;
+    padding: 0;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.veylune-plp-filter-rail label {
+    display: flex;
+    min-height: 38px;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    color: #403b41;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.veylune-plp-filter-rail input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--veylune-plp-accent);
+}
+
+.veylune-preview--destination .veylune-plp-toolbar {
+    position: sticky;
+    top: var(--veylune-header-offset, 0);
+    z-index: 12;
+    min-height: 66px;
+    padding: 0.65rem 0;
+    border-block: 1px solid var(--veylune-plp-line);
+    background: rgb(255 255 255 / 96%);
+    box-shadow: 0 1px 0 rgb(255 255 255 / 80%);
+    backdrop-filter: blur(12px);
+}
+
+.veylune-preview--destination .veylune-plp-toolbar__count {
+    color: #4f4951;
+    font-size: 0.82rem;
+}
+
+.veylune-preview--destination .veylune-plp-toolbar__count strong {
+    color: #211e22;
+    font-size: 0.95rem;
+}
+
+.veylune-preview--destination .veylune-plp-control {
+    min-width: 126px;
+    min-height: 42px;
+    justify-content: space-between;
+    padding-inline: 0.9rem;
+    border-color: #918a92;
+    border-radius: 3px;
+    font-size: 0.78rem;
+}
+
+.veylune-preview--destination .veylune-plp-control:hover,
+.veylune-preview--destination .veylune-plp-control[aria-expanded="true"] {
+    border-color: var(--veylune-plp-accent);
+    color: var(--veylune-plp-accent);
+    background: var(--veylune-plp-soft);
+}
+
+.veylune-preview--destination .veylune-plp-control::after {
+    content: "\2304";
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.veylune-preview--destination .veylune-plp-control[aria-expanded="true"]::after {
+    content: "\2303";
+}
+
+.veylune-preview--destination .veylune-plp-popover {
+    top: calc(100% + 0.35rem);
+    width: min(340px, calc(100vw - 2rem));
+    max-height: min(68vh, 620px);
+    padding: 0.35rem 1.1rem;
+    overflow-y: auto;
+    border-color: var(--veylune-plp-line);
+    border-radius: 4px;
+    box-shadow: 0 12px 32px rgb(31 26 32 / 16%);
+}
+
+.veylune-preview--destination .veylune-plp-popover fieldset {
+    margin: 0;
+    padding: 0.8rem 0;
+    border: 0;
+}
+
+.veylune-preview--destination .veylune-plp-popover fieldset + fieldset {
+    border-top: 1px solid var(--veylune-plp-line);
+}
+
+.veylune-preview--destination .veylune-plp-popover legend {
+    width: 100%;
+    margin-bottom: 0.35rem;
+    padding: 0;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.veylune-preview--destination .veylune-plp-popover label {
+    min-height: 40px;
+    border-bottom: 1px solid #eee9ef;
+}
+
+.veylune-preview--destination .veylune-plp-popover fieldset label:last-child { border-bottom: 0; }
+
+.veylune-preview--destination .veylune-plp-active-filters {
+    gap: 0.4rem;
+    padding-block: 0.75rem;
+}
+
+.veylune-preview--destination .veylune-plp-active-filters button {
+    min-height: 36px;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 0.76rem;
+}
+
+.veylune-preview--destination .veylune-preview-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2.6rem clamp(0.75rem, 1.15vw, 1.2rem);
+    padding-top: 1.15rem;
+}
+
+.veylune-preview--destination .veylune-preview-card {
+    padding-top: 0;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 440px;
+}
+
+.veylune-preview--destination .veylune-preview-card__visual {
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    border-radius: 2px;
+    background-color: #f4f2f4;
+}
+
+.veylune-preview--destination .veylune-preview-card__visual::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(180deg, rgb(255 255 255 / 30%), transparent 44%),
+        repeating-linear-gradient(90deg, transparent 0 22%, rgb(255 255 255 / 9%) 22% 22.4%);
+    content: "";
+}
+
+.veylune-preview--destination [data-preview-record="F01"] .veylune-preview-card__visual {
+    background-color: #f3efe9;
+    background-image: url("#{$app-css-relative-asset-path}/products/f01-aurelia-modular-sofa-v1.webp");
+    background-position: center;
+    background-size: cover;
+}
+
+.veylune-preview--destination [data-preview-record="F01"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F01"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F01"] .veylune-preview-card__material {
+    display: none;
+}
+
+.veylune-preview--destination [data-preview-record="F02"] .veylune-preview-card__visual {
+    background-image: url("#{$app-css-relative-asset-path}/products/f02-liora-curved-sofa-v1.webp");
+}
+
+.veylune-preview--destination [data-preview-record="F03"] .veylune-preview-card__visual {
+    background-image: url("#{$app-css-relative-asset-path}/products/f03-oris-leather-lounge-chair-v1.webp");
+}
+
+.veylune-preview--destination [data-preview-record="F04"] .veylune-preview-card__visual {
+    background-image: url("#{$app-css-relative-asset-path}/products/f04-selene-oak-lounge-chair-v1.webp");
+}
+
+.veylune-preview--destination [data-preview-record="F05"] .veylune-preview-card__visual {
+    background-image: url("#{$app-css-relative-asset-path}/products/f05-edda-dining-chair-v1.webp");
+}
+
+.veylune-preview--destination [data-preview-record="F06"] .veylune-preview-card__visual {
+    background-image: url("#{$app-css-relative-asset-path}/products/f06-noma-metal-dining-chair-v1.webp");
+}
+
+.veylune-preview--destination [data-preview-record="F07"] .veylune-preview-card__visual {
+    background-image: url("#{$app-css-relative-asset-path}/products/f07-forma-desk-chair-v1.webp");
+}
+
+.veylune-preview--destination [data-preview-record="F02"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F03"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F04"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F05"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F06"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F07"] .veylune-preview-card__visual {
+    background-color: #f3efe9;
+    background-position: center;
+    background-size: cover;
+}
+
+.veylune-preview--destination [data-preview-record="F02"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F03"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F04"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F05"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F06"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F07"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F02"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F03"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F04"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F05"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F06"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F07"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F02"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F03"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F04"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F05"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F06"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F07"] .veylune-preview-card__material {
+    display: none;
+}
+
+.veylune-preview--destination [data-preview-record="F08"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f08-talo-counter-stool-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F09"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f09-stillwater-oak-bench-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F10"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f10-elara-travertine-coffee-table-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F11"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f11-varo-oak-coffee-table-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F12"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f12-neri-marble-side-table-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F13"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f13-portico-travertine-console-v1.webp"); }
+
+.veylune-preview--destination [data-preview-record="F08"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F09"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F10"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F11"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F12"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F13"] .veylune-preview-card__visual {
+    background-color: #f3efe9;
+    background-position: center;
+    background-size: cover;
+}
+
+.veylune-preview--destination [data-preview-record="F08"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F09"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F10"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F11"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F12"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F13"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F08"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F09"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F10"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F11"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F12"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F13"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F08"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F09"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F10"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F11"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F12"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F13"] .veylune-preview-card__material {
+    display: none;
+}
+
+.veylune-preview--destination [data-preview-record="F14"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f14-linea-writing-desk-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F15"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f15-serein-platform-bed-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F16"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f16-vale-low-cabinet-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F17"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f17-canto-tall-cabinet-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F18"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f18-mira-leather-day-chair-v1.webp"); }
+.veylune-preview--destination [data-preview-record="F19"] .veylune-preview-card__visual { background-image: url("#{$app-css-relative-asset-path}/products/f19-plinth-glass-side-table-v1.webp"); }
+
+.veylune-preview--destination [data-preview-record="F14"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F15"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F16"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F17"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F18"] .veylune-preview-card__visual,
+.veylune-preview--destination [data-preview-record="F19"] .veylune-preview-card__visual {
+    background-color: #f3efe9;
+    background-position: center;
+    background-size: cover;
+}
+
+.veylune-preview--destination [data-preview-record="F14"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F15"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F16"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F17"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F18"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F19"] .veylune-preview-card__visual::before,
+.veylune-preview--destination [data-preview-record="F14"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F15"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F16"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F17"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F18"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F19"] .veylune-preview-card__object,
+.veylune-preview--destination [data-preview-record="F14"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F15"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F16"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F17"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F18"] .veylune-preview-card__material,
+.veylune-preview--destination [data-preview-record="F19"] .veylune-preview-card__material {
+    display: none;
+}
+
+.veylune-preview-card__image-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.veylune-preview-card__image-link:focus-visible {
+    outline: 3px solid rgb(127 24 127 / 42%);
+    outline-offset: -4px;
+}
+
+.veylune-preview--destination .veylune-preview-card__object {
+    position: relative;
+    z-index: 0;
+    background: linear-gradient(145deg, rgb(65 56 47 / 78%), rgb(31 27 24 / 62%));
+    box-shadow: 0 2rem 2.5rem rgb(35 31 26 / 18%);
+}
+
+.veylune-preview--destination .veylune-preview-card__object::before,
+.veylune-preview--destination .veylune-preview-card__object::after {
+    position: absolute;
+    bottom: -18%;
+    width: 5%;
+    height: 24%;
+    border-radius: 0 0 2px 2px;
+    background: rgb(38 33 29 / 70%);
+    content: "";
+}
+
+.veylune-preview--destination .veylune-preview-card__object::before { left: 12%; }
+.veylune-preview--destination .veylune-preview-card__object::after { right: 12%; }
+
+.veylune-preview--destination .veylune-preview-card__object--beds,
+.veylune-preview--destination .veylune-preview-card__object--sofas,
+.veylune-preview--destination .veylune-preview-card__object--outdoor-seating {
+    width: 70%;
+    height: 34%;
+    border-radius: 34% 34% 7% 7%;
+}
+
+.veylune-preview--destination .veylune-preview-card__object--chairs,
+.veylune-preview--destination .veylune-preview-card__object--dining-chairs,
+.veylune-preview--destination .veylune-preview-card__object--accent-chairs {
+    width: 43%;
+    height: 43%;
+    border-radius: 44% 44% 12% 12%;
+}
+
+.veylune-preview--destination .veylune-preview-card__object--storage,
+.veylune-preview--destination .veylune-preview-card__object--sideboards,
+.veylune-preview--destination .veylune-preview-card__object--cabinets {
+    width: 62%;
+    height: 40%;
+    border-radius: 3px;
+    background:
+        linear-gradient(90deg, transparent 49%, rgb(255 255 255 / 17%) 49% 51%, transparent 51%),
+        linear-gradient(145deg, rgb(65 56 47 / 78%), rgb(31 27 24 / 62%));
+}
+
+.veylune-preview--destination .veylune-preview-card__object--benches,
+.veylune-preview--destination .veylune-preview-card__object--stools {
+    width: 55%;
+    height: 22%;
+    border-radius: 18% 18% 5% 5%;
+}
+
+.veylune-preview--destination .veylune-preview-card:hover .veylune-preview-card__visual {
+    box-shadow: 0 8px 22px rgb(47 43 49 / 11%);
+    transform: none;
+}
+
+.veylune-preview--destination .veylune-preview-card__wishlist {
+    top: 0.65rem;
+    right: 0.65rem;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    box-shadow: 0 1px 5px rgb(47 43 49 / 18%);
+    transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.veylune-preview--destination .veylune-preview-card__wishlist:hover { transform: scale(1.06); }
+
+.veylune-preview--destination .veylune-preview-card__status {
+    top: 0.7rem;
+    left: 0.65rem;
+    padding: 0.32rem 0.45rem;
+    border-radius: 2px;
+    color: #fff;
+    background: var(--veylune-plp-accent);
+    font-size: 0.58rem;
+    font-weight: 800;
+}
+
+.veylune-preview--destination .veylune-preview-card__material {
+    right: 0.65rem;
+    bottom: 0.65rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 2px;
+    color: #3c373d;
+    background: rgb(255 255 255 / 86%);
+    font-size: 0.57rem;
+    backdrop-filter: blur(6px);
+}
+
+.veylune-preview--destination .veylune-preview-card__body {
+    display: flex;
+    min-height: 180px;
+    flex: 1;
+    flex-direction: column;
+    padding-top: 0.7rem;
+}
+
+.veylune-preview--destination .veylune-preview-card__availability { margin-top: auto; padding-top: 0.3rem; }
+
+.veylune-preview--destination .veylune-preview-card__type {
+    margin-bottom: 0.28rem;
+    color: #706a72;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+}
+
+.veylune-preview--destination .veylune-preview-card h3 {
+    min-height: 2.55em;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.28;
+}
+
+.veylune-preview--destination .veylune-preview-card__rating {
+    min-height: 18px;
+    gap: 0.3rem;
+    margin-top: 0.35rem;
+    font-size: 0.69rem;
+}
+
+.veylune-preview--destination .veylune-preview-card__stars {
+    font-size: 0.78rem;
+}
+
+.veylune-preview--destination .veylune-preview-card__commerce {
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 0.42rem;
+    margin-top: 0.42rem;
+    padding-top: 0;
+    border: 0;
+}
+
+.veylune-preview--destination .veylune-preview-card__commerce span {
+    color: #706a72;
+    font-size: 0.65rem;
+}
+
+.veylune-preview--destination .veylune-preview-card__commerce strong {
+    color: #211e22;
+    font-size: 1.05rem;
+}
+
+.veylune-preview--destination .veylune-preview-card__price-note {
+    margin: 0.2rem 0 0;
+    color: #706a72;
+    font-size: 0.62rem;
+    line-height: 1.35;
+}
+
+.veylune-preview--destination .veylune-preview-card__availability {
+    margin-top: 0.3rem;
+    font-size: 0.67rem;
+}
+
+.veylune-preview--destination .veylune-plp-progress {
+    max-width: 420px;
+    margin: 4rem auto 0;
+    text-align: center;
+}
+
+.veylune-preview--destination .veylune-plp-load-more {
+    min-width: 220px;
+    border-radius: 3px;
+}
+
+.veylune-preview--destination .veylune-plp-seo {
+    gap: 2rem;
+    margin-top: 4.5rem;
+    padding: 2.5rem clamp(1rem, 3vw, 3rem);
+    border: 1px solid var(--veylune-plp-line);
+    background: #faf9fa;
+}
+
+.veylune-preview--destination .veylune-plp-seo h2 {
+    max-width: 18ch;
+    font-family: var(--veylune-marketplace-font, sans-serif);
+    font-size: clamp(1.5rem, 2.2vw, 2.3rem);
+    font-weight: 750;
+    line-height: 1.12;
+}
+
+    .veylune-preview--destination .veylune-preview-card__body {
+        min-height: 164px;
+    }
+
+.veylune-preview--destination .veylune-plp-seo__body {
+    font-size: 0.84rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-preview--destination .veylune-plp-marketplace-layout {
+        display: block;
+    }
+
+    .veylune-preview--destination .veylune-plp-filter-rail {
+        display: none;
+    }
+
+    .veylune-preview--destination .veylune-plp-toolbar {
+        top: var(--veylune-header-offset, 0);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    .veylune-preview--destination .veylune-preview-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .veylune-preview--destination .veylune-preview-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .veylune-preview--destination .veylune-preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-preview--destination .veylune-plp-toolbar {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.75rem;
+    }
+
+    .veylune-preview--destination .veylune-plp-toolbar__count {
+        min-width: 0;
+    }
+
+    .veylune-preview--destination .veylune-preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem 0.75rem;
+    }
+
+    .veylune-preview--destination .veylune-plp-control {
+        min-width: 0;
+    }
+}

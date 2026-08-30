@@ -18,3 +18,9 @@
 /install.lock
 /public/asset-manifest.json
 ###< shopware/core ###
+
+# Local editor and patch backups are not release artifacts.
+*.orig
+*.bak
+*.tmp
+*~

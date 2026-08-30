@@ -1,0 +1,79 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$sourceDirectory = $root . '/resources/product-media-source/furniture';
+$outputDirectory = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products';
+$quality = 82;
+$force = in_array('--force', $argv, true);
+
+if (!extension_loaded('gd') || !function_exists('imagewebp')) {
+    fwrite(STDERR, "GD with WebP support is required.\n");
+    exit(1);
+}
+
+$sources = glob($sourceDirectory . '/f*-v1.png') ?: [];
+sort($sources, SORT_NATURAL | SORT_FLAG_CASE);
+
+if ($sources === []) {
+    fwrite(STDERR, "No product PNG sources found in {$sourceDirectory}.\n");
+    exit(1);
+}
+
+if (!is_dir($outputDirectory) && !mkdir($outputDirectory, 0775, true) && !is_dir($outputDirectory)) {
+    fwrite(STDERR, "Unable to create {$outputDirectory}.\n");
+    exit(1);
+}
+
+$sourceBytes = 0;
+$outputBytes = 0;
+$converted = 0;
+$skipped = 0;
+
+foreach ($sources as $source) {
+    $destination = $outputDirectory . '/' . preg_replace('/\.png$/i', '.webp', basename($source));
+    if (!is_string($destination)) {
+        fwrite(STDERR, "Unable to resolve destination for {$source}.\n");
+        exit(1);
+    }
+
+    $sourceBytes += (int) filesize($source);
+
+    if (!$force && is_file($destination) && filemtime($destination) >= filemtime($source)) {
+        $outputBytes += (int) filesize($destination);
+        ++$skipped;
+        continue;
+    }
+
+    $image = imagecreatefrompng($source);
+    if ($image === false) {
+        fwrite(STDERR, "Unable to decode {$source}.\n");
+        exit(1);
+    }
+
+    imagepalettetotruecolor($image);
+    imagealphablending($image, true);
+    imagesavealpha($image, true);
+
+    if (!imagewebp($image, $destination, $quality)) {
+        imagedestroy($image);
+        fwrite(STDERR, "Unable to encode {$destination}.\n");
+        exit(1);
+    }
+
+    imagedestroy($image);
+    $outputBytes += (int) filesize($destination);
+    ++$converted;
+}
+
+$saving = $sourceBytes > 0 ? (1 - ($outputBytes / $sourceBytes)) * 100 : 0;
+printf(
+    "Product media optimized: %d converted, %d current, %.2f MiB -> %.2f MiB (%.1f%% smaller)\n",
+    $converted,
+    $skipped,
+    $sourceBytes / 1048576,
+    $outputBytes / 1048576,
+    $saving,
+);

@@ -33,11 +33,23 @@ class EditionsController extends StorefrontController
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle($this->translator->trans('veylune.editions.seo.title'));
         $page->getMetaInformation()?->setMetaDescription($this->translator->trans('veylune.editions.seo.description'));
+        $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/editions-page.html.twig', [
             'page' => $page,
             'veylunePageType' => 'editions',
         ]);
+    }
+
+    #[Route(path: '/journal', name: 'frontend.veylune.editions.journal.alias', methods: [Request::METHOD_GET])]
+    #[Route(path: '/inspiration', name: 'frontend.veylune.editions.inspiration.alias', methods: [Request::METHOD_GET])]
+    public function editorialAlias(): Response
+    {
+        return $this->redirectToRoute(
+            'frontend.veylune.editions.page',
+            [],
+            Response::HTTP_MOVED_PERMANENTLY
+        );
     }
 
     #[Route(

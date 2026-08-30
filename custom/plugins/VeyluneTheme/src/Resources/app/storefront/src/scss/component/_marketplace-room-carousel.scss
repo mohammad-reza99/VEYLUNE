@@ -72,29 +72,13 @@
     overflow: hidden;
     aspect-ratio: 4 / 3;
     background-color: var(--veylune-marketplace-surface);
-    background-position: center;
-    background-size: cover;
     transition: transform 240ms ease;
 }
 
-.veylune-room-card__media--living {
-    background-image: url("#{$app-css-relative-asset-path}/veylune-room-living-v1.webp");
-}
-
-.veylune-room-card__media--dining {
-    background-image: url("#{$app-css-relative-asset-path}/veylune-room-dining-v1.webp");
-}
-
-.veylune-room-card__media--bedroom {
-    background-image: url("#{$app-css-relative-asset-path}/veylune-room-bedroom-v1.webp");
-}
-
-.veylune-room-card__media--workspace {
-    background-image: url("#{$app-css-relative-asset-path}/veylune-room-workspace-v1.webp");
-}
-
-.veylune-room-card__media--outdoor {
-    background-image: url("#{$app-css-relative-asset-path}/veylune-room-outdoor-v1.webp");
+.veylune-room-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .veylune-room-card__content {

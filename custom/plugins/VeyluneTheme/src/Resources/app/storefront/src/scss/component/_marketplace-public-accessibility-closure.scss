@@ -1,0 +1,58 @@
+/* Final public-surface accessibility and contrast closure. */
+.veylune-footer__legal a {
+    color: rgb(255 255 255 / 84%);
+}
+
+.veylune-footer__legal a:hover,
+.veylune-footer__legal a:focus-visible {
+    color: var(--veylune-marketplace-white);
+}
+
+.veylune-inquiry__privacy .btn-link-inline {
+    display: inline;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    color: #65157f;
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    line-height: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+    vertical-align: baseline;
+}
+
+.veylune-inquiry__privacy .btn-link-inline:hover {
+    color: #4f1064;
+    background: transparent;
+}
+
+.veylune-inquiry__privacy .btn-link-inline:focus-visible,
+.veylune-footer__legal a:focus-visible {
+    outline: 3px solid var(--veylune-marketplace-focus);
+    outline-offset: 3px;
+    box-shadow: none;
+}
+
+.veylune-editions__eyebrow,
+.veylune-authority__eyebrow {
+    color: #6f604b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    .veylune-editions [data-veylune-reveal],
+    .veylune-authority [data-veylune-reveal],
+    .veylune-contact-studio [data-veylune-reveal],
+    .veylune-legal-notice [data-veylune-reveal] {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,32 @@
+{% sw_extends '@Storefront/storefront/component/privacy-notice.html.twig' %}
+
+{% block component_privacy_dpi %}
+    {% set cmsPath = 'frontend.cms.page' %}
+    {% set privacyNoticeSnippet = 'general.privacyNoticeTextModal' %}
+    {% set privacyLabel = privacyNoticeSnippet|trans({
+        '%privacyModalTagOpen%': '<button type="button" class="btn btn-link-inline" aria-haspopup="dialog" data-ajax-modal="true" data-url="' ~ path(cmsPath, { id: config('core.basicInformation.privacyPage') }) ~ '">',
+        '%privacyModalTagClose%': '</button>',
+        '%tosModalTagOpen%': '<a class="btn btn-link-inline" href="' ~ path('frontend.veylune.legal.page', { document: 'terms' }) ~ '">',
+        '%tosModalTagClose%': '</a>',
+    })|raw %}
+
+    {% if config('core.loginRegistration.requireDataProtectionCheckbox') == 1 %}
+        {% sw_include '@Storefront/storefront/component/form/form-checkbox.html.twig' with {
+            label: privacyLabel,
+            id: 'acceptedDataProtection',
+            name: 'acceptedDataProtection',
+            validationRules: 'required',
+        } %}
+    {% else %}
+        <div class="data-protection-information">
+            <div>
+                {{ privacyNoticeSnippet|trans({
+                    '%privacyModalTagOpen%': '<button type="button" class="btn btn-link-inline" aria-haspopup="dialog" data-ajax-modal="true" data-url="' ~ path(cmsPath, { id: config('core.basicInformation.privacyPage') }) ~ '">',
+                    '%privacyModalTagClose%': '</button>',
+                    '%tosModalTagOpen%': '<a class="btn btn-link-inline" href="' ~ path('frontend.veylune.legal.page', { document: 'terms' }) ~ '">',
+                    '%tosModalTagClose%': '</a>',
+                })|raw }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

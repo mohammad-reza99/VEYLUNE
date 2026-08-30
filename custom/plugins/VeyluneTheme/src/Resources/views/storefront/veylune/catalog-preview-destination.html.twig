@@ -30,23 +30,27 @@
                 <button class="veylune-plp-chip" type="button" data-plp-type="storage" aria-pressed="false">Storage</button>
                 <button class="veylune-plp-chip" type="button" data-plp-type="desks" aria-pressed="false">Desks</button>
                 <button class="veylune-plp-chip" type="button" data-plp-type="benches-stools" aria-pressed="false">Benches &amp; Stools</button>
-            {% else %}
-                <button class="veylune-plp-chip" type="button" data-plp-type="all" aria-pressed="false">New arrivals</button>
-                <button class="veylune-plp-chip" type="button" data-plp-type="all" aria-pressed="false">Veylune verified</button>
-                <button class="veylune-plp-chip" type="button" data-plp-type="all" aria-pressed="false">Ready to ship</button>
             {% endif %}
         </nav>
 
+        <div class="veylune-plp-marketplace-layout">
+            <aside class="veylune-plp-filter-rail" aria-label="Filter products">
+                <div class="veylune-plp-filter-rail__heading">
+                    <strong>Filter by</strong>
+                    <span>Refine your results</span>
+                </div>
+                {% sw_include '@Storefront/storefront/veylune/catalog-preview-filters.html.twig' %}
+                <button class="veylune-plp-filter-clear" type="button" data-plp-filter-clear disabled>Clear all</button>
+            </aside>
+            <div class="veylune-plp-results">
         <div class="veylune-plp-toolbar">
             <p class="veylune-plp-toolbar__count" aria-live="polite"><strong data-plp-count>{{ veylunePreviewProducts|length }}</strong> considered pieces</p>
             <div class="veylune-plp-toolbar__actions" aria-label="Listing controls">
                 <div class="veylune-plp-menu">
                     <button class="veylune-plp-control" type="button" data-plp-filter-toggle aria-expanded="false" aria-haspopup="true" aria-controls="veylunePlpFilters">Filter</button>
-                    <div class="veylune-plp-popover" id="veylunePlpFilters" data-plp-filter-panel role="region" aria-label="Material filters" hidden>
-                        <p>Material</p>
-                        {% for value, label in { wood: 'Wood', upholstery_fabric: 'Upholstery fabric', leather: 'Leather', travertine: 'Travertine', marble: 'Marble', metal: 'Metal', glass: 'Glass' } %}
-                            <label><input type="checkbox" value="{{ value }}" data-plp-material> <span>{{ label }}</span></label>
-                        {% endfor %}
+                    <div class="veylune-plp-popover" id="veylunePlpFilters" data-plp-filter-panel role="region" aria-label="Product filters" hidden>
+                        {% sw_include '@Storefront/storefront/veylune/catalog-preview-filters.html.twig' %}
+                        <button class="veylune-plp-filter-clear" type="button" data-plp-filter-clear disabled>Clear filters</button>
                     </div>
                 </div>
                 <div class="veylune-plp-menu">
@@ -61,6 +65,9 @@
             </div>
         </div>
 
+        <div class="veylune-plp-active-filters" data-plp-active-filters aria-label="Active filters" hidden></div>
+        <p class="visually-hidden" data-plp-status role="status" aria-live="polite" aria-atomic="true"></p>
+
         <section class="veylune-preview-grid" id="veyluneProductGrid" data-plp-grid aria-live="polite" aria-atomic="false" aria-busy="false" aria-label="{{ veylunePreviewTitle }} draft products">
             {% for product in veylunePreviewProducts %}
                 {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: product, productIndex: loop.index0 } %}
@@ -71,9 +78,11 @@
         </section>
 
         <div class="veylune-plp-progress">
-            <p>Showing <strong data-plp-showing>{{ veylunePreviewProducts|length > 12 ? 12 : veylunePreviewProducts|length }}</strong> of <strong>{{ veylunePreviewProducts|length }}</strong> pieces</p>
+            <p>Showing <strong data-plp-showing>{{ veylunePreviewProducts|length > 12 ? 12 : veylunePreviewProducts|length }}</strong> of <strong data-plp-matched-count>{{ veylunePreviewProducts|length }}</strong> matching pieces</p>
             <div class="veylune-plp-progress__bar" aria-hidden="true"><span></span></div>
             <button class="veylune-plp-load-more" type="button" data-plp-load-more aria-controls="veyluneProductGrid">Load more</button>
+        </div>
+            </div>
         </div>
 
         <section class="veylune-plp-seo" aria-labelledby="veylunePlpGuideTitle">
@@ -84,7 +93,7 @@
             <div class="veylune-plp-seo__body">
                 <p>Begin with proportion: the relationship between a piece, the room around it and the way people move through the space. A considered object should create presence without visual noise.</p>
                 <p>Material shapes both atmosphere and longevity. Natural timber brings warmth, stone adds permanence, while upholstery softens the architecture of a room.</p>
-                <p>Use the category and material filters above to narrow the edit. Every draft piece remains under review before it becomes part of the public Veylune assortment.</p>
+                <p>Use the category, material, price and status filters above to narrow the edit. Every draft piece remains under review before it becomes part of the public Veylune assortment.</p>
             </div>
         </section>
     </div>

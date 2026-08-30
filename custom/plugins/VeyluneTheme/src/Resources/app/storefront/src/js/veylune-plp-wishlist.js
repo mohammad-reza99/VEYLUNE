@@ -1,17 +1,21 @@
 document.querySelectorAll('[data-plp-wishlist]').forEach((button) => {
     const card = button.closest('[data-plp-card]');
     const storageKey = `veylune-preview-wishlist-${card.dataset.previewRecord}`;
+    const updateState = (selected) => {
+        button.setAttribute('aria-pressed', String(selected));
+        button.setAttribute('aria-label', `${selected ? 'Remove' : 'Save'} ${card.dataset.plpName}${selected ? ' from saved pieces' : ''}`);
+    };
 
     try {
-        button.setAttribute('aria-pressed', String(localStorage.getItem(storageKey) === 'true'));
+        updateState(localStorage.getItem(storageKey) === 'true');
     } catch (error) {
         // The control remains available for the current page session.
+        updateState(false);
     }
 
     button.addEventListener('click', () => {
         const selected = button.getAttribute('aria-pressed') !== 'true';
-        button.setAttribute('aria-pressed', String(selected));
-        button.setAttribute('aria-label', `${selected ? 'Remove' : 'Save'} ${card.dataset.plpName}${selected ? ' from saved pieces' : ''}`);
+        updateState(selected);
 
         try {
             localStorage.setItem(storageKey, String(selected));

@@ -129,6 +129,20 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         }
 
         if ($this->isCanonicalPublicStorefrontRequest($request)) {
+            $publicAliasCanonicalPath = match ($originalPath) {
+                '/journal', '/inspiration' => '/editions',
+                '/about' => '/about-studio',
+                default => null,
+            };
+
+            if ($publicAliasCanonicalPath !== null) {
+                $event->setResponse(new RedirectResponse($publicAliasCanonicalPath, Response::HTTP_MOVED_PERMANENTLY));
+
+                return;
+            }
+        }
+
+        if ($this->isCanonicalPublicStorefrontRequest($request)) {
             $legacyCmsCanonicalPath = match ($originalPath) {
                 '/page/cms/' . self::CONTACT_PAGE_ID => '/contact-studio',
                 '/page/cms/' . self::IMPRINT_PAGE_ID => '/legal/imprint',

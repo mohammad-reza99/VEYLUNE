@@ -20,7 +20,14 @@
                 {% else %}
                     <article class="veylune-category-tile veylune-category-tile--preview" aria-disabled="true">
                 {% endif %}
-                        <span class="veylune-category-tile__media veylune-category-tile__media--{{ department.key }}" aria-hidden="true"></span>
+                        <span class="veylune-category-tile__media" aria-hidden="true">
+                            <img src="{{ asset('assets/veylune-category-' ~ department.key ~ '-v1.webp', 'theme') }}"
+                                 alt=""
+                                 width="1254"
+                                 height="1254"
+                                 loading="lazy"
+                                 decoding="async">
+                        </span>
                         <span class="veylune-category-tile__label">{{ department.label|trans|sw_sanitize }}</span>
                 {% if publicSurfaces['category:' ~ department.surfaceKey]|default(false) %}
                     </a>

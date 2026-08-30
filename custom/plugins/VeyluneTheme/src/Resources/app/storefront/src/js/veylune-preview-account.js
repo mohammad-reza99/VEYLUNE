@@ -420,7 +420,11 @@ document.querySelectorAll('[data-veylune-account-preview]').forEach((root) => {
             card.append(head, title, details, destination, foot);
             ordersList.append(card);
         });
-        if (!visible.length && reviews.length) ordersNotice.textContent = 'No checkout reviews match the current search and status.';
+        if (visible.length) {
+            ordersNotice.textContent = `${visible.length} checkout review${visible.length === 1 ? '' : 's'} shown.`;
+        } else {
+            ordersNotice.textContent = reviews.length ? 'No checkout reviews match the current search and status.' : 'No checkout reviews saved.';
+        }
         renderReadiness();
     };
 
