@@ -1,0 +1,426 @@
+/* PV-01: Wayfair-referenced navigation density and stable LCP shell. */
+
+.veylune-marketplace-department-rail,
+.vli-home__merchandising-rail {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .veylune-marketplace-department-rail {
+        display: block;
+        min-height: 36px;
+        border-top: 1px solid #eee9ef;
+        border-bottom: 1px solid #d9d3da;
+        background: #fff;
+    }
+
+    .veylune-marketplace-department-rail__inner {
+        display: grid;
+        width: min(calc(100% - 84px), 1600px);
+        min-height: 35px;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: clamp(.65rem, 1.35vw, 1.45rem);
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .veylune-marketplace-department-rail a {
+        display: inline-flex;
+        min-height: 35px;
+        align-items: center;
+        color: #282329;
+        font-size: clamp(.64rem, .72vw, .75rem);
+        font-weight: 720;
+        letter-spacing: -.012em;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .veylune-marketplace-department-rail a:hover,
+    .veylune-marketplace-department-rail a:focus-visible {
+        color: var(--veylune-marketplace-primary, #7b1f7e);
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 5px;
+    }
+
+    .veylune-marketplace-department-rail__sale {
+        color: #ad1e55 !important;
+    }
+
+    .vli-home__merchandising-rail {
+        display: grid;
+        min-height: 52px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        background: var(--veylune-marketplace-primary, #7b1f7e);
+        color: #fff;
+    }
+
+    .vli-home__merchandising-rail a {
+        display: flex;
+        min-width: 0;
+        min-height: 52px;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        padding: .6rem 1rem;
+        border-right: 1px solid rgb(255 255 255 / 42%);
+        color: inherit;
+        line-height: 1.1;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .vli-home__merchandising-rail a:last-child {
+        border-right: 0;
+    }
+
+    .vli-home__merchandising-rail strong {
+        font-size: .76rem;
+        font-weight: 820;
+        letter-spacing: .035em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .vli-home__merchandising-rail span {
+        overflow: hidden;
+        font-size: .72rem;
+        font-weight: 620;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vli-home__merchandising-rail a:hover,
+    .vli-home__merchandising-rail a:focus-visible {
+        background: rgb(40 13 43 / 22%);
+        outline: 2px solid #fff;
+        outline-offset: -4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-marketplace-department-rail a,
+    .vli-home__merchandising-rail a {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}
+
+/* PV-02: modern public authentication shell without changing Shopware form behavior. */
+body.is-ctl-auth.is-act-loginpage {
+    --vli-auth-ink: #211d22;
+    --vli-auth-muted: #665f67;
+    --vli-auth-line: #ddd7de;
+    --vli-auth-soft: #f8f6f8;
+    --vli-auth-command: var(--veylune-marketplace-primary, #7b1f7e);
+    --vli-auth-command-dark: #4e0e52;
+
+    .content-main > .container {
+        max-width: none;
+        padding-inline: 0;
+    }
+
+    .account-register {
+        width: min(calc(100% - clamp(2rem, 7vw, 7rem)), 1320px);
+        margin: clamp(2rem, 4vw, 4.25rem) auto clamp(4rem, 8vw, 7rem);
+        color: var(--vli-auth-ink);
+    }
+
+    .vli-account-entry__header {
+        display: grid;
+        max-width: 860px;
+        gap: .8rem;
+        margin-bottom: clamp(1.75rem, 3.5vw, 3rem);
+    }
+
+    .vli-account-entry__kicker,
+    .veylune-account-auth__eyebrow {
+        margin: 0;
+        color: var(--vli-auth-command);
+        font-family: inherit;
+        font-size: .7rem;
+        font-weight: 820;
+        letter-spacing: .105em;
+        line-height: 1.2;
+        text-transform: uppercase;
+    }
+
+    .vli-account-entry__header h1 {
+        margin: 0;
+        color: var(--vli-auth-ink);
+        font-family: inherit;
+        font-size: clamp(2.35rem, 4vw, 4.35rem);
+        font-weight: 790;
+        letter-spacing: -.052em;
+        line-height: .98;
+    }
+
+    .vli-account-entry__intro {
+        max-width: 690px;
+        margin: 0;
+        color: var(--vli-auth-muted);
+        font-size: clamp(.94rem, 1.15vw, 1.05rem);
+        line-height: 1.65;
+    }
+
+    .account-register > .row {
+        display: grid;
+        grid-template-columns: minmax(320px, .82fr) minmax(0, 1.48fr);
+        gap: clamp(1.25rem, 2.7vw, 2.5rem);
+        margin-inline: 0;
+    }
+
+    .account-register > .row > [class*="col-"] {
+        width: auto;
+        max-width: none;
+        padding-inline: 0;
+    }
+
+    .login-card,
+    .register-card {
+        overflow: hidden;
+        border: 1px solid var(--vli-auth-line);
+        border-radius: 0;
+        background: #fff;
+        box-shadow: none;
+    }
+
+    .login-card {
+        position: sticky;
+        top: 1.5rem;
+        margin-bottom: 0 !important;
+    }
+
+    .login-card .card-body,
+    .register-card .card-body {
+        padding: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .login-card .veylune-account-section-title,
+    .register-card .veylune-account-section-title {
+        margin: .7rem 0 .8rem;
+        color: var(--vli-auth-ink);
+        font-family: inherit;
+        font-size: clamp(1.55rem, 2.2vw, 2.25rem);
+        font-weight: 780;
+        letter-spacing: -.036em;
+        line-height: 1.08;
+    }
+
+    .login-form-description,
+    .register-required-info {
+        color: var(--vli-auth-muted) !important;
+        font-family: inherit;
+        font-size: .88rem;
+        line-height: 1.62;
+    }
+
+    .login-form .form-label,
+    .register-form .form-label,
+    .register-form label:not(.form-check-label):not(.custom-control-label) {
+        margin-bottom: .42rem;
+        color: var(--vli-auth-ink);
+        font-size: .73rem;
+        font-weight: 780;
+        letter-spacing: .025em;
+        text-transform: none;
+    }
+
+    .login-form .form-control,
+    .register-form .form-control,
+    .register-form .form-select {
+        min-height: 52px;
+        padding-inline: .9rem;
+        border-color: #bdb6bf;
+        border-radius: 0;
+        background-color: var(--vli-auth-soft);
+        color: var(--vli-auth-ink);
+    }
+
+    .login-form .form-control:focus,
+    .register-form .form-control:focus,
+    .register-form .form-select:focus {
+        border-color: var(--vli-auth-command);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgb(123 31 126 / 14%);
+    }
+
+    .login-password-recover,
+    .login-card a:not(.btn),
+    .register-card a:not(.btn) {
+        color: var(--vli-auth-command-dark);
+        font-size: .78rem;
+        font-weight: 700;
+        text-decoration-color: rgb(78 14 82 / 35%);
+        text-underline-offset: .22em;
+    }
+
+    .login-form .btn-primary,
+    .register-form .btn-primary {
+        display: inline-flex;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+        padding: .8rem 1.35rem;
+        border: 1px solid var(--vli-auth-command);
+        border-radius: 0;
+        background: var(--vli-auth-command);
+        color: #fff;
+        font-size: .76rem;
+        font-weight: 820;
+        letter-spacing: .025em;
+    }
+
+    .login-form .btn-primary:hover,
+    .login-form .btn-primary:focus-visible,
+    .register-form .btn-primary:hover,
+    .register-form .btn-primary:focus-visible {
+        border-color: var(--vli-auth-command-dark);
+        background: var(--vli-auth-command-dark);
+    }
+
+    .register-card .card-body > .row,
+    .register-form .row {
+        --bs-gutter-x: 1rem;
+    }
+
+    .login-advantages {
+        margin-top: 1rem;
+        padding: 1.35rem 1.5rem;
+        border: 1px solid var(--vli-auth-line);
+        background: var(--vli-auth-soft);
+    }
+
+    .login-advantages-header {
+        margin: 0 0 .85rem;
+        color: var(--vli-auth-ink);
+        font-size: .78rem;
+        font-weight: 820;
+        letter-spacing: .055em;
+        text-transform: uppercase;
+    }
+
+    .login-advantages ul {
+        display: grid;
+        gap: .65rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .login-advantages li {
+        position: relative;
+        padding-left: 1.25rem;
+        color: var(--vli-auth-muted);
+        font-size: .82rem;
+        line-height: 1.45;
+    }
+
+    .login-advantages li::before {
+        position: absolute;
+        top: .08rem;
+        left: 0;
+        color: var(--vli-auth-command);
+        content: "\2713";
+        font-weight: 850;
+    }
+}
+
+/* PV-03: defer paint work for modules that cannot contribute to initial view. */
+@supports (content-visibility: auto) {
+    .vli-home > [data-vli-home-module="objects"],
+    .vli-home > [data-vli-home-module="material"],
+    .vli-home > [data-vli-home-module="access-status"],
+    .vli-home > [data-vli-home-module="project"],
+    .vli-search-page__results > .vli-search-card:nth-child(n + 7) {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 720px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header--living-index .veylune-mobile-nav__inner,
+    .veylune-header--living-index .veylune-mobile-nav__links,
+    .veylune-header--living-index .veylune-mobile-nav__links a {
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .veylune-header--living-index .veylune-mobile-nav__links a {
+        font-size: .78rem;
+        font-weight: 780;
+        letter-spacing: .035em;
+    }
+
+    .veylune-header--living-index .veylune-mobile-nav__links a [data-vli-selection-count] {
+        display: inline-flex;
+        min-width: 1.25rem;
+        min-height: 1.25rem;
+        align-items: center;
+        justify-content: center;
+        margin-left: .35rem;
+        border-radius: 999px;
+        background: var(--vli-command);
+        color: #fff;
+        font-size: .64rem;
+        line-height: 1;
+    }
+
+    body.is-ctl-auth.is-act-loginpage {
+        .account-register {
+            width: min(calc(100% - 2rem), 760px);
+            margin-top: 2rem;
+        }
+
+        .account-register > .row {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .login-card {
+            position: static;
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    body.is-ctl-auth.is-act-loginpage {
+        .account-register {
+            width: 100%;
+            margin-block: 0 3rem;
+        }
+
+        .vli-account-entry__header {
+            margin: 0;
+            padding: 2rem 1rem 1.5rem;
+            border-bottom: 1px solid var(--vli-auth-line);
+        }
+
+        .vli-account-entry__header h1 {
+            font-size: clamp(2.2rem, 12vw, 3.15rem);
+        }
+
+        .account-register > .row {
+            gap: 1rem;
+        }
+
+        .login-card,
+        .register-card,
+        .login-advantages {
+            border-inline: 0;
+        }
+
+        .login-card .card-body,
+        .register-card .card-body {
+            padding: 1.5rem 1rem;
+        }
+
+        .login-form .btn-primary,
+        .register-form .btn-primary {
+            width: 100%;
+        }
+    }
+}

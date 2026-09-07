@@ -41,13 +41,35 @@
 {% set veyluneContactPageId = config('core.basicInformation.contactPage') %}
 {% set veyluneInquiryUrl = path('frontend.veylune.contact.page') %}
 {% set veyluneRoutes = {
-    trade: path('frontend.veylune.trade.page'),
     consultation: path('frontend.veylune.consultation.page'),
     partnership: path('frontend.veylune.partnership.page'),
     contact: veyluneInquiryUrl
 } %}
+{% set vliProjectHandoff = veyluneProjectHandoff|default({ source: 'consultation', query: '', object: '' }) %}
+{% set vliContactParameters = { from: vliProjectHandoff.source|default('consultation') } %}
+{% if vliProjectHandoff.query|default('') %}
+    {% set vliContactParameters = vliContactParameters|merge({ q: vliProjectHandoff.query }) %}
+{% endif %}
+{% if vliProjectHandoff.object|default('') %}
+    {% set vliContactParameters = vliContactParameters|merge({ object: vliProjectHandoff.object }) %}
+{% endif %}
+{% set vliAuthorityAxis = veylunePageType == 'partnership' ? 'maker' : (veylunePageType == 'consultation' ? 'project' : null) %}
+{% set vliAuthorityAxisLabel = vliAuthorityAxis == 'maker' ? 'Maker' : 'Project' %}
+{% set vliAuthorityAsset = vliAuthorityAxis == 'maker' ? 'veylune-room-workspace-v1.webp' : 'veylune-promo-living-room-v1.webp' %}
 
-<div class="veylune-authority veylune-authority--{{ veylunePageType }}" data-veylune-authority>
+<div class="veylune-authority veylune-authority--{{ veylunePageType }}{% if vliAuthorityAxis %} vli-axis-page vli-axis-page--{{ vliAuthorityAxis }}{% endif %}"
+     data-veylune-authority
+     {% if vliAuthorityAxis %}data-veylune-living-index-axis="{{ vliAuthorityAxis }}" data-veylune-registry-scope="living-index-axis" data-veylune-registry-entity="{{ vliAuthorityAxis }}"{% endif %}>
+    {% if vliAuthorityAxis %}
+        <nav class="vli-axis-page__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">Home</a>
+            <span aria-hidden="true">/</span>
+            <span>Living Index</span>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ vliAuthorityAxisLabel }}</span>
+        </nav>
+    {% endif %}
+
     <section class="veylune-authority-hero" data-veylune-reveal>
         <div class="veylune-authority-hero__grain" aria-hidden="true"></div>
         <div class="veylune-authority-hero__inner">
@@ -56,11 +78,27 @@
                 <h1>{{ current.title }}</h1>
                 <p>{{ current.text }}</p>
             </div>
-            <div class="veylune-authority-hero__visual" data-veylune-parallax aria-hidden="true">
-                <span>{{ current.accent }}</span>
-            </div>
+            {% if vliAuthorityAxis %}
+                <figure class="veylune-authority-hero__visual" data-veylune-parallax>
+                    <figcaption>{{ vliAuthorityAxis == 'maker' ? 'Maker / atelier and discipline' : 'Project / space and direction' }}</figcaption>
+                    <img src="{{ asset('assets/' ~ vliAuthorityAsset, 'theme') }}"
+                         alt="{{ vliAuthorityAxis == 'maker' ? 'A quiet atelier workspace shaped by material and craft' : 'A composed living room prepared for a private design consultation' }}"
+                         loading="eager"
+                         fetchpriority="high">
+                </figure>
+            {% else %}
+                <div class="veylune-authority-hero__visual" data-veylune-parallax aria-hidden="true">
+                    <span>{{ current.accent }}</span>
+                </div>
+            {% endif %}
         </div>
     </section>
+
+    {% if vliAuthorityAxis %}
+        {% sw_include '@Storefront/storefront/veylune/living-index-axis-map.html.twig' with {
+            veyluneLivingIndexAxis: vliAuthorityAxis
+        } %}
+    {% endif %}
 
     {% if veylunePageType == 'about' %}
         <section class="veylune-authority-section veylune-manifesto" data-veylune-reveal>
@@ -120,6 +158,59 @@
         {% sw_include '@Storefront/storefront/veylune/partnership/content.html.twig' %}
     {% endif %}
 
+    {% if veylunePageType == 'consultation' %}
+        <section class="veylune-authority-section vli-project-brief" aria-labelledby="vli-project-brief-title" data-veylune-reveal>
+            <header class="vli-axis-section-head">
+                <div>
+                    <p class="veylune-authority__eyebrow">Project Brief</p>
+                    <h2 id="vli-project-brief-title">Start with the room. Leave with a clear next direction.</h2>
+                </div>
+                <p>Share only what is known. The brief keeps spatial context, desired atmosphere, constraints, and saved references together before a studio conversation begins.</p>
+            </header>
+            <div class="vli-project-brief__grid">
+                {% set briefSignals = [
+                    { title: 'Space', text: 'Room type, approximate dimensions, location, and current condition.' },
+                    { title: 'Direction', text: 'Atmosphere, references, materials, and the feeling the room should hold.' },
+                    { title: 'Constraints', text: 'Timeline, access, existing pieces, and a realistic investment frame.' },
+                    { title: 'Review', text: 'Confirm the brief, choose what to share, and send one considered inquiry.' }
+                ] %}
+                {% for signal in briefSignals %}
+                    <article>
+                        <span>0{{ loop.index }}</span>
+                        <h3>{{ signal.title }}</h3>
+                        <p>{{ signal.text }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+
+            {% if vliProjectHandoff.source|default('') == 'selection' %}
+                <aside class="vli-project-handoff" data-vli-project-handoff aria-label="Saved selection handoff">
+                    <div>
+                        <span class="vli-project-handoff__icon" aria-hidden="true">&#9825;</span>
+                        <p><strong><span data-vli-selection-count>0</span> saved <span data-vli-selection-count-label>paths</span> are ready for review.</strong></p>
+                        <p>They remain private in this browser. Nothing is added to an inquiry unless you choose to include them in the next step.</p>
+                    </div>
+                    <a href="{{ path('frontend.veylune.contact.page', vliContactParameters) }}">Build the brief <span aria-hidden="true">&rarr;</span></a>
+                </aside>
+            {% endif %}
+
+            <ol class="vli-consultation-process" aria-label="Consultation process">
+                <li>
+                    <span>01</span>
+                    <div><strong>Share the brief</strong><p>Choose the project type, space, timing, and useful references.</p></div>
+                </li>
+                <li>
+                    <span>02</span>
+                    <div><strong>Studio review</strong><p>The studio reads the context before proposing a relevant conversation.</p></div>
+                </li>
+                <li>
+                    <span>03</span>
+                    <div><strong>Agree the direction</strong><p>Scope, availability, pricing, delivery, and any further service are confirmed separately in writing.</p></div>
+                </li>
+            </ol>
+        </section>
+    {% endif %}
+
     {% if veylunePageType == 'consultation' or veylunePageType == 'trade' %}
         <section class="veylune-authority-section veylune-inquiry" data-veylune-reveal>
             <div class="veylune-inquiry__intro">
@@ -128,8 +219,10 @@
                 <p>{{ 'veylune.professional.inquiryIntro'|trans|sw_sanitize }}</p>
             </div>
             <div class="veylune-inquiry__form" role="group" aria-label="{{ 'veylune.professional.inquiryCtaAriaLabel'|trans|striptags }}">
-                <a class="veylune-button veylune-button--primary" href="{{ veyluneRoutes.consultation }}">
-                    {{ 'veylune.professional.beginPrivateDialogue'|trans|sw_sanitize }}
+                <a class="veylune-button veylune-button--primary"
+                   href="{{ veylunePageType == 'consultation' ? path('frontend.veylune.contact.page', vliContactParameters) : veyluneRoutes.consultation }}"
+                   {% if veylunePageType == 'consultation' %}data-vli-project-cta{% endif %}>
+                    {{ (veylunePageType == 'consultation' ? 'veylune.professional.contactStudio' : 'veylune.professional.beginPrivateDialogue')|trans|sw_sanitize }}
                 </a>
             </div>
         </section>
@@ -191,7 +284,6 @@
             <h2>{{ 'veylune.professional.closingTitle'|trans|sw_sanitize }}</h2>
         </div>
         <div class="veylune-authority-closing__links">
-            <a href="{{ veyluneRoutes.trade }}">{{ 'veylune.header.nav.trade'|trans|sw_sanitize }}</a>
             <a href="{{ veyluneRoutes.consultation }}">{{ 'veylune.footer.privateConsultation'|trans|sw_sanitize }}</a>
             <a href="{{ veyluneRoutes.partnership }}">{{ 'veylune.footer.atelierPartnerships'|trans|sw_sanitize }}</a>
             <a href="{{ veyluneRoutes.contact }}">{{ 'veylune.professional.contactStudio'|trans|sw_sanitize }}</a>

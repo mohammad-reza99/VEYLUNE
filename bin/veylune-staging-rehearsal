@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RC_REF="${VEYLUNE_RC_REF:-HEAD}"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-staging][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+git rev-parse --verify "${RC_REF}^{commit}" >/dev/null 2>&1 || fail "release ref ${RC_REF} is not a commit"
+bash bin/veylune-release-manifest --assert-frozen >/dev/null
+
+printf '[veylune-staging] immutable source and dependency gates\n'
+bash bin/veylune-release-candidate
+
+archive_path="${TMP_DIR}/veylune-rc.tar.gz"
+archive_list="${TMP_DIR}/archive.list"
+git archive --format=tar.gz --output="$archive_path" "$RC_REF"
+tar -tzf "$archive_path" > "$archive_list"
+
+if grep -Eq '^(\.env($|\.)|\.ddev/|\.github/|\.codex-tmp/|var/|vendor/|node_modules/|public/theme/)|\.orig$' "$archive_list"; then
+    fail 'tagged archive contains a local, secret-bearing, generated, or original-backup path'
+fi
+
+printf '[veylune-staging] ref=%s commit=%s\n' "$RC_REF" "$(git rev-parse --short "${RC_REF}^{commit}")"
+printf '[veylune-staging] archive_sha256=%s\n' "$(sha256sum "$archive_path" | awk '{print $1}')"
+printf '[veylune-staging] archive_files=%s\n' "$(wc -l < "$archive_list")"
+printf '[veylune-staging] rollback rehearsal\n'
+bash bin/veylune-rollback-readiness --dry-run
+printf '[veylune-staging] non-destructive staging rehearsal passed\n'

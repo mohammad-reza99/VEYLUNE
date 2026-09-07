@@ -1,0 +1,29 @@
+{% sw_extends '@Storefront/storefront/page/account/register/index.html.twig' %}
+
+{% block page_account_register_header %}
+    <header class="vli-account-entry__header" data-vli-visual-baseline="account-entry">
+        <p class="vli-account-entry__kicker">Member access / Private account</p>
+        <h1>{{ 'account.loginRegistrationHeader'|trans|sw_sanitize }}</h1>
+        <p class="vli-account-entry__intro">Sign in to continue an existing request, or create an account for saved addresses, project history, and a faster return visit.</p>
+    </header>
+{% endblock %}
+
+{% block page_account_register_container %}
+    {% if app.request.attributes.get('_route') == 'frontend.account.login.page' %}
+        <div class="col-lg-8">
+            <section class="vli-account-create" aria-labelledby="vli-account-create-title">
+                <p class="vli-account-create__eyebrow">New to Veylune?</p>
+                <h2 id="vli-account-create-title">Create your private account.</h2>
+                <p>Save delivery details, return to project conversations, and keep your account history in one considered place.</p>
+                <ul aria-label="Account benefits">
+                    <li>Faster future checkout</li>
+                    <li>Saved addresses and account details</li>
+                    <li>Project and order continuity</li>
+                </ul>
+                <a class="btn btn-primary vli-account-create__action" href="{{ path('frontend.account.register.page') }}">Create account</a>
+            </section>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

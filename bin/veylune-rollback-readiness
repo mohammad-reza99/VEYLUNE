@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MODE="${1:---dry-run}"
+cd "$ROOT_DIR"
+
+[[ "$MODE" == '--dry-run' ]] || {
+    printf '[veylune-rollback][FAIL] only --dry-run is supported; this command never mutates an environment\n' >&2
+    exit 1
+}
+
+current_ref="$(git rev-parse --short HEAD)"
+previous_ref="$(git rev-parse --short HEAD^ 2>/dev/null || printf unavailable)"
+
+printf '[veylune-rollback] dry-run only; no files, database, traffic, or git state will change\n'
+printf '[veylune-rollback] current source ref: %s\n' "$current_ref"
+printf '[veylune-rollback] locally resolvable predecessor: %s\n' "$previous_ref"
+printf '[veylune-rollback] required before deploy: immutable prior artifact, fresh database backup, media backup, owner, and rollback window\n'
+printf '[veylune-rollback] rehearsal sequence: stop traffic -> activate prior artifact -> restore DB only when migration compatibility requires it -> compile theme/cache -> smoke routes -> reopen traffic\n'
+printf '[veylune-rollback] destructive rollback execution is intentionally out of scope\n'

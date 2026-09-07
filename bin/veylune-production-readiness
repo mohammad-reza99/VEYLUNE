@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+DDEV_BIN="${DDEV_BIN:-ddev}"
+HOST_HEADER="${VEYLUNE_HOST_HEADER:-veylune-shopware.ddev.site}"
+BASE_URL="${VEYLUNE_INTERNAL_BASE_URL:-http://localhost}"
+
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-release][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+fetch_path() {
+    local path="$1"
+    local output_file="$2"
+    local expected_status="$3"
+    local response
+    local status
+    local body
+    local ddev_url
+
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        response="$(curl -sS -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' -w $'\n__STATUS__:%{http_code}' "${BASE_URL}${path}")"
+    else
+        ddev_url="${BASE_URL}${path}"
+        ddev_url="${ddev_url//&/\\&}"
+        response="$("$DDEV_BIN" exec curl -sS -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' -w $'\n__STATUS__:%{http_code}' "$ddev_url")"
+    fi
+
+    status="${response##*__STATUS__:}"
+    body="${response%$'\n'__STATUS__:*}"
+    [[ "$status" == "$expected_status" ]] || fail "$path returned HTTP $status, expected $expected_status"
+    printf '%s' "$body" > "$output_file"
+}
+
+fetch_headers() {
+    local path="$1"
+    local output_file="$2"
+    local ddev_url
+
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        curl -sSI -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' "${BASE_URL}${path}" > "$output_file"
+        return
+    fi
+
+    ddev_url="${BASE_URL}${path}"
+    ddev_url="${ddev_url//&/\\&}"
+    "$DDEV_BIN" exec curl -sSI -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' "$ddev_url" > "$output_file"
+}
+
+assert_contains() {
+    local file="$1"
+    local needle="$2"
+    local label="$3"
+
+    grep -Fq "$needle" "$file" || fail "$label is missing required marker: $needle"
+}
+
+assert_header() {
+    local file="$1"
+    local pattern="$2"
+    local label="$3"
+
+    grep -Eiq "$pattern" "$file" || fail "$label header contract is missing"
+}
+
+assert_document_contract() {
+    local file="$1"
+    local label="$2"
+    local main_count
+    local h1_count
+
+    main_count="$(awk 'BEGIN { count = 0 } { line = $0; while (match(line, /<main([[:space:]>])/)) { count++; line = substr(line, RSTART + RLENGTH) } } END { print count }' "$file")"
+    h1_count="$(awk 'BEGIN { count = 0 } { line = $0; while (match(line, /<h1([[:space:]>])/)) { count++; line = substr(line, RSTART + RLENGTH) } } END { print count }' "$file")"
+
+    [[ "$main_count" == '1' ]] || fail "$label rendered $main_count main landmarks"
+    [[ "$h1_count" == '1' ]] || fail "$label rendered $h1_count h1 headings"
+    grep -Eiq '<html[^>]+lang="[^"]+"' "$file" || fail "$label is missing a document language"
+
+    if grep -Eiq 'href="[[:space:]]*"' "$file"; then
+        fail "$label contains an empty interaction target"
+    fi
+
+    if LC_ALL=C grep -Pzoqi '<img\b(?:(?!\balt\s*=)[^>])*>' "$file"; then
+        fail "$label contains an image without an alt attribute"
+    fi
+}
+
+request_ttfb_seconds() {
+    local path="$1"
+    local ddev_url
+
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        curl -sS -o /dev/null -w '%{time_starttransfer}' -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' "${BASE_URL}${path}"
+        return
+    fi
+
+    ddev_url="${BASE_URL}${path}"
+    ddev_url="${ddev_url//&/\\&}"
+    "$DDEV_BIN" exec curl -sS -o /dev/null -w '%{time_starttransfer}' -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' "$ddev_url"
+}
+
+assert_warm_ttfb() {
+    local label="$1"
+    local path="$2"
+    local budget_ms="$3"
+    local seconds
+    local milliseconds
+    local worst_ms=0
+
+    request_ttfb_seconds "$path" >/dev/null
+
+    for run in 1 2; do
+        seconds="$(request_ttfb_seconds "$path")"
+        seconds="${seconds//$'\r'/}"
+        milliseconds="$(awk -v seconds="$seconds" 'BEGIN { printf "%d", (seconds * 1000) + 0.5 }')"
+        (( milliseconds > worst_ms )) && worst_ms="$milliseconds"
+    done
+
+    (( worst_ms <= budget_ms )) || fail "$label warmed TTFB was ${worst_ms}ms; budget is ${budget_ms}ms"
+    printf '[veylune-release] %-18s %4d / %4d ms warmed TTFB\n' "$label" "$worst_ms" "$budget_ms"
+}
+
+printf '[veylune-release] semantic route contracts\n'
+routes=(
+    '/'
+    '/categories/furniture'
+    '/collections/founder-selection'
+    '/rooms/living-room'
+    '/discover?q=room'
+    '/selection'
+    '/account/login'
+    '/contact-studio'
+)
+labels=(home category collection room discover selection account contact)
+
+for index in "${!routes[@]}"; do
+    route_file="${TMP_DIR}/${labels[$index]}.html"
+    fetch_path "${routes[$index]}" "$route_file" 200
+    assert_document_contract "$route_file" "${labels[$index]}"
+done
+
+assert_contains "${TMP_DIR}/account.html" 'data-vli-visual-baseline="account-entry"' 'account entry'
+assert_contains "${TMP_DIR}/account.html" 'class="vli-account-create"' 'compact account creation handoff'
+assert_contains "${TMP_DIR}/account.html" 'href="/account/register"' 'dedicated account registration route'
+assert_contains "${TMP_DIR}/contact.html" 'data-vli-inquiry-status' 'Contact Studio error-summary shell'
+
+printf '[veylune-release] controlled error contracts\n'
+zero_file="${TMP_DIR}/zero.html"
+fetch_path '/discover?q=zxqv987654321' "$zero_file" 200
+assert_contains "$zero_file" 'No confident index match' 'zero-result recovery state'
+assert_contains "$zero_file" '<strong>0</strong> results' 'zero-result count'
+
+error_file="${TMP_DIR}/404.html"
+error_headers="${TMP_DIR}/404.headers"
+fetch_path '/__release-gate/not-found' "$error_file" 404
+fetch_headers '/__release-gate/not-found' "$error_headers"
+assert_document_contract "$error_file" 'controlled 404'
+assert_contains "$error_file" 'data-veylune-release-error' 'controlled 404 visual shell'
+assert_contains "$error_file" 'content="noindex,nofollow"' 'controlled 404 robots policy'
+assert_header "$error_headers" '^Cache-Control:[[:space:]]*no-store, private' 'controlled 404 cache'
+assert_header "$error_headers" '^X-Robots-Tag:[[:space:]]*noindex, nofollow' 'controlled 404 robots'
+assert_header "$error_headers" '^Strict-Transport-Security:' 'controlled 404 HSTS'
+assert_header "$error_headers" '^X-Frame-Options:[[:space:]]*DENY' 'controlled 404 frame protection'
+assert_header "$error_headers" '^X-Content-Type-Options:[[:space:]]*nosniff' 'controlled 404 content protection'
+assert_header "$error_headers" '^Referrer-Policy:[[:space:]]*strict-origin-when-cross-origin' 'controlled 404 referrer policy'
+assert_header "$error_headers" '^Content-Security-Policy:' 'controlled 404 CSP'
+
+printf '[veylune-release] interaction and accessibility source contracts\n'
+header_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js'
+inquiry_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-inquiry-lifecycle.js'
+readiness_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-production-readiness.scss'
+release_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-release-candidate.scss'
+search_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search.html.twig'
+assert_contains "$header_js" 'setInertState(mega, true)' 'closed mega inert lifecycle'
+assert_contains "$header_js" 'setInertState(mobileNav, true)' 'closed mobile navigation inert lifecycle'
+assert_contains "$header_js" 'trapFocus(event, mobileNav)' 'mobile navigation focus trap'
+assert_contains "$header_js" 'closeMobileNav({ restoreFocus: true })' 'mobile navigation focus restoration'
+assert_contains "$inquiry_js" "status.setAttribute('role', state === 'error' ? 'alert' : 'status')" 'inquiry status announcement'
+assert_contains "$inquiry_js" "control.setAttribute('aria-invalid', 'true')" 'inquiry invalid-field association'
+assert_contains "$readiness_css" 'outline: 3px solid' 'visible focus ring'
+assert_contains "$readiness_css" 'min-height: 44px' 'mobile target size'
+assert_contains "$readiness_css" '@media (prefers-reduced-motion: reduce)' 'reduced motion fallback'
+assert_contains "$search_template" 'class="vli-search-sort"' 'Discover sort form'
+assert_contains "$search_template" 'button type="submit">Apply</button>' 'Discover sort submit action'
+assert_contains "$release_css" 'grid-row: 2' 'mobile Discover sort row separation'
+assert_contains "$release_css" 'position: static' 'mobile Discover Apply hit target'
+
+printf '[veylune-release] warmed development timing guard\n'
+assert_warm_ttfb 'home' '/' 1800
+assert_warm_ttfb 'discover' '/discover?q=room' 1800
+assert_warm_ttfb 'account' '/account/login' 1800
+assert_warm_ttfb 'contact' '/contact-studio' 1800
+assert_warm_ttfb 'controlled 404' '/__release-gate/not-found' 1200
+
+bash bin/veylune-performance-baseline >/dev/null
+printf '[veylune-release] production readiness gate passed\n'

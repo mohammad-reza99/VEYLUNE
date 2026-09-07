@@ -1,0 +1,51 @@
+{% if veyluneSearchResults is not empty %}
+    <section class="vli-search-page__results" aria-label="Discovery results">
+        {% for result in veyluneSearchResults %}
+            {% set returnParams = { from: 'discover' } %}
+            {% if veyluneSearchQuery %}{% set returnParams = returnParams|merge({ q: veyluneSearchQuery }) %}{% endif %}
+            {% if veyluneSearchActiveAxis %}{% set returnParams = returnParams|merge({ axis: veyluneSearchActiveAxis }) %}{% endif %}
+            {% if veyluneSearchSort != 'relevance' %}{% set returnParams = returnParams|merge({ sort: veyluneSearchSort }) %}{% endif %}
+            {% set resultUrl = path(result.route, result.routeParams|merge(returnParams)) %}
+            {% set resultAsset = asset('assets/' ~ result.asset, 'theme') %}
+            <article class="vli-search-card" data-vli-search-result data-vli-search-result-type="{{ result.type|lower }}">
+                <a class="vli-search-card__media" href="{{ resultUrl }}" aria-label="Open {{ result.title }}">
+                    <img src="{{ resultAsset }}" alt="{{ result.title }} context" loading="lazy" decoding="async">
+                </a>
+                <button type="button"
+                        class="vli-search-card__save"
+                        data-vli-selection-add
+                        data-selection-key="{{ result.key|e('html_attr') }}"
+                        data-selection-type="{{ result.type|e('html_attr') }}"
+                        data-selection-title="{{ result.title|e('html_attr') }}"
+                        data-selection-description="{{ result.description|e('html_attr') }}"
+                        data-selection-url="{{ path(result.route, result.routeParams)|e('html_attr') }}"
+                        data-selection-asset="{{ resultAsset|e('html_attr') }}"
+                        data-selection-default-label="Save"
+                        aria-label="Save {{ result.title }} to selection"
+                        aria-pressed="false">
+                    <span class="vli-search-card__save-icon" aria-hidden="true" data-vli-selection-icon>&#9825;</span>
+                    <span data-vli-selection-label>Save</span>
+                </button>
+                <div class="vli-search-card__body">
+                    <span class="vli-search-card__flag">Veylune edit</span>
+                    <small>{{ result.type }}</small>
+                    <a class="vli-search-card__title" href="{{ resultUrl }}">{{ result.title }}</a>
+                    <p>{{ result.description }}</p>
+                    <a class="vli-search-card__view" href="{{ resultUrl }}">View {{ result.type|lower }} path</a>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
+{% else %}
+    <section class="vli-search-page__empty" aria-labelledby="vli-search-empty-title">
+        <p class="vli-search-page__kicker">No confident index match</p>
+        <h2 id="vli-search-empty-title">Try a broader home idea.</h2>
+        <p>Use fewer words, clear the active filter, or begin with one of these proven paths.</p>
+        <div>
+            <a href="{{ path('frontend.veylune.discovery.room', { roomKey: 'living-room', from: 'discover', q: veyluneSearchQuery }) }}">Living Room</a>
+            <a href="{{ path('frontend.veylune.editions.page', { from: 'discover', q: veyluneSearchQuery }) }}">Material</a>
+            <a href="{{ path('frontend.veylune.discovery.collection', { collectionKey: 'founder-selection', from: 'discover', q: veyluneSearchQuery }) }}">Founder Selection</a>
+            <a href="{{ path('frontend.veylune.consultation.page', { from: 'discover', q: veyluneSearchQuery }) }}">Project</a>
+        </div>
+    </section>
+{% endif %}

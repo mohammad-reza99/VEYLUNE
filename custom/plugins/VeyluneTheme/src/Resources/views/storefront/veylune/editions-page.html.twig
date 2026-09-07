@@ -1,40 +1,105 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
 {% block base_main_inner %}
-    {% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
-    {% set consultationUrl = veyluneCategoryRoutes.url('consultation')|trim %}
-    {% set partnershipUrl = path('frontend.veylune.partnership.page') %}
+    {% set vliGerman = app.request.locale starts with 'de' %}
 
-    <div class="veylune-editions" data-veylune-authority>
-        <section class="veylune-editions-hero" data-veylune-reveal>
-            <div class="veylune-editions-hero__inner">
-                <div class="veylune-editions-hero__content">
-                    <p class="veylune-editions__eyebrow">{{ 'veylune.editions.hero.eyebrow'|trans|sw_sanitize }}</p>
-                    <h1>{{ 'veylune.editions.hero.title'|trans|sw_sanitize }}</h1>
-                    <p>{{ 'veylune.editions.hero.text'|trans|sw_sanitize }}</p>
-                    {% if consultationUrl and consultationUrl != '#' %}
-                        <div class="veylune-editions__actions">
-                            <a class="veylune-editions__link" href="{{ consultationUrl }}">{{ 'veylune.editions.cta.privateConsultation'|trans|sw_sanitize }}</a>
-                        </div>
-                    {% endif %}
+    <div class="vli-axis-page vli-axis-page--material"
+          data-veylune-living-index-axis="material"
+          data-veylune-registry-scope="living-index-axis"
+          data-veylune-registry-entity="material">
+        <nav class="vli-axis-page__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">{{ vliGerman ? 'Startseite' : 'Home' }}</a>
+            <span aria-hidden="true">/</span>
+            <span>Living Index</span>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ vliGerman ? 'Material' : 'Material' }}</span>
+        </nav>
+
+        <section class="vli-axis-page__hero" aria-labelledby="vli-material-title">
+            <div class="vli-axis-page__hero-copy">
+                <p class="vli-axis-page__kicker">01 / {{ 'veylune.editions.hero.eyebrow'|trans|sw_sanitize }}</p>
+                <h1 id="vli-material-title">{{ 'veylune.editions.hero.title'|trans|sw_sanitize }}</h1>
+                <p>{{ 'veylune.editions.hero.text'|trans|sw_sanitize }}</p>
+                <div class="vli-axis-page__hero-actions">
+                    <a class="vli-axis-button vli-axis-button--primary" href="#vli-material-paths">{{ vliGerman ? 'Materialwege erkunden' : 'Explore material paths' }}</a>
+                    <a class="vli-axis-button" href="{{ path('frontend.veylune.partnership.page') }}">{{ 'veylune.editions.cta.atelierPartnerships'|trans|sw_sanitize }}</a>
                 </div>
-                <div class="veylune-editions-hero__visual" aria-hidden="true">
-                    <span>Material edition</span>
+                <dl class="vli-axis-page__facts">
+                    <div><dt>{{ vliGerman ? 'Achse' : 'Axis' }}</dt><dd>01</dd></div>
+                    <div><dt>{{ vliGerman ? 'Materialwege' : 'Material paths' }}</dt><dd>04</dd></div>
+                    <div><dt>{{ vliGerman ? 'Modus' : 'Mode' }}</dt><dd>{{ vliGerman ? 'Dokument' : 'Record' }}</dd></div>
+                </dl>
+            </div>
+            <figure class="vli-axis-page__hero-media">
+                <img src="{{ asset('assets/veylune-category-decor-v1.webp', 'theme') }}"
+                     alt="{{ vliGerman ? 'Eine ruhige Materialkomposition aus Stein und Keramik' : 'A quiet material composition of stone and ceramic' }}"
+                     loading="eager"
+                     fetchpriority="high">
+                <figcaption>{{ vliGerman ? 'Material / Oberflaeche und Herkunft' : 'Material / surface and provenance' }}</figcaption>
+            </figure>
+        </section>
+
+        {% sw_include '@Storefront/storefront/veylune/living-index-axis-map.html.twig' with {
+            veyluneLivingIndexAxis: 'material'
+        } %}
+
+        <section class="vli-material-paths" id="vli-material-paths" aria-labelledby="vli-material-paths-title">
+            <header class="vli-axis-section-head">
+                <div>
+                    <p class="vli-axis-page__kicker">{{ vliGerman ? 'Materialbibliothek' : 'Material library' }}</p>
+                    <h2 id="vli-material-paths-title">{{ vliGerman ? 'Nach Oberflaeche beginnen, nicht nach Inventar.' : 'Begin with the surface, not the inventory.' }}</h2>
                 </div>
+                <p>{{ vliGerman ? 'Jeder Weg verbindet taktile Qualitaet mit Pflege, Herstellungslogik und dem Raum, in dem das Material wirken soll.' : 'Each path connects tactile quality with care, making logic, and the room where the material needs to perform.' }}</p>
+            </header>
+            <div class="vli-material-paths__grid">
+                {% set materialPaths = vliGerman ? [
+                    { index: '01', query: 'stone', title: 'Stein', text: 'Travertin, Marmor und mineralische Oberflaechen.' },
+                    { index: '02', query: 'wood', title: 'Holz', text: 'Eiche, Maserung, Finish und konstruktive Waerme.' },
+                    { index: '03', query: 'fabric', title: 'Textil', text: 'Webung, Griff, Fall und Alltagstauglichkeit.' },
+                    { index: '04', query: 'metal', title: 'Metall', text: 'Patina, Reflexion, Struktur und Detail.' }
+                ] : [
+                    { index: '01', query: 'stone', title: 'Stone', text: 'Travertine, marble, and mineral surfaces.' },
+                    { index: '02', query: 'wood', title: 'Wood', text: 'Oak, grain, finish, and structural warmth.' },
+                    { index: '03', query: 'fabric', title: 'Textile', text: 'Weave, hand, drape, and daily performance.' },
+                    { index: '04', query: 'metal', title: 'Metal', text: 'Patina, reflection, structure, and detail.' }
+                ] %}
+                {% for material in materialPaths %}
+                    <a href="{{ path('frontend.veylune.living_index.search', { q: material.query }) }}" data-veylune-material-path="{{ material.query }}">
+                        <span>{{ material.index }}</span>
+                        <strong>{{ material.title }}</strong>
+                        <small>{{ material.text }}</small>
+                        <b aria-hidden="true">&rarr;</b>
+                    </a>
+                {% endfor %}
             </div>
         </section>
 
-        <section class="veylune-editions-section veylune-editions-acquisition" data-veylune-reveal>
+        <section class="vli-material-evidence" aria-labelledby="vli-material-evidence-title">
+            <header class="vli-axis-section-head">
+                <div>
+                    <p class="vli-axis-page__kicker">{{ 'veylune.editions.governance.eyebrow'|trans|sw_sanitize }}</p>
+                    <h2 id="vli-material-evidence-title">{{ vliGerman ? 'Eine Materialentscheidung braucht mehr als ein Bild.' : 'A material decision needs more than an image.' }}</h2>
+                </div>
+                <p>{{ 'veylune.editions.governance.text'|trans|sw_sanitize }}</p>
+            </header>
+            <div class="vli-material-evidence__grid">
+                {% for key in ['crossCollection', 'releaseContext', 'archiveContinuity'] %}
+                    <article>
+                        <span>0{{ loop.index }}</span>
+                        <h3>{{ ('veylune.editions.governance.principles.' ~ key ~ '.title')|trans|sw_sanitize }}</h3>
+                        <p>{{ ('veylune.editions.governance.principles.' ~ key ~ '.text')|trans|sw_sanitize }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="vli-axis-closing" aria-labelledby="vli-material-closing-title">
             <div>
-                <p class="veylune-editions__eyebrow">{{ 'veylune.editions.acquisition.eyebrow'|trans|sw_sanitize }}</p>
-                <h2>{{ 'veylune.editions.acquisition.title'|trans|sw_sanitize }}</h2>
-            </div>
-            <div class="veylune-editions-acquisition__content">
+                <p class="vli-axis-page__kicker">{{ 'veylune.editions.acquisition.eyebrow'|trans|sw_sanitize }}</p>
+                <h2 id="vli-material-closing-title">{{ 'veylune.editions.acquisition.title'|trans|sw_sanitize }}</h2>
                 <p>{{ 'veylune.editions.acquisition.text'|trans|sw_sanitize }}</p>
-                {% if consultationUrl and consultationUrl != '#' %}
-                    <a class="veylune-editions__link" href="{{ consultationUrl }}">{{ 'veylune.editions.cta.privateConsultation'|trans|sw_sanitize }}</a>
-                {% endif %}
             </div>
+            <a class="vli-axis-button vli-axis-button--light" href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.editions.cta.privateConsultation'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></a>
         </section>
     </div>
 {% endblock %}

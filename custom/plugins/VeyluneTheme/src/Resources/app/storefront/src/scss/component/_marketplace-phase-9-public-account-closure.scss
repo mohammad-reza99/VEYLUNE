@@ -11,6 +11,190 @@
     margin-top: 0.5rem;
 }
 
+.vli-account-recovery {
+    --vli-account-ink: #171419;
+    --vli-account-muted: #625c63;
+    --vli-account-line: #ded9e0;
+    --vli-account-command: #7f187f;
+    --vli-account-command-dark: #4e0e52;
+    display: grid;
+    grid-template-columns: minmax(0, .92fr) minmax(420px, 1.08fr);
+    width: min(calc(100% - clamp(2rem, 7vw, 7rem)), 1320px);
+    margin: clamp(2rem, 5vw, 5rem) auto;
+    border: 1px solid var(--vli-account-line);
+    background: #fff;
+    color: var(--vli-account-ink);
+}
+
+.vli-account-recovery__intro {
+    display: flex;
+    min-height: 580px;
+    padding: clamp(2rem, 5vw, 4.5rem);
+    flex-direction: column;
+    background: var(--vli-account-command-dark);
+    color: #fff;
+}
+
+.vli-account-recovery__kicker,
+.vli-account-recovery__form-kicker {
+    margin: 0 0 1rem;
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.vli-account-recovery__kicker { color: rgba(255, 255, 255, .72); }
+.vli-account-recovery__form-kicker { color: var(--vli-account-command); }
+
+.vli-account-recovery__intro h1 {
+    max-width: 580px;
+    margin: 0;
+    color: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 400;
+    line-height: .96;
+    letter-spacing: -.045em;
+}
+
+.vli-account-recovery__intro > p:not(.vli-account-recovery__kicker) {
+    max-width: 520px;
+    margin: 1.5rem 0 0;
+    color: rgba(255, 255, 255, .76);
+    line-height: 1.65;
+}
+
+.vli-account-recovery__index {
+    display: grid;
+    margin: auto 0 0;
+    border-top: 1px solid rgba(255, 255, 255, .24);
+}
+
+.vli-account-recovery__index > div {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: .75rem;
+    align-items: center;
+    min-height: 54px;
+    border-bottom: 1px solid rgba(255, 255, 255, .24);
+}
+
+.vli-account-recovery__index dt {
+    color: rgba(255, 255, 255, .62);
+    font-size: .68rem;
+    font-weight: 800;
+}
+
+.vli-account-recovery__index dd {
+    margin: 0;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.vli-account-recovery__form-shell {
+    display: flex;
+    padding: clamp(2rem, 5vw, 4.5rem);
+    flex-direction: column;
+    justify-content: center;
+}
+
+.vli-account-recovery .account-recover-password {
+    margin: 0;
+}
+
+.vli-account-recovery .account-recover-password > div {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    flex: 0 0 100%;
+}
+
+.vli-account-recovery .account-recover-password-form {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.vli-account-recovery .account-recover-password-form .card-title {
+    margin: 0;
+    padding: 0 0 1.25rem;
+    border: 0;
+    color: var(--vli-account-ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 3.5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -.035em;
+}
+
+.vli-account-recovery .account-recover-password-form .card-body {
+    padding: 0;
+}
+
+.vli-account-recovery .account-recover-password-info {
+    max-width: 640px;
+    color: var(--vli-account-muted);
+    line-height: 1.65;
+}
+
+.vli-account-recovery .form-label {
+    color: var(--vli-account-ink);
+    font-size: .74rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    text-transform: uppercase;
+}
+
+.vli-account-recovery .form-control {
+    min-height: 52px;
+    border-color: var(--vli-account-line);
+    border-radius: 0;
+    background: #fbf9fb;
+}
+
+.vli-account-recovery .form-control:focus {
+    border-color: var(--vli-account-command);
+    box-shadow: 0 0 0 3px rgba(127, 24, 127, .15);
+}
+
+.vli-account-recovery .account-recover-password-form-actions {
+    display: flex;
+    gap: .75rem;
+    margin-top: 1.25rem;
+}
+
+.vli-account-recovery .account-recover-password-form-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding-inline: 1.25rem;
+    border-radius: 0;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+}
+
+.vli-account-recovery .account-recover-password-submit {
+    border-color: var(--vli-account-command);
+    background: var(--vli-account-command);
+}
+
+.vli-account-recovery__boundary {
+    margin: 1.5rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--vli-account-line);
+    color: var(--vli-account-muted);
+    font-size: .76rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 991.98px) {
+    .vli-account-recovery { grid-template-columns: 1fr; }
+    .vli-account-recovery__intro { min-height: 440px; }
+}
+
 @media (max-width: 575.98px) {
     .login-card .card-body,
     .register-card .card-body {
@@ -27,4 +211,21 @@
         display: inline-flex;
         align-items: center;
     }
+
+    .vli-account-recovery {
+        width: 100%;
+        margin: 0;
+        border-inline: 0;
+    }
+
+    .vli-account-recovery__intro {
+        min-height: auto;
+        padding: 2.5rem 1rem;
+    }
+
+    .vli-account-recovery__intro h1 { font-size: clamp(2.6rem, 14vw, 3.8rem); }
+    .vli-account-recovery__index { margin-top: 2.5rem; }
+    .vli-account-recovery__form-shell { padding: 2.5rem 1rem 3rem; }
+    .vli-account-recovery .account-recover-password-form-actions { align-items: stretch; flex-direction: column-reverse; }
+    .vli-account-recovery .account-recover-password-form-actions .btn { width: 100%; }
 }

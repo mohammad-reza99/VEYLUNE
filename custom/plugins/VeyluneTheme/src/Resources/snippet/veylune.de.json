@@ -187,6 +187,115 @@
       "selectedFormsMany": "%count% dokumentierte Formen"
     },
     "destination": {
+      "breadcrumb": {
+        "home": "Startseite"
+      },
+      "livingIndex": {
+        "departmentKicker": "Living Index / Abteilung",
+        "roomKicker": "Living Index / Raum",
+        "collectionKicker": "Living Index / Szene",
+        "objectAxis": "Objekt",
+        "roomAxis": "Raum",
+        "styleAxis": "Stil",
+        "departmentLabel": "Abteilung",
+        "roomLabel": "Raum",
+        "collectionLabel": "Kollektion",
+        "pathCount": "%count% Objektpfade",
+        "scenePathCount": "%count% Raumpfade",
+        "editCount": "1 kuratierte Auswahl",
+        "objectCount": "%count% oeffentliche Objekte",
+        "departmentMode": "Index + Kontext",
+        "roomMode": "Szene + Raumindex",
+        "collectionMode": "Szene + Index",
+        "browseEyebrow": "Objektkarte",
+        "browseTitle": "Die Abteilung nach Form entdecken.",
+        "browseText": "Direkte Pfade bleiben kompakt, visuell und bereit fuer ein wachsendes kuratiertes Sortiment.",
+        "indexEyebrow": "Objektindex",
+        "indexTitle": "Die oeffentliche Auswahl vergleichen.",
+        "indexText": "Material, Preis und Verfuegbarkeit bleiben sichtbar, sobald ein freigegebenes Objekt in den Index eintritt.",
+        "resultCount": "%count% Objekte",
+        "materialLabel": "Material",
+        "allMaterials": "Alle Materialien",
+        "sortLabel": "Sortieren",
+        "sortCurated": "Veylune Auswahl",
+        "sortName": "Name",
+        "sortPriceAsc": "Preis aufsteigend",
+        "sortPriceDesc": "Preis absteigend",
+        "apply": "Anwenden",
+        "clear": "Auswahl loeschen",
+        "emptyTitle": "Der oeffentliche Index wird komponiert.",
+        "emptyFilteredTitle": "Keine Objekte entsprechen dieser Auswahl.",
+        "emptyText": "Entdecken Sie jetzt die Abteilungspfade oder beginnen Sie einen Studio-Dialog fuer einen bestimmten Raum oder eine Materialrichtung.",
+        "emptyFilteredText": "Loeschen Sie die aktive Auswahl, um zur vollstaendigen oeffentlichen Auswahl zurueckzukehren.",
+        "searchCta": "Living Index durchsuchen",
+        "consultationCta": "Projekt-Dialog beginnen",
+        "relatedEyebrow": "Verbundene Achsen",
+        "relatedTitle": "Ueber Kontext, Material oder Projekt fortfahren.",
+        "objectTitle": "Objekt",
+        "objectText": "Vom Raumziel zu vergleichbaren Formen und Funktionen wechseln.",
+        "roomTitle": "Raum",
+        "roomText": "Objekte in einer raeumlichen Komposition sehen.",
+        "materialTitle": "Material",
+        "materialText": "Oberflaeche, Ton und Pflege als Evidenz lesen.",
+        "projectTitle": "Projekt",
+        "projectText": "Masse, Anforderungen und Absicht in einen Dialog bringen.",
+        "scene": {
+          "imageAlt": "Eine komponierte Einrichtung fuer %title%",
+          "roomEyebrow": "Raumkomposition",
+          "roomTitle": "Im Raum beginnen, dann nach Objekt verfeinern.",
+          "roomText": "Vier praktische Pfade uebersetzen Atmosphaere in strukturierte Entdeckung, ohne Vergleich oder Produktevidenz zu verbergen.",
+          "collectionEyebrow": "Kuratierte Auswahl",
+          "collectionTitle": "Die Szene lesen, dann die naechste Perspektive waehlen.",
+          "collectionText": "Jede Kollektion bleibt im ersten Moment ausdrucksstark und fuehrt direkt zu Form, Material, Raum und Projektunterstuetzung.",
+          "roomPaths": {
+            "seating": {
+              "label": "Sitzen und Massstab",
+              "text": "Den Raum ueber Silhouette, Komfort und Proportion verankern."
+            },
+            "tables-storage": {
+              "label": "Tische und Stauraum",
+              "text": "Nutzbare Flaechen und ruhige raeumliche Ordnung schaffen."
+            },
+            "lighting": {
+              "label": "Licht und Atmosphaere",
+              "text": "Arbeitslicht, Grundstimmung und architektonische Linie formen."
+            },
+            "textiles-objects": {
+              "label": "Textilien und Objekte",
+              "text": "Den Raum durch Weichheit, Haptik und Detail vollenden."
+            }
+          },
+          "collectionPaths": {
+            "form": {
+              "label": "Form",
+              "text": "Die Auswahl ueber Silhouette und Funktion betreten."
+            },
+            "material": {
+              "label": "Material",
+              "text": "Oberflaeche, Konstruktion und Tonalitaet lesen."
+            },
+            "room": {
+              "label": "Raum",
+              "text": "Die Kollektion in eine raeumliche Entscheidung setzen."
+            },
+            "project": {
+              "label": "Projektdialog",
+              "text": "Masse und Beschaffungskontext mit dem Studio teilen."
+            }
+          }
+        }
+      },
+      "promo": {
+        "label": "Lieferinformationen",
+        "title": "Durchdachte Lieferung, klar erklaert.",
+        "text": "Lieferbedingungen und Projektberatung stehen vor Ihrer Entscheidung bereit.",
+        "cta": "Lieferdetails ansehen"
+      },
+      "listing": {
+        "label": "Produktergebnisse",
+        "count": "%count% Artikel",
+        "recommended": "Empfohlene Reihenfolge"
+      },
       "meta": {
         "description": "Entdecken Sie eine Veylune Auswahl, geprägt von Material, Proportion und räumlicher Relevanz."
       },
@@ -203,6 +312,7 @@
         "cushions": "Kissen",
         "floorLamps": "Stehleuchten",
         "mirrors": "Spiegel",
+        "mattresses": "Matratzen",
         "outdoorSeating": "Outdoor-Sitzmoebel",
         "outdoorTables": "Outdoor-Tische",
         "pendants": "Pendelleuchten",
@@ -267,6 +377,22 @@
         "outdoor": {
           "title": "Outdoor",
           "text": "Eine Commerce-Destination fuer Exterior-Moebel und Objekte rund um Haltbarkeit, Atmosphaere und saisonales Wohnen."
+        },
+        "beddingBath": {
+          "title": "Bett & Bad",
+          "text": "Bett- und Badtextilien, ausgewaehlt fuer Komfort, Haptik und einen ruhigen taeglichen Rhythmus."
+        },
+        "mattresses": {
+          "title": "Matratzen",
+          "text": "Durchdachte Schlafgrundlagen rund um Unterstuetzung, Materialqualitaet und dauerhaften Komfort."
+        },
+        "rugs": {
+          "title": "Teppiche",
+          "text": "Textile Grundlagen, die Raeume durch Massstab, Weichheit, Muster und Materialtiefe definieren."
+        },
+        "organization": {
+          "title": "Organisation",
+          "text": "Stauraum und Ordnungsformen fuer Klarheit, Struktur und ruhige Funktion im Zuhause."
         }
       },
       "rooms": {
@@ -304,6 +430,14 @@
           "title": "New Arrivals",
           "text": "Die neuesten Stücke der Veylune Studio Auswahl."
         },
+        "bestSellers": {
+          "title": "Bestseller",
+          "text": "Haeufig gewaehlte Stuecke mit Vielseitigkeit, Materialpraesenz und dauerhafter Relevanz."
+        },
+        "sale": {
+          "title": "Sale",
+          "text": "Eine kuratierte Auswahl reduzierter Stuecke mit denselben Anspruechen an Material und Proportion."
+        },
         "permanentCollections": {
           "title": "Permanent Collections",
           "text": "Dauerhafte Auswahlen rund um beständige Material- und Raumthemen."
@@ -313,6 +447,62 @@
           "text": "Redaktionelle Studien, die Objekte durch Raum, Material und Atmosphäre verbinden."
         }
       }
+    },
+    "objectMode": {
+      "previewNotice": "Entwicklungsansicht - dieses Objekt ist nicht oeffentlich.",
+      "breadcrumbObject": "Objekt",
+      "recordKicker": "Living Index / Objektakte",
+      "priceLabel": "Objektpreis",
+      "priceNote": "Spezifikation, Lieferumfang und verbindliche Zusage werden mit dem Studio bestaetigt.",
+      "availability": "Verfuegbar nach Studio-Bestaetigung",
+      "previewAvailability": "Veroeffentlichung gesperrt",
+      "availabilityText": "Preis und Verfuegbarkeit werden vor einer Projektzusage geprueft.",
+      "previewAvailabilityText": "Diese Entwicklungsansicht kann keine oeffentliche Bestellung oder Auswahl erstellen.",
+      "consultationCta": "Objekt-Dialog beginnen",
+      "deliveryCta": "Lieferbedingungen ansehen",
+      "reference": "Referenz",
+      "material": "Material",
+      "room": "Raumkontext",
+      "release": "Freigabe",
+      "publicRecord": "Oeffentliche Akte",
+      "developmentRecord": "Nur Entwicklung",
+      "evidenceKicker": "Objektevidenz",
+      "evidenceTitle": "Das Objekt vor der Zusage verstehen.",
+      "evidenceText": "Material, Proportion, Pflege, Preis und raeumliche Eignung bleiben in einer Entscheidungsakte verbunden.",
+      "atGlance": "Auf einen Blick",
+      "maker": "Hersteller",
+      "leadTime": "Lieferzeit",
+      "onRequest": "Auf Anfrage bestaetigt",
+      "descriptionKicker": "Objektkontext",
+      "descriptionTitle": "Form, Material und raeumliche Praesenz.",
+      "materialStory": "Materialgeschichte",
+      "craftsmanship": "Handwerk",
+      "care": "Pflegehinweise",
+      "evidencePending": "Die Evidenz wird vor der oeffentlichen Freigabe bestaetigt.",
+      "specKicker": "Evidenzindex",
+      "specTitle": "Masse und wesentliche Fakten.",
+      "width": "Breite",
+      "height": "Hoehe",
+      "depth": "Tiefe",
+      "weight": "Gewicht",
+      "productType": "Produkttyp",
+      "dimensionsUnit": "Masse werden in Millimetern angegeben, sofern nicht anders vermerkt.",
+      "contextKicker": "Szenenverbindung",
+      "contextTitle": "Das Objekt im groesseren Raumsystem sehen.",
+      "contextText": "Zwischen Raumszene, kuratierter Kollektion und vergleichbarem Objektindex wechseln, ohne den Entscheidungskontext zu verlieren.",
+      "contextImageAlt": "%name% in der Atmosphaere von %room%",
+      "contextCaption": "Raumstudie / %room%",
+      "contextNavLabel": "Kontextpfade des Objekts",
+      "contextRoomCta": "%room% oeffnen",
+      "contextCollectionCta": "Kuratierte Kollektion oeffnen",
+      "contextObjectCta": "Verwandte Objekte vergleichen",
+      "projectKicker": "Projektpfad",
+      "projectTitle": "Das Objekt in eine reale Raumentscheidung einordnen.",
+      "projectText": "Teilen Sie Masse, Raumvorgaben, Materialrichtung oder Beschaffungskontext mit dem Studio.",
+      "projectCta": "Projekt-Dialog beginnen",
+      "materialCta": "Material Index oeffnen",
+      "primaryView": "Hauptansicht von %name%",
+      "detailView": "Evidenzansicht von %name%"
     },
     "productDetail": {
       "atelier": "Atelier",

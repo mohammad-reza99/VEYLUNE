@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MODE="${1:---report}"
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-manifest][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+branch="$(git branch --show-current)"
+head_ref="$(git rev-parse --short HEAD)"
+conflicts="$(git diff --name-only --diff-filter=U)"
+status="$(git status --short)"
+include_candidates="$(printf '%s\n' "$status" | grep -Ev '\.orig$|^.. \.ddev/|^.. \.codex-tmp/|^.. public/theme/|^.. var/|^.. vendor/|^.. node_modules/' || true)"
+excluded_candidates="$(printf '%s\n' "$status" | grep -E '\.orig$|^.. \.ddev/|^.. \.codex-tmp/|^.. public/theme/|^.. var/|^.. vendor/|^.. node_modules/' || true)"
+
+[[ "$MODE" == '--report' || "$MODE" == '--assert-frozen' ]] || fail 'usage: bin/veylune-release-manifest [--report|--assert-frozen]'
+
+[[ -z "$conflicts" ]] || fail 'unresolved merge conflicts exist'
+
+if printf '%s\n' "$status" | grep -Eq '(^|/)(\.env\.local|\.env\.prod\.local|auth\.json|id_rsa|id_ed25519)([[:space:]]|$)|\.(sql|pem|key)$'; then
+    fail 'a secret-bearing or database artifact is present in the release worktree'
+fi
+
+if git grep -nE '^(<<<<<<< .+|=======|>>>>>>> .+)$' -- ':!*.orig' ':!public/theme/**' >/dev/null 2>&1; then
+    fail 'merge-conflict markers exist in release source'
+fi
+
+printf '[veylune-manifest] branch=%s head=%s\n' "$branch" "$head_ref"
+printf '[veylune-manifest] include candidates\n'
+printf '%s\n' "$include_candidates"
+printf '[veylune-manifest] excluded local or residue paths\n'
+printf '%s\n' "$excluded_candidates"
+
+if [[ "$MODE" == '--assert-frozen' && -n "$include_candidates" ]]; then
+    fail 'release include candidates remain uncommitted'
+fi
+
+printf '[veylune-manifest] manifest safety check passed\n'

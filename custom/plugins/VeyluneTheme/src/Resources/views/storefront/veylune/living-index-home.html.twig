@@ -1,0 +1,185 @@
+{% set furnitureAvailable = publicSurfaces['category:furniture']|default(false) %}
+{% set primaryCtaUrl = furnitureAvailable ? veyluneRoutes.shop : veyluneDiscoveryRooms|first.target %}
+{% set primaryCtaLabel = furnitureAvailable ? 'Enter the object index' : 'Explore the living room' %}
+{% set objectStudies = [
+    {
+        index: '01',
+        title: 'Modular seating',
+        caption: 'Proportion, upholstery, configuration',
+        asset: 'products/f01-aurelia-modular-sofa-v1.webp',
+        target: primaryCtaUrl
+    },
+    {
+        index: '02',
+        title: 'Soft geometry',
+        caption: 'Curve, scale, room relationship',
+        asset: 'products/f02-liora-curved-sofa-v1.webp',
+        target: veyluneDiscoveryRooms|first.target
+    },
+    {
+        index: '03',
+        title: 'Mineral surfaces',
+        caption: 'Tone, texture, care',
+        asset: 'products/f10-elara-travertine-coffee-table-v1.webp',
+        target: veyluneRoutes.editions
+    },
+    {
+        index: '04',
+        title: 'Architectural storage',
+        caption: 'Rhythm, volume, placement',
+        asset: 'products/f13-portico-travertine-console-v1.webp',
+        target: veyluneRoutes.editions
+    }
+] %}
+
+<div class="veylune-home veylune-home--living-index vlx vli-home" data-veylune-home data-veylune-living-index-home>
+    <nav class="vli-home__merchandising-rail"
+         aria-label="Featured Veylune paths"
+         data-vli-visual-baseline="merchandising-rail">
+        <a href="{{ veyluneRoutes.newArrivals }}">
+            <strong>New arrivals</strong>
+            <span>See the latest edit <b aria-hidden="true">&rarr;</b></span>
+        </a>
+        <a href="{{ veyluneRoutes.founderSelection }}">
+            <strong>Founder selection</strong>
+            <span>Open the authored collection <b aria-hidden="true">&rarr;</b></span>
+        </a>
+        <a href="{{ veyluneRoutes.consultation }}">
+            <strong>Private projects</strong>
+            <span>Begin a design dialogue <b aria-hidden="true">&rarr;</b></span>
+        </a>
+    </nav>
+
+    <section class="vlx-hero vli-home__hero" aria-labelledby="vli-home-title" data-vli-home-module="hero">
+        <img src="{{ asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme') }}"
+             alt="Architectural living room composed with sculptural seating, a mineral table, and warm light"
+             width="1920"
+             height="1080"
+             loading="eager"
+             fetchpriority="high"
+             decoding="async">
+        <div class="vlx-hero__shade" aria-hidden="true"></div>
+        <div class="vlx-hero__content">
+            <p class="vlx-kicker">The Living Index / Edition 01</p>
+            <h1 id="vli-home-title">Build a room around what matters.</h1>
+            <p>Objects, materials, and makers organized for real spaces — selected with clarity, not excess.</p>
+            <div class="vlx-actions">
+                <a class="vlx-button vlx-button--primary" href="{{ primaryCtaUrl }}">{{ primaryCtaLabel }}</a>
+                <a class="vlx-button vlx-button--light" href="{{ veyluneRoutes.editions }}">Open the material index</a>
+            </div>
+        </div>
+        <div class="vlx-hero__index" aria-label="Scene index">
+            <span>Living Room</span>
+            <span>Spatial Edition 01</span>
+            <span>Oak · Travertine · Fabric</span>
+        </div>
+    </section>
+
+    <section class="vlx-section vlx-section--index vli-home__rooms" aria-labelledby="vli-room-title" data-vli-home-module="rooms">
+        <div class="vlx-section__head">
+            <div>
+                <p class="vlx-kicker">Start with context</p>
+                <h2 id="vli-room-title">Shop the home as a connected system.</h2>
+            </div>
+            <a href="{{ veyluneRoutes.rooms }}">View the room index</a>
+        </div>
+        <nav class="vlx-department-grid" aria-labelledby="vli-room-title" data-vli-home-navigation="rooms">
+            {% for room in veyluneDiscoveryRooms|slice(0, 4) %}
+                <a class="vlx-department-card" href="{{ room.target }}" data-veylune-discovery-type="room" data-veylune-registry-key="{{ room.key }}">
+                    <img src="{{ asset('assets/veylune-room-' ~ room.mediaKey ~ '-v1.webp', 'theme') }}"
+                         alt="{{ room.label|trans|striptags }}"
+                         width="760"
+                         height="940"
+                         loading="lazy"
+                         decoding="async">
+                    <span>
+                        <strong>{{ room.label|trans|sw_sanitize }}</strong>
+                        <small>{{ loop.index == 1 ? 'Sofas, tables, seating' : (loop.index == 2 ? 'Tables, chairs, objects' : (loop.index == 3 ? 'Beds, lighting, storage' : 'Desks, chairs, storage')) }}</small>
+                    </span>
+                </a>
+            {% endfor %}
+        </nav>
+    </section>
+
+    <section class="vlx-section vlx-section--products vli-home__studies" aria-labelledby="vli-object-title" data-vli-home-module="objects">
+        <div class="vlx-section__head">
+            <div>
+                <p class="vlx-kicker">Object index / Four starting points</p>
+                <h2 id="vli-object-title">Objects with a reason to belong.</h2>
+            </div>
+            <a href="{{ furnitureAvailable ? veyluneRoutes.shop : veyluneRoutes.editions }}">{{ furnitureAvailable ? 'View the object index' : 'View current editions' }}</a>
+        </div>
+        <nav class="vli-study-grid" aria-labelledby="vli-object-title" data-vli-home-navigation="objects">
+            {% for study in objectStudies %}
+                <a class="vli-study-card" href="{{ study.target }}">
+                    <span class="vli-study-card__media">
+                        <img src="{{ asset('assets/' ~ study.asset, 'theme') }}"
+                             alt="{{ study.title }} study"
+                             width="800"
+                             height="1000"
+                             loading="lazy"
+                             decoding="async">
+                        <small>{{ study.index }} / Object study</small>
+                    </span>
+                    <span class="vli-study-card__body">
+                        <strong>{{ study.title }}</strong>
+                        <small>{{ study.caption }}</small>
+                    </span>
+                </a>
+            {% endfor %}
+        </nav>
+    </section>
+
+    <section class="vlx-material-story vli-home__material" aria-labelledby="vli-material-title" data-vli-home-module="material">
+        <div class="vlx-material-story__image">
+            <img src="{{ asset('assets/products/f10-elara-travertine-coffee-table-v1.webp', 'theme') }}"
+                 alt="Travertine table material study"
+                 width="1200"
+                 height="1200"
+                 loading="lazy"
+                 decoding="async">
+        </div>
+        <div class="vlx-material-story__content">
+            <p class="vlx-kicker">Material Atlas / Travertine</p>
+            <h2 id="vli-material-title">Material is not a finish. It is the beginning of the decision.</h2>
+            <p>Compare tone, surface, scale, care, and room context before choosing an object.</p>
+            <a class="vlx-text-link" href="{{ veyluneRoutes.editions }}">Open the material dossier</a>
+        </div>
+    </section>
+
+    <section class="vli-home__access-status"
+             aria-labelledby="vli-home-access-title"
+             data-vli-home-module="access-status"
+             data-vli-home-access-status>
+        <div class="vli-home__access-copy">
+            <p class="vlx-kicker">Access status / Clear boundaries</p>
+            <h2 id="vli-home-access-title">Discovery is open. Commerce remains governed.</h2>
+            <p>Explore rooms, objects, materials, makers, and project paths now. Product availability, pricing, ordering, delivery, and returns stay inactive until each service is verified.</p>
+        </div>
+        <dl class="vli-home__access-list">
+            <div data-vli-access-state="active">
+                <dt>Living Index</dt>
+                <dd>Open for discovery</dd>
+            </div>
+            <div data-vli-access-state="pending">
+                <dt>Order &amp; delivery</dt>
+                <dd>Verification pending</dd>
+            </div>
+            <div data-vli-access-state="pending">
+                <dt>Editorial email</dt>
+                <dd>No address collected</dd>
+            </div>
+        </dl>
+    </section>
+
+    <section class="vli-home__project" id="vli-project" aria-labelledby="vli-project-title" data-vli-home-module="project">
+        <div>
+            <p class="vlx-kicker">Project mode / Private dialogue</p>
+            <h2 id="vli-project-title">A connected home needs a connected decision process.</h2>
+        </div>
+        <div>
+            <p>For architects, interior designers, and private residential projects. Begin with context, material direction, and delivery reality.</p>
+            <a class="vlx-button vlx-button--light" href="{{ veyluneRoutes.consultation }}">Begin a project dialogue</a>
+        </div>
+    </section>
+</div>

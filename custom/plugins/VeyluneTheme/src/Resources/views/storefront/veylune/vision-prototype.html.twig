@@ -1,0 +1,237 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% set visionRoute = 'frontend.veylune.vision.prototype' %}
+{% set serviceUrl = path(visionRoute, { surface: 'home' }) ~ '#vlx-service' %}
+
+{% block base_body_classes %}vlx-body{% endblock %}
+{% block base_body_skip_to_content %}{% endblock %}
+{% block base_esi_header %}{% endblock %}
+{% block base_esi_footer %}{% endblock %}
+{% block base_scroll_up %}{% endblock %}
+{% block base_cookie_permission %}{% endblock %}
+{% block base_flashbags %}{% endblock %}
+{% block base_add_to_cart_alert_template %}{% endblock %}
+{% block base_breadcrumb %}{% endblock %}
+
+{% block base_main_inner %}
+    <div class="vlx" data-vlx-surface="{{ veyluneVisionSurface }}">
+        <div class="vlx-devbar">
+            <strong>VS-02 / The Living Index</strong>
+            <span>Development prototype · no public catalog exposure</span>
+        </div>
+
+        <header class="vlx-header">
+            <div class="vlx-header__utility">
+                <nav aria-label="Veylune network">
+                    <a href="{{ path(visionRoute, { surface: 'home' }) }}">Veylune</a>
+                    <a href="{{ path(visionRoute, { surface: 'department' }) }}">Rooms</a>
+                    <a href="{{ path(visionRoute, { surface: 'product' }) }}">Material Index</a>
+                </nav>
+                <nav aria-label="Client services">
+                    <a href="{{ serviceUrl }}">Trade</a>
+                    <a href="{{ serviceUrl }}">Design Service</a>
+                    <a href="{{ serviceUrl }}">EN / EUR</a>
+                </nav>
+            </div>
+
+            <div class="vlx-header__command">
+                <a class="vlx-wordmark" href="{{ path(visionRoute, { surface: 'home' }) }}" aria-label="Veylune Vision home">veylune</a>
+                <form class="vlx-search" action="{{ path(visionRoute, { surface: 'listing' }) }}" method="get" role="search">
+                    <label class="visually-hidden" for="vlx-search-input">Search the Living Index</label>
+                    <input id="vlx-search-input" name="q" type="search" placeholder="Search objects, rooms, materials, makers...">
+                    <button type="submit">Search</button>
+                </form>
+                <nav class="vlx-account" aria-label="Account actions">
+                    <a href="{{ serviceUrl }}">Sign in</a>
+                    <a href="{{ serviceUrl }}">Saved <span>0</span></a>
+                    <a href="{{ serviceUrl }}">Bag <span>0</span></a>
+                </nav>
+            </div>
+
+            <nav class="vlx-header__axes" aria-label="Primary discovery">
+                <a class="{{ veyluneVisionSurface == 'department' ? 'is-active' : '' }}" href="{{ path(visionRoute, { surface: 'department' }) }}">Object</a>
+                <a href="{{ path(visionRoute, { surface: 'department' }) }}#rooms">Room</a>
+                <a href="{{ path(visionRoute, { surface: 'product' }) }}#vlx-pdp-details">Material</a>
+                <a href="{{ path(visionRoute, { surface: 'department' }) }}#style">Style</a>
+                <a href="{{ path(visionRoute, { surface: 'listing' }) }}">Maker</a>
+                <a href="{{ serviceUrl }}">Project</a>
+                <a class="vlx-header__sale" href="{{ path(visionRoute, { surface: 'listing' }) }}?edit=sale">Sale</a>
+            </nav>
+        </header>
+
+        <nav class="vlx-prototype-nav" aria-label="Prototype surfaces">
+            {% for key, label in {
+                home: '01 Gateway',
+                header: '02 Header IA',
+                department: '03 Department',
+                listing: '04 PLP Index',
+                product: '05 PDP Object'
+            } %}
+                <a class="{{ veyluneVisionSurface == key ? 'is-current' : '' }}"
+                   href="{{ path(visionRoute, { surface: key }) }}">{{ label }}</a>
+            {% endfor %}
+        </nav>
+
+        {% if veyluneVisionSurface == 'home' %}
+            <div class="vlx-main vlx-gateway">
+                <section class="vlx-hero">
+                    <img src="{{ asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme') }}" alt="Architectural living room with Veylune objects">
+                    <div class="vlx-hero__shade"></div>
+                    <div class="vlx-hero__content">
+                        <p class="vlx-kicker">The Living Index / Edition 01</p>
+                        <h1>Build a room around what matters.</h1>
+                        <p>Objects, materials, and makers organized for real spaces — selected with clarity, not excess.</p>
+                        <div class="vlx-actions">
+                            <a class="vlx-button vlx-button--primary" href="{{ path(visionRoute, { surface: 'department' }) }}">Enter the index</a>
+                            <a class="vlx-button vlx-button--light" href="{{ path(visionRoute, { surface: 'listing' }) }}">View the selection</a>
+                        </div>
+                    </div>
+                    <div class="vlx-hero__index" aria-label="Scene index">
+                        <span>Living Room</span><span>08 Objects</span><span>Oak · Travertine · Fabric</span>
+                    </div>
+                </section>
+
+                <section class="vlx-section vlx-section--index">
+                    <div class="vlx-section__head">
+                        <div><p class="vlx-kicker">Start with context</p><h2>Shop the home as a connected system.</h2></div>
+                        <a href="{{ path(visionRoute, { surface: 'department' }) }}">View all rooms</a>
+                    </div>
+                    <div class="vlx-department-grid">
+                        {% for department in veyluneVisionDepartments|slice(0, 4) %}
+                            <a class="vlx-department-card" href="{{ path(visionRoute, { surface: 'department' }) }}">
+                                <img src="{{ asset('assets/' ~ department.asset, 'theme') }}" alt="">
+                                <span><strong>{{ department.name }}</strong><small>{{ department.caption }}</small></span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <section class="vlx-section vlx-section--products">
+                    <div class="vlx-section__head">
+                        <div><p class="vlx-kicker">Object index / New selection</p><h2>Objects with a reason to belong.</h2></div>
+                        <a href="{{ path(visionRoute, { surface: 'listing' }) }}">View all 48</a>
+                    </div>
+                    {% sw_include '@VeyluneTheme/storefront/veylune/vision-prototype-product-grid.html.twig' with { products: veyluneVisionProducts|slice(0, 4), visionRoute: visionRoute } %}
+                </section>
+
+                <section class="vlx-material-story" id="vlx-service">
+                    <div class="vlx-material-story__image">
+                        <img src="{{ asset('assets/products/f10-elara-travertine-coffee-table-v1.webp', 'theme') }}" alt="Elara travertine table material study">
+                    </div>
+                    <div class="vlx-material-story__content">
+                        <p class="vlx-kicker">Material Atlas / Travertine</p>
+                        <h2>Material is not a finish. It is the beginning of the decision.</h2>
+                        <p>Compare tone, surface, scale, care, and room context before choosing an object.</p>
+                        <a class="vlx-text-link" href="{{ path(visionRoute, { surface: 'product' }) }}#vlx-pdp-details">Open the material dossier</a>
+                    </div>
+                </section>
+            </div>
+        {% elseif veyluneVisionSurface == 'header' %}
+            <div class="vlx-main vlx-header-lab">
+                <div class="vlx-lab-heading"><p class="vlx-kicker">Navigation architecture</p><h1>Six ways into the same living system.</h1></div>
+                <section class="vlx-mega" aria-label="Open Object mega-menu">
+                    <div class="vlx-mega__rail">
+                        <span>OBJECT INDEX</span>
+                        <a class="is-selected" href="{{ path(visionRoute, { surface: 'department' }) }}">Furniture</a>
+                        <a href="{{ path(visionRoute, { surface: 'department' }) }}">Lighting</a>
+                        <a href="{{ path(visionRoute, { surface: 'department' }) }}">Rugs & Textiles</a>
+                        <a href="{{ path(visionRoute, { surface: 'department' }) }}">Decor & Art</a>
+                        <a href="{{ path(visionRoute, { surface: 'department' }) }}">Outdoor</a>
+                        <a href="{{ path(visionRoute, { surface: 'department' }) }}">Kitchen & Bath</a>
+                    </div>
+                    <div class="vlx-mega__columns">
+                        <div><h2>Furniture</h2><a href="{{ path(visionRoute, { surface: 'listing' }) }}">View all furniture</a></div>
+                        <div><h3>Living</h3><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Sofas</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Lounge chairs</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Coffee tables</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Storage</a></div>
+                        <div><h3>Dining</h3><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Dining tables</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Dining chairs</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Benches & stools</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Sideboards</a></div>
+                        <div><h3>Private spaces</h3><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Beds</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Nightstands</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Desks</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Office chairs</a></div>
+                        <a class="vlx-mega__feature" href="{{ path(visionRoute, { surface: 'department' }) }}">
+                            <img src="{{ asset('assets/veylune-room-living-v1.webp', 'theme') }}" alt="">
+                            <span><small>Scene 01</small><strong>The composed living room</strong></span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        {% elseif veyluneVisionSurface == 'department' %}
+            <div class="vlx-main vlx-department">
+                <nav class="vlx-breadcrumb" aria-label="Breadcrumb"><a href="{{ path(visionRoute, { surface: 'home' }) }}">Home</a><span>/</span><span>Furniture</span></nav>
+                <section class="vlx-department__heading"><div><p class="vlx-kicker">Object Index / 01</p><h1>Furniture</h1></div><p>Room-defining objects organized by use, material, and the spaces they shape.</p></section>
+                <section class="vlx-department__categories" id="rooms">
+                    {% for department in veyluneVisionDepartments %}
+                        <a href="{{ path(visionRoute, { surface: 'listing' }) }}">
+                            <img src="{{ asset('assets/' ~ department.asset, 'theme') }}" alt="">
+                            <span><strong>{{ department.name }}</strong><small>{{ department.caption }}</small></span>
+                        </a>
+                    {% endfor %}
+                </section>
+                <section class="vlx-department__scene" id="style">
+                    <img src="{{ asset('assets/veylune-promo-living-room-v1.webp', 'theme') }}" alt="Warm living room composition">
+                    <div><p class="vlx-kicker">Spatial Edition 01</p><h2>Quiet forms. Strong relationships.</h2><p>A room edit built around low seating, mineral surfaces, and warm oak.</p><a class="vlx-button vlx-button--primary" href="{{ path(visionRoute, { surface: 'listing' }) }}">Shop the room</a></div>
+                </section>
+                <section class="vlx-section vlx-section--products">
+                    <div class="vlx-section__head"><div><p class="vlx-kicker">Furniture / Selected</p><h2>Start with the anchor pieces.</h2></div><a href="{{ path(visionRoute, { surface: 'listing' }) }}">View 48 objects</a></div>
+                    {% sw_include '@VeyluneTheme/storefront/veylune/vision-prototype-product-grid.html.twig' with { products: veyluneVisionProducts|slice(0, 4), visionRoute: visionRoute } %}
+                </section>
+            </div>
+        {% elseif veyluneVisionSurface == 'listing' %}
+            <div class="vlx-main vlx-listing">
+                <nav class="vlx-breadcrumb" aria-label="Breadcrumb"><a href="{{ path(visionRoute, { surface: 'home' }) }}">Home</a><span>/</span><a href="{{ path(visionRoute, { surface: 'department' }) }}">Furniture</a><span>/</span><span>All objects</span></nav>
+                <div class="vlx-listing__title"><div><p class="vlx-kicker">Index / Furniture</p><h1>Furniture</h1></div><p>48 objects</p></div>
+                <div class="vlx-listing__toolbar">
+                    <a class="vlx-listing__filter-link" href="#vlx-filter-panel">Filter <span>+</span></a>
+                    <div><span>View</span><strong>4-column index</strong></div>
+                    <form action="{{ path(visionRoute, { surface: 'listing' }) }}" method="get">
+                        <label for="vlx-sort">Sort</label>
+                        <select id="vlx-sort" name="sort"><option>Curated order</option><option>Price: low to high</option><option>Newest</option></select>
+                        <button type="submit">Apply</button>
+                    </form>
+                </div>
+                <div class="vlx-listing__layout">
+                    <form class="vlx-filters" id="vlx-filter-panel" action="{{ path(visionRoute, { surface: 'listing' }) }}" method="get" aria-label="Product filters">
+                        {% for group, values in {
+                            'Category': ['Sofas', 'Lounge chairs', 'Tables', 'Storage'],
+                            'Room': ['Living room', 'Dining room', 'Bedroom', 'Workspace'],
+                            'Material': ['Wood', 'Travertine', 'Fabric', 'Leather'],
+                            'Availability': ['Ready to ship', 'Made to order']
+                        } %}
+                            <fieldset><legend>{{ group }}</legend>{% for value in values %}<label><input type="checkbox" name="filter[]" value="{{ value|lower|replace({' ': '-'}) }}"><span>{{ value }}</span></label>{% endfor %}</fieldset>
+                        {% endfor %}
+                        <button class="vlx-button vlx-button--primary vlx-button--wide" type="submit">Apply filters</button>
+                        <a class="vlx-filters__clear" href="{{ path(visionRoute, { surface: 'listing' }) }}">Clear all</a>
+                    </form>
+                    <section aria-label="Product results">
+                        {% sw_include '@VeyluneTheme/storefront/veylune/vision-prototype-product-grid.html.twig' with { products: veyluneVisionProducts, visionRoute: visionRoute, dense: true } %}
+                    </section>
+                </div>
+            </div>
+        {% else %}
+            {% set product = veyluneVisionProducts|first %}
+            <div class="vlx-main vlx-pdp">
+                <nav class="vlx-breadcrumb" aria-label="Breadcrumb"><a href="{{ path(visionRoute, { surface: 'home' }) }}">Home</a><span>/</span><a href="{{ path(visionRoute, { surface: 'department' }) }}">Furniture</a><span>/</span><span>{{ product.name }}</span></nav>
+                <section class="vlx-pdp__hero">
+                    <div class="vlx-pdp__gallery">
+                        <div class="vlx-pdp__primary"><img src="{{ asset('assets/products/' ~ product.asset, 'theme') }}" alt="{{ product.name }}"></div>
+                        <div class="vlx-pdp__secondary"><img src="{{ asset('assets/veylune-room-living-v1.webp', 'theme') }}" alt="{{ product.name }} in a living room"><img src="{{ asset('assets/products/f02-liora-curved-sofa-v1.webp', 'theme') }}" alt="Upholstery and form reference"></div>
+                    </div>
+                    <aside class="vlx-pdp__summary">
+                        <p class="vlx-kicker">Object dossier / {{ product.id }}</p>
+                        <p class="vlx-pdp__maker">Veylune Studio</p>
+                        <h1>{{ product.name }}</h1>
+                        <p class="vlx-pdp__price">{{ product.price }}</p>
+                        <p class="vlx-pdp__finance">or from €408/month · prototype terms</p>
+                        <div class="vlx-pdp__state"><strong>Configuration required</strong><span>Material, module, and delivery access determine the final order.</span></div>
+                        <fieldset class="vlx-swatches"><legend>Upholstery <span>Warm ivory</span></legend><label><input type="radio" name="fabric" checked><span style="--swatch:#ddd1bd"></span></label><label><input type="radio" name="fabric"><span style="--swatch:#8b8177"></span></label><label><input type="radio" name="fabric"><span style="--swatch:#494541"></span></label></fieldset>
+                        <a class="vlx-button vlx-button--primary vlx-button--wide" href="#vlx-pdp-details">Review configuration and delivery</a>
+                        <a class="vlx-button vlx-button--outline vlx-button--wide" href="{{ serviceUrl }}">Request project guidance</a>
+                        <ul class="vlx-pdp__promises"><li>Delivery access checked before confirmation</li><li>Material sample available</li><li>14-day cancellation before production begins</li></ul>
+                    </aside>
+                </section>
+                <section class="vlx-pdp__details" id="vlx-pdp-details">
+                    <div><p class="vlx-kicker">Material Atlas</p><h2>Evidence before description.</h2><p>A low modular composition developed around generous seat depth, quiet seam rhythm, and a grounded architectural profile.</p></div>
+                    <dl><div><dt>Dimensions</dt><dd>W 284 × D 104 × H 72 cm</dd></div><div><dt>Primary material</dt><dd>Upholstery fabric</dd></div><div><dt>Structure</dt><dd>FSC oak and steel</dd></div><div><dt>Lead time</dt><dd>8-10 weeks after approval</dd></div><div><dt>Care</dt><dd>Professional upholstery care</dd></div></dl>
+                </section>
+            </div>
+        {% endif %}
+
+        <footer class="vlx-footer"><div><strong>veylune</strong><span>The Living Index · VS-02 prototype</span></div><nav><a href="{{ path(visionRoute, { surface: 'home' }) }}">Gateway</a><a href="{{ path(visionRoute, { surface: 'listing' }) }}">Index</a><a href="{{ path(visionRoute, { surface: 'product' }) }}">Object</a></nav></footer>
+    </div>
+{% endblock %}

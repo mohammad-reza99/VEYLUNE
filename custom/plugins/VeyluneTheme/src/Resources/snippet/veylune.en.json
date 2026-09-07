@@ -187,6 +187,115 @@
       "selectedFormsMany": "%count% recorded forms"
     },
     "destination": {
+      "breadcrumb": {
+        "home": "Home"
+      },
+      "livingIndex": {
+        "departmentKicker": "Living Index / Department",
+        "roomKicker": "Living Index / Room",
+        "collectionKicker": "Living Index / Scene",
+        "objectAxis": "Object",
+        "roomAxis": "Room",
+        "styleAxis": "Style",
+        "departmentLabel": "Department",
+        "roomLabel": "Room",
+        "collectionLabel": "Collection",
+        "pathCount": "%count% object paths",
+        "scenePathCount": "%count% room paths",
+        "editCount": "1 authored edit",
+        "objectCount": "%count% public objects",
+        "departmentMode": "Index + context",
+        "roomMode": "Scene + room index",
+        "collectionMode": "Scene + index",
+        "browseEyebrow": "Object map",
+        "browseTitle": "Find the department by form.",
+        "browseText": "Direct paths stay compact, visual, and ready for a wider governed assortment.",
+        "indexEyebrow": "Object index",
+        "indexTitle": "Compare the public selection.",
+        "indexText": "Material, price, and availability remain visible as each approved object enters the index.",
+        "resultCount": "%count% objects",
+        "materialLabel": "Material",
+        "allMaterials": "All materials",
+        "sortLabel": "Arrange",
+        "sortCurated": "Veylune edit",
+        "sortName": "Name",
+        "sortPriceAsc": "Price, low to high",
+        "sortPriceDesc": "Price, high to low",
+        "apply": "Apply",
+        "clear": "Clear refinement",
+        "emptyTitle": "The public index is being composed.",
+        "emptyFilteredTitle": "No objects match this refinement.",
+        "emptyText": "Explore the department paths now, or begin a studio dialogue for a specific room or material direction.",
+        "emptyFilteredText": "Clear the active refinement to return to the complete public selection.",
+        "searchCta": "Search the Living Index",
+        "consultationCta": "Begin a project dialogue",
+        "relatedEyebrow": "Connected axes",
+        "relatedTitle": "Continue through context, material, or project.",
+        "objectTitle": "Object",
+        "objectText": "Move from room intent into comparable forms and functions.",
+        "roomTitle": "Room",
+        "roomText": "See objects inside a spatial composition.",
+        "materialTitle": "Material",
+        "materialText": "Read surface, tone, and care as evidence.",
+        "projectTitle": "Project",
+        "projectText": "Bring dimensions, constraints, and intent into one dialogue.",
+        "scene": {
+          "imageAlt": "A composed interior for %title%",
+          "roomEyebrow": "Room composition",
+          "roomTitle": "Enter through the room, then refine by object.",
+          "roomText": "Four practical paths translate atmosphere into structured discovery without hiding comparison or product evidence.",
+          "collectionEyebrow": "Authored edit",
+          "collectionTitle": "Read the scene, then choose the next lens.",
+          "collectionText": "Each collection remains expressive at first glance and direct in its paths to form, material, room, and project support.",
+          "roomPaths": {
+            "seating": {
+              "label": "Seating and scale",
+              "text": "Anchor the room through silhouette, comfort, and proportion."
+            },
+            "tables-storage": {
+              "label": "Tables and storage",
+              "text": "Build useful surfaces and quiet spatial order."
+            },
+            "lighting": {
+              "label": "Lighting and atmosphere",
+              "text": "Shape task light, ambient glow, and architectural line."
+            },
+            "textiles-objects": {
+              "label": "Textiles and objects",
+              "text": "Complete the room through softness, tactility, and detail."
+            }
+          },
+          "collectionPaths": {
+            "form": {
+              "label": "Form",
+              "text": "Enter the edit through silhouette and function."
+            },
+            "material": {
+              "label": "Material",
+              "text": "Read surface, construction, and tonal direction."
+            },
+            "room": {
+              "label": "Room",
+              "text": "Place the collection inside a spatial decision."
+            },
+            "project": {
+              "label": "Project dialogue",
+              "text": "Bring dimensions and procurement context to the studio."
+            }
+          }
+        }
+      },
+      "promo": {
+        "label": "Delivery information",
+        "title": "Considered delivery, clearly explained.",
+        "text": "Delivery terms and project support are available before you commit.",
+        "cta": "View delivery details"
+      },
+      "listing": {
+        "label": "Product results",
+        "count": "%count% items",
+        "recommended": "Recommended order"
+      },
       "meta": {
         "description": "Explore a considered Veylune selection shaped by material, proportion, and spatial relevance."
       },
@@ -203,6 +312,7 @@
         "cushions": "Cushions",
         "floorLamps": "Floor Lamps",
         "mirrors": "Mirrors",
+        "mattresses": "Mattresses",
         "outdoorSeating": "Outdoor Seating",
         "outdoorTables": "Outdoor Tables",
         "pendants": "Pendants",
@@ -267,6 +377,22 @@
         "outdoor": {
           "title": "Outdoor",
           "text": "Exterior furniture and objects chosen for durability, atmosphere, and seasonal living."
+        },
+        "beddingBath": {
+          "title": "Bedding & Bath",
+          "text": "Layered bedding and bath textiles selected for comfort, tactility, and a calm daily rhythm."
+        },
+        "mattresses": {
+          "title": "Mattresses",
+          "text": "Considered sleep foundations selected around support, material quality, and enduring comfort."
+        },
+        "rugs": {
+          "title": "Rugs",
+          "text": "Textural foundations chosen to define rooms through scale, softness, pattern, and material depth."
+        },
+        "organization": {
+          "title": "Organization",
+          "text": "Storage and organizational forms selected to bring clarity, order, and quiet utility to the home."
         }
       },
       "rooms": {
@@ -304,6 +430,14 @@
           "title": "New Arrivals",
           "text": "The latest pieces to enter the Veylune Studio selection."
         },
+        "bestSellers": {
+          "title": "Best Sellers",
+          "text": "Frequently selected pieces recognized for their versatility, material presence, and lasting relevance."
+        },
+        "sale": {
+          "title": "Sale",
+          "text": "A considered edit of reduced pieces, presented with the same standards of material and proportion."
+        },
         "permanentCollections": {
           "title": "Permanent Collections",
           "text": "Enduring selections arranged around lasting material and spatial themes."
@@ -313,6 +447,62 @@
           "text": "Editorial studies that connect objects through room, material, and atmosphere."
         }
       }
+    },
+    "objectMode": {
+      "previewNotice": "Development probe - this object is not public.",
+      "breadcrumbObject": "Object",
+      "recordKicker": "Living Index / Object Record",
+      "priceLabel": "Object price",
+      "priceNote": "Specification, delivery scope, and final commitment are confirmed with the studio.",
+      "availability": "Available by studio confirmation",
+      "previewAvailability": "Publication blocked",
+      "availabilityText": "Price and availability are verified before a project commitment is created.",
+      "previewAvailabilityText": "This development probe cannot create a public order or selection.",
+      "consultationCta": "Begin an object dialogue",
+      "deliveryCta": "Review delivery terms",
+      "reference": "Reference",
+      "material": "Material",
+      "room": "Room context",
+      "release": "Release",
+      "publicRecord": "Public record",
+      "developmentRecord": "Development only",
+      "evidenceKicker": "Object evidence",
+      "evidenceTitle": "Understand the object before commitment.",
+      "evidenceText": "Material, proportion, care, price, and spatial fit stay connected in one decision record.",
+      "atGlance": "At a glance",
+      "maker": "Maker",
+      "leadTime": "Lead time",
+      "onRequest": "Confirmed on request",
+      "descriptionKicker": "Object context",
+      "descriptionTitle": "Form, material, and spatial presence.",
+      "materialStory": "Material story",
+      "craftsmanship": "Craftsmanship",
+      "care": "Care guidance",
+      "evidencePending": "Evidence is confirmed before public release.",
+      "specKicker": "Evidence index",
+      "specTitle": "Dimensions and essential facts.",
+      "width": "Width",
+      "height": "Height",
+      "depth": "Depth",
+      "weight": "Weight",
+      "productType": "Product type",
+      "dimensionsUnit": "Dimensions are shown in millimetres unless stated otherwise.",
+      "contextKicker": "Scene connection",
+      "contextTitle": "See the object inside its wider room system.",
+      "contextText": "Move between the spatial scene, authored collection, and comparable object index without losing the decision context.",
+      "contextImageAlt": "%name% shown through the atmosphere of %room%",
+      "contextCaption": "Room study / %room%",
+      "contextNavLabel": "Object context paths",
+      "contextRoomCta": "Open %room%",
+      "contextCollectionCta": "Open the authored collection",
+      "contextObjectCta": "Compare related objects",
+      "projectKicker": "Project path",
+      "projectTitle": "Place the object inside a real room decision.",
+      "projectText": "Share dimensions, room constraints, material direction, or procurement context with the studio.",
+      "projectCta": "Begin a project dialogue",
+      "materialCta": "Open the Material Index",
+      "primaryView": "Primary view of %name%",
+      "detailView": "Evidence view of %name%"
     },
     "productDetail": {
       "atelier": "Atelier",

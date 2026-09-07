@@ -11,6 +11,121 @@
           class="veylune-inquiry__form veylune-inquiry__form--contact"
           aria-label="{{ element.config.title.value ? element.config.title.value : 'veylune.inquiry.contactTitle'|trans }}">
         <div class="form-content veylune-inquiry__content">
+            {% if veyluneProjectBrief is defined %}
+                <div class="vli-inquiry-status"
+                     data-vli-inquiry-status
+                     tabindex="-1"
+                     aria-live="polite"
+                     hidden></div>
+            {% endif %}
+
+            {% if veyluneProjectBrief is defined %}
+                <section class="vli-project-intake" data-vli-project-intake aria-labelledby="{{ formPrefix }}-project-title">
+                    <header class="vli-project-intake__header">
+                        <span>01</span>
+                        <div>
+                            <p>Project context</p>
+                            <h3 id="{{ formPrefix }}-project-title">Shape a useful first brief.</h3>
+                            <small>Choose what is known. Every field below can stay approximate.</small>
+                        </div>
+                    </header>
+
+                    <div class="vli-project-intake__grid">
+                        <label for="{{ formPrefix }}-project-intent">
+                            <span>What can we help with?</span>
+                            <select id="{{ formPrefix }}-project-intent" name="veyluneBriefIntent" data-vli-brief-field="intent">
+                                <option value="Private project direction">Private project direction</option>
+                                <option value="One-room planning">One-room planning</option>
+                                <option value="Furniture sourcing">Furniture sourcing</option>
+                                <option value="Material and finish direction">Material and finish direction</option>
+                                <option value="Trade project support">Trade project support</option>
+                                <option value="General studio inquiry">General studio inquiry</option>
+                            </select>
+                        </label>
+
+                        <label for="{{ formPrefix }}-project-space">
+                            <span>Primary space</span>
+                            <select id="{{ formPrefix }}-project-space" name="veyluneBriefSpace" data-vli-brief-field="space">
+                                <option value="Not decided">Not decided</option>
+                                <option value="Living room">Living room</option>
+                                <option value="Dining room">Dining room</option>
+                                <option value="Bedroom">Bedroom</option>
+                                <option value="Home office">Home office</option>
+                                <option value="Whole home">Whole home</option>
+                                <option value="Hospitality or commercial">Hospitality or commercial</option>
+                                <option value="Multiple spaces">Multiple spaces</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </label>
+
+                        <label for="{{ formPrefix }}-project-stage">
+                            <span>Project stage</span>
+                            <select id="{{ formPrefix }}-project-stage" name="veyluneBriefStage" data-vli-brief-field="stage">
+                                <option value="Exploring possibilities">Exploring possibilities</option>
+                                <option value="Planning the room">Planning the room</option>
+                                <option value="Actively sourcing">Actively sourcing</option>
+                                <option value="Ready to specify">Ready to specify</option>
+                                <option value="Ongoing project">Ongoing project</option>
+                            </select>
+                        </label>
+
+                        <label for="{{ formPrefix }}-project-timing">
+                            <span>Preferred timing</span>
+                            <select id="{{ formPrefix }}-project-timing" name="veyluneBriefTiming" data-vli-brief-field="timing">
+                                <option value="Flexible">Flexible</option>
+                                <option value="Within 3 months">Within 3 months</option>
+                                <option value="3 to 6 months">3 to 6 months</option>
+                                <option value="6 to 12 months">6 to 12 months</option>
+                                <option value="More than 12 months">More than 12 months</option>
+                            </select>
+                        </label>
+
+                        <label for="{{ formPrefix }}-project-location">
+                            <span>Project city / country <small>Optional</small></span>
+                            <input id="{{ formPrefix }}-project-location" name="veyluneBriefLocation" type="text" maxlength="100" autocomplete="address-level2" placeholder="For delivery context only" data-vli-brief-field="location">
+                        </label>
+
+                        <label for="{{ formPrefix }}-project-investment">
+                            <span>Investment frame <small>Optional</small></span>
+                            <select id="{{ formPrefix }}-project-investment" name="veyluneBriefInvestment" data-vli-brief-field="investment">
+                                <option value="Not defined">Not defined</option>
+                                <option value="Under EUR 10,000">Under EUR 10,000</option>
+                                <option value="EUR 10,000 to 25,000">EUR 10,000 to 25,000</option>
+                                <option value="EUR 25,000 to 50,000">EUR 25,000 to 50,000</option>
+                                <option value="EUR 50,000 to 100,000">EUR 50,000 to 100,000</option>
+                                <option value="Above EUR 100,000">Above EUR 100,000</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <section class="vli-project-intake__selection" data-vli-brief-selection hidden aria-labelledby="{{ formPrefix }}-selection-title">
+                        <div>
+                            <p>Saved selection</p>
+                            <h4 id="{{ formPrefix }}-selection-title"><span data-vli-brief-selection-count>0</span> saved paths found in this browser</h4>
+                            <small>Review the titles below. They are not sent unless you actively include them.</small>
+                        </div>
+                        <ul data-vli-brief-selection-list></ul>
+                        <label class="vli-project-intake__consent">
+                            <input type="checkbox" name="veyluneBriefIncludeSelection" value="1" data-vli-brief-include-selection>
+                            <span>Include these saved path titles and links in my inquiry.</span>
+                        </label>
+                    </section>
+
+                    <section class="vli-project-intake__preview" aria-labelledby="{{ formPrefix }}-preview-title">
+                        <div>
+                            <p>Brief preview</p>
+                            <h4 id="{{ formPrefix }}-preview-title">What the studio will receive</h4>
+                        </div>
+                        <dl data-vli-brief-preview></dl>
+                    </section>
+                </section>
+
+                <div class="vli-project-intake__contact-head">
+                    <span>02</span>
+                    <div><strong>Your details and notes</strong><small>Add the context that cannot be captured by the choices above.</small></div>
+                </div>
+            {% endif %}
+
             <div class="row g-3">
                 {% block cms_form_contact_select_salutation %}
                     {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-select-salutation.html.twig'
@@ -87,8 +202,8 @@
                         required: true,
                         fieldName: 'subject',
                         additionalClass: 'col-12',
-                        label: 'contact.subjectLabel',
-                        placeholder: 'contact.subjectPlaceholder'
+                        label: veyluneProjectBrief is defined ? 'Inquiry title' : 'contact.subjectLabel',
+                        placeholder: veyluneProjectBrief is defined ? 'A short title for this project' : 'contact.subjectPlaceholder'
                     }
                     %}
                 {% endblock %}
@@ -98,12 +213,12 @@
                 {% block cms_form_contact_comment_textarea %}
                     {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-textarea.html.twig'
                         with {
-                        rows: 6,
+                        rows: veyluneProjectBrief is defined ? 10 : 6,
                         required: true,
                         fieldName: 'comment',
                         additionalClass: 'col-12',
-                        label: 'contact.commentLabel',
-                        placeholder: 'contact.commentPlaceholder'
+                        label: veyluneProjectBrief is defined ? 'Project brief and notes' : 'contact.commentLabel',
+                        placeholder: veyluneProjectBrief is defined ? 'Add approximate dimensions, existing pieces, access constraints, questions, or references.' : 'contact.commentPlaceholder'
                     }
                     %}
                 {% endblock %}
@@ -119,6 +234,13 @@
                 {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-privacy.html.twig' %}
             {% endblock %}
 
+            {% if veyluneProjectBrief is defined %}
+                <div class="vli-project-intake__boundary">
+                    <span>03</span>
+                    <p><strong>Review before sending.</strong> Saved paths are included only when selected above. Sending this form requests a studio review; scope, availability, pricing, delivery, and installation remain unconfirmed until agreed separately.</p>
+                </div>
+            {% endif %}
+
             {% block cms_form_contact_required_fields_info %}
                 <div class="veylune-inquiry__required">
                     {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-info-required.html.twig' %}
@@ -126,7 +248,9 @@
             {% endblock %}
 
             {% block cms_form_contact_submit %}
-                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-submit.html.twig' %}
+                {% sw_include '@Storefront/storefront/element/cms-element-form/form-components/cms-element-form-submit.html.twig' with {
+                    submitText: veyluneProjectBrief is defined ? 'Send project brief' : submitText
+                } %}
             {% endblock %}
         </div>
 

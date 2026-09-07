@@ -1,0 +1,98 @@
+{% set vliAxisCurrent = veyluneLivingIndexAxis|default('material') %}
+{% set vliAxisGerman = app.request.locale starts with 'de' %}
+{% set vliAxes = {
+    material: {
+        index: '01',
+        type: 'Material',
+        label: vliAxisGerman ? 'Material' : 'Material',
+        title: vliAxisGerman ? 'Editionen und Oberflaechen' : 'Editions and surfaces',
+        text: vliAxisGerman ? 'Material, Herkunft, Pflege und raeumliche Wirkung lesen.' : 'Read material, provenance, care, and spatial effect.',
+        asset: 'veylune-category-decor-v1.webp',
+        url: path(vliAxisGerman ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page')
+    },
+    style: {
+        index: '02',
+        type: 'Style',
+        label: vliAxisGerman ? 'Stil' : 'Style',
+        title: vliAxisGerman ? 'Kuratierte Kompositionen' : 'Curated compositions',
+        text: vliAxisGerman ? 'Formen und Objekte als zusammenhaengende Richtung erkunden.' : 'Explore forms and objects as a coherent direction.',
+        asset: 'veylune-promo-living-room-v1.webp',
+        url: path('frontend.veylune.discovery.collection', { collectionKey: 'founder-selection' })
+    },
+    maker: {
+        index: '03',
+        type: 'Maker',
+        label: vliAxisGerman ? 'Atelier' : 'Maker',
+        title: vliAxisGerman ? 'Ateliers und Disziplinen' : 'Ateliers and disciplines',
+        text: vliAxisGerman ? 'Die Herstellungsbeziehungen und Standards hinter der Auswahl verstehen.' : 'Understand the making relationships and standards behind the edit.',
+        asset: 'veylune-room-workspace-v1.webp',
+        url: path('frontend.veylune.partnership.page')
+    },
+    project: {
+        index: '04',
+        type: 'Project',
+        label: vliAxisGerman ? 'Projekt' : 'Project',
+        title: vliAxisGerman ? 'Private Beratung' : 'Private consultation',
+        text: vliAxisGerman ? 'Raum, Masse und Beschaffung in einen klaren Dialog bringen.' : 'Bring room, dimensions, and sourcing into one clear dialogue.',
+        asset: 'veylune-room-dining-v1.webp',
+        url: path('frontend.veylune.consultation.page')
+    }
+} %}
+{% set vliCurrentAxis = vliAxes[vliAxisCurrent] %}
+{% set vliReturnSource = app.request.query.get('from')|default('') %}
+{% set vliReturnQuery = app.request.query.get('q')|default('') %}
+{% set vliReturnAxis = app.request.query.get('axis')|default('') %}
+{% set vliReturnSort = app.request.query.get('sort')|default('') %}
+{% set vliReturnParams = {} %}
+{% if vliReturnQuery %}{% set vliReturnParams = vliReturnParams|merge({ q: vliReturnQuery }) %}{% endif %}
+{% if vliReturnAxis %}{% set vliReturnParams = vliReturnParams|merge({ axis: vliReturnAxis }) %}{% endif %}
+{% if vliReturnSort %}{% set vliReturnParams = vliReturnParams|merge({ sort: vliReturnSort }) %}{% endif %}
+
+<section class="vli-axis-map vli-axis-map--{{ vliAxisCurrent }}"
+         aria-labelledby="vli-axis-map-title-{{ vliAxisCurrent }}"
+         data-veylune-living-index-axis-map
+         data-veylune-living-index-axis-current="{{ vliAxisCurrent }}">
+    <header class="vli-axis-map__header">
+        <div>
+            <p class="vli-axis-map__kicker">{{ vliAxisGerman ? 'Living Index / Vier verbundene Wege' : 'Living Index / Four connected paths' }}</p>
+            <h2 id="vli-axis-map-title-{{ vliAxisCurrent }}">{{ vliAxisGerman ? 'Vom Material bis zum realen Raum.' : 'From material evidence to the lived room.' }}</h2>
+        </div>
+        <div class="vli-axis-map__context">
+            <p>{{ vliAxisGerman ? 'Jede Achse ist ein direkter Einstieg und bleibt mit den anderen verbunden. So wird aus Inspiration eine nachvollziehbare Entscheidung.' : 'Each axis is a direct entry point and remains connected to the others, turning inspiration into a traceable decision.' }}</p>
+            <div class="vli-axis-map__actions">
+                {% if vliReturnSource == 'discover' %}
+                    <a href="{{ path('frontend.veylune.living_index.search', vliReturnParams) }}" data-vli-return-to-discover>&larr; {{ vliAxisGerman ? 'Zurueck zu den Ergebnissen' : 'Back to results' }}</a>
+                {% elseif vliReturnSource == 'selection' %}
+                    <a href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-return-to-selection>&larr; {{ vliAxisGerman ? 'Zurueck zur Auswahl' : 'Back to selection' }}</a>
+                {% endif %}
+                <button type="button"
+                        data-vli-selection-add
+                        data-selection-key="axis:{{ vliAxisCurrent }}"
+                        data-selection-type="{{ vliCurrentAxis.type|e('html_attr') }}"
+                        data-selection-title="{{ vliCurrentAxis.title|e('html_attr') }}"
+                        data-selection-description="{{ vliCurrentAxis.text|e('html_attr') }}"
+                        data-selection-url="{{ vliCurrentAxis.url|e('html_attr') }}"
+                        data-selection-asset="{{ asset('assets/' ~ vliCurrentAxis.asset, 'theme')|e('html_attr') }}"
+                        aria-pressed="false">
+                    {{ vliAxisGerman ? 'Kontext speichern' : 'Save this context' }}
+                </button>
+            </div>
+            <p class="visually-hidden" role="status" aria-live="polite" data-vli-selection-status></p>
+        </div>
+    </header>
+    <div class="vli-axis-map__grid" role="list">
+        {% for axisKey, axis in vliAxes %}
+            <a class="vli-axis-map__item{% if axisKey == vliAxisCurrent %} is-active{% endif %}"
+               href="{{ axis.url }}"
+               role="listitem"
+               data-veylune-axis-destination="{{ axisKey }}"
+               {% if axisKey == vliAxisCurrent %}aria-current="page"{% endif %}>
+                <span>{{ axis.index }}</span>
+                <small>{{ axis.label }}</small>
+                <strong>{{ axis.title }}</strong>
+                <em>{{ axis.text }}</em>
+                <b aria-hidden="true">&rarr;</b>
+            </a>
+        {% endfor %}
+    </div>
+</section>

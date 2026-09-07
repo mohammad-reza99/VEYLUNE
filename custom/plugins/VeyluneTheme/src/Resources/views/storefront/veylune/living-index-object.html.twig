@@ -1,0 +1,252 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% set object = veyluneObject %}
+{% set primaryMedia = object.media|default([])|first %}
+{% set objectMaterial = object.materials|default([])|first|default('veylune.objectMode.onRequest'|trans) %}
+{% set objectRoom = object.rooms|default([])|first|default('veylune.objectMode.onRequest'|trans) %}
+{% set objectRoomKey = object.primaryRoomKey|default('living-room') %}
+{% set objectCollectionKey = object.primaryCollectionKey|default(null) %}
+
+{% block layout_head_json_ld %}
+    {{ parent() }}
+    {% if not veyluneObjectPreviewMode and primaryMedia %}
+        {% set objectJsonLd = {
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            'name': object.name,
+            'sku': object.productNumber,
+            'description': object.metaDescription,
+            'image': primaryMedia.url,
+            'brand': {
+                '@type': 'Brand',
+                'name': object.manufacturerName
+            },
+            'offers': {
+                '@type': 'Offer',
+                'url': app.request.uri,
+                'priceCurrency': context.currency.isoCode,
+                'price': object.price,
+                'availability': 'https://schema.org/LimitedAvailability',
+                'itemCondition': 'https://schema.org/NewCondition'
+            }
+        } %}
+        <script type="application/ld+json">{{ objectJsonLd|json_encode|raw }}</script>
+    {% endif %}
+{% endblock %}
+
+{% block base_main_inner %}
+    <main class="vli-object{% if veyluneObjectPreviewMode %} vli-object--preview{% endif %}"
+          data-veylune-living-index-object
+          data-veylune-object-publication-state="{{ object.publicationState }}"
+          data-veylune-object-reference="{{ object.productNumber }}">
+        {% if veyluneObjectPreviewMode %}
+            <aside class="vli-object__preview-notice" role="status">
+                {{ 'veylune.objectMode.previewNotice'|trans|sw_sanitize }}
+            </aside>
+        {% endif %}
+
+        <nav class="vli-object__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">{{ 'veylune.destination.breadcrumb.home'|trans|sw_sanitize }}</a>
+            <span aria-hidden="true">/</span>
+            <a href="{{ path('frontend.veylune.discovery.category', { categoryKey: object.departmentKey }) }}">{{ object.departmentLabel }}</a>
+            <span aria-hidden="true">/</span>
+            <span>{{ 'veylune.objectMode.breadcrumbObject'|trans|sw_sanitize }}</span>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ object.name }}</span>
+        </nav>
+
+        <article class="vli-object__hero">
+            <section class="vli-object__gallery" aria-label="{{ object.name }}">
+                <figure class="vli-object__primary-media">
+                    {% if primaryMedia %}
+                        <img src="{{ primaryMedia.url }}"
+                             alt="{{ primaryMedia.alt|default('veylune.objectMode.primaryView'|trans({ '%name%': object.name })) }}"
+                             fetchpriority="high"
+                             decoding="async">
+                    {% elseif object.coverAsset %}
+                        <img src="{{ asset('assets/' ~ object.coverAsset, 'theme') }}"
+                             alt="{{ 'veylune.objectMode.primaryView'|trans({ '%name%': object.name })|striptags }}"
+                             fetchpriority="high"
+                             decoding="async">
+                    {% endif %}
+                    <figcaption>
+                        <span>{{ object.statusLabel }}</span>
+                        <strong>{{ object.recordId }}</strong>
+                    </figcaption>
+                </figure>
+
+                <div class="vli-object__evidence-media">
+                    {% for media in object.media|default([])|slice(1, 2) %}
+                        <figure>
+                            <img src="{{ media.url }}"
+                                 alt="{{ media.alt|default('veylune.objectMode.detailView'|trans({ '%name%': object.name })) }}"
+                                 loading="lazy"
+                                 decoding="async">
+                        </figure>
+                    {% endfor %}
+                    {% if object.media|default([])|length < 2 %}
+                        <div class="vli-object__evidence-panel vli-object__evidence-panel--material">
+                            <span>01</span><strong>{{ objectMaterial }}</strong><small>{{ 'veylune.objectMode.materialStory'|trans|sw_sanitize }}</small>
+                        </div>
+                    {% endif %}
+                    {% if object.media|default([])|length < 3 %}
+                        <div class="vli-object__evidence-panel vli-object__evidence-panel--context">
+                            <span>02</span><strong>{{ object.productTypeLabel }}</strong><small>{{ objectRoom }}</small>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <aside class="vli-object__decision" aria-labelledby="vli-object-title">
+                <p class="vli-object__kicker">{{ 'veylune.objectMode.recordKicker'|trans|sw_sanitize }}</p>
+                <h1 id="vli-object-title">{{ object.name }}</h1>
+                <p class="vli-object__byline">{{ object.manufacturerName }} / {{ object.productTypeLabel }}</p>
+
+                <div class="vli-object__price">
+                    <span>{{ 'veylune.objectMode.priceLabel'|trans|sw_sanitize }}</span>
+                    <strong>{{ object.price|currency }}</strong>
+                </div>
+                <p class="vli-object__price-note">{{ 'veylune.objectMode.priceNote'|trans|sw_sanitize }}</p>
+
+                <div class="vli-object__actions">
+                    <a class="vli-object__primary-action" href="{{ path('frontend.veylune.consultation.page', { object: object.productNumber }) }}">
+                        {{ 'veylune.objectMode.consultationCta'|trans|sw_sanitize }}
+                    </a>
+                    <a href="{{ path('frontend.veylune.legal.page', { document: 'payment-delivery' }) }}">
+                        {{ 'veylune.objectMode.deliveryCta'|trans|sw_sanitize }}
+                    </a>
+                </div>
+
+                <div class="vli-object__material-state">
+                    <span>{{ 'veylune.objectMode.material'|trans|sw_sanitize }}</span>
+                    <strong>{{ objectMaterial }}</strong>
+                    {% if object.materials|default([])|length > 1 %}
+                        <div>
+                            {% for material in object.materials %}<small>{{ material }}</small>{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="vli-object__availability">
+                    <span aria-hidden="true"></span>
+                    <div>
+                        <strong>{{ (veyluneObjectPreviewMode ? 'veylune.objectMode.previewAvailability' : 'veylune.objectMode.availability')|trans|sw_sanitize }}</strong>
+                        <small>{{ (veyluneObjectPreviewMode ? 'veylune.objectMode.previewAvailabilityText' : 'veylune.objectMode.availabilityText')|trans|sw_sanitize }}</small>
+                    </div>
+                </div>
+
+                <dl class="vli-object__identity">
+                    <div><dt>{{ 'veylune.objectMode.reference'|trans|sw_sanitize }}</dt><dd>{{ object.productNumber }}</dd></div>
+                    <div><dt>{{ 'veylune.objectMode.material'|trans|sw_sanitize }}</dt><dd>{{ objectMaterial }}</dd></div>
+                    <div><dt>{{ 'veylune.objectMode.room'|trans|sw_sanitize }}</dt><dd>{{ objectRoom }}</dd></div>
+                    <div><dt>{{ 'veylune.objectMode.release'|trans|sw_sanitize }}</dt><dd>{{ (veyluneObjectPreviewMode ? 'veylune.objectMode.developmentRecord' : 'veylune.objectMode.publicRecord')|trans|sw_sanitize }}</dd></div>
+                </dl>
+            </aside>
+        </article>
+
+        <section class="vli-object__evidence" aria-labelledby="vli-object-evidence-title">
+            <header class="vli-object__section-head">
+                <div>
+                    <p class="vli-object__kicker">{{ 'veylune.objectMode.evidenceKicker'|trans|sw_sanitize }}</p>
+                    <h2 id="vli-object-evidence-title">{{ 'veylune.objectMode.evidenceTitle'|trans|sw_sanitize }}</h2>
+                </div>
+                <p>{{ 'veylune.objectMode.evidenceText'|trans|sw_sanitize }}</p>
+            </header>
+
+            <div class="vli-object__glance" aria-label="{{ 'veylune.objectMode.atGlance'|trans|striptags }}">
+                <div><span>01</span><small>{{ 'veylune.objectMode.material'|trans|sw_sanitize }}</small><strong>{{ objectMaterial }}</strong></div>
+                <div><span>02</span><small>{{ 'veylune.objectMode.room'|trans|sw_sanitize }}</small><strong>{{ objectRoom }}</strong></div>
+                <div><span>03</span><small>{{ 'veylune.objectMode.maker'|trans|sw_sanitize }}</small><strong>{{ object.manufacturerName }}</strong></div>
+                <div><span>04</span><small>{{ 'veylune.objectMode.leadTime'|trans|sw_sanitize }}</small><strong>{{ object.customFields.veylune_lead_time_note|default('veylune.objectMode.onRequest'|trans) }}</strong></div>
+            </div>
+        </section>
+
+        <section class="vli-object__story" aria-labelledby="vli-object-description-title">
+            <header>
+                <p class="vli-object__kicker">{{ 'veylune.objectMode.descriptionKicker'|trans|sw_sanitize }}</p>
+                <h2 id="vli-object-description-title">{{ 'veylune.objectMode.descriptionTitle'|trans|sw_sanitize }}</h2>
+            </header>
+            <div class="vli-object__description">{{ object.description|sw_sanitize|raw }}</div>
+            <div class="vli-object__story-grid">
+                <article>
+                    <span>01</span><h3>{{ 'veylune.objectMode.materialStory'|trans|sw_sanitize }}</h3>
+                    <p>{{ object.customFields.veylune_material_story|default('veylune.objectMode.evidencePending'|trans)|sw_sanitize }}</p>
+                </article>
+                <article>
+                    <span>02</span><h3>{{ 'veylune.objectMode.craftsmanship'|trans|sw_sanitize }}</h3>
+                    <p>{{ object.customFields.veylune_craftsmanship_note|default('veylune.objectMode.evidencePending'|trans)|sw_sanitize }}</p>
+                </article>
+                <article>
+                    <span>03</span><h3>{{ 'veylune.objectMode.care'|trans|sw_sanitize }}</h3>
+                    <p>{{ object.customFields.veylune_care_guidance|default('veylune.objectMode.evidencePending'|trans)|sw_sanitize }}</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="vli-object__specs" aria-labelledby="vli-object-specs-title">
+            <header class="vli-object__section-head">
+                <div>
+                    <p class="vli-object__kicker">{{ 'veylune.objectMode.specKicker'|trans|sw_sanitize }}</p>
+                    <h2 id="vli-object-specs-title">{{ 'veylune.objectMode.specTitle'|trans|sw_sanitize }}</h2>
+                </div>
+                <p>{{ 'veylune.objectMode.dimensionsUnit'|trans|sw_sanitize }}</p>
+            </header>
+            <dl class="vli-object__spec-grid">
+                <div><dt>{{ 'veylune.objectMode.width'|trans|sw_sanitize }}</dt><dd>{{ object.width ? object.width|number_format(0) ~ ' mm' : 'veylune.objectMode.onRequest'|trans }}</dd></div>
+                <div><dt>{{ 'veylune.objectMode.height'|trans|sw_sanitize }}</dt><dd>{{ object.height ? object.height|number_format(0) ~ ' mm' : 'veylune.objectMode.onRequest'|trans }}</dd></div>
+                <div><dt>{{ 'veylune.objectMode.depth'|trans|sw_sanitize }}</dt><dd>{{ object.length ? object.length|number_format(0) ~ ' mm' : 'veylune.objectMode.onRequest'|trans }}</dd></div>
+                <div><dt>{{ 'veylune.objectMode.weight'|trans|sw_sanitize }}</dt><dd>{{ object.weight ? object.weight|number_format(1) ~ ' kg' : 'veylune.objectMode.onRequest'|trans }}</dd></div>
+                <div><dt>{{ 'veylune.objectMode.productType'|trans|sw_sanitize }}</dt><dd>{{ object.productTypeLabel }}</dd></div>
+                <div><dt>{{ 'veylune.objectMode.reference'|trans|sw_sanitize }}</dt><dd>{{ object.productNumber }}</dd></div>
+            </dl>
+        </section>
+
+        <section class="vli-object__context"
+                 aria-labelledby="vli-object-context-title"
+                 data-veylune-object-scene-context="{{ objectRoomKey }}">
+            <figure>
+                <img src="{{ asset('assets/' ~ object.roomSceneAsset, 'theme') }}"
+                     alt="{{ 'veylune.objectMode.contextImageAlt'|trans({ '%name%': object.name, '%room%': objectRoom })|striptags }}"
+                     loading="lazy">
+                <figcaption>{{ 'veylune.objectMode.contextCaption'|trans({ '%room%': objectRoom })|sw_sanitize }}</figcaption>
+            </figure>
+            <div>
+                <p class="vli-object__kicker">{{ 'veylune.objectMode.contextKicker'|trans|sw_sanitize }}</p>
+                <h2 id="vli-object-context-title">{{ 'veylune.objectMode.contextTitle'|trans|sw_sanitize }}</h2>
+                <p>{{ 'veylune.objectMode.contextText'|trans|sw_sanitize }}</p>
+                <nav aria-label="{{ 'veylune.objectMode.contextNavLabel'|trans|striptags }}">
+                    <a href="{{ path('frontend.veylune.discovery.room', { roomKey: objectRoomKey }) }}">
+                        <span>01</span><strong>{{ 'veylune.objectMode.contextRoomCta'|trans({ '%room%': objectRoom })|sw_sanitize }}</strong><b aria-hidden="true">&rarr;</b>
+                    </a>
+                    {% if objectCollectionKey %}
+                        <a href="{{ path('frontend.veylune.discovery.collection', { collectionKey: objectCollectionKey }) }}">
+                            <span>02</span><strong>{{ 'veylune.objectMode.contextCollectionCta'|trans|sw_sanitize }}</strong><b aria-hidden="true">&rarr;</b>
+                        </a>
+                    {% endif %}
+                    <a href="{{ path('frontend.veylune.discovery.category', { categoryKey: object.departmentKey }) }}">
+                        <span>{{ objectCollectionKey ? '03' : '02' }}</span><strong>{{ 'veylune.objectMode.contextObjectCta'|trans|sw_sanitize }}</strong><b aria-hidden="true">&rarr;</b>
+                    </a>
+                </nav>
+            </div>
+        </section>
+
+        <section class="vli-object__project" aria-labelledby="vli-object-project-title">
+            <div>
+                <p class="vli-object__kicker">{{ 'veylune.objectMode.projectKicker'|trans|sw_sanitize }}</p>
+                <h2 id="vli-object-project-title">{{ 'veylune.objectMode.projectTitle'|trans|sw_sanitize }}</h2>
+            </div>
+            <div>
+                <p>{{ 'veylune.objectMode.projectText'|trans|sw_sanitize }}</p>
+                <div>
+                    <a href="{{ path('frontend.veylune.consultation.page', { object: object.productNumber }) }}">{{ 'veylune.objectMode.projectCta'|trans|sw_sanitize }}</a>
+                    <a href="{{ path('frontend.veylune.editions.page') }}">{{ 'veylune.objectMode.materialCta'|trans|sw_sanitize }}</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="vli-object__mobile-action" role="region" aria-label="{{ 'veylune.objectMode.consultationCta'|trans|striptags }}">
+            <strong>{{ object.price|currency }}</strong>
+            <a href="{{ path('frontend.veylune.consultation.page', { object: object.productNumber }) }}">{{ 'veylune.objectMode.consultationCta'|trans|sw_sanitize }}</a>
+        </div>
+    </main>
+{% endblock %}

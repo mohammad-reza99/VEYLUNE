@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+DDEV_BIN="${DDEV_BIN:-ddev}"
+cd "$ROOT_DIR"
+
+printf '[veylune-rc] locked dependency integrity and security\n'
+"$DDEV_BIN" exec composer validate --no-check-publish --no-interaction >/dev/null
+"$DDEV_BIN" exec composer install --dry-run --no-dev --no-scripts --no-interaction --prefer-dist >/dev/null
+"$DDEV_BIN" exec composer audit --locked --format=summary >/dev/null
+"$DDEV_BIN" exec php bin/console --version | grep -Fq 'Shopware 6.7.13.1'
+
+printf '[veylune-rc] local environment classification\n'
+bash bin/veylune-production-config-audit --local
+
+printf '[veylune-rc] source manifest safety\n'
+bash bin/veylune-release-manifest >/dev/null
+
+printf '[veylune-rc] non-destructive rollback rehearsal\n'
+bash bin/veylune-rollback-readiness --dry-run
+
+printf '[veylune-rc] full governance and release gates\n'
+bash bin/veylune-governance-check
+
+git diff --check
+printf '[veylune-rc] local RC gate passed\n'
+printf '[veylune-rc] production deployment remains blocked until --production config audit, immutable artifact, backups, and external browser matrix are complete\n'

@@ -2,6 +2,9 @@
 
 {% block base_content %}
     {% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
+    {% if veyluneDestinationType in ['category', 'room', 'collection'] %}
+        {% sw_include '@VeyluneTheme/storefront/veylune/living-index-discovery.html.twig' %}
+    {% else %}
     {% set registryScope = veyluneDestinationType == 'room' ? 'room-destination' : (veyluneDestinationType == 'category' ? 'category-destination' : 'collection-destination') %}
     {% set registryEntity = veyluneDestinationType == 'room' ? 'rooms' : (veyluneDestinationType == 'category' ? 'departments' : 'collections') %}
 
@@ -9,6 +12,12 @@
           data-veylune-registry-scope="{{ registryScope }}"
           data-veylune-registry-entity="{{ registryEntity }}"
           data-veylune-registry-key="{{ veyluneDestinationKey }}">
+        <nav class="veylune-destination__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">{{ 'veylune.destination.breadcrumb.home'|trans|sw_sanitize }}</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ veyluneDestination.title|trans|sw_sanitize }}</span>
+        </nav>
+
         <section class="veylune-destination__intro" aria-labelledby="veylune-destination-title">
             <div class="veylune-destination__intro-inner">
                 <p class="veylune-destination__eyebrow">
@@ -18,6 +27,12 @@
                 <p>{{ veyluneDestination.text|trans|sw_sanitize }}</p>
             </div>
         </section>
+
+        <aside class="veylune-destination__promo" aria-label="{{ 'veylune.destination.promo.label'|trans|striptags }}">
+            <strong>{{ 'veylune.destination.promo.title'|trans|sw_sanitize }}</strong>
+            <span>{{ 'veylune.destination.promo.text'|trans|sw_sanitize }}</span>
+            <a href="{{ path('frontend.veylune.legal.page', { document: 'payment-delivery' }) }}">{{ 'veylune.destination.promo.cta'|trans|sw_sanitize }}</a>
+        </aside>
 
         <section class="veylune-destination__products"
                  id="veylune-destination-products"
@@ -29,20 +44,36 @@
                 <p class="veylune-destination__eyebrow">{{ 'veylune.destination.products.eyebrow'|trans|sw_sanitize }}</p>
                 <h2 id="veylune-destination-products-title">{{ 'veylune.destination.products.title'|trans|sw_sanitize }}</h2>
             </div>
+            <div class="veylune-destination__listing-bar" aria-label="{{ 'veylune.destination.listing.label'|trans|striptags }}">
+                <span>{{ 'veylune.destination.listing.count'|trans({ '%count%': veyluneExposedProducts|length })|sw_sanitize }}</span>
+                {% if veyluneExposedProducts is not empty %}
+                    <span class="veylune-destination__listing-order">{{ 'veylune.destination.listing.recommended'|trans|sw_sanitize }}</span>
+                {% endif %}
+            </div>
             <div class="veylune-destination__product-grid">
-                {% for product in veyluneExposedProducts %}
-                    {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
-                        product: product,
-                        layout: 'standard',
-                        sizes: {
-                            xs: '50vw',
-                            sm: '50vw',
-                            md: '33vw',
-                            lg: '25vw',
-                            xl: '25vw'
-                        }
-                    } %}
-                {% endfor %}
+                {% if veyluneExposedProducts is not empty %}
+                    {% for product in veyluneExposedProducts %}
+                        {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
+                            product: product,
+                            layout: 'standard',
+                            sizes: {
+                                xs: '50vw',
+                                sm: '50vw',
+                                md: '33vw',
+                                lg: '25vw',
+                                xl: '25vw'
+                            }
+                        } %}
+                    {% endfor %}
+                {% else %}
+                    <div class="veylune-destination__empty" role="status">
+                        <h3>{{ 'veylune.destination.empty.title'|trans|sw_sanitize }}</h3>
+                        <p>{{ ('veylune.destination.empty.' ~ veyluneDestinationType ~ 'Text')|trans|sw_sanitize }}</p>
+                        <a class="veylune-destination__quiet-link" href="{{ veyluneCategoryRoutes.url('consultation') }}">
+                            {{ 'veylune.destination.consultation.cta'|trans|sw_sanitize }}
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </section>
 
@@ -64,7 +95,8 @@
                            data-veylune-registry-scope="{{ veyluneDestinationType == 'category' ? 'category-discovery-shortcuts' : 'room-category-shortcuts' }}"
                            data-veylune-registry-entity="{{ veyluneDestinationType == 'category' ? 'category-segments' : 'departments' }}"
                            data-veylune-registry-key="{{ shortcut.key }}">
-                            {{ shortcut.label|trans|sw_sanitize }}
+                            <span class="veylune-destination__shortcut-media" aria-hidden="true"></span>
+                            <span class="veylune-destination__shortcut-label">{{ shortcut.label|trans|sw_sanitize }}</span>
                         </a>
                     {% endfor %}
                 </div>
@@ -111,4 +143,5 @@
             </section>
         {% endif %}
     </div>
+    {% endif %}
 {% endblock %}

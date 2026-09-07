@@ -23,6 +23,10 @@ final class DraftCatalogPreviewService
         'F05', // Edda Dining Chair
         'F10', // Elara Travertine Coffee Table
     ];
+    private const OBJECT_PROBE_ASSETS = [
+        'F01' => 'products/f01-aurelia-modular-sofa-v1.webp',
+        'F10' => 'products/f10-elara-travertine-coffee-table-v1.webp',
+    ];
 
     /**
      * @param EntityRepository<\Shopware\Core\Content\Product\ProductCollection> $productRepository
@@ -169,10 +173,13 @@ final class DraftCatalogPreviewService
         }
 
         $primaryMaterial = (string) ($customFields['veylune_primary_material_key'] ?? 'material');
+        $recordId = (string) ($customFields['veylune_catalog_record_id'] ?? '');
 
         return [
-            'recordId' => (string) ($customFields['veylune_catalog_record_id'] ?? ''),
+            'recordId' => $recordId,
+            'productNumber' => (string) ($product->getProductNumber() ?? ''),
             'name' => (string) ($product->getTranslated()['name'] ?? $product->getName() ?? ''),
+            'description' => (string) ($product->getTranslated()['description'] ?? ''),
             'targetPrice' => $price?->getGross() ?? (float) ($customFields['veylune_target_price_gross'] ?? 0),
             'status' => (string) ($customFields['veylune_status_copy'] ?? 'Supplier Selection'),
             'department' => (string) ($customFields['veylune_department_key'] ?? ''),
@@ -183,6 +190,12 @@ final class DraftCatalogPreviewService
             'rooms' => $rooms,
             'collections' => $collections,
             'rails' => $this->decodeList($customFields['veylune_rail_candidates'] ?? null),
+            'coverAsset' => self::OBJECT_PROBE_ASSETS[$recordId] ?? null,
+            'customFields' => $customFields,
+            'width' => $product->getWidth(),
+            'height' => $product->getHeight(),
+            'length' => $product->getLength(),
+            'weight' => $product->getWeight(),
         ];
     }
 

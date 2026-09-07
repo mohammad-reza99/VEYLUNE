@@ -8,6 +8,7 @@ use Shopware\Core\Content\Sitemap\Struct\UrlResult;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use VeyluneTheme\Edition\EditionReferenceRegistry;
+use VeyluneTheme\Discovery\ProductExposureService;
 use VeyluneTheme\Publication\PublicationStatePolicy;
 use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
@@ -16,6 +17,25 @@ final class IdentityUrlProvider extends AbstractUrlProvider
     private const CHANGE_FREQ = 'weekly';
     private const HOMEPAGE_PRIORITY = 1.0;
     private const EDITION_PRIORITY = 0.7;
+    private const OBJECT_PRIORITY = 0.8;
+    private const DISCOVERY_ROUTES = [
+        ['/discover', 'living-index:discover', 0.8],
+        ['/editions', 'axis:material', 0.85],
+        ['/atelier-partnerships', 'axis:maker', 0.75],
+        ['/private-consultation', 'axis:project', 0.75],
+        ['/rooms/living-room', 'room:living-room', 0.85],
+        ['/rooms/dining-room', 'room:dining-room', 0.8],
+        ['/rooms/bedroom', 'room:bedroom', 0.8],
+        ['/rooms/workspace', 'room:workspace', 0.75],
+        ['/rooms/hallway', 'room:hallway', 0.7],
+        ['/rooms/outdoor', 'room:outdoor', 0.75],
+        ['/collections/founder-selection', 'collection:founder-selection', 0.8],
+        ['/collections/new-arrivals', 'collection:new-arrivals', 0.75],
+        ['/collections/best-sellers', 'collection:best-sellers', 0.7],
+        ['/collections/sale', 'collection:sale', 0.65],
+        ['/collections/permanent', 'collection:permanent-collections', 0.75],
+        ['/collections/editorial', 'collection:editorial-collections', 0.75],
+    ];
     private const REFERENCE_PATTERN = '/^[a-z0-9]+(?:-[a-z0-9]+)*$/';
     private const CANDIDATE_KEYS = [
         'reference',
@@ -26,7 +46,8 @@ final class IdentityUrlProvider extends AbstractUrlProvider
     ];
 
     public function __construct(
-        private readonly EditionReferenceRegistry $editionReferenceRegistry
+        private readonly EditionReferenceRegistry $editionReferenceRegistry,
+        private readonly ProductExposureService $productExposureService
     ) {
     }
 
@@ -56,6 +77,11 @@ final class IdentityUrlProvider extends AbstractUrlProvider
         $urls = [$this->buildUrl('', 'homepage', self::HOMEPAGE_PRIORITY)];
         $emittedRoutes = ['' => true];
 
+        foreach (self::DISCOVERY_ROUTES as [$route, $identifier, $priority]) {
+            $emittedRoutes[$route] = true;
+            $urls[] = $this->buildUrl($route, $identifier, $priority);
+        }
+
         foreach ($this->editionReferenceRegistry->sitemapCandidates($locale) as $candidate) {
             if (!$this->isEligibleCandidate($candidate, $locale)) {
                 continue;
@@ -69,6 +95,18 @@ final class IdentityUrlProvider extends AbstractUrlProvider
 
             $emittedRoutes[$route] = true;
             $urls[] = $this->buildUrl($this->sitemapRoute($route, $locale), $candidate['reference'], self::EDITION_PRIORITY);
+        }
+
+        foreach ($this->productExposureService->publicProducts($context) as $product) {
+            $productNumber = (string) $product->getProductNumber();
+            $route = '/objects/' . rawurlencode($productNumber);
+
+            if ($productNumber === '' || isset($emittedRoutes[$route])) {
+                continue;
+            }
+
+            $emittedRoutes[$route] = true;
+            $urls[] = $this->buildUrl($route, $productNumber, self::OBJECT_PRIORITY);
         }
 
         $page = \array_slice($urls, $offset, $limit);

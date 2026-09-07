@@ -50,6 +50,9 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.discovery.collection',
         'frontend.veylune.discovery.collection.permanent',
         'frontend.veylune.discovery.collection.editorial',
+        'frontend.veylune.living_index.search',
+        'frontend.veylune.living_index.selection',
+        'frontend.veylune.object.page',
         'frontend.veylune.preview.catalog.home',
         'frontend.veylune.preview.catalog.category',
         'frontend.veylune.preview.catalog.room',
@@ -71,6 +74,10 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.header',
         'frontend.footer',
     ];
+
+    public function __construct(private readonly string $environment)
+    {
+    }
 
     public static function getSubscribedEvents(): array
     {
@@ -211,6 +218,11 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
     {
         $route = (string) $request->attributes->get('_route');
 
+        if (str_starts_with($route, 'frontend.veylune.vision.')) {
+            return $this->environment === 'dev'
+                && str_ends_with($request->getHost(), '.ddev.site');
+        }
+
         if (str_starts_with($route, 'frontend.account.')) {
             return true;
         }
@@ -284,24 +296,36 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
                         <style>
                             :root { color-scheme: light; }
                             * { box-sizing: border-box; }
-                            body { margin: 0; color: #25221d; background: #f4f0e8; font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
-                            main { display: grid; min-height: 100svh; place-items: center; padding: clamp(1.25rem, 5vw, 5rem); }
-                            article { width: min(100%%, 58rem); padding: clamp(2rem, 7vw, 6rem); background: #27241f; color: #f5efe4; }
-                            .eyebrow { margin: 0 0 1.5rem; color: #cbbb9f; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; }
-                            h1 { max-width: 10ch; margin: 0; font-family: "Iowan Old Style", Baskerville, Georgia, serif; font-size: clamp(3rem, 9vw, 7rem); font-weight: 400; line-height: .92; letter-spacing: -.04em; }
-                            .copy { max-width: 38rem; margin: 1.75rem 0 2.25rem; color: rgba(245,239,228,.72); font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.65; }
-                            a { display: inline-flex; align-items: center; min-height: 44px; padding-bottom: .2rem; color: #f5efe4; border-bottom: 1px solid rgba(245,239,228,.45); font-size: .72rem; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
-                            a:focus-visible { outline: 2px solid #cbbb9f; outline-offset: 6px; }
-                            @media (max-width: 30rem) { article { padding-inline: 1.5rem; } }
+                            body { margin: 0; border-top: 4px solid #7b1f7e; color: #211d22; background: #f7f5f7; font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+                            main { display: grid; min-height: calc(100svh - 4px); place-items: center; padding: clamp(1rem, 5vw, 5rem); }
+                            article { display: grid; width: min(100%%, 68rem); grid-template-columns: minmax(11rem, .42fr) minmax(0, 1fr); overflow: hidden; border: 1px solid #ddd7de; background: #fff; }
+                            .signal { display: flex; min-height: 31rem; padding: clamp(1.5rem, 4vw, 3.5rem); flex-direction: column; justify-content: space-between; background: #4e0e52; color: #fff; }
+                            .signal span { font-size: clamp(3.75rem, 8vw, 7rem); font-weight: 820; letter-spacing: -.07em; line-height: .8; }
+                            .signal small { color: rgba(255,255,255,.72); font-size: .68rem; font-weight: 780; letter-spacing: .12em; text-transform: uppercase; }
+                            .content { display: flex; padding: clamp(2rem, 6vw, 5rem); flex-direction: column; justify-content: center; }
+                            .eyebrow { margin: 0 0 1rem; color: #7b1f7e; font-size: .7rem; font-weight: 820; letter-spacing: .11em; text-transform: uppercase; }
+                            h1 { max-width: 11ch; margin: 0; font-size: clamp(2.75rem, 6vw, 5.75rem); font-weight: 800; line-height: .94; letter-spacing: -.055em; }
+                            .copy { max-width: 36rem; margin: 1.5rem 0 2rem; color: #665f67; font-size: clamp(.95rem, 1.5vw, 1.08rem); line-height: 1.65; }
+                            a { display: inline-flex; width: fit-content; min-height: 48px; align-items: center; justify-content: center; padding: .8rem 1.2rem; border: 1px solid #7b1f7e; background: #7b1f7e; color: #fff; font-size: .74rem; font-weight: 820; letter-spacing: .035em; text-decoration: none; text-transform: uppercase; }
+                            a:hover { border-color: #4e0e52; background: #4e0e52; }
+                            a:focus-visible { outline: 3px solid #7b1f7e; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+                            @media (max-width: 44rem) { article { grid-template-columns: 1fr; } .signal { min-height: 9rem; } .signal span { font-size: 3.75rem; } .content { min-height: 25rem; padding-inline: 1.5rem; } }
+                            @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
                         </style>
                     </head>
                     <body>
                         <main data-veylune-identity-denial>
-                            <article>
-                                <p class="eyebrow">VEYLUNE STUDIO · %s</p>
-                                <h1>%s</h1>
-                                <p class="copy">%s</p>
-                                <a href="/">%s</a>
+                            <article data-veylune-release-error>
+                                <div class="signal" aria-hidden="true">
+                                    <span>404</span>
+                                    <small>Veylune Living Index</small>
+                                </div>
+                                <div class="content">
+                                    <p class="eyebrow">VEYLUNE STUDIO · %s</p>
+                                    <h1>%s</h1>
+                                    <p class="copy">%s</p>
+                                    <a href="/">%s</a>
+                                </div>
                             </article>
                         </main>
                     </body>
@@ -319,6 +343,15 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             'Content-Type' => 'text/html; charset=UTF-8',
             'Cache-Control' => 'no-store, private',
             'X-Robots-Tag' => 'noindex, nofollow',
+            'Content-Language' => $isGerman ? 'de' : 'en',
+            'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains',
+            'X-Frame-Options' => 'DENY',
+            'X-Content-Type-Options' => 'nosniff',
+            'Referrer-Policy' => 'strict-origin-when-cross-origin',
+            'Permissions-Policy' => 'camera=(), geolocation=(), microphone=()',
+            'Cross-Origin-Opener-Policy' => 'same-origin',
+            'Cross-Origin-Resource-Policy' => 'same-origin',
+            'Content-Security-Policy' => "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
         ]);
     }
 }

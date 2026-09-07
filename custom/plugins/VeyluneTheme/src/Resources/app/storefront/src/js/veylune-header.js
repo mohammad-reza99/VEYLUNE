@@ -30,6 +30,7 @@ const initVeyluneHeader = () => {
 
     let ticking = false;
     let lastScrollY = window.scrollY;
+    let megaOpenTimer = null;
     let megaCloseTimer = null;
     let activeMegaKey = null;
     let activeMegaTrigger = null;
@@ -177,6 +178,7 @@ const initVeyluneHeader = () => {
             return;
         }
 
+        window.clearTimeout(megaOpenTimer);
         header.classList.remove('is-mega-open');
         mega.classList.remove('is-open');
         mega.setAttribute('aria-hidden', 'true');
@@ -201,8 +203,15 @@ const initVeyluneHeader = () => {
     }
 
     const scheduleMegaClose = () => {
+        window.clearTimeout(megaOpenTimer);
         window.clearTimeout(megaCloseTimer);
         megaCloseTimer = window.setTimeout(closeMega, 180);
+    };
+
+    const scheduleMegaOpen = (key) => {
+        window.clearTimeout(megaOpenTimer);
+        window.clearTimeout(megaCloseTimer);
+        megaOpenTimer = window.setTimeout(() => openMega(key), 120);
     };
 
     const openMobileNav = () => {
@@ -307,7 +316,9 @@ const initVeyluneHeader = () => {
     megaTriggers.forEach((trigger) => {
         const key = trigger.dataset.veyluneMegaTrigger;
 
-        trigger.addEventListener('mouseenter', () => openMega(key));
+        // A short intent delay keeps a normal pointer click on the navigation
+        // link from being intercepted by the full-width mega overlay.
+        trigger.addEventListener('mouseenter', () => scheduleMegaOpen(key));
         trigger.addEventListener('focus', () => openMega(key));
         trigger.addEventListener('mouseleave', scheduleMegaClose);
     });

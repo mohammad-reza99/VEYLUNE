@@ -45,6 +45,31 @@
             </call>
         </service>
 
+        <service id="VeyluneTheme\Controller\VisionPrototypeController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <argument>%kernel.environment%</argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="VeyluneTheme\Controller\LivingIndexUtilityController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="VeyluneTheme\Controller\LivingIndexObjectController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <argument type="service" id="VeyluneTheme\Discovery\ProductExposureService" />
+            <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewService" />
+            <argument>%kernel.environment%</argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
         <service id="VeyluneTheme\Edition\EditionReferenceRegistry" />
 
         <service id="VeyluneTheme\Retrieval\IdentityRetrievalMediator" />
@@ -119,7 +144,9 @@
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
 
-        <service id="VeyluneTheme\Subscriber\IdentityIngressAllowlistSubscriber" />
+        <service id="VeyluneTheme\Subscriber\IdentityIngressAllowlistSubscriber">
+            <argument>%kernel.environment%</argument>
+        </service>
 
         <service id="VeyluneTheme\Subscriber\ProductExposurePageSubscriber" />
 

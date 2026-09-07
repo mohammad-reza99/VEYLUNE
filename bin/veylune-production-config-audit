@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MODE="${1:---local}"
+
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-config][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+pass() {
+    printf '[veylune-config][PASS] %s\n' "$1"
+}
+
+read_dotenv() {
+    local key="$1"
+    sed -n "s/^${key}=//p" .env | head -n 1
+}
+
+case "$MODE" in
+    --local)
+        [[ -f .env ]] || fail '.env is missing'
+        [[ "$(read_dotenv APP_ENV)" == 'dev' ]] || fail 'local APP_ENV must remain dev'
+        grep -Fq 'xdebug_enabled: false' .ddev/config.yaml || fail 'local Xdebug must be disabled'
+        grep -Fq 'VEYLUNE_DRAFT_PREVIEW_ENABLED=1' .ddev/config.yaml || fail 'DDEV draft preview override is missing'
+        grep -Fq 'MAILER_DSN=smtp://127.0.0.1:1025' .ddev/config.yaml || fail 'DDEV Mailpit override is missing'
+        pass 'DDEV is explicitly classified as development-only'
+        pass 'Xdebug is disabled and local mail is isolated in Mailpit'
+        printf '[veylune-config][BLOCK] Production must not inherit APP_ENV=dev, localhost mail, or draft preview.\n'
+        ;;
+    --production)
+        app_secret="${APP_SECRET:-}"
+        database_url="${DATABASE_URL:-}"
+        mailer_dsn="${MAILER_DSN:-}"
+        [[ "${APP_ENV:-}" == 'prod' ]] || fail 'APP_ENV must be prod'
+        [[ "${APP_DEBUG:-}" =~ ^(0|false|off)$ ]] || fail 'APP_DEBUG must be explicitly false'
+        [[ "${APP_URL:-}" =~ ^https:// ]] || fail 'APP_URL must use HTTPS'
+        [[ ${#app_secret} -ge 32 ]] || fail 'APP_SECRET must be supplied with at least 32 characters'
+        [[ -n "$database_url" ]] || fail 'DATABASE_URL must be supplied'
+        [[ ! "$database_url" =~ (localhost|127\.0\.0\.1|db:db@db) ]] || fail 'DATABASE_URL points to a local/development database'
+        [[ -n "$mailer_dsn" ]] || fail 'MAILER_DSN must be supplied'
+        [[ ! "$mailer_dsn" =~ (localhost|127\.0\.0\.1|:1025) ]] || fail 'MAILER_DSN points to local Mailpit'
+        [[ "${VEYLUNE_DRAFT_PREVIEW_ENABLED:-0}" =~ ^(0|false|off)$ ]] || fail 'VEYLUNE_DRAFT_PREVIEW_ENABLED must be false'
+        [[ "${SHOPWARE_HTTP_CACHE_ENABLED:-}" =~ ^(1|true|on)$ ]] || fail 'SHOPWARE_HTTP_CACHE_ENABLED must be explicitly true'
+        pass 'production environment contract is safe to deploy'
+        ;;
+    *)
+        fail 'usage: bin/veylune-production-config-audit [--local|--production]'
+        ;;
+esac

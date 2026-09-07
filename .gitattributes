@@ -1,0 +1,10 @@
+/.ddev export-ignore
+/.env export-ignore
+/.env.* export-ignore
+/.github export-ignore
+/.codex-tmp export-ignore
+/var export-ignore
+/vendor export-ignore
+/node_modules export-ignore
+/public/theme export-ignore
+**/*.orig export-ignore

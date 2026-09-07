@@ -9,6 +9,42 @@
         var(--veylune-color-ivory);
 }
 
+.veylune-destination__breadcrumb {
+    order: 0;
+    display: flex;
+    gap: 0.45rem;
+    width: var(--veylune-container);
+    margin: 0 auto;
+    padding-top: 0.8rem;
+    color: #625c63;
+    font-size: 0.78rem;
+}
+
+.veylune-destination__breadcrumb a {
+    color: #625c63;
+    text-underline-offset: 0.18em;
+}
+
+.veylune-destination__promo {
+    order: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.58rem var(--veylune-page-gutter);
+    background: #7f187f;
+    color: #fff;
+    font-size: 0.78rem;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.veylune-destination__promo a {
+    color: #fff;
+    font-weight: 750;
+    text-underline-offset: 0.2em;
+}
+
 .veylune-destination__intro {
     padding: clamp(5rem, 10vw, 9rem) 0 clamp(3.5rem, 7vw, 6rem);
     border-bottom: 1px solid var(--veylune-color-line-soft);
@@ -227,6 +263,228 @@
     width: var(--veylune-container);
     margin: 0 auto;
     padding: clamp(4.25rem, 8vw, 8.5rem) 0 clamp(2.5rem, 5vw, 5rem);
+}
+
+/* Marketplace destination closure: compact, visual, and product-led. */
+.veylune-destination {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    font-family: var(--veylune-font-sans);
+}
+
+.veylune-destination__intro { order: 1; }
+.veylune-destination__shortcuts { order: 3; }
+.veylune-destination__products { order: 4; }
+.veylune-destination__materials { order: 5; }
+.veylune-destination__consultation { order: 6; }
+
+.veylune-destination__intro {
+    padding: clamp(1.25rem, 2vw, 2rem) 0 0.85rem;
+    border: 0;
+    background: #fff;
+}
+
+.veylune-destination__intro-inner {
+    display: block;
+}
+
+.veylune-destination__intro .veylune-destination__eyebrow {
+    display: none;
+}
+
+.veylune-destination__intro h1 {
+    font-family: var(--veylune-font-sans);
+    font-size: clamp(1.75rem, 2.7vw, 2.5rem);
+    font-weight: 750;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+}
+
+.veylune-destination__intro p:last-child {
+    max-width: 780px;
+    margin-top: 0.55rem;
+    font-family: var(--veylune-font-sans);
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+.veylune-destination__shortcuts,
+.veylune-destination__materials,
+.veylune-destination__products,
+.veylune-destination__consultation {
+    padding: clamp(1.25rem, 2.5vw, 2.25rem) 0;
+}
+
+.veylune-destination.veylune-destination .veylune-destination__shortcuts {
+    padding: 1rem 0;
+    background: #f5f5f5;
+    border: 0;
+}
+
+.veylune-destination__shortcuts .veylune-destination__section-head {
+    display: none;
+}
+
+.veylune-destination__shortcut-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    padding: 1rem 0;
+}
+
+.veylune-destination__shortcut {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: center;
+    min-height: 76px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(31, 24, 32, 0.08);
+    font-family: var(--veylune-font-sans);
+    font-size: 0.92rem;
+    font-weight: 650;
+}
+
+.veylune-destination__shortcut:hover,
+.veylune-destination__shortcut:focus-visible {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(31, 24, 32, 0.16);
+    transform: translateY(-1px);
+}
+
+.veylune-destination__shortcut-media {
+    width: 76px;
+    height: 76px;
+    background: #ebe7ec center / cover no-repeat;
+}
+
+.veylune-destination__shortcut-label {
+    padding: 0.75rem 0.9rem;
+}
+
+.veylune-destination__shortcut[data-veylune-registry-key="sofas"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="seating"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="living-room"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-room-living-v1.webp"); }
+.veylune-destination__shortcut[data-veylune-registry-key="tables"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="dining-kitchen"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-category-dining-v1.webp"); }
+.veylune-destination__shortcut[data-veylune-registry-key="storage"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="workspace"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-room-workspace-v1.webp"); }
+.veylune-destination__shortcut[data-veylune-registry-key="rugs"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="throws"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="cushions"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-category-textiles-v1.webp"); }
+.veylune-destination__shortcut[data-veylune-registry-key="outdoor-seating"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="outdoor-tables"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="planters"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-category-outdoor-v1.webp"); }
+.veylune-destination__shortcut[data-veylune-registry-key="floor-lamps"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="pendants"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="table-lamps"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-category-lighting-v1.webp"); }
+.veylune-destination__shortcut[data-veylune-registry-key="mirrors"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="vessels"] .veylune-destination__shortcut-media,
+.veylune-destination__shortcut[data-veylune-registry-key="sculptural-objects"] .veylune-destination__shortcut-media { background-image: url("#{$app-css-relative-asset-path}/veylune-category-decor-v1.webp"); }
+
+.veylune-destination__products {
+    border-color: #e6e2e7;
+    background: #fff;
+}
+
+.veylune-destination__listing-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--veylune-container);
+    margin: -0.35rem auto 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2dce4;
+    color: #514b52;
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+.veylune-destination__listing-order {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d8d2d9;
+    border-radius: 999px;
+    background: #fff;
+}
+
+.veylune-destination__section-head {
+    margin-bottom: 1rem;
+}
+
+.veylune-destination__section-head .veylune-destination__eyebrow {
+    display: none;
+}
+
+.veylune-destination__section-head h2 {
+    font-family: var(--veylune-font-sans);
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+}
+
+.veylune-destination__empty {
+    min-height: 160px;
+    align-content: center;
+    gap: 0.55rem;
+    padding: clamp(1.4rem, 3vw, 2.25rem);
+    border: 1px solid #e2dce4;
+    border-radius: 8px;
+    background: #f8f3fa;
+}
+
+.veylune-destination__empty h3 {
+    margin: 0;
+    font-family: var(--veylune-font-sans);
+    font-size: 1.15rem;
+    font-weight: 750;
+}
+
+.veylune-destination__empty p,
+.veylune-destination__consultation .veylune-destination__section-head p:last-of-type {
+    font-family: var(--veylune-font-sans);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.veylune-destination__quiet-link {
+    width: max-content;
+    margin-top: 0.45rem;
+    color: #7f187f;
+    font-family: var(--veylune-font-sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.veylune-destination__material {
+    border-radius: 999px;
+    background: #fff;
+    font-family: var(--veylune-font-sans);
+    font-size: 0.86rem;
+    font-weight: 650;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-destination__shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-destination__promo {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.18rem;
+        padding-block: 0.7rem;
+        text-align: left;
+    }
+    .veylune-destination__intro { padding-top: 1rem; }
+    .veylune-destination__intro p:last-child { font-size: 0.86rem; }
+    .veylune-destination__shortcut-grid { grid-template-columns: 1fr; gap: 0.5rem; }
+    .veylune-destination__shortcut { min-height: 68px; grid-template-columns: 68px minmax(0, 1fr); }
+    .veylune-destination__shortcut-media { width: 68px; height: 68px; }
+    .veylune-destination__product-grid { grid-template-columns: 1fr; }
 }
 
 .veylune-collection-overview__head {
@@ -689,6 +947,35 @@
         grid-column: auto;
         margin-top: 0;
     }
+}
+
+// Final cascade lock for the marketplace destination layout.
+.veylune-destination__intro {
+    padding: clamp(1.25rem, 2vw, 2rem) 0 0.85rem;
+}
+
+.veylune-destination__intro h1 {
+    font-size: clamp(1.75rem, 2.7vw, 2.5rem);
+}
+
+.veylune-destination__shortcuts {
+    padding: 0;
+}
+
+.veylune-destination__materials,
+.veylune-destination__products,
+.veylune-destination__consultation {
+    padding: clamp(1.25rem, 2.5vw, 2.25rem) 0;
+}
+
+.veylune-destination__section-head h2 {
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+}
+
+@media (max-width: 575.98px) {
+    .veylune-destination__intro { padding-top: 1rem; }
+    .veylune-destination__product-grid,
+    .veylune-destination__product-grid--edited { grid-template-columns: 1fr; }
 }
 
 // WP-DES-06 Wave A: products lead every populated destination.

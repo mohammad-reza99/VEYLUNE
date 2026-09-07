@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+DDEV_BIN="${DDEV_BIN:-ddev}"
+HOST_HEADER="${VEYLUNE_HOST_HEADER:-veylune-shopware.ddev.site}"
+BASE_URL="${VEYLUNE_INTERNAL_BASE_URL:-http://localhost}"
+
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-performance][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+fetch_path() {
+    local path="$1"
+    local output_file="$2"
+    local response
+    local status
+    local body
+    local ddev_url
+
+    if [[ "${VEYLUNE_INSIDE_DDEV:-0}" == '1' ]]; then
+        response="$(curl -sS -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' -w $'\n__STATUS__:%{http_code}' "${BASE_URL}${path}")"
+    else
+        ddev_url="${BASE_URL}${path}"
+        ddev_url="${ddev_url//&/\\&}"
+        response="$("$DDEV_BIN" exec curl -sS -H "Host: ${HOST_HEADER}" -H 'X-Forwarded-Proto: https' -w $'\n__STATUS__:%{http_code}' "$ddev_url")"
+    fi
+
+    status="${response##*__STATUS__:}"
+    body="${response%$'\n'__STATUS__:*}"
+    [[ "$status" == '200' ]] || fail "$path returned HTTP $status"
+    printf '%s' "$body" > "$output_file"
+}
+
+assert_under() {
+    local label="$1"
+    local actual="$2"
+    local budget="$3"
+
+    (( actual <= budget )) || fail "$label is ${actual} bytes; budget is ${budget}"
+    printf '[veylune-performance] %-24s %9d / %9d bytes\n' "$label" "$actual" "$budget"
+}
+
+asset_path_from_html() {
+    local html_file="$1"
+    local pattern="$2"
+    local asset_url
+    local asset_path
+
+    asset_url="$(grep -oE "$pattern" "$html_file" | head -n 1 | cut -d '"' -f 2)"
+    [[ -n "$asset_url" ]] || fail "could not resolve active asset matching $pattern"
+    asset_path="${asset_url%%\?*}"
+    asset_path="${asset_path#https://${HOST_HEADER}}"
+    asset_path="${asset_path#http://${HOST_HEADER}}"
+    [[ "$asset_path" == /theme/* ]] || fail "resolved non-theme asset path $asset_path"
+    [[ -f "public${asset_path}" ]] || fail "active asset public${asset_path} is missing"
+    printf '%s' "public${asset_path}"
+}
+
+routes=(
+    '/'
+    '/categories/furniture'
+    '/collections/founder-selection'
+    '/rooms/living-room'
+    '/discover?q=room'
+    '/selection'
+    '/account/login'
+    '/contact-studio'
+)
+
+labels=(home category collection room discover selection account contact)
+budgets=(90000 85000 85000 85000 115000 75000 285000 105000)
+
+printf '[veylune-performance] route HTML budgets (DDEV development baseline)\n'
+for index in "${!routes[@]}"; do
+    route_file="${TMP_DIR}/${labels[$index]}.html"
+    fetch_path "${routes[$index]}" "$route_file"
+    assert_under "${labels[$index]} HTML" "$(wc -c < "$route_file")" "${budgets[$index]}"
+    if grep -Fq 'href=""' "$route_file"; then
+        fail "${routes[$index]} contains an empty interaction target"
+    fi
+done
+
+home_file="${TMP_DIR}/home.html"
+css_file="$(asset_path_from_html "$home_file" 'href="[^"]+/css/all\.css\?[^"]*"')"
+storefront_js_file="$(asset_path_from_html "$home_file" 'src="[^"]+/js/storefront/storefront\.js\?[^"]*"')"
+theme_js_file="$(asset_path_from_html "$home_file" 'src="[^"]+/js/veylune-theme/veylune-theme\.js\?[^"]*"')"
+hero_file="$(asset_path_from_html "$home_file" 'src="[^"]*veylune-home-hero-architectural-warm-v1\.webp\?[^"]*"')"
+
+printf '[veylune-performance] active asset budgets\n'
+assert_under 'compiled CSS raw' "$(wc -c < "$css_file")" 1300000
+assert_under 'compiled CSS gzip' "$(gzip -c "$css_file" | wc -c)" 180000
+assert_under 'storefront JS raw' "$(wc -c < "$storefront_js_file")" 190000
+assert_under 'storefront JS gzip' "$(gzip -c "$storefront_js_file" | wc -c)" 60000
+assert_under 'Veylune JS raw' "$(wc -c < "$theme_js_file")" 100000
+assert_under 'Veylune JS gzip' "$(gzip -c "$theme_js_file" | wc -c)" 25000
+assert_under 'homepage hero image' "$(wc -c < "$hero_file")" 230000
+
+grep -Fq 'data-vli-visual-baseline="department-rail"' "$home_file" || fail 'department visual baseline marker is missing'
+grep -Fq 'data-vli-visual-baseline="merchandising-rail"' "$home_file" || fail 'merchandising visual baseline marker is missing'
+grep -Fq 'fetchpriority="high"' "$home_file" || fail 'homepage hero priority contract is missing'
+grep -Fq 'data-vli-visual-baseline="account-entry"' "${TMP_DIR}/account.html" || fail 'account entry visual baseline marker is missing'
+
+theme_bytes="$(du -sb public/theme | cut -f 1)"
+theme_directories="$(find public/theme -mindepth 1 -maxdepth 1 -type d | wc -l)"
+printf '[veylune-performance] build residue observation: %s bytes across %s theme directories (not runtime-loaded)\n' "$theme_bytes" "$theme_directories"
+printf '[veylune-performance] baseline passed\n'

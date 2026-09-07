@@ -19,6 +19,8 @@ final class ContactStudioController extends StorefrontController
 {
     private const CONTACT_CMS_PAGE_ID = '019e3bf907a971b3a48974fb8e7f7fbe';
 
+    private const PROJECT_SOURCES = ['consultation', 'selection', 'discover', 'object', 'trade'];
+
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
         private readonly AbstractCmsRoute $cmsRoute
@@ -30,6 +32,13 @@ final class ContactStudioController extends StorefrontController
     {
         $page = $this->genericPageLoader->load($request, $context);
         $cmsPage = $this->cmsRoute->load(self::CONTACT_CMS_PAGE_ID, $request, $context)->getCmsPage();
+        $source = strtolower(trim($request->query->getString('from')));
+        if (!in_array($source, self::PROJECT_SOURCES, true)) {
+            $source = 'direct';
+        }
+
+        $searchQuery = $this->cleanContext($request->query->getString('q'), 100);
+        $objectReference = $this->cleanContext($request->query->getString('object'), 64);
         $page->getMetaInformation()?->setMetaTitle('Contact the studio | VEYLUNE STUDIO');
         $page->getMetaInformation()?->setMetaDescription('Send a private design, sourcing, press, or client-care inquiry to Veylune Studio.');
         $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
@@ -37,6 +46,18 @@ final class ContactStudioController extends StorefrontController
         return $this->renderStorefront('@Storefront/storefront/veylune/contact-studio-page.html.twig', [
             'page' => $page,
             'cmsPage' => $cmsPage,
+            'veyluneProjectBrief' => [
+                'source' => $source,
+                'query' => $searchQuery,
+                'object' => $objectReference,
+            ],
         ]);
+    }
+
+    private function cleanContext(string $value, int $maximumLength): string
+    {
+        $value = trim((string) preg_replace('/\\s+/u', ' ', strip_tags($value)));
+
+        return mb_substr($value, 0, $maximumLength);
     }
 }

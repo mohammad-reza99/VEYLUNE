@@ -41,6 +41,11 @@ class PartnershipController extends StorefrontController
     public function consultation(Request $request, SalesChannelContext $context): Response
     {
         $page = $this->genericPageLoader->load($request, $context);
+        $source = strtolower(trim($request->query->getString('from')));
+        if (!in_array($source, ['selection', 'discover', 'object'], true)) {
+            $source = 'consultation';
+        }
+
         $page->getMetaInformation()?->setMetaTitle('Private Consultation | VEYLUNE STUDIO');
         $page->getMetaInformation()?->setMetaDescription('A private design conversation for considered interiors, sourcing, and material direction.');
         $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
@@ -48,6 +53,11 @@ class PartnershipController extends StorefrontController
         return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
             'page' => $page,
             'veylunePageType' => 'consultation',
+            'veyluneProjectHandoff' => [
+                'source' => $source,
+                'query' => $this->cleanContext($request->query->getString('q'), 100),
+                'object' => $this->cleanContext($request->query->getString('object'), 64),
+            ],
         ]);
     }
 
@@ -87,5 +97,12 @@ class PartnershipController extends StorefrontController
             [],
             Response::HTTP_MOVED_PERMANENTLY
         );
+    }
+
+    private function cleanContext(string $value, int $maximumLength): string
+    {
+        $value = trim((string) preg_replace('/\\s+/u', ' ', strip_tags($value)));
+
+        return mb_substr($value, 0, $maximumLength);
     }
 }

@@ -1,0 +1,171 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    {% set hasQuery = veyluneSearchQuery is not empty %}
+    {% set preservedParams = hasQuery ? { q: veyluneSearchQuery } : {} %}
+    {% if veyluneSearchSort != 'relevance' %}{% set preservedParams = preservedParams|merge({ sort: veyluneSearchSort }) %}{% endif %}
+
+    <div class="vli-search-page {{ hasQuery ? 'vli-search-page--results' : 'vli-search-page--discover' }}"
+         data-veylune-living-index-search
+         data-veylune-search-query="{{ veyluneSearchQuery|e('html_attr') }}"
+         data-veylune-search-axis="{{ veyluneSearchActiveAxis }}"
+         data-veylune-search-sort="{{ veyluneSearchSort }}">
+        <nav class="vli-search-page__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">Home</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ hasQuery ? 'Search results' : 'Discover' }}</span>
+        </nav>
+
+        {% if hasQuery %}
+            <header class="vli-search-results-head">
+                <div>
+                    <p class="vli-search-page__kicker">All results for</p>
+                    <h1>&ldquo;{{ veyluneSearchQuery }}&rdquo;</h1>
+                </div>
+                <p><strong>{{ veyluneSearchTotal }}</strong> {{ veyluneSearchTotal == 1 ? 'result' : 'results' }} across the Veylune Living Index.</p>
+            </header>
+
+            <div class="vli-search-query-suggestions" aria-label="Related searches">
+                <span>Related</span>
+                {% for suggestion in ['quiet contrast', 'living room', 'oak furniture', 'sculptural lighting', 'private project'] %}
+                    <a href="{{ path('frontend.veylune.living_index.search', { q: suggestion }) }}">{{ suggestion }}</a>
+                {% endfor %}
+            </div>
+
+            <div class="vli-search-shell">
+                <aside class="vli-search-sidebar" aria-label="Search filters">
+                    <div class="vli-search-sidebar__title">
+                        <strong>Filter by</strong>
+                        {% if veyluneSearchActiveAxis %}<a href="{{ path('frontend.veylune.living_index.search', preservedParams) }}">Clear</a>{% endif %}
+                    </div>
+
+                    <section class="vli-search-sidebar__group" aria-labelledby="vli-filter-axis-title">
+                        <h2 id="vli-filter-axis-title">Result type</h2>
+                        <a class="{% if not veyluneSearchActiveAxis %}is-active{% endif %}"
+                           href="{{ path('frontend.veylune.living_index.search', preservedParams) }}"
+                           {% if not veyluneSearchActiveAxis %}aria-current="page"{% endif %}>
+                            <span>All results</span><b>{{ veyluneSearchMatchTotal }}</b>
+                        </a>
+                        {% for axisKey, axisLabel in veyluneSearchAxes %}
+                            {% set axisCount = veyluneSearchFacetCounts[axisKey]|default(0) %}
+                            {% set axisParams = preservedParams|merge({ axis: axisKey }) %}
+                            {% if axisCount > 0 %}
+                                <a class="{% if veyluneSearchActiveAxis == axisKey %}is-active{% endif %}"
+                                   href="{{ path('frontend.veylune.living_index.search', axisParams) }}"
+                                   {% if veyluneSearchActiveAxis == axisKey %}aria-current="page"{% endif %}>
+                                    <span>{{ axisLabel }}</span><b>{{ axisCount }}</b>
+                                </a>
+                            {% else %}
+                                <span class="is-disabled" aria-disabled="true"><span>{{ axisLabel }}</span><b>0</b></span>
+                            {% endif %}
+                        {% endfor %}
+                    </section>
+
+                    <details class="vli-search-sidebar__group" open>
+                        <summary>Shop by room</summary>
+                        <div class="vli-search-sidebar__quick-links">
+                            {% for label, query in {
+                                'Living Room': 'living room',
+                                'Bedroom': 'bedroom',
+                                'Dining Room': 'dining room',
+                                'Workspace': 'workspace',
+                                'Outdoor': 'outdoor'
+                            } %}
+                                <a href="{{ path('frontend.veylune.living_index.search', { q: query }) }}">{{ label }}</a>
+                            {% endfor %}
+                        </div>
+                    </details>
+
+                    <details class="vli-search-sidebar__group">
+                        <summary>Material</summary>
+                        <div class="vli-search-sidebar__quick-links">
+                            {% for label, query in { 'Oak': 'oak', 'Stone': 'stone', 'Textile': 'textile', 'Metal': 'metal' } %}
+                                <a href="{{ path('frontend.veylune.living_index.search', { q: query, axis: 'material' }) }}">{{ label }}</a>
+                            {% endfor %}
+                        </div>
+                    </details>
+
+                    <details class="vli-search-sidebar__group">
+                        <summary>Curated direction</summary>
+                        <div class="vli-search-sidebar__quick-links">
+                            <a href="{{ path('frontend.veylune.living_index.search', { q: 'quiet contrast' }) }}">Quiet contrast</a>
+                            <a href="{{ path('frontend.veylune.living_index.search', { q: 'new arrivals', axis: 'style' }) }}">New arrivals</a>
+                            <a href="{{ path('frontend.veylune.living_index.search', { q: 'founder selection', axis: 'style' }) }}">Founder selection</a>
+                        </div>
+                    </details>
+                </aside>
+
+                <section class="vli-search-results-column" aria-labelledby="vli-search-results-toolbar-title">
+                    <div class="vli-search-results-toolbar">
+                        <details class="vli-search-mobile-filters">
+                            <summary>Filter <span aria-hidden="true">+</span></summary>
+                            <div>
+                                <a class="{% if not veyluneSearchActiveAxis %}is-active{% endif %}" href="{{ path('frontend.veylune.living_index.search', preservedParams) }}">All <b>{{ veyluneSearchMatchTotal }}</b></a>
+                                {% for axisKey, axisLabel in veyluneSearchAxes %}
+                                    {% set axisCount = veyluneSearchFacetCounts[axisKey]|default(0) %}
+                                    {% if axisCount > 0 %}
+                                        <a class="{% if veyluneSearchActiveAxis == axisKey %}is-active{% endif %}" href="{{ path('frontend.veylune.living_index.search', preservedParams|merge({ axis: axisKey })) }}">{{ axisLabel }} <b>{{ axisCount }}</b></a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </details>
+
+                        <p id="vli-search-results-toolbar-title" role="status"><strong>{{ veyluneSearchTotal }}</strong> {{ veyluneSearchTotal == 1 ? 'result' : 'results' }}</p>
+
+                        <form class="vli-search-sort" action="{{ path('frontend.veylune.living_index.search') }}" method="get">
+                            <input type="hidden" name="q" value="{{ veyluneSearchQuery }}">
+                            {% if veyluneSearchActiveAxis %}<input type="hidden" name="axis" value="{{ veyluneSearchActiveAxis }}">{% endif %}
+                            <label for="vli-search-sort">Sort</label>
+                            <select id="vli-search-sort" name="sort">
+                                <option value="relevance"{% if veyluneSearchSort == 'relevance' %} selected{% endif %}>Recommended</option>
+                                <option value="title"{% if veyluneSearchSort == 'title' %} selected{% endif %}>Name: A-Z</option>
+                                <option value="type"{% if veyluneSearchSort == 'type' %} selected{% endif %}>Result type</option>
+                            </select>
+                            <button type="submit">Apply</button>
+                        </form>
+
+                        <a class="vli-search-results-toolbar__selection" href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-selection-link>
+                            Selection <span data-vli-selection-count>0</span>
+                        </a>
+                    </div>
+
+                    {% sw_include '@Storefront/storefront/veylune/living-index-search-results.html.twig' %}
+                </section>
+            </div>
+        {% else %}
+            <header class="vli-search-page__header">
+                <p class="vli-search-page__kicker">Inspiration / Living Index</p>
+                <h1>Discover rooms, objects, and ideas for your home.</h1>
+                <p>Describe a room, material, mood, or object. Veylune will connect the strongest paths without exposing unpublished commerce.</p>
+                <form action="{{ path('frontend.veylune.living_index.search') }}" method="get" role="search">
+                    <label class="visually-hidden" for="vli-search-page-input">Search the Living Index</label>
+                    <input id="vli-search-page-input" name="q" type="search" placeholder="Try quiet living room, oak, maker, or project..." maxlength="120" autocomplete="off">
+                    <button type="submit">Search</button>
+                </form>
+                <div class="vli-search-page__suggestions" aria-label="Suggested searches">
+                    <span>Try</span>
+                    {% for suggestion in ['quiet living room', 'oak', 'sculptural lighting', 'atelier', 'private project'] %}
+                        <a href="{{ path('frontend.veylune.living_index.search', { q: suggestion }) }}">{{ suggestion }}</a>
+                    {% endfor %}
+                </div>
+            </header>
+
+            <section class="vli-search-page__facets" aria-label="Browse discovery paths by type">
+                <a class="is-active" href="{{ path('frontend.veylune.living_index.search') }}" aria-current="page"><span>All</span><b>{{ veyluneSearchMatchTotal }}</b></a>
+                {% for axisKey, axisLabel in veyluneSearchAxes %}
+                    {% set axisCount = veyluneSearchFacetCounts[axisKey]|default(0) %}
+                    <a href="{{ path('frontend.veylune.living_index.search', { axis: axisKey }) }}"><span>{{ axisLabel }}</span><b>{{ axisCount }}</b></a>
+                {% endfor %}
+            </section>
+
+            <div class="vli-search-page__result-meta" role="status" aria-live="polite">
+                <p><strong>{{ veyluneSearchTotal }}</strong> curated paths to begin with.</p>
+                <a href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-selection-link>Open selection <span data-vli-selection-count>0</span></a>
+            </div>
+
+            {% sw_include '@Storefront/storefront/veylune/living-index-search-results.html.twig' %}
+        {% endif %}
+
+        <p class="visually-hidden" role="status" aria-live="polite" data-vli-selection-status></p>
+    </div>
+{% endblock %}

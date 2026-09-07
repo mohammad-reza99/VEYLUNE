@@ -1,0 +1,115 @@
+/* Release-candidate closure: keep mobile filtering and sorting operable. */
+
+.vli-account-create {
+    display: flex;
+    min-height: 100%;
+    padding: clamp(2rem, 4vw, 4.5rem);
+    border: 1px solid var(--vli-auth-command-dark, #4e0e52);
+    background: var(--vli-auth-command-dark, #4e0e52);
+    color: #fff;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.vli-account-create__eyebrow {
+    margin: 0 0 1rem;
+    color: rgba(255, 255, 255, .7);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+
+.vli-account-create h2 {
+    max-width: 12ch;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 4.25rem);
+    font-weight: 780;
+    letter-spacing: -.05em;
+    line-height: .98;
+}
+
+.vli-account-create > p:not(.vli-account-create__eyebrow) {
+    max-width: 580px;
+    margin: 1.25rem 0 0;
+    color: rgba(255, 255, 255, .76);
+    line-height: 1.65;
+}
+
+.vli-account-create ul {
+    display: grid;
+    max-width: 580px;
+    margin: 2rem 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, .22);
+    list-style: none;
+}
+
+.vli-account-create li {
+    padding: .85rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .22);
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.vli-account-create__action {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 1.4rem;
+    border-color: #fff;
+    background: #fff;
+    color: var(--vli-auth-command-dark, #4e0e52);
+}
+
+@media (max-width: 767.98px) {
+    .vli-account-create {
+        min-height: auto;
+        padding: 2.5rem 1rem 3rem;
+        border-inline: 0;
+    }
+
+    .vli-account-create__action {
+        width: 100%;
+    }
+
+    .vli-search-results-toolbar {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .vli-search-mobile-filters {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .vli-search-results-toolbar__selection {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+
+    .vli-search-sort {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+        justify-self: stretch;
+    }
+
+    .vli-search-sort select {
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+
+    .vli-search-sort button {
+        position: static;
+        width: auto;
+        height: 44px;
+        min-width: 72px;
+        overflow: visible;
+        clip: auto;
+        white-space: nowrap;
+    }
+}

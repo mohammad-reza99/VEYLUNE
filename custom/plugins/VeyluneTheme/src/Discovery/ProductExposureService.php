@@ -112,6 +112,79 @@ final class ProductExposureService
         ];
     }
 
+    public function publicProductByNumber(string $productNumber, SalesChannelContext $context): ?SalesChannelProductEntity
+    {
+        $productNumber = strtoupper(trim($productNumber));
+        $registry = self::EXPOSURE_REGISTRY[$productNumber] ?? null;
+
+        if ($registry === null || !($registry['approved'] ?? false)) {
+            return null;
+        }
+
+        foreach ($this->loadRegistryProducts($context) as $product) {
+            if ($product->getProductNumber() !== $productNumber) {
+                continue;
+            }
+
+            foreach ($registry['categories'] as $categoryKey) {
+                if ($this->isEligibleForSurface($product, 'category', $categoryKey)) {
+                    return $product;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @return list<SalesChannelProductEntity>
+     */
+    public function publicProducts(SalesChannelContext $context): array
+    {
+        $public = [];
+
+        foreach ($this->loadRegistryProducts($context) as $product) {
+            $registry = self::EXPOSURE_REGISTRY[(string) $product->getProductNumber()] ?? null;
+
+            if ($registry === null || !($registry['approved'] ?? false)) {
+                continue;
+            }
+
+            foreach ($registry['categories'] as $categoryKey) {
+                if ($this->isEligibleForSurface($product, 'category', $categoryKey)) {
+                    $public[] = $product;
+                    break;
+                }
+            }
+        }
+
+        return $public;
+    }
+
+    public function primaryCategoryKeyForProductNumber(string $productNumber): ?string
+    {
+        $registry = self::EXPOSURE_REGISTRY[strtoupper(trim($productNumber))] ?? null;
+        $categoryKey = $registry['categories'][0] ?? null;
+
+        return \is_string($categoryKey) ? $categoryKey : null;
+    }
+
+    public function primaryRoomKeyForProductNumber(string $productNumber): ?string
+    {
+        $registry = self::EXPOSURE_REGISTRY[strtoupper(trim($productNumber))] ?? null;
+        $roomKey = $registry['rooms'][0] ?? null;
+
+        return \is_string($roomKey) ? $roomKey : null;
+    }
+
+    public function primaryCollectionKeyForProductNumber(string $productNumber): ?string
+    {
+        $registry = self::EXPOSURE_REGISTRY[strtoupper(trim($productNumber))] ?? null;
+        $collectionKey = $registry['collections'][0] ?? null;
+
+        return \is_string($collectionKey) ? $collectionKey : null;
+    }
+
     /**
      * @return array<string, bool>
      */
@@ -222,6 +295,7 @@ final class ProductExposureService
             ->addFilter(new EqualsFilter('active', true))
             ->addFilter(new EqualsFilter('available', true))
             ->addAssociation('cover.media')
+            ->addAssociation('media.media')
             ->addAssociation('manufacturer')
             ->addAssociation('categories')
             ->addAssociation('properties.group')
@@ -252,6 +326,13 @@ final class ProductExposureService
             $reasons[] = 'missing exposure approval';
         }
 
+        $translatedCustomFields = $product->getTranslated()['customFields'] ?? null;
+        $customFields = \is_array($translatedCustomFields) ? $translatedCustomFields : ($product->getCustomFields() ?? []);
+
+        if (($customFields['veylune_publication_state'] ?? null) !== 'published') {
+            $reasons[] = 'publication state is not published';
+        }
+
         if (!str_starts_with($productNumber, 'VLS-')) {
             $reasons[] = 'demo or non-Veylune product';
         }
@@ -270,6 +351,31 @@ final class ProductExposureService
 
         if ($product->getCover()?->getMedia() === null) {
             $reasons[] = 'missing primary image';
+        }
+
+        if ($product->getMedia() === null || $product->getMedia()->count() < 2) {
+            $reasons[] = 'missing detail image';
+        }
+
+        $translated = $product->getTranslated();
+
+        if (trim((string) ($translated['name'] ?? '')) === ''
+            || trim(strip_tags((string) ($translated['description'] ?? ''))) === ''
+            || trim((string) ($translated['metaDescription'] ?? '')) === ''
+        ) {
+            $reasons[] = 'missing public content evidence';
+        }
+
+        if ($product->getManufacturer() === null) {
+            $reasons[] = 'missing maker attribution';
+        }
+
+        if (($product->getWidth() ?? 0.0) <= 0
+            || ($product->getHeight() ?? 0.0) <= 0
+            || ($product->getLength() ?? 0.0) <= 0
+            || ($product->getWeight() ?? 0.0) <= 0
+        ) {
+            $reasons[] = 'missing physical evidence';
         }
 
         if ($product->getCategories() === null || $product->getCategories()->count() === 0) {

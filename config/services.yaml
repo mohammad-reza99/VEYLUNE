@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     shopware.store.frw: '1'
+    # Shopware 6.7.13.1 imports the Store API MCP service graph even when no
+    # MCP transport bundle is enabled. Define the SDK default explicitly so
+    # the container compiles without activating a new HTTP or stdio surface.
+    mcp.pagination_limit: 50
     default_cdn_strategy: 'physical_filename'
     shopware.cdn.strategy: '%env(default:default_cdn_strategy:SHOPWARE_CDN_STRATEGY_DEFAULT)%'
     env(OPENSEARCH_URL): 'http://localhost:9200'

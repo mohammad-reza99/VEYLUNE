@@ -1,0 +1,73 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    <div class="vli-selection-page" data-veylune-living-index-selection>
+        <nav class="vli-selection-page__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">Home</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">My Selection</span>
+        </nav>
+
+        <header class="vli-selection-page__hero">
+            <div>
+                <p class="vli-search-page__kicker">Saved ideas</p>
+                <h1>My Selection</h1>
+                <p>Keep rooms, materials, styles, makers, and project paths together while you compare. This is a private browser board, not a cart or a claim of availability.</p>
+            </div>
+            <div class="vli-selection-page__index" aria-label="Saved path count">
+                <strong data-vli-selection-count>0</strong>
+                <span>saved paths</span>
+            </div>
+        </header>
+
+        <nav class="vli-selection-page__tabs" aria-label="Selection views">
+            <span aria-current="page">Saved paths</span>
+            <a href="{{ path('frontend.veylune.living_index.search') }}">Find more ideas</a>
+        </nav>
+
+        <section class="vli-selection-page__toolbar" data-vli-selection-toolbar hidden>
+            <p><strong data-vli-selection-count>0</strong> saved <span data-vli-selection-count-label>paths</span></p>
+            <button type="button" data-vli-selection-clear>Clear selection</button>
+        </section>
+
+        <section class="vli-selection-page__items" aria-label="Saved Living Index paths" data-vli-selection-items hidden></section>
+
+        <section class="vli-selection-page__empty" data-vli-selection-empty>
+            <div class="vli-selection-page__empty-icon" aria-hidden="true">&#9825;</div>
+            <div>
+                <h2>Save ideas you want to revisit.</h2>
+                <p>Use the heart on any search result or Save this context on a Living Index page. Your private selection will appear here.</p>
+                <a class="vli-selection-page__primary" href="{{ path('frontend.veylune.living_index.search') }}">Explore the Living Index</a>
+            </div>
+        </section>
+
+        <section class="vli-selection-page__project" aria-labelledby="vli-selection-project-title">
+            <div>
+                <p class="vli-search-page__kicker">Design service</p>
+                <h2 id="vli-selection-project-title">Ready to turn saved ideas into one room direction?</h2>
+                <p>Bring the room, material, and sourcing questions in this board into a private studio conversation.</p>
+            </div>
+            <a href="{{ path('frontend.veylune.consultation.page', { from: 'selection' }) }}">Begin a project dialogue <span aria-hidden="true">&rarr;</span></a>
+        </section>
+
+        <template data-vli-selection-template>
+            <article class="vli-selection-card" data-vli-selection-item>
+                <a class="vli-selection-card__media" href="#" data-vli-selection-item-link tabindex="-1">
+                    <img src="" alt="" loading="lazy" decoding="async" data-vli-selection-item-image>
+                </a>
+                <button class="vli-selection-card__remove" type="button" data-vli-selection-remove>
+                    <span aria-hidden="true">&#9829;</span>
+                </button>
+                <div class="vli-selection-card__body">
+                    <small data-vli-selection-item-type></small>
+                    <h2 data-vli-selection-item-title></h2>
+                    <p data-vli-selection-item-description></p>
+                    <a href="#" data-vli-selection-item-open>View path</a>
+                </div>
+            </article>
+        </template>
+
+        <p class="visually-hidden" role="status" aria-live="polite" data-vli-selection-status></p>
+        <noscript><p class="vli-selection-page__noscript">JavaScript is required to keep a private selection in this browser.</p></noscript>
+    </div>
+{% endblock %}

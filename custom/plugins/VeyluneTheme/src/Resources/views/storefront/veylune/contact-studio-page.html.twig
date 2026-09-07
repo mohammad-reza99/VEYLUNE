@@ -1,18 +1,57 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
 {% block base_main_inner %}
-    <div class="veylune-contact-page" data-veylune-contact-page>
+    {% set brief = veyluneProjectBrief|default({ source: 'direct', query: '', object: '' }) %}
+    <div class="veylune-contact-page"
+         data-veylune-contact-page
+         data-vli-project-brief-page
+         data-vli-project-source="{{ brief.source|default('direct') }}"
+         data-vli-project-query="{{ brief.query|default('') }}"
+         data-vli-project-object="{{ brief.object|default('') }}">
+        <nav class="veylune-contact-page__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">Home</a>
+            <span aria-hidden="true">/</span>
+            <a href="{{ path('frontend.veylune.consultation.page') }}">Private Consultation</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Project Brief</span>
+        </nav>
+
         <header class="veylune-contact-page__intro">
-            <p class="veylune-legal-notice__eyebrow">Direct studio dialogue</p>
-            <h1>Contact the studio</h1>
-            <p>Share the context, scale, and timing of your inquiry. The studio will route it to the right conversation.</p>
+            <div>
+                <p class="veylune-legal-notice__eyebrow">Project brief / studio contact</p>
+                <h1>Tell us what the room needs.</h1>
+                <p>Bring the space, direction, constraints, and useful references into one reviewable brief. You can still use this form for a general studio inquiry.</p>
+            </div>
+            <div class="veylune-contact-page__promise" aria-label="Service boundary">
+                <strong>A considered first step</strong>
+                <p>Submitting a brief starts a studio review. It does not confirm service scope, product availability, price, delivery, or installation.</p>
+            </div>
         </header>
+
+        <ol class="veylune-contact-page__steps" aria-label="Project inquiry steps">
+            <li aria-current="step"><span>01</span><div><strong>Project context</strong><small>Space, direction, timing</small></div></li>
+            <li><span>02</span><div><strong>Your details</strong><small>Contact and useful notes</small></div></li>
+            <li><span>03</span><div><strong>Review and send</strong><small>One transparent inquiry</small></div></li>
+        </ol>
+
         <section class="veylune-contact-page__form" aria-label="Studio inquiry form">
             {% sw_include '@Storefront/storefront/page/content/detail.html.twig' with { cmsPage: cmsPage } %}
         </section>
-        <aside class="veylune-contact-page__aside" aria-label="Private consultation">
-            <p>For architectural, interior, and private residential projects requiring material direction:</p>
-            <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private consultation</a>
+
+        <aside class="veylune-contact-page__aside" aria-label="Before you send">
+            <p class="veylune-contact-page__aside-kicker">Before you send</p>
+            <h2>Useful, not exhaustive.</h2>
+            <p>Approximate dimensions, the room type, existing constraints, and the feeling you want are enough to begin. Leave unknown details blank.</p>
+            <ul>
+                <li>No automatic availability or pricing promise</li>
+                <li>Saved paths stay in this browser unless included</li>
+                <li>Final scope is agreed separately in writing</li>
+            </ul>
+            {% if brief.source|default('') == 'selection' %}
+                <a class="veylune-contact-page__selection-link" href="{{ path('frontend.veylune.living_index.selection') }}">Review My Selection</a>
+            {% else %}
+                <a href="{{ path('frontend.veylune.consultation.page') }}">How private consultation works</a>
+            {% endif %}
         </aside>
     </div>
 {% endblock %}

@@ -1,0 +1,256 @@
+{% set isDepartment = veyluneDestinationType == 'category' %}
+{% set isRoom = veyluneDestinationType == 'room' %}
+{% set isCollection = veyluneDestinationType == 'collection' %}
+{% set isScene = isRoom or isCollection %}
+{% set selectionType = isDepartment ? 'Object' : (isRoom ? 'Room' : 'Style') %}
+{% set indexRoute = isDepartment ? 'frontend.veylune.discovery.category' : (isRoom ? 'frontend.veylune.discovery.room' : 'frontend.veylune.discovery.collection') %}
+{% set indexRouteParams = isDepartment ? { categoryKey: veyluneDestinationKey } : (isRoom ? { roomKey: veyluneDestinationKey } : { collectionKey: veyluneDestinationKey }) %}
+{% set listingTotal = veyluneListingTotal|default(veyluneExposedProducts|length) %}
+{% set scenePathCount = veyluneScene.paths|default([])|length %}
+{% set discoveryReturnParams = {} %}
+{% if app.request.query.get('q') %}{% set discoveryReturnParams = discoveryReturnParams|merge({ q: app.request.query.get('q') }) %}{% endif %}
+{% if app.request.query.get('axis') %}{% set discoveryReturnParams = discoveryReturnParams|merge({ axis: app.request.query.get('axis') }) %}{% endif %}
+{% if app.request.query.get('sort') %}{% set discoveryReturnParams = discoveryReturnParams|merge({ sort: app.request.query.get('sort') }) %}{% endif %}
+
+<div class="vli-discovery vli-discovery--{{ veyluneDestinationType }} vli-discovery--{{ veyluneDestinationKey }}"
+      data-veylune-living-index-discovery
+      {% if isCollection %}data-veylune-living-index-axis="style"{% endif %}
+      data-veylune-living-index-mode="{{ isDepartment ? 'index' : 'scene-index' }}"
+      data-veylune-registry-scope="{{ isDepartment ? 'category-destination' : (isRoom ? 'room-destination' : 'collection-destination') }}"
+      data-veylune-registry-entity="{{ isDepartment ? 'departments' : (isRoom ? 'rooms' : 'collections') }}"
+      data-veylune-registry-key="{{ veyluneDestinationKey }}">
+    <nav class="vli-discovery__breadcrumb" aria-label="Breadcrumb">
+        {% if app.request.query.get('from') == 'discover' %}
+            <a href="{{ path('frontend.veylune.living_index.search', discoveryReturnParams) }}" data-vli-return-to-discover>&larr; Back to results</a>
+            <span aria-hidden="true">/</span>
+        {% elseif app.request.query.get('from') == 'selection' %}
+            <a href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-return-to-selection>&larr; Back to selection</a>
+            <span aria-hidden="true">/</span>
+        {% endif %}
+        <a href="{{ path('frontend.home.page') }}">{{ 'veylune.destination.breadcrumb.home'|trans|sw_sanitize }}</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ (isDepartment ? 'veylune.destination.livingIndex.objectAxis' : (isRoom ? 'veylune.destination.livingIndex.roomAxis' : 'veylune.destination.livingIndex.styleAxis'))|trans|sw_sanitize }}</span>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ veyluneDestination.title|trans|sw_sanitize }}</span>
+    </nav>
+
+    <section class="vli-discovery__hero" aria-labelledby="vli-discovery-title">
+        <div class="vli-discovery__hero-copy">
+            <p class="vli-discovery__kicker">
+                {{ (isDepartment ? 'veylune.destination.livingIndex.departmentKicker' : (isRoom ? 'veylune.destination.livingIndex.roomKicker' : 'veylune.destination.livingIndex.collectionKicker'))|trans|sw_sanitize }}
+            </p>
+            <h1 id="vli-discovery-title">{{ veyluneDestination.title|trans|sw_sanitize }}</h1>
+            <p class="vli-discovery__summary">{{ veyluneDestination.text|trans|sw_sanitize }}</p>
+            <dl class="vli-discovery__facts">
+                <div>
+                    <dt>{{ (isDepartment ? 'veylune.destination.livingIndex.pathCount' : (isRoom ? 'veylune.destination.livingIndex.scenePathCount' : 'veylune.destination.livingIndex.editCount'))|trans({ '%count%': isDepartment ? veyluneDestinationShortcuts|default([])|length : scenePathCount })|sw_sanitize }}</dt>
+                    <dd>{{ isDepartment ? (veyluneDestinationShortcuts|default([])|length < 10 ? '0' ~ veyluneDestinationShortcuts|default([])|length : veyluneDestinationShortcuts|default([])|length) : (isRoom ? (scenePathCount < 10 ? '0' ~ scenePathCount : scenePathCount) : '01') }}</dd>
+                </div>
+                <div>
+                    <dt>{{ 'veylune.destination.livingIndex.objectCount'|trans({ '%count%': listingTotal })|sw_sanitize }}</dt>
+                    <dd>{{ listingTotal < 10 ? '0' ~ listingTotal : listingTotal }}</dd>
+                </div>
+                <div>
+                    <dt>{{ (isDepartment ? 'veylune.destination.livingIndex.departmentMode' : (isRoom ? 'veylune.destination.livingIndex.roomMode' : 'veylune.destination.livingIndex.collectionMode'))|trans|sw_sanitize }}</dt>
+                    <dd>{{ isDepartment ? 'I' : 'S' }}</dd>
+                </div>
+            </dl>
+            {% if not isCollection and veyluneScene.asset|default('') %}
+                <div class="vli-discovery__context-actions">
+                    <button type="button"
+                            data-vli-selection-add
+                            data-selection-key="{{ selectionType|lower }}:{{ veyluneDestinationKey|e('html_attr') }}"
+                            data-selection-type="{{ selectionType }}"
+                            data-selection-title="{{ veyluneDestination.title|trans|striptags|e('html_attr') }}"
+                            data-selection-description="{{ veyluneDestination.text|trans|striptags|e('html_attr') }}"
+                            data-selection-url="{{ path(indexRoute, indexRouteParams)|e('html_attr') }}"
+                            data-selection-asset="{{ asset('assets/' ~ veyluneScene.asset, 'theme')|e('html_attr') }}"
+                            aria-pressed="false">
+                        Save this context
+                    </button>
+                    <a href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-selection-link>
+                        Open selection <span data-vli-selection-count>0</span>
+                    </a>
+                    <p class="visually-hidden" role="status" aria-live="polite" data-vli-selection-status></p>
+                </div>
+            {% endif %}
+        </div>
+        <figure class="vli-discovery__hero-media">
+            {% if veyluneScene.asset|default('') %}
+                <img src="{{ asset('assets/' ~ veyluneScene.asset, 'theme') }}"
+                     alt="{{ 'veylune.destination.livingIndex.scene.imageAlt'|trans({ '%title%': veyluneDestination.title|trans|striptags })|striptags }}"
+                     loading="eager"
+                     fetchpriority="high">
+            {% endif %}
+            <figcaption>{{ (isDepartment ? 'veylune.destination.livingIndex.departmentLabel' : (isRoom ? 'veylune.destination.livingIndex.roomLabel' : 'veylune.destination.livingIndex.collectionLabel'))|trans|sw_sanitize }} / {{ veyluneDestinationKey|replace({'-': ' '}) }}</figcaption>
+        </figure>
+    </section>
+
+    {% if isCollection %}
+        {% sw_include '@Storefront/storefront/veylune/living-index-axis-map.html.twig' with {
+            veyluneLivingIndexAxis: 'style'
+        } %}
+    {% endif %}
+
+    {% if isScene and veyluneScene.paths|default([]) is not empty %}
+        <section class="vli-discovery__scene-map"
+                 aria-labelledby="vli-discovery-scene-title"
+                 data-veylune-scene-integration="{{ veyluneDestinationType }}:{{ veyluneDestinationKey }}">
+            <header class="vli-discovery__section-head">
+                <div>
+                    <p class="vli-discovery__kicker">{{ (isRoom ? 'veylune.destination.livingIndex.scene.roomEyebrow' : 'veylune.destination.livingIndex.scene.collectionEyebrow')|trans|sw_sanitize }}</p>
+                    <h2 id="vli-discovery-scene-title">{{ (isRoom ? 'veylune.destination.livingIndex.scene.roomTitle' : 'veylune.destination.livingIndex.scene.collectionTitle')|trans|sw_sanitize }}</h2>
+                </div>
+                <p>{{ (isRoom ? 'veylune.destination.livingIndex.scene.roomText' : 'veylune.destination.livingIndex.scene.collectionText')|trans|sw_sanitize }}</p>
+            </header>
+            <div class="vli-discovery__scene-paths">
+                {% for scenePath in veyluneScene.paths %}
+                    {% set scenePathUrl = path(scenePath.route, scenePath.routeParams) %}
+                    <a href="{{ scenePathUrl }}"
+                       data-veylune-scene-path="{{ scenePath.key }}"
+                       data-veylune-registry-scope="{{ isRoom ? 'room-scene-paths' : 'collection-scene-paths' }}"
+                       data-veylune-registry-entity="{{ scenePath.key == 'project' ? 'project' : 'discovery-path' }}"
+                       data-veylune-registry-key="{{ scenePath.key }}">
+                        <span aria-hidden="true">0{{ loop.index }}</span>
+                        <strong>{{ scenePath.label|trans|sw_sanitize }}</strong>
+                        <small>{{ scenePath.text|trans|sw_sanitize }}</small>
+                        <b aria-hidden="true">&rarr;</b>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if isDepartment and veyluneDestinationShortcuts|default([]) is not empty %}
+        <section class="vli-discovery__map" aria-labelledby="vli-discovery-map-title">
+            <header class="vli-discovery__section-head">
+                <div>
+                    <p class="vli-discovery__kicker">{{ 'veylune.destination.livingIndex.browseEyebrow'|trans|sw_sanitize }}</p>
+                    <h2 id="vli-discovery-map-title">{{ 'veylune.destination.livingIndex.browseTitle'|trans|sw_sanitize }}</h2>
+                </div>
+                <p>{{ 'veylune.destination.livingIndex.browseText'|trans|sw_sanitize }}</p>
+            </header>
+            <div class="vli-discovery__map-grid">
+                {% for shortcut in veyluneDestinationShortcuts %}
+                    {% set shortcutLabel = shortcut.label|trans|striptags %}
+                    <a class="vli-discovery__map-link"
+                       href="{{ path('frontend.veylune.living_index.search', { q: shortcutLabel }) }}"
+                       data-veylune-registry-scope="category-discovery-shortcuts"
+                       data-veylune-registry-entity="category-segments"
+                       data-veylune-registry-key="{{ shortcut.key }}">
+                        <span class="vli-discovery__map-index" aria-hidden="true">0{{ loop.index }}</span>
+                        <span class="vli-discovery__map-label">{{ shortcutLabel }}</span>
+                        <span class="vli-discovery__map-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    <section class="vli-index" id="vli-object-index" aria-labelledby="vli-object-index-title">
+        <header class="vli-discovery__section-head vli-index__head">
+            <div>
+                <p class="vli-discovery__kicker">{{ 'veylune.destination.livingIndex.indexEyebrow'|trans|sw_sanitize }}</p>
+                <h2 id="vli-object-index-title">{{ 'veylune.destination.livingIndex.indexTitle'|trans|sw_sanitize }}</h2>
+            </div>
+            <p>{{ 'veylune.destination.livingIndex.indexText'|trans|sw_sanitize }}</p>
+        </header>
+
+        <div class="vli-index__toolbar" aria-label="{{ 'veylune.destination.listing.label'|trans|striptags }}">
+            <p class="vli-index__count" aria-live="polite">
+                {{ 'veylune.destination.livingIndex.resultCount'|trans({ '%count%': veyluneExposedProducts|length })|sw_sanitize }}
+            </p>
+            {% if listingTotal > 0 %}
+                <form class="vli-index__controls" action="{{ path(indexRoute, indexRouteParams) }}" method="get">
+                    {% if veyluneListingMaterialOptions|default({}) is not empty %}
+                        <label>
+                            <span>{{ 'veylune.destination.livingIndex.materialLabel'|trans|sw_sanitize }}</span>
+                            <select name="material">
+                                <option value="">{{ 'veylune.destination.livingIndex.allMaterials'|trans|sw_sanitize }}</option>
+                                {% for materialKey, materialCount in veyluneListingMaterialOptions %}
+                                    <option value="{{ materialKey }}"{% if veyluneListingMaterial == materialKey %} selected="selected"{% endif %}>
+                                        {{ ('veylune.destination.materials.' ~ materialKey)|trans|striptags }} ({{ materialCount }})
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    {% endif %}
+                    <label>
+                        <span>{{ 'veylune.destination.livingIndex.sortLabel'|trans|sw_sanitize }}</span>
+                        <select name="sort">
+                            <option value="curated"{% if veyluneListingSort == 'curated' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortCurated'|trans|sw_sanitize }}</option>
+                            <option value="name"{% if veyluneListingSort == 'name' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortName'|trans|sw_sanitize }}</option>
+                            <option value="price-asc"{% if veyluneListingSort == 'price-asc' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortPriceAsc'|trans|sw_sanitize }}</option>
+                            <option value="price-desc"{% if veyluneListingSort == 'price-desc' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortPriceDesc'|trans|sw_sanitize }}</option>
+                        </select>
+                    </label>
+                    <button type="submit">{{ 'veylune.destination.livingIndex.apply'|trans|sw_sanitize }}</button>
+                    {% if veyluneListingHasActiveFilter|default(false) %}
+                        <a href="{{ path(indexRoute, indexRouteParams) }}#vli-object-index">{{ 'veylune.destination.livingIndex.clear'|trans|sw_sanitize }}</a>
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="vli-index__grid">
+            {% if veyluneExposedProducts is not empty %}
+                {% for product in veyluneExposedProducts %}
+                    {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
+                        product: product,
+                        layout: 'standard',
+                        veyluneDisableWishlist: true,
+                        veyluneUseLivingIndexObjectRoute: true,
+                        sizes: {
+                            xs: '50vw',
+                            sm: '50vw',
+                            md: '33vw',
+                            lg: '25vw',
+                            xl: '25vw'
+                        }
+                    } %}
+                {% endfor %}
+            {% else %}
+                <div class="vli-index__empty" role="status">
+                    <span class="vli-index__empty-mark" aria-hidden="true">00</span>
+                    <div>
+                        <p class="vli-discovery__kicker">{{ 'veylune.destination.livingIndex.indexEyebrow'|trans|sw_sanitize }}</p>
+                        <h3>{{ (veyluneListingHasActiveFilter|default(false) ? 'veylune.destination.livingIndex.emptyFilteredTitle' : 'veylune.destination.livingIndex.emptyTitle')|trans|sw_sanitize }}</h3>
+                        <p>{{ (veyluneListingHasActiveFilter|default(false) ? 'veylune.destination.livingIndex.emptyFilteredText' : 'veylune.destination.livingIndex.emptyText')|trans|sw_sanitize }}</p>
+                        <div class="vli-index__empty-actions">
+                            {% if veyluneListingHasActiveFilter|default(false) %}
+                                <a class="vli-button vli-button--primary" href="{{ path(indexRoute, indexRouteParams) }}#vli-object-index">{{ 'veylune.destination.livingIndex.clear'|trans|sw_sanitize }}</a>
+                            {% else %}
+                                <a class="vli-button vli-button--primary" href="{{ path('frontend.veylune.living_index.search', { q: veyluneDestination.title|trans|striptags }) }}">{{ 'veylune.destination.livingIndex.searchCta'|trans|sw_sanitize }}</a>
+                            {% endif %}
+                            <a class="vli-button" href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.destination.livingIndex.consultationCta'|trans|sw_sanitize }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="vli-discovery__axes" aria-labelledby="vli-discovery-axes-title">
+        <header>
+            <p class="vli-discovery__kicker">{{ 'veylune.destination.livingIndex.relatedEyebrow'|trans|sw_sanitize }}</p>
+            <h2 id="vli-discovery-axes-title">{{ 'veylune.destination.livingIndex.relatedTitle'|trans|sw_sanitize }}</h2>
+        </header>
+        <div class="vli-discovery__axis-links">
+            <a href="{{ isRoom ? path('frontend.veylune.discovery.category', { categoryKey: 'furniture' }) : path('frontend.veylune.discovery.room', { roomKey: 'living-room' }) }}">
+                <span>01</span>
+                <strong>{{ (isRoom ? 'veylune.destination.livingIndex.objectTitle' : 'veylune.destination.livingIndex.roomTitle')|trans|sw_sanitize }}</strong>
+                <small>{{ (isRoom ? 'veylune.destination.livingIndex.objectText' : 'veylune.destination.livingIndex.roomText')|trans|sw_sanitize }}</small>
+            </a>
+            <a href="{{ path('frontend.veylune.editions.page') }}">
+                <span>02</span>
+                <strong>{{ 'veylune.destination.livingIndex.materialTitle'|trans|sw_sanitize }}</strong>
+                <small>{{ 'veylune.destination.livingIndex.materialText'|trans|sw_sanitize }}</small>
+            </a>
+            <a href="{{ path('frontend.veylune.consultation.page') }}">
+                <span>03</span>
+                <strong>{{ 'veylune.destination.livingIndex.projectTitle'|trans|sw_sanitize }}</strong>
+                <small>{{ 'veylune.destination.livingIndex.projectText'|trans|sw_sanitize }}</small>
+            </a>
+        </div>
+    </section>
+</div>

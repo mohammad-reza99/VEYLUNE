@@ -52,6 +52,9 @@
 	{% endif %}
 	{% set veyluneRoutes = {
         shop: veyluneCategoryRoutes.url('furniture'),
+        rooms: path('frontend.veylune.living_index.search', { q: 'room' }),
+        newArrivals: veyluneCategoryRoutes.url('newArrivals'),
+        founderSelection: veyluneCategoryRoutes.url('founderSelection'),
         consultation: veyluneCategoryRoutes.url('consultation'),
         editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page')
     } %}
@@ -76,6 +79,10 @@
                     { key: 'workspace', mediaKey: 'workspace', label: 'veylune.home.discovery.rooms.workspace', target: path('frontend.veylune.discovery.room', { roomKey: 'workspace' }) },
                     { key: 'outdoor', mediaKey: 'outdoor', label: 'veylune.home.discovery.rooms.outdoor', target: path('frontend.veylune.discovery.room', { roomKey: 'outdoor' }) }
 				] %}
+				{% set veyluneUseLivingIndexHome = true %}
+				{% if veyluneUseLivingIndexHome %}
+					{% sw_include '@VeyluneTheme/storefront/veylune/living-index-home.html.twig' %}
+				{% else %}
 				<div class="veylune-home" data-veylune-home>
                     {% if publicSurfaces.catalog|default(false) %}
 					<nav class="veylune-department-strip" aria-label="{{ 'veylune.home.departmentStripAriaLabel'|trans|striptags }}" data-veylune-registry-scope="homepage-departments">
@@ -228,6 +235,7 @@
             {% sw_include '@VeyluneTheme/storefront/veylune/marketplace-closing-capture.html.twig' %}
 
 		</div>
+				{% endif %}
 	{% elseif veyluneLegacyType %}
 		{% sw_include '@Storefront/storefront/veylune/legacy.html.twig' with {
             veyluneLegacyType: veyluneLegacyType

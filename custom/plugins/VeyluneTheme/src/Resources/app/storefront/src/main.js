@@ -12,3 +12,7 @@ import './js/veylune-pdp-preview';
 import './js/veylune-preview-cart-page';
 import './js/veylune-preview-checkout';
 import './js/veylune-preview-account';
+import './js/veylune-living-index-state';
+import './js/veylune-living-index-search-ui';
+import './js/veylune-project-brief';
+import './js/veylune-inquiry-lifecycle';
