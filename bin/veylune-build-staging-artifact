@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RC_REF="${VEYLUNE_RC_REF:-veylune-rc-20260902.1}"
+OUTPUT_DIR="${VEYLUNE_ARTIFACT_DIR:-/tmp/veylune-staging-artifacts}"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-artifact][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+git rev-parse --verify "${RC_REF}^{commit}" >/dev/null 2>&1 || fail "release ref ${RC_REF} is not a commit"
+[[ "$(git cat-file -t "$RC_REF" 2>/dev/null || true)" == 'tag' ]] || fail 'release ref must be an annotated tag'
+git cat-file tag "$RC_REF" >/dev/null 2>&1 || fail 'annotated release tag object is invalid'
+
+root_real="$(realpath -m "$ROOT_DIR")"
+output_real="$(realpath -m "$OUTPUT_DIR")"
+[[ "$output_real" != "$root_real" && "$output_real" != "$root_real"/* ]] || fail 'artifact output must remain outside the source worktree'
+
+safe_ref="$(printf '%s' "$RC_REF" | tr -c 'A-Za-z0-9._-' '-')"
+commit="$(git rev-parse "${RC_REF}^{commit}")"
+short_commit="${commit:0:7}"
+base_name="veylune-${safe_ref}-${short_commit}"
+archive_name="${base_name}.tar.gz"
+manifest_name="${base_name}.manifest"
+archive_tmp="${TMP_DIR}/${archive_name}"
+archive_list="${TMP_DIR}/archive.list"
+manifest_tmp="${TMP_DIR}/${manifest_name}"
+
+git archive --format=tar.gz --output="$archive_tmp" "$RC_REF"
+tar -tzf "$archive_tmp" > "$archive_list"
+
+if grep -Eq '^(\.env($|\.)|\.ddev/|\.github/|\.codex-tmp/|var/|vendor/|node_modules/|public/theme/)|\.orig$' "$archive_list"; then
+    fail 'artifact contains a local, secret-bearing, generated, or backup path'
+fi
+
+archive_sha="$(sha256sum "$archive_tmp" | awk '{print $1}')"
+lock_sha="$(git show "${RC_REF}:composer.lock" | sha256sum | awk '{print $1}')"
+file_count="$(wc -l < "$archive_list")"
+
+printf '%s\n' \
+    'manifest_version=1' \
+    "ref=${RC_REF}" \
+    "commit=${commit}" \
+    "archive=${archive_name}" \
+    "archive_sha256=${archive_sha}" \
+    "archive_files=${file_count}" \
+    "composer_lock_sha256=${lock_sha}" \
+    > "$manifest_tmp"
+
+mkdir -p "$OUTPUT_DIR"
+[[ ! -e "${OUTPUT_DIR}/${archive_name}" && ! -e "${OUTPUT_DIR}/${manifest_name}" ]] || fail 'artifact output already exists; use a fresh output directory'
+mv "$archive_tmp" "${OUTPUT_DIR}/${archive_name}"
+mv "$manifest_tmp" "${OUTPUT_DIR}/${manifest_name}"
+
+printf '[veylune-artifact] ref=%s commit=%s\n' "$RC_REF" "$short_commit"
+printf '[veylune-artifact] archive=%s\n' "${OUTPUT_DIR}/${archive_name}"
+printf '[veylune-artifact] manifest=%s\n' "${OUTPUT_DIR}/${manifest_name}"
+printf '[veylune-artifact] archive_sha256=%s\n' "$archive_sha"
+printf '[veylune-artifact] archive_files=%s\n' "$file_count"

@@ -1,0 +1,161 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MODE="${1:---environment}"
+CONTRACT_FILE="${ROOT_DIR}/config/veylune-staging.env.example"
+
+cd "$ROOT_DIR"
+
+fail() {
+    printf '[veylune-staging-readiness][FAIL] %s\n' "$1" >&2
+    exit 1
+}
+
+pass() {
+    printf '[veylune-staging-readiness][PASS] %s\n' "$1"
+}
+
+required_variables=(
+    VEYLUNE_STAGING_CONFIRMED
+    VEYLUNE_RC_REF
+    VEYLUNE_STAGING_URL
+    VEYLUNE_STAGING_HOST
+    VEYLUNE_STAGING_USER
+    VEYLUNE_STAGING_SSH_PORT
+    VEYLUNE_STAGING_RELEASE_ROOT
+    VEYLUNE_STAGING_SHARED_ROOT
+    VEYLUNE_STAGING_CURRENT_LINK
+    VEYLUNE_BACKUP_OWNER
+    VEYLUNE_ROLLBACK_REF
+    APP_ENV
+    APP_DEBUG
+    APP_URL
+    APP_SECRET
+    DATABASE_URL
+    MAILER_DSN
+    VEYLUNE_DRAFT_PREVIEW_ENABLED
+    SHOPWARE_HTTP_CACHE_ENABLED
+)
+
+check_contract() {
+    local key
+    local count
+
+    [[ -f "$CONTRACT_FILE" ]] || fail 'staging environment example is missing'
+    for key in "${required_variables[@]}"; do
+        count="$(grep -Ec "^${key}=" "$CONTRACT_FILE")"
+        [[ "$count" == '1' ]] || fail "contract must define ${key} exactly once"
+    done
+
+    if grep -Eq '^(APP_SECRET|DATABASE_URL|MAILER_DSN)=[[:space:]]*$' "$CONTRACT_FILE"; then
+        fail 'secret-bearing contract fields must use explicit non-secret placeholders'
+    fi
+    grep -Fqx 'VEYLUNE_STAGING_CONFIRMED=0' "$CONTRACT_FILE" || fail 'example contract must remain explicitly unconfirmed'
+    grep -Eq 'example\.invalid|replace-' "$CONTRACT_FILE" || fail 'example contract must retain non-deployable placeholders'
+
+    pass 'staging environment key contract is complete'
+    pass 'example values are non-deployable placeholders'
+}
+
+check_environment() {
+    local key
+    local value
+    local missing=()
+    local url_host
+    local port
+    local path
+    local ref_type
+    local rc_commit
+    local rollback_commit
+
+    for key in "${required_variables[@]}"; do
+        [[ -n "${!key:-}" ]] || missing+=("$key")
+    done
+    if ((${#missing[@]} > 0)); then
+        fail "missing injected variables: ${missing[*]}"
+    fi
+
+    [[ "$VEYLUNE_STAGING_CONFIRMED" == '1' ]] || fail 'VEYLUNE_STAGING_CONFIRMED must be 1 after the target is independently verified as non-production'
+    [[ "$VEYLUNE_STAGING_URL" =~ ^https://[^/]+(/.*)?$ ]] || fail 'VEYLUNE_STAGING_URL must use HTTPS'
+    [[ "$VEYLUNE_STAGING_URL" != *'.example.invalid'* ]] || fail 'VEYLUNE_STAGING_URL still uses the example placeholder'
+    [[ "$VEYLUNE_STAGING_HOST" =~ ^[A-Za-z0-9.-]+$ ]] || fail 'VEYLUNE_STAGING_HOST contains unsafe characters'
+    [[ "$VEYLUNE_STAGING_HOST" != *.example.invalid ]] || fail 'VEYLUNE_STAGING_HOST still uses the example placeholder'
+    [[ "$VEYLUNE_STAGING_HOST" != 'localhost' && "$VEYLUNE_STAGING_HOST" != '127.0.0.1' && "$VEYLUNE_STAGING_HOST" != '0.0.0.0' && "$VEYLUNE_STAGING_HOST" != *.ddev.site ]] || fail 'staging host points to a local development target'
+    [[ "$VEYLUNE_STAGING_USER" =~ ^[A-Za-z0-9._-]+$ ]] || fail 'VEYLUNE_STAGING_USER contains unsafe characters'
+
+    port="$VEYLUNE_STAGING_SSH_PORT"
+    [[ "$port" =~ ^[0-9]+$ ]] && ((port >= 1 && port <= 65535)) || fail 'VEYLUNE_STAGING_SSH_PORT must be between 1 and 65535'
+
+    url_host="${VEYLUNE_STAGING_URL#https://}"
+    url_host="${url_host%%/*}"
+    url_host="${url_host%%:*}"
+    [[ "$url_host" == "$VEYLUNE_STAGING_HOST" ]] || fail 'staging URL host and SSH host must match'
+    [[ "${APP_URL%/}" == "${VEYLUNE_STAGING_URL%/}" ]] || fail 'APP_URL must match VEYLUNE_STAGING_URL'
+
+    for path in "$VEYLUNE_STAGING_RELEASE_ROOT" "$VEYLUNE_STAGING_SHARED_ROOT" "$VEYLUNE_STAGING_CURRENT_LINK"; do
+        [[ "$path" =~ ^/[A-Za-z0-9._/-]+$ ]] || fail 'staging filesystem paths must be absolute and shell-safe'
+        [[ "$path" != '/' ]] || fail 'staging filesystem paths must never target the filesystem root'
+    done
+    [[ "$VEYLUNE_STAGING_RELEASE_ROOT" != "$VEYLUNE_STAGING_SHARED_ROOT" ]] || fail 'release and shared roots must be different'
+    [[ "$VEYLUNE_STAGING_CURRENT_LINK" != "$VEYLUNE_STAGING_RELEASE_ROOT" ]] || fail 'current link and release root must be different'
+    [[ "$VEYLUNE_STAGING_CURRENT_LINK" != "$VEYLUNE_STAGING_SHARED_ROOT" ]] || fail 'current link and shared root must be different'
+
+    for key in "${required_variables[@]}"; do
+        value="${!key}"
+        if [[ "$value" =~ (replace-|placeholder|change[-_]?me|example\.invalid) ]]; then
+            fail "${key} still contains a placeholder"
+        fi
+    done
+
+    git rev-parse --verify "${VEYLUNE_RC_REF}^{commit}" >/dev/null 2>&1 || fail 'VEYLUNE_RC_REF does not resolve to a commit'
+    ref_type="$(git cat-file -t "$VEYLUNE_RC_REF" 2>/dev/null || true)"
+    [[ "$ref_type" == 'tag' ]] || fail 'VEYLUNE_RC_REF must be an annotated tag'
+    git cat-file tag "$VEYLUNE_RC_REF" >/dev/null 2>&1 || fail 'VEYLUNE_RC_REF annotated tag object is invalid'
+    git rev-parse --verify "${VEYLUNE_ROLLBACK_REF}^{commit}" >/dev/null 2>&1 || fail 'VEYLUNE_ROLLBACK_REF does not resolve to a commit'
+    rc_commit="$(git rev-parse "${VEYLUNE_RC_REF}^{commit}")"
+    rollback_commit="$(git rev-parse "${VEYLUNE_ROLLBACK_REF}^{commit}")"
+    [[ "$rc_commit" != "$rollback_commit" ]] || fail 'rollback ref must differ from the release candidate'
+    git merge-base --is-ancestor "$rollback_commit" "$rc_commit" || fail 'rollback ref must be an ancestor of the release candidate'
+
+    bash bin/veylune-release-manifest --assert-frozen >/dev/null
+    bash bin/veylune-production-config-audit --production >/dev/null
+
+    pass 'immutable RC and rollback references are resolvable'
+    pass 'production-like Shopware staging configuration is valid'
+    pass 'staging target contract is ready for a read-only infrastructure probe'
+}
+
+probe_remote() {
+    local destination="${VEYLUNE_STAGING_USER}@${VEYLUNE_STAGING_HOST}"
+
+    check_environment
+    command -v ssh >/dev/null 2>&1 || fail 'ssh is unavailable'
+    ssh \
+        -o BatchMode=yes \
+        -o ConnectTimeout=10 \
+        -o StrictHostKeyChecking=yes \
+        -p "$VEYLUNE_STAGING_SSH_PORT" \
+        "$destination" \
+        "test -d '$VEYLUNE_STAGING_RELEASE_ROOT' && test -d '$VEYLUNE_STAGING_SHARED_ROOT' && { test ! -e '$VEYLUNE_STAGING_CURRENT_LINK' || test -L '$VEYLUNE_STAGING_CURRENT_LINK'; }" \
+        || fail 'read-only SSH probe failed; verify host identity, access, and release topology'
+
+    pass 'read-only SSH probe confirmed the staging release topology'
+}
+
+case "$MODE" in
+    --contract)
+        check_contract
+        ;;
+    --environment)
+        check_contract
+        check_environment
+        ;;
+    --probe)
+        check_contract
+        probe_remote
+        ;;
+    *)
+        fail 'usage: bin/veylune-staging-readiness [--contract|--environment|--probe]'
+        ;;
+esac

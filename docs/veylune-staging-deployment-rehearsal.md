@@ -41,3 +41,7 @@ VEYLUNE_RC_REF=veylune-rc-20260902.1 bash bin/veylune-staging-rehearsal
 - Real staging database and media backups with a tested restore.
 - Chrome or Edge, Firefox, Safari, iOS Safari, and Android Chrome verification.
 - Production cache, CDN, worker, mail, search, observability, and Core Web Vitals monitoring.
+
+The executable staging target contract and immutable artifact builder are
+documented in `docs/veylune-staging-environment-provisioning.md`. A real deploy
+remains blocked until the staging host and injected configuration exist.

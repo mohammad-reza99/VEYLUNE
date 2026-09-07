@@ -15,6 +15,7 @@ fail() {
 
 git rev-parse --verify "${RC_REF}^{commit}" >/dev/null 2>&1 || fail "release ref ${RC_REF} is not a commit"
 bash bin/veylune-release-manifest --assert-frozen >/dev/null
+VEYLUNE_RC_REF="$RC_REF" bash bin/veylune-staging-readiness --contract >/dev/null
 
 printf '[veylune-staging] immutable source and dependency gates\n'
 bash bin/veylune-release-candidate
