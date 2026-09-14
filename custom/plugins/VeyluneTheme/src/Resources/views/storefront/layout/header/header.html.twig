@@ -13,6 +13,7 @@
         collections: isPrivatePreview ? path('frontend.veylune.preview.catalog.collection', { collectionKey: 'founder-selection', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('founderSelection'),
         editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page'),
         consultation: veyluneCategoryRoutes.url('consultation'),
+        trade: path('frontend.veylune.trade.page'),
         partnership: path('frontend.veylune.partnership.page')
     } %}
     {% set veyluneNavigationRegistry = [
@@ -254,14 +255,14 @@
 
 						{% block layout_header_actions_cart %}
                             {% if isPrivatePreview %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Private selection, 0 items" data-veylune-preview-cart>
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Cart, 0 items" data-veylune-preview-cart>
                                     <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
                                     <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">0</span></span>
                                 </a>
                             {% else %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.living_index.selection') }}" aria-label="Open your selection, 0 saved paths" data-vli-selection-link>
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}">
                                     <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
-                                    <span class="veylune-header__bag-label veylune-marketplace-action__label">Selection <span class="veylune-marketplace-action__count" data-vli-selection-count>0</span></span>
+                                    <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
                                 </a>
                             {% endif %}
                         {% endblock %}
@@ -369,12 +370,13 @@
                                     {{ axis.label }}
                                 </a>
                         {% endfor %}
+                        <a href="{{ veyluneRoutes.trade }}" data-veylune-nav-key="trade" data-veylune-page-transition>Trade Program</a>
                         {% if isPrivatePreview %}
                             <a href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" data-veylune-preview-mobile-account>Sign in</a>
                             <a href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" data-veylune-preview-mobile-cart>Cart</a>
                         {% else %}
 						    <a href="{{ path('frontend.account.home.page') }}">Sign in</a>
-						    <a href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-selection-link>Selection <span data-vli-selection-count>0</span></a>
+						    <a href="{{ path('frontend.checkout.cart.page') }}">Cart <span>{{ page.cart.lineItems|length }}</span></a>
                         {% endif %}
 					</nav>
 					<div class="veylune-mobile-nav__note">Object · Room · Material · Style · Maker · Project</div>

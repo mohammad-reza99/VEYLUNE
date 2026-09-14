@@ -7,8 +7,8 @@ xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
 database:
-    type: mysql
-    version: "8.0"
+  type: mysql
+  version: "8.0"
 performance_mode: none
 use_dns_when_possible: true
 composer_version: "2"

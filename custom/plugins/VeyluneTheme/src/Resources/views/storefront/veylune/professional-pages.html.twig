@@ -42,6 +42,8 @@
 {% set veyluneInquiryUrl = path('frontend.veylune.contact.page') %}
 {% set veyluneRoutes = {
     consultation: path('frontend.veylune.consultation.page'),
+    trade: path('frontend.veylune.trade.page'),
+    tradeContact: path('frontend.veylune.contact.page', { from: 'trade' }),
     partnership: path('frontend.veylune.partnership.page'),
     contact: veyluneInquiryUrl
 } %}
@@ -220,8 +222,8 @@
             </div>
             <div class="veylune-inquiry__form" role="group" aria-label="{{ 'veylune.professional.inquiryCtaAriaLabel'|trans|striptags }}">
                 <a class="veylune-button veylune-button--primary"
-                   href="{{ veylunePageType == 'consultation' ? path('frontend.veylune.contact.page', vliContactParameters) : veyluneRoutes.consultation }}"
-                   {% if veylunePageType == 'consultation' %}data-vli-project-cta{% endif %}>
+                   href="{{ veylunePageType == 'consultation' ? path('frontend.veylune.contact.page', vliContactParameters) : veyluneRoutes.tradeContact }}"
+                   data-vli-project-cta>
                     {{ (veylunePageType == 'consultation' ? 'veylune.professional.contactStudio' : 'veylune.professional.beginPrivateDialogue')|trans|sw_sanitize }}
                 </a>
             </div>

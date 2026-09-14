@@ -1,0 +1,85 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$statusPath = $root . '/config/veylune-roadmap-status.json';
+$surfacePath = $root . '/config/veylune-surface-contract.json';
+
+/** @return array<string, mixed> */
+function readJson(string $path): array
+{
+    if (!is_file($path)) {
+        throw new RuntimeException('Missing contract: ' . $path);
+    }
+
+    $contents = file_get_contents($path);
+    if ($contents === false) {
+        throw new RuntimeException('Unable to read contract: ' . $path);
+    }
+
+    $decoded = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+    if (!is_array($decoded)) {
+        throw new RuntimeException('Contract must decode to an object: ' . $path);
+    }
+
+    return $decoded;
+}
+
+function requireInvariant(bool $condition, string $message): void
+{
+    if (!$condition) {
+        throw new RuntimeException($message);
+    }
+}
+
+try {
+    $status = readJson($statusPath);
+    $surface = readJson($surfacePath);
+
+    $phases = $status['phaseMap'] ?? [];
+    requireInvariant(is_array($phases) && count($phases) === 9, 'Roadmap must contain exactly 9 phases.');
+
+    $phaseIds = array_map(static fn (array $phase): int => (int) ($phase['id'] ?? 0), $phases);
+    requireInvariant($phaseIds === range(1, 9), 'Roadmap phase IDs must be sequential from 1 to 9.');
+
+    $publicRoutes = [];
+    foreach (($surface['public']['groups'] ?? []) as $group) {
+        foreach (($group['routes'] ?? []) as $route) {
+            $publicRoutes[] = (string) $route;
+        }
+    }
+
+    $expectedPublic = (int) ($surface['public']['expectedRouteCount'] ?? 0);
+    requireInvariant(count($publicRoutes) === $expectedPublic, 'Public route count does not match its contract.');
+    requireInvariant(count(array_unique($publicRoutes)) === count($publicRoutes), 'Public route contract contains duplicates.');
+
+    $privateCount = 0;
+    foreach (($surface['privatePreview']['families'] ?? []) as $family) {
+        $privateCount += (int) ($family['count'] ?? 0);
+    }
+
+    $expectedPrivate = (int) ($surface['privatePreview']['expectedRouteCount'] ?? 0);
+    requireInvariant($privateCount === $expectedPrivate, 'Private route-family count does not match its contract.');
+
+    $media = $surface['media'] ?? [];
+    $productCount = (int) ($media['draftProductCount'] ?? 0);
+    $covered = count($media['themeProductAssetIds'] ?? []);
+    $missing = count($media['missingDedicatedAssetIds'] ?? []);
+    requireInvariant($covered + $missing === $productCount, 'Product media coverage does not match the draft product count.');
+    requireInvariant(count(array_intersect($media['themeProductAssetIds'] ?? [], $media['missingDedicatedAssetIds'] ?? [])) === 0, 'Product media coverage lists overlap.');
+
+    requireInvariant(($status['sourceOfTruth']['productMedia'] ?? null) === 'shopware_admin_media', 'Target product media source must be Shopware Admin Media.');
+    requireInvariant(($surface['privatePreview']['accessContract']['deniedBehavior'] ?? null) === 404, 'Private preview must fail closed with 404.');
+
+    echo "Veylune Phase 1.1 baseline contract: PASS\n";
+    echo 'phases=' . count($phases) . "\n";
+    echo 'public_routes=' . count($publicRoutes) . "\n";
+    echo 'private_routes=' . $privateCount . "\n";
+    echo 'product_media_covered=' . $covered . "\n";
+    echo 'product_media_missing=' . $missing . "\n";
+} catch (Throwable $exception) {
+    fwrite(STDERR, 'Veylune Phase 1.1 baseline contract: FAIL - ' . $exception->getMessage() . "\n");
+    exit(1);
+}

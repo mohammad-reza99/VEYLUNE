@@ -4,7 +4,7 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
     const pageSize = 12;
     const grid = root.querySelector('[data-plp-grid]');
     const cards = Array.from(root.querySelectorAll('[data-plp-card]'));
-    const chips = Array.from(root.querySelectorAll('[data-plp-type]'));
+    const chips = Array.from(root.querySelectorAll('button[data-plp-type]'));
     const materialInputs = Array.from(root.querySelectorAll('[data-plp-material]'));
     const priceInputs = Array.from(root.querySelectorAll('[data-plp-price-range]'));
     const statusInputs = Array.from(root.querySelectorAll('[data-plp-status-filter]'));
@@ -26,8 +26,10 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
     let activeSort = 'featured';
     let visibleLimit = pageSize;
     let renderFrame = null;
+    let floatingFrame = null;
 
     const menuPairs = [[filterToggle, filterPanel], [sortToggle, sortPanel]];
+    const storefrontHeader = document.querySelector('.header-main');
     const focusableSelector = 'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const selectedValues = (inputs) => [...new Set(inputs.filter((input) => input.checked).map((input) => input.value))];
     const inputLabel = (inputs, value) => inputs.find((input) => input.value === value)?.nextElementSibling?.textContent?.trim() || value;
@@ -157,9 +159,40 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
             if (panel !== except && !panel.hidden) {
                 panel.hidden = true;
                 toggle.setAttribute('aria-expanded', 'false');
+                panel.classList.remove('is-above');
+                panel.style.removeProperty('--veylune-plp-panel-max-height');
                 if (restoreFocus) toggle.focus();
             }
         });
+    };
+
+    const positionMenu = (toggle, panel) => {
+        const viewportInset = 16;
+        const gap = 8;
+        const toggleBox = toggle.getBoundingClientRect();
+        const headerOffset = Number.parseFloat(getComputedStyle(root).getPropertyValue('--veylune-header-offset')) || 0;
+        const safeTop = Math.max(viewportInset, headerOffset + gap);
+        panel.classList.remove('is-above');
+        panel.style.removeProperty('--veylune-plp-panel-max-height');
+
+        const availableBelow = Math.max(96, window.innerHeight - toggleBox.bottom - gap - viewportInset);
+        const availableAbove = Math.max(96, toggleBox.top - gap - safeTop);
+        const openAbove = panel.scrollHeight > availableBelow && availableAbove > availableBelow;
+        const availableHeight = openAbove ? availableAbove : availableBelow;
+
+        panel.classList.toggle('is-above', openAbove);
+        panel.style.setProperty('--veylune-plp-panel-max-height', `${availableHeight}px`);
+    };
+
+    const syncHeaderOffset = () => {
+        if (!storefrontHeader) {
+            root.style.setProperty('--veylune-header-offset', '0px');
+            return;
+        }
+
+        const headerBox = storefrontHeader.getBoundingClientRect();
+        const visibleBottom = Math.max(0, Math.min(window.innerHeight, headerBox.bottom));
+        root.style.setProperty('--veylune-header-offset', `${Math.round(visibleBottom)}px`);
     };
 
     const openMenu = (toggle, panel) => {
@@ -167,7 +200,15 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         closeMenus(opening ? panel : null);
         panel.hidden = !opening;
         toggle.setAttribute('aria-expanded', String(opening));
-        if (opening) window.requestAnimationFrame(() => panel.querySelector('input, button')?.focus());
+        if (opening) {
+            window.requestAnimationFrame(() => {
+                positionMenu(toggle, panel);
+                panel.querySelector('input, button')?.focus();
+            });
+        } else {
+            panel.classList.remove('is-above');
+            panel.style.removeProperty('--veylune-plp-panel-max-height');
+        }
     };
 
     const applyUrl = () => {
@@ -260,6 +301,22 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
     sortPanel.addEventListener('keydown', (event) => trapPanelFocus(event, sortPanel));
     document.addEventListener('click', (event) => { if (!event.target.closest('.veylune-plp-menu')) closeMenus(); });
     root.addEventListener('keydown', (event) => { if (event.key === 'Escape') { event.preventDefault(); closeMenus(null, true); } });
+    const syncFloatingControls = () => {
+        syncHeaderOffset();
+        menuPairs.forEach(([toggle, panel]) => {
+            if (!panel.hidden) positionMenu(toggle, panel);
+        });
+    };
+    const scheduleFloatingSync = () => {
+        if (floatingFrame !== null) return;
+        floatingFrame = window.requestAnimationFrame(() => {
+            syncFloatingControls();
+            floatingFrame = null;
+        });
+    };
+    window.addEventListener('resize', scheduleFloatingSync, { passive: true });
+    window.addEventListener('scroll', scheduleFloatingSync, { passive: true });
     window.addEventListener('popstate', applyUrl);
+    syncHeaderOffset();
     applyUrl();
 });

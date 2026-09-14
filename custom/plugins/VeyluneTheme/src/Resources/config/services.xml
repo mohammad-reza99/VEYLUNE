@@ -46,7 +46,6 @@
         </service>
 
         <service id="VeyluneTheme\Controller\VisionPrototypeController" public="true">
-            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
             <argument>%kernel.environment%</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
@@ -80,6 +79,11 @@
 
         <service id="VeyluneTheme\Discovery\ProductExposureService">
             <argument type="service" id="sales_channel.product.repository" />
+            <argument type="service" id="VeyluneTheme\Catalog\SupplierEvidenceAcceptanceGate" />
+        </service>
+
+        <service id="VeyluneTheme\Catalog\SupplierEvidenceAcceptanceGate">
+            <argument>%kernel.project_dir%</argument>
         </service>
 
         <service id="VeyluneTheme\Governance\GovernanceAuditService" />
@@ -110,6 +114,7 @@
         <service id="VeyluneTheme\Command\Level3CohortBaselineAuditCommand" />
         <service id="VeyluneTheme\Command\Level3SupplierIntakeAuditCommand" />
         <service id="VeyluneTheme\Command\Level1ReadinessEvaluationCommand" />
+        <service id="VeyluneTheme\Command\CatalogActivationAuditCommand" />
         <service id="VeyluneTheme\Command\CalmaRuntimeQuarantineCommand" />
         <service id="VeyluneTheme\Command\AureliaRuntimeQuarantineCommand" />
 

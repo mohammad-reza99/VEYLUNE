@@ -1,5 +1,12 @@
+import {
+    emitSelectionChange,
+    readSelectionState,
+    selectionQuantity,
+    selectionSubtotal,
+    writeSelectionState,
+} from './veylune-preview-selection-store';
+
 document.querySelectorAll('[data-veylune-checkout-preview]').forEach((root) => {
-    const storageKey = 'veylune-private-selection-v1';
     const reviewsStorageKey = 'veylune-checkout-reviews-v1';
     const settingsStorageKey = 'veylune-profile-settings-v1';
     const addressesStorageKey = 'veylune-address-book-v1';
@@ -9,38 +16,29 @@ document.querySelectorAll('[data-veylune-checkout-preview]').forEach((root) => {
     const dialog = root.querySelector('[data-checkout-review-dialog]');
     const dialogClose = root.querySelector('[data-checkout-review-close]');
     const submit = root.querySelector('[data-checkout-review]');
-    let selection = null;
+    const items = root.querySelector('[data-checkout-items]');
+    const itemTemplate = root.querySelector('[data-checkout-item-template]');
+    let selectionState = readSelectionState();
 
     const formatPrice = (value) => new Intl.NumberFormat('en-US', {
         style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
     }).format(value);
 
-    try {
-        const stored = JSON.parse(window.localStorage.getItem(storageKey) || 'null');
-        const expired = Number(stored?.updatedAt) > 0 && Date.now() - Number(stored.updatedAt) > 30 * 24 * 60 * 60 * 1000;
-        if (expired) window.localStorage.removeItem(storageKey);
-        if (!expired && stored?.productId && stored?.productName && Number(stored.unitPrice) > 0) {
-            selection = {
-                productName: String(stored.productName),
-                material: String(stored.material || 'Material pending'),
-                quantity: Math.min(10, Math.max(1, Number.parseInt(stored.quantity, 10) || 1)),
-                unitPrice: Number(stored.unitPrice),
-            };
-        }
-    } catch (error) {
-        status.textContent = 'The saved selection could not be restored.';
-    }
-
     const renderSelection = () => {
-        const hasSelection = Boolean(selection);
+        const hasSelection = selectionState.items.length > 0;
         form.hidden = !hasSelection;
         empty.hidden = hasSelection;
-        if (!selection) return;
-        const total = selection.unitPrice * selection.quantity;
-        root.querySelector('[data-checkout-product-name]').textContent = selection.productName;
-        root.querySelector('[data-checkout-product-material]').textContent = selection.material;
-        root.querySelector('[data-checkout-product-quantity]').textContent = String(selection.quantity);
-        root.querySelector('[data-checkout-line-total]').textContent = formatPrice(total);
+        items.replaceChildren(...selectionState.items.map((item) => {
+            const article = itemTemplate.content.firstElementChild.cloneNode(true);
+            article.dataset.productId = item.productId;
+            article.dataset.lineId = item.lineId;
+            article.querySelector('[data-checkout-item-name]').textContent = item.productName;
+            article.querySelector('[data-checkout-item-material]').textContent = item.material;
+            article.querySelector('[data-checkout-item-quantity]').textContent = String(item.quantity);
+            article.querySelector('[data-checkout-item-total]').textContent = formatPrice(item.unitPrice * item.quantity);
+            return article;
+        }));
+        const total = selectionSubtotal(selectionState);
         root.querySelector('[data-checkout-subtotal]').textContent = formatPrice(total);
         root.querySelector('[data-checkout-total]').textContent = formatPrice(total);
     };
@@ -53,6 +51,7 @@ document.querySelectorAll('[data-veylune-checkout-preview]').forEach((root) => {
             if (field && !field.value && value) field.value = String(value);
         };
         try {
+            setValue('postalCode', selectionState.postalCode || '');
             const profile = JSON.parse(window.localStorage.getItem(settingsStorageKey) || 'null');
             if (profile?.firstName && profile?.lastName && profile?.email) {
                 setValue('firstName', String(profile.firstName).slice(0, 40));
@@ -120,20 +119,25 @@ document.querySelectorAll('[data-veylune-checkout-preview]').forEach((root) => {
         const data = new FormData(form);
         const deliveryLabel = form.querySelector('[name="deliveryMethod"]:checked')?.closest('label')?.querySelector('strong')?.textContent.trim() || 'Pending';
         const destinationLabel = `${data.get('address')}, ${data.get('postalCode')} ${data.get('city')}, ${data.get('country')}`;
-        root.querySelector('[data-review-contact]').textContent = `${data.get('firstName')} ${data.get('lastName')} · ${data.get('email')}`;
+        root.querySelector('[data-review-contact]').textContent = `${data.get('firstName')} ${data.get('lastName')} - ${data.get('email')}`;
         root.querySelector('[data-review-destination]').textContent = destinationLabel;
         root.querySelector('[data-review-delivery]').textContent = deliveryLabel;
         root.querySelector('[data-review-total]').textContent = root.querySelector('[data-checkout-total]').textContent;
+        selectionState.postalCode = String(data.get('postalCode') || '').trim().toUpperCase();
+        selectionState = writeSelectionState(selectionState);
+        emitSelectionChange(selectionState);
         try {
             const existing = JSON.parse(window.localStorage.getItem(reviewsStorageKey) || '[]');
             const reviews = Array.isArray(existing) ? existing : [];
             const createdAt = Date.now();
+            const primary = selectionState.items[0];
             reviews.unshift({
                 id: `VR-${new Date(createdAt).toISOString().slice(2, 10).replaceAll('-', '')}-${String(createdAt).slice(-4)}`,
-                productName: selection.productName,
-                material: selection.material,
-                quantity: selection.quantity,
-                total: selection.unitPrice * selection.quantity,
+                productName: selectionState.items.length === 1 ? primary.productName : `${selectionState.items.length} selected pieces`,
+                material: selectionState.items.length === 1 ? primary.material : 'Multiple materials',
+                quantity: selectionQuantity(selectionState),
+                total: selectionSubtotal(selectionState),
+                items: selectionState.items.map((item) => ({ ...item })),
                 destination: destinationLabel,
                 delivery: deliveryLabel,
                 createdAt,

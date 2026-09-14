@@ -198,13 +198,22 @@
 }
 
 .veylune-preview-cart__checkout {
+    display: flex;
     min-height: 3.1rem;
-    border: 1px solid #bbb5af;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--veylune-marketplace-primary);
     border-radius: 4px;
-    background: #eeeae6;
-    color: #716b65;
-    cursor: not-allowed;
+    background: var(--veylune-marketplace-primary);
+    color: #fff;
     font-weight: 750;
+    text-decoration: none;
+}
+
+.veylune-preview-cart__checkout:hover,
+.veylune-preview-cart__checkout:focus-visible {
+    color: #fff;
+    background: var(--veylune-marketplace-primary-hover);
 }
 
 @media (max-width: 575.98px) {

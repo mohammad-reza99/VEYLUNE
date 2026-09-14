@@ -2,10 +2,10 @@
 
 {% block base_content %}
     <div class="veylune-cart-preview" data-veylune-cart-preview>
-        <nav aria-label="Breadcrumb"><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Catalog preview</a><span aria-hidden="true">/</span><span aria-current="page">Private selection</span></nav>
+        <nav aria-label="Breadcrumb"><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Catalog preview</a><span aria-hidden="true">/</span><span aria-current="page">Cart</span></nav>
 
         <header class="veylune-cart-preview__header">
-            <div><p>Private project edit</p><h1>Your selection</h1></div>
+            <div><p>Private commerce preview</p><h1>Your cart</h1></div>
             <span data-cart-page-count aria-live="polite">0 items</span>
         </header>
 
@@ -15,8 +15,8 @@
         </div>
 
         <section class="veylune-cart-preview__empty" data-cart-page-empty>
-            <p>Selection empty</p>
-            <h2>Start with a considered piece.</h2>
+            <p>Cart empty</p>
+            <h2>Your cart is ready for a considered piece.</h2>
             <p>Add a product from the private catalog to review quantity, delivery readiness and target pricing here.</p>
             <a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore private catalog</a>
         </section>
@@ -24,29 +24,32 @@
         <div class="veylune-cart-preview__layout" data-cart-page-content hidden>
             <section class="veylune-cart-preview__items" aria-labelledby="veyluneCartItemsTitle">
                 <div class="veylune-cart-preview__section-head">
-                    <h2 id="veyluneCartItemsTitle">Selected pieces</h2>
+                    <h2 id="veyluneCartItemsTitle">Cart items</h2>
                     <span>Target pricing</span>
                 </div>
-                <article class="veylune-cart-preview__item">
-                    <div class="veylune-cart-preview__visual" aria-hidden="true"><span></span></div>
-                    <div class="veylune-cart-preview__item-copy">
-                        <p>Veylune draft reference</p>
-                        <h3 data-cart-page-name>Selected piece</h3>
-                        <dl>
-                            <div><dt>Material</dt><dd data-cart-page-material>Pending</dd></div>
-                            <div><dt>Unit estimate</dt><dd data-cart-page-unit>€0</dd></div>
-                        </dl>
-                        <div class="veylune-cart-preview__item-actions">
-                            <div class="veylune-pdp-quantity" aria-label="Item quantity">
-                                <button type="button" data-cart-page-decrease aria-label="Decrease item quantity">−</button>
-                                <span data-cart-page-quantity aria-live="polite">1</span>
-                                <button type="button" data-cart-page-increase aria-label="Increase item quantity">+</button>
+                <div class="veylune-cart-preview__items-list" data-cart-page-items></div>
+                <template data-cart-page-item-template>
+                    <article class="veylune-cart-preview__item" data-cart-page-item>
+                        <div class="veylune-cart-preview__visual" aria-hidden="true"><span></span></div>
+                        <div class="veylune-cart-preview__item-copy">
+                            <p>Veylune draft reference</p>
+                            <h3 data-cart-page-item-name>Selected piece</h3>
+                            <dl>
+                                <div><dt>Material</dt><dd data-cart-page-item-material>Pending</dd></div>
+                                <div><dt>Unit estimate</dt><dd data-cart-page-item-unit>€0</dd></div>
+                            </dl>
+                            <div class="veylune-cart-preview__item-actions">
+                                <div class="veylune-pdp-quantity" data-cart-page-item-quantity-control aria-label="Item quantity">
+                                    <button type="button" data-cart-page-item-decrease aria-label="Decrease item quantity">−</button>
+                                    <span data-cart-page-item-quantity aria-live="polite">1</span>
+                                    <button type="button" data-cart-page-item-increase aria-label="Increase item quantity">+</button>
+                                </div>
+                                <button type="button" data-cart-page-item-remove>Remove</button>
                             </div>
-                            <button type="button" data-cart-page-remove>Remove</button>
                         </div>
-                    </div>
-                    <strong data-cart-page-line-total>€0</strong>
-                </article>
+                        <strong data-cart-page-item-total>€0</strong>
+                    </article>
+                </template>
 
                 <section class="veylune-cart-preview__delivery" aria-labelledby="veyluneCartDeliveryTitle">
                     <div><p>Delivery</p><h2 id="veyluneCartDeliveryTitle">Check project readiness</h2></div>
@@ -62,7 +65,7 @@
                 <h2 id="veyluneCartSummaryTitle">Order summary</h2>
                 <dl>
                     <div><dt>Subtotal estimate</dt><dd data-cart-page-subtotal>€0</dd></div>
-                    <div><dt>Project delivery</dt><dd>To be confirmed</dd></div>
+                    <div><dt>Project delivery</dt><dd data-cart-page-delivery-summary>To be confirmed</dd></div>
                     <div><dt>Estimated total</dt><dd data-cart-page-total>€0</dd></div>
                 </dl>
                 <form class="veylune-cart-preview__promo" data-cart-page-promo novalidate>

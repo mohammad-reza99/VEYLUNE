@@ -9,6 +9,7 @@ use Shopware\Core\Framework\Uuid\Uuid;
 use VeyluneTheme\Edition\EditionReferenceRegistry;
 use VeyluneTheme\Publication\PublicationStatePolicy;
 use VeyluneTheme\Semantic\SemanticAuditResult;
+use VeyluneTheme\Sitemap\IdentityUrlProvider;
 use VeyluneTheme\Storefront\StorefrontRoleRegistry;
 
 final class SitemapGovernanceAuditService
@@ -185,6 +186,10 @@ final class SitemapGovernanceAuditService
     private function expectedUrls(string $domainUrl, string $locale): array
     {
         $urls = [rtrim($domainUrl, '/') . '/'];
+
+        foreach (IdentityUrlProvider::discoveryRoutes() as [$route]) {
+            $urls[] = $this->absoluteUrl($domainUrl, $route);
+        }
 
         foreach ($this->editionReferenceRegistry->sitemapCandidates($locale) as $candidate) {
             if ($candidate['publicationState'] !== PublicationStatePolicy::STATE_PUBLISHED || $candidate['sitemapEligible'] !== true) {

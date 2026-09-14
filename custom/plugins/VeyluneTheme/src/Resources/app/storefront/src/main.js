@@ -7,6 +7,7 @@ import './js/veylune-legacy';
 import './js/veylune-marketplace-motion';
 import './js/veylune-plp-v2';
 import './js/veylune-plp-wishlist';
+import './js/veylune-preview-card-actions';
 import './js/veylune-preview-selection-bridge';
 import './js/veylune-pdp-preview';
 import './js/veylune-preview-cart-page';

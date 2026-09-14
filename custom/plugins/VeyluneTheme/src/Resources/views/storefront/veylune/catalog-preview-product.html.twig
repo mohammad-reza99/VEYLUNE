@@ -85,12 +85,13 @@
         <dialog class="veylune-preview-cart" data-pdp-cart-drawer aria-labelledby="veylunePreviewCartTitle">
             <div class="veylune-preview-cart__shell">
                 <header>
-                    <div><p>Private preview</p><h2 id="veylunePreviewCartTitle">Your selection</h2></div>
-                    <button type="button" data-pdp-cart-close aria-label="Close selection drawer">Close</button>
+                    <div><p>Private preview</p><h2 id="veylunePreviewCartTitle">Your cart</h2></div>
+                    <button type="button" data-pdp-cart-close aria-label="Close cart drawer">Close</button>
                 </header>
                 <div class="veylune-preview-cart__empty" data-pdp-cart-empty>
-                    <strong>Your selection is empty.</strong>
-                    <p>Add a piece to begin planning delivery and configuration.</p>
+                    <strong>This piece is not in your cart.</strong>
+                    <p>Add it here or review the other items already in your cart.</p>
+                    <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">View cart</a>
                 </div>
                 <div class="veylune-preview-cart__content" data-pdp-cart-content hidden>
                     <article class="veylune-preview-cart__item">
@@ -99,10 +100,10 @@
                             <h3 data-pdp-cart-name>{{ product.name }}</h3>
                             <p>Material: <span data-pdp-cart-material>{{ product.materialLabel }}</span></p>
                             <p>Target price: <strong data-pdp-cart-unit>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
-                            <div class="veylune-pdp-quantity" aria-label="Selection quantity">
-                                <button type="button" data-pdp-cart-decrease aria-label="Decrease selection quantity">−</button>
+                            <div class="veylune-pdp-quantity" aria-label="Cart item quantity">
+                                <button type="button" data-pdp-cart-decrease aria-label="Decrease cart item quantity">−</button>
                                 <span data-pdp-cart-quantity aria-live="polite">1</span>
-                                <button type="button" data-pdp-cart-increase aria-label="Increase selection quantity">+</button>
+                                <button type="button" data-pdp-cart-increase aria-label="Increase cart item quantity">+</button>
                             </div>
                             <button class="veylune-preview-cart__remove" type="button" data-pdp-cart-remove>Remove</button>
                         </div>
@@ -113,8 +114,8 @@
                         <div><dt>Estimated total</dt><dd data-pdp-cart-total>€{{ product.targetPrice|number_format(0, '.', ',') }}</dd></div>
                     </dl>
                     <p class="veylune-preview-cart__notice">Target pricing is not a binding offer. Variant, delivery and final total require studio approval.</p>
-                    <a class="veylune-preview-cart__review" href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">Review private selection</a>
-                    <button class="veylune-preview-cart__checkout" type="button" aria-disabled="true" data-pdp-cart-checkout>Continue to delivery details</button>
+                    <a class="veylune-preview-cart__review" href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">View cart</a>
+                    <a class="veylune-preview-cart__checkout" data-pdp-cart-checkout href="{{ path('frontend.veylune.preview.checkout', { token: veylunePreviewToken }) }}">Continue to delivery details</a>
                     <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue instead</a>
                 </div>
                 <p class="visually-hidden" data-pdp-cart-status aria-live="polite"></p>
@@ -122,7 +123,7 @@
         </dialog>
 
         <div class="veylune-pdp-mobile-bar" data-pdp-mobile-bar role="region" aria-label="Product consultation action">
-            <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong><button type="button" data-pdp-add-selection-mobile>Add to selection</button>
+            <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong><button type="button" data-pdp-add-selection-mobile>Add to cart</button>
         </div>
     </div>
 {% endblock %}

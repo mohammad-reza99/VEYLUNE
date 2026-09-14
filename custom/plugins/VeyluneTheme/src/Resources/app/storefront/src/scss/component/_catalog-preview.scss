@@ -90,6 +90,12 @@
     margin-top: clamp(3rem, 6vw, 6rem);
 }
 
+.veylune-preview-rail__slider {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
 .veylune-preview-rail__head {
     display: flex;
     align-items: end;
@@ -115,6 +121,18 @@
     padding: 1px 0 1.2rem;
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
+}
+
+.veylune-preview-rail__slider .veylune-product-slider__control {
+    top: clamp(8rem, 10.5vw, 12rem);
+}
+
+.veylune-preview-rail__slider .veylune-product-slider__control--previous {
+    left: -22px;
+}
+
+.veylune-preview-rail__slider .veylune-product-slider__control--next {
+    right: -22px;
 }
 
 .veylune-preview-card {

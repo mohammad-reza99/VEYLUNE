@@ -29,6 +29,7 @@ final class StorefrontRouteOwnershipPolicy
     public const SURFACE_COLLECTIONS = 'collections';
     public const SURFACE_SEARCH = 'search';
     public const SURFACE_CART = 'cart';
+    public const SURFACE_CART_MUTATIONS = 'cart_mutations';
     public const SURFACE_CHECKOUT = 'checkout';
     public const SURFACE_ACCOUNT = 'account';
     public const SURFACE_WISHLIST = 'wishlist';
@@ -80,9 +81,14 @@ final class StorefrontRouteOwnershipPolicy
             'activationPrerequisites' => ['search_governance', 'indexing_readiness', 'search_runtime_verification'],
         ],
         self::SURFACE_CART => [
+            'state' => self::STATE_GOVERNED_PUBLIC,
+            'owner' => self::OWNER_NATIVE_COMMERCE,
+            'activationPrerequisites' => ['public_cart_shell', 'sellability_boundary'],
+        ],
+        self::SURFACE_CART_MUTATIONS => [
             'state' => self::STATE_ACTIVATION_PENDING,
             'owner' => self::OWNER_NATIVE_COMMERCE,
-            'activationPrerequisites' => ['sellability_policy', 'cart_runtime_verification'],
+            'activationPrerequisites' => ['sellability_policy', 'cart_mutation_runtime_verification'],
         ],
         self::SURFACE_CHECKOUT => [
             'state' => self::STATE_ACTIVATION_PENDING,
@@ -105,9 +111,9 @@ final class StorefrontRouteOwnershipPolicy
             'activationPrerequisites' => [],
         ],
         self::SURFACE_TRADE => [
-            'state' => self::STATE_ACTIVATION_PENDING,
+            'state' => self::STATE_PUBLIC,
             'owner' => self::OWNER_ACQUISITION_POLICY,
-            'activationPrerequisites' => ['trade_workflow_policy', 'trade_runtime_verification'],
+            'activationPrerequisites' => [],
         ],
         self::SURFACE_EDITIONS => [
             'state' => self::STATE_GOVERNED_PUBLIC,
@@ -177,8 +183,12 @@ final class StorefrontRouteOwnershipPolicy
             return self::SURFACE_SEARCH;
         }
 
-        if ($routeName === 'frontend.checkout.cart.page' || str_contains($routeName, 'line-item')) {
+        if ($routeName === 'frontend.checkout.cart.page') {
             return self::SURFACE_CART;
+        }
+
+        if (str_contains($routeName, 'line-item')) {
+            return self::SURFACE_CART_MUTATIONS;
         }
 
         if (str_starts_with($routeName, 'frontend.checkout.')) {

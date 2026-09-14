@@ -120,6 +120,14 @@
     }
 }
 
+.veylune-cart-preview__items-list {
+    display: grid;
+
+    .veylune-cart-preview__item + .veylune-cart-preview__item {
+        border-top: 0;
+    }
+}
+
 .veylune-cart-preview__item {
     display: grid;
     grid-template-columns: clamp(8rem, 18vw, 12rem) minmax(0, 1fr) auto;

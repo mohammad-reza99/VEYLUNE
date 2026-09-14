@@ -59,11 +59,11 @@
                     <div class="veylune-account-projects__controls">
                         <label>Status<select data-account-project-filter><option value="all">All projects</option><option value="active">Active</option><option value="archived">Archived</option></select></label>
                         <label>Sort<select data-account-project-sort><option value="updated">Recently updated</option><option value="name">Project name</option><option value="status">Status</option></select></label>
-                        <button type="button" data-account-project-save>Save current selection</button>
+                        <button type="button" data-account-project-save>Save cart as project</button>
                     </div>
                     <div class="veylune-account-projects__notice" data-account-project-notice aria-live="polite">Projects are stored only in this private preview browser.</div>
                     <div class="veylune-account-projects__empty" data-account-project-empty>
-                        <h4>No saved projects yet.</h4><p>Add a piece to your private selection, then save it as a project edit.</p><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore catalog</a>
+                        <h4>No saved projects yet.</h4><p>Add a piece to your cart, then save it as a project edit.</p><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore catalog</a>
                     </div>
                     <div class="veylune-account-projects__list" data-account-project-list></div>
                 </section>

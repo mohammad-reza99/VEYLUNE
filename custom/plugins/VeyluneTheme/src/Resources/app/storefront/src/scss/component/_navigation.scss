@@ -165,6 +165,8 @@ body.veylune-overlay-active {
 }
 
 .veylune-mega {
+    --veylune-mega-offset: clamp(82px, 8vw, 106px);
+
     position: fixed;
     inset: 0;
     z-index: 1120;
@@ -178,18 +180,23 @@ body.veylune-overlay-active {
 
 .veylune-mega__backdrop {
     position: absolute;
-    inset: 0;
+    top: var(--veylune-mega-offset);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
     background: rgba(33, 31, 27, 0.06);
     backdrop-filter: blur(2px);
 }
 
 .veylune-mega__panel {
     position: absolute;
-    top: clamp(82px, 8vw, 106px);
+    top: var(--veylune-mega-offset);
     right: 0;
     left: 0;
     width: min(100% - 2.25rem, 1080px);
     margin: 0 auto;
+    pointer-events: none;
     padding: clamp(1.35rem, 3.2vw, 2.35rem);
     color: var(--veylune-color-charcoal);
     background: rgba(248, 245, 239, 0.92);
@@ -201,9 +208,13 @@ body.veylune-overlay-active {
 }
 
 .veylune-mega.is-open {
-    pointer-events: auto;
     opacity: 1;
     visibility: visible;
+}
+
+.veylune-mega.is-open .veylune-mega__backdrop,
+.veylune-mega.is-open .veylune-mega__panel {
+    pointer-events: auto;
 }
 
 .veylune-mega.is-open .veylune-mega__panel {

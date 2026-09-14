@@ -80,6 +80,8 @@
 @import "component/marketplace-plp-card-commerce";
 @import "component/marketplace-plp-pagination";
 @import "component/marketplace-plp-discovery";
+@import "component/marketplace-project-consultation";
+@import "component/marketplace-plp-accessibility";
 
 .header-logo-picture {
     width: clamp(210px, 22vw, 260px);
@@ -103,3 +105,36 @@
         max-height: 64px;
     }
 }
+
+@import "component/marketplace-pdp-preview";
+@import "component/marketplace-pdp-wayfair-alignment";
+@import "component/marketplace-pdp-information";
+@import "component/marketplace-pdp-commerce-options";
+@import "component/marketplace-pdp-quality";
+@import "component/marketplace-preview-cart";
+@import "component/marketplace-preview-cart-page";
+@import "component/marketplace-preview-checkout";
+@import "component/marketplace-preview-selection-bridge";
+@import "component/marketplace-preview-account";
+@import "component/marketplace-route-safety";
+@import "component/marketplace-phase-9-mobile-closure";
+@import "component/marketplace-phase-9-commerce-closure";
+@import "component/marketplace-phase-9-checkout-closure";
+@import "component/marketplace-phase-9-account-closure";
+@import "component/marketplace-phase-9-public-account-closure";
+@import "component/marketplace-phase-9-account-dashboard-closure";
+@import "component/marketplace-phase-9-account-actions-closure";
+@import "component/marketplace-phase-9-cart-closure";
+@import "component/marketplace-phase-9-header-ia-closure";
+@import "component/marketplace-phase-9-legacy-cms-closure";
+@import "component/marketplace-phase-9-home-pending-closure";
+@import "component/marketplace-phase-9-home-hierarchy-closure";
+@import "component/marketplace-phase-9-home-accessibility-closure";
+@import "component/marketplace-global-control-closure";
+@import "component/marketplace-phase-7-home-reference-closure";
+@import "component/marketplace-phase-7-plp-reference-closure";
+@import "component/marketplace-legacy-surface-foundation";
+@import "component/marketplace-phase-7-legacy-core-closure";
+@import "component/marketplace-phase-7-service-closure";
+@import "component/marketplace-phase-7-residual-closure";
+@import "component/marketplace-phase-7-interaction-closure";

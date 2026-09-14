@@ -6,6 +6,7 @@
          data-plp-status="{{ product.status|lower|replace({' ': '_'}) }}"
          data-plp-price="{{ product.targetPrice }}"
          data-plp-name="{{ product.name }}"
+         data-plp-material-label="{{ product.materialLabel }}"
          data-plp-index="{{ productIndex|default(0) }}">
     <div class="veylune-preview-card__visual veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}" role="img" aria-label="{{ product.name }} concept product image">
         <a class="veylune-preview-card__image-link"
@@ -21,21 +22,30 @@
         <span class="veylune-preview-card__material">{{ product.materialLabel }}</span>
     </div>
     <div class="veylune-preview-card__body">
-        <p class="veylune-preview-card__type">{{ product.productType|replace({'_': ' '})|title }}</p>
+        <div class="veylune-preview-card__meta">
+            <p class="veylune-preview-card__type">{{ product.productType|replace({'_': ' '})|title }}</p>
+            <span>Ref. {{ product.recordId }}</span>
+        </div>
         <h3>
             <a href="{{ path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) }}">
                 {{ product.name }}
             </a>
         </h3>
-        <div class="veylune-preview-card__rating" aria-label="No customer reviews yet">
+        <p class="veylune-preview-card__variant">{{ product.materialLabel }}</p>
+        <div class="veylune-preview-card__rating" aria-label="New piece with no customer reviews yet">
             <span class="veylune-preview-card__stars" aria-hidden="true">☆☆☆☆☆</span>
-            <span class="veylune-preview-card__review-copy">New · no reviews yet</span>
+            <span class="veylune-preview-card__review-copy">New piece</span>
         </div>
         <div class="veylune-preview-card__commerce">
-            <span>Target price</span>
             <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong>
+            <span>Target estimate</span>
         </div>
-        <p class="veylune-preview-card__price-note">Final price confirmed after supplier approval</p>
-        <p class="veylune-preview-card__availability">Availability under review</p>
+        <p class="veylune-preview-card__price-note">Final terms confirmed before order.</p>
+        <p class="veylune-preview-card__availability">Studio availability check</p>
+        <div class="veylune-preview-card__actions">
+            <a href="{{ path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) }}">View details</a>
+            <button type="button" data-preview-card-add>Add to cart</button>
+        </div>
+        <p class="visually-hidden" data-preview-card-status aria-live="polite"></p>
     </div>
 </article>

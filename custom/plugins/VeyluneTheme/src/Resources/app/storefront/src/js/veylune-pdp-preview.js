@@ -1,3 +1,12 @@
+import {
+    clampSelectionQuantity,
+    emitSelectionChange,
+    readSelectionState,
+    selectionQuantity,
+    upsertSelectionItem,
+    writeSelectionState,
+} from './veylune-preview-selection-store';
+
 document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     const saveButton = root.querySelector('.veylune-pdp-buybox__save');
     const productName = root.querySelector('.veylune-pdp-buybox h1')?.textContent.trim() || 'piece';
@@ -38,7 +47,6 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     const cartRemove = root.querySelector('[data-pdp-cart-remove]');
     const cartCheckout = root.querySelector('[data-pdp-cart-checkout]');
     const cartStatus = root.querySelector('[data-pdp-cart-status]');
-    const selectionStorageKey = 'veylune-private-selection-v1';
     const viewLabels = {
         front: 'Front view',
         profile: 'Side profile',
@@ -115,6 +123,10 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
             } else {
                 input.removeAttribute('aria-invalid');
                 deliveryStatus.textContent = `Destination ${postalCode.toUpperCase()} saved. Exact delivery scope remains subject to consultation.`;
+                if (selectionState.items.length) {
+                    selectionState.postalCode = postalCode.toUpperCase();
+                    persistSelection();
+                }
             }
             deliveryButton?.removeAttribute('aria-busy');
             if (deliveryButton) deliveryButton.disabled = false;
@@ -124,6 +136,10 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     serviceInputs.forEach((input) => input.addEventListener('change', () => {
         const label = input.closest('label')?.querySelector('strong')?.textContent.trim() || 'Service';
         serviceStatus.textContent = `${label} selected.`;
+        if (selectionState.items.length) {
+            selectionState.service = input.value;
+            persistSelection();
+        }
     }));
 
     const updateBundle = (updateUrl = true) => {
@@ -154,44 +170,38 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     });
     updateBundle(false);
 
-    const clampQuantity = (value) => Math.min(10, Math.max(1, Number.parseInt(value, 10) || 1));
     const formatPrice = (value) => new Intl.NumberFormat('en-US', {
         style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
     }).format(value);
     const unitPrice = Number(root.dataset.productPrice) || 0;
     let plannedQuantity = 1;
-    let selection = null;
+    let selectionState = readSelectionState();
+    let selection = selectionState.items.find((item) => (
+        item.lineId === selectionState.activeLineId && item.productId === root.dataset.productId
+    )) || selectionState.items.find((item) => item.productId === root.dataset.productId) || null;
 
-    try {
-        const stored = JSON.parse(window.localStorage.getItem(selectionStorageKey) || 'null');
-        const expired = Number(stored?.updatedAt) > 0 && Date.now() - Number(stored.updatedAt) > 30 * 24 * 60 * 60 * 1000;
-        if (expired) window.localStorage.removeItem(selectionStorageKey);
-        if (!expired && stored?.productId === root.dataset.productId) {
-            selection = {
-                productId: stored.productId,
-                productName: root.dataset.productName,
-                material: String(stored.material || variantLabel?.textContent || ''),
-                quantity: clampQuantity(stored.quantity),
-                unitPrice,
-            };
+    if (selection) plannedQuantity = selection.quantity;
+    if (selectionState.postalCode && deliveryForm?.elements.postalCode) {
+        deliveryForm.elements.postalCode.value = selectionState.postalCode;
+    }
+    if (selectionState.items.length) {
+        const storedService = serviceInputs.find((input) => input.value === selectionState.service);
+        if (storedService) {
+            serviceInputs.forEach((input) => { input.checked = input === storedService; });
+            const label = storedService.closest('label')?.querySelector('strong')?.textContent.trim() || 'Service';
+            serviceStatus.textContent = `${label} selected.`;
         }
-    } catch (error) {
-        selection = null;
     }
 
     const persistSelection = () => {
         try {
-            if (selection) {
-                selection.updatedAt = Date.now();
-                window.localStorage.setItem(selectionStorageKey, JSON.stringify(selection));
-            } else {
-                window.localStorage.removeItem(selectionStorageKey);
-            }
-            window.dispatchEvent(new CustomEvent('veylune:selection-change', {
-                detail: { quantity: selection?.quantity || 0 },
-            }));
+            selectionState = writeSelectionState(selectionState);
+            selection = selection
+                ? selectionState.items.find((item) => item.lineId === selection.lineId) || null
+                : null;
+            emitSelectionChange(selectionState);
         } catch (error) {
-            cartStatus.textContent = 'Selection updated for this session. Browser storage is unavailable.';
+            cartStatus.textContent = 'Cart updated for this session. Browser storage is unavailable.';
         }
     };
 
@@ -222,7 +232,7 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     };
 
     const updatePlannedQuantity = (value) => {
-        plannedQuantity = clampQuantity(value);
+        plannedQuantity = clampSelectionQuantity(value);
         renderPlannedQuantity();
     };
 
@@ -232,17 +242,24 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     quantityInput?.addEventListener('blur', () => updatePlannedQuantity(quantityInput.value));
 
     const addToSelection = (button) => {
-        selection = {
+        selectionState.postalCode = /^[a-z0-9][a-z0-9 -]{2,8}[a-z0-9]$/i.test(deliveryForm?.elements.postalCode?.value.trim() || '')
+            ? deliveryForm.elements.postalCode.value.trim().toUpperCase()
+            : selectionState.postalCode;
+        selectionState.service = serviceInputs.find((input) => input.checked)?.value || selectionState.service || 'studio';
+        const result = upsertSelectionItem(selectionState, {
             productId: root.dataset.productId,
             productName: root.dataset.productName,
             material: variantLabel?.textContent || '',
             quantity: plannedQuantity,
             unitPrice,
-        };
+        });
+        selectionState = result.state;
+        selection = result.item;
         persistSelection();
         renderSelection();
-        if (addStatus) addStatus.textContent = `${plannedQuantity} × ${root.dataset.productName} added to your private selection.`;
-        cartStatus.textContent = `${plannedQuantity} items in your private selection.`;
+        const totalQuantity = selectionQuantity(selectionState);
+        if (addStatus) addStatus.textContent = `${plannedQuantity} x ${root.dataset.productName} added to your cart.`;
+        cartStatus.textContent = `${totalQuantity} item${totalQuantity === 1 ? '' : 's'} across ${selectionState.items.length} cart line${selectionState.items.length === 1 ? '' : 's'}.`;
         openSelection(button);
     };
 
@@ -262,23 +279,29 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
     });
     cartDecrease?.addEventListener('click', () => {
         if (!selection) return;
-        selection.quantity = clampQuantity(selection.quantity - 1);
+        selection.quantity = clampSelectionQuantity(selection.quantity - 1);
         persistSelection();
         renderSelection();
-        cartStatus.textContent = `Selection quantity changed to ${selection.quantity}.`;
+        cartStatus.textContent = `Cart quantity changed to ${selection.quantity}.`;
     });
     cartIncrease?.addEventListener('click', () => {
         if (!selection) return;
-        selection.quantity = clampQuantity(selection.quantity + 1);
+        selection.quantity = clampSelectionQuantity(selection.quantity + 1);
         persistSelection();
         renderSelection();
-        cartStatus.textContent = `Selection quantity changed to ${selection.quantity}.`;
+        cartStatus.textContent = `Cart quantity changed to ${selection.quantity}.`;
     });
     cartRemove?.addEventListener('click', () => {
+        const removedLineId = selection?.lineId;
+        selectionState.items = selectionState.items.filter((item) => item.lineId !== removedLineId);
+        selectionState.activeLineId = selectionState.items[0]?.lineId || '';
         selection = null;
         persistSelection();
         renderSelection();
-        cartStatus.textContent = 'Item removed. Your private selection is empty.';
+        const remaining = selectionQuantity(selectionState);
+        cartStatus.textContent = remaining
+            ? `Item removed. ${remaining} item${remaining === 1 ? '' : 's'} remain in your cart.`
+            : 'Item removed. Your cart is empty.';
     });
     cartCheckout?.addEventListener('click', () => {
         cartStatus.textContent = 'Checkout activation is pending supplier, delivery and pricing approval.';

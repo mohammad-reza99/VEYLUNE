@@ -2,6 +2,9 @@
 
 {% block base_main_inner %}
     {% set brief = veyluneProjectBrief|default({ source: 'direct', query: '', object: '' }) %}
+    {% set isTradeBrief = brief.source|default('') == 'trade' %}
+    {% set parentRoute = isTradeBrief ? path('frontend.veylune.trade.page') : path('frontend.veylune.consultation.page') %}
+    {% set parentLabel = isTradeBrief ? 'Trade Program' : 'Private Consultation' %}
     <div class="veylune-contact-page"
          data-veylune-contact-page
          data-vli-project-brief-page
@@ -11,16 +14,16 @@
         <nav class="veylune-contact-page__breadcrumb" aria-label="Breadcrumb">
             <a href="{{ path('frontend.home.page') }}">Home</a>
             <span aria-hidden="true">/</span>
-            <a href="{{ path('frontend.veylune.consultation.page') }}">Private Consultation</a>
+            <a href="{{ parentRoute }}">{{ parentLabel }}</a>
             <span aria-hidden="true">/</span>
             <span aria-current="page">Project Brief</span>
         </nav>
 
         <header class="veylune-contact-page__intro">
             <div>
-                <p class="veylune-legal-notice__eyebrow">Project brief / studio contact</p>
-                <h1>Tell us what the room needs.</h1>
-                <p>Bring the space, direction, constraints, and useful references into one reviewable brief. You can still use this form for a general studio inquiry.</p>
+                <p class="veylune-legal-notice__eyebrow">{{ isTradeBrief ? 'Trade project brief / studio contact' : 'Project brief / studio contact' }}</p>
+                <h1>{{ isTradeBrief ? 'Tell us what the project needs.' : 'Tell us what the room needs.' }}</h1>
+                <p>{{ isTradeBrief ? 'Bring the project type, spatial direction, procurement context, timing, and useful references into one reviewable trade brief.' : 'Bring the space, direction, constraints, and useful references into one reviewable brief. You can still use this form for a general studio inquiry.' }}</p>
             </div>
             <div class="veylune-contact-page__promise" aria-label="Service boundary">
                 <strong>A considered first step</strong>
@@ -49,6 +52,8 @@
             </ul>
             {% if brief.source|default('') == 'selection' %}
                 <a class="veylune-contact-page__selection-link" href="{{ path('frontend.veylune.living_index.selection') }}">Review My Selection</a>
+            {% elseif isTradeBrief %}
+                <a href="{{ path('frontend.veylune.trade.page') }}">How the Trade Program works</a>
             {% else %}
                 <a href="{{ path('frontend.veylune.consultation.page') }}">How private consultation works</a>
             {% endif %}

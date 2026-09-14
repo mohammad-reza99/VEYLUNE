@@ -13,7 +13,9 @@ document.querySelectorAll('[data-plp-wishlist]').forEach((button) => {
         updateState(false);
     }
 
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const selected = button.getAttribute('aria-pressed') !== 'true';
         updateState(selected);
 

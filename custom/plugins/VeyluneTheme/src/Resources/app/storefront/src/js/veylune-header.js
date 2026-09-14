@@ -20,6 +20,8 @@ const initVeyluneHeader = () => {
     const searchResults = header.querySelector('[data-veylune-search-results]');
     const progress = header.querySelector('[data-veylune-header-progress]');
     const mega = header.querySelector('[data-veylune-mega]');
+    const megaBackdrop = mega?.querySelector('.veylune-mega__backdrop');
+    const megaSurface = mega?.querySelector('.veylune-mega__panel');
     const megaTriggers = [...header.querySelectorAll('[data-veylune-mega-trigger]')];
     const megaPanels = [...header.querySelectorAll('[data-veylune-mega-panel]')];
     const megaClose = header.querySelector('[data-veylune-mega-close]');
@@ -34,6 +36,7 @@ const initVeyluneHeader = () => {
     let megaCloseTimer = null;
     let activeMegaKey = null;
     let activeMegaTrigger = null;
+    let isRestoringMegaFocus = false;
     let searchReturnFocus = null;
     let mobileReturnFocus = null;
 
@@ -146,6 +149,13 @@ const initVeyluneHeader = () => {
         searchInput?.focus();
     };
 
+    const syncMegaOffset = () => {
+        if (!mega) return;
+
+        const headerBottom = Math.max(0, Math.ceil(header.getBoundingClientRect().bottom));
+        mega.style.setProperty('--veylune-mega-offset', `${headerBottom}px`);
+    };
+
     function openMega(key) {
         if (!mega || window.matchMedia('(max-width: 991px)').matches) {
             return;
@@ -153,6 +163,7 @@ const initVeyluneHeader = () => {
 
         window.clearTimeout(megaCloseTimer);
         closeSearch();
+        syncMegaOffset();
 
         header.classList.add('is-mega-open');
         mega.classList.add('is-open');
@@ -195,11 +206,16 @@ const initVeyluneHeader = () => {
             setInertState(panel, true);
         });
 
-        if (restoreFocus && activeMegaTrigger instanceof HTMLElement) {
-            activeMegaTrigger.focus();
-        }
-
+        const returnFocus = activeMegaTrigger;
         activeMegaTrigger = null;
+
+        if (restoreFocus && returnFocus instanceof HTMLElement) {
+            isRestoringMegaFocus = true;
+            returnFocus.focus({ preventScroll: true });
+            window.setTimeout(() => {
+                isRestoringMegaFocus = false;
+            }, 0);
+        }
     }
 
     const scheduleMegaClose = () => {
@@ -319,12 +335,15 @@ const initVeyluneHeader = () => {
         // A short intent delay keeps a normal pointer click on the navigation
         // link from being intercepted by the full-width mega overlay.
         trigger.addEventListener('mouseenter', () => scheduleMegaOpen(key));
-        trigger.addEventListener('focus', () => openMega(key));
+        trigger.addEventListener('focus', () => {
+            if (!isRestoringMegaFocus) openMega(key);
+        });
         trigger.addEventListener('mouseleave', scheduleMegaClose);
     });
 
-    mega?.addEventListener('mouseenter', () => window.clearTimeout(megaCloseTimer));
-    mega?.addEventListener('mouseleave', scheduleMegaClose);
+    megaSurface?.addEventListener('mouseenter', () => window.clearTimeout(megaCloseTimer));
+    megaSurface?.addEventListener('mouseleave', scheduleMegaClose);
+    megaBackdrop?.addEventListener('click', () => closeMega({ restoreFocus: true }));
     mega?.addEventListener('focusout', (event) => {
         const nextTarget = event.relatedTarget;
 

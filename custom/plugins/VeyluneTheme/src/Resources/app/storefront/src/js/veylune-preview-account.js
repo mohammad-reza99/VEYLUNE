@@ -239,7 +239,7 @@ document.querySelectorAll('[data-veylune-account-preview]').forEach((root) => {
     }
 
     projectSave.disabled = !currentSelection;
-    if (!currentSelection) projectSave.title = 'Add a product to the private selection first';
+    if (!currentSelection) projectSave.title = 'Add a product to the cart first';
 
     const persistProjects = () => {
         try {
@@ -489,7 +489,7 @@ document.querySelectorAll('[data-veylune-account-preview]').forEach((root) => {
     projectSort.addEventListener('change', renderProjects);
     projectSave.addEventListener('click', () => {
         if (!currentSelection) {
-            projectNotice.textContent = 'Add a product to the private selection before saving a project.';
+            projectNotice.textContent = 'Add a product to the cart before saving a project.';
             return;
         }
         const sequence = projects.length + 1;

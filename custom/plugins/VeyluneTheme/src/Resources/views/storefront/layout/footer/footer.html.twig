@@ -7,6 +7,7 @@
 	{% set veyluneRoutes = {
         partnership: path('frontend.veylune.partnership.page'),
         consultation: veyluneCategoryRoutes.url('consultation'),
+        trade: path('frontend.veylune.trade.page'),
         contact: veyluneInquiryUrl
     } %}
 
@@ -28,6 +29,7 @@
 			<div class="veylune-footer__column">
 				<div class="veylune-footer__title">{{ 'veylune.footer.services'|trans|sw_sanitize }}</div>
 				<a class="veylune-footer__link" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.footer.privateConsultation'|trans|sw_sanitize }}</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.trade }}">Trade Program</a>
 				<a class="veylune-footer__link" href="{{ veyluneRoutes.partnership }}">{{ 'veylune.footer.atelierPartnerships'|trans|sw_sanitize }}</a>
 				<a class="veylune-footer__link" href="{{ veyluneRoutes.contact }}">{{ 'veylune.footer.contactStudio'|trans|sw_sanitize }}</a>
 			</div>

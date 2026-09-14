@@ -145,7 +145,7 @@
 .veylune-preview--destination .veylune-plp-toolbar {
     position: sticky;
     top: var(--veylune-header-offset, 0);
-    z-index: 12;
+    z-index: 40;
     min-height: 66px;
     padding: 0.65rem 0;
     border-block: 1px solid var(--veylune-plp-line);
@@ -194,12 +194,17 @@
 .veylune-preview--destination .veylune-plp-popover {
     top: calc(100% + 0.35rem);
     width: min(340px, calc(100vw - 2rem));
-    max-height: min(68vh, 620px);
+    max-height: var(--veylune-plp-panel-max-height, min(68vh, 620px));
     padding: 0.35rem 1.1rem;
     overflow-y: auto;
     border-color: var(--veylune-plp-line);
     border-radius: 4px;
     box-shadow: 0 12px 32px rgb(31 26 32 / 16%);
+}
+
+.veylune-preview--destination .veylune-plp-popover.is-above {
+    top: auto;
+    bottom: calc(100% + 0.35rem);
 }
 
 .veylune-preview--destination .veylune-plp-popover fieldset {
@@ -634,6 +639,12 @@
 
     .veylune-preview--destination .veylune-plp-toolbar {
         top: var(--veylune-header-offset, 0);
+    }
+}
+
+@media (min-width: 992px) {
+    .veylune-preview--destination .veylune-plp-toolbar__actions .veylune-plp-menu:first-child {
+        display: none;
     }
 }
 

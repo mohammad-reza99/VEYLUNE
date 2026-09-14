@@ -8,18 +8,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use VeyluneTheme\Catalog\SupplierEvidenceContract;
 
 #[AsCommand(name: 'veylune:catalog:level3-intake-audit', description: 'Audits supplier evidence intake for the fixed first-ten Level 3 cohort.')]
 #[Package('storefront')]
 final class Level3SupplierIntakeAuditCommand extends Command
 {
-    private const REQUIRED_EVIDENCE = [
-        'supplier_id', 'supplier_legal_name', 'supplier_sku', 'source_batch',
-        'pricing_authority_reference', 'availability_authority_reference',
-        'specification_pack_reference', 'media_rights_schedule_reference',
-        'material_evidence_reference', 'source_owner', 'reviewed_at', 'reviewer',
-    ];
-
     public function __construct(
         #[Autowire('%kernel.project_dir%')] private readonly string $projectDir
     ) {
@@ -50,18 +44,18 @@ final class Level3SupplierIntakeAuditCommand extends Command
             }
 
             $missing = \array_values(\array_filter(
-                self::REQUIRED_EVIDENCE,
+                SupplierEvidenceContract::requiredFields(),
                 static fn (string $field): bool => !\is_string($record[$field] ?? null) || \trim($record[$field]) === ''
             ));
 
-            if ($status === 'accepted') {
+            if ($status === SupplierEvidenceContract::STATUS_ACCEPTED) {
                 ++$accepted;
                 if ($missing !== []) {
                     $violations[] = 'intake.accepted_with_missing_evidence:' . $sku;
                 }
             } else {
                 ++$blocked;
-                if (!in_array($status, ['blocked_external_evidence', 'blocked_no_verifiable_source', 'blocked_identity_conflict'], true)) {
+                if (!in_array($status, SupplierEvidenceContract::blockedStatuses(), true)) {
                     $violations[] = 'intake.invalid_status:' . $sku;
                 }
             }

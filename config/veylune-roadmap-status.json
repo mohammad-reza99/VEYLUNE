@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "2.0",
+  "capturedAt": "2026-09-14",
+  "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
+  "currentPhase": {
+    "id": "1.1",
+    "name": "Recoverable Baseline and Canonical Inventory",
+    "status": "complete"
+  },
+  "gitBaseline": {
+    "checkpointRef": "veylune-phase-1.1-baseline-20260914",
+    "branch": "main",
+    "head": "30673455978e07b3d1fd54f5e44f8f6c19d7423a",
+    "originMain": "395b02662ffdb1d7c9ac065142e12f49e92caec1",
+    "ahead": 2,
+    "behind": 0,
+    "prePhase11WorkingTree": {
+      "statusEntries": 68,
+      "trackedDiffFiles": 58,
+      "untrackedFiles": 10,
+      "deletedFiles": 3,
+      "statusSha256": "e505c9b001333d05b4094a2a9ee4f7bffb9f5f69494c8e408ce7732bb7e7aa85",
+      "trackedBinaryDiffSha256": "e0f584662752e4b3169c5858ac0e2f68a5020c5a98ab559c5ec07e4cb23911a2",
+      "untrackedListSha256": "322133637c4e1663dd1ce206e95025c40cd6020a16386f5107c84c988aeb76f5"
+    }
+  },
+  "auditBaseline": {
+    "public": {
+      "routes": 47,
+      "desktopMobileSurfaces": 94,
+      "status200": 90,
+      "currentDesktop": 42,
+      "mixedDesktop": 3,
+      "legacyDesktop": 0,
+      "brokenDesktop": 2,
+      "capturedAt": "2026-09-12"
+    },
+    "privatePreview": {
+      "routes": 67,
+      "desktopMobileSurfaces": 134,
+      "status200": 134,
+      "products": 50,
+      "destinations": 13,
+      "capturedAt": "2026-09-13"
+    },
+    "interaction": {
+      "routes": 41,
+      "desktopMobileSurfaces": 82,
+      "issueSurfaces": 0,
+      "capturedAt": "2026-09-12"
+    }
+  },
+  "engineeringInventory": {
+    "scssFiles": 138,
+    "scssLines": 31061,
+    "baseScssImports": 135,
+    "javascriptSourceFiles": 21,
+    "twigFiles": 99,
+    "origFiles": 40
+  },
+  "mediaInventory": {
+    "draftProducts": 50,
+    "dedicatedThemeProductAssets": 19,
+    "missingDedicatedProductAssets": 31,
+    "adminIsCanonicalMediaSource": false,
+    "targetCanonicalMediaSource": "shopware_admin_media"
+  },
+  "commercialReadiness": {
+    "launchCohortProducts": 10,
+    "level3ReadyProducts": 0,
+    "requiredSupplierEvidenceCells": 120,
+    "acceptedSupplierEvidenceCells": 0
+  },
+  "securityBaseline": {
+    "trackedPreviewTokenLiteralRemoved": true,
+    "previewTokenRotationRequired": true,
+    "previewDevHostAllowlistImplemented": false,
+    "previewSuccessCspVerified": false,
+    "previewSuccessPermissionsPolicyVerified": false
+  },
+  "phase11CompletionEvidence": {
+    "roadmapBaselineAudit": "pass",
+    "governanceGate": "pass",
+    "storefrontBuild": "pass",
+    "phpLint": "pass",
+    "twigLint": "pass",
+    "composerValidation": "pass_with_exact_version_warnings",
+    "recoverableCheckpoint": "veylune-phase-1.1-baseline-20260914"
+  },
+  "phaseMap": [
+    {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 35, "status": "in_progress"},
+    {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 55, "status": "partial"},
+    {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 70, "status": "partial"},
+    {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
+    {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 70, "status": "partial"},
+    {"id": 6, "name": "PDP and customer-commerce journey", "estimatedPercent": 30, "status": "partial"},
+    {"id": 7, "name": "Commercial, supplier, localization, and operational readiness", "estimatedPercent": 10, "status": "blocked_external_inputs"},
+    {"id": 8, "name": "Quality, security, performance, and release candidate", "estimatedPercent": 45, "status": "partial"},
+    {"id": 9, "name": "EU staging, deployment, launch, and measured growth", "estimatedPercent": 15, "status": "deferred"}
+  ],
+  "sourceOfTruth": {
+    "roadmap": "config/veylune-roadmap-status.json",
+    "surfaceContract": "config/veylune-surface-contract.json",
+    "productAndBusinessContent": "shopware_admin",
+    "productMedia": "shopware_admin_media",
+    "stableBrandAssets": "theme_code",
+    "designTokensAndBehavior": "theme_code",
+    "auditEvidence": "generated_reports"
+  },
+  "nextStep": {
+    "id": "1.2",
+    "name": "Component Ownership and Cascade Reduction Plan",
+    "phase": 1
+  }
+}

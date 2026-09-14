@@ -23,6 +23,7 @@ final class IdentityUrlProvider extends AbstractUrlProvider
         ['/editions', 'axis:material', 0.85],
         ['/atelier-partnerships', 'axis:maker', 0.75],
         ['/private-consultation', 'axis:project', 0.75],
+        ['/trade-program', 'axis:trade', 0.75],
         ['/rooms/living-room', 'room:living-room', 0.85],
         ['/rooms/dining-room', 'room:dining-room', 0.8],
         ['/rooms/bedroom', 'room:bedroom', 0.8],
@@ -61,6 +62,14 @@ final class IdentityUrlProvider extends AbstractUrlProvider
         return 'veylune_identity';
     }
 
+    /**
+     * @return list<array{string, string, float}>
+     */
+    public static function discoveryRoutes(): array
+    {
+        return self::DISCOVERY_ROUTES;
+    }
+
     public function getUrls(SalesChannelContext $context, int $limit, ?int $offset = null): UrlResult
     {
         $offset ??= 0;
@@ -77,7 +86,7 @@ final class IdentityUrlProvider extends AbstractUrlProvider
         $urls = [$this->buildUrl('', 'homepage', self::HOMEPAGE_PRIORITY)];
         $emittedRoutes = ['' => true];
 
-        foreach (self::DISCOVERY_ROUTES as [$route, $identifier, $priority]) {
+        foreach (self::discoveryRoutes() as [$route, $identifier, $priority]) {
             $emittedRoutes[$route] = true;
             $urls[] = $this->buildUrl($route, $identifier, $priority);
         }

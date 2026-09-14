@@ -3,7 +3,7 @@
 {% block base_content %}
     <div class="veylune-checkout-preview" data-veylune-checkout-preview>
         <nav aria-label="Checkout progress">
-            <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}"><span>1</span>Selection</a>
+            <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}"><span>1</span>Cart</a>
             <span aria-current="step"><span>2</span>Delivery</span>
             <span><span>3</span>Review</span>
         </nav>
@@ -15,8 +15,8 @@
         </header>
 
         <section class="veylune-checkout-preview__empty" data-checkout-empty hidden>
-            <p>Selection required</p>
-            <h2>Your private selection is empty.</h2>
+            <p>Cart required</p>
+            <h2>Your cart is empty.</h2>
             <a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Explore private catalog</a>
         </section>
 
@@ -33,7 +33,7 @@
                 </section>
 
                 <section aria-labelledby="veyluneCheckoutAddressTitle">
-                    <div class="veylune-checkout-preview__section-head"><span>02</span><div><p>Project address</p><h2 id="veyluneCheckoutAddressTitle">Where is the selection going?</h2></div></div>
+                    <div class="veylune-checkout-preview__section-head"><span>02</span><div><p>Project address</p><h2 id="veyluneCheckoutAddressTitle">Where should we deliver these items?</h2></div></div>
                     <div class="veylune-checkout-preview__fields">
                         <label class="veylune-checkout-preview__field--wide">Street address<input name="address" autocomplete="street-address" required></label>
                         <label>City<input name="city" autocomplete="address-level2" required></label>
@@ -56,11 +56,14 @@
 
             <aside class="veylune-checkout-preview__summary" aria-labelledby="veyluneCheckoutSummaryTitle">
                 <div><p>Review</p><h2 id="veyluneCheckoutSummaryTitle">Project summary</h2></div>
-                <article>
-                    <div aria-hidden="true"><span></span></div>
-                    <section><h3 data-checkout-product-name>Selected piece</h3><p data-checkout-product-material>Material pending</p><p>Qty <span data-checkout-product-quantity>0</span></p></section>
-                    <strong data-checkout-line-total>€0</strong>
-                </article>
+                <div class="veylune-checkout-preview__summary-items" data-checkout-items></div>
+                <template data-checkout-item-template>
+                    <article data-checkout-item>
+                        <div aria-hidden="true"><span></span></div>
+                        <section><h3 data-checkout-item-name>Selected piece</h3><p data-checkout-item-material>Material pending</p><p>Qty <span data-checkout-item-quantity>0</span></p></section>
+                        <strong data-checkout-item-total>€0</strong>
+                    </article>
+                </template>
                 <dl>
                     <div><dt>Subtotal estimate</dt><dd data-checkout-subtotal>€0</dd></div>
                     <div><dt>Delivery</dt><dd>Quote pending</dd></div>
@@ -68,7 +71,7 @@
                 </dl>
                 <label class="veylune-checkout-preview__consent"><input type="checkbox" name="reviewConsent" required><span>I understand this is a non-binding private preview and final terms require studio approval.</span></label>
                 <button type="submit" data-checkout-review>Review private request</button>
-                <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">Return to selection</a>
+                <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">Return to cart</a>
                 <p id="veyluneCheckoutStatus" data-checkout-status role="status" aria-live="polite">Complete the required details to review this request.</p>
             </aside>
         </form>
@@ -82,7 +85,7 @@
                     <div><dt>Contact</dt><dd data-review-contact></dd></div>
                     <div><dt>Destination</dt><dd data-review-destination></dd></div>
                     <div><dt>Delivery</dt><dd data-review-delivery></dd></div>
-                    <div><dt>Selection estimate</dt><dd data-review-total></dd></div>
+                    <div><dt>Cart estimate</dt><dd data-review-total></dd></div>
                 </dl>
                 <div class="veylune-checkout-review__guard"><strong>Activation guard</strong><p>This preview cannot submit an order, reserve inventory or collect payment.</p></div>
                 <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue</a>

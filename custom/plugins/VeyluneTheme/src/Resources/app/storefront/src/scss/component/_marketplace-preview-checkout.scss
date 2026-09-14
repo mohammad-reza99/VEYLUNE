@@ -246,6 +246,9 @@
         text-transform: uppercase;
     }
 
+    > .veylune-checkout-preview__summary-items {
+    display: grid;
+
     > article {
         display: grid;
         grid-template-columns: 4.5rem 1fr auto;
@@ -285,7 +288,12 @@
             font-size: .85rem;
             white-space: nowrap;
         }
+
+        + article {
+            border-top: 0;
+        }
     }
+}
 
     > dl {
         display: grid;

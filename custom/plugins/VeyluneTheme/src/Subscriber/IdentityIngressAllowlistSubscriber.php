@@ -61,7 +61,9 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.preview.cart',
         'frontend.veylune.preview.checkout',
         'frontend.veylune.preview.account',
+        'frontend.checkout.cart.page',
         'frontend.form.contact.send',
+        'frontend.country.country.data',
         'frontend.captcha.basic-captcha.load',
         'frontend.captcha.basic-captcha.validate',
         'frontend.cookie.offcanvas',
@@ -164,7 +166,7 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             }
         }
 
-        if ($this->isCanonicalPublicStorefrontApiRequest($request)) {
+        if ($this->isCanonicalPublicStorefrontApiRequest($request) && !$this->isAdministrationApiRequest($request)) {
             $event->setResponse($this->deniedResponse($request));
 
             return;
@@ -199,6 +201,26 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             || str_starts_with($path, '/api/')
             || $path === '/store-api'
             || str_starts_with($path, '/store-api/');
+    }
+
+    /**
+     * The Administration is served from the same local host as the storefront.
+     * Its unauthenticated bootstrap endpoints must therefore bypass the public
+     * storefront API deny rule; authenticated Administration calls use Bearer
+     * tokens and remain protected by Shopware's API authentication.
+     */
+    private function isAdministrationApiRequest(Request $request): bool
+    {
+        $path = $request->getPathInfo();
+
+        if ($path === '/api/_admin'
+            || str_starts_with($path, '/api/_admin/')
+            || $path === '/api/oauth'
+            || str_starts_with($path, '/api/oauth/')) {
+            return true;
+        }
+
+        return str_starts_with((string) $request->headers->get('Authorization'), 'Bearer ');
     }
 
     private function isIdentityIngressRequest(Request $request): bool

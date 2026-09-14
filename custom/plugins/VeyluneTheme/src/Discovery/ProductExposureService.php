@@ -10,6 +10,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use VeyluneTheme\Catalog\SupplierEvidenceAcceptanceGate;
 
 #[Package('storefront')]
 final class ProductExposureService
@@ -78,8 +79,17 @@ final class ProductExposureService
      * @param SalesChannelRepository<\Shopware\Core\Content\Product\SalesChannel\SalesChannelProductCollection> $productRepository
      */
     public function __construct(
-        private readonly SalesChannelRepository $productRepository
+        private readonly SalesChannelRepository $productRepository,
+        private readonly SupplierEvidenceAcceptanceGate $supplierEvidenceGate
     ) {
+    }
+
+    /**
+     * @return list<string>
+     */
+    public static function governedProductNumbers(): array
+    {
+        return array_keys(self::EXPOSURE_REGISTRY);
     }
 
     /**
@@ -324,6 +334,10 @@ final class ProductExposureService
 
         if ($registry === null || !($registry['approved'] ?? false)) {
             $reasons[] = 'missing exposure approval';
+        }
+
+        foreach ($this->supplierEvidenceGate->rejectionReasons($productNumber) as $reason) {
+            $reasons[] = $reason;
         }
 
         $translatedCustomFields = $product->getTranslated()['customFields'] ?? null;

@@ -1,8 +1,8 @@
+import { readSelectionState, selectionQuantity, selectionStorageKey } from './veylune-preview-selection-store';
+
 (() => {
     if (!window.location.pathname.startsWith('/__veylune-preview/')) return;
 
-    const storageKey = 'veylune-private-selection-v1';
-    const maxAge = 30 * 24 * 60 * 60 * 1000;
     let headerCart = document.querySelector('.veylune-header__bag');
     let headerAccount = document.querySelector('.veylune-header__actions a[href*="/account"]');
     let count = headerCart?.querySelector('.veylune-marketplace-action__count');
@@ -34,7 +34,7 @@
             const link = activatePendingLink(
                 element,
                 `/__veylune-preview/cart?token=${encodeURIComponent(token)}`,
-                'Private selection, 0 items',
+                'Cart, 0 items',
                 'data-veylune-preview-cart'
             );
             if (index === 0) headerCart = link;
@@ -59,44 +59,13 @@
         });
     }
 
-    const readSelection = () => {
-        try {
-            const stored = JSON.parse(window.localStorage.getItem(storageKey) || 'null');
-            const valid = stored?.productId
-                && stored?.productName
-                && Number(stored.unitPrice) > 0
-                && Number.isFinite(Number(stored.quantity));
-            const expired = Number(stored?.updatedAt) > 0 && Date.now() - Number(stored.updatedAt) > maxAge;
-
-            if (!valid || expired) {
-                if (stored) window.localStorage.removeItem(storageKey);
-                return null;
-            }
-
-            const quantity = Math.min(10, Math.max(1, Number.parseInt(stored.quantity, 10) || 1));
-            if (!stored.updatedAt) {
-                stored.updatedAt = Date.now();
-                stored.quantity = quantity;
-                window.localStorage.setItem(storageKey, JSON.stringify(stored));
-            }
-            return { quantity };
-        } catch (error) {
-            try {
-                window.localStorage.removeItem(storageKey);
-            } catch (storageError) {
-                // The preview remains usable without persistent storage.
-            }
-            return null;
-        }
-    };
-
     const renderBadge = (providedQuantity) => {
         const quantity = Number.isFinite(Number(providedQuantity))
-            ? Math.min(10, Math.max(0, Number(providedQuantity)))
-            : (readSelection()?.quantity || 0);
+            ? Math.max(0, Number(providedQuantity))
+            : selectionQuantity(readSelectionState());
         if (count) count.textContent = String(quantity);
         if (headerCart) {
-            headerCart.setAttribute('aria-label', `Private selection, ${quantity} item${quantity === 1 ? '' : 's'}`);
+            headerCart.setAttribute('aria-label', `Cart, ${quantity} item${quantity === 1 ? '' : 's'}`);
             headerCart.classList.toggle('has-selection', quantity > 0);
         }
     };
@@ -105,7 +74,7 @@
         renderBadge(event.detail?.quantity);
     });
     window.addEventListener('storage', (event) => {
-        if (event.key === storageKey) renderBadge();
+        if (event.key === selectionStorageKey) renderBadge();
     });
     window.addEventListener('pageshow', () => renderBadge());
     renderBadge();

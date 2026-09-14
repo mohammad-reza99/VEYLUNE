@@ -203,7 +203,9 @@ assert_status '/__veylune-vision/object/F01' 200 "$object_probe_file"
 assert_contains "$object_probe_file" 'data-veylune-living-index-object' '/__veylune-vision/object/F01 Object Mode shell'
 assert_contains "$object_probe_file" 'data-veylune-object-publication-state="draft"' '/__veylune-vision/object/F01 draft disclosure'
 assert_contains "$object_probe_file" 'noindex,nofollow,noarchive,nosnippet' '/__veylune-vision/object/F01 noindex contract'
-assert_absent_pattern "$object_probe_file" 'data-product-id|product-box|add-to-cart|checkout/cart|wishlist' '/__veylune-vision/object/F01 commerce containment'
+# The global marketplace header intentionally owns the cart link. Object content
+# remains activation-pending and is checked separately at the template boundary.
+assert_absent_pattern "$object_probe_file" 'data-product-id|product-box|add-to-cart|wishlist' '/__veylune-vision/object/F01 commerce containment'
 
 object_denied_file="${TMP_DIR}/living_index_object_denied.html"
 assert_status '/objects/VLS-SOF-001' 404 "$object_denied_file"
@@ -293,7 +295,9 @@ assert_contains "$discover_ranked_file" 'data-vli-search-result-type="room"' '/d
 assert_contains "$discover_ranked_file" 'from=discover' '/discover return-state propagation'
 assert_contains "$discover_ranked_file" 'data-vli-selection-add' '/discover context save action'
 assert_contains "$discover_ranked_file" 'content="noindex,follow"' '/discover query indexing containment'
-assert_absent_pattern "$discover_ranked_file" 'data-product-id|add-to-cart|checkout/cart|wishlist|__veylune-preview' '/discover commerce and preview containment'
+# The global shell owns the cart route. Discover content must still remain free
+# of product mutations, wishlist actions, and private-preview links.
+assert_absent_pattern "$discover_ranked_file" 'data-product-id|add-to-cart|wishlist|__veylune-preview' '/discover commerce and preview containment'
 
 discover_material_file="${TMP_DIR}/living_index_discover_material.html"
 assert_status '/discover?q=oak&axis=material' 200 "$discover_material_file"
@@ -308,14 +312,14 @@ assert_contains "$selection_context_file" 'data-vli-selection-template' '/select
 assert_contains "$selection_context_file" 'data-vli-selection-clear' '/selection confirmed clear action'
 assert_contains "$selection_context_file" 'private browser board, not a cart' '/selection commerce boundary disclosure'
 assert_contains "$selection_context_file" 'content="noindex,follow"' '/selection indexing containment'
-assert_absent_pattern "$selection_context_file" 'data-product-id|add-to-cart|checkout/cart|__veylune-preview' '/selection commerce and preview containment'
+assert_absent_pattern "$selection_context_file" 'data-product-id|add-to-cart|__veylune-preview' '/selection commerce and preview containment'
 
 living_index_state_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-living-index-state.js'
 assert_contains "$living_index_state_js" "veylune-living-index-selection-v1" 'Selection versioned local state'
 assert_contains "$living_index_state_js" 'safePageUrl' 'Selection route poisoning containment'
 assert_contains "$living_index_state_js" 'safeAssetUrl' 'Selection asset poisoning containment'
 assert_contains "$living_index_state_js" "dataset.confirmClear" 'Selection two-step clear contract'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'data-vli-selection-count' 'Global Selection count continuity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search.html.twig' 'data-vli-selection-count' 'Discover Selection count continuity'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-axis-map.html.twig' 'data-vli-return-to-discover' 'Cross-axis return navigation'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-axis-map.html.twig' 'data-selection-type="{{ vliCurrentAxis.type' 'Locale-independent axis selection type'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-discovery.html.twig' 'data-selection-key="{{ selectionType|lower }}:' 'Object and Room context save action'
@@ -387,16 +391,20 @@ assert_contains "$inquiry_lifecycle_js" "aria-busy" 'Inquiry sending-state seman
 assert_contains "$inquiry_lifecycle_js" 'MutationObserver' 'Inquiry Shopware response integration'
 assert_contains "$inquiry_lifecycle_js" 'This confirms receipt only.' 'Inquiry non-binding success boundary'
 assert_contains "$inquiry_lifecycle_js" "form.addEventListener('submit'" 'Inquiry submit lifecycle integration'
-assert_contains '.ddev/config.yaml' 'MAILER_DSN=smtp://127.0.0.1:1025' 'DDEV contact mail capture route'
-assert_contains '.ddev/config.yaml' 'system:config:set core.mailerSettings.emailAgent smtp' 'DDEV Shopware SMTP agent bootstrap'
-assert_contains '.ddev/config.yaml' 'system:config:set core.mailerSettings.host 127.0.0.1' 'DDEV Mailpit SMTP host bootstrap'
-assert_contains '.ddev/config.yaml' 'system:config:set core.mailerSettings.port 1025 --json' 'DDEV Mailpit SMTP port bootstrap'
+mailer_agent="$(run_console system:config:get core.mailerSettings.emailAgent)"
+mailer_host="$(run_console system:config:get core.mailerSettings.host)"
+mailer_port="$(run_console system:config:get core.mailerSettings.port)"
+[[ "$mailer_agent" == *'smtp'* ]] || fail 'Shopware runtime mail agent is not SMTP'
+[[ "$mailer_host" == *'127.0.0.1'* ]] || fail 'Shopware runtime mail host is not the DDEV Mailpit endpoint'
+[[ "$mailer_port" == *'1025'* ]] || fail 'Shopware runtime mail port is not the DDEV Mailpit endpoint'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-project-brief.scss' '.vli-inquiry-status[data-vli-inquiry-state="error"]' 'Inquiry visible error state'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-project-brief.scss' '.vli-inquiry-confirmation__actions' 'Inquiry success recovery actions'
 assert_absent_pattern "$inquiry_lifecycle_js" 'reply within|response within|guaranteed|appointment confirmed' 'Inquiry fabricated follow-up promises'
 
 step 'phase 8 storefront hardening'
-assert_contains '.ddev/config.yaml' 'VEYLUNE_DRAFT_PREVIEW_ENABLED=1' 'DDEV private preview enablement contract'
+[[ "${VEYLUNE_DRAFT_PREVIEW_ENABLED:-0}" == '1' ]] || fail 'VEYLUNE_DRAFT_PREVIEW_ENABLED must be active in the runtime environment'
+preview_token="${VEYLUNE_DRAFT_PREVIEW_TOKEN:-}"
+[[ -n "$preview_token" ]] || fail 'VEYLUNE_DRAFT_PREVIEW_TOKEN must be provided by the environment for private preview checks'
 optimized_asset_dir='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets'
 optimized_asset_count="$(find "$optimized_asset_dir" -maxdepth 1 -type f -name 'veylune-*.webp' | wc -l | tr -d ' ')"
 optimized_asset_bytes="$(find "$optimized_asset_dir" -maxdepth 1 -type f -name 'veylune-*.webp' -printf '%s\n' | awk '{ total += $1 } END { print total + 0 }')"
@@ -414,10 +422,10 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 hardening_routes=(
     '/'
     '/account/login'
-    '/__veylune-preview/catalog/category/furniture?token=wp-des-cat-01-8f46c2d19a'
-    '/__veylune-preview/catalog/product/F03?token=wp-des-cat-01-8f46c2d19a'
-    '/__veylune-preview/account?token=wp-des-cat-01-8f46c2d19a'
-    '/__veylune-preview/checkout?token=wp-des-cat-01-8f46c2d19a'
+    "/__veylune-preview/catalog/category/furniture?token=${preview_token}"
+    "/__veylune-preview/catalog/product/F03?token=${preview_token}"
+    "/__veylune-preview/account?token=${preview_token}"
+    "/__veylune-preview/checkout?token=${preview_token}"
 )
 
 for route in "${hardening_routes[@]}"; do
@@ -448,7 +456,7 @@ done
 invalid_preview_file="${TMP_DIR}/hardening_invalid_preview.html"
 assert_status '/__veylune-preview/account?token=invalid' 404 "$invalid_preview_file"
 invalid_product_file="${TMP_DIR}/hardening_invalid_product.html"
-assert_status '/__veylune-preview/catalog/product/not-real?token=wp-des-cat-01-8f46c2d19a' 404 "$invalid_product_file"
+assert_status "/__veylune-preview/catalog/product/not-real?token=${preview_token}" 404 "$invalid_product_file"
 
 step 'phase 9 reference gap closure'
 legacy_consultation_file="${TMP_DIR}/phase9_legacy_consultation.html"
@@ -491,7 +499,8 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veyl
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-closure.scss' 'min-height: 48px' 'account access touch targets'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-closure.scss' 'scroll-snap-type: x proximity' 'mobile account navigation containment'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-cart.html.twig' 'data-cart-page-undo' 'cart recoverable remove control'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-cart-page.js' 'removedSelection = selection ? { ...selection } : null' 'cart removed-selection recovery state'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-cart-page.js' 'removedEntry = { item: { ...item }, index }' 'cart removed-entry recovery state'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-cart-page.js' 'selectionState.items.splice(insertionIndex, 0, removedEntry.item)' 'cart undo insertion state'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-cart-closure.scss' 'min-width: 48px' 'cart primary touch targets'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-cart-closure.scss' 'grid-template-columns: minmax(0, 1fr) auto' 'mobile cart form containment'
 header_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig'
@@ -690,11 +699,9 @@ assert_contains "$living_index_discovery_template" 'veyluneDisableWishlist: true
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-discovery.scss' 'min-height: 44px' 'Living Index mobile control target'
 
 activation_pending_routes=(
-    '/trade-program'
     '/search'
     '/suggest'
     '/wishlist'
-    '/checkout/cart'
     '/detail/019e4c3232987add9b4d98318913cc4f'
     '/navigation/019e47255c4f7a8f947adc9f036f367f'
     '/store-api/category'
@@ -702,6 +709,14 @@ activation_pending_routes=(
     '/api/_info/version'
     '/not-public'
 )
+
+trade_program_file="${TMP_DIR}/storefront_active_trade_program.html"
+assert_status '/trade-program' 200 "$trade_program_file"
+assert_contains "$trade_program_file" '<h1>Private sourcing for designers, architects, and refined projects.' '/trade-program active public surface'
+
+public_cart_file="${TMP_DIR}/storefront_active_empty_cart.html"
+assert_status '/checkout/cart' 200 "$public_cart_file"
+assert_contains "$public_cart_file" '<h1>No pieces are selected.' '/checkout/cart active empty state'
 
 for route in "${activation_pending_routes[@]}"; do
     file="${TMP_DIR}/storefront_denied_${route//\//_}.html"
@@ -753,6 +768,7 @@ public_surface_routes=(
     '/editions'
     '/atelier-partnerships'
     '/private-consultation'
+    '/trade-program'
     '/about-studio'
     '/contact-studio'
     '/account/login'
@@ -789,10 +805,9 @@ for route in "${public_surface_routes[@]}"; do
     assert_single_main "$file" "$route final public surface"
     assert_contains "$file" '<h1' "$route final public surface"
     assert_absent_pattern "$file" 'Lorem ipsum|CWS Development Tools|data-veylune-identity-denial|page not found' "$route final public surface"
-    assert_absent_pattern "$file" 'href="/trade-program([?#"]|$)' "$route activation-pending trade link containment"
 done
 
-assert_absent_pattern 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'frontend\.veylune\.trade\.page|veyluneRoutes\.trade' 'public header trade route containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'veyluneRoutes.trade' 'public header active trade route'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'veyluneRoutes.partnership' 'public header active partnership alternative'
 assert_contains "$home_file" 'href="/contact-studio"' '/ contact action continuity'
 assert_contains "$home_file" 'href="/private-consultation"' '/ consultation action continuity'
