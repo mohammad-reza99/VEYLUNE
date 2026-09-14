@@ -3,8 +3,8 @@
   "capturedAt": "2026-09-14",
   "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
   "currentPhase": {
-    "id": "1.3",
-    "name": "Legacy Artifact Quarantine and Architecture Enforcement",
+    "id": "1.4",
+    "name": "Phase 1 Exit Gate and Architecture Freeze",
     "status": "complete"
   },
   "gitBaseline": {
@@ -51,12 +51,13 @@
     }
   },
   "engineeringInventory": {
-    "scssFiles": 138,
-    "scssLines": 31061,
+    "scssFiles": 137,
+    "scssLines": 30711,
     "baseScssImports": 135,
-    "javascriptSourceFiles": 21,
+    "javascriptSourceFiles": 20,
     "twigFiles": 99,
-    "origFiles": 40
+    "origFiles": 0,
+    "archivedSnapshots": 44
   },
   "mediaInventory": {
     "draftProducts": 50,
@@ -110,8 +111,20 @@
     "governanceGate": "pass",
     "recoverableCheckpoint": "veylune-phase-1.3-architecture-freeze-20260914"
   },
+  "phase14CompletionEvidence": {
+    "publicRoutesOwned": 47,
+    "privateRoutesOwned": 67,
+    "actionsOwned": 15,
+    "componentDomains": 13,
+    "phase21WorkPackages": 8,
+    "ownerGaps": 0,
+    "unknownDiffs": 0,
+    "phase1ExitAudit": "pass",
+    "governanceGate": "pass",
+    "recoverableCheckpoint": "veylune-phase-1-complete-20260914"
+  },
   "phaseMap": [
-    {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 85, "status": "in_progress"},
+    {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
     {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 55, "status": "partial"},
     {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 70, "status": "partial"},
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
@@ -131,8 +144,8 @@
     "auditEvidence": "generated_reports"
   },
   "nextStep": {
-    "id": "1.4",
-    "name": "Phase 1 Exit Gate and Architecture Freeze",
-    "phase": 1
+    "id": "2.1",
+    "name": "Design Token Freeze and Global Shell Consolidation",
+    "phase": 2
   }
 }

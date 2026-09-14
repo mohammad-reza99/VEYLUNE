@@ -29,7 +29,7 @@ This is the canonical 9-phase roadmap for the rest of the Veylune project. Older
 
 ## Phase 1 - Rebaseline, freeze, and architecture control
 
-Current estimate: 85 percent complete.
+Current estimate: 100 percent complete.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 1.4: verify every Phase 1 contract against one commit, close any remaining unknown diff or owner gap, freeze the architecture boundary, and prepare the exact Phase 2.1 design-token and global-shell consolidation backlog.
+Start Phase 2.1: capture the current Wayfair and Veylune global-shell baselines, freeze design tokens, then consolidate topbar, primary header, dominant search, utilities, category navigation, mega menu, mobile drawer, and sticky behavior in reversible owner-based batches.

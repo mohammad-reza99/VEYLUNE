@@ -1,0 +1,179 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$errors = [];
+$fail = static function (string $message) use (&$errors): void {
+    $errors[] = $message;
+};
+
+$readJson = static function (string $path) use ($fail): array {
+    if (!is_file($path)) {
+        $fail('Missing JSON contract: ' . $path);
+        return [];
+    }
+    try {
+        return json_decode((string) file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        $fail('Invalid JSON contract ' . $path . ': ' . $exception->getMessage());
+        return [];
+    }
+};
+
+$surface = $readJson($root . '/config/veylune-surface-contract.json');
+$status = $readJson($root . '/config/veylune-roadmap-status.json');
+$ownership = $readJson($root . '/config/veylune-component-ownership.json');
+$backlog = $readJson($root . '/config/veylune-phase-2-1-backlog.json');
+
+$publicRoutes = [];
+$publicGroupIds = [];
+foreach (($surface['public']['groups'] ?? []) as $group) {
+    $id = $group['id'] ?? '';
+    if ($id === '' || isset($publicGroupIds[$id])) {
+        $fail('Public group ids must be unique and non-empty.');
+    }
+    $publicGroupIds[$id] = true;
+    if (($group['owner'] ?? '') === '' || ($group['currentClassification'] ?? '') === '') {
+        $fail("Public group {$id} requires owner and currentClassification.");
+    }
+    foreach (($group['routes'] ?? []) as $route) {
+        if (isset($publicRoutes[$route])) {
+            $fail("Duplicate public route {$route} in {$publicRoutes[$route]} and {$id}.");
+        }
+        $publicRoutes[$route] = $id;
+    }
+}
+$expectedPublic = (int) ($surface['public']['expectedRouteCount'] ?? -1);
+if (count($publicRoutes) !== $expectedPublic) {
+    $fail(sprintf('Public route count mismatch: expected %d, got %d.', $expectedPublic, count($publicRoutes)));
+}
+
+foreach (($surface['public']['decisions'] ?? []) as $decision) {
+    if (($decision['path'] ?? '') === '' || ($decision['owner'] ?? '') === '' || ($decision['currentBehavior'] ?? '') === '' || ($decision['requiredDecision'] ?? '') === '' || !isset($decision['targetPhase'])) {
+        $fail('Every public decision requires path, owner, current behavior, required decision, and target phase.');
+    }
+}
+foreach (($surface['public']['conditionalAndRedirectContracts'] ?? []) as $contract) {
+    if (($contract['pathPattern'] ?? '') === '' || ($contract['owner'] ?? '') === '' || ($contract['visibility'] ?? '') === '' || ($contract['expectedBehavior'] ?? '') === '') {
+        $fail('Every conditional or redirect contract requires pathPattern, owner, visibility, and expectedBehavior.');
+    }
+}
+foreach (($surface['public']['defects'] ?? []) as $defect) {
+    if (($defect['owner'] ?? '') === '' || !isset($defect['targetPhase']) || ($defect['status'] ?? '') === '') {
+        $fail('Every public defect requires owner, targetPhase, and status.');
+    }
+    if ((int) $defect['targetPhase'] <= 1 && !str_starts_with((string) $defect['status'], 'resolved_')) {
+        $fail('Phase 1 defect remains unresolved: ' . ($defect['id'] ?? 'unknown'));
+    }
+}
+
+$privateCount = 0;
+$privateIds = [];
+foreach (($surface['privatePreview']['families'] ?? []) as $family) {
+    $id = $family['id'] ?? '';
+    if ($id === '' || isset($privateIds[$id])) {
+        $fail('Private-preview family ids must be unique and non-empty.');
+    }
+    $privateIds[$id] = true;
+    if (($family['owner'] ?? '') === '' || ($family['status'] ?? '') === '' || !isset($family['targetPhase'])) {
+        $fail("Private-preview family {$id} requires owner, status, and targetPhase.");
+    }
+    $privateCount += (int) ($family['count'] ?? 0);
+}
+$expectedPrivate = (int) ($surface['privatePreview']['expectedRouteCount'] ?? -1);
+if ($privateCount !== $expectedPrivate) {
+    $fail(sprintf('Private-preview route count mismatch: expected %d, got %d.', $expectedPrivate, $privateCount));
+}
+foreach (($surface['privatePreview']['securityDefects'] ?? []) as $defect) {
+    if (($defect['owner'] ?? '') === '' || ($defect['status'] ?? '') === '' || !isset($defect['targetPhase'])) {
+        $fail('Every private-preview security defect requires owner, status, and targetPhase.');
+    }
+}
+
+$actionIds = [];
+foreach (($surface['actions'] ?? []) as $action) {
+    $id = $action['id'] ?? '';
+    if ($id === '' || isset($actionIds[$id])) {
+        $fail('Action ids must be unique and non-empty.');
+    }
+    $actionIds[$id] = true;
+    if (($action['owner'] ?? '') === '' || ($action['requiredBehavior'] ?? '') === '') {
+        $fail("Action {$id} requires owner and requiredBehavior.");
+    }
+}
+if (count($actionIds) !== 15) {
+    $fail(sprintf('Expected 15 governed actions, got %d.', count($actionIds)));
+}
+
+$componentIds = [];
+foreach (($ownership['components'] ?? []) as $component) {
+    $componentIds[$component['id'] ?? ''] = true;
+}
+$packageIds = [];
+foreach (($backlog['workPackages'] ?? []) as $index => $package) {
+    $id = $package['id'] ?? '';
+    if ($id === '' || isset($packageIds[$id])) {
+        $fail('Phase 2.1 package ids must be unique and non-empty.');
+    }
+    $packageIds[$id] = $index;
+    if (!isset($componentIds[$package['owner'] ?? ''])) {
+        $fail("Phase 2.1 package {$id} has an unknown component owner.");
+    }
+    if (($package['surfaces'] ?? []) === [] || ($package['acceptance'] ?? []) === []) {
+        $fail("Phase 2.1 package {$id} requires surfaces and acceptance criteria.");
+    }
+    foreach (($package['dependsOn'] ?? []) as $dependency) {
+        if (!isset($packageIds[$dependency])) {
+            $fail("Phase 2.1 package {$id} depends on missing or later package {$dependency}.");
+        }
+    }
+}
+if (count($packageIds) !== 8) {
+    $fail(sprintf('Expected 8 Phase 2.1 work packages, got %d.', count($packageIds)));
+}
+if (($backlog['reference']['url'] ?? '') !== 'https://www.wayfair.com/') {
+    $fail('Phase 2.1 backlog must retain the official Wayfair reference URL.');
+}
+if (($backlog['reference']['veyluneBoundary'] ?? []) === [] || ($backlog['stopConditions'] ?? []) === []) {
+    $fail('Phase 2.1 backlog requires Veylune boundaries and stop conditions.');
+}
+
+if (($status['currentPhase']['id'] ?? '') !== '1.4' || ($status['currentPhase']['status'] ?? '') !== 'complete') {
+    $fail('Roadmap current phase must be complete Phase 1.4.');
+}
+$phaseMap = $status['phaseMap'] ?? [];
+if (count($phaseMap) !== 9 || ($phaseMap[0]['status'] ?? '') !== 'complete' || (int) ($phaseMap[0]['estimatedPercent'] ?? 0) !== 100) {
+    $fail('Nine-phase map must mark Phase 1 complete at 100 percent.');
+}
+if (($status['nextStep']['id'] ?? '') !== '2.1' || (int) ($status['nextStep']['phase'] ?? 0) !== 2) {
+    $fail('Roadmap next step must be Phase 2.1.');
+}
+
+$requiredTags = [
+    'veylune-phase-1.1-baseline-20260914',
+    'veylune-phase-1.2-ownership-20260914',
+    'veylune-phase-1.3-architecture-freeze-20260914',
+];
+foreach ($requiredTags as $tag) {
+    exec('git -C ' . escapeshellarg($root) . ' merge-base --is-ancestor ' . escapeshellarg($tag) . ' HEAD', $output, $exitCode);
+    if ($exitCode !== 0) {
+        $fail("Required recoverable checkpoint is not an ancestor of HEAD: {$tag}");
+    }
+}
+
+if ($errors !== []) {
+    foreach ($errors as $error) {
+        fwrite(STDERR, "[FAIL] {$error}\n");
+    }
+    exit(1);
+}
+
+echo "Veylune Phase 1 exit contract: PASS\n";
+printf("public_routes_owned=%d\n", count($publicRoutes));
+printf("private_routes_owned=%d\n", $privateCount);
+printf("actions_owned=%d\n", count($actionIds));
+printf("component_domains=%d\n", count($componentIds));
+printf("phase_2_1_work_packages=%d\n", count($packageIds));
+printf("recoverable_ancestor_tags=%d\n", count($requiredTags));

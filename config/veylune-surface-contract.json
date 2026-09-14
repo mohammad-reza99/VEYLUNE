@@ -69,24 +69,28 @@
     "decisions": [
       {
         "path": "/checkout/confirm",
+        "owner": "shopware_commerce",
         "currentBehavior": "404_on_direct_empty_session",
         "requiredDecision": "redirect_to_cart_or_guarded_checkout_contract",
         "targetPhase": 3
       },
       {
         "path": "/wishlist",
+        "owner": "customer_state",
         "currentBehavior": "404",
         "requiredDecision": "activate_real_wishlist_or_remove_public_wishlist_promise",
         "targetPhase": 3
       },
       {
         "path": "/journal",
+        "owner": "editions",
         "currentBehavior": "alias_to_editions_with_mixed_copy",
         "requiredDecision": "distinct_page_or_intentional_redirect_with_clean_copy",
         "targetPhase": 3
       },
       {
         "path": "/inspiration",
+        "owner": "editions",
         "currentBehavior": "alias_to_editions_with_mixed_copy",
         "requiredDecision": "distinct_page_or_intentional_redirect_with_clean_copy",
         "targetPhase": 3
@@ -95,41 +99,49 @@
     "conditionalAndRedirectContracts": [
       {
         "pathPattern": "/objects/{productNumber}",
+        "owner": "product_publication_policy",
         "visibility": "governed_public",
         "expectedBehavior": "200_only_after_product_exposure_and_supplier_evidence_gates_otherwise_404"
       },
       {
         "pathPattern": "/editions/{reference}|/editionen/{reference}",
+        "owner": "edition_governance",
         "visibility": "governed_public",
         "expectedBehavior": "200_only_for_renderable_governed_reference_otherwise_404"
       },
       {
         "pathPattern": "/about",
+        "owner": "public_content",
         "visibility": "public_redirect",
         "expectedBehavior": "301_to_about_studio"
       },
       {
         "pathPattern": "/journal|/inspiration",
+        "owner": "editions",
         "visibility": "public_redirect_provisional",
         "expectedBehavior": "currently_301_to_editions_requires_phase_3_decision"
       },
       {
         "pathPattern": "/consultation",
+        "owner": "public_content",
         "visibility": "legacy_redirect",
         "expectedBehavior": "301_to_private_consultation"
       },
       {
         "pathPattern": "/page/cms/{legacyId}",
+        "owner": "legacy_redirect_policy",
         "visibility": "legacy_redirect",
         "expectedBehavior": "three_known_ids_redirect_to_contact_or_legal_destination"
       },
       {
         "pathPattern": "/__veylune-vision/{surface}",
+        "owner": "development_bridge_policy",
         "visibility": "retired_dev_bridge",
         "expectedBehavior": "five_known_surfaces_302_to_public_destination_invalid_surface_404"
       },
       {
         "pathPattern": "/__veylune-vision/object/{recordId}",
+        "owner": "development_bridge_policy",
         "visibility": "dev_only_probe",
         "expectedBehavior": "F01_and_F10_200_under_dev_host_gate_otherwise_404"
       }
@@ -138,13 +150,15 @@
       {
         "id": "route_ownership_category_conflict",
         "severity": "high",
-        "evidence": "category_routes_are_allowlisted_but_missing_from_surfaceForRoute_while_category_surface_is_activation_pending",
+        "status": "resolved_phase_1_3",
+        "evidence": "frontend_veylune_discovery_category_maps_to_categories_and_categories_are_governed_public",
         "owner": "storefront_route_policy",
         "targetPhase": 1
       },
       {
         "id": "duplicate_collection_render_paths",
         "severity": "medium",
+        "status": "open",
         "evidence": "permanent_and_editorial_have_short_and_long_self_canonical_render_paths",
         "owner": "public_discovery",
         "targetPhase": 3
@@ -152,6 +166,7 @@
       {
         "id": "public_broken_images",
         "severity": "high",
+        "status": "open",
         "evidence": "latest_public_audit_recorded_1_broken_image_on_home_16_on_discover_and_1_on_discover_room_desktop",
         "owner": "public_media",
         "targetPhase": 3
@@ -176,7 +191,8 @@
       "allowedEnvironment": "dev",
       "featureFlagRequired": true,
       "tokenRequired": true,
-      "devHostAllowlistRequired": false,
+      "devHostAllowlistRequired": true,
+      "devHostAllowlistImplemented": false,
       "deniedBehavior": 404,
       "robots": "noindex,nofollow,noarchive,nosnippet",
       "cache": "private,no-store"
@@ -185,28 +201,34 @@
       {
         "id": "rotate_preview_token",
         "severity": "critical",
-        "status": "required_after_tracked_literal_removal"
+        "status": "required_after_tracked_literal_removal",
+        "owner": "security_platform",
+        "targetPhase": 8
       },
       {
         "id": "preview_host_allowlist",
         "severity": "high",
-        "status": "missing"
+        "status": "missing",
+        "owner": "security_platform",
+        "targetPhase": 8
       },
       {
         "id": "preview_success_security_headers",
         "severity": "medium",
-        "status": "csp_and_permissions_policy_not_verified_on_authorized_response"
+        "status": "csp_and_permissions_policy_not_verified_on_authorized_response",
+        "owner": "security_platform",
+        "targetPhase": 8
       }
     ],
     "families": [
-      {"id": "home", "count": 1, "status": "modernized", "targetPhase": 5},
-      {"id": "category", "count": 6, "status": "modernized", "targetPhase": 5},
-      {"id": "room", "count": 5, "status": "modernized", "targetPhase": 5},
-      {"id": "collection", "count": 2, "status": "modernized", "targetPhase": 5},
-      {"id": "product", "count": 50, "status": "legacy_visual_and_media_debt", "targetPhase": 6},
-      {"id": "cart", "count": 1, "status": "functional_preview_needs_unification", "targetPhase": 6},
-      {"id": "checkout", "count": 1, "status": "functional_preview_needs_unification", "targetPhase": 6},
-      {"id": "account", "count": 1, "status": "mixed", "targetPhase": 6}
+      {"id": "home", "owner": "private_preview_catalog", "count": 1, "status": "modernized", "targetPhase": 5},
+      {"id": "category", "owner": "private_preview_catalog", "count": 6, "status": "modernized", "targetPhase": 5},
+      {"id": "room", "owner": "private_preview_catalog", "count": 5, "status": "modernized", "targetPhase": 5},
+      {"id": "collection", "owner": "private_preview_catalog", "count": 2, "status": "modernized", "targetPhase": 5},
+      {"id": "product", "owner": "private_preview_product", "count": 50, "status": "legacy_visual_and_media_debt", "targetPhase": 6},
+      {"id": "cart", "owner": "private_preview_commerce", "count": 1, "status": "functional_preview_needs_unification", "targetPhase": 6},
+      {"id": "checkout", "owner": "private_preview_commerce", "count": 1, "status": "functional_preview_needs_unification", "targetPhase": 6},
+      {"id": "account", "owner": "private_preview_account", "count": 1, "status": "mixed", "targetPhase": 6}
     ]
   },
   "actions": [

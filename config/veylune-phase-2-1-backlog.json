@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1",
+  "name": "Design Token Freeze and Global Shell Consolidation",
+  "referenceCapturedAt": "2026-09-14",
+  "reference": {
+    "url": "https://www.wayfair.com/",
+    "use": "interaction hierarchy information density discovery and commerce reference",
+    "observedShell": [
+      "utility_links_and_shipping_promise",
+      "primary_menu_account_cart_and_dominant_search",
+      "category_navigation_with_named_dropdowns",
+      "separate_promotional_strip"
+    ],
+    "veyluneBoundary": [
+      "retain_purple_neutral_identity",
+      "retain_veylune_typography_and_brand_assets",
+      "do_not_copy_proprietary_content_or_assets",
+      "show_only_truthful_shipping_financing_rewards_and_commerce_claims"
+    ]
+  },
+  "baseline": {
+    "headerSelectorFiles": 31,
+    "sharedControlSelectorFiles": 29,
+    "baseImports": 135,
+    "importantDeclarations": 130,
+    "activeScssFiles": 137
+  },
+  "workPackages": [
+    {
+      "id": "2.1A",
+      "name": "Reference and computed-style capture",
+      "owner": "global_shell",
+      "dependsOn": [],
+      "surfaces": ["home", "category", "discover", "account_login", "cart"],
+      "acceptance": ["desktop_tablet_mobile_screenshots", "computed_style_baseline", "keyboard_state_baseline", "no_private_preview_markers"]
+    },
+    {
+      "id": "2.1B",
+      "name": "Token freeze",
+      "owner": "foundation_controls",
+      "dependsOn": ["2.1A"],
+      "surfaces": ["global"],
+      "acceptance": ["color_type_spacing_radius_elevation_border_icon_motion_grid_control_tokens_declared", "no_unowned_literal_growth", "purple_neutral_identity_preserved"]
+    },
+    {
+      "id": "2.1C",
+      "name": "Topbar and announcement hierarchy",
+      "owner": "global_shell",
+      "dependsOn": ["2.1B"],
+      "surfaces": ["global_shell"],
+      "acceptance": ["three_part_type_rhythm", "truthful_service_copy", "responsive_containment", "one_topbar_owner"]
+    },
+    {
+      "id": "2.1D",
+      "name": "Primary header search and utilities",
+      "owner": "global_shell",
+      "dependsOn": ["2.1B", "2.1C"],
+      "surfaces": ["global_shell", "search", "account", "cart"],
+      "acceptance": ["dominant_search_proportion", "menu_account_cart_actions_work", "click_away_escape_focus_restore", "one_header_behavior_owner"]
+    },
+    {
+      "id": "2.1E",
+      "name": "Category navigation and mega menu",
+      "owner": "global_shell",
+      "dependsOn": ["2.1D"],
+      "surfaces": ["categories", "rooms", "collections", "services"],
+      "acceptance": ["every_public_nav_item_has_route_or_declared_overlay", "pointer_leave_and_backdrop_close", "keyboard_navigation", "viewport_containment"]
+    },
+    {
+      "id": "2.1F",
+      "name": "Mobile drawer and sticky shell",
+      "owner": "global_shell",
+      "dependsOn": ["2.1D", "2.1E"],
+      "surfaces": ["mobile_global_shell"],
+      "acceptance": ["focus_trap", "escape_and_focus_restore", "no_horizontal_overflow", "sticky_offset_contract"]
+    },
+    {
+      "id": "2.1G",
+      "name": "Global-shell cascade migration",
+      "owner": "global_shell",
+      "dependsOn": ["2.1C", "2.1D", "2.1E", "2.1F"],
+      "surfaces": ["global_shell"],
+      "acceptance": ["declarations_move_to_topbar_header_navigation_footer", "no_new_phase_wave_closure_layer", "source_order_parity_before_import_removal", "reversible_batches"]
+    },
+    {
+      "id": "2.1H",
+      "name": "Cross-surface validation and checkpoint",
+      "owner": "cross_cutting_release",
+      "dependsOn": ["2.1G"],
+      "surfaces": ["public_47_routes", "private_preview_representative", "desktop_tablet_mobile_keyboard"],
+      "acceptance": ["ownership_guard_pass", "architecture_guard_pass", "storefront_build_pass", "interaction_audit_pass", "governance_gate_pass", "visual_comparison_reviewed", "recoverable_checkpoint"]
+    }
+  ],
+  "stopConditions": [
+    "unexplained_visual_diff",
+    "new_unowned_selector",
+    "new_important_declaration",
+    "broken_route_or_action",
+    "private_preview_state_leaks_into_public_commerce",
+    "unverified_commercial_claim"
+  ]
+}
