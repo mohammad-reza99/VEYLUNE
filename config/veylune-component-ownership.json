@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "1.2",
+  "capturedAt": "2026-09-14",
+  "policy": {
+    "singleOwnerRequired": true,
+    "visualChangeAllowedInPhase12": false,
+    "newPhaseWaveClosureImportsAllowed": false,
+    "newImportantDeclarationsAllowed": false,
+    "sourceOrderIsBehaviorUntilConsolidated": true
+  },
+  "baseline": {
+    "scssFiles": 138,
+    "baseImports": 135,
+    "scssLines": 31063,
+    "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
+    "importantDeclarations": 126,
+    "debtNamedFiles": 39,
+    "debtNamedLines": 5539,
+    "headerSelectorFiles": 31,
+    "sharedControlSelectorFiles": 29,
+    "javascriptFiles": 21,
+    "twigFiles": 99
+  },
+  "components": [
+    {
+      "id": "foundation_controls",
+      "label": "Foundation tokens and shared controls",
+      "canonical": {
+        "scss": ["abstracts/tokens", "base/foundation", "component/ui", "component/buttons", "component/forms", "utilities/utilities"],
+        "twig": [],
+        "javascript": []
+      },
+      "scssImports": [
+        "abstracts/tokens", "base/foundation", "component/ui", "component/buttons", "component/forms", "utilities/utilities",
+        "component/marketplace-design-system", "component/marketplace-homebase-token-alignment", "component/marketplace-global-control-closure"
+      ],
+      "javascriptModules": [],
+      "consolidationTarget": "Keep tokens and primitives; fold marketplace token and global-control corrections into these owners."
+    },
+    {
+      "id": "global_shell",
+      "label": "Topbar header navigation mega menu mobile drawer and footer",
+      "canonical": {
+        "scss": ["component/topbar", "component/header", "component/navigation", "component/footer"],
+        "twig": [
+          "layout/header.html.twig",
+          "layout/header/header.html.twig",
+          "layout/header/marketplace-mega-panel.html.twig",
+          "layout/header/marketplace-mobile-drawer.html.twig",
+          "layout/header/mobile-navigation.html.twig",
+          "layout/footer/footer.html.twig"
+        ],
+        "javascript": ["veylune-header.js"]
+      },
+      "scssImports": [
+        "component/topbar", "component/header", "component/navigation", "component/footer", "component/marketplace-visible-bridge",
+        "component/marketplace-header", "component/marketplace-header-refinement", "component/marketplace-header-precision",
+        "component/marketplace-header-source-alignment", "component/marketplace-header-silhouette", "component/marketplace-header-proportion",
+        "component/marketplace-mega-menu", "component/marketplace-mega-precision", "component/marketplace-mobile-drawer",
+        "component/marketplace-sticky-header", "component/marketplace-header-reference-refinement",
+        "component/marketplace-header-premium-polish", "component/marketplace-header-type-rhythm",
+        "component/marketplace-header-type-rhythm-visible", "component/marketplace-menu-premium-refinement",
+        "component/marketplace-phase-9-header-ia-closure"
+      ],
+      "javascriptModules": ["veylune-header.js"],
+      "consolidationTarget": "Four SCSS owners, one header behavior module, and one Twig shell family."
+    },
+    {
+      "id": "home_merchandising",
+      "label": "Homepage merchandising category entry and storytelling",
+      "canonical": {
+        "scss": ["component/homepage"],
+        "twig": [
+          "veylune/marketplace-category-discovery.html.twig",
+          "veylune/marketplace-promo-banner.html.twig",
+          "veylune/marketplace-room-carousel.html.twig",
+          "veylune/marketplace-trust-services.html.twig",
+          "veylune/marketplace-closing-capture.html.twig"
+        ],
+        "javascript": ["veylune-home.js", "veylune-product-slider.js"]
+      },
+      "scssImports": [
+        "component/media-storytelling", "component/homepage", "component/marketplace-home-shell",
+        "component/marketplace-category-discovery", "component/marketplace-category-assets", "component/marketplace-product-slider",
+        "component/marketplace-category-slider", "component/marketplace-promo-merchandising", "component/marketplace-room-carousel",
+        "component/marketplace-creative-direction", "component/marketplace-creative-detail", "component/marketplace-trust-services",
+        "component/marketplace-trust-services-premium", "component/marketplace-closing-capture", "component/marketplace-motion-system",
+        "component/marketplace-phase-9-home-pending-closure", "component/marketplace-phase-9-home-hierarchy-closure",
+        "component/marketplace-phase-9-home-accessibility-closure", "component/marketplace-phase-7-home-reference-closure"
+      ],
+      "javascriptModules": ["veylune-home.js", "veylune-product-slider.js", "veylune-marketplace-motion.js"],
+      "consolidationTarget": "Move homepage-only selectors into homepage partials grouped by section; retain behavior modules by DOM root."
+    },
+    {
+      "id": "content_editorial",
+      "label": "CMS editorial editions legacy content and brand narratives",
+      "canonical": {
+        "scss": ["component/cms-pages", "component/cms-blocks", "component/editorial", "component/editions"],
+        "twig": ["block", "element", "page/content", "veylune/editions-page.html.twig", "veylune/edition-detail-skeleton.html.twig"],
+        "javascript": ["veylune-ecosystem.js", "veylune-legacy.js"]
+      },
+      "scssImports": [
+        "component/cms-pages", "component/cms-blocks", "component/editorial", "component/editions", "component/authority",
+        "component/ecosystem", "component/legacy", "component/polish", "component/wave-1", "component/wave-2", "component/wave-3",
+        "component/marketplace-phase-9-legacy-cms-closure", "component/marketplace-legacy-surface-foundation",
+        "component/marketplace-phase-7-legacy-core-closure", "component/marketplace-phase-7-residual-closure",
+        "component/marketplace-content-media-closure"
+      ],
+      "javascriptModules": ["veylune-ecosystem.js", "veylune-legacy.js", "veylune-polish.js"],
+      "consolidationTarget": "Retire generic wave and polish ownership after selectors move to CMS editorial or named surface owners."
+    },
+    {
+      "id": "catalog_listing",
+      "label": "Catalog listing filters sorting pagination and product cards",
+      "canonical": {
+        "scss": ["component/collection", "component/filters", "component/pagination", "component/product-card"],
+        "twig": ["component/product/card/box-standard.html.twig", "component/product/listing.html.twig", "veylune/marketplace-category-discovery.html.twig"],
+        "javascript": ["veylune-plp-v2.js", "veylune-plp-wishlist.js"]
+      },
+      "scssImports": [
+        "component/product-card", "component/collection", "component/filters", "component/pagination", "component/marketplace-product-card",
+        "component/marketplace-plp-shell", "component/marketplace-plp-interactions", "component/marketplace-plp-card-commerce",
+        "component/marketplace-plp-pagination", "component/marketplace-plp-discovery", "component/marketplace-plp-accessibility",
+        "component/marketplace-phase-7-plp-reference-closure", "component/marketplace-phase-4-plp-visual-precision",
+        "component/marketplace-product-media-closure"
+      ],
+      "javascriptModules": ["veylune-plp-v2.js", "veylune-plp-wishlist.js", "veylune-plp.js"],
+      "consolidationTarget": "V2 is the active PLP owner; remove the dormant PLP module after parity verification and fold card overlays into product-card."
+    },
+    {
+      "id": "product_detail",
+      "label": "Product detail gallery information tabs and buy widget",
+      "canonical": {
+        "scss": ["component/product-detail", "component/gallery", "component/buy-widget", "component/tabs"],
+        "twig": ["page/content/product-detail.html.twig", "component/product/description.html.twig", "component/product/veylune-product-story.html.twig"],
+        "javascript": ["veylune-pdp-preview.js"]
+      },
+      "scssImports": [
+        "component/product-detail", "component/gallery", "component/buy-widget", "component/tabs", "component/marketplace-pdp-preview",
+        "component/marketplace-pdp-wayfair-alignment", "component/marketplace-pdp-information",
+        "component/marketplace-pdp-commerce-options", "component/marketplace-pdp-quality"
+      ],
+      "javascriptModules": ["veylune-pdp-preview.js"],
+      "consolidationTarget": "Separate gallery, information, options, and buy-widget ownership while preserving PDP source order."
+    },
+    {
+      "id": "cart",
+      "label": "Cart offcanvas cart and cart summary",
+      "canonical": {
+        "scss": ["component/cart", "component/offcanvas-cart", "component/cart-summary"],
+        "twig": ["component/checkout/offcanvas-cart.html.twig", "page/checkout/cart/index.html.twig"],
+        "javascript": ["veylune-preview-cart-page.js"]
+      },
+      "scssImports": [
+        "component/cart", "component/offcanvas-cart", "component/cart-summary", "component/marketplace-preview-cart",
+        "component/marketplace-preview-cart-page", "component/marketplace-phase-9-commerce-closure",
+        "component/marketplace-phase-9-cart-closure"
+      ],
+      "javascriptModules": ["veylune-preview-cart-page.js"],
+      "consolidationTarget": "Keep public Shopware cart and preview cart state isolated until preview retirement; share only control primitives."
+    },
+    {
+      "id": "checkout",
+      "label": "Checkout address confirm finish forms and summary",
+      "canonical": {
+        "scss": ["component/checkout", "component/checkout-forms", "component/checkout-summary", "component/checkout-steps", "component/checkout-success"],
+        "twig": ["page/checkout/address", "page/checkout/confirm", "page/checkout/finish"],
+        "javascript": ["veylune-preview-checkout.js"]
+      },
+      "scssImports": [
+        "component/checkout", "component/checkout-forms", "component/checkout-summary", "component/checkout-steps",
+        "component/checkout-success", "component/marketplace-preview-checkout", "component/marketplace-phase-9-checkout-closure"
+      ],
+      "javascriptModules": ["veylune-preview-checkout.js"],
+      "consolidationTarget": "Use native Shopware checkout templates as public owner and keep preview-only simulation explicitly namespaced."
+    },
+    {
+      "id": "account",
+      "label": "Authentication account dashboard profile addresses and orders",
+      "canonical": {
+        "scss": ["component/account", "component/account-sidebar", "component/account-orders", "component/account-forms"],
+        "twig": ["component/account", "page/account"],
+        "javascript": ["veylune-preview-account.js"]
+      },
+      "scssImports": [
+        "component/account", "component/account-sidebar", "component/account-orders", "component/account-forms",
+        "component/marketplace-preview-account", "component/marketplace-phase-9-account-closure",
+        "component/marketplace-phase-9-public-account-closure", "component/marketplace-phase-9-account-dashboard-closure",
+        "component/marketplace-phase-9-account-actions-closure"
+      ],
+      "javascriptModules": ["veylune-preview-account.js"],
+      "consolidationTarget": "Native account templates own public states; preview-account remains a namespaced simulation only."
+    },
+    {
+      "id": "services_forms",
+      "label": "Consultation trade partnerships contact and inquiry lifecycle",
+      "canonical": {
+        "scss": ["component/inquiry-forms"],
+        "twig": [
+          "veylune/consultation-page.html.twig", "veylune/contact-studio-page.html.twig",
+          "veylune/partnership-page.html.twig", "veylune/partnership/content.html.twig", "veylune/professional-pages.html.twig"
+        ],
+        "javascript": ["veylune-inquiry-lifecycle.js"]
+      },
+      "scssImports": [
+        "component/inquiry-forms", "component/marketplace-project-consultation", "component/marketplace-phase-7-service-closure",
+        "component/marketplace-service-media-closure"
+      ],
+      "javascriptModules": ["veylune-inquiry-lifecycle.js"],
+      "consolidationTarget": "One service layout family and one real inquiry lifecycle; surface variants use modifiers, not new global layers."
+    },
+    {
+      "id": "private_preview",
+      "label": "Private catalog preview destinations cards selection and simulated commerce",
+      "canonical": {
+        "scss": ["component/catalog-preview", "component/marketplace-preview-card-system", "component/marketplace-preview-home", "component/marketplace-preview-destination"],
+        "twig": ["veylune/catalog-preview-home.html.twig", "veylune/catalog-preview-destination.html.twig", "veylune/catalog-preview-card.html.twig"],
+        "javascript": ["veylune-preview-card-actions.js", "veylune-preview-selection-bridge.js", "veylune-preview-selection-store.js"]
+      },
+      "scssImports": [
+        "component/catalog-preview", "component/marketplace-preview-selection-bridge", "component/marketplace-preview-card-system",
+        "component/marketplace-preview-home", "component/marketplace-preview-destination"
+      ],
+      "javascriptModules": ["veylune-preview-card-actions.js", "veylune-preview-selection-bridge.js", "veylune-preview-selection-store.js"],
+      "consolidationTarget": "Preview components remain strictly namespaced and may not become the public commerce source of truth."
+    },
+    {
+      "id": "living_index",
+      "label": "Living Index home discovery object axes search selection and project brief",
+      "canonical": {
+        "scss": [
+          "component/living-index-home-foundation", "component/living-index-storefront", "component/living-index-discovery",
+          "component/living-index-object", "component/living-index-axis-system", "component/living-index-search-selection",
+          "component/living-index-project-brief"
+        ],
+        "twig": ["veylune/living-index-home.html.twig", "veylune/living-index-discovery.html.twig", "veylune/living-index-object.html.twig", "veylune/living-index-axis-map.html.twig", "veylune/living-index-search.html.twig", "veylune/living-index-selection.html.twig"],
+        "javascript": ["veylune-living-index-state.js", "veylune-living-index-search-ui.js", "veylune-project-brief.js"]
+      },
+      "scssImports": [
+        "component/living-index-home-foundation", "component/living-index-storefront", "component/living-index-discovery",
+        "component/living-index-object", "component/living-index-axis-system", "component/living-index-search-selection",
+        "component/living-index-wayfair-parity", "component/living-index-project-brief"
+      ],
+      "javascriptModules": ["veylune-living-index-state.js", "veylune-living-index-search-ui.js", "veylune-project-brief.js"],
+      "consolidationTarget": "Fold wayfair-parity corrections into the named Living Index surface owners after screenshot parity is locked."
+    },
+    {
+      "id": "cross_cutting_release",
+      "label": "Route safety accessibility responsive performance and release constraints",
+      "canonical": {
+        "scss": [],
+        "twig": ["component/privacy-notice.html.twig", "component/skip-to-content.html.twig", "layout/cookie/cookie-permission.html.twig"],
+        "javascript": []
+      },
+      "scssImports": [
+        "component/marketplace-route-safety", "component/marketplace-phase-9-mobile-closure",
+        "component/marketplace-phase-7-interaction-closure", "component/marketplace-public-accessibility-closure",
+        "component/marketplace-performance-visual-baseline", "component/marketplace-production-readiness",
+        "component/marketplace-release-candidate"
+      ],
+      "javascriptModules": [],
+      "consolidationTarget": "Distribute proven declarations to component owners; retain no permanent visual release-overlay partial."
+    }
+  ],
+  "executionWaves": [
+    {"id": "1.2A", "name": "Freeze and enforce ownership", "visualChange": false, "exit": "Manifest audit covers 135 SCSS imports and 21 JS files exactly once."},
+    {"id": "1.2B", "name": "Global shell consolidation", "visualChange": false, "exit": "Header debt layers are mapped into topbar header navigation and footer owners with unchanged screenshots."},
+    {"id": "1.2C", "name": "Shared controls and commerce consolidation", "visualChange": false, "exit": "Buttons forms cards filters cart checkout and account have one canonical owner each."},
+    {"id": "1.2D", "name": "Content preview and Living Index consolidation", "visualChange": false, "exit": "Generic phase wave closure and parity layers have explicit retirement destinations."},
+    {"id": "1.2E", "name": "Physical import reduction", "visualChange": false, "exit": "Run only after visual baselines; target is at most 55 base imports and zero unexplained selector ownership."}
+  ],
+  "phase12ExitGate": {
+    "allScssImportsOwnedExactlyOnce": true,
+    "allJavascriptFilesOwnedExactlyOnce": true,
+    "canonicalFilesExist": true,
+    "noVisualCodeChanged": true,
+    "governanceGatePasses": true,
+    "recoverableCheckpointRequired": true
+  }
+}

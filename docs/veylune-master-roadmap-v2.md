@@ -29,7 +29,7 @@ This is the canonical 9-phase roadmap for the rest of the Veylune project. Older
 
 ## Phase 1 - Rebaseline, freeze, and architecture control
 
-Current estimate: 35 percent complete.
+Current estimate: 65 percent complete.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 1.2: assign a single Twig, SCSS, and JavaScript owner to every shared component, map the 135-import cascade, and define a reduction sequence that preserves current visual output. This ownership plan must be complete before another broad styling pass.
+Start Phase 1.3: quarantine `.orig` and temporary audit residue, identify dormant entrypoints, enforce the no-new-debt naming policy, and resolve the remaining route-ownership contract conflict. Complete these architecture controls before Phase 2 begins physical design-system consolidation.

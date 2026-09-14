@@ -1,0 +1,163 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$manifestPath = $root . '/config/veylune-component-ownership.json';
+$scssRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss';
+$jsRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js';
+$twigRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront';
+$errors = [];
+
+$fail = static function (string $message) use (&$errors): void {
+    $errors[] = $message;
+};
+
+if (!is_file($manifestPath)) {
+    fwrite(STDERR, "[FAIL] Missing component ownership manifest.\n");
+    exit(1);
+}
+
+try {
+    $manifest = json_decode((string) file_get_contents($manifestPath), true, 512, JSON_THROW_ON_ERROR);
+} catch (JsonException $exception) {
+    fwrite(STDERR, '[FAIL] Invalid ownership JSON: ' . $exception->getMessage() . "\n");
+    exit(1);
+}
+
+if (($manifest['phase'] ?? null) !== '1.2') {
+    $fail('Manifest phase must be 1.2.');
+}
+
+$components = $manifest['components'] ?? null;
+if (!is_array($components) || count($components) < 10) {
+    $fail('At least ten explicit component domains are required.');
+    $components = [];
+}
+
+$componentIds = [];
+$ownedScss = [];
+$ownedJs = [];
+
+$resolveScss = static function (string $import) use ($scssRoot): string {
+    $directory = dirname($import);
+    $basename = basename($import);
+    $prefix = $directory === '.' ? '' : $directory . '/';
+
+    return $scssRoot . '/' . $prefix . '_' . $basename . '.scss';
+};
+
+foreach ($components as $component) {
+    $id = $component['id'] ?? '';
+    if (!is_string($id) || $id === '') {
+        $fail('Every component requires a non-empty id.');
+        continue;
+    }
+    if (isset($componentIds[$id])) {
+        $fail("Duplicate component id: {$id}");
+    }
+    $componentIds[$id] = true;
+
+    foreach (($component['scssImports'] ?? []) as $import) {
+        if (isset($ownedScss[$import])) {
+            $fail("SCSS import {$import} has multiple owners: {$ownedScss[$import]} and {$id}");
+        } else {
+            $ownedScss[$import] = $id;
+        }
+        if (!is_file($resolveScss($import))) {
+            $fail("Owned SCSS import does not resolve to a partial: {$import}");
+        }
+    }
+
+    foreach (($component['javascriptModules'] ?? []) as $module) {
+        if (isset($ownedJs[$module])) {
+            $fail("JavaScript module {$module} has multiple owners: {$ownedJs[$module]} and {$id}");
+        } else {
+            $ownedJs[$module] = $id;
+        }
+        if (!is_file($jsRoot . '/' . $module)) {
+            $fail("Owned JavaScript module does not exist: {$module}");
+        }
+    }
+
+    $canonical = $component['canonical'] ?? [];
+    foreach (($canonical['scss'] ?? []) as $import) {
+        if (($ownedScss[$import] ?? null) !== $id) {
+            $fail("Canonical SCSS {$import} is not owned by {$id}");
+        }
+    }
+    foreach (($canonical['javascript'] ?? []) as $module) {
+        if (($ownedJs[$module] ?? null) !== $id) {
+            $fail("Canonical JavaScript {$module} is not owned by {$id}");
+        }
+    }
+    foreach (($canonical['twig'] ?? []) as $twigPath) {
+        if (!file_exists($twigRoot . '/' . $twigPath)) {
+            $fail("Canonical Twig file or family does not exist: {$twigPath}");
+        }
+    }
+}
+
+$base = (string) file_get_contents($scssRoot . '/base.scss');
+preg_match_all('/^@import\s+"([^"]+)";/m', $base, $matches);
+$actualImports = $matches[1] ?? [];
+
+if (count($actualImports) !== (int) ($manifest['baseline']['baseImports'] ?? -1)) {
+    $fail(sprintf('Base import count drifted: expected %d, got %d.', $manifest['baseline']['baseImports'] ?? -1, count($actualImports)));
+}
+
+$missingScssOwners = array_values(array_diff($actualImports, array_keys($ownedScss)));
+$staleScssOwners = array_values(array_diff(array_keys($ownedScss), $actualImports));
+if ($missingScssOwners !== []) {
+    $fail('Unowned base imports: ' . implode(', ', $missingScssOwners));
+}
+if ($staleScssOwners !== []) {
+    $fail('Owned imports absent from base.scss: ' . implode(', ', $staleScssOwners));
+}
+
+$actualJs = array_map('basename', glob($jsRoot . '/*.js') ?: []);
+sort($actualJs);
+$manifestJs = array_keys($ownedJs);
+sort($manifestJs);
+if ($actualJs !== $manifestJs) {
+    $missingJsOwners = array_values(array_diff($actualJs, $manifestJs));
+    $staleJsOwners = array_values(array_diff($manifestJs, $actualJs));
+    if ($missingJsOwners !== []) {
+        $fail('Unowned JavaScript modules: ' . implode(', ', $missingJsOwners));
+    }
+    if ($staleJsOwners !== []) {
+        $fail('Owned JavaScript modules absent on disk: ' . implode(', ', $staleJsOwners));
+    }
+}
+
+$scssFiles = 0;
+$scssLines = 0;
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scssRoot, FilesystemIterator::SKIP_DOTS));
+foreach ($iterator as $file) {
+    if ($file->isFile() && $file->getExtension() === 'scss') {
+        ++$scssFiles;
+        $lineCount = count(file($file->getPathname(), FILE_IGNORE_NEW_LINES));
+        $scssLines += $lineCount;
+    }
+}
+if ($scssFiles !== (int) ($manifest['baseline']['scssFiles'] ?? -1)) {
+    $fail(sprintf('SCSS file count drifted: expected %d, got %d.', $manifest['baseline']['scssFiles'] ?? -1, $scssFiles));
+}
+if ($scssLines !== (int) ($manifest['baseline']['scssLines'] ?? -1)) {
+    $fail(sprintf('SCSS line count drifted: expected %d, got %d.', $manifest['baseline']['scssLines'] ?? -1, $scssLines));
+}
+
+if ($errors !== []) {
+    foreach ($errors as $error) {
+        fwrite(STDERR, "[FAIL] {$error}\n");
+    }
+    exit(1);
+}
+
+printf("Veylune Phase 1.2 component ownership: PASS\n");
+printf("component_domains=%d\n", count($components));
+printf("scss_imports_owned=%d\n", count($ownedScss));
+printf("javascript_modules_owned=%d\n", count($ownedJs));
+printf("scss_files=%d\n", $scssFiles);
+printf("scss_lines=%d\n", $scssLines);
