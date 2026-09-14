@@ -8,7 +8,6 @@
 }
 
 .header-main .veylune-header,
-.header-main .veylune-marketplace-utility,
 .header-main .veylune-header__bar {
     width: 100%;
     max-width: none;
@@ -24,7 +23,6 @@
     backdrop-filter: none;
 }
 
-.veylune-marketplace-utility__inner,
 .veylune-header .veylune-header__inner {
     width: min(calc(100% - 48px), 1600px);
     max-width: 1600px;
@@ -38,7 +36,6 @@
 }
 
 @media (max-width: 767.98px) {
-    .veylune-marketplace-utility__inner,
     .veylune-header .veylune-header__inner {
         width: calc(100% - 24px);
     }

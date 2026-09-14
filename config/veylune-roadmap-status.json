@@ -8,8 +8,8 @@
     "status": "in_progress"
   },
   "currentWorkPackage": {
-    "id": "2.1B",
-    "name": "Token freeze",
+    "id": "2.1C",
+    "name": "Topbar and announcement hierarchy",
     "status": "complete"
   },
   "gitBaseline": {
@@ -57,7 +57,7 @@
   },
   "engineeringInventory": {
     "scssFiles": 137,
-    "scssLines": 30813,
+    "scssLines": 30447,
     "baseScssImports": 135,
     "javascriptSourceFiles": 20,
     "twigFiles": 99,
@@ -129,8 +129,8 @@
     "recoverableCheckpoint": "veylune-phase-1-complete-20260914"
   },
   "phase21Progress": {
-    "completePackages": ["2.1A", "2.1B"],
-    "pendingPackages": ["2.1C", "2.1D", "2.1E", "2.1F", "2.1G", "2.1H"],
+    "completePackages": ["2.1A", "2.1B", "2.1C"],
+    "pendingPackages": ["2.1D", "2.1E", "2.1F", "2.1G", "2.1H"],
     "phase21ACompletionEvidence": {
       "publicRoutesCaptured": 5,
       "viewportsCaptured": 3,
@@ -157,11 +157,28 @@
       "tokenContractAudit": "pass",
       "storefrontBuild": "pass",
       "contract": "config/veylune-token-contract.json"
+    },
+    "phase21CCompletionEvidence": {
+      "topbarScssOwners": 1,
+      "typeRhythmZones": 3,
+      "publicRoutesCaptured": 5,
+      "viewportsCaptured": 3,
+      "screenshots": 15,
+      "runtimeIssueCaptures": 0,
+      "horizontalOverflowCaptures": 0,
+      "interactionIssueCaptures": 0,
+      "colorLiterals": 1796,
+      "shadowLiteralDeclarations": 97,
+      "transitionTimeLiteralDeclarations": 80,
+      "importantDeclarations": 127,
+      "topbarContractAudit": "pass",
+      "storefrontBuild": "pass",
+      "report": "reports/visual-baselines/phase-2-1c/shell-baseline.json"
     }
   },
   "phaseMap": [
     {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
-    {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 65, "status": "in_progress"},
+    {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 70, "status": "in_progress"},
     {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 70, "status": "partial"},
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
     {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 70, "status": "partial"},
@@ -180,8 +197,8 @@
     "auditEvidence": "generated_reports"
   },
   "nextStep": {
-    "id": "2.1C",
-    "name": "Topbar and announcement hierarchy",
+    "id": "2.1D",
+    "name": "Primary header search and utilities",
     "phase": 2
   }
 }

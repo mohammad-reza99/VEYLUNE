@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1C",
+  "capturedAt": "2026-09-14",
+  "canonicalScss": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_topbar.scss",
+  "canonicalTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig",
+  "visualReport": "reports/visual-baselines/phase-2-1c/shell-baseline.json",
+  "reference": "https://www.wayfair.com/",
+  "zones": [
+    {"id": "signature", "selector": ".veylune-marketplace-family__primary", "desktopFontSize": "13px", "desktopFontWeight": "900"},
+    {"id": "announcement", "selector": ".veylune-marketplace-utility__announcement", "desktopFontSize": "12px", "desktopFontWeight": "700"},
+    {"id": "index", "selector": ".veylune-marketplace-utility__links span", "desktopFontSize": "11px", "desktopFontWeight": "700"}
+  ],
+  "announcement": {
+    "copy": "Private consultation by appointment",
+    "routeExpression": "veyluneRoutes.consultation",
+    "commercialClaimsAllowed": false
+  },
+  "breakpoints": {
+    "desktop": {"visible": true, "height": 31},
+    "tablet": {"visible": false, "height": 0},
+    "mobile": {"visible": false, "height": 0}
+  },
+  "requiredTokenReferences": [
+    "--veylune-color-text-primary", "--veylune-color-text-secondary", "--veylune-color-surface-canvas",
+    "--veylune-color-border-default", "--veylune-color-brand-600", "--veylune-type-family-interface",
+    "--veylune-type-size-050", "--veylune-type-size-100", "--veylune-type-weight-semibold",
+    "--veylune-type-weight-bold", "--veylune-type-weight-heavy", "--veylune-space-md", "--veylune-space-lg",
+    "--veylune-border-width-default", "--veylune-border-style-default", "--veylune-radius-pill",
+    "--veylune-motion-duration-fast", "--veylune-motion-ease-standard"
+  ],
+  "acceptance": [
+    "one_topbar_scss_owner",
+    "three_part_type_rhythm",
+    "truthful_linked_announcement",
+    "desktop_containment",
+    "tablet_mobile_density_preserved",
+    "zero_runtime_or_interaction_issues"
+  ],
+  "nextPackage": {"id": "2.1D", "name": "Primary header search and utilities"}
+}

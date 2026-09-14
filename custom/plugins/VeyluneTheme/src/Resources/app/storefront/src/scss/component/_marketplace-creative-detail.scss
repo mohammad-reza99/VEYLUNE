@@ -18,13 +18,11 @@
     background: linear-gradient(90deg, transparent, var(--veylune-detail-line) 12%, var(--veylune-detail-line) 88%, transparent);
 }
 
-.veylune-marketplace-header .main-navigation-link,
-.veylune-marketplace-header .veylune-marketplace-utility__link {
+.veylune-marketplace-header .main-navigation-link {
     position: relative;
 }
 
-.veylune-marketplace-header .main-navigation-link::after,
-.veylune-marketplace-header .veylune-marketplace-utility__link::after {
+.veylune-marketplace-header .main-navigation-link::after {
     content: "";
     position: absolute;
     right: 12px;
@@ -38,9 +36,7 @@
 }
 
 .veylune-marketplace-header .main-navigation-link:hover::after,
-.veylune-marketplace-header .main-navigation-link:focus-visible::after,
-.veylune-marketplace-header .veylune-marketplace-utility__link:hover::after,
-.veylune-marketplace-header .veylune-marketplace-utility__link:focus-visible::after {
+.veylune-marketplace-header .main-navigation-link:focus-visible::after {
     transform: scaleX(1);
     transform-origin: left;
 }
@@ -204,7 +200,6 @@
 
 @media (prefers-reduced-motion: reduce) {
     .veylune-marketplace-header .main-navigation-link::after,
-    .veylune-marketplace-header .veylune-marketplace-utility__link::after,
     .veylune-marketplace-header .header-search-form,
     .veylune-product-slider .veylune-product-card__image,
     .veylune-product-slider .veylune-product-card__media .product-image,

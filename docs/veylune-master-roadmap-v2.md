@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 65 percent complete. Packages 2.1A and 2.1B are complete; packages 2.1C through 2.1H remain.
+Current estimate: 70 percent complete. Packages 2.1A through 2.1C are complete; packages 2.1D through 2.1H remain.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1C Topbar and Announcement Hierarchy. Phase 2.1B established one canonical source for 91 governed tokens across ten categories, froze literal-debt ceilings, preserved the Veylune purple-neutral identity, and produced zero mismatches across 15 visual-regression screenshots. Next, consolidate the topbar and announcement hierarchy onto the frozen tokens with truthful service copy, a three-part type rhythm, responsive containment, and one owner.
+Start Phase 2.1D Primary Header, Search and Utilities. Phase 2.1C consolidated eleven late topbar override sources into one canonical owner, introduced a truthful linked consultation announcement, established a three-part computed type rhythm, preserved tablet/mobile density, and passed 15 visual and interaction captures. Next, consolidate the primary header, dominant search, account and cart utilities, click-away behavior, Escape handling, and focus restoration.

@@ -70,6 +70,11 @@ async function computedSnapshot(page) {
             '[data-veylune-header]',
             '.veylune-marketplace-utility',
             '.veylune-marketplace-utility__inner',
+            '.veylune-marketplace-family',
+            '.veylune-marketplace-family__primary',
+            '.veylune-marketplace-utility__announcement',
+            '.veylune-marketplace-utility__links',
+            '.veylune-marketplace-utility__links span',
             '.veylune-header__bar',
             '.veylune-header__inner',
             '.veylune-header__logo',
@@ -189,7 +194,7 @@ async function run() {
     const browser = await chromium.launch({ headless: true, executablePath: browserExecutable });
     const report = {
         schemaVersion: '1.0',
-        phase: '2.1A',
+        phase: process.env.VEYLUNE_CAPTURE_PHASE || '2.1A',
         capturedAt: new Date().toISOString(),
         baseUrl,
         routes: routes.map(({ id, path: routePath }) => ({ id, path: routePath })),

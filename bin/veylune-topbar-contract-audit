@@ -1,0 +1,142 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-topbar-contract][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $decoded = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($decoded)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+
+    return $decoded;
+}
+
+$contract = readJson($root . '/config/veylune-topbar-contract.json');
+$canonicalScssPath = $root . '/' . ($contract['canonicalScss'] ?? '');
+$canonicalTwigPath = $root . '/' . ($contract['canonicalTwig'] ?? '');
+$scss = is_file($canonicalScssPath) ? (string) file_get_contents($canonicalScssPath) : '';
+$twig = is_file($canonicalTwigPath) ? (string) file_get_contents($canonicalTwigPath) : '';
+
+if ($scss === '' || $twig === '') {
+    fail('Canonical topbar SCSS or Twig is missing.');
+}
+
+$scssRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss';
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scssRoot, FilesystemIterator::SKIP_DOTS));
+$topbarOwners = [];
+foreach ($iterator as $file) {
+    if (!$file->isFile() || $file->getExtension() !== 'scss') {
+        continue;
+    }
+    $contents = (string) file_get_contents($file->getPathname());
+    if (str_contains($contents, 'veylune-marketplace-utility') || str_contains($contents, 'veylune-marketplace-family')) {
+        $topbarOwners[] = $file->getPathname();
+    }
+}
+if ($topbarOwners !== [$canonicalScssPath]) {
+    fail('Topbar selectors must exist only in the canonical _topbar.scss owner.');
+}
+
+if (preg_match('/#[0-9a-f]{3,8}\b|rgba?\(|hsla?\(/i', $scss) === 1 || str_contains($scss, '!important')) {
+    fail('Canonical topbar SCSS contains an ungoverned color literal or !important declaration.');
+}
+foreach (($contract['requiredTokenReferences'] ?? []) as $token) {
+    if (!str_contains($scss, "var({$token})")) {
+        fail("Canonical topbar does not consume required token {$token}.");
+    }
+}
+
+$announcement = $contract['announcement'] ?? [];
+$copy = (string) ($announcement['copy'] ?? '');
+if (substr_count($twig, 'veylune-marketplace-utility__announcement') !== 1 || substr_count($twig, $copy) !== 1) {
+    fail('Topbar announcement must exist exactly once with approved copy.');
+}
+if (!str_contains($twig, 'href="{{ ' . ($announcement['routeExpression'] ?? '') . ' }}"')) {
+    fail('Topbar announcement must link to the governed consultation route.');
+}
+$utilityStart = strpos($twig, '<div class="veylune-marketplace-utility"');
+$barStart = strpos($twig, '<div class="veylune-header__bar">', $utilityStart ?: 0);
+$utilityMarkup = ($utilityStart !== false && $barStart !== false) ? substr($twig, $utilityStart, $barStart - $utilityStart) : '';
+if ($utilityMarkup === '' || preg_match('/free shipping|rewards|financing|guaranteed|same.day/i', $utilityMarkup) === 1) {
+    fail('Topbar contains an unverified commercial claim or could not be isolated.');
+}
+
+$zonePositions = [];
+foreach (($contract['zones'] ?? []) as $zone) {
+    $selectorRoot = explode(' ', (string) ($zone['selector'] ?? ''))[0];
+    $selectorClass = ltrim($selectorRoot, '.');
+    $position = strpos($twig, $selectorClass, $utilityStart ?: 0);
+    if ($position === false || $position >= $barStart) {
+        fail("Topbar zone {$zone['id']} is missing from canonical markup.");
+    }
+    $zonePositions[] = $position;
+}
+$sortedZonePositions = $zonePositions;
+sort($sortedZonePositions);
+if (count(array_unique($zonePositions)) !== 3 || $zonePositions !== $sortedZonePositions) {
+    fail('Topbar zones are not uniquely ordered.');
+}
+
+$report = readJson($root . '/' . ($contract['visualReport'] ?? ''));
+if (($report['phase'] ?? '') !== '2.1C' || count($report['captures'] ?? []) !== 15) {
+    fail('Phase 2.1C visual report must contain 15 captures.');
+}
+
+$homeCaptures = 0;
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    if (($capture['status'] ?? null) !== 200 || ($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail("{$key} failed HTTP or containment validation.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $errorType) {
+        if (!empty($capture['errors'][$errorType] ?? [])) {
+            fail("{$key} contains {$errorType}.");
+        }
+    }
+
+    if (($capture['route'] ?? '') !== 'home') {
+        continue;
+    }
+    ++$homeCaptures;
+    $viewport = (string) $capture['viewport'];
+    $elements = $capture['computed']['elements'] ?? [];
+    $utility = $elements['.veylune-marketplace-utility'] ?? [];
+    $expected = $contract['breakpoints'][$viewport] ?? null;
+    if (!is_array($expected)) {
+        fail("Missing breakpoint contract for {$viewport}.");
+    }
+    $displayed = ($utility['display'] ?? 'none') !== 'none';
+    $height = (float) ($utility['rect']['height'] ?? -1);
+    if ($displayed !== (bool) $expected['visible'] || abs($height - (float) $expected['height']) > 0.1) {
+        fail("{$viewport} topbar visibility or height drifted.");
+    }
+
+    if ($viewport === 'desktop') {
+        $grid = (string) ($elements['.veylune-marketplace-utility__inner']['gridTemplateColumns'] ?? '');
+        if (substr_count($grid, 'px') !== 3) {
+            fail('Desktop topbar must resolve to three grid zones.');
+        }
+        foreach ($contract['zones'] as $zone) {
+            $element = $elements[$zone['selector']] ?? [];
+            if (($element['fontSize'] ?? '') !== $zone['desktopFontSize'] || ($element['fontWeight'] ?? '') !== $zone['desktopFontWeight'] || (float) ($element['rect']['width'] ?? 0) <= 0) {
+                fail("Desktop type rhythm drifted for {$zone['id']}.");
+            }
+        }
+    }
+}
+if ($homeCaptures !== 3) {
+    fail('Visual report must contain desktop, tablet and mobile home captures.');
+}
+
+echo "[veylune-topbar-contract] PASS owners=1 zones=3 captures=15\n";
+echo "next=2.1D Primary header search and utilities\n";

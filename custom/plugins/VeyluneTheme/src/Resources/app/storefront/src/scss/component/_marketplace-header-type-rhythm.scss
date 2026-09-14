@@ -9,37 +9,6 @@
     --veylune-type-index-weight: 650;
 }
 
-/* Tier 3 / Tier 2 / Tier 1 across the utility bar. */
-.veylune-marketplace-family a,
-.veylune-marketplace-utility__links > *,
-.veylune-marketplace-utility__shipping {
-    line-height: 1;
-}
-
-.veylune-marketplace-family__primary {
-    font-size: 0.84rem;
-    font-weight: 850;
-    letter-spacing: -0.025em;
-}
-
-.veylune-marketplace-family a:not(.veylune-marketplace-family__primary) {
-    font-size: 0.7rem;
-    font-weight: 650;
-    letter-spacing: 0.015em;
-}
-
-.veylune-marketplace-utility__links > * {
-    font-size: 0.68rem;
-    font-weight: 650;
-    letter-spacing: 0.025em;
-}
-
-.veylune-marketplace-utility__shipping {
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: -0.005em;
-}
-
 /* Tier 1 / Tier 2 / Tier 3 across the main workspace. */
 @media (min-width: 992px) {
     .veylune-header__logo-main::before {
