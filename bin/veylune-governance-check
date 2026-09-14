@@ -113,8 +113,10 @@ done < <(find custom/plugins/VeyluneTheme/src custom/plugins/VeyluneTheme/bin -n
 php -l bin/console >/dev/null
 php -l bin/veylune-roadmap-baseline-audit >/dev/null
 php -l bin/veylune-component-ownership-audit >/dev/null
+php -l bin/veylune-architecture-guard-audit >/dev/null
 php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
+php bin/veylune-architecture-guard-audit >/dev/null
 
 step 'container lint'
 run_console lint:container >/dev/null

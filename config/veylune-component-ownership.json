@@ -10,17 +10,29 @@
     "sourceOrderIsBehaviorUntilConsolidated": true
   },
   "baseline": {
-    "scssFiles": 138,
+    "scssFiles": 137,
     "baseImports": 135,
-    "scssLines": 31063,
+    "scssLines": 30711,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
-    "importantDeclarations": 126,
+    "importantDeclarations": 130,
     "debtNamedFiles": 39,
     "debtNamedLines": 5539,
     "headerSelectorFiles": 31,
     "sharedControlSelectorFiles": 29,
-    "javascriptFiles": 21,
+    "javascriptFiles": 20,
     "twigFiles": 99
+  },
+  "phase13Quarantine": {
+    "preQuarantineScssFiles": 138,
+    "preQuarantineScssLogicalLines": 31063,
+    "preQuarantineJavascriptFiles": 21,
+    "archivedOrigSnapshots": 41,
+    "archivedDormantJavascript": 1,
+    "archivedDormantScss": 1,
+    "archivedTemporaryAudits": 1,
+    "activeOrigFiles": 0,
+    "unimportedActiveScssPartials": 0,
+    "importantDeclarationMetric": "all active SCSS files; Phase 1.3 ceiling is 130"
   },
   "components": [
     {
@@ -125,8 +137,8 @@
         "component/marketplace-phase-7-plp-reference-closure", "component/marketplace-phase-4-plp-visual-precision",
         "component/marketplace-product-media-closure"
       ],
-      "javascriptModules": ["veylune-plp-v2.js", "veylune-plp-wishlist.js", "veylune-plp.js"],
-      "consolidationTarget": "V2 is the active PLP owner; remove the dormant PLP module after parity verification and fold card overlays into product-card."
+      "javascriptModules": ["veylune-plp-v2.js", "veylune-plp-wishlist.js"],
+      "consolidationTarget": "V2 is the active PLP owner; the dormant PLP module was quarantined in Phase 1.3 and card overlays retire into product-card."
     },
     {
       "id": "product_detail",

@@ -3,8 +3,8 @@
   "capturedAt": "2026-09-14",
   "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
   "currentPhase": {
-    "id": "1.2",
-    "name": "Component Ownership and Cascade Reduction Plan",
+    "id": "1.3",
+    "name": "Legacy Artifact Quarantine and Architecture Enforcement",
     "status": "complete"
   },
   "gitBaseline": {
@@ -97,8 +97,21 @@
     "governanceGate": "pass",
     "recoverableCheckpoint": "veylune-phase-1.2-ownership-20260914"
   },
+  "phase13CompletionEvidence": {
+    "activeOrigFiles": 0,
+    "archivedOrigSnapshots": 41,
+    "archivedDormantJavascript": 1,
+    "archivedDormantScss": 1,
+    "archivedTemporaryAudits": 1,
+    "unimportedActiveScssPartials": 0,
+    "activeJavascriptFiles": 20,
+    "categoryRouteState": "governed_public",
+    "architectureGuard": "pass",
+    "governanceGate": "pass",
+    "recoverableCheckpoint": "veylune-phase-1.3-architecture-freeze-20260914"
+  },
   "phaseMap": [
-    {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 65, "status": "in_progress"},
+    {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 85, "status": "in_progress"},
     {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 55, "status": "partial"},
     {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 70, "status": "partial"},
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
@@ -118,8 +131,8 @@
     "auditEvidence": "generated_reports"
   },
   "nextStep": {
-    "id": "1.3",
-    "name": "Legacy Artifact Quarantine and Architecture Enforcement",
+    "id": "1.4",
+    "name": "Phase 1 Exit Gate and Architecture Freeze",
     "phase": 1
   }
 }

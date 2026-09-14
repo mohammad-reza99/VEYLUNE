@@ -29,7 +29,7 @@ This is the canonical 9-phase roadmap for the rest of the Veylune project. Older
 
 ## Phase 1 - Rebaseline, freeze, and architecture control
 
-Current estimate: 65 percent complete.
+Current estimate: 85 percent complete.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 1.3: quarantine `.orig` and temporary audit residue, identify dormant entrypoints, enforce the no-new-debt naming policy, and resolve the remaining route-ownership contract conflict. Complete these architecture controls before Phase 2 begins physical design-system consolidation.
+Start Phase 1.4: verify every Phase 1 contract against one commit, close any remaining unknown diff or owner gap, freeze the architecture boundary, and prepare the exact Phase 2.1 design-token and global-shell consolidation backlog.

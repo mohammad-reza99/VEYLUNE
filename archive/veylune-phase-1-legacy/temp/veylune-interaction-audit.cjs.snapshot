@@ -1,0 +1,382 @@
+const { chromium } = require('C:/Users/Mohammad Reza/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+
+const baseUrl = 'https://veylune-shopware.ddev.site';
+const seedRoutes = [
+    '/',
+    '/editions',
+    '/atelier-partnerships',
+    '/private-consultation',
+    '/about-studio',
+    '/contact-studio',
+    '/account/login',
+    '/account/register',
+    '/account/recover',
+    '/legal/privacy',
+    '/legal/imprint',
+    '/legal/terms',
+    '/legal/payment-delivery',
+    '/legal/cancellation',
+    '/categories/furniture',
+    '/categories/outdoor',
+    '/categories/bedding-bath',
+    '/categories/mattresses',
+    '/categories/rugs',
+    '/categories/decor-objects',
+    '/categories/lighting',
+    '/categories/organization',
+    '/categories/textiles-rugs',
+    '/categories/dining-kitchen',
+    '/collections/founder-selection',
+    '/collections/new-arrivals',
+    '/collections/best-sellers',
+    '/collections/sale',
+    '/rooms/living-room',
+    '/rooms/bedroom',
+    '/rooms/dining-room',
+    '/rooms/workspace',
+    '/rooms/outdoor',
+    '/discover?q=room',
+    '/selection',
+];
+
+const normalizeRoute = (href) => {
+    try {
+        const url = new URL(href, baseUrl);
+        if (url.origin !== baseUrl) return null;
+        if (/^\/(api|store-api|admin|widgets|checkout)(\/|$)/.test(url.pathname)) return null;
+        if (/^\/account\/(logout|order)/.test(url.pathname)) return null;
+        if (/^\/(favicon|robots\.txt|sitemap)/.test(url.pathname)) return null;
+        if (/\.(css|js|png|jpe?g|webp|avif|svg|gif|ico|xml|pdf)$/i.test(url.pathname)) return null;
+        return url.pathname;
+    } catch {
+        return null;
+    }
+};
+
+const unique = (items) => [...new Set(items)];
+
+async function inspectRoute(page, route, viewportName) {
+    const consoleErrors = [];
+    const pageErrors = [];
+    const requestFailures = [];
+    const failedResponses = [];
+    const onConsole = (message) => {
+        if (message.type() === 'error') consoleErrors.push(message.text());
+    };
+    const onPageError = (error) => pageErrors.push(String(error.message || error));
+    const onRequestFailed = (request) => {
+        const failure = request.failure();
+        if (failure && !/ERR_ABORTED/.test(failure.errorText)) {
+            requestFailures.push(`${request.method()} ${request.url()} ${failure.errorText}`);
+        }
+    };
+    const onResponse = (response) => {
+        if (response.status() >= 400) failedResponses.push(`${response.status()} ${response.request().method()} ${response.url()}`);
+    };
+
+    page.on('console', onConsole);
+    page.on('pageerror', onPageError);
+    page.on('requestfailed', onRequestFailed);
+    page.on('response', onResponse);
+
+    let response;
+    let navigationError = null;
+    try {
+        response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'domcontentloaded', timeout: 20000 });
+        await page.waitForTimeout(180);
+    } catch (error) {
+        navigationError = String(error.message || error);
+    }
+
+    const data = navigationError ? null : await page.evaluate(() => {
+        const visible = (element) => {
+            const style = window.getComputedStyle(element);
+            const rect = element.getBoundingClientRect();
+            return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+        };
+        const explicitLabel = (element) => [...(element.labels || [])].map((item) => item.innerText || item.textContent || '').join(' ');
+        const label = (element) => (
+            element.getAttribute('aria-label')
+            || element.getAttribute('title')
+            || explicitLabel(element)
+            || element.innerText
+            || element.getAttribute('value')
+            || element.getAttribute('alt')
+            || ''
+        ).trim().replace(/\s+/g, ' ').slice(0, 120);
+        const ids = [...document.querySelectorAll('[id]')].map((element) => element.id).filter(Boolean);
+        const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+        const brokenAriaControls = [...document.querySelectorAll('[aria-controls]')]
+            .filter((element) => !document.getElementById(element.getAttribute('aria-controls')))
+            .map((element) => `${element.tagName.toLowerCase()}:${label(element)}->${element.getAttribute('aria-controls')}`);
+        const unnamedControls = [...document.querySelectorAll('button,input,select,textarea,[role="button"],[role="menuitem"],[role="option"]')]
+            .filter(visible)
+            .filter((element) => !label(element) && !element.getAttribute('aria-labelledby'))
+            .map((element) => element.outerHTML.slice(0, 180));
+        const suspiciousLinks = [...document.querySelectorAll('a')]
+            .filter(visible)
+            .filter((element) => {
+                const href = (element.getAttribute('href') || '').trim();
+                if (!href || /^javascript:/i.test(href)) return true;
+                if (href === '#') return true;
+                if (href.startsWith('#') && !document.querySelector(href)) return true;
+                return false;
+            })
+            .map((element) => `${label(element) || '(unnamed)'}:${element.getAttribute('href') || '(empty)'}`);
+        const implicitSubmitButtons = [...document.querySelectorAll('form button:not([type])')]
+            .filter(visible)
+            .map((element) => label(element) || element.outerHTML.slice(0, 120));
+        const pointerOnlyElements = [...document.querySelectorAll('body *')]
+            .filter(visible)
+            .filter((element) => window.getComputedStyle(element).cursor === 'pointer')
+            .filter((element) => !element.matches('a,button,input,select,textarea,label,summary,[role],[tabindex]'))
+            .map((element) => `${element.tagName.toLowerCase()}.${String(element.className || '').trim().replace(/\s+/g, '.').slice(0, 100)}`)
+            .slice(0, 30);
+        const missingImageAlternatives = [...document.querySelectorAll('img:not([alt])')]
+            .map((element) => element.getAttribute('src') || element.outerHTML.slice(0, 120));
+        const links = [...document.querySelectorAll('a[href]')].map((element) => element.href);
+
+        return {
+            title: document.title,
+            mains: document.querySelectorAll('main').length,
+            h1s: document.querySelectorAll('h1').length,
+            horizontalOverflow: Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) - window.innerWidth,
+            duplicateIds: [...new Set(duplicates)],
+            brokenAriaControls,
+            unnamedControls,
+            suspiciousLinks,
+            implicitSubmitButtons,
+            pointerOnlyElements,
+            missingImageAlternatives,
+            engineered: {
+                megaTriggers: document.querySelectorAll('[data-veylune-mega-trigger]').length,
+                sliders: document.querySelectorAll('[data-veylune-product-slider]').length,
+                plpMenus: document.querySelectorAll('[data-plp-filter-toggle],[data-plp-sort-toggle]').length,
+                dialogs: document.querySelectorAll('dialog,[role="dialog"]').length,
+                expanders: document.querySelectorAll('[aria-expanded]').length,
+                forms: document.forms.length,
+            },
+            links,
+        };
+    });
+
+    page.off('console', onConsole);
+    page.off('pageerror', onPageError);
+    page.off('requestfailed', onRequestFailed);
+    page.off('response', onResponse);
+
+    return {
+        viewport: viewportName,
+        route,
+        status: response?.status() || null,
+        navigationError,
+        consoleErrors: unique(consoleErrors),
+        pageErrors: unique(pageErrors),
+        requestFailures: unique(requestFailures),
+        failedResponses: unique(failedResponses),
+        ...data,
+    };
+}
+
+async function interactionChecks(page) {
+    const checks = [];
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(250);
+
+    const trigger = page.locator('[data-veylune-mega-trigger]').first();
+    if (await trigger.count() && await trigger.isVisible()) {
+        await trigger.hover();
+        await page.waitForTimeout(300);
+        const opened = await page.locator('[data-veylune-header]').evaluate((element) => element.classList.contains('is-mega-open'));
+        const stateAfterOpen = await page.evaluate(() => ({
+            header: document.querySelector('[data-veylune-header]')?.className,
+            mega: document.querySelector('[data-veylune-mega]')?.className,
+            ariaHidden: document.querySelector('[data-veylune-mega]')?.getAttribute('aria-hidden'),
+        }));
+        await page.mouse.move(8, 900);
+        await page.waitForTimeout(500);
+        const closedAfterHoverOut = await page.locator('[data-veylune-header]').evaluate((element) => !element.classList.contains('is-mega-open'));
+        const hitAfterHoverOut = await page.evaluate(() => {
+            const element = document.elementFromPoint(8, 900);
+            return element ? `${element.tagName.toLowerCase()}.${String(element.className || '').replace(/\s+/g, '.')}` : null;
+        });
+        const backdrop = page.locator('.veylune-mega__backdrop');
+        if (!closedAfterHoverOut && await backdrop.count()) {
+            await backdrop.click({ position: { x: 4, y: 500 } });
+            await page.waitForTimeout(250);
+        }
+        const closedAfterBackdrop = await page.locator('[data-veylune-header]').evaluate((element) => !element.classList.contains('is-mega-open'));
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(100);
+        const closedAfterEscape = await page.locator('[data-veylune-header]').evaluate((element) => !element.classList.contains('is-mega-open'));
+        const stateAfterEscape = await page.evaluate(() => ({
+            header: document.querySelector('[data-veylune-header]')?.className,
+            mega: document.querySelector('[data-veylune-mega]')?.className,
+            ariaHidden: document.querySelector('[data-veylune-mega]')?.getAttribute('aria-hidden'),
+        }));
+        checks.push({ name: 'desktop-mega-menu', opened, closedAfterHoverOut, closedAfterBackdrop, closedAfterEscape, hitAfterHoverOut, stateAfterOpen, stateAfterEscape });
+    }
+
+    const searchInput = page.locator('[data-vli-header-search-input]').first();
+    if (await searchInput.count() && await searchInput.isVisible()) {
+        await searchInput.focus();
+        await searchInput.fill('room');
+        await page.waitForTimeout(100);
+        const panel = page.locator('[data-vli-header-suggest]').first();
+        const opened = await panel.isVisible();
+        await page.mouse.click(20, 700);
+        await page.waitForTimeout(100);
+        const closedOutside = !(await panel.isVisible());
+        checks.push({ name: 'desktop-header-search-suggest', opened, closedOutside });
+    }
+
+    const sliders = page.locator('[data-veylune-product-slider]');
+    for (let index = 0; index < Math.min(await sliders.count(), 5); index += 1) {
+        const slider = sliders.nth(index);
+        const next = slider.locator('[data-veylune-product-slider-next]');
+        const track = slider.locator('[data-veylune-product-slider-track]');
+        if (!await next.count() || !await next.isVisible() || !await track.count()) continue;
+        const before = await track.evaluate((element) => element.scrollLeft);
+        await next.click();
+        await page.waitForTimeout(450);
+        const after = await track.evaluate((element) => element.scrollLeft);
+        checks.push({ name: `desktop-slider-${index + 1}`, moved: after > before, before, after });
+    }
+
+    return checks;
+}
+
+async function mobileChecks(browser) {
+    const context = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const page = await context.newPage();
+    const checks = [];
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(250);
+
+    const toggle = page.locator('[data-veylune-mobile-toggle]').first();
+    const nav = page.locator('[data-veylune-mobile-nav]').first();
+    if (await toggle.count() && await toggle.isVisible() && await nav.count()) {
+        await toggle.click();
+        await page.waitForTimeout(250);
+        const opened = await nav.isVisible();
+        const expanded = await toggle.getAttribute('aria-expanded');
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(150);
+        const closedEscape = !(await page.locator('[data-veylune-header]').evaluate((element) => element.classList.contains('is-mobile-nav-open')));
+        const focusRestored = await toggle.evaluate((element) => document.activeElement === element);
+        checks.push({ name: 'mobile-navigation', opened, expanded, closedEscape, focusRestored });
+    }
+
+    await page.goto(`${baseUrl}/discover?q=room`, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(200);
+    for (const selector of ['[data-plp-filter-toggle]', '[data-plp-sort-toggle]']) {
+        const control = page.locator(selector).first();
+        if (!await control.count() || !await control.isVisible()) continue;
+        await control.click();
+        await page.waitForTimeout(120);
+        const id = await control.getAttribute('aria-controls');
+        const panel = id ? page.locator(`#${id}`) : null;
+        const opened = panel ? await panel.isVisible() : false;
+        const box = panel ? await panel.boundingBox() : null;
+        const contained = !box || (box.x >= 0 && box.y >= 0 && box.x + box.width <= 390 && box.y + box.height <= 844);
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(100);
+        const closedEscape = panel ? !(await panel.isVisible()) : false;
+        checks.push({ name: `mobile-${selector.includes('filter') ? 'filter' : 'sort'}`, opened, contained, closedEscape });
+    }
+
+    await context.close();
+    return checks;
+}
+
+(async () => {
+    const browser = await chromium.launch({ headless: true, channel: 'chrome' });
+    const desktopContext = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 1440, height: 1000 } });
+    const desktopPage = await desktopContext.newPage();
+    const queue = [...seedRoutes];
+    const visited = new Set();
+    const desktopResults = [];
+
+    while (queue.length && visited.size < 90) {
+        const route = queue.shift();
+        if (!route || visited.has(route)) continue;
+        visited.add(route);
+        const result = await inspectRoute(desktopPage, route, 'desktop');
+        desktopResults.push(result);
+        for (const href of result.links || []) {
+            const normalized = normalizeRoute(href);
+            if (normalized && !visited.has(normalized) && !queue.includes(normalized)) queue.push(normalized);
+        }
+    }
+
+    const interactions = await interactionChecks(desktopPage);
+    await desktopContext.close();
+
+    const mobileContext = await browser.newContext({ ignoreHTTPSErrors: true, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const mobilePage = await mobileContext.newPage();
+    const mobileResults = [];
+    for (const route of visited) {
+        mobileResults.push(await inspectRoute(mobilePage, route, 'mobile'));
+    }
+    await mobileContext.close();
+
+    const mobileInteractions = await mobileChecks(browser);
+    await browser.close();
+
+    const all = [...desktopResults, ...mobileResults];
+    const issues = all.filter((result) => (
+        result.navigationError
+        || result.status !== 200
+        || result.mains !== 1
+        || result.h1s !== 1
+        || result.horizontalOverflow > 1
+        || result.duplicateIds?.length
+        || result.brokenAriaControls?.length
+        || result.unnamedControls?.length
+        || result.suspiciousLinks?.length
+        || result.implicitSubmitButtons?.length
+        || result.missingImageAlternatives?.length
+        || result.consoleErrors?.length
+        || result.pageErrors?.length
+        || result.requestFailures?.length
+        || result.failedResponses?.length
+    ));
+
+    console.log(JSON.stringify({
+        summary: {
+            routes: visited.size,
+            surfaces: all.length,
+            issueSurfaces: issues.length,
+        },
+        interactions: [...interactions, ...mobileInteractions],
+        issues: issues.map((result) => ({
+            viewport: result.viewport,
+            route: result.route,
+            status: result.status,
+            title: result.title,
+            navigationError: result.navigationError,
+            mains: result.mains,
+            h1s: result.h1s,
+            horizontalOverflow: result.horizontalOverflow,
+            duplicateIds: result.duplicateIds,
+            brokenAriaControls: result.brokenAriaControls,
+            unnamedControls: result.unnamedControls,
+            suspiciousLinks: result.suspiciousLinks,
+            implicitSubmitButtons: result.implicitSubmitButtons,
+            missingImageAlternatives: result.missingImageAlternatives,
+            consoleErrors: result.consoleErrors,
+            pageErrors: result.pageErrors,
+            requestFailures: result.requestFailures,
+            failedResponses: result.failedResponses,
+        })),
+        engineeringInventory: Object.fromEntries(
+            Object.keys(desktopResults[0]?.engineered || {}).map((key) => [key, {
+                total: desktopResults.reduce((sum, result) => sum + (result.engineered?.[key] || 0), 0),
+                routesPresent: desktopResults.filter((result) => (result.engineered?.[key] || 0) > 0).map((result) => result.route),
+            }]),
+        ),
+    }, null, 2));
+})().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});

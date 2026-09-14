@@ -61,7 +61,7 @@ final class StorefrontRouteOwnershipPolicy
             'activationPrerequisites' => ['explicit_published_state', 'catalog_quality_gate', 'object_runtime_verification'],
         ],
         self::SURFACE_CATEGORIES => [
-            'state' => self::STATE_ACTIVATION_PENDING,
+            'state' => self::STATE_GOVERNED_PUBLIC,
             'owner' => self::OWNER_CATEGORY_PUBLICATION_POLICY,
             'activationPrerequisites' => ['category_publication_policy', 'taxonomy_quality_gate', 'navigation_runtime_verification'],
         ],
@@ -166,6 +166,10 @@ final class StorefrontRouteOwnershipPolicy
 
         if ($routeName === 'frontend.veylune.object.page') {
             return self::SURFACE_OBJECTS;
+        }
+
+        if ($routeName === 'frontend.veylune.discovery.category') {
+            return self::SURFACE_CATEGORIES;
         }
 
         if ($routeName === 'frontend.veylune.discovery.room') {

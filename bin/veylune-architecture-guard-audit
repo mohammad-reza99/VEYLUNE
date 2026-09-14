@@ -1,0 +1,150 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use VeyluneTheme\Storefront\StorefrontRouteOwnershipPolicy;
+
+$root = dirname(__DIR__);
+require $root . '/vendor/autoload.php';
+require_once $root . '/custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php';
+
+$errors = [];
+$fail = static function (string $message) use (&$errors): void {
+    $errors[] = $message;
+};
+
+$manifestPath = $root . '/config/veylune-component-ownership.json';
+try {
+    $manifest = json_decode((string) file_get_contents($manifestPath), true, 512, JSON_THROW_ON_ERROR);
+} catch (JsonException $exception) {
+    fwrite(STDERR, '[FAIL] Invalid ownership JSON: ' . $exception->getMessage() . "\n");
+    exit(1);
+}
+
+$activeOrig = [];
+foreach ([$root . '/bin', $root . '/custom/plugins/VeyluneTheme'] as $scanRoot) {
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scanRoot, FilesystemIterator::SKIP_DOTS));
+    foreach ($iterator as $file) {
+        if ($file->isFile() && str_ends_with($file->getFilename(), '.orig')) {
+            $activeOrig[] = substr($file->getPathname(), strlen($root) + 1);
+        }
+    }
+}
+if ($activeOrig !== []) {
+    $fail('Active source tree still contains .orig files: ' . implode(', ', $activeOrig));
+}
+
+$archiveRoot = $root . '/archive/veylune-phase-1-legacy';
+$origSnapshots = glob($archiveRoot . '/orig/**/*.snapshot', GLOB_BRACE) ?: [];
+$origIteratorCount = 0;
+if (is_dir($archiveRoot . '/orig')) {
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($archiveRoot . '/orig', FilesystemIterator::SKIP_DOTS));
+    foreach ($iterator as $file) {
+        if ($file->isFile() && str_ends_with($file->getFilename(), '.snapshot')) {
+            ++$origIteratorCount;
+        }
+    }
+}
+if ($origIteratorCount !== 41) {
+    $fail("Expected 41 archived .orig snapshots, found {$origIteratorCount}.");
+}
+
+$dormantPlp = $archiveRoot . '/dormant/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-plp.js.snapshot';
+$dormantHeaderScss = $archiveRoot . '/dormant/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-header-home-index.scss.snapshot';
+$tempAudit = $archiveRoot . '/temp/veylune-interaction-audit.cjs.snapshot';
+if (!is_file($dormantPlp) || filesize($dormantPlp) === 0) {
+    $fail('Dormant PLP snapshot is missing or empty.');
+}
+if (!is_file($dormantHeaderScss) || filesize($dormantHeaderScss) === 0) {
+    $fail('Dormant header SCSS snapshot is missing or empty.');
+}
+if (!is_file($tempAudit) || filesize($tempAudit) === 0) {
+    $fail('Temporary interaction audit snapshot is missing or empty.');
+}
+
+$scssRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss';
+$base = (string) file_get_contents($scssRoot . '/base.scss');
+preg_match_all('/^@import\s+"([^"]+)";/m', $base, $matches);
+$imports = array_fill_keys($matches[1] ?? [], true);
+$unimportedPartials = [];
+$importantDeclarations = 0;
+$debtNamedFiles = [];
+$debtNamePattern = '/(?:phase-|wave-|closure|refinement|precision|polish|legacy|bridge)/';
+
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scssRoot, FilesystemIterator::SKIP_DOTS));
+foreach ($iterator as $file) {
+    if (!$file->isFile() || $file->getExtension() !== 'scss') {
+        continue;
+    }
+
+    $contents = (string) file_get_contents($file->getPathname());
+    $importantDeclarations += substr_count($contents, '!important');
+
+    $relative = substr($file->getPathname(), strlen($scssRoot) + 1);
+    if (preg_match($debtNamePattern, $file->getFilename()) === 1) {
+        $debtNamedFiles[] = $relative;
+    }
+
+    if ($relative === 'base.scss' || $relative === 'overrides.scss') {
+        continue;
+    }
+
+    $directory = dirname($relative);
+    $basename = pathinfo($relative, PATHINFO_FILENAME);
+    if (!str_starts_with($basename, '_')) {
+        $unimportedPartials[] = $relative . ' (not a partial)';
+        continue;
+    }
+    $import = ($directory === '.' ? '' : $directory . '/') . substr($basename, 1);
+    if (!isset($imports[$import])) {
+        $unimportedPartials[] = $relative;
+    }
+}
+
+if ($unimportedPartials !== []) {
+    $fail('Unimported active SCSS partials: ' . implode(', ', $unimportedPartials));
+}
+if ($importantDeclarations > (int) ($manifest['baseline']['importantDeclarations'] ?? -1)) {
+    $fail(sprintf('Important-declaration debt increased: baseline %d, current %d.', $manifest['baseline']['importantDeclarations'] ?? -1, $importantDeclarations));
+}
+if (count($debtNamedFiles) > (int) ($manifest['baseline']['debtNamedFiles'] ?? -1)) {
+    $fail(sprintf('Debt-named SCSS file count increased: baseline %d, current %d.', $manifest['baseline']['debtNamedFiles'] ?? -1, count($debtNamedFiles)));
+}
+
+$activePlp = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-plp.js';
+if (is_file($activePlp)) {
+    $fail('Dormant veylune-plp.js remains in the active JavaScript source directory.');
+}
+$mainJs = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/main.js');
+if (preg_match("/import\\s+['\"]\\.\\/js\\/veylune-plp['\"]/", $mainJs) === 1) {
+    $fail('Dormant veylune-plp.js is imported by main.js.');
+}
+
+$categorySurface = StorefrontRouteOwnershipPolicy::surfaceForRoute('frontend.veylune.discovery.category');
+if ($categorySurface !== StorefrontRouteOwnershipPolicy::SURFACE_CATEGORIES) {
+    $fail('Custom public category route does not resolve to SURFACE_CATEGORIES.');
+}
+$categoryOwnership = StorefrontRouteOwnershipPolicy::ownershipForSurface(StorefrontRouteOwnershipPolicy::SURFACE_CATEGORIES);
+if (($categoryOwnership['state'] ?? null) !== StorefrontRouteOwnershipPolicy::STATE_GOVERNED_PUBLIC) {
+    $fail('Public category surface is not governed_public.');
+}
+if (StorefrontRouteOwnershipPolicy::isActivationPendingRoute('frontend.veylune.discovery.category')) {
+    $fail('Public category route is incorrectly activation-pending.');
+}
+
+if ($errors !== []) {
+    foreach ($errors as $error) {
+        fwrite(STDERR, "[FAIL] {$error}\n");
+    }
+    exit(1);
+}
+
+echo "Veylune Phase 1.3 architecture guard: PASS\n";
+printf("orig_snapshots=%d\n", $origIteratorCount);
+printf("active_orig_files=%d\n", count($activeOrig));
+printf("active_scss_imports=%d\n", count($imports));
+printf("unimported_active_scss=%d\n", count($unimportedPartials));
+printf("important_declarations=%d\n", $importantDeclarations);
+printf("debt_named_scss_files=%d\n", count($debtNamedFiles));
+printf("category_route_state=%s\n", $categoryOwnership['state']);
