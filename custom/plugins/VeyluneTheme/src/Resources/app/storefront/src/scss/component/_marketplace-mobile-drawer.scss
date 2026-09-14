@@ -130,6 +130,10 @@
         border-bottom: 1px solid var(--veylune-marketplace-border);
     }
 
+    .veylune-mobile-marketplace details:not([open]) > .veylune-mobile-marketplace__panel {
+        display: none;
+    }
+
     .veylune-mobile-marketplace summary {
         position: relative;
         display: flex;

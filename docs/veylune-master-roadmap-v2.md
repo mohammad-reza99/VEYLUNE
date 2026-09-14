@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 80 percent complete. Packages 2.1A through 2.1E are complete; packages 2.1F through 2.1H remain.
+Current estimate: 85 percent complete. Packages 2.1A through 2.1F are complete; packages 2.1G and 2.1H remain.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1F Mobile Drawer and Sticky Shell. Phase 2.1E retired the orphan mega template, consolidated three labelled overlays into the registry-driven shell, verified all 55 navigation link occurrences and 23 unique destinations per breakpoint, added complete keyboard and close behavior, and passed 15 standard plus 3 open-overlay captures. Next, consolidate the mobile discovery hierarchy, activate its search path, verify accordion behavior, focus trapping, Escape restoration, sticky offsets, and viewport containment.
+Start Phase 2.1G Global-shell Cascade Migration. Phase 2.1F retired the duplicate mobile drawer template, activated public mobile search, consolidated four ARIA-linked accordion groups, verified focus trapping plus Escape and backdrop restoration, and passed 15 standard plus 6 interaction captures across 80 navigation link occurrences and 26 unique destinations per breakpoint. Next, move the approved shell declarations into their canonical owners, remove redundant late overrides, and prove visual and behavioral parity after the source-order migration.

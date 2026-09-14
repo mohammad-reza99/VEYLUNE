@@ -386,23 +386,8 @@
 					<button class="veylune-mobile-nav__close" type="button" data-veylune-mobile-close aria-label="{{ 'veylune.header.mobile.closeAriaLabel'|trans|striptags }}">
 						{% sw_icon 'x' %}
 					</button>
-					<span class="veylune-mobile-nav__kicker">{{ 'veylune.header.logoText'|trans|sw_sanitize }}</span>
-					<nav class="veylune-mobile-nav__links" aria-label="{{ 'veylune.header.mobile.navAriaLabel'|trans|striptags }}">
-                        {% for axis in veyluneLivingIndexAxes %}
-                                <a href="{{ axis.url }}" data-veylune-nav-key="{{ axis.key }}" data-veylune-page-transition>
-                                    {{ axis.label }}
-                                </a>
-                        {% endfor %}
-                        <a href="{{ veyluneRoutes.trade }}" data-veylune-nav-key="trade" data-veylune-page-transition>Trade Program</a>
-                        {% if isPrivatePreview %}
-                            <a href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" data-veylune-preview-mobile-account>Sign in</a>
-                            <a href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" data-veylune-preview-mobile-cart>Cart</a>
-                        {% else %}
-						    <a href="{{ path('frontend.account.home.page') }}">Sign in</a>
-						    <a href="{{ path('frontend.checkout.cart.page') }}">Cart <span>{{ page.cart.lineItems|length }}</span></a>
-                        {% endif %}
-					</nav>
-					<div class="veylune-mobile-nav__note">Object · Room · Material · Style · Maker · Project</div>
+					<span class="veylune-mobile-nav__kicker">Browse Veylune</span>
+                    {% sw_include '@VeyluneTheme/storefront/layout/header/mobile-navigation.html.twig' %}
 				</div>
 			</div>
 		{% endblock %}

@@ -90,6 +90,10 @@ async function computedSnapshot(page) {
             '[data-veylune-header-cart]',
             '.veylune-marketplace-department-rail',
             '.veylune-mobile-nav',
+            '.veylune-mobile-nav__inner',
+            '[data-veylune-mobile-marketplace]',
+            '[data-veylune-mobile-search-form]',
+            '.veylune-mobile-marketplace__accordions',
         ];
 
         return {
@@ -216,12 +220,64 @@ async function interactionSnapshot(page, viewport) {
         if (await toggle.count() && await drawer.count()) {
             await toggle.focus();
             await toggle.click();
-            await page.waitForTimeout(100);
+            await page.waitForTimeout(220);
             result.checks.mobileDrawerOpen = await drawer.evaluate((element) => ({
                 open: element.classList.contains('is-open'),
                 ariaHidden: element.getAttribute('aria-hidden'),
                 bodyLocked: document.body.classList.contains('veylune-overlay-active'),
+                viewportContained: (() => {
+                    const inner = element.querySelector('.veylune-mobile-nav__inner');
+                    const rect = inner?.getBoundingClientRect();
+                    return Boolean(rect) && rect.left >= -1 && rect.right <= innerWidth + 1 && rect.top >= -1 && rect.bottom <= innerHeight + 1;
+                })(),
             }));
+
+            const mobileSearch = page.locator('[data-veylune-mobile-search-input]');
+            await mobileSearch.fill('chair');
+            result.checks.mobileSearch = await page.locator('[data-veylune-mobile-search-form]').evaluate((form) => {
+                const input = form.querySelector('[data-veylune-mobile-search-input]');
+                const submit = form.querySelector('[data-veylune-mobile-search-submit]');
+                const target = new URL(form.action);
+                target.searchParams.set(input.name, input.value);
+                return {
+                    action: target.pathname + target.search,
+                    inputEnabled: !input.disabled,
+                    submitEnabled: !submit.disabled,
+                    queryName: input.name,
+                };
+            });
+
+            const accordions = page.locator('[data-veylune-mobile-accordion]');
+            const departmentsSummary = accordions.nth(1).locator('summary');
+            await departmentsSummary.click();
+            await page.waitForTimeout(80);
+            result.checks.mobileAccordion = await accordions.evaluateAll((items) => ({
+                count: items.length,
+                openCount: items.filter((item) => item.open).length,
+                openIndex: items.findIndex((item) => item.open),
+                ariaStates: items.map((item) => item.querySelector('summary')?.getAttribute('aria-expanded')),
+            }));
+
+            result.checks.mobileFocusTrap = await drawer.evaluate((element) => {
+                const candidates = [...element.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])')]
+                    .filter((candidate) => candidate instanceof HTMLElement && candidate.offsetParent !== null);
+                candidates.at(-1)?.focus();
+                return { first: candidates[0]?.outerHTML, last: candidates.at(-1)?.outerHTML, count: candidates.length };
+            });
+            await page.keyboard.press('Tab');
+            result.checks.mobileFocusTrap.wrappedToFirst = await drawer.evaluate((element) => {
+                const candidates = [...element.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), summary, [tabindex]:not([tabindex="-1"])')]
+                    .filter((candidate) => candidate instanceof HTMLElement && candidate.offsetParent !== null);
+                return document.activeElement === candidates[0];
+            });
+
+            await drawer.dispatchEvent('pointerdown');
+            await page.waitForTimeout(100);
+            result.checks.mobileBackdropClose = await drawer.evaluate((element) => !element.classList.contains('is-open'));
+            result.checks.mobileBackdropFocusRestored = await toggle.evaluate((element) => document.activeElement === element);
+
+            await toggle.click();
+            await page.waitForTimeout(220);
             await page.keyboard.press('Escape');
             await page.waitForTimeout(100);
             result.checks.mobileDrawerEscapeClose = await drawer.evaluate((element) => !element.classList.contains('is-open'));
@@ -250,6 +306,24 @@ async function interactionSnapshot(page, viewport) {
         await page.mouse.click(viewport.width - 4, viewport.height - 4);
         await page.waitForTimeout(80);
         result.checks.searchClickAwayClose = await suggestionPanel.evaluate((element) => element.hidden);
+    }
+
+    if (viewport.width < 1200) {
+        await page.evaluate(() => window.scrollTo(0, Math.min(640, document.documentElement.scrollHeight - innerHeight)));
+        await page.waitForTimeout(160);
+  result.checks.stickyShell = await page.locator('[data-veylune-header]').evaluate((element) => {
+    const shell = element.closest('.header-main') || element;
+    const rect = shell.getBoundingClientRect();
+    const style = getComputedStyle(shell);
+            return {
+                state: element.dataset.veyluneHeaderState,
+                position: style.position,
+                top: Math.round(rect.top * 100) / 100,
+                contained: rect.left >= -1 && rect.right <= innerWidth + 1,
+            };
+        });
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(100);
     }
 
     return result;
@@ -296,6 +370,11 @@ async function run() {
                 page.on('response', onResponse);
 
                 const response = await page.goto(baseUrl + route.path, { waitUntil: 'networkidle', timeout: 45000 });
+                const technicalConsent = page.getByRole('button', { name: 'Only technically required', exact: true });
+                if (await technicalConsent.isVisible().catch(() => false)) {
+                    await technicalConsent.click();
+                    await page.waitForTimeout(120);
+                }
                 await page.evaluate(() => window.scrollTo(0, 0));
                 await page.waitForTimeout(150);
 
@@ -332,6 +411,24 @@ async function run() {
                     }
                     await page.keyboard.press('Escape');
                     await page.waitForTimeout(80);
+                }
+                if (route.id === 'home' && viewport.id === 'mobile') {
+                    await page.locator('[data-veylune-mobile-toggle]:visible').click();
+                    await page.waitForTimeout(220);
+                    const drawerScreenshotPath = path.join(outputRoot, 'mobile--home--drawer-open.png');
+                    await page.screenshot({ path: drawerScreenshotPath, clip: { x: 0, y: 0, width: viewport.width, height: viewport.height } });
+                    interactionScreenshots.push(path.relative(projectRoot, drawerScreenshotPath).replaceAll('\\', '/'));
+                    await page.keyboard.press('Escape');
+                    await page.waitForTimeout(100);
+                }
+                if (route.id === 'home' && (viewport.id === 'tablet' || viewport.id === 'mobile')) {
+                    await page.evaluate(() => window.scrollTo(0, Math.min(640, document.documentElement.scrollHeight - innerHeight)));
+                    await page.waitForTimeout(160);
+                    const stickyScreenshotPath = path.join(outputRoot, `${viewport.id}--home--sticky.png`);
+                    await page.screenshot({ path: stickyScreenshotPath, clip: { x: 0, y: 0, width: viewport.width, height: Math.min(viewport.height, 360) } });
+                    interactionScreenshots.push(path.relative(projectRoot, stickyScreenshotPath).replaceAll('\\', '/'));
+                    await page.evaluate(() => window.scrollTo(0, 0));
+                    await page.waitForTimeout(100);
                 }
                 const screenshotPath = path.join(outputRoot, `${viewport.id}--${route.id}.png`);
                 await page.screenshot({
@@ -404,14 +501,35 @@ async function run() {
 
         if (capture.interactions.mode === 'tablet') {
             return checks.mobileToggleHidden !== true ||
-                checks.tabletNavVisible !== true;
+                checks.tabletNavVisible !== true ||
+                checks.stickyShell?.state !== 'sticky' ||
+                checks.stickyShell?.position !== 'sticky' ||
+                Math.abs(checks.stickyShell?.top || 0) > 1 ||
+                checks.stickyShell?.contained !== true;
         }
 
         return checks.mobileDrawerOpen?.open !== true ||
             checks.mobileDrawerOpen?.ariaHidden !== 'false' ||
             checks.mobileDrawerOpen?.bodyLocked !== true ||
+            checks.mobileDrawerOpen?.viewportContained !== true ||
+            checks.mobileSearch?.action !== '/discover?q=chair' ||
+            checks.mobileSearch?.inputEnabled !== true ||
+            checks.mobileSearch?.submitEnabled !== true ||
+            checks.mobileSearch?.queryName !== 'q' ||
+            checks.mobileAccordion?.count !== 4 ||
+            checks.mobileAccordion?.openCount !== 1 ||
+            checks.mobileAccordion?.openIndex !== 1 ||
+            checks.mobileAccordion?.ariaStates?.join(',') !== 'false,true,false,false' ||
+            checks.mobileFocusTrap?.count < 8 ||
+            checks.mobileFocusTrap?.wrappedToFirst !== true ||
+            checks.mobileBackdropClose !== true ||
+            checks.mobileBackdropFocusRestored !== true ||
             checks.mobileDrawerEscapeClose !== true ||
-            checks.mobileDrawerFocusRestored !== true;
+            checks.mobileDrawerFocusRestored !== true ||
+            checks.stickyShell?.state !== 'sticky' ||
+            checks.stickyShell?.position !== 'sticky' ||
+            Math.abs(checks.stickyShell?.top || 0) > 1 ||
+            checks.stickyShell?.contained !== true;
     };
 
     const failed = report.captures.filter((capture) =>

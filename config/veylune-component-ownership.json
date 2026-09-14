@@ -12,7 +12,7 @@
   "baseline": {
     "scssFiles": 137,
     "baseImports": 135,
-    "scssLines": 30461,
+    "scssLines": 30465,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
     "importantDeclarations": 130,
     "debtNamedFiles": 39,
@@ -20,7 +20,7 @@
     "headerSelectorFiles": 31,
     "sharedControlSelectorFiles": 29,
     "javascriptFiles": 19,
-    "twigFiles": 98
+    "twigFiles": 97
   },
   "phase13Quarantine": {
     "preQuarantineScssFiles": 138,
@@ -58,7 +58,6 @@
         "twig": [
           "layout/header.html.twig",
           "layout/header/header.html.twig",
-          "layout/header/marketplace-mobile-drawer.html.twig",
           "layout/header/mobile-navigation.html.twig",
           "layout/footer/footer.html.twig"
         ],

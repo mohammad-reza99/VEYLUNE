@@ -120,6 +120,7 @@ php -l bin/veylune-token-contract-audit >/dev/null
 php -l bin/veylune-topbar-contract-audit >/dev/null
 php -l bin/veylune-primary-header-contract-audit >/dev/null
 php -l bin/veylune-navigation-contract-audit >/dev/null
+php -l bin/veylune-mobile-shell-contract-audit >/dev/null
 php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
 php bin/veylune-architecture-guard-audit >/dev/null
@@ -129,6 +130,7 @@ php bin/veylune-token-contract-audit >/dev/null
 php bin/veylune-topbar-contract-audit >/dev/null
 php bin/veylune-primary-header-contract-audit >/dev/null
 php bin/veylune-navigation-contract-audit >/dev/null
+php bin/veylune-mobile-shell-contract-audit >/dev/null
 
 step 'container lint'
 run_console lint:container >/dev/null
@@ -525,11 +527,12 @@ header_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/layo
 assert_contains "$header_template" 'veyluneLivingIndexAxes' 'header truthful Living Index route registry'
 assert_contains "$header_template" "path('frontend.veylune.living_index.search')" 'header active Living Index search action'
 assert_contains "$header_template" 'data-vli-header-search-scope' 'header public search-scope disclosure'
-assert_contains "$header_template" 'data-veylune-preview-mobile-account' 'header private mobile account containment'
-assert_contains "$header_template" 'data-veylune-preview-mobile-cart' 'header private mobile cart containment'
+mobile_navigation_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig'
+assert_contains "$mobile_navigation_template" 'data-veylune-preview-mobile-account' 'canonical mobile private account containment'
+assert_contains "$mobile_navigation_template" 'data-veylune-preview-mobile-cart' 'canonical mobile private cart containment'
 assert_absent_pattern "$header_template" 'veyluneMarketplaceDepartments|veyluneMarketplaceActiveLinks|Catalog activation pending' 'header legacy pending catalog registry closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/marketplace-mobile-drawer.html.twig' 'frontend.veylune.preview.catalog.category' 'private mobile category routing'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/marketplace-mobile-drawer.html.twig' 'veyluneRoutes.partnership' 'mobile trade routing'
+assert_contains "$mobile_navigation_template" 'frontend.veylune.preview.catalog.category' 'canonical private mobile category routing'
+assert_contains "$mobile_navigation_template" 'veyluneRoutes.partnership' 'canonical mobile partnership routing'
 assert_contains 'custom/plugins/VeyluneTheme/src/Migration/Migration1787846400CleanLegacyCmsContent.php' 'The complete jurisdiction-specific privacy policy is being prepared' 'legacy privacy placeholder replacement'
 assert_contains 'custom/plugins/VeyluneTheme/src/Migration/Migration1787846400CleanLegacyCmsContent.php' 'Your inquiry has reached the studio' 'contact confirmation closure'
 assert_contains 'custom/plugins/VeyluneTheme/src/Migration/Migration1787846500CleanRemainingLegalCmsPlaceholders.php' 'Pre-launch legal information' 'remaining legal CMS placeholder closure'
@@ -590,7 +593,7 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/sidebar.html.twig' 'veylune-account-sidebar__marker' 'account sidebar duplicate SVG identity closure'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/addressbook/address-item.html.twig' "addressItemRole" 'account address role-scoped dropdown identity'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'veylunePreviewToken|default' 'preview header token continuity'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig' 'veyluneMobilePreviewToken' 'preview mobile navigation token continuity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig' 'veyluneMobileDrawerPreviewToken' 'canonical preview mobile navigation token continuity'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-product.html.twig' "product.department|replace({'_': '-'})" 'preview product department route normalization'
 
 if [[ -n "${VEYLUNE_DRAFT_PREVIEW_TOKEN:-}" ]]; then

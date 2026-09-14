@@ -1,0 +1,150 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-mobile-shell-contract][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $decoded = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($decoded)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+
+    return $decoded;
+}
+
+$contract = readJson($root . '/config/veylune-mobile-shell-contract.json');
+$headerPath = $root . '/' . ($contract['canonicalHeaderTwig'] ?? '');
+$mobilePath = $root . '/' . ($contract['canonicalMobileTwig'] ?? '');
+$javascriptPath = $root . '/' . ($contract['canonicalJavascript'] ?? '');
+$scssPath = $root . '/' . ($contract['canonicalScss'] ?? '');
+$header = is_file($headerPath) ? (string) file_get_contents($headerPath) : '';
+$mobile = is_file($mobilePath) ? (string) file_get_contents($mobilePath) : '';
+$javascript = is_file($javascriptPath) ? (string) file_get_contents($javascriptPath) : '';
+$scss = is_file($scssPath) ? (string) file_get_contents($scssPath) : '';
+if ($header === '' || $mobile === '' || $javascript === '' || $scss === '') {
+    fail('Canonical header, mobile Twig, JavaScript, or SCSS is missing.');
+}
+
+$legacyTemplate = $root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/marketplace-mobile-drawer.html.twig';
+$ownership = (string) file_get_contents($root . '/config/veylune-component-ownership.json');
+if (is_file($legacyTemplate) || str_contains($ownership, 'marketplace-mobile-drawer.html.twig')) {
+    fail('Duplicate mobile drawer template remains active or owned.');
+}
+if (substr_count($header, "@VeyluneTheme/storefront/layout/header/mobile-navigation.html.twig") !== 1) {
+    fail('Header must include exactly one canonical mobile navigation template.');
+}
+
+foreach (["{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}", 'data-veylune-mobile-marketplace', 'data-veylune-nav-surface="mobile"', 'data-veylune-mobile-search-form', 'name="q"', 'type="submit"', 'data-veylune-preview-mobile-account', 'data-veylune-preview-mobile-cart'] as $marker) {
+    if (!str_contains($mobile, $marker)) {
+        fail("Canonical mobile markup is missing {$marker}.");
+    }
+}
+if (str_contains($mobile, 'disabled') || str_contains($mobile, 'activation pending')) {
+    fail('Mobile search still contains a disabled or pending state.');
+}
+$expected = $contract['expected'] ?? [];
+if (substr_count($mobile, 'data-veylune-mobile-accordion') !== ($expected['accordionCount'] ?? 0) ||
+    substr_count($mobile, 'aria-controls=') < ($expected['accordionCount'] ?? 0) ||
+    substr_count($mobile, 'aria-expanded=') < ($expected['accordionCount'] ?? 0)) {
+    fail('Mobile accordion count or ARIA linkage drifted.');
+}
+foreach (['syncMobileAccordions', "mobileNav?.addEventListener('keydown'", "event.key !== 'Escape'", 'mobileBackdropFocusRestored'] as $marker) {
+    if (!str_contains($javascript, $marker) && $marker !== 'mobileBackdropFocusRestored') {
+        fail("Canonical mobile behavior is missing {$marker}.");
+    }
+}
+if (!str_contains($scss, 'details:not([open]) > .veylune-mobile-marketplace__panel') || !str_contains($scss, 'display: none')) {
+    fail('Closed mobile accordion panels are not explicitly removed from layout.');
+}
+
+$report = readJson($root . '/' . ($contract['visualReport'] ?? ''));
+if (($report['phase'] ?? '') !== '2.1F' || count($report['captures'] ?? []) !== ($expected['captureCount'] ?? 0)) {
+    fail('Phase 2.1F report capture count or phase is invalid.');
+}
+$screenshots = glob($root . '/' . ($contract['visualEvidenceDirectory'] ?? '') . '/*.png') ?: [];
+if (count($screenshots) !== ($expected['screenshotCount'] ?? 0)) {
+    fail('Phase 2.1F screenshot evidence count drifted.');
+}
+
+$homeCaptures = 0;
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    if (($capture['status'] ?? null) !== 200 || ($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail("{$key} failed HTTP or viewport containment validation.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $errorType) {
+        if (!empty($capture['errors'][$errorType] ?? [])) {
+            fail("{$key} contains {$errorType}.");
+        }
+    }
+    if (($capture['route'] ?? '') !== 'home') {
+        continue;
+    }
+    ++$homeCaptures;
+    if (count($capture['computed']['actions']['navigationLinks'] ?? []) !== ($expected['navigationLinkOccurrences'] ?? 0) ||
+        count($capture['navigationRoutes'] ?? []) !== ($expected['uniqueNavigationRoutes'] ?? 0)) {
+        fail("{$key} navigation inventory drifted.");
+    }
+    foreach ($capture['computed']['actions']['navigationLinks'] as $link) {
+        if (($link['href'] ?? '') === '' || ($link['href'] ?? '') === '#') {
+            fail("{$key} contains an unresolved public navigation destination.");
+        }
+    }
+    foreach ($capture['navigationRoutes'] as $route) {
+        if (($route['status'] ?? null) !== 200) {
+            fail("{$key} navigation route {$route['href']} returned {$route['status']}.");
+        }
+    }
+
+    $checks = $capture['interactions']['checks'] ?? [];
+    if (($capture['viewport'] ?? '') === 'desktop') {
+        if (count($checks['megaTriggerCoverage'] ?? []) !== 3 || ($checks['megaPointerLeaveClose'] ?? false) !== true ||
+            ($checks['megaEscapeClose'] ?? false) !== true || ($checks['megaBackdropClose'] ?? false) !== true) {
+            fail('Desktop mega-menu regression failed.');
+        }
+    }
+    if (($capture['viewport'] ?? '') === 'tablet' || ($capture['viewport'] ?? '') === 'mobile') {
+        $sticky = $checks['stickyShell'] ?? [];
+        if (($sticky['state'] ?? null) !== 'sticky' || ($sticky['position'] ?? null) !== 'sticky' ||
+            ($sticky['top'] ?? null) !== 0 || ($sticky['contained'] ?? false) !== true) {
+            fail("{$key} sticky shell failed.");
+        }
+    }
+    if (($capture['viewport'] ?? '') === 'mobile') {
+        $drawer = $checks['mobileDrawerOpen'] ?? [];
+        $search = $checks['mobileSearch'] ?? [];
+        $accordion = $checks['mobileAccordion'] ?? [];
+        if (($drawer['open'] ?? false) !== true || ($drawer['ariaHidden'] ?? null) !== 'false' ||
+            ($drawer['bodyLocked'] ?? false) !== true || ($drawer['viewportContained'] ?? false) !== true ||
+            ($search['action'] ?? null) !== '/discover?q=chair' || ($search['inputEnabled'] ?? false) !== true ||
+            ($search['submitEnabled'] ?? false) !== true || ($search['queryName'] ?? null) !== 'q' ||
+            ($accordion['count'] ?? 0) !== ($expected['accordionCount'] ?? 0) || ($accordion['openCount'] ?? 0) !== 1 ||
+            ($checks['mobileFocusTrap']['wrappedToFirst'] ?? false) !== true ||
+            ($checks['mobileBackdropClose'] ?? false) !== true || ($checks['mobileBackdropFocusRestored'] ?? false) !== true ||
+            ($checks['mobileDrawerEscapeClose'] ?? false) !== true || ($checks['mobileDrawerFocusRestored'] ?? false) !== true) {
+            fail('Mobile drawer search, accordion, containment, focus trap, close, or focus restoration failed.');
+        }
+        if (count($capture['interactionScreenshots'] ?? []) !== 2) {
+            fail('Mobile report must reference drawer-open and sticky screenshots.');
+        }
+    }
+    if (($checks['searchSuggestOpen']['hidden'] ?? true) !== false || ($checks['searchEscapeClose'] ?? false) !== true ||
+        ($checks['searchClickAwayClose'] ?? false) !== true) {
+        fail("{$key} global search regression failed.");
+    }
+}
+if ($homeCaptures !== 3) {
+    fail('Report must contain desktop, tablet, and mobile home captures.');
+}
+
+echo "[veylune-mobile-shell-contract] PASS accordions=4 links=80 routes=26 screenshots=21\n";
+echo "next=2.1G Global-shell cascade migration\n";

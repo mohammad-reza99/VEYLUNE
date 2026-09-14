@@ -27,7 +27,9 @@ const initVeyluneHeader = () => {
     const megaClose = header.querySelector('[data-veylune-mega-close]');
     const mobileToggle = header.querySelector('[data-veylune-mobile-toggle]');
     const mobileNav = header.querySelector('[data-veylune-mobile-nav]');
+    const mobileNavInner = mobileNav?.querySelector('.veylune-mobile-nav__inner');
     const mobileClose = header.querySelector('[data-veylune-mobile-close]');
+    const mobileAccordions = [...(mobileNav?.querySelectorAll('[data-veylune-mobile-accordion]') || [])];
     const marketplaceSearchInput = header.querySelector('[data-vli-header-search-input]');
     const marketplaceSearchPanel = header.querySelector('[data-vli-header-suggest]');
     const marketplaceSearchForm = marketplaceSearchInput?.closest('form');
@@ -293,6 +295,15 @@ const initVeyluneHeader = () => {
         megaTriggers[nextIndex]?.focus({ preventScroll: true });
     };
 
+    const syncMobileAccordions = (activeAccordion = null) => {
+        mobileAccordions.forEach((accordion) => {
+            if (activeAccordion && accordion !== activeAccordion) {
+                accordion.open = false;
+            }
+            accordion.querySelector('summary')?.setAttribute('aria-expanded', accordion.open ? 'true' : 'false');
+        });
+    };
+
     const openMobileNav = () => {
         mobileReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : mobileToggle;
         closeSearch();
@@ -482,6 +493,17 @@ const initVeyluneHeader = () => {
         closeMobileNav({ restoreFocus: true });
     });
     mobileNav?.addEventListener('keydown', (event) => trapFocus(event, mobileNav));
+    mobileAccordions.forEach((accordion) => {
+        accordion.addEventListener('toggle', () => {
+            syncMobileAccordions(accordion.open ? accordion : null);
+        });
+    });
+    syncMobileAccordions();
+    mobileNav?.addEventListener('pointerdown', (event) => {
+        if (event.target === mobileNav && !mobileNavInner?.contains(event.target)) {
+            closeMobileNav({ restoreFocus: true });
+        }
+    });
     mobileNav?.addEventListener('click', (event) => {
         if (event.target.closest('a[href]')) closeMobileNav();
     });

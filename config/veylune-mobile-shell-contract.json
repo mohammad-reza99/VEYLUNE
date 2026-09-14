@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1F",
+  "capturedAt": "2026-09-15",
+  "canonicalHeaderTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig",
+  "canonicalMobileTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig",
+  "canonicalJavascript": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js",
+  "canonicalScss": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-mobile-drawer.scss",
+  "visualReport": "reports/visual-baselines/phase-2-1f/shell-baseline.json",
+  "visualEvidenceDirectory": "reports/visual-baselines/phase-2-1f",
+  "reference": "https://www.wayfair.com/",
+  "expected": {
+    "captureCount": 15,
+    "screenshotCount": 21,
+    "navigationLinkOccurrences": 80,
+    "uniqueNavigationRoutes": 26,
+    "failedNavigationRoutes": 0,
+    "accordionCount": 4
+  },
+  "acceptance": [
+    "one_canonical_mobile_navigation_template",
+    "active_mobile_search_destination",
+    "single_open_accordion_with_aria_sync",
+    "focus_trap_escape_backdrop_and_focus_restore",
+    "sticky_shell_and_horizontal_containment",
+    "desktop_mega_and_global_search_regression_clean"
+  ],
+  "nextPackage": {"id": "2.1G", "name": "Global-shell cascade migration"}
+}
