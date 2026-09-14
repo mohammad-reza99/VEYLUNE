@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 75 percent complete. Packages 2.1A through 2.1D are complete; packages 2.1E through 2.1H remain.
+Current estimate: 80 percent complete. Packages 2.1A through 2.1E are complete; packages 2.1F through 2.1H remain.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1E Category Navigation and Mega Menu. Phase 2.1D consolidated header search behavior into one JavaScript owner, retired the duplicate search module, verified dominant search proportions, account and cart destinations, click-away closure, Escape closure with focus retention, and passed 15 visual and interaction captures. Next, consolidate navigation and mega-menu behavior and structure, then verify every exposed category destination against the live storefront.
+Start Phase 2.1F Mobile Drawer and Sticky Shell. Phase 2.1E retired the orphan mega template, consolidated three labelled overlays into the registry-driven shell, verified all 55 navigation link occurrences and 23 unique destinations per breakpoint, added complete keyboard and close behavior, and passed 15 standard plus 3 open-overlay captures. Next, consolidate the mobile discovery hierarchy, activate its search path, verify accordion behavior, focus trapping, Escape restoration, sticky offsets, and viewport containment.

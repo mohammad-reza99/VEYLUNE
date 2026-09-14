@@ -1,0 +1,133 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-navigation-contract][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $decoded = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($decoded)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+
+    return $decoded;
+}
+
+$contract = readJson($root . '/config/veylune-navigation-contract.json');
+$twigPath = $root . '/' . ($contract['canonicalTwig'] ?? '');
+$javascriptPath = $root . '/' . ($contract['canonicalJavascript'] ?? '');
+$scssPath = $root . '/' . ($contract['canonicalScss'] ?? '');
+$twig = is_file($twigPath) ? (string) file_get_contents($twigPath) : '';
+$javascript = is_file($javascriptPath) ? (string) file_get_contents($javascriptPath) : '';
+$scss = is_file($scssPath) ? (string) file_get_contents($scssPath) : '';
+if ($twig === '' || $javascript === '' || $scss === '') {
+    fail('Canonical navigation Twig, JavaScript, or SCSS is missing.');
+}
+
+$legacyTemplate = $root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/marketplace-mega-panel.html.twig';
+$ownership = (string) file_get_contents($root . '/config/veylune-component-ownership.json');
+if (is_file($legacyTemplate) || str_contains($ownership, 'marketplace-mega-panel.html.twig')) {
+    fail('Orphan legacy mega-menu template remains active or owned.');
+}
+
+foreach (['data-veylune-nav-surface="primary"', 'data-veylune-nav-surface="departments"', 'data-veylune-nav-surface="mega"', 'aria-haspopup="true"', 'aria-labelledby="veyluneNavTrigger-'] as $marker) {
+    if (!str_contains($twig, $marker)) {
+        fail("Canonical navigation markup is missing {$marker}.");
+    }
+}
+foreach (['ArrowDown', 'ArrowRight', 'ArrowLeft', "closeMega({ restoreFocus: true })"] as $marker) {
+    if (!str_contains($javascript, $marker)) {
+        fail("Canonical navigation behavior is missing {$marker}.");
+    }
+}
+foreach (['repeat(5, minmax(0, 1fr))', 'grid-column: span 4', 'grid-column: span 2'] as $marker) {
+    if (!str_contains($scss, $marker)) {
+        fail("Canonical navigation layout is missing {$marker}.");
+    }
+}
+
+$report = readJson($root . '/' . ($contract['visualReport'] ?? ''));
+$expected = $contract['expected'] ?? [];
+if (($report['phase'] ?? '') !== '2.1E' || count($report['captures'] ?? []) !== ($expected['captureCount'] ?? 0)) {
+    fail('Phase 2.1E report capture count or phase is invalid.');
+}
+$screenshots = glob($root . '/' . ($contract['visualEvidenceDirectory'] ?? '') . '/*.png') ?: [];
+if (count($screenshots) !== ($expected['screenshotCount'] ?? 0)) {
+    fail('Phase 2.1E screenshot evidence count drifted.');
+}
+
+$homeCaptures = 0;
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    if (($capture['status'] ?? null) !== 200 || ($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail("{$key} failed HTTP or viewport containment validation.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $errorType) {
+        if (!empty($capture['errors'][$errorType] ?? [])) {
+            fail("{$key} contains {$errorType}.");
+        }
+    }
+    if (($capture['route'] ?? '') !== 'home') {
+        continue;
+    }
+    ++$homeCaptures;
+    $links = $capture['computed']['actions']['navigationLinks'] ?? [];
+    $routes = $capture['navigationRoutes'] ?? [];
+    if (count($links) !== ($expected['navigationLinkOccurrences'] ?? 0) || count($routes) !== ($expected['uniqueNavigationRoutes'] ?? 0)) {
+        fail("{$key} navigation inventory drifted.");
+    }
+    foreach ($links as $link) {
+        if (($link['href'] ?? '') === '' || ($link['href'] ?? '') === '#') {
+            fail("{$key} contains an unresolved public navigation destination.");
+        }
+    }
+    foreach ($routes as $route) {
+        if (($route['status'] ?? null) !== 200) {
+            fail("{$key} navigation route {$route['href']} returned {$route['status']}.");
+        }
+    }
+
+    if (($capture['viewport'] ?? '') !== 'desktop') {
+        continue;
+    }
+    $checks = $capture['interactions']['checks'] ?? [];
+    $coverage = $checks['megaTriggerCoverage'] ?? [];
+    if (count($coverage) !== count($contract['declaredOverlays'] ?? [])) {
+        fail('Desktop declared overlay coverage is incomplete.');
+    }
+    foreach ($coverage as $overlay) {
+        $overlayKey = (string) ($overlay['key'] ?? '');
+        $minimumLinks = (int) ($contract['declaredOverlays'][$overlayKey]['minimumLinks'] ?? PHP_INT_MAX);
+        if (($overlay['expanded'] ?? null) !== 'true' || ($overlay['panelActive'] ?? false) !== true ||
+            ($overlay['panelAriaHidden'] ?? null) !== 'false' || ($overlay['labelledBy'] ?? null) !== ($overlay['triggerId'] ?? null) ||
+            ($overlay['viewportContained'] ?? false) !== true || (int) ($overlay['links'] ?? 0) < $minimumLinks) {
+            fail("Desktop overlay {$overlayKey} failed linkage, content, state, or containment.");
+        }
+    }
+    if (($checks['megaPointerLeaveClose'] ?? false) !== true ||
+        ($checks['megaBackdropClose'] ?? false) !== true || ($checks['megaBackdropFocusRestored'] ?? false) !== true ||
+        ($checks['megaKeyboardEntry']['focusedLink'] ?? false) !== true ||
+        ($checks['megaKeyboardHorizontal']['focusedKey'] ?? null) !== 'rooms' ||
+        ($checks['megaKeyboardHorizontal']['activePanel'] ?? null) !== 'rooms' ||
+        ($checks['megaEscapeClose'] ?? false) !== true || ($checks['megaFocusRestored'] ?? false) !== true ||
+        ($checks['megaCloseButton'] ?? false) !== true || ($checks['megaCloseButtonFocusRestored'] ?? false) !== true) {
+        fail('Desktop pointer, backdrop, keyboard, Escape, close-button, or focus-restoration behavior failed.');
+    }
+    if (count($capture['interactionScreenshots'] ?? []) !== 3) {
+        fail('Desktop report must reference all three open-overlay screenshots.');
+    }
+}
+if ($homeCaptures !== 3) {
+    fail('Report must contain desktop, tablet, and mobile home captures.');
+}
+
+echo "[veylune-navigation-contract] PASS overlays=3 links=55 routes=23 screenshots=18\n";
+echo "next=2.1F Mobile drawer and sticky shell\n";

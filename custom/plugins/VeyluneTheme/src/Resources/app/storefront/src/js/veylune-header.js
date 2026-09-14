@@ -205,6 +205,11 @@ const initVeyluneHeader = () => {
             return;
         }
 
+        const requestedPanel = megaPanels.find((panel) => panel.dataset.veyluneMegaPanel === key);
+        if (!requestedPanel) {
+            return;
+        }
+
         window.clearTimeout(megaCloseTimer);
         closeSearch();
         syncMegaOffset();
@@ -272,6 +277,20 @@ const initVeyluneHeader = () => {
         window.clearTimeout(megaOpenTimer);
         window.clearTimeout(megaCloseTimer);
         megaOpenTimer = window.setTimeout(() => openMega(key), 120);
+    };
+
+    const focusMegaTrigger = (currentTrigger, direction) => {
+        const currentIndex = megaTriggers.indexOf(currentTrigger);
+        if (currentIndex < 0 || megaTriggers.length === 0) {
+            return;
+        }
+
+        let nextIndex = currentIndex;
+        if (direction === 'first') nextIndex = 0;
+        if (direction === 'last') nextIndex = megaTriggers.length - 1;
+        if (direction === 'next') nextIndex = (currentIndex + 1) % megaTriggers.length;
+        if (direction === 'previous') nextIndex = (currentIndex - 1 + megaTriggers.length) % megaTriggers.length;
+        megaTriggers[nextIndex]?.focus({ preventScroll: true });
     };
 
     const openMobileNav = () => {
@@ -394,6 +413,27 @@ const initVeyluneHeader = () => {
             if (!isRestoringMegaFocus) openMega(key);
         });
         trigger.addEventListener('mouseleave', scheduleMegaClose);
+        trigger.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                openMega(key);
+                const activePanel = megaPanels.find((panel) => panel.dataset.veyluneMegaPanel === key);
+                window.requestAnimationFrame(() => getFocusableElements(activePanel)[0]?.focus({ preventScroll: true }));
+                return;
+            }
+
+            const directions = {
+                ArrowRight: 'next',
+                ArrowLeft: 'previous',
+                Home: 'first',
+                End: 'last',
+            };
+            const direction = directions[event.key];
+            if (direction) {
+                event.preventDefault();
+                focusMegaTrigger(trigger, direction);
+            }
+        });
     });
 
     megaSurface?.addEventListener('mouseenter', () => window.clearTimeout(megaCloseTimer));
@@ -435,7 +475,7 @@ const initVeyluneHeader = () => {
             }
         }, 0);
     });
-    megaClose?.addEventListener('click', closeMega);
+    megaClose?.addEventListener('click', () => closeMega({ restoreFocus: true }));
 
     mobileToggle?.addEventListener('click', openMobileNav);
     mobileClose?.addEventListener('click', () => {
@@ -481,6 +521,15 @@ const initVeyluneHeader = () => {
 
     document.addEventListener('pointerdown', (event) => {
         const target = event.target;
+
+        if (
+            target instanceof Node &&
+            header.classList.contains('is-mega-open') &&
+            !megaSurface?.contains(target) &&
+            !megaTriggers.some((trigger) => trigger.contains(target))
+        ) {
+            closeMega({ restoreFocus: true });
+        }
 
         if (
             target instanceof Node &&

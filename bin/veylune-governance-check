@@ -119,6 +119,7 @@ php -l bin/veylune-shell-baseline-audit >/dev/null
 php -l bin/veylune-token-contract-audit >/dev/null
 php -l bin/veylune-topbar-contract-audit >/dev/null
 php -l bin/veylune-primary-header-contract-audit >/dev/null
+php -l bin/veylune-navigation-contract-audit >/dev/null
 php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
 php bin/veylune-architecture-guard-audit >/dev/null
@@ -127,6 +128,7 @@ php bin/veylune-shell-baseline-audit >/dev/null
 php bin/veylune-token-contract-audit >/dev/null
 php bin/veylune-topbar-contract-audit >/dev/null
 php bin/veylune-primary-header-contract-audit >/dev/null
+php bin/veylune-navigation-contract-audit >/dev/null
 
 step 'container lint'
 run_console lint:container >/dev/null

@@ -114,6 +114,17 @@ async function computedSnapshot(page) {
                     href: link.getAttribute('href'),
                     mega: link.getAttribute('data-veylune-mega-trigger'),
                 })),
+                navigationLinks: [...document.querySelectorAll('[data-veylune-nav-surface] a[href]')].map((link) => ({
+                    label: link.textContent.trim(),
+                    href: link.getAttribute('href'),
+                    key: link.getAttribute('data-veylune-nav-key') || link.getAttribute('data-veylune-registry-key'),
+                    surface: link.closest('[data-veylune-nav-surface]')?.getAttribute('data-veylune-nav-surface'),
+                })),
+                megaPanels: [...document.querySelectorAll('[data-veylune-mega-panel]')].map((panel) => ({
+                    key: panel.getAttribute('data-veylune-mega-panel'),
+                    labelledBy: panel.getAttribute('aria-labelledby'),
+                    links: panel.querySelectorAll('a[href]').length,
+                })),
             },
         };
     });
@@ -125,6 +136,28 @@ async function interactionSnapshot(page, viewport) {
     if (viewport.width >= 1200) {
         const trigger = page.locator('[data-veylune-mega-trigger]').first();
         if (await trigger.count()) {
+            result.checks.megaTriggerCoverage = [];
+            const triggerCount = await page.locator('[data-veylune-mega-trigger]').count();
+            for (let index = 0; index < triggerCount; index += 1) {
+                const candidate = page.locator('[data-veylune-mega-trigger]').nth(index);
+                await candidate.hover();
+                await page.waitForTimeout(180);
+                result.checks.megaTriggerCoverage.push(await candidate.evaluate((element) => {
+                    const key = element.getAttribute('data-veylune-mega-trigger');
+                    const panel = document.querySelector(`[data-veylune-mega-panel="${key}"]`);
+                    const panelRect = panel?.closest('.veylune-mega__panel')?.getBoundingClientRect();
+                    return {
+                        key,
+                        expanded: element.getAttribute('aria-expanded'),
+                        panelActive: panel?.classList.contains('is-active') === true,
+                        panelAriaHidden: panel?.getAttribute('aria-hidden'),
+                        labelledBy: panel?.getAttribute('aria-labelledby'),
+                        triggerId: element.id,
+                        links: panel?.querySelectorAll('a[href]').length || 0,
+                        viewportContained: Boolean(panelRect) && panelRect.left >= -1 && panelRect.right <= innerWidth + 1 && panelRect.top >= 0 && panelRect.bottom <= innerHeight + 1,
+                    };
+                }));
+            }
             await trigger.hover();
             await page.waitForTimeout(180);
             result.checks.megaHoverOpen = await page.locator('[data-veylune-mega]').evaluate((element) => ({
@@ -135,11 +168,43 @@ async function interactionSnapshot(page, viewport) {
             await page.waitForTimeout(280);
             result.checks.megaPointerLeaveClose = await page.locator('[data-veylune-mega]').evaluate((element) => !element.classList.contains('is-open'));
             await trigger.focus();
-            await page.waitForTimeout(160);
+            await page.keyboard.press('ArrowDown');
+            await page.waitForTimeout(80);
+            result.checks.megaKeyboardEntry = await page.locator('[data-veylune-mega]').evaluate((element) => {
+                const activePanel = element.querySelector('[data-veylune-mega-panel].is-active');
+                return {
+                    open: element.classList.contains('is-open'),
+                    focusedLink: document.activeElement?.matches('a[href]') === true && activePanel?.contains(document.activeElement) === true,
+                };
+            });
             await page.keyboard.press('Escape');
             await page.waitForTimeout(80);
             result.checks.megaEscapeClose = await page.locator('[data-veylune-mega]').evaluate((element) => !element.classList.contains('is-open'));
             result.checks.megaFocusRestored = await trigger.evaluate((element) => document.activeElement === element);
+
+            await page.keyboard.press('ArrowRight');
+            await page.waitForTimeout(80);
+            result.checks.megaKeyboardHorizontal = await page.locator('[data-veylune-mega]').evaluate((element) => ({
+                open: element.classList.contains('is-open'),
+                focusedKey: document.activeElement?.getAttribute('data-veylune-mega-trigger'),
+                activePanel: element.querySelector('[data-veylune-mega-panel].is-active')?.getAttribute('data-veylune-mega-panel'),
+            }));
+            await page.keyboard.press('Escape');
+            await page.waitForTimeout(80);
+
+            await trigger.focus();
+            await page.waitForTimeout(80);
+            await page.locator('.veylune-mega__backdrop').dispatchEvent('pointerdown');
+            await page.waitForTimeout(80);
+            result.checks.megaBackdropClose = await page.locator('[data-veylune-mega]').evaluate((element) => !element.classList.contains('is-open'));
+            result.checks.megaBackdropFocusRestored = await trigger.evaluate((element) => document.activeElement === element);
+
+            await trigger.dispatchEvent('mouseenter');
+            await page.waitForTimeout(180);
+            await page.locator('[data-veylune-mega-close]').click();
+            await page.waitForTimeout(80);
+            result.checks.megaCloseButton = await page.locator('[data-veylune-mega]').evaluate((element) => !element.classList.contains('is-open'));
+            result.checks.megaCloseButtonFocusRestored = await trigger.evaluate((element) => document.activeElement === element);
         }
 
     } else if (viewport.width >= 768) {
@@ -240,6 +305,34 @@ async function run() {
                     for (const key of Object.keys(element.rect)) element.rect[key] = Math.round(element.rect[key] * 100) / 100;
                 }
                 const interactions = route.id === 'home' ? await interactionSnapshot(page, viewport) : null;
+                const navigationRoutes = [];
+                if (route.id === 'home') {
+                    const uniqueHrefs = [...new Set(computed.actions.navigationLinks.map((link) => link.href).filter(Boolean))];
+                    for (const href of uniqueHrefs) {
+                        const target = new URL(href, baseUrl);
+                        if (target.origin !== new URL(baseUrl).origin) continue;
+                        const navigationResponse = await context.request.get(target.toString(), { failOnStatusCode: false });
+                        navigationRoutes.push({ href, status: navigationResponse.status() });
+                    }
+                }
+                const interactionScreenshots = [];
+                if (route.id === 'home' && viewport.id === 'desktop') {
+                    const megaTriggers = page.locator('[data-veylune-mega-trigger]');
+                    for (let index = 0; index < await megaTriggers.count(); index += 1) {
+                        const megaTrigger = megaTriggers.nth(index);
+                        const key = await megaTrigger.getAttribute('data-veylune-mega-trigger');
+                        await megaTrigger.hover();
+                        await page.waitForTimeout(180);
+                        const megaScreenshotPath = path.join(outputRoot, `desktop--home--mega-${key}.png`);
+                        await page.screenshot({
+                            path: megaScreenshotPath,
+                            clip: { x: 0, y: 0, width: viewport.width, height: Math.min(viewport.height, 720) },
+                        });
+                        interactionScreenshots.push(path.relative(projectRoot, megaScreenshotPath).replaceAll('\\', '/'));
+                    }
+                    await page.keyboard.press('Escape');
+                    await page.waitForTimeout(80);
+                }
                 const screenshotPath = path.join(outputRoot, `${viewport.id}--${route.id}.png`);
                 await page.screenshot({
                     path: screenshotPath,
@@ -255,6 +348,8 @@ async function run() {
                     screenshot: path.relative(projectRoot, screenshotPath).replaceAll('\\', '/'),
                     computed,
                     interactions,
+                    navigationRoutes,
+                    interactionScreenshots,
                     errors: { consoleErrors, pageErrors, failedResponses },
                 });
 
@@ -286,11 +381,25 @@ async function run() {
         if (searchFailed) return true;
 
         if (capture.interactions.mode === 'desktop') {
+            const coverageFailed = checks.megaTriggerCoverage?.length !== 3 ||
+                checks.megaTriggerCoverage.some((item) => item.expanded !== 'true' ||
+                    item.panelActive !== true || item.panelAriaHidden !== 'false' ||
+                    item.labelledBy !== item.triggerId || item.links < 1 || item.viewportContained !== true);
             return checks.megaHoverOpen?.open !== true ||
                 checks.megaHoverOpen?.ariaHidden !== 'false' ||
+                coverageFailed ||
                 checks.megaPointerLeaveClose !== true ||
+                checks.megaKeyboardEntry?.open !== true ||
+                checks.megaKeyboardEntry?.focusedLink !== true ||
                 checks.megaEscapeClose !== true ||
-                checks.megaFocusRestored !== true;
+                checks.megaFocusRestored !== true ||
+                checks.megaKeyboardHorizontal?.open !== true ||
+                checks.megaKeyboardHorizontal?.focusedKey !== 'rooms' ||
+                checks.megaKeyboardHorizontal?.activePanel !== 'rooms' ||
+                checks.megaBackdropClose !== true ||
+                checks.megaBackdropFocusRestored !== true ||
+                checks.megaCloseButton !== true ||
+                checks.megaCloseButtonFocusRestored !== true;
         }
 
         if (capture.interactions.mode === 'tablet') {
@@ -311,6 +420,7 @@ async function run() {
         capture.errors.consoleErrors.length > 0 ||
         capture.errors.pageErrors.length > 0 ||
         capture.errors.failedResponses.length > 0 ||
+        (capture.navigationRoutes || []).some((route) => route.status !== 200) ||
         interactionFailed(capture)
     );
 

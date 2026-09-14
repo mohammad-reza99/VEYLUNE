@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1E",
+  "capturedAt": "2026-09-15",
+  "canonicalTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig",
+  "canonicalJavascript": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js",
+  "canonicalScss": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_navigation.scss",
+  "visualReport": "reports/visual-baselines/phase-2-1e/shell-baseline.json",
+  "visualEvidenceDirectory": "reports/visual-baselines/phase-2-1e",
+  "reference": "https://www.wayfair.com/",
+  "declaredOverlays": {
+    "shop": {"minimumLinks": 20},
+    "rooms": {"minimumLinks": 8},
+    "collections": {"minimumLinks": 7}
+  },
+  "expected": {
+    "captureCount": 15,
+    "screenshotCount": 18,
+    "navigationLinkOccurrences": 55,
+    "uniqueNavigationRoutes": 23,
+    "failedNavigationRoutes": 0
+  },
+  "acceptance": [
+    "every_public_nav_item_has_route_or_declared_overlay",
+    "pointer_leave_and_backdrop_close",
+    "keyboard_entry_horizontal_navigation_escape_and_focus_restore",
+    "all_declared_overlays_are_labelled_and_viewport_contained",
+    "orphan_legacy_mega_template_removed",
+    "desktop_tablet_mobile_regression_clean"
+  ],
+  "nextPackage": {"id": "2.1F", "name": "Mobile drawer and sticky shell"}
+}
