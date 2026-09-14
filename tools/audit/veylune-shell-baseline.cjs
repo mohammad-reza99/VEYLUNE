@@ -6,7 +6,9 @@ const browserExecutable = process.argv[3] || process.env.VEYLUNE_BROWSER_EXECUTA
 const { chromium } = require(playwrightModule);
 
 const projectRoot = path.resolve(__dirname, '..', '..');
-const outputRoot = path.join(projectRoot, 'reports', 'visual-baselines', 'phase-2-1a');
+const outputRoot = process.env.VEYLUNE_BASELINE_OUTPUT
+    ? path.resolve(projectRoot, process.env.VEYLUNE_BASELINE_OUTPUT)
+    : path.join(projectRoot, 'reports', 'visual-baselines', 'phase-2-1a');
 const baseUrl = process.env.VEYLUNE_BASE_URL || 'https://veylune-shopware.ddev.site';
 
 const routes = [

@@ -1,0 +1,137 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-token-contract][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $decoded = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($decoded)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+
+    return $decoded;
+}
+
+$contract = readJson($root . '/config/veylune-token-contract.json');
+$canonicalPath = $root . '/' . ($contract['canonicalSource'] ?? '');
+$consumerPath = $root . '/' . ($contract['consumerSource'] ?? '');
+$canonical = is_file($canonicalPath) ? (string) file_get_contents($canonicalPath) : '';
+$consumer = is_file($consumerPath) ? (string) file_get_contents($consumerPath) : '';
+
+if ($canonical === '' || $consumer === '') {
+    fail('Canonical token or consumer source is missing.');
+}
+
+preg_match_all('/(--veylune-[a-z0-9-]+)\s*:\s*([^;]+);/i', $canonical, $matches, PREG_SET_ORDER);
+$definitions = [];
+foreach ($matches as $match) {
+    $definitions[$match[1]][] = trim($match[2]);
+}
+
+$categories = $contract['categories'] ?? [];
+$expectedCategories = ['color', 'typography', 'spacing', 'radius', 'elevation', 'border', 'icon', 'motion', 'grid', 'control'];
+if (array_keys($categories) !== $expectedCategories) {
+    fail('Token categories or their canonical order changed.');
+}
+
+$required = [];
+foreach ($categories as $category => $tokens) {
+    if (!is_array($tokens) || $tokens === []) {
+        fail("Token category {$category} is empty.");
+    }
+    foreach ($tokens as $token) {
+        if (isset($required[$token])) {
+            fail("Token {$token} is assigned to multiple categories.");
+        }
+        $required[$token] = $category;
+        if (count($definitions[$token] ?? []) !== 1) {
+            fail("Token {$token} must be defined exactly once in the canonical source.");
+        }
+    }
+}
+
+foreach (($contract['identityAssertions'] ?? []) as $token => $expectedValue) {
+    $actual = $definitions[$token][0] ?? null;
+    if ($actual !== $expectedValue) {
+        fail("Identity token {$token} is {$actual}; expected {$expectedValue}.");
+    }
+}
+
+foreach (($contract['compatibilityAliases'] ?? []) as $token => $expectedValue) {
+    $actual = $definitions[$token][0] ?? null;
+    if ($actual !== $expectedValue) {
+        fail("Compatibility alias {$token} must resolve to {$expectedValue}.");
+    }
+}
+
+if (preg_match('/--veylune-marketplace-[a-z0-9-]+\s*:/i', $consumer) === 1) {
+    fail('Marketplace design-system consumer redeclared a global marketplace token.');
+}
+
+$base = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/base.scss');
+if (!str_starts_with(ltrim($base), '@import "abstracts/tokens";')) {
+    fail('The canonical token source must remain the first base.scss import.');
+}
+
+$scssRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss';
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scssRoot, FilesystemIterator::SKIP_DOTS));
+$nonCanonical = '';
+foreach ($iterator as $file) {
+    if (!$file->isFile() || $file->getExtension() !== 'scss' || $file->getPathname() === $canonicalPath) {
+        continue;
+    }
+
+    $contents = (string) file_get_contents($file->getPathname());
+    $nonCanonical .= "\n" . $contents;
+    foreach (array_keys($required) as $token) {
+        if (preg_match('/' . preg_quote($token, '/') . '\s*:/', $contents) === 1) {
+            fail("Canonical token {$token} was redeclared in {$file->getPathname()}.");
+        }
+    }
+}
+
+$metrics = [];
+$metrics['colorLiterals'] = preg_match_all('/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)|hsla?\([^)]*\)/i', $nonCanonical);
+$metrics['fontFamilyLiteralDeclarations'] = preg_match_all('/^[\t ]*font-family[\t ]*:[^;\r\n]*(?:Inter|Georgia|Arial|serif|sans-serif)/mi', $nonCanonical);
+$metrics['shadowLiteralDeclarations'] = preg_match_all('/^[\t ]*(?:box-shadow|filter)[\t ]*:[^;\r\n]*(?:rgb|rgba|#|drop-shadow)/mi', $nonCanonical);
+$metrics['transitionTimeLiteralDeclarations'] = preg_match_all('/^[\t ]*transition[^:\r\n]*:[^;\r\n]*[0-9](?:ms|s)/mi', $nonCanonical);
+$metrics['importantDeclarations'] = substr_count($nonCanonical, '!important');
+
+foreach (($contract['literalDebtCeilings'] ?? []) as $metric => $ceiling) {
+    if (!array_key_exists($metric, $metrics)) {
+        fail("Unknown literal debt metric {$metric}.");
+    }
+    if ($metrics[$metric] > (int) $ceiling) {
+        fail("{$metric} grew to {$metrics[$metric]}; ceiling is {$ceiling}.");
+    }
+}
+
+$parity = readJson($root . '/' . ($contract['visualParityEvidence'] ?? ''));
+if (($parity['phase'] ?? '') !== '2.1B' || (int) ($parity['screenshotsCompared'] ?? 0) !== 15 || (int) ($parity['mismatches'] ?? -1) !== 0) {
+    fail('Phase 2.1B visual parity evidence is incomplete or contains mismatches.');
+}
+if (count($parity['hashes'] ?? []) !== 15) {
+    fail('Visual parity evidence must contain 15 reference hashes.');
+}
+$referenceRoot = $root . '/' . ($parity['reference'] ?? '');
+foreach ($parity['hashes'] as $filename => $expectedHash) {
+    $imagePath = $referenceRoot . '/' . $filename;
+    if (!is_file($imagePath) || hash_file('sha256', $imagePath) !== $expectedHash) {
+        fail("Visual reference hash drifted for {$filename}.");
+    }
+}
+
+echo '[veylune-token-contract] PASS categories=' . count($categories) . ' tokens=' . count($required) . "\n";
+foreach ($metrics as $metric => $value) {
+    echo "{$metric}={$value}\n";
+}
+echo "next=2.1C Topbar and announcement hierarchy\n";

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1B",
+  "capturedAt": "2026-09-14T17:50:23.693Z",
+  "reference": "reports/visual-baselines/phase-2-1a",
+  "comparisonMethod": "sha256_of_deterministic_png_capture",
+  "screenshotsCompared": 15,
+  "mismatches": 0,
+  "hashes": {
+    "desktop--account-login.png": "3c263fb7be96d6f09037a154ad1b680ad5b536113d798658891ad26600264076",
+    "desktop--cart-empty.png": "9cc679086f03a5e4306b9ea2a2dafef55a8f163e7330b18432983b2dc10b7f9c",
+    "desktop--category-furniture.png": "7e645f8453ede7fbd7f9da6d63443caf3a2d28040c8c1ed49115ef8aa83196ab",
+    "desktop--discover-room.png": "af70cdeaa64ebc6e8d3316801846c397721cc7d5413923037adf7a41da886d8b",
+    "desktop--home.png": "d69151468eb48d7e21ab6435844a7d006099d43aff7785ce34f80752bba59083",
+    "mobile--account-login.png": "4e3231918ac31d7bf5da13d31a786b7b461f0b39354c3a3baf0411858660fd6e",
+    "mobile--cart-empty.png": "2ddfee53f27218c97bcddf17e15df0e5268e9207ed2572b39a1a2ab32bb9ef18",
+    "mobile--category-furniture.png": "6505371166dcb4f4e03ea8f4c5846f4799ec1f6b89331e5cb0949a35f06867cf",
+    "mobile--discover-room.png": "0e723d1ff27231b38e8dc0ea9dd21b78fea9137c1dab5ae4bb5b30131c905f16",
+    "mobile--home.png": "3f711a89654acf6d3b92e77b6958046938e54d60a71fa127667aad04ec306fe3",
+    "tablet--account-login.png": "d783367b78eaf3bb1da46e387a47e11e05042f4256f0ece99afdcbe9446a5979",
+    "tablet--cart-empty.png": "af35dac1fba82dcfe24fb7d78e8ffef69b9ef0e0c7fd06fb608756203322276d",
+    "tablet--category-furniture.png": "7daf73434fc530056edf10615972bbba19f65ed9216be933c4b3285c38b67ea8",
+    "tablet--discover-room.png": "8894dd20b64b828f2876949b5a51ced66af169ad731845145047913d7bd32066",
+    "tablet--home.png": "1bf9333e14e4460c27bf762f12031ae29933609e0e00419cad0f089f11f2d2c5"
+  }
+}

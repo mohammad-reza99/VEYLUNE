@@ -116,11 +116,13 @@ php -l bin/veylune-component-ownership-audit >/dev/null
 php -l bin/veylune-architecture-guard-audit >/dev/null
 php -l bin/veylune-phase-1-exit-audit >/dev/null
 php -l bin/veylune-shell-baseline-audit >/dev/null
+php -l bin/veylune-token-contract-audit >/dev/null
 php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
 php bin/veylune-architecture-guard-audit >/dev/null
 php bin/veylune-phase-1-exit-audit >/dev/null
 php bin/veylune-shell-baseline-audit >/dev/null
+php bin/veylune-token-contract-audit >/dev/null
 
 step 'container lint'
 run_console lint:container >/dev/null

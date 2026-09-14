@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1B",
+  "capturedAt": "2026-09-14",
+  "canonicalSource": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/abstracts/_tokens.scss",
+  "consumerSource": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-design-system.scss",
+  "visualParityEvidence": "reports/visual-baselines/phase-2-1b-token-parity.json",
+  "reference": "https://www.wayfair.com/",
+  "identity": "veylune_purple_neutral",
+  "categories": {
+    "color": [
+      "--veylune-color-brand-050", "--veylune-color-brand-600", "--veylune-color-brand-700",
+      "--veylune-color-text-primary", "--veylune-color-text-secondary", "--veylune-color-surface-canvas",
+      "--veylune-color-surface-subtle", "--veylune-color-border-default", "--veylune-color-state-focus",
+      "--veylune-color-state-danger", "--veylune-color-state-success", "--veylune-color-state-rating"
+    ],
+    "typography": [
+      "--veylune-type-family-display", "--veylune-type-family-body", "--veylune-type-family-interface",
+      "--veylune-type-size-050", "--veylune-type-size-100", "--veylune-type-size-200", "--veylune-type-size-300",
+      "--veylune-type-size-400", "--veylune-type-size-500", "--veylune-type-size-600", "--veylune-type-size-700",
+      "--veylune-type-size-800", "--veylune-type-size-900", "--veylune-type-size-1000",
+      "--veylune-type-weight-regular", "--veylune-type-weight-medium", "--veylune-type-weight-semibold",
+      "--veylune-type-weight-bold", "--veylune-type-weight-heavy", "--veylune-type-leading-compact",
+      "--veylune-type-leading-snug", "--veylune-type-leading-body", "--veylune-type-leading-relaxed"
+    ],
+    "spacing": [
+      "--veylune-space-3xs", "--veylune-space-2xs", "--veylune-space-xs", "--veylune-space-sm",
+      "--veylune-space-md", "--veylune-space-lg", "--veylune-space-xl", "--veylune-space-2xl", "--veylune-space-3xl"
+    ],
+    "radius": [
+      "--veylune-radius-none", "--veylune-radius-xs", "--veylune-radius-sm", "--veylune-radius-md",
+      "--veylune-radius-lg", "--veylune-radius-pill"
+    ],
+    "elevation": ["--veylune-elevation-sm", "--veylune-elevation-md", "--veylune-elevation-lg"],
+    "border": [
+      "--veylune-border-width-default", "--veylune-border-width-strong", "--veylune-border-width-focus",
+      "--veylune-border-style-default", "--veylune-border-color-default", "--veylune-border-color-brand"
+    ],
+    "icon": [
+      "--veylune-icon-size-sm", "--veylune-icon-size-md", "--veylune-icon-size-lg", "--veylune-icon-size-xl",
+      "--veylune-icon-stroke-regular", "--veylune-icon-stroke-strong"
+    ],
+    "motion": [
+      "--veylune-motion-duration-instant", "--veylune-motion-duration-fast", "--veylune-motion-duration-standard",
+      "--veylune-motion-duration-deliberate", "--veylune-motion-ease-standard", "--veylune-motion-ease-enter",
+      "--veylune-motion-ease-exit"
+    ],
+    "grid": [
+      "--veylune-grid-columns", "--veylune-grid-container-max", "--veylune-grid-content-max", "--veylune-grid-copy-max",
+      "--veylune-grid-gutter-compact", "--veylune-grid-gutter-standard", "--veylune-grid-gutter-wide",
+      "--veylune-grid-gap-compact", "--veylune-grid-gap-standard", "--veylune-grid-container"
+    ],
+    "control": [
+      "--veylune-control-height-sm", "--veylune-control-height-md", "--veylune-control-height-lg",
+      "--veylune-control-padding-block", "--veylune-control-padding-inline", "--veylune-control-radius",
+      "--veylune-control-focus-width", "--veylune-control-focus-offset", "--veylune-control-hit-target"
+    ]
+  },
+  "identityAssertions": {
+    "--veylune-color-brand-050": "#f8f3fa",
+    "--veylune-color-brand-600": "#7b189f",
+    "--veylune-color-brand-700": "#5c1277",
+    "--veylune-color-text-primary": "#211e22",
+    "--veylune-color-surface-canvas": "#fff",
+    "--veylune-color-state-focus": "#1364f1"
+  },
+  "compatibilityAliases": {
+    "--veylune-marketplace-primary": "var(--veylune-color-brand-600)",
+    "--veylune-marketplace-primary-hover": "var(--veylune-color-brand-700)",
+    "--veylune-marketplace-primary-soft": "var(--veylune-color-brand-050)",
+    "--veylune-marketplace-font": "var(--veylune-type-family-interface)",
+    "--veylune-marketplace-container": "var(--veylune-grid-container)",
+    "--veylune-marketplace-control-height": "var(--veylune-control-height-md)"
+  },
+  "literalDebtCeilings": {
+    "colorLiterals": 1829,
+    "fontFamilyLiteralDeclarations": 235,
+    "shadowLiteralDeclarations": 98,
+    "transitionTimeLiteralDeclarations": 81,
+    "importantDeclarations": 130
+  },
+  "rules": [
+    "canonical_tokens_are_defined_once_in_abstracts_tokens",
+    "marketplace_compatibility_names_are_aliases_not_second_source_values",
+    "new_component_work_uses_governed_tokens",
+    "literal_debt_must_not_exceed_the_phase_2_1b_ceiling",
+    "visual_changes_require_an_intentional_baseline_update"
+  ],
+  "nextPackage": {"id": "2.1C", "name": "Topbar and announcement hierarchy"}
+}
