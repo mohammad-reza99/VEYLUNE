@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 55 percent complete.
+Current estimate: 60 percent complete. Package 2.1A is complete; packages 2.1B through 2.1H remain.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1: capture the current Wayfair and Veylune global-shell baselines, freeze design tokens, then consolidate topbar, primary header, dominant search, utilities, category navigation, mega menu, mobile drawer, and sticky behavior in reversible owner-based batches.
+Start Phase 2.1B Token Freeze. Phase 2.1A captured and gated the current Wayfair reference and Veylune global-shell baseline across five public routes and three viewports. Next, declare and govern color, typography, spacing, radius, elevation, border, icon, motion, grid, and control tokens before changing the shell.

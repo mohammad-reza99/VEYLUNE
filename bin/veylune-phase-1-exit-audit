@@ -140,15 +140,15 @@ if (($backlog['reference']['veyluneBoundary'] ?? []) === [] || ($backlog['stopCo
     $fail('Phase 2.1 backlog requires Veylune boundaries and stop conditions.');
 }
 
-if (($status['currentPhase']['id'] ?? '') !== '1.4' || ($status['currentPhase']['status'] ?? '') !== 'complete') {
-    $fail('Roadmap current phase must be complete Phase 1.4.');
-}
 $phaseMap = $status['phaseMap'] ?? [];
 if (count($phaseMap) !== 9 || ($phaseMap[0]['status'] ?? '') !== 'complete' || (int) ($phaseMap[0]['estimatedPercent'] ?? 0) !== 100) {
     $fail('Nine-phase map must mark Phase 1 complete at 100 percent.');
 }
-if (($status['nextStep']['id'] ?? '') !== '2.1' || (int) ($status['nextStep']['phase'] ?? 0) !== 2) {
-    $fail('Roadmap next step must be Phase 2.1.');
+if (($status['phase14CompletionEvidence']['phase1ExitAudit'] ?? '') !== 'pass') {
+    $fail('Roadmap must retain Phase 1 exit completion evidence.');
+}
+if ((int) ($status['nextStep']['phase'] ?? 0) < 2) {
+    $fail('Roadmap next step must not regress behind Phase 2.');
 }
 
 $requiredTags = [

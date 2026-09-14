@@ -3,8 +3,13 @@
   "capturedAt": "2026-09-14",
   "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
   "currentPhase": {
-    "id": "1.4",
-    "name": "Phase 1 Exit Gate and Architecture Freeze",
+    "id": "2.1",
+    "name": "Design Token Freeze and Global Shell Consolidation",
+    "status": "in_progress"
+  },
+  "currentWorkPackage": {
+    "id": "2.1A",
+    "name": "Reference and computed-style capture",
     "status": "complete"
   },
   "gitBaseline": {
@@ -123,9 +128,25 @@
     "governanceGate": "pass",
     "recoverableCheckpoint": "veylune-phase-1-complete-20260914"
   },
+  "phase21Progress": {
+    "completePackages": ["2.1A"],
+    "pendingPackages": ["2.1B", "2.1C", "2.1D", "2.1E", "2.1F", "2.1G", "2.1H"],
+    "phase21ACompletionEvidence": {
+      "publicRoutesCaptured": 5,
+      "viewportsCaptured": 3,
+      "screenshots": 15,
+      "http200Captures": 15,
+      "runtimeIssueCaptures": 0,
+      "horizontalOverflowCaptures": 0,
+      "interactionIssueCaptures": 0,
+      "registeredDesignFindings": 3,
+      "baselineAudit": "pass",
+      "report": "reports/visual-baselines/phase-2-1a/shell-baseline.json"
+    }
+  },
   "phaseMap": [
     {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
-    {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 55, "status": "partial"},
+    {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 60, "status": "in_progress"},
     {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 70, "status": "partial"},
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
     {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 70, "status": "partial"},
@@ -144,8 +165,8 @@
     "auditEvidence": "generated_reports"
   },
   "nextStep": {
-    "id": "2.1",
-    "name": "Design Token Freeze and Global Shell Consolidation",
+    "id": "2.1B",
+    "name": "Token freeze",
     "phase": 2
   }
 }

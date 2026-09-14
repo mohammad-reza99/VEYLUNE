@@ -1,0 +1,136 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$contractPath = $root . '/config/veylune-shell-baseline-contract.json';
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-shell-baseline][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    if (!is_file($path)) {
+        fail("Missing file: {$path}");
+    }
+
+    $decoded = json_decode((string) file_get_contents($path), true);
+    if (!is_array($decoded)) {
+        fail("Invalid JSON: {$path}");
+    }
+
+    return $decoded;
+}
+
+function truthy(array $checks, string $key): void
+{
+    if (($checks[$key] ?? null) !== true) {
+        fail("Interaction check failed: {$key}");
+    }
+}
+
+$contract = readJson($contractPath);
+$reportPath = $root . '/' . ($contract['report'] ?? '');
+$report = readJson($reportPath);
+
+if (($report['phase'] ?? null) !== '2.1A') {
+    fail('Report phase must be 2.1A');
+}
+
+$routes = $contract['routes'] ?? [];
+$viewports = $contract['viewports'] ?? [];
+$expectedCount = count($routes) * count($viewports);
+$captures = $report['captures'] ?? [];
+if (count($captures) !== $expectedCount) {
+    fail('Expected ' . $expectedCount . ' captures, found ' . count($captures));
+}
+
+$seen = [];
+foreach ($captures as $capture) {
+    $viewport = (string) ($capture['viewport'] ?? '');
+    $route = (string) ($capture['route'] ?? '');
+    $key = $viewport . ':' . $route;
+
+    if (!isset($viewports[$viewport]) || !in_array($route, $routes, true)) {
+        fail("Unexpected capture: {$key}");
+    }
+    if (isset($seen[$key])) {
+        fail("Duplicate capture: {$key}");
+    }
+    $seen[$key] = true;
+
+    if (($capture['status'] ?? null) !== 200) {
+        fail("{$key} did not return HTTP 200");
+    }
+    if (($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail("{$key} has horizontal document overflow");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $errorType) {
+        if (!empty($capture['errors'][$errorType] ?? [])) {
+            fail("{$key} contains {$errorType}");
+        }
+    }
+    if (str_contains((string) ($capture['path'] ?? ''), '__veylune-preview') || str_contains((string) ($capture['finalUrl'] ?? ''), '__veylune-preview')) {
+        fail("{$key} leaked a private-preview marker");
+    }
+
+    $elements = $capture['computed']['elements'] ?? [];
+    foreach ($contract['requiredSelectors'] ?? [] as $selector) {
+        if (!is_array($elements[$selector] ?? null)) {
+            fail("{$key} is missing required selector {$selector}");
+        }
+    }
+
+    $headerHeight = (float) ($elements['[data-veylune-header]']['rect']['height'] ?? 0);
+    $expectedHeight = (float) $viewports[$viewport]['headerHeight'];
+    $tolerance = (float) $viewports[$viewport]['tolerance'];
+    if ($headerHeight <= 0 || abs($headerHeight - $expectedHeight) > $tolerance) {
+        fail("{$key} header height drifted from the frozen baseline");
+    }
+
+    $screenshot = $root . '/' . ($capture['screenshot'] ?? '');
+    if (!is_file($screenshot) || filesize($screenshot) === 0) {
+        fail("{$key} screenshot is missing or empty");
+    }
+
+    if ($route !== 'home') {
+        continue;
+    }
+
+    $checks = $capture['interactions']['checks'] ?? [];
+    if ($viewport === 'desktop') {
+        if (($checks['megaHoverOpen']['open'] ?? null) !== true || ($checks['megaHoverOpen']['ariaHidden'] ?? null) !== 'false') {
+            fail('Desktop mega menu did not expose its open state');
+        }
+        foreach (['megaPointerLeaveClose', 'megaEscapeClose', 'megaFocusRestored', 'searchEscapeClose'] as $check) {
+            truthy($checks, $check);
+        }
+    } elseif ($viewport === 'tablet') {
+        foreach (['mobileToggleHidden', 'tabletNavVisible', 'searchEscapeClose'] as $check) {
+            truthy($checks, $check);
+        }
+    } else {
+        if (($checks['mobileDrawerOpen']['open'] ?? null) !== true || ($checks['mobileDrawerOpen']['ariaHidden'] ?? null) !== 'false' || ($checks['mobileDrawerOpen']['bodyLocked'] ?? null) !== true) {
+            fail('Mobile drawer did not expose its open and locked state');
+        }
+        truthy($checks, 'mobileDrawerEscapeClose');
+        truthy($checks, 'mobileDrawerFocusRestored');
+    }
+
+    if ($viewport !== 'mobile') {
+        if (($checks['searchSuggestOpen']['hidden'] ?? null) !== false || ($checks['searchSuggestOpen']['inputExpanded'] ?? null) !== 'true') {
+            fail("{$viewport} search suggestion did not expose its expanded state");
+        }
+    }
+}
+
+if (count($contract['registeredDesignFindings'] ?? []) < 3) {
+    fail('The visual review must retain all registered Phase 2.1A findings');
+}
+
+echo "[veylune-shell-baseline] PASS captures={$expectedCount} routes=" . count($routes) . ' viewports=' . count($viewports) . "\n";
+echo "[veylune-shell-baseline] next=2.1B Token freeze\n";

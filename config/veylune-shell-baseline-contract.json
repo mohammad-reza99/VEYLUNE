@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1A",
+  "capturedAt": "2026-09-14",
+  "report": "reports/visual-baselines/phase-2-1a/shell-baseline.json",
+  "routes": ["home", "category-furniture", "discover-room", "account-login", "cart-empty"],
+  "viewports": {
+    "desktop": {"width": 1440, "height": 1000, "headerHeight": 190, "tolerance": 1},
+    "tablet": {"width": 834, "height": 1112, "headerHeight": 122, "tolerance": 1},
+    "mobile": {"width": 390, "height": 844, "headerHeight": 166.36, "tolerance": 1}
+  },
+  "requiredSelectors": [
+    "[data-veylune-header]",
+    ".veylune-header__bar",
+    ".veylune-header__inner",
+    ".veylune-header__logo",
+    ".veylune-marketplace-search",
+    ".veylune-marketplace-search__input",
+    ".veylune-marketplace-search__submit",
+    ".veylune-header__nav",
+    ".veylune-header__actions"
+  ],
+  "registeredDesignFindings": [
+    {
+      "id": "shell-desktop-density",
+      "observation": "The desktop shell is structured but occupies 190px before page content.",
+      "owner": "global_shell",
+      "targetPackage": "2.1C/2.1D"
+    },
+    {
+      "id": "shell-mobile-density",
+      "observation": "The mobile shell occupies 166.36px and stacks three navigation/search rows.",
+      "owner": "global_shell",
+      "targetPackage": "2.1F"
+    },
+    {
+      "id": "shell-mobile-axis-discovery",
+      "observation": "The mobile axis row begins with ROOM in the captured viewport, so first-item visibility and horizontal discovery need explicit validation.",
+      "owner": "global_shell",
+      "targetPackage": "2.1F"
+    }
+  ],
+  "nextPackage": {"id": "2.1B", "name": "Token freeze"}
+}
