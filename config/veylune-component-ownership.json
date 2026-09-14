@@ -19,7 +19,7 @@
     "debtNamedLines": 5539,
     "headerSelectorFiles": 31,
     "sharedControlSelectorFiles": 29,
-    "javascriptFiles": 20,
+    "javascriptFiles": 19,
     "twigFiles": 99
   },
   "phase13Quarantine": {
@@ -247,14 +247,14 @@
           "component/living-index-project-brief"
         ],
         "twig": ["veylune/living-index-home.html.twig", "veylune/living-index-discovery.html.twig", "veylune/living-index-object.html.twig", "veylune/living-index-axis-map.html.twig", "veylune/living-index-search.html.twig", "veylune/living-index-selection.html.twig"],
-        "javascript": ["veylune-living-index-state.js", "veylune-living-index-search-ui.js", "veylune-project-brief.js"]
+        "javascript": ["veylune-living-index-state.js", "veylune-project-brief.js"]
       },
       "scssImports": [
         "component/living-index-home-foundation", "component/living-index-storefront", "component/living-index-discovery",
         "component/living-index-object", "component/living-index-axis-system", "component/living-index-search-selection",
         "component/living-index-wayfair-parity", "component/living-index-project-brief"
       ],
-      "javascriptModules": ["veylune-living-index-state.js", "veylune-living-index-search-ui.js", "veylune-project-brief.js"],
+      "javascriptModules": ["veylune-living-index-state.js", "veylune-project-brief.js"],
       "consolidationTarget": "Fold wayfair-parity corrections into the named Living Index surface owners after screenshot parity is locked."
     },
     {

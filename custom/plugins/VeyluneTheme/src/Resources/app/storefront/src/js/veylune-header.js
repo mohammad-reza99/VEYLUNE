@@ -28,6 +28,12 @@ const initVeyluneHeader = () => {
     const mobileToggle = header.querySelector('[data-veylune-mobile-toggle]');
     const mobileNav = header.querySelector('[data-veylune-mobile-nav]');
     const mobileClose = header.querySelector('[data-veylune-mobile-close]');
+    const marketplaceSearchInput = header.querySelector('[data-vli-header-search-input]');
+    const marketplaceSearchPanel = header.querySelector('[data-vli-header-suggest]');
+    const marketplaceSearchForm = marketplaceSearchInput?.closest('form');
+    const marketplaceQueryLink = marketplaceSearchPanel?.querySelector('[data-vli-header-query-link]');
+    const marketplaceQueryLabel = marketplaceSearchPanel?.querySelector('[data-vli-header-query-label]');
+    const marketplaceSuggestions = [...(marketplaceSearchPanel?.querySelectorAll('[data-vli-header-suggestion]') || [])];
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let ticking = false;
@@ -108,6 +114,44 @@ const initVeyluneHeader = () => {
     setInertState(mega, true);
     setInertState(mobileNav, true);
     megaPanels.forEach((panel) => setInertState(panel, true));
+
+    const closeMarketplaceSuggestions = ({ retainFocus = false } = {}) => {
+        if (!marketplaceSearchInput || !marketplaceSearchPanel) {
+            return;
+        }
+
+        marketplaceSearchPanel.hidden = true;
+        marketplaceSearchInput.setAttribute('aria-expanded', 'false');
+
+        if (retainFocus) {
+            marketplaceSearchInput.focus({ preventScroll: true });
+        }
+    };
+
+    const updateMarketplaceSuggestions = () => {
+        if (!marketplaceSearchInput || !marketplaceSearchPanel || !marketplaceSearchForm) {
+            return;
+        }
+
+        const query = marketplaceSearchInput.value.trim();
+        const normalizedQuery = query.toLocaleLowerCase();
+        const action = new URL(marketplaceSearchForm.action, window.location.origin);
+
+        marketplaceSearchPanel.hidden = false;
+        marketplaceSearchInput.setAttribute('aria-expanded', 'true');
+
+        if (marketplaceQueryLink && marketplaceQueryLabel) {
+            action.searchParams.set('q', query);
+            marketplaceQueryLink.href = `${action.pathname}${action.search}`;
+            marketplaceQueryLink.hidden = query.length === 0;
+            marketplaceQueryLabel.textContent = query;
+        }
+
+        marketplaceSuggestions.forEach((suggestion) => {
+            const terms = String(suggestion.dataset.searchTerms || suggestion.textContent).toLocaleLowerCase();
+            suggestion.hidden = normalizedQuery.length > 0 && !terms.includes(normalizedQuery);
+        });
+    };
 
     const setOverlayBodyState = () => {
         const hasOverlay = header.classList.contains('is-search-open') || header.classList.contains('is-mobile-nav-open');
@@ -329,6 +373,17 @@ const initVeyluneHeader = () => {
         searchResults?.classList.toggle('is-active', searchInput.value.trim().length > 0);
     });
 
+    marketplaceSearchInput?.addEventListener('focus', updateMarketplaceSuggestions);
+    marketplaceSearchInput?.addEventListener('input', updateMarketplaceSuggestions);
+    marketplaceSearchInput?.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') {
+            return;
+        }
+
+        event.preventDefault();
+        closeMarketplaceSuggestions({ retainFocus: true });
+    });
+
     megaTriggers.forEach((trigger) => {
         const key = trigger.dataset.veyluneMegaTrigger;
 
@@ -423,6 +478,22 @@ const initVeyluneHeader = () => {
             closeSearch({ restoreFocus: true });
         }
     });
+
+    document.addEventListener('pointerdown', (event) => {
+        const target = event.target;
+
+        if (
+            target instanceof Node &&
+            marketplaceSearchPanel &&
+            marketplaceSearchForm &&
+            !marketplaceSearchPanel.contains(target) &&
+            !marketplaceSearchForm.contains(target)
+        ) {
+            closeMarketplaceSuggestions();
+        }
+    });
+
+    window.addEventListener('pageshow', () => closeMarketplaceSuggestions());
 
     window.addEventListener('resize', () => {
         if (window.matchMedia('(min-width: 992px)').matches && header.classList.contains('is-mobile-nav-open')) {

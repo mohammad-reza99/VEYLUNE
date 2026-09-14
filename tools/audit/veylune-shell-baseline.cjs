@@ -81,8 +81,13 @@ async function computedSnapshot(page) {
             '.veylune-marketplace-search',
             '.veylune-marketplace-search__input',
             '.veylune-marketplace-search__submit',
+            '[data-veylune-header-search-form]',
             '.veylune-header__nav',
             '.veylune-header__actions',
+            '.veylune-marketplace-action',
+            '.veylune-header__bag',
+            '[data-veylune-header-account]',
+            '[data-veylune-header-cart]',
             '.veylune-marketplace-department-rail',
             '.veylune-mobile-nav',
         ];
@@ -137,36 +142,9 @@ async function interactionSnapshot(page, viewport) {
             result.checks.megaFocusRestored = await trigger.evaluate((element) => document.activeElement === element);
         }
 
-        const search = page.locator('[data-vli-header-search-input]');
-        if (await search.count()) {
-            await search.focus();
-            await search.fill('room');
-            await page.waitForTimeout(100);
-            result.checks.searchSuggestOpen = await page.locator('[data-vli-header-suggest]').evaluate((element) => ({
-                hidden: element.hidden,
-                inputExpanded: document.querySelector('[data-vli-header-search-input]')?.getAttribute('aria-expanded'),
-            }));
-            await page.keyboard.press('Escape');
-            await page.waitForTimeout(80);
-            result.checks.searchEscapeClose = await page.locator('[data-vli-header-suggest]').evaluate((element) => element.hidden);
-        }
     } else if (viewport.width >= 768) {
         result.checks.mobileToggleHidden = await page.locator('[data-veylune-mobile-toggle]:visible').count() === 0;
         result.checks.tabletNavVisible = await page.locator('.veylune-header__nav:visible').count() > 0;
-
-        const search = page.locator('[data-vli-header-search-input]');
-        if (await search.count()) {
-            await search.focus();
-            await search.fill('room');
-            await page.waitForTimeout(100);
-            result.checks.searchSuggestOpen = await page.locator('[data-vli-header-suggest]').evaluate((element) => ({
-                hidden: element.hidden,
-                inputExpanded: document.querySelector('[data-vli-header-search-input]')?.getAttribute('aria-expanded'),
-            }));
-            await page.keyboard.press('Escape');
-            await page.waitForTimeout(80);
-            result.checks.searchEscapeClose = await page.locator('[data-vli-header-suggest]').evaluate((element) => element.hidden);
-        }
     } else {
         const toggle = page.locator('[data-veylune-mobile-toggle]:visible').first();
         const drawer = page.locator('[data-veylune-mobile-nav]');
@@ -184,6 +162,29 @@ async function interactionSnapshot(page, viewport) {
             result.checks.mobileDrawerEscapeClose = await drawer.evaluate((element) => !element.classList.contains('is-open'));
             result.checks.mobileDrawerFocusRestored = await toggle.evaluate((element) => document.activeElement === element);
         }
+    }
+
+    const search = page.locator('[data-vli-header-search-input]');
+    const suggestionPanel = page.locator('[data-vli-header-suggest]');
+    if (await search.count() && await suggestionPanel.count()) {
+        await search.focus();
+        await search.fill('room');
+        await page.waitForTimeout(100);
+        result.checks.searchSuggestOpen = await suggestionPanel.evaluate((element) => ({
+            hidden: element.hidden,
+            inputExpanded: document.querySelector('[data-vli-header-search-input]')?.getAttribute('aria-expanded'),
+        }));
+        result.checks.searchQueryHref = await page.locator('[data-vli-header-query-link]').getAttribute('href');
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(80);
+        result.checks.searchEscapeClose = await suggestionPanel.evaluate((element) => element.hidden);
+        result.checks.searchEscapeFocusRetained = await search.evaluate((element) => document.activeElement === element);
+
+        await search.focus();
+        await page.waitForTimeout(80);
+        await page.mouse.click(viewport.width - 4, viewport.height - 4);
+        await page.waitForTimeout(80);
+        result.checks.searchClickAwayClose = await suggestionPanel.evaluate((element) => element.hidden);
     }
 
     return result;
@@ -275,23 +276,26 @@ async function run() {
         const checks = capture.interactions?.checks;
         if (!checks) return false;
 
+        const searchFailed = checks.searchSuggestOpen?.hidden !== false ||
+            checks.searchSuggestOpen?.inputExpanded !== 'true' ||
+            !String(checks.searchQueryHref || '').includes('q=room') ||
+            checks.searchEscapeClose !== true ||
+            checks.searchEscapeFocusRetained !== true ||
+            checks.searchClickAwayClose !== true;
+
+        if (searchFailed) return true;
+
         if (capture.interactions.mode === 'desktop') {
             return checks.megaHoverOpen?.open !== true ||
                 checks.megaHoverOpen?.ariaHidden !== 'false' ||
                 checks.megaPointerLeaveClose !== true ||
                 checks.megaEscapeClose !== true ||
-                checks.megaFocusRestored !== true ||
-                checks.searchSuggestOpen?.hidden !== false ||
-                checks.searchSuggestOpen?.inputExpanded !== 'true' ||
-                checks.searchEscapeClose !== true;
+                checks.megaFocusRestored !== true;
         }
 
         if (capture.interactions.mode === 'tablet') {
             return checks.mobileToggleHidden !== true ||
-                checks.tabletNavVisible !== true ||
-                checks.searchSuggestOpen?.hidden !== false ||
-                checks.searchSuggestOpen?.inputExpanded !== 'true' ||
-                checks.searchEscapeClose !== true;
+                checks.tabletNavVisible !== true;
         }
 
         return checks.mobileDrawerOpen?.open !== true ||

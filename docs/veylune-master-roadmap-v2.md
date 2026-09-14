@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 70 percent complete. Packages 2.1A through 2.1C are complete; packages 2.1D through 2.1H remain.
+Current estimate: 75 percent complete. Packages 2.1A through 2.1D are complete; packages 2.1E through 2.1H remain.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1D Primary Header, Search and Utilities. Phase 2.1C consolidated eleven late topbar override sources into one canonical owner, introduced a truthful linked consultation announcement, established a three-part computed type rhythm, preserved tablet/mobile density, and passed 15 visual and interaction captures. Next, consolidate the primary header, dominant search, account and cart utilities, click-away behavior, Escape handling, and focus restoration.
+Start Phase 2.1E Category Navigation and Mega Menu. Phase 2.1D consolidated header search behavior into one JavaScript owner, retired the duplicate search module, verified dominant search proportions, account and cart destinations, click-away closure, Escape closure with focus retention, and passed 15 visual and interaction captures. Next, consolidate navigation and mega-menu behavior and structure, then verify every exposed category destination against the live storefront.

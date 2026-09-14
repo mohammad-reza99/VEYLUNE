@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1D",
+  "capturedAt": "2026-09-15",
+  "canonicalJavascript": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js",
+  "javascriptEntry": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/main.js",
+  "canonicalTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig",
+  "visualReport": "reports/visual-baselines/phase-2-1d/shell-baseline.json",
+  "reference": "https://www.wayfair.com/",
+  "searchWidthMinimums": {
+    "desktop": 0.65,
+    "tablet": 0.50,
+    "mobile": 0.95
+  },
+  "actions": {
+    "accountHref": "/account",
+    "cartHref": "/checkout/cart"
+  },
+  "requiredInteractionChecks": [
+    "searchSuggestOpen",
+    "searchQueryHref",
+    "searchEscapeClose",
+    "searchEscapeFocusRetained",
+    "searchClickAwayClose"
+  ],
+  "acceptance": [
+    "one_header_behavior_owner",
+    "dominant_search_proportion",
+    "account_and_cart_routes_work",
+    "search_click_away_and_escape_close",
+    "escape_retains_search_focus",
+    "desktop_tablet_mobile_regression_clean"
+  ],
+  "nextPackage": {"id": "2.1E", "name": "Category navigation and mega menu"}
+}

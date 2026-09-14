@@ -1,0 +1,118 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-primary-header-contract][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $decoded = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($decoded)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+
+    return $decoded;
+}
+
+$contract = readJson($root . '/config/veylune-primary-header-contract.json');
+$javascriptPath = $root . '/' . ($contract['canonicalJavascript'] ?? '');
+$entryPath = $root . '/' . ($contract['javascriptEntry'] ?? '');
+$twigPath = $root . '/' . ($contract['canonicalTwig'] ?? '');
+$javascript = is_file($javascriptPath) ? (string) file_get_contents($javascriptPath) : '';
+$entry = is_file($entryPath) ? (string) file_get_contents($entryPath) : '';
+$twig = is_file($twigPath) ? (string) file_get_contents($twigPath) : '';
+
+if ($javascript === '' || $entry === '' || $twig === '') {
+    fail('Canonical primary-header JavaScript, entry, or Twig is missing.');
+}
+
+$javascriptRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js';
+$behaviorOwners = [];
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($javascriptRoot, FilesystemIterator::SKIP_DOTS));
+foreach ($iterator as $file) {
+    if (!$file->isFile() || $file->getExtension() !== 'js') {
+        continue;
+    }
+    $contents = (string) file_get_contents($file->getPathname());
+    if (str_contains($contents, '[data-vli-header-search-input]')) {
+        $behaviorOwners[] = $file->getPathname();
+    }
+}
+if ($behaviorOwners !== [$javascriptPath]) {
+    fail('Header search behavior must exist only in veylune-header.js.');
+}
+if (substr_count($entry, "import './js/veylune-header';") !== 1 || str_contains($entry, 'veylune-living-index-search-ui')) {
+    fail('Storefront entry must import one canonical header owner and no legacy search owner.');
+}
+if (is_file($javascriptRoot . '/veylune-living-index-search-ui.js')) {
+    fail('Legacy header search module is still active.');
+}
+
+foreach (['data-veylune-header-search', 'data-veylune-header-search-form', 'data-veylune-header-account', 'data-veylune-header-cart', 'aria-live="polite"'] as $marker) {
+    if (!str_contains($twig, $marker)) {
+        fail("Canonical header Twig is missing {$marker}.");
+    }
+}
+foreach (['searchEscapeFocusRetained', 'searchClickAwayClose', 'data-vli-header-query-link'] as $marker) {
+    if (!str_contains($javascript, $marker) && !str_contains($root === '' ? '' : (string) file_get_contents($root . '/tools/audit/veylune-shell-baseline.cjs'), $marker)) {
+        fail("Header behavior or audit harness is missing {$marker}.");
+    }
+}
+
+$report = readJson($root . '/' . ($contract['visualReport'] ?? ''));
+if (($report['phase'] ?? '') !== '2.1D' || count($report['captures'] ?? []) !== 15) {
+    fail('Phase 2.1D visual report must contain 15 captures.');
+}
+
+$homeCaptures = 0;
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    if (($capture['status'] ?? null) !== 200 || ($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail("{$key} failed HTTP or containment validation.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $errorType) {
+        if (!empty($capture['errors'][$errorType] ?? [])) {
+            fail("{$key} contains {$errorType}.");
+        }
+    }
+    if (($capture['computed']['actions']['accountHref'] ?? null) !== ($contract['actions']['accountHref'] ?? null) ||
+        ($capture['computed']['actions']['cartHref'] ?? null) !== ($contract['actions']['cartHref'] ?? null)) {
+        fail("{$key} account or cart route drifted.");
+    }
+
+    if (($capture['route'] ?? '') !== 'home') {
+        continue;
+    }
+    ++$homeCaptures;
+    $viewport = (string) ($capture['viewport'] ?? '');
+    $elements = $capture['computed']['elements'] ?? [];
+    $innerWidth = (float) ($elements['.veylune-header__inner']['rect']['width'] ?? 0);
+    $searchWidth = (float) ($elements['.veylune-marketplace-search']['rect']['width'] ?? 0);
+    $minimum = (float) ($contract['searchWidthMinimums'][$viewport] ?? 1);
+    if ($innerWidth <= 0 || ($searchWidth / $innerWidth) < $minimum) {
+        fail("{$viewport} search is no longer visually dominant.");
+    }
+
+    $checks = $capture['interactions']['checks'] ?? [];
+    if (($checks['searchSuggestOpen']['hidden'] ?? true) !== false ||
+        ($checks['searchSuggestOpen']['inputExpanded'] ?? null) !== 'true' ||
+        !str_contains((string) ($checks['searchQueryHref'] ?? ''), 'q=room') ||
+        ($checks['searchEscapeClose'] ?? false) !== true ||
+        ($checks['searchEscapeFocusRetained'] ?? false) !== true ||
+        ($checks['searchClickAwayClose'] ?? false) !== true) {
+        fail("{$viewport} search interaction contract failed.");
+    }
+}
+if ($homeCaptures !== 3) {
+    fail('Visual report must contain desktop, tablet, and mobile home captures.');
+}
+
+echo "[veylune-primary-header-contract] PASS owners=1 captures=15 actions=2 interactions=5\n";
+echo "next=2.1E Category navigation and mega menu\n";

@@ -118,6 +118,7 @@ php -l bin/veylune-phase-1-exit-audit >/dev/null
 php -l bin/veylune-shell-baseline-audit >/dev/null
 php -l bin/veylune-token-contract-audit >/dev/null
 php -l bin/veylune-topbar-contract-audit >/dev/null
+php -l bin/veylune-primary-header-contract-audit >/dev/null
 php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
 php bin/veylune-architecture-guard-audit >/dev/null
@@ -125,6 +126,7 @@ php bin/veylune-phase-1-exit-audit >/dev/null
 php bin/veylune-shell-baseline-audit >/dev/null
 php bin/veylune-token-contract-audit >/dev/null
 php bin/veylune-topbar-contract-audit >/dev/null
+php bin/veylune-primary-header-contract-audit >/dev/null
 
 step 'container lint'
 run_console lint:container >/dev/null
@@ -354,7 +356,7 @@ assert_contains "$discover_parity_file" 'data-vli-selection-icon' '/discover hea
 assert_contains "$discover_parity_file" 'data-vli-header-suggest' 'Global search suggestion panel'
 assert_contains "$selection_context_file" 'class="vli-selection-page__tabs"' '/selection saved-items navigation'
 assert_contains "$selection_context_file" 'class="vli-selection-card__remove"' '/selection heart remove action'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-living-index-search-ui.js' 'data-vli-header-query-link' 'Header query suggestion behavior'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js' 'data-vli-header-query-link' 'Header query suggestion behavior'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-wayfair-parity.scss' 'grid-template-columns: 240px minmax(0, 1fr)' 'Desktop marketplace filter layout'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-wayfair-parity.scss' 'repeat(2, minmax(0, 1fr))' 'Mobile two-column result density'
 

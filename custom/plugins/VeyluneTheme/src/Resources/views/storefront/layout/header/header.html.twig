@@ -157,8 +157,8 @@
 						</a>
 					{% endblock %}
 
-                    <div class="veylune-marketplace-search">
-                        <form class="veylune-marketplace-search__form" action="{{ path('frontend.veylune.living_index.search') }}" method="get" role="search">
+                    <div class="veylune-marketplace-search" data-veylune-header-search>
+                        <form class="veylune-marketplace-search__form" action="{{ path('frontend.veylune.living_index.search') }}" method="get" role="search" data-veylune-header-search-form>
                             <label class="visually-hidden" for="veyluneMarketplaceSearch">{{ 'header.searchPlaceholder'|trans|striptags }}</label>
                             <input id="veyluneMarketplaceSearch"
                                    class="veylune-marketplace-search__input"
@@ -177,6 +177,7 @@
                         <section class="vli-header-suggest"
                                  id="veyluneMarketplaceSuggestions"
                                  aria-label="Search suggestions"
+                                 aria-live="polite"
                                  data-vli-header-suggest
                                  hidden>
                             <a class="vli-header-suggest__query"
@@ -237,12 +238,12 @@
 
                         {% block layout_header_actions_account %}
                             {% if isPrivatePreview %}
-                                <a class="veylune-marketplace-action" href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" aria-label="Private account preview" data-veylune-preview-account>
+                                <a class="veylune-marketplace-action" href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" aria-label="Private account preview" data-veylune-preview-account data-veylune-header-account>
                                     <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
                                     <span class="veylune-marketplace-action__label">Sign In</span>
                                 </a>
                             {% else %}
-                                <a class="veylune-marketplace-action" href="{{ path('frontend.account.home.page') }}" aria-label="{{ 'account.myAccount'|trans|striptags }}">
+                                <a class="veylune-marketplace-action" href="{{ path('frontend.account.home.page') }}" aria-label="{{ 'account.myAccount'|trans|striptags }}" data-veylune-header-account>
                                     <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
                                     <span class="veylune-marketplace-action__label">Sign In</span>
                                 </a>
@@ -259,12 +260,12 @@
 
 						{% block layout_header_actions_cart %}
                             {% if isPrivatePreview %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Cart, 0 items" data-veylune-preview-cart>
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Cart, 0 items" data-veylune-preview-cart data-veylune-header-cart>
                                     <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
                                     <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">0</span></span>
                                 </a>
                             {% else %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}">
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}" data-veylune-header-cart>
                                     <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
                                     <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
                                 </a>
