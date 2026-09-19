@@ -10,9 +10,9 @@
     "sourceOrderIsBehaviorUntilConsolidated": true
   },
   "baseline": {
-    "scssFiles": 121,
-    "baseImports": 119,
-    "scssLines": 30520,
+    "scssFiles": 119,
+    "baseImports": 117,
+    "scssLines": 30530,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
     "importantDeclarations": 130,
     "debtNamedFiles": 39,
@@ -45,7 +45,7 @@
       },
       "scssImports": [
         "abstracts/tokens", "base/foundation", "component/ui", "component/buttons", "component/forms", "utilities/utilities",
-        "component/marketplace-design-system", "component/marketplace-homebase-token-alignment", "component/marketplace-global-control-closure"
+        "component/marketplace-design-system", "component/marketplace-homebase-token-alignment"
       ],
       "javascriptModules": [],
       "consolidationTarget": "Keep tokens and primitives; fold marketplace token and global-control corrections into these owners."
@@ -257,7 +257,7 @@
       "scssImports": [
         "component/marketplace-route-safety", "component/marketplace-phase-9-mobile-closure",
         "component/marketplace-phase-7-interaction-closure", "component/marketplace-public-accessibility-closure",
-        "component/marketplace-performance-visual-baseline", "component/marketplace-production-readiness",
+        "component/marketplace-performance-visual-baseline",
         "component/marketplace-release-candidate"
       ],
       "javascriptModules": [],

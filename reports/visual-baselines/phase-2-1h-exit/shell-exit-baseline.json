@@ -1,0 +1,2251 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1H",
+  "capturedAt": "2026-09-19T15:30:07.305Z",
+  "baseUrl": "https://veylune-shopware.ddev.site",
+  "routes": [
+    {
+      "id": "home",
+      "path": "/"
+    },
+    {
+      "id": "category-furniture",
+      "path": "/categories/furniture"
+    },
+    {
+      "id": "discover-room",
+      "path": "/discover?q=room"
+    },
+    {
+      "id": "account-login",
+      "path": "/account/login"
+    },
+    {
+      "id": "cart",
+      "path": "/checkout/cart"
+    },
+    {
+      "id": "privacy",
+      "path": "/legal/privacy"
+    },
+    {
+      "id": "contact",
+      "path": "/contact-studio"
+    },
+    {
+      "id": "trade",
+      "path": "/trade-program"
+    },
+    {
+      "id": "consultation",
+      "path": "/private-consultation"
+    },
+    {
+      "id": "editions",
+      "path": "/editions"
+    }
+  ],
+  "viewports": [
+    {
+      "id": "desktop",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "tablet",
+      "width": 834,
+      "height": 1112
+    },
+    {
+      "id": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "cookie": [
+    {
+      "viewport": "desktop",
+      "status": 200,
+      "screenshot": "desktop--cookie.png",
+      "checks": {
+        "visible": true,
+        "viewportContained": true,
+        "buttons": [
+          {
+            "label": "Only technically required",
+            "width": 209.63,
+            "height": 44
+          },
+          {
+            "label": "Configure",
+            "width": 105.72,
+            "height": 44
+          }
+        ],
+        "privacyHref": "/legal/privacy",
+        "horizontalOverflow": false,
+        "focus": {
+          "tag": "button",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(255, 255, 255)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 66, 160) 0px 0px 0px 4px",
+          "width": 209.63,
+          "height": 44
+        },
+        "privacyStatus": 200
+      }
+    },
+    {
+      "viewport": "tablet",
+      "status": 200,
+      "screenshot": "tablet--cookie.png",
+      "checks": {
+        "visible": true,
+        "viewportContained": true,
+        "buttons": [
+          {
+            "label": "Only technically required",
+            "width": 209.63,
+            "height": 44
+          },
+          {
+            "label": "Configure",
+            "width": 105.72,
+            "height": 44
+          }
+        ],
+        "privacyHref": "/legal/privacy",
+        "horizontalOverflow": false,
+        "focus": {
+          "tag": "button",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(255, 255, 255)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 66, 160) 0px 0px 0px 4px",
+          "width": 209.63,
+          "height": 44
+        },
+        "privacyStatus": 200
+      }
+    },
+    {
+      "viewport": "mobile",
+      "status": 200,
+      "screenshot": "mobile--cookie.png",
+      "checks": {
+        "visible": true,
+        "viewportContained": true,
+        "buttons": [
+          {
+            "label": "Only technically required",
+            "width": 342,
+            "height": 48
+          },
+          {
+            "label": "Configure",
+            "width": 342,
+            "height": 48
+          }
+        ],
+        "privacyHref": "/legal/privacy",
+        "horizontalOverflow": false,
+        "focus": {
+          "tag": "button",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(255, 255, 255)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(0, 66, 160) 0px 0px 0px 4px",
+          "width": 342,
+          "height": 48
+        },
+        "privacyStatus": 200
+      }
+    }
+  ],
+  "footer": [
+    {
+      "viewport": "desktop",
+      "screenshot": "desktop--footer.png",
+      "checks": {
+        "visible": true,
+        "viewportContained": true,
+        "horizontalOverflow": false,
+        "links": [
+          {
+            "label": "Material Context",
+            "href": "/#veylune-material-context"
+          },
+          {
+            "label": "Editions",
+            "href": "/editions"
+          },
+          {
+            "label": "Private Consultation",
+            "href": "/private-consultation"
+          },
+          {
+            "label": "Trade Program",
+            "href": "/trade-program"
+          },
+          {
+            "label": "Atelier Partnerships",
+            "href": "/atelier-partnerships"
+          },
+          {
+            "label": "Contact Studio",
+            "href": "/contact-studio"
+          },
+          {
+            "label": "Privacy",
+            "href": "/legal/privacy"
+          },
+          {
+            "label": "Imprint",
+            "href": "/legal/imprint"
+          },
+          {
+            "label": "Terms",
+            "href": "/legal/terms"
+          },
+          {
+            "label": "Payment & Delivery",
+            "href": "/legal/payment-delivery"
+          },
+          {
+            "label": "Cancellation",
+            "href": "/legal/cancellation"
+          }
+        ],
+        "focus": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(255, 255, 255)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 111.89,
+          "height": 21.61
+        },
+        "internalRoutes": [
+          {
+            "href": "/#veylune-material-context",
+            "status": 200
+          },
+          {
+            "href": "/editions",
+            "status": 200
+          },
+          {
+            "href": "/private-consultation",
+            "status": 200
+          },
+          {
+            "href": "/trade-program",
+            "status": 200
+          },
+          {
+            "href": "/atelier-partnerships",
+            "status": 200
+          },
+          {
+            "href": "/contact-studio",
+            "status": 200
+          },
+          {
+            "href": "/legal/privacy",
+            "status": 200
+          },
+          {
+            "href": "/legal/imprint",
+            "status": 200
+          },
+          {
+            "href": "/legal/terms",
+            "status": 200
+          },
+          {
+            "href": "/legal/payment-delivery",
+            "status": 200
+          },
+          {
+            "href": "/legal/cancellation",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "tablet",
+      "screenshot": "tablet--footer.png",
+      "checks": {
+        "visible": true,
+        "viewportContained": true,
+        "horizontalOverflow": false,
+        "links": [
+          {
+            "label": "Material Context",
+            "href": "/#veylune-material-context"
+          },
+          {
+            "label": "Editions",
+            "href": "/editions"
+          },
+          {
+            "label": "Private Consultation",
+            "href": "/private-consultation"
+          },
+          {
+            "label": "Trade Program",
+            "href": "/trade-program"
+          },
+          {
+            "label": "Atelier Partnerships",
+            "href": "/atelier-partnerships"
+          },
+          {
+            "label": "Contact Studio",
+            "href": "/contact-studio"
+          },
+          {
+            "label": "Privacy",
+            "href": "/legal/privacy"
+          },
+          {
+            "label": "Imprint",
+            "href": "/legal/imprint"
+          },
+          {
+            "label": "Terms",
+            "href": "/legal/terms"
+          },
+          {
+            "label": "Payment & Delivery",
+            "href": "/legal/payment-delivery"
+          },
+          {
+            "label": "Cancellation",
+            "href": "/legal/cancellation"
+          }
+        ],
+        "focus": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(255, 255, 255)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 111.89,
+          "height": 21.61
+        },
+        "internalRoutes": [
+          {
+            "href": "/#veylune-material-context",
+            "status": 200
+          },
+          {
+            "href": "/editions",
+            "status": 200
+          },
+          {
+            "href": "/private-consultation",
+            "status": 200
+          },
+          {
+            "href": "/trade-program",
+            "status": 200
+          },
+          {
+            "href": "/atelier-partnerships",
+            "status": 200
+          },
+          {
+            "href": "/contact-studio",
+            "status": 200
+          },
+          {
+            "href": "/legal/privacy",
+            "status": 200
+          },
+          {
+            "href": "/legal/imprint",
+            "status": 200
+          },
+          {
+            "href": "/legal/terms",
+            "status": 200
+          },
+          {
+            "href": "/legal/payment-delivery",
+            "status": 200
+          },
+          {
+            "href": "/legal/cancellation",
+            "status": 200
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "mobile",
+      "screenshot": "mobile--footer.png",
+      "checks": {
+        "visible": true,
+        "viewportContained": true,
+        "horizontalOverflow": false,
+        "links": [
+          {
+            "label": "Material Context",
+            "href": "/#veylune-material-context"
+          },
+          {
+            "label": "Editions",
+            "href": "/editions"
+          },
+          {
+            "label": "Private Consultation",
+            "href": "/private-consultation"
+          },
+          {
+            "label": "Trade Program",
+            "href": "/trade-program"
+          },
+          {
+            "label": "Atelier Partnerships",
+            "href": "/atelier-partnerships"
+          },
+          {
+            "label": "Contact Studio",
+            "href": "/contact-studio"
+          },
+          {
+            "label": "Privacy",
+            "href": "/legal/privacy"
+          },
+          {
+            "label": "Imprint",
+            "href": "/legal/imprint"
+          },
+          {
+            "label": "Terms",
+            "href": "/legal/terms"
+          },
+          {
+            "label": "Payment & Delivery",
+            "href": "/legal/payment-delivery"
+          },
+          {
+            "label": "Cancellation",
+            "href": "/legal/cancellation"
+          }
+        ],
+        "focus": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(255, 255, 255)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 111.89,
+          "height": 44
+        },
+        "internalRoutes": [
+          {
+            "href": "/#veylune-material-context",
+            "status": 200
+          },
+          {
+            "href": "/editions",
+            "status": 200
+          },
+          {
+            "href": "/private-consultation",
+            "status": 200
+          },
+          {
+            "href": "/trade-program",
+            "status": 200
+          },
+          {
+            "href": "/atelier-partnerships",
+            "status": 200
+          },
+          {
+            "href": "/contact-studio",
+            "status": 200
+          },
+          {
+            "href": "/legal/privacy",
+            "status": 200
+          },
+          {
+            "href": "/legal/imprint",
+            "status": 200
+          },
+          {
+            "href": "/legal/terms",
+            "status": 200
+          },
+          {
+            "href": "/legal/payment-delivery",
+            "status": 200
+          },
+          {
+            "href": "/legal/cancellation",
+            "status": 200
+          }
+        ]
+      }
+    }
+  ],
+  "routeCaptures": [
+    {
+      "viewport": "desktop",
+      "route": "home",
+      "path": "/",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/",
+      "computed": {
+        "title": "Veylune Studio | Material, Form, and Spatial Presence",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "category-furniture",
+      "path": "/categories/furniture",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/furniture",
+      "computed": {
+        "title": "Furniture",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "discover-room",
+      "path": "/discover?q=room",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover?q=room",
+      "computed": {
+        "title": "Search: room",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "account-login",
+      "path": "/account/login",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login",
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "cart",
+      "path": "/checkout/cart",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/cart",
+      "computed": {
+        "title": "Shopping cart | Demostore",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "privacy",
+      "path": "/legal/privacy",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/privacy",
+      "computed": {
+        "title": "Privacy notice | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "contact",
+      "path": "/contact-studio",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/contact-studio",
+      "computed": {
+        "title": "Contact the studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "trade",
+      "path": "/trade-program",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/trade-program",
+      "computed": {
+        "title": "Trade Program | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "consultation",
+      "path": "/private-consultation",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/private-consultation",
+      "computed": {
+        "title": "Private Consultation | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "route": "editions",
+      "path": "/editions",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/editions",
+      "computed": {
+        "title": "Editions | Veylune Studio",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 70.33,
+          "height": 48
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 77.25,
+          "height": 40
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "home",
+      "path": "/",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/",
+      "computed": {
+        "title": "Veylune Studio | Material, Form, and Spatial Presence",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "category-furniture",
+      "path": "/categories/furniture",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/furniture",
+      "computed": {
+        "title": "Furniture",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "discover-room",
+      "path": "/discover?q=room",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover?q=room",
+      "computed": {
+        "title": "Search: room",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "account-login",
+      "path": "/account/login",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login",
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "cart",
+      "path": "/checkout/cart",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/cart",
+      "computed": {
+        "title": "Shopping cart | Demostore",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "privacy",
+      "path": "/legal/privacy",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/privacy",
+      "computed": {
+        "title": "Privacy notice | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "contact",
+      "path": "/contact-studio",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/contact-studio",
+      "computed": {
+        "title": "Contact the studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "trade",
+      "path": "/trade-program",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/trade-program",
+      "computed": {
+        "title": "Trade Program | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "consultation",
+      "path": "/private-consultation",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/private-consultation",
+      "computed": {
+        "title": "Private Consultation | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "tablet",
+      "route": "editions",
+      "path": "/editions",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/editions",
+      "computed": {
+        "title": "Editions | Veylune Studio",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": null,
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "home",
+      "path": "/",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/",
+      "computed": {
+        "title": "Veylune Studio | Material, Form, and Spatial Presence",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "category-furniture",
+      "path": "/categories/furniture",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/furniture",
+      "computed": {
+        "title": "Furniture",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "discover-room",
+      "path": "/discover?q=room",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover?q=room",
+      "computed": {
+        "title": "Search: room",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "account-login",
+      "path": "/account/login",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login",
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "cart",
+      "path": "/checkout/cart",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/cart",
+      "computed": {
+        "title": "Shopping cart | Demostore",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "privacy",
+      "path": "/legal/privacy",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/privacy",
+      "computed": {
+        "title": "Privacy notice | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "contact",
+      "path": "/contact-studio",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/contact-studio",
+      "computed": {
+        "title": "Contact the studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "trade",
+      "path": "/trade-program",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/trade-program",
+      "computed": {
+        "title": "Trade Program | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "consultation",
+      "path": "/private-consultation",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/private-consultation",
+      "computed": {
+        "title": "Private Consultation | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "route": "editions",
+      "path": "/editions",
+      "status": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/editions",
+      "computed": {
+        "title": "Editions | Veylune Studio",
+        "lang": "en-GB",
+        "horizontalOverflow": false,
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "emptyTargets": 0
+      },
+      "focus": {
+        "search": null,
+        "account": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        },
+        "cart": {
+          "tag": "a",
+          "active": true,
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "outlineColor": "rgb(23, 20, 25)",
+          "outlineOffset": "2px",
+          "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(19, 100, 241) 0px 0px 0px 3px",
+          "width": 44,
+          "height": 44
+        }
+      },
+      "mobileTargets": [
+        {
+          "selector": "[data-veylune-mobile-toggle]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-account]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-cart]",
+          "width": 44,
+          "height": 44
+        },
+        {
+          "selector": "[data-veylune-header-search-form] button",
+          "width": 63.58,
+          "height": 46
+        }
+      ],
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    }
+  ],
+  "reducedMotion": [
+    {
+      "viewport": "desktop",
+      "controls": [
+        {
+          "selector": "a",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "1e-05s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "button",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "input",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "summary",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        }
+      ]
+    },
+    {
+      "viewport": "tablet",
+      "controls": [
+        {
+          "selector": "a",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "1e-05s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "button",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "input",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "summary",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        }
+      ]
+    },
+    {
+      "viewport": "mobile",
+      "controls": [
+        {
+          "selector": "a",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "1e-05s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "button",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "input",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        },
+        {
+          "selector": "summary",
+          "transitionDuration": "1e-05s",
+          "animationDuration": "0.001s",
+          "animationIterationCount": "1"
+        }
+      ]
+    }
+  ]
+}

@@ -91,7 +91,7 @@
 @import "component/marketplace-phase-9-home-pending-closure";
 @import "component/marketplace-phase-9-home-hierarchy-closure";
 @import "component/marketplace-phase-9-home-accessibility-closure";
-@import "component/marketplace-global-control-closure";
+@include veylune-global-control-closure;
 @import "component/marketplace-phase-7-home-reference-closure";
 @import "component/marketplace-phase-7-plp-reference-closure";
 @import "component/marketplace-legacy-surface-foundation";
@@ -113,7 +113,7 @@
 @import "component/living-index-wayfair-parity";
 @import "component/living-index-project-brief";
 @import "component/marketplace-performance-visual-baseline";
-@import "component/marketplace-production-readiness";
+@include veylune-production-readiness;
 @import "component/marketplace-release-candidate";
 @import "component/marketplace-preview-card-system";
 @import "component/marketplace-preview-home";

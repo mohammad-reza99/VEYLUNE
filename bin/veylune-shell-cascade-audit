@@ -138,5 +138,5 @@ if ($identical !== ($expected['pixelIdenticalScreenshots'] ?? 0)) {
     fail('Exact pixel parity evidence count drifted.');
 }
 
-echo "[veylune-shell-cascade] PASS owners=4 retired=16 imports=119 screenshots=21 exact=21\n";
-echo "next=2.1H Global shell exit gate and control normalization\n";
+echo "[veylune-shell-cascade] PASS owners=4 retired=16 imports=117 screenshots=21 exact=21\n";
+echo "next=Phase 3 Public information architecture and content surfaces\n";

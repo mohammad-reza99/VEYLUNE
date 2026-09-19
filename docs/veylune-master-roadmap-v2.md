@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 95 percent complete. Packages 2.1A through 2.1G are complete; package 2.1H remains.
+Current estimate: 100 percent complete. Packages 2.1A through 2.1H are complete and the Phase 2 exit gate passes.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1H Global Shell Exit Gate and Control Normalization. Phase 2.1G migrated the approved shell cascade into four canonical owners, retired 16 override partials, reduced active SCSS files from 137 to 121 and base imports from 135 to 119, and proved exact SHA-256 parity across all 21 Phase 2.1F screenshots with zero route, runtime, overflow, or interaction issues. Next, normalize the remaining shared global controls and close Phase 2 only after focus, target-size, reduced-motion, cookie UI, footer, responsive, keyboard, and route-state exit gates all pass.
+Start Phase 3, Public Information Architecture and Content Surfaces. Phase 2.1H moved the remaining global-control and production-readiness rules into the canonical UI owner, retired two late override partials, reduced active SCSS files to 119 and base imports to 117, preserved exact SHA-256 parity across 21 shell screenshots, and passed the 30-capture route, focus, target-size, reduced-motion, cookie, footer, responsive, keyboard, and runtime exit matrix. Phase 3 now consolidates public page structure, content hierarchy, and route-specific surfaces against the approved marketplace reference.

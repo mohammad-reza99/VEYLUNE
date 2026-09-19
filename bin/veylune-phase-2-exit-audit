@@ -1,0 +1,172 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-phase-2-exit][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $value = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($value)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+    return $value;
+}
+
+function seconds(string $value): float
+{
+    $maximum = 0.0;
+    foreach (array_map('trim', explode(',', $value)) as $duration) {
+        if (str_ends_with($duration, 'ms')) {
+            $maximum = max($maximum, (float) substr($duration, 0, -2) / 1000);
+        } elseif (str_ends_with($duration, 's')) {
+            $maximum = max($maximum, (float) substr($duration, 0, -1));
+        }
+    }
+    return $maximum;
+}
+
+function focusVisible(?array $focus): bool
+{
+    if (($focus['active'] ?? false) !== true) {
+        return false;
+    }
+    $outline = (float) ($focus['outlineWidth'] ?? 0);
+    $shadow = (string) ($focus['boxShadow'] ?? 'none');
+    return $outline >= 3 || ($shadow !== 'none' && preg_match('/(?:^|\\s)(?:3|4)px(?:\\s|,|$)/', $shadow) === 1);
+}
+
+$contract = readJson($root . '/config/veylune-phase-2-exit-contract.json');
+$expected = $contract['expected'] ?? [];
+$scssRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss';
+$ownerPath = $root . '/' . ($contract['canonicalControlOwner'] ?? '');
+$base = (string) file_get_contents($root . '/' . ($contract['entrypoint'] ?? ''));
+$owner = is_file($ownerPath) ? (string) file_get_contents($ownerPath) : '';
+
+foreach ($contract['retiredPartials'] ?? [] as $partial) {
+    if (is_file($scssRoot . '/component/_' . $partial . '.scss') || str_contains($base, 'component/' . $partial)) {
+        fail("Retired control partial {$partial} is still active.");
+    }
+}
+foreach (['@mixin veylune-global-control-closure', '@mixin veylune-production-readiness', 'outline: 3px solid', 'min-height: 44px', '@media (prefers-reduced-motion: reduce)'] as $marker) {
+    if (!str_contains($owner, $marker)) {
+        fail("Canonical UI owner is missing {$marker}.");
+    }
+}
+foreach (['@include veylune-global-control-closure;', '@include veylune-production-readiness;'] as $include) {
+    if (substr_count($base, $include) !== 1) {
+        fail("Canonical include {$include} must appear exactly once.");
+    }
+}
+
+$files = 0;
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scssRoot, FilesystemIterator::SKIP_DOTS));
+foreach ($iterator as $file) {
+    if ($file->isFile() && $file->getExtension() === 'scss') {
+        ++$files;
+    }
+}
+preg_match_all('/^@import\\s+"([^"]+)";/m', $base, $imports);
+if ($files !== ($expected['scssFiles'] ?? -1) || count($imports[1] ?? []) !== ($expected['baseImports'] ?? -1)) {
+    fail('Active SCSS inventory drifted.');
+}
+
+$shell = readJson($root . '/' . ($contract['shellReport'] ?? ''));
+if (($shell['phase'] ?? '') !== '2.1H' || count($shell['captures'] ?? []) !== ($expected['shellCaptures'] ?? -1)) {
+    fail('Phase 2.1H shell report is invalid.');
+}
+foreach ($shell['captures'] as $capture) {
+    if (($capture['status'] ?? null) !== 200 || ($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail('Shell route status or containment failed.');
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $type) {
+        if (!empty($capture['errors'][$type] ?? [])) {
+            fail("Shell report contains {$type}.");
+        }
+    }
+}
+$screenshots = glob($root . '/' . $contract['shellEvidenceDirectory'] . '/*.png') ?: [];
+if (count($screenshots) !== ($expected['shellScreenshots'] ?? -1)) {
+    fail('Shell screenshot count drifted.');
+}
+foreach ($screenshots as $screenshot) {
+    $reference = $root . '/' . $contract['shellParityReferenceDirectory'] . '/' . basename($screenshot);
+    if (!is_file($reference) || hash_file('sha256', $screenshot) !== hash_file('sha256', $reference)) {
+        fail('Shell pixel parity drifted for ' . basename($screenshot) . '.');
+    }
+}
+
+$exit = readJson($root . '/' . ($contract['exitReport'] ?? ''));
+if (($exit['phase'] ?? '') !== '2.1H' || count($exit['routes'] ?? []) !== ($expected['routeDefinitions'] ?? -1) || count($exit['viewports'] ?? []) !== ($expected['viewports'] ?? -1) || count($exit['routeCaptures'] ?? []) !== ($expected['routeCaptures'] ?? -1)) {
+    fail('Phase 2 route matrix shape drifted.');
+}
+foreach ($exit['routeCaptures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    $computed = $capture['computed'] ?? [];
+    if (($capture['status'] ?? null) !== 200 || ($computed['horizontalOverflow'] ?? true) || ($computed['mainCount'] ?? 0) !== 1 || !($computed['headerPresent'] ?? false) || !($computed['footerPresent'] ?? false) || ($computed['emptyTargets'] ?? 1) !== 0) {
+        fail("Route contract failed for {$key}.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $type) {
+        if (!empty($capture['errors'][$type] ?? [])) {
+            fail("{$key} contains {$type}.");
+        }
+    }
+    $focus = array_values(array_filter($capture['focus'] ?? [], static fn ($item): bool => is_array($item)));
+    if ($focus === [] || count(array_filter($focus, 'focusVisible')) === 0) {
+        fail("{$key} has no visible keyboard focus evidence.");
+    }
+    if (($capture['viewport'] ?? '') === 'mobile') {
+        $targets = $capture['mobileTargets'] ?? [];
+        if (count($targets) !== ($expected['mobileTargetsPerRoute'] ?? -1)) {
+            fail("{$key} mobile target inventory drifted.");
+        }
+        foreach ($targets as $target) {
+            if (($target['width'] ?? 0) < ($expected['minimumTargetSize'] ?? 44) || ($target['height'] ?? 0) < ($expected['minimumTargetSize'] ?? 44)) {
+                fail("{$key} contains an undersized mobile target.");
+            }
+        }
+    }
+}
+
+foreach ($exit['cookie'] ?? [] as $capture) {
+    $checks = $capture['checks'] ?? [];
+    if (!($checks['visible'] ?? false) || !($checks['viewportContained'] ?? false) || ($checks['horizontalOverflow'] ?? true) || ($checks['privacyStatus'] ?? null) !== 200 || count($checks['buttons'] ?? []) !== ($expected['cookieButtons'] ?? -1) || !focusVisible($checks['focus'] ?? null)) {
+        fail('Cookie exit gate failed for ' . ($capture['viewport'] ?? 'unknown') . '.');
+    }
+    foreach ($checks['buttons'] as $button) {
+        if (($button['height'] ?? 0) < ($expected['minimumTargetSize'] ?? 44)) {
+            fail('Cookie action target is undersized.');
+        }
+    }
+}
+foreach ($exit['footer'] ?? [] as $capture) {
+    $checks = $capture['checks'] ?? [];
+    if (!($checks['visible'] ?? false) || !($checks['viewportContained'] ?? false) || ($checks['horizontalOverflow'] ?? true) || count($checks['links'] ?? []) !== ($expected['footerLinks'] ?? -1) || !focusVisible($checks['focus'] ?? null)) {
+        fail('Footer exit gate failed for ' . ($capture['viewport'] ?? 'unknown') . '.');
+    }
+    foreach ($checks['internalRoutes'] ?? [] as $route) {
+        if (($route['status'] ?? null) !== 200) {
+            fail('Footer contains a failing internal route.');
+        }
+    }
+}
+if (count(glob($root . '/' . $contract['exitEvidenceDirectory'] . '/*.png') ?: []) !== ($expected['exitScreenshots'] ?? -1)) {
+    fail('Exit screenshot count drifted.');
+}
+foreach ($exit['reducedMotion'] ?? [] as $capture) {
+    foreach ($capture['controls'] ?? [] as $control) {
+        if (seconds((string) ($control['transitionDuration'] ?? '1s')) > 0.001 || seconds((string) ($control['animationDuration'] ?? '1s')) > 0.001 || (float) ($control['animationIterationCount'] ?? 2) > 1) {
+            fail('Reduced-motion normalization failed.');
+        }
+    }
+}
+
+echo "[veylune-phase-2-exit] PASS routes=30 viewports=3 shell_screenshots=21 exit_screenshots=6\n";
+echo "next=Phase 3 Public information architecture and content surfaces\n";

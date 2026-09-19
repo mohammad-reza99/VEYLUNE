@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1H",
+  "capturedAt": "2026-09-19",
+  "canonicalControlOwner": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss",
+  "entrypoint": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/base.scss",
+  "shellReport": "reports/visual-baselines/phase-2-1h/shell-baseline.json",
+  "shellEvidenceDirectory": "reports/visual-baselines/phase-2-1h",
+  "shellParityReferenceDirectory": "reports/visual-baselines/phase-2-1g",
+  "exitReport": "reports/visual-baselines/phase-2-1h-exit/shell-exit-baseline.json",
+  "exitEvidenceDirectory": "reports/visual-baselines/phase-2-1h-exit",
+  "retiredPartials": [
+    "marketplace-global-control-closure",
+    "marketplace-production-readiness"
+  ],
+  "expected": {
+    "scssFiles": 119,
+    "baseImports": 117,
+    "shellCaptures": 15,
+    "shellScreenshots": 21,
+    "pixelIdenticalShellScreenshots": 21,
+    "routeDefinitions": 10,
+    "viewports": 3,
+    "routeCaptures": 30,
+    "exitScreenshots": 6,
+    "cookieButtons": 2,
+    "footerLinks": 11,
+    "mobileTargetsPerRoute": 4,
+    "minimumTargetSize": 44
+  },
+  "acceptance": [
+    "canonical_shared_control_owner",
+    "no_late_control_or_readiness_partials",
+    "exact_shell_pixel_parity",
+    "all_exit_routes_http_200_and_runtime_clean",
+    "cookie_and_footer_viewport_contained",
+    "keyboard_focus_visible",
+    "mobile_targets_at_least_44px",
+    "reduced_motion_normalized"
+  ],
+  "nextPhase": {
+    "id": "3",
+    "name": "Public information architecture and content surfaces"
+  }
+}

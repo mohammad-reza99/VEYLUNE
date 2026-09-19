@@ -582,16 +582,16 @@ home_file="${TMP_DIR}/storefront_home.html"
 assert_status '/' 200 "$home_file"
 assert_contains "$home_file" 'href="/legal/privacy" title="More information"' '/ homepage canonical cookie privacy routing'
 assert_absent_pattern "$home_file" 'href="[[:space:]]+/' '/ homepage whitespace-prefixed internal routing'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.cookie-permission-container' 'global cookie control closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.dropdown-menu' 'global dropdown control closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.modal-content' 'global modal surface closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.offcanvas' 'global offcanvas surface closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.form-control' 'global form control closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.accordion-button' 'global disclosure control closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-preview-card__wishlist' 'preview card action target closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-plp-popover--sort button' 'preview listing dropdown action closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-pdp-delivery__control button' 'preview product delivery action closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-global-control-closure.scss' '.veylune-cart-preview__alert button' 'preview cart recovery action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.cookie-permission-container' 'canonical cookie control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.dropdown-menu' 'canonical dropdown control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.modal-content' 'canonical modal surface closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.offcanvas' 'canonical offcanvas surface closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.form-control' 'canonical form control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.accordion-button' 'canonical disclosure control closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.veylune-preview-card__wishlist' 'canonical preview card action target closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.veylune-plp-popover--sort button' 'canonical preview listing dropdown action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.veylune-pdp-delivery__control button' 'canonical preview product delivery action closure'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss' '.veylune-cart-preview__alert button' 'canonical preview cart recovery action closure'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/sidebar.html.twig' 'veylune-account-sidebar__marker' 'account sidebar duplicate SVG identity closure'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/addressbook/address-item.html.twig' "addressItemRole" 'account address role-scoped dropdown identity'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' 'veylunePreviewToken|default' 'preview header token continuity'
@@ -861,7 +861,7 @@ assert_contains "$visual_baseline_css" '.veylune-marketplace-department-rail,' '
 bash bin/veylune-performance-baseline >/dev/null
 
 step 'production readiness closure'
-production_readiness_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-production-readiness.scss'
+production_readiness_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss'
 identity_ingress_subscriber='custom/plugins/VeyluneTheme/src/Subscriber/IdentityIngressAllowlistSubscriber.php'
 assert_contains "$production_readiness_css" 'outline: 3px solid' 'production focus ring contract'
 assert_contains "$production_readiness_css" 'min-height: 44px' 'production mobile target contract'
@@ -869,6 +869,7 @@ assert_contains "$production_readiness_css" '@media (prefers-reduced-motion: red
 assert_contains "$identity_ingress_subscriber" 'data-veylune-release-error' 'controlled 404 release visual marker'
 assert_contains "$identity_ingress_subscriber" "'Content-Security-Policy'" 'controlled 404 CSP contract'
 bash bin/veylune-production-readiness >/dev/null
+php bin/veylune-phase-2-exit-audit >/dev/null
 
 step 'complete'
 printf 'Veylune governance verification passed.\n'
