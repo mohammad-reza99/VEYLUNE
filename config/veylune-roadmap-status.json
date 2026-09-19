@@ -3,13 +3,13 @@
   "capturedAt": "2026-09-19",
   "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
   "currentPhase": {
-    "id": "2.1",
-    "name": "Design Token Freeze and Global Shell Consolidation",
-    "status": "complete"
+    "id": "3.1",
+    "name": "Public Information Architecture and Content Surfaces",
+    "status": "in_progress"
   },
   "currentWorkPackage": {
-    "id": "2.1H",
-    "name": "Global shell exit gate and control normalization",
+    "id": "3.1A",
+    "name": "Public IA rebaseline and editorial closure",
     "status": "complete"
   },
   "gitBaseline": {
@@ -34,11 +34,12 @@
       "routes": 47,
       "desktopMobileSurfaces": 94,
       "status200": 90,
-      "currentDesktop": 42,
-      "mixedDesktop": 3,
+      "currentDesktop": 45,
+      "mixedDesktop": 0,
       "legacyDesktop": 0,
-      "brokenDesktop": 2,
-      "capturedAt": "2026-09-12"
+      "brokenDesktop": 0,
+      "decisionRequiredDesktop": 2,
+      "capturedAt": "2026-09-19"
     },
     "privatePreview": {
       "routes": 67,
@@ -267,10 +268,31 @@
       "report": "reports/visual-baselines/phase-2-1h-exit/shell-exit-baseline.json"
     }
   },
+  "phase31Progress": {
+    "completePackages": ["3.1A"],
+    "pendingPackages": ["3.1B", "3.1C", "3.1D", "3.1E", "3.1F", "3.1G", "3.1H"],
+    "phase31ACompletionEvidence": {
+      "publicRoutesCaptured": 47,
+      "viewportsCaptured": 2,
+      "publicSurfacesCaptured": 94,
+      "currentSurfaces": 90,
+      "mixedSurfaces": 0,
+      "brokenSurfaces": 0,
+      "decisionRequiredSurfaces": 4,
+      "representativeScreenshots": 28,
+      "horizontalOverflowSurfaces": 0,
+      "brokenImageSurfaces": 0,
+      "privatePreviewCopySurfaces": 0,
+      "legacyStructureSurfaces": 0,
+      "distinctEditorialRoutes": 3,
+      "publicIaContractAudit": "pass",
+      "report": "reports/visual-baselines/phase-3-1a-public-ia/public-ia-baseline.json"
+    }
+  },
   "phaseMap": [
     {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
     {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 100, "status": "complete"},
-    {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 70, "status": "partial"},
+    {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 75, "status": "in_progress"},
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
     {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 70, "status": "partial"},
     {"id": 6, "name": "PDP and customer-commerce journey", "estimatedPercent": 30, "status": "partial"},
@@ -288,8 +310,8 @@
     "auditEvidence": "generated_reports"
   },
   "nextStep": {
-    "id": "3",
-    "name": "Public information architecture and content surfaces",
+    "id": "3.1B",
+    "name": "Checkout guard and wishlist promise closure",
     "phase": 3
   }
 }

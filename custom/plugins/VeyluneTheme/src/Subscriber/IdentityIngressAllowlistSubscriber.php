@@ -2,6 +2,7 @@
 
 namespace VeyluneTheme\Subscriber;
 
+use VeyluneTheme\Controller\EditionsController;
 use Shopware\Core\Framework\Event\BeforeSendRedirectResponseEvent;
 use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\PlatformRequest;
@@ -37,6 +38,8 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.home.page',
         'frontend.veylune.editions.page',
         'frontend.veylune.editions.page.de',
+        'frontend.veylune.editions.journal.page',
+        'frontend.veylune.editions.inspiration.page',
         'frontend.veylune.editions.detail.guard',
         'frontend.veylune.editions.detail.guard.de',
         'frontend.veylune.partnership.page',
@@ -131,6 +134,18 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         $originalRequestUri = (string) $request->attributes->get(RequestTransformer::ORIGINAL_REQUEST_URI, $request->getRequestUri());
         $originalPath = parse_url($originalRequestUri, \PHP_URL_PATH) ?: $request->getPathInfo();
 
+        // A legacy Shopware SEO URL maps /journal to an old landing page before
+        // Symfony route matching. Preserve Admin data while making the approved
+        // public editorial controller authoritative for the canonical path.
+        if ($this->isCanonicalPublicStorefrontRequest($request)
+            && $originalPath === '/journal'
+            && $request->attributes->get('_route') === 'frontend.landing.page'
+        ) {
+            $request->attributes->set('_route', 'frontend.veylune.editions.journal.page');
+            $request->attributes->set('_controller', EditionsController::class . '::journal');
+            $request->attributes->remove('landingPageId');
+        }
+
         if ($this->isCanonicalPublicStorefrontRequest($request) && $originalPath === '/consultation') {
             $event->setResponse(new RedirectResponse('/private-consultation', Response::HTTP_MOVED_PERMANENTLY));
 
@@ -139,7 +154,6 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
 
         if ($this->isCanonicalPublicStorefrontRequest($request)) {
             $publicAliasCanonicalPath = match ($originalPath) {
-                '/journal', '/inspiration' => '/editions',
                 '/about' => '/about-studio',
                 default => null,
             };

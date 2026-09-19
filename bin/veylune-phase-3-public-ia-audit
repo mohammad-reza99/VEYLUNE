@@ -1,0 +1,134 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-phase-3-public-ia][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $value = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($value)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+    return $value;
+}
+
+$contract = readJson($root . '/config/veylune-phase-3-public-ia-contract.json');
+$surfaceContract = readJson($root . '/' . $contract['surfaceContract']);
+$report = readJson($root . '/' . $contract['report']);
+$expected = $contract['expected'];
+
+if (($report['phase'] ?? '') !== '3.1A'
+    || ($report['routeCount'] ?? -1) !== $expected['routes']
+    || count($report['viewports'] ?? []) !== $expected['viewports']
+    || count($report['captures'] ?? []) !== $expected['surfaces']
+) {
+    fail('Public IA report shape drifted.');
+}
+
+$classifications = array_count_values(array_column($report['captures'], 'classification'));
+foreach ([
+    'current' => 'currentSurfaces',
+    'mixed' => 'mixedSurfaces',
+    'broken' => 'brokenSurfaces',
+    'decision_required' => 'decisionRequiredSurfaces',
+] as $classification => $key) {
+    if (($classifications[$classification] ?? 0) !== $expected[$key]) {
+        fail("Classification {$classification} drifted.");
+    }
+}
+
+$decisionRoutes = $contract['decisionRoutes'];
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    $computed = $capture['computed'] ?? [];
+
+    if (($capture['classification'] ?? '') === 'decision_required') {
+        if (!in_array($capture['route'], $decisionRoutes, true) || ($capture['direct']['status'] ?? null) !== 404 || ($computed['horizontalOverflow'] ?? true)) {
+            fail("Unexpected decision-required outcome for {$key}.");
+        }
+        continue;
+    }
+
+    if (($computed['horizontalOverflow'] ?? true)
+        || !($computed['headerPresent'] ?? false)
+        || !($computed['footerPresent'] ?? false)
+        || ($computed['brokenImages'] ?? []) !== []
+        || ($computed['privatePreviewMarkers'] ?? []) !== []
+        || ($computed['legacySelectors'] ?? []) !== []
+        || ($computed['emptyTargets'] ?? 1) !== 0
+    ) {
+        fail("Public surface contract failed for {$key}.");
+    }
+
+    if (($capture['classification'] ?? '') !== 'current') {
+        fail("Unexpected non-current surface {$key}.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $type) {
+        if (!empty($capture['errors'][$type] ?? [])) {
+            fail("Current surface {$key} contains {$type}.");
+        }
+    }
+}
+
+$summary = $report['summary'] ?? [];
+foreach ([
+    'overflowSurfaces',
+    'brokenImageSurfaces',
+    'privatePreviewCopySurfaces',
+    'legacyStructureSurfaces',
+] as $key) {
+    if (($summary[$key] ?? -1) !== $expected[$key]) {
+        fail("Summary metric {$key} drifted.");
+    }
+}
+
+$screenshots = glob($root . '/' . $contract['evidenceDirectory'] . '/*.png') ?: [];
+if (count($screenshots) !== $expected['screenshots']) {
+    fail('Screenshot evidence count drifted.');
+}
+
+$editorialGroup = null;
+foreach ($surfaceContract['public']['groups'] ?? [] as $group) {
+    if (($group['id'] ?? '') === 'editorial') {
+        $editorialGroup = $group;
+        break;
+    }
+}
+if (($editorialGroup['currentClassification'] ?? '') !== 'current'
+    || ($editorialGroup['routes'] ?? []) !== array_keys($contract['editorialRoutes'])
+) {
+    fail('Editorial surface contract is not current and distinct.');
+}
+foreach ($surfaceContract['public']['decisions'] ?? [] as $decision) {
+    if (in_array($decision['path'] ?? '', ['/journal', '/inspiration'], true)) {
+        fail('Resolved editorial route still appears as a pending decision.');
+    }
+}
+
+$controller = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Controller/EditionsController.php');
+$subscriber = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Subscriber/IdentityIngressAllowlistSubscriber.php');
+$template = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/editorial-landing.html.twig');
+foreach (['frontend.veylune.editions.journal.page', 'frontend.veylune.editions.inspiration.page', 'editorialPage($request, $context'] as $marker) {
+    if (!str_contains($controller, $marker)) {
+        fail("Editorial controller is missing {$marker}.");
+    }
+}
+foreach (['data-veylune-public-editorial', "veyluneEditorialMode == 'journal'", 'vli-editorial-paths'] as $marker) {
+    if (!str_contains($template, $marker)) {
+        fail("Editorial template is missing {$marker}.");
+    }
+}
+if (!str_contains($subscriber, "originalPath === '/journal'") || !str_contains($subscriber, 'frontend.veylune.editions.journal.page')) {
+    fail('Legacy Journal SEO normalization is missing.');
+}
+
+echo "[veylune-phase-3-public-ia] PASS routes=47 surfaces=94 current=90 decisions=4 mixed=0 broken=0\n";
+echo "next=3.1B Checkout guard and wishlist promise closure\n";

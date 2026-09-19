@@ -1,0 +1,109 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_main_inner %}
+    {% set vliGerman = app.request.locale starts with 'de' %}
+    {% set isJournal = veyluneEditorialMode == 'journal' %}
+    {% set editorial = isJournal ? {
+        index: '02',
+        label: vliGerman ? 'Journal' : 'Journal',
+        title: vliGerman ? 'Notizen zu Material, Herstellung und Raum.' : 'Field notes on material, making, and rooms.',
+        text: vliGerman ? 'Redaktionelle Einblicke zeigen, wie Proportion, Oberflaeche und Herkunft eine bewusste Auswahl praegen.' : 'Editorial observations reveal how proportion, surface, and provenance shape a considered selection.',
+        action: vliGerman ? 'Materialien entdecken' : 'Discover materials',
+        image: 'assets/veylune-category-textiles-v1.webp',
+        imageAlt: vliGerman ? 'Textile Materialstudie in ruhigem Licht' : 'Textile material study in quiet light',
+        caption: vliGerman ? 'Journal / Material und Herstellung' : 'Journal / material and making',
+        sectionLabel: vliGerman ? 'Redaktionelle Wege' : 'Editorial paths',
+        sectionTitle: vliGerman ? 'Vom Detail zur raeumlichen Entscheidung.' : 'From close detail to spatial decision.',
+        sectionText: vliGerman ? 'Drei Perspektiven verbinden Materialwissen, Herstellungslogik und den gelebten Raum.' : 'Three perspectives connect material knowledge, making logic, and the lived room.',
+        paths: vliGerman ? [
+            { query: 'material', title: 'Materialnotizen', text: 'Oberflaeche, Griff, Alterung und Pflege.' },
+            { query: 'craft', title: 'Atelierbesuche', text: 'Werkzeug, Prozess und nachvollziehbare Herkunft.' },
+            { query: 'room', title: 'Raumstudien', text: 'Proportion, Licht und Nutzung im Zusammenhang.' }
+        ] : [
+            { query: 'material', title: 'Material notes', text: 'Surface, hand, aging, and care.' },
+            { query: 'craft', title: 'Studio visits', text: 'Tools, process, and legible provenance.' },
+            { query: 'room', title: 'Spatial studies', text: 'Proportion, light, and use in context.' }
+        ]
+    } : {
+        index: '03',
+        label: vliGerman ? 'Inspiration' : 'Inspiration',
+        title: vliGerman ? 'Mit Atmosphaere beginnen, dann Objekte finden.' : 'Begin with atmosphere, then find the objects.',
+        text: vliGerman ? 'Raumbezogene Ausgangspunkte verbinden Stimmung, Funktion und Materialrichtung mit auffindbaren Objekten.' : 'Room-led starting points connect mood, function, and material direction with discoverable objects.',
+        action: vliGerman ? 'Raeume entdecken' : 'Explore rooms',
+        image: 'assets/veylune-room-living-v1.webp',
+        imageAlt: vliGerman ? 'Warmer Wohnraum mit geschichteten Materialien' : 'Warm living room with layered materials',
+        caption: vliGerman ? 'Inspiration / Atmosphaere und Raum' : 'Inspiration / atmosphere and room',
+        sectionLabel: vliGerman ? 'Raumrichtungen' : 'Room directions',
+        sectionTitle: vliGerman ? 'Eine klare Stimmung wird zu einem nutzbaren Weg.' : 'A clear mood becomes a usable path.',
+        sectionText: vliGerman ? 'Jeder Weg fuehrt von einer raeumlichen Absicht zu passenden Kategorien, Materialien und Objekten.' : 'Each path moves from a spatial intention to relevant categories, materials, and objects.',
+        paths: vliGerman ? [
+            { query: 'living room', title: 'Ruhiges Wohnen', text: 'Weiche Geometrie, warme Neutraltoene und taktile Tiefe.' },
+            { query: 'dining room', title: 'Geselliges Essen', text: 'Robuste Oberflaechen und ausgewogene Proportionen.' },
+            { query: 'workspace', title: 'Konzentriertes Arbeiten', text: 'Klarheit, Stauraum und angenehmes Arbeitslicht.' }
+        ] : [
+            { query: 'living room', title: 'Quiet living', text: 'Soft geometry, warm neutrals, and tactile depth.' },
+            { query: 'dining room', title: 'Gathered dining', text: 'Durable surfaces and balanced proportions.' },
+            { query: 'workspace', title: 'Focused work', text: 'Clarity, storage, and comfortable task light.' }
+        ]
+    } %}
+
+    <div class="vli-axis-page vli-axis-page--material vli-editorial-page"
+         data-veylune-public-editorial="{{ veyluneEditorialMode }}"
+         data-veylune-registry-scope="public-editorial">
+        <nav class="vli-axis-page__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.home.page') }}">{{ vliGerman ? 'Startseite' : 'Home' }}</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{{ editorial.label }}</span>
+        </nav>
+
+        <section class="vli-axis-page__hero" aria-labelledby="vli-editorial-title">
+            <div class="vli-axis-page__hero-copy">
+                <p class="vli-axis-page__kicker">{{ editorial.index }} / {{ editorial.label }}</p>
+                <h1 id="vli-editorial-title">{{ editorial.title }}</h1>
+                <p>{{ editorial.text }}</p>
+                <div class="vli-axis-page__hero-actions">
+                    <a class="vli-axis-button vli-axis-button--primary" href="#vli-editorial-paths">{{ editorial.action }}</a>
+                    <a class="vli-axis-button" href="{{ path('frontend.veylune.editions.page') }}">{{ vliGerman ? 'Editionen ansehen' : 'View editions' }}</a>
+                </div>
+                <dl class="vli-axis-page__facts">
+                    <div><dt>{{ vliGerman ? 'Format' : 'Format' }}</dt><dd>{{ editorial.label }}</dd></div>
+                    <div><dt>{{ vliGerman ? 'Wege' : 'Paths' }}</dt><dd>03</dd></div>
+                    <div><dt>{{ vliGerman ? 'Modus' : 'Mode' }}</dt><dd>{{ vliGerman ? 'Entdecken' : 'Discover' }}</dd></div>
+                </dl>
+            </div>
+            <figure class="vli-axis-page__hero-media">
+                <img src="{{ asset(editorial.image, 'theme') }}" alt="{{ editorial.imageAlt }}" loading="eager" fetchpriority="high">
+                <figcaption>{{ editorial.caption }}</figcaption>
+            </figure>
+        </section>
+
+        <section class="vli-material-paths" id="vli-editorial-paths" aria-labelledby="vli-editorial-paths-title">
+            <header class="vli-axis-section-head">
+                <div>
+                    <p class="vli-axis-page__kicker">{{ editorial.sectionLabel }}</p>
+                    <h2 id="vli-editorial-paths-title">{{ editorial.sectionTitle }}</h2>
+                </div>
+                <p>{{ editorial.sectionText }}</p>
+            </header>
+            <div class="vli-material-paths__grid">
+                {% for item in editorial.paths %}
+                    <a href="{{ path('frontend.veylune.living_index.search', { q: item.query }) }}">
+                        <span>0{{ loop.index }}</span>
+                        <strong>{{ item.title }}</strong>
+                        <small>{{ item.text }}</small>
+                        <b aria-hidden="true">&rarr;</b>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="vli-axis-closing" aria-labelledby="vli-editorial-closing-title">
+            <div>
+                <p class="vli-axis-page__kicker">{{ vliGerman ? 'Weiter erkunden' : 'Continue exploring' }}</p>
+                <h2 id="vli-editorial-closing-title">{{ vliGerman ? 'Aus einer Idee wird eine konkrete Auswahl.' : 'Turn a direction into a concrete selection.' }}</h2>
+                <p>{{ vliGerman ? 'Im Living Index koennen Raeume, Materialien und Objekte gemeinsam durchsucht und gespeichert werden.' : 'Use the Living Index to search and save rooms, materials, and objects together.' }}</p>
+            </div>
+            <a class="vli-axis-button vli-axis-button--light" href="{{ path('frontend.veylune.living_index.search') }}">{{ vliGerman ? 'Living Index oeffnen' : 'Open Living Index' }} <span aria-hidden="true">&rarr;</span></a>
+        </section>
+    </div>
+{% endblock %}

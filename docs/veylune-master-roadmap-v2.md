@@ -69,7 +69,7 @@ Exit gate:
 
 ## Phase 3 - Public information architecture and content surfaces
 
-Current estimate: 70 percent complete.
+Current estimate: 75 percent complete. Phase 3.1A is complete; 3.1B through 3.1H remain.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 3, Public Information Architecture and Content Surfaces. Phase 2.1H moved the remaining global-control and production-readiness rules into the canonical UI owner, retired two late override partials, reduced active SCSS files to 119 and base imports to 117, preserved exact SHA-256 parity across 21 shell screenshots, and passed the 30-capture route, focus, target-size, reduced-motion, cookie, footer, responsive, keyboard, and runtime exit matrix. Phase 3 now consolidates public page structure, content hierarchy, and route-specific surfaces against the approved marketplace reference.
+Start Phase 3.1B, Checkout Guard and Wishlist Promise Closure. Phase 3.1A rebaselined all 47 public routes across 94 desktop/mobile surfaces, reduced mixed and broken surfaces to zero, removed public private-preview language, and gave Editions, Journal, and Inspiration distinct 200 outcomes. The only remaining non-current surfaces are the declared empty-session `/checkout/confirm` and unavailable `/wishlist` decisions. Phase 3.1B must replace both unexplained 404 outcomes with intentional public contracts and verify that every related CTA tells the truth.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "capturedAt": "2026-09-14",
+  "capturedAt": "2026-09-19",
   "public": {
     "expectedRouteCount": 47,
     "groups": [
@@ -49,8 +49,8 @@
       {
         "id": "editorial",
         "owner": "editions",
-        "currentClassification": "mixed",
-        "targetBehavior": "distinct_public_outcome_without_private_preview_markers",
+        "currentClassification": "current",
+        "targetBehavior": "distinct_public_outcomes_without_private_preview_markers",
         "routes": ["/editions", "/journal", "/inspiration"]
       },
       {
@@ -80,20 +80,6 @@
         "currentBehavior": "404",
         "requiredDecision": "activate_real_wishlist_or_remove_public_wishlist_promise",
         "targetPhase": 3
-      },
-      {
-        "path": "/journal",
-        "owner": "editions",
-        "currentBehavior": "alias_to_editions_with_mixed_copy",
-        "requiredDecision": "distinct_page_or_intentional_redirect_with_clean_copy",
-        "targetPhase": 3
-      },
-      {
-        "path": "/inspiration",
-        "owner": "editions",
-        "currentBehavior": "alias_to_editions_with_mixed_copy",
-        "requiredDecision": "distinct_page_or_intentional_redirect_with_clean_copy",
-        "targetPhase": 3
       }
     ],
     "conditionalAndRedirectContracts": [
@@ -114,12 +100,6 @@
         "owner": "public_content",
         "visibility": "public_redirect",
         "expectedBehavior": "301_to_about_studio"
-      },
-      {
-        "pathPattern": "/journal|/inspiration",
-        "owner": "editions",
-        "visibility": "public_redirect_provisional",
-        "expectedBehavior": "currently_301_to_editions_requires_phase_3_decision"
       },
       {
         "pathPattern": "/consultation",
@@ -166,8 +146,8 @@
       {
         "id": "public_broken_images",
         "severity": "high",
-        "status": "open",
-        "evidence": "latest_public_audit_recorded_1_broken_image_on_home_16_on_discover_and_1_on_discover_room_desktop",
+        "status": "resolved_phase_3_1a",
+        "evidence": "phase_3_1a_public_rebaseline_recorded_zero_broken_image_surfaces_across_94_desktop_mobile_captures",
         "owner": "public_media",
         "targetPhase": 3
       }

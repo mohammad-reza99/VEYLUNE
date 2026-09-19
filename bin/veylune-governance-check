@@ -870,6 +870,7 @@ assert_contains "$identity_ingress_subscriber" 'data-veylune-release-error' 'con
 assert_contains "$identity_ingress_subscriber" "'Content-Security-Policy'" 'controlled 404 CSP contract'
 bash bin/veylune-production-readiness >/dev/null
 php bin/veylune-phase-2-exit-audit >/dev/null
+php bin/veylune-phase-3-public-ia-audit >/dev/null
 
 step 'complete'
 printf 'Veylune governance verification passed.\n'

@@ -553,7 +553,7 @@
       "governance": {
         "eyebrow": "Release Governance",
         "title": "Editions are release records, not campaign pages.",
-        "text": "Each Edition defines why selected works belong together. A piece may remain part of Seating, Lighting, or Objects while the Edition records its release context, supplier collaboration, material study, or private preview status.",
+        "text": "Each Edition defines why selected works belong together. A piece may remain part of Seating, Lighting, or Objects while the Edition records its release context, supplier collaboration, material study, or pre-release review status.",
         "principles": {
           "crossCollection": {
             "title": "Cross-collection placement",
@@ -590,8 +590,22 @@
             "text": "A controlled production context presented only when availability is operationally clear."
           },
           "privatePreview": {
-            "title": "Private Preview",
+            "title": "Pre-release Review",
             "text": "A restrained inquiry path for works reviewed before wider publication."
+          }
+        }
+      },
+      "publicEditorial": {
+        "journal": {
+          "seo": {
+            "title": "Journal | Veylune Studio",
+            "description": "Field notes on materials, making, rooms, and the decisions behind a considered interior."
+          }
+        },
+        "inspiration": {
+          "seo": {
+            "title": "Inspiration | Veylune Studio",
+            "description": "Room-led ideas that connect atmosphere, material direction, and discoverable objects."
           }
         }
       },

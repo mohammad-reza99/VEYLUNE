@@ -1,0 +1,4004 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "3.1A",
+  "capturedAt": "2026-09-19T20:57:10.909Z",
+  "reference": {
+    "url": "https://www.wayfair.com/",
+    "capturedAt": "2026-09-19",
+    "observedPatterns": [
+      "service utility rail",
+      "dominant search and account cart utilities",
+      "intentional primary navigation",
+      "department navigation",
+      "dense product and editorial discovery"
+    ]
+  },
+  "baseUrl": "https://veylune-shopware.ddev.site",
+  "routeCount": 47,
+  "viewports": [
+    {
+      "id": "desktop",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "id": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "captures": [
+    {
+      "viewport": "desktop",
+      "group": "home",
+      "owner": "public_home",
+      "priorClassification": "current",
+      "route": "/",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--home.png",
+      "computed": {
+        "title": "Veylune Studio | Material, Form, and Spatial Presence",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-navigation",
+          "is-act-home",
+          "is-active-route-frontend-home-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded",
+          "veylune-marketplace-motion-ready"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/about",
+      "direct": {
+        "status": 301,
+        "location": "/about-studio"
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/about-studio",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--about.png",
+      "computed": {
+        "title": "Studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-studio",
+          "is-active-route-frontend-veylune-studio-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/about-studio",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/about-studio",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-studio",
+          "is-active-route-frontend-veylune-studio-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/atelier-partnerships",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/atelier-partnerships",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Atelier Partnerships | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-page",
+          "is-active-route-frontend-veylune-partnership-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/private-consultation",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/private-consultation",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Private Consultation | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-consultation",
+          "is-active-route-frontend-veylune-consultation-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/trade-program",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/trade-program",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Trade Program | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-trade",
+          "is-active-route-frontend-veylune-trade-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/contact-studio",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/contact-studio",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Contact the studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-contactstudio",
+          "is-act-page",
+          "is-active-route-frontend-veylune-contact-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account",
+      "direct": {
+        "status": 302,
+        "location": "/account/login?redirectTo=frontend.account.home.page&redirectParameters=%7B%22_noStore%22:true%7D"
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login?redirectTo=frontend.account.home.page&redirectParameters=%7B%22_noStore%22:true%7D",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--account.png",
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-auth",
+          "is-act-loginpage",
+          "is-active-route-frontend-account-login-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account/login",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-auth",
+          "is-act-loginpage",
+          "is-active-route-frontend-account-login-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account/recover",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/recover",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Password recovery | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-auth",
+          "is-act-recoveraccountform",
+          "is-active-route-frontend-account-recover-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account/register",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/register",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-register",
+          "is-act-accountregisterpage",
+          "is-active-route-frontend-account-register-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/bedding-bath",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/bedding-bath",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--categories-bedding-bath.png",
+      "computed": {
+        "title": "Bedding & Bath",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/decor-objects",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/decor-objects",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Decor Objects",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/dining-kitchen",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/dining-kitchen",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Dining & Kitchen",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/furniture",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/furniture",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Furniture",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/lighting",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/lighting",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Lighting",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/mattresses",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/mattresses",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Mattresses",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/organization",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/organization",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Organization",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/outdoor",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/outdoor",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Outdoor",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/rugs",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/rugs",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Rugs",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/textiles-rugs",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/textiles-rugs",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Textiles & Rugs",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/bedroom",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/bedroom",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--rooms-bedroom.png",
+      "computed": {
+        "title": "Bedroom",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/dining-room",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/dining-room",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Dining Room",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/hallway",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/hallway",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Hallway",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/living-room",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/living-room",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Living Room",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/outdoor",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/outdoor",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Outdoor",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/workspace",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/workspace",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Workspace",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/best-sellers",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/best-sellers",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--collections-best-sellers.png",
+      "computed": {
+        "title": "Best Sellers",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/editorial",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/editorial",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Editorial Collections",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection-editorial",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/founder-selection",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/founder-selection",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Founder Selection",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/new-arrivals",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/new-arrivals",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "New Arrivals",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/permanent",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/permanent",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Permanent Collections",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection-permanent",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/sale",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/sale",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Sale",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "discover_and_selection",
+      "owner": "living_index",
+      "priorClassification": "current",
+      "route": "/discover",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--discover.png",
+      "computed": {
+        "title": "Search the Living Index",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-livingindexutility",
+          "is-act-search",
+          "is-active-route-frontend-veylune-living_index-search",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "discover_and_selection",
+      "owner": "living_index",
+      "priorClassification": "current",
+      "route": "/discover?q=room",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover?q=room",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Search: room",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-livingindexutility",
+          "is-act-search",
+          "is-active-route-frontend-veylune-living_index-search",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "discover_and_selection",
+      "owner": "living_index",
+      "priorClassification": "current",
+      "route": "/selection",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/selection",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Your Veylune Selection",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-livingindexutility",
+          "is-act-selection",
+          "is-active-route-frontend-veylune-living_index-selection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "editorial",
+      "owner": "editions",
+      "priorClassification": "current",
+      "route": "/editions",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/editions",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--editions.png",
+      "computed": {
+        "title": "Editions | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-editions",
+          "is-act-page",
+          "is-active-route-frontend-veylune-editions-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "editorial",
+      "owner": "editions",
+      "priorClassification": "current",
+      "route": "/journal",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/journal",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--journal.png",
+      "computed": {
+        "title": "Journal | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-editions",
+          "is-act-journal",
+          "is-active-route-frontend-veylune-editions-journal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "editorial",
+      "owner": "editions",
+      "priorClassification": "current",
+      "route": "/inspiration",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/inspiration",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--inspiration.png",
+      "computed": {
+        "title": "Inspiration | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-editions",
+          "is-act-inspiration",
+          "is-active-route-frontend-veylune-editions-inspiration-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/cancellation",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/cancellation",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--legal-cancellation.png",
+      "computed": {
+        "title": "Cancellation information | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/imprint",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/imprint",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Imprint | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/payment-delivery",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/payment-delivery",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Payment and delivery | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/privacy",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/privacy",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Privacy notice | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/terms",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/terms",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Terms of service | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "commerce",
+      "owner": "shopware_commerce",
+      "priorClassification": "decision_required",
+      "route": "/checkout/cart",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/cart",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "desktop--checkout-cart.png",
+      "computed": {
+        "title": "Shopping cart | Demostore",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-checkout",
+          "is-act-cartpage",
+          "is-active-route-frontend-checkout-cart-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "commerce",
+      "owner": "shopware_commerce",
+      "priorClassification": "decision_required",
+      "route": "/checkout/confirm",
+      "direct": {
+        "status": 404,
+        "location": null
+      },
+      "followedStatus": 404,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/confirm",
+      "classification": "decision_required",
+      "reasons": [
+        "shell_or_main_contract",
+        "runtime_errors",
+        "phase_3_behavior_decision"
+      ],
+      "screenshot": "desktop--checkout-confirm.png",
+      "computed": {
+        "title": "Page not found | VEYLUNE STUDIO",
+        "lang": "en",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": false,
+        "footerPresent": false,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": []
+      },
+      "errors": {
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 ()"
+        ],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "desktop",
+      "group": "commerce",
+      "owner": "shopware_commerce",
+      "priorClassification": "decision_required",
+      "route": "/wishlist",
+      "direct": {
+        "status": 404,
+        "location": null
+      },
+      "followedStatus": 404,
+      "finalUrl": "https://veylune-shopware.ddev.site/wishlist",
+      "classification": "decision_required",
+      "reasons": [
+        "shell_or_main_contract",
+        "runtime_errors",
+        "phase_3_behavior_decision"
+      ],
+      "screenshot": "desktop--wishlist.png",
+      "computed": {
+        "title": "Page not found | VEYLUNE STUDIO",
+        "lang": "en",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": false,
+        "footerPresent": false,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": []
+      },
+      "errors": {
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 ()"
+        ],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "home",
+      "owner": "public_home",
+      "priorClassification": "current",
+      "route": "/",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--home.png",
+      "computed": {
+        "title": "Veylune Studio | Material, Form, and Spatial Presence",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-navigation",
+          "is-act-home",
+          "is-active-route-frontend-home-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded",
+          "veylune-marketplace-motion-ready"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/about",
+      "direct": {
+        "status": 301,
+        "location": "/about-studio"
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/about-studio",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--about.png",
+      "computed": {
+        "title": "Studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-studio",
+          "is-active-route-frontend-veylune-studio-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/about-studio",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/about-studio",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-studio",
+          "is-active-route-frontend-veylune-studio-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/atelier-partnerships",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/atelier-partnerships",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Atelier Partnerships | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-page",
+          "is-active-route-frontend-veylune-partnership-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/private-consultation",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/private-consultation",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Private Consultation | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-consultation",
+          "is-active-route-frontend-veylune-consultation-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/trade-program",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/trade-program",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Trade Program | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-partnership",
+          "is-act-trade",
+          "is-active-route-frontend-veylune-trade-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-legacy-ready",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "studio_and_services",
+      "owner": "public_content",
+      "priorClassification": "current",
+      "route": "/contact-studio",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/contact-studio",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Contact the studio | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-contactstudio",
+          "is-act-page",
+          "is-active-route-frontend-veylune-contact-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account",
+      "direct": {
+        "status": 302,
+        "location": "/account/login?redirectTo=frontend.account.home.page&redirectParameters=%7B%22_noStore%22:true%7D"
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login?redirectTo=frontend.account.home.page&redirectParameters=%7B%22_noStore%22:true%7D",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--account.png",
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-auth",
+          "is-act-loginpage",
+          "is-active-route-frontend-account-login-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account/login",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/login",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-auth",
+          "is-act-loginpage",
+          "is-active-route-frontend-account-login-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account/recover",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/recover",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Password recovery | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-auth",
+          "is-act-recoveraccountform",
+          "is-active-route-frontend-account-recover-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "account_entry",
+      "owner": "shopware_account",
+      "priorClassification": "current",
+      "route": "/account/register",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/account/register",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Sign in or create account | VEYLUNE",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-register",
+          "is-act-accountregisterpage",
+          "is-active-route-frontend-account-register-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/bedding-bath",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/bedding-bath",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--categories-bedding-bath.png",
+      "computed": {
+        "title": "Bedding & Bath",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/decor-objects",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/decor-objects",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Decor Objects",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/dining-kitchen",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/dining-kitchen",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Dining & Kitchen",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/furniture",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/furniture",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Furniture",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/lighting",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/lighting",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Lighting",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/mattresses",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/mattresses",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Mattresses",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/organization",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/organization",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Organization",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/outdoor",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/outdoor",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Outdoor",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/rugs",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/rugs",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Rugs",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "categories",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/categories/textiles-rugs",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/categories/textiles-rugs",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Textiles & Rugs",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-category",
+          "is-active-route-frontend-veylune-discovery-category",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/bedroom",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/bedroom",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--rooms-bedroom.png",
+      "computed": {
+        "title": "Bedroom",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/dining-room",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/dining-room",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Dining Room",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/hallway",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/hallway",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Hallway",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/living-room",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/living-room",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Living Room",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/outdoor",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/outdoor",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Outdoor",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "rooms",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/rooms/workspace",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/rooms/workspace",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Workspace",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-room",
+          "is-active-route-frontend-veylune-discovery-room",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/best-sellers",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/best-sellers",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--collections-best-sellers.png",
+      "computed": {
+        "title": "Best Sellers",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/editorial",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/editorial",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Editorial Collections",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection-editorial",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/founder-selection",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/founder-selection",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Founder Selection",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/new-arrivals",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/new-arrivals",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "New Arrivals",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/permanent",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/permanent",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Permanent Collections",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection-permanent",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "collections",
+      "owner": "public_discovery",
+      "priorClassification": "current",
+      "route": "/collections/sale",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/collections/sale",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Sale",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-discoverydestination",
+          "is-act-collection",
+          "is-active-route-frontend-veylune-discovery-collection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "discover_and_selection",
+      "owner": "living_index",
+      "priorClassification": "current",
+      "route": "/discover",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--discover.png",
+      "computed": {
+        "title": "Search the Living Index",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-livingindexutility",
+          "is-act-search",
+          "is-active-route-frontend-veylune-living_index-search",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "discover_and_selection",
+      "owner": "living_index",
+      "priorClassification": "current",
+      "route": "/discover?q=room",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/discover?q=room",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Search: room",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-livingindexutility",
+          "is-act-search",
+          "is-active-route-frontend-veylune-living_index-search",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "discover_and_selection",
+      "owner": "living_index",
+      "priorClassification": "current",
+      "route": "/selection",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/selection",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Your Veylune Selection",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-livingindexutility",
+          "is-act-selection",
+          "is-active-route-frontend-veylune-living_index-selection",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "editorial",
+      "owner": "editions",
+      "priorClassification": "current",
+      "route": "/editions",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/editions",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--editions.png",
+      "computed": {
+        "title": "Editions | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-editions",
+          "is-act-page",
+          "is-active-route-frontend-veylune-editions-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "editorial",
+      "owner": "editions",
+      "priorClassification": "current",
+      "route": "/journal",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/journal",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--journal.png",
+      "computed": {
+        "title": "Journal | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-editions",
+          "is-act-journal",
+          "is-active-route-frontend-veylune-editions-journal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "editorial",
+      "owner": "editions",
+      "priorClassification": "current",
+      "route": "/inspiration",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/inspiration",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--inspiration.png",
+      "computed": {
+        "title": "Inspiration | Veylune Studio",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-editions",
+          "is-act-inspiration",
+          "is-active-route-frontend-veylune-editions-inspiration-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/cancellation",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/cancellation",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--legal-cancellation.png",
+      "computed": {
+        "title": "Cancellation information | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/imprint",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/imprint",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Imprint | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/payment-delivery",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/payment-delivery",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Payment and delivery | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/privacy",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/privacy",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Privacy notice | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "legal",
+      "owner": "public_legal",
+      "priorClassification": "current",
+      "route": "/legal/terms",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/legal/terms",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": null,
+      "computed": {
+        "title": "Terms of service | VEYLUNE STUDIO",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-legalpage",
+          "is-act-page",
+          "is-active-route-frontend-veylune-legal-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "commerce",
+      "owner": "shopware_commerce",
+      "priorClassification": "decision_required",
+      "route": "/checkout/cart",
+      "direct": {
+        "status": 200,
+        "location": null
+      },
+      "followedStatus": 200,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/cart",
+      "classification": "current",
+      "reasons": [],
+      "screenshot": "mobile--checkout-cart.png",
+      "computed": {
+        "title": "Shopping cart | Demostore",
+        "lang": "en-GB",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": true,
+        "footerPresent": true,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": [
+          "is-ctl-checkout",
+          "is-act-cartpage",
+          "is-active-route-frontend-checkout-cart-page",
+          "veylune-polish-ready",
+          "veylune-mood-limestone",
+          "veylune-is-loaded"
+        ]
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "commerce",
+      "owner": "shopware_commerce",
+      "priorClassification": "decision_required",
+      "route": "/checkout/confirm",
+      "direct": {
+        "status": 404,
+        "location": null
+      },
+      "followedStatus": 404,
+      "finalUrl": "https://veylune-shopware.ddev.site/checkout/confirm",
+      "classification": "decision_required",
+      "reasons": [
+        "shell_or_main_contract",
+        "runtime_errors",
+        "phase_3_behavior_decision"
+      ],
+      "screenshot": "mobile--checkout-confirm.png",
+      "computed": {
+        "title": "Page not found | VEYLUNE STUDIO",
+        "lang": "en",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": false,
+        "footerPresent": false,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": []
+      },
+      "errors": {
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 ()"
+        ],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    },
+    {
+      "viewport": "mobile",
+      "group": "commerce",
+      "owner": "shopware_commerce",
+      "priorClassification": "decision_required",
+      "route": "/wishlist",
+      "direct": {
+        "status": 404,
+        "location": null
+      },
+      "followedStatus": 404,
+      "finalUrl": "https://veylune-shopware.ddev.site/wishlist",
+      "classification": "decision_required",
+      "reasons": [
+        "shell_or_main_contract",
+        "runtime_errors",
+        "phase_3_behavior_decision"
+      ],
+      "screenshot": "mobile--wishlist.png",
+      "computed": {
+        "title": "Page not found | VEYLUNE STUDIO",
+        "lang": "en",
+        "mainCount": 1,
+        "h1Count": 1,
+        "headerPresent": false,
+        "footerPresent": false,
+        "horizontalOverflow": false,
+        "emptyTargets": 0,
+        "brokenImages": [],
+        "privatePreviewMarkers": [],
+        "legacySelectors": [],
+        "bodyClasses": []
+      },
+      "errors": {
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 ()"
+        ],
+        "pageErrors": [],
+        "failedResponses": []
+      }
+    }
+  ],
+  "summary": {
+    "routeCount": 47,
+    "surfaceCount": 94,
+    "screenshotCount": 28,
+    "classifications": {
+      "current": 90,
+      "decision_required": 4
+    },
+    "runtimeIssueSurfaces": 4,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "privatePreviewCopySurfaces": 0,
+    "legacyStructureSurfaces": 0
+  }
+}

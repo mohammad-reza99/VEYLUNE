@@ -41,15 +41,16 @@ class EditionsController extends StorefrontController
         ]);
     }
 
-    #[Route(path: '/journal', name: 'frontend.veylune.editions.journal.alias', methods: [Request::METHOD_GET])]
-    #[Route(path: '/inspiration', name: 'frontend.veylune.editions.inspiration.alias', methods: [Request::METHOD_GET])]
-    public function editorialAlias(): Response
+    #[Route(path: '/journal', name: 'frontend.veylune.editions.journal.page', methods: [Request::METHOD_GET])]
+    public function journal(Request $request, SalesChannelContext $context): Response
     {
-        return $this->redirectToRoute(
-            'frontend.veylune.editions.page',
-            [],
-            Response::HTTP_MOVED_PERMANENTLY
-        );
+        return $this->editorialPage($request, $context, 'journal');
+    }
+
+    #[Route(path: '/inspiration', name: 'frontend.veylune.editions.inspiration.page', methods: [Request::METHOD_GET])]
+    public function inspiration(Request $request, SalesChannelContext $context): Response
+    {
+        return $this->editorialPage($request, $context, 'inspiration');
     }
 
     #[Route(
@@ -89,5 +90,20 @@ class EditionsController extends StorefrontController
     private function denyEditionDetail(): Response
     {
         return new Response('', Response::HTTP_NOT_FOUND);
+    }
+
+    private function editorialPage(Request $request, SalesChannelContext $context, string $mode): Response
+    {
+        $page = $this->genericPageLoader->load($request, $context);
+        $translationPrefix = 'veylune.editions.publicEditorial.' . $mode . '.seo.';
+        $page->getMetaInformation()?->setMetaTitle($this->translator->trans($translationPrefix . 'title'));
+        $page->getMetaInformation()?->setMetaDescription($this->translator->trans($translationPrefix . 'description'));
+        $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
+
+        return $this->renderStorefront('@Storefront/storefront/veylune/editorial-landing.html.twig', [
+            'page' => $page,
+            'veylunePageType' => 'editorial-' . $mode,
+            'veyluneEditorialMode' => $mode,
+        ]);
     }
 }

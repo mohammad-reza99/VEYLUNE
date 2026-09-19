@@ -553,7 +553,7 @@
       "governance": {
         "eyebrow": "Veröffentlichungssteuerung",
         "title": "Editionen sind Veröffentlichungsdokumente, keine Kampagnenseiten.",
-        "text": "Jede Edition definiert, warum ausgewählte Arbeiten zusammengehören. Ein Stück kann weiterhin Teil von Sitzmöbeln, Leuchten oder Objekten bleiben, während die Edition seinen Veröffentlichungskontext, seine Kollaboration, Materialstudie oder Rolle in der privaten Vorschau dokumentiert.",
+        "text": "Jede Edition definiert, warum ausgewaehlte Arbeiten zusammengehoeren. Ein Stueck kann weiterhin Teil von Sitzmoebeln, Leuchten oder Objekten bleiben, waehrend die Edition seinen Veroeffentlichungskontext, seine Kollaboration, Materialstudie oder Rolle in der Vorabpruefung dokumentiert.",
         "principles": {
           "crossCollection": {
             "title": "Kollektionsübergreifende Platzierung",
@@ -590,8 +590,22 @@
             "text": "Ein kontrollierter Produktionskontext, nur dargestellt, wenn Verfügbarkeit operativ klar ist."
           },
           "privatePreview": {
-            "title": "Private Vorschau",
-            "text": "Ein zurückhaltender Anfrageweg für Arbeiten, die vor breiterer Veröffentlichung geprüft werden."
+            "title": "Vorabpruefung",
+            "text": "Ein zurueckhaltender Anfrageweg fuer Arbeiten, die vor breiterer Veroeffentlichung geprueft werden."
+          }
+        }
+      },
+      "publicEditorial": {
+        "journal": {
+          "seo": {
+            "title": "Journal | Veylune Studio",
+            "description": "Notizen zu Materialien, Herstellung, Raeumen und den Entscheidungen hinter einem bewussten Interieur."
+          }
+        },
+        "inspiration": {
+          "seo": {
+            "title": "Inspiration | Veylune Studio",
+            "description": "Raumbezogene Ideen verbinden Atmosphaere, Materialrichtung und auffindbare Objekte."
           }
         }
       },

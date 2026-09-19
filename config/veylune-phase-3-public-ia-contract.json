@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "3.1A",
+  "capturedAt": "2026-09-19",
+  "surfaceContract": "config/veylune-surface-contract.json",
+  "report": "reports/visual-baselines/phase-3-1a-public-ia/public-ia-baseline.json",
+  "evidenceDirectory": "reports/visual-baselines/phase-3-1a-public-ia",
+  "reference": "https://www.wayfair.com/",
+  "expected": {
+    "routes": 47,
+    "viewports": 2,
+    "surfaces": 94,
+    "screenshots": 28,
+    "currentSurfaces": 90,
+    "mixedSurfaces": 0,
+    "brokenSurfaces": 0,
+    "decisionRequiredSurfaces": 4,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "privatePreviewCopySurfaces": 0,
+    "legacyStructureSurfaces": 0
+  },
+  "decisionRoutes": [
+    "/checkout/confirm",
+    "/wishlist"
+  ],
+  "editorialRoutes": {
+    "/editions": "editions",
+    "/journal": "journal",
+    "/inspiration": "inspiration"
+  },
+  "acceptance": [
+    "all_47_public_routes_rebaselined_desktop_mobile",
+    "zero_mixed_or_broken_surfaces",
+    "zero_private_preview_copy_on_public_surfaces",
+    "distinct_editions_journal_inspiration_outcomes",
+    "zero_overflow_broken_images_or_legacy_structure",
+    "only_declared_commerce_decisions_remain"
+  ],
+  "nextPackage": {
+    "id": "3.1B",
+    "name": "Checkout guard and wishlist promise closure"
+  }
+}
