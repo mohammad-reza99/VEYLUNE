@@ -10,9 +10,9 @@
     "sourceOrderIsBehaviorUntilConsolidated": true
   },
   "baseline": {
-    "scssFiles": 137,
-    "baseImports": 135,
-    "scssLines": 30465,
+    "scssFiles": 121,
+    "baseImports": 119,
+    "scssLines": 30520,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
     "importantDeclarations": 130,
     "debtNamedFiles": 39,
@@ -63,18 +63,9 @@
         ],
         "javascript": ["veylune-header.js"]
       },
-      "scssImports": [
-        "component/topbar", "component/header", "component/navigation", "component/footer", "component/marketplace-visible-bridge",
-        "component/marketplace-header", "component/marketplace-header-refinement", "component/marketplace-header-precision",
-        "component/marketplace-header-source-alignment", "component/marketplace-header-silhouette", "component/marketplace-header-proportion",
-        "component/marketplace-mega-menu", "component/marketplace-mega-precision", "component/marketplace-mobile-drawer",
-        "component/marketplace-sticky-header", "component/marketplace-header-reference-refinement",
-        "component/marketplace-header-premium-polish", "component/marketplace-header-type-rhythm",
-        "component/marketplace-header-type-rhythm-visible", "component/marketplace-menu-premium-refinement",
-        "component/marketplace-phase-9-header-ia-closure"
-      ],
+      "scssImports": ["component/topbar", "component/header", "component/navigation", "component/footer"],
       "javascriptModules": ["veylune-header.js"],
-      "consolidationTarget": "Four SCSS owners, one header behavior module, and one Twig shell family."
+      "consolidationTarget": "Complete in Phase 2.1G: four SCSS owners, one header behavior module, and one Twig shell family."
     },
     {
       "id": "home_merchandising",
@@ -91,7 +82,7 @@
         "javascript": ["veylune-home.js", "veylune-product-slider.js"]
       },
       "scssImports": [
-        "component/media-storytelling", "component/homepage", "component/marketplace-home-shell",
+        "component/media-storytelling", "component/homepage", "component/marketplace-visible-bridge", "component/marketplace-home-shell",
         "component/marketplace-category-discovery", "component/marketplace-category-assets", "component/marketplace-product-slider",
         "component/marketplace-category-slider", "component/marketplace-promo-merchandising", "component/marketplace-room-carousel",
         "component/marketplace-creative-direction", "component/marketplace-creative-detail", "component/marketplace-trust-services",

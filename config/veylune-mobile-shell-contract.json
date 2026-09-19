@@ -5,7 +5,7 @@
   "canonicalHeaderTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig",
   "canonicalMobileTwig": "custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig",
   "canonicalJavascript": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js",
-  "canonicalScss": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-mobile-drawer.scss",
+  "canonicalScss": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_navigation.scss",
   "visualReport": "reports/visual-baselines/phase-2-1f/shell-baseline.json",
   "visualEvidenceDirectory": "reports/visual-baselines/phase-2-1f",
   "reference": "https://www.wayfair.com/",

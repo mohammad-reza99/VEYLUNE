@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "2.1G",
+  "capturedAt": "2026-09-19",
+  "entrypoint": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/base.scss",
+  "canonicalOwners": [
+    "component/topbar",
+    "component/navigation",
+    "component/header",
+    "component/footer"
+  ],
+  "homepageBridge": "component/marketplace-visible-bridge",
+  "visualReport": "reports/visual-baselines/phase-2-1g/shell-baseline.json",
+  "visualEvidenceDirectory": "reports/visual-baselines/phase-2-1g",
+  "parityReferenceDirectory": "reports/visual-baselines/phase-2-1f",
+  "reference": "https://www.wayfair.com/",
+  "retiredPartials": [
+    "marketplace-header",
+    "marketplace-header-refinement",
+    "marketplace-header-precision",
+    "marketplace-header-source-alignment",
+    "marketplace-header-silhouette",
+    "marketplace-header-proportion",
+    "marketplace-mega-menu",
+    "marketplace-mega-precision",
+    "marketplace-mobile-drawer",
+    "marketplace-sticky-header",
+    "marketplace-header-reference-refinement",
+    "marketplace-header-premium-polish",
+    "marketplace-header-type-rhythm",
+    "marketplace-header-type-rhythm-visible",
+    "marketplace-menu-premium-refinement",
+    "marketplace-phase-9-header-ia-closure"
+  ],
+  "expected": {
+    "scssFiles": 121,
+    "baseImports": 119,
+    "retiredPartials": 16,
+    "captureCount": 15,
+    "screenshotCount": 21,
+    "pixelIdenticalScreenshots": 21,
+    "navigationLinkOccurrences": 80,
+    "uniqueNavigationRoutes": 26,
+    "failedNavigationRoutes": 0
+  },
+  "acceptance": [
+    "four_canonical_global_shell_owners",
+    "no_retired_shell_imports_or_partials",
+    "homepage_bridge_contains_no_global_shell_selectors",
+    "desktop_tablet_mobile_behavior_clean",
+    "phase_2_1f_pixel_parity_exact"
+  ],
+  "nextPackage": {"id": "2.1H", "name": "Global shell exit gate and control normalization"}
+}

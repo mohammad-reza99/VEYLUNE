@@ -657,3 +657,1169 @@
         }
     }
 }
+
+/* Migrated from marketplace-visible-bridge: canonical header bridge. */
+.veylune-header,
+.veylune-header.is-initial,
+.veylune-header.is-scrolled {
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    border-bottom: 1px solid var(--veylune-marketplace-border);
+    box-shadow: var(--veylune-marketplace-shadow-sm);
+}
+
+.veylune-header__bar {
+    min-height: 72px;
+}
+
+.veylune-header__action-link {
+    padding: 9px 12px;
+    border-radius: var(--veylune-marketplace-radius-pill);
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-header__action-link:hover,
+.veylune-header__action-link:focus-visible {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-header__icon-button {
+    display: inline-grid;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid transparent;
+    border-radius: var(--veylune-marketplace-radius-pill);
+    color: var(--veylune-marketplace-ink);
+    background: transparent;
+}
+
+.veylune-header__icon-button:hover {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+@media (max-width: 767.98px) {
+    .veylune-header__bar {
+        min-height: 64px;
+    }
+}
+
+/* Phase 2.1G consolidated shell cascade. Source order is recorded per section. */
+
+/* Migrated from _marketplace-header.scss. */
+.veylune-header__bar {
+    overflow: visible;
+    background: var(--veylune-marketplace-white);
+    backdrop-filter: none;
+}
+
+.veylune-header__inner {
+    grid-template-columns: minmax(150px, 220px) minmax(280px, 1fr) auto;
+    grid-template-rows: auto auto;
+    gap: 10px 24px;
+    width: min(100% - 32px, 1440px);
+    min-height: auto;
+    padding: 14px 0 0;
+}
+
+.veylune-header__logo {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+}
+
+.veylune-header__logo-image {
+    width: clamp(150px, 14vw, 205px);
+    max-height: 46px;
+}
+
+.veylune-marketplace-search {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.veylune-marketplace-search__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    min-height: 48px;
+    overflow: hidden;
+    border: 2px solid var(--veylune-marketplace-primary);
+    border-radius: var(--veylune-marketplace-radius-pill);
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-marketplace-search__form:focus-within {
+    box-shadow: 0 0 0 3px rgb(139 92 246 / 24%);
+}
+
+.veylune-marketplace-search__input {
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 8px 8px 18px;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    color: var(--veylune-marketplace-ink);
+    background: transparent;
+    font-size: 1rem;
+}
+
+.veylune-marketplace-search__input:focus {
+    border: 0;
+    box-shadow: none;
+}
+
+.veylune-marketplace-search__submit {
+    display: grid;
+    width: 48px;
+    min-height: 44px;
+    padding: 0;
+    place-items: center;
+    border: 0;
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-marketplace-search__submit:hover {
+    background: var(--veylune-marketplace-primary-hover);
+}
+
+.veylune-marketplace-search__submit .icon {
+    width: 20px;
+    height: 20px;
+    color: currentColor;
+}
+
+.veylune-header__actions {
+    grid-column: 3;
+    grid-row: 1;
+    gap: 4px;
+}
+
+.veylune-marketplace-action {
+    display: inline-flex;
+    min-width: 64px;
+    min-height: 48px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 8px;
+    border-radius: var(--veylune-marketplace-radius-md);
+    color: var(--veylune-marketplace-ink);
+    text-decoration: none;
+}
+
+.veylune-marketplace-action:hover,
+.veylune-marketplace-action:focus-visible {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+.veylune-marketplace-action__icon,
+.veylune-header__bag-icon {
+    display: inline-flex;
+    width: 22px;
+    height: 22px;
+}
+
+.veylune-marketplace-action__icon .icon,
+.veylune-header__bag-icon .icon {
+    width: 22px;
+    height: 22px;
+    color: currentColor;
+}
+
+.veylune-marketplace-action__label,
+.veylune-header__bag-label.veylune-marketplace-action__label {
+    color: currentColor;
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    text-transform: none;
+}
+
+.veylune-marketplace-action__count {
+    display: inline-grid;
+    min-width: 18px;
+    height: 18px;
+    margin-left: 2px;
+    place-items: center;
+    border-radius: var(--veylune-marketplace-radius-pill);
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-promo);
+    font-size: 0.6875rem;
+}
+
+.veylune-header__search-toggle--mobile {
+    display: none;
+}
+
+.veylune-header__nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 0 7px;
+    border-top: 1px solid var(--veylune-marketplace-border);
+}
+
+.veylune-header__nav-link {
+    padding: 8px 14px;
+    font-weight: 700;
+}
+
+.veylune-header__nav-link::after {
+    display: none;
+}
+
+.veylune-mega__panel {
+    top: 134px;
+    width: min(100% - 32px, 1180px);
+    padding: 28px;
+    border: 1px solid var(--veylune-marketplace-border);
+    border-radius: 0 0 var(--veylune-marketplace-radius-lg) var(--veylune-marketplace-radius-lg);
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-white);
+    box-shadow: var(--veylune-marketplace-shadow-md);
+    backdrop-filter: none;
+}
+
+.veylune-mega__group h3 {
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.875rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.veylune-mega__links {
+    border-color: var(--veylune-marketplace-border);
+}
+
+.veylune-mega__links a {
+    min-height: 44px;
+    padding: 10px 4px;
+    border-color: var(--veylune-marketplace-border);
+    color: var(--veylune-marketplace-ink);
+    font-family: var(--veylune-marketplace-font);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.veylune-mega__links a:hover,
+.veylune-mega__links a:focus-visible {
+    padding-left: 8px;
+    color: var(--veylune-marketplace-primary);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header__inner {
+        grid-template-columns: 44px minmax(110px, 1fr) auto;
+        grid-template-rows: auto auto;
+        gap: 10px 12px;
+        padding: 10px 0;
+    }
+
+    .veylune-header__mobile-toggle {
+        display: block;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .veylune-header__logo {
+        grid-column: 2;
+        justify-self: center;
+    }
+
+    .veylune-header__actions {
+        grid-column: 3;
+    }
+
+    .veylune-marketplace-search {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .veylune-header__nav,
+    .veylune-header__search-toggle--mobile,
+    .veylune-marketplace-action__label {
+        display: none;
+    }
+
+    .veylune-marketplace-action {
+        min-width: 44px;
+        width: 44px;
+        height: 44px;
+        min-height: 44px;
+        padding: 0;
+    }
+
+    .veylune-mega__panel {
+        top: 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-header__logo-image {
+        width: 132px;
+    }
+
+    .veylune-header__actions {
+        gap: 0;
+    }
+
+    .veylune-marketplace-action:first-of-type {
+        display: none;
+    }
+}
+
+/* Migrated from _marketplace-header-refinement.scss. */
+/* Phase 2.1: high-density marketplace header refinement. */
+
+.veylune-header__inner {
+    grid-template-columns: 190px minmax(480px, 1fr) minmax(136px, auto);
+    gap: 8px 22px;
+    padding-top: 12px;
+}
+
+.veylune-marketplace-search__form {
+    min-height: 46px;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    border-width: 1px;
+    border-color: var(--veylune-marketplace-ink);
+    border-radius: var(--veylune-marketplace-radius-md);
+}
+
+.veylune-marketplace-search__form:focus-within {
+    border-color: var(--veylune-marketplace-primary);
+}
+
+.veylune-marketplace-search__submit {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-white);
+    border-left: 1px solid var(--veylune-marketplace-border);
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-header__utility {
+    display: none;
+}
+
+.veylune-header__nav {
+    justify-content: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+}
+
+.veylune-header__nav::-webkit-scrollbar {
+    display: none;
+}
+
+.veylune-header__nav-link,
+.veylune-header__nav-link--pending {
+    flex: 0 0 auto;
+    padding: 9px 12px;
+    border-radius: 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.veylune-header__nav-link--pending {
+    color: var(--veylune-marketplace-ink);
+    cursor: default;
+}
+
+.veylune-header__nav-link--pending:hover {
+    color: var(--veylune-marketplace-ink);
+    background: transparent;
+}
+
+.veylune-header__nav-link:not(.veylune-header__nav-link--pending):hover,
+.veylune-header__nav-link:not(.veylune-header__nav-link--pending):focus-visible {
+    color: var(--veylune-marketplace-primary);
+    background: var(--veylune-marketplace-primary-soft);
+}
+
+@media (min-width: 1200px) {
+    .veylune-header__inner {
+        grid-template-columns: 200px minmax(620px, 1fr) auto;
+    }
+}
+
+@media (max-width: 1199.98px) and (min-width: 992px) {
+    .veylune-header__inner {
+        grid-template-columns: 170px minmax(420px, 1fr) auto;
+    }
+
+    .veylune-marketplace-action {
+        min-width: 56px;
+        padding-inline: 5px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header__inner {
+        grid-template-columns: 44px minmax(100px, 1fr) auto;
+    }
+
+    .veylune-marketplace-search__form {
+        border-radius: var(--veylune-marketplace-radius-md);
+    }
+}
+
+/* Migrated from _marketplace-header-precision.scss. */
+.veylune-header .veylune-header__nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    justify-self: stretch;
+    overflow-x: auto;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header .veylune-header__nav {
+        display: none;
+    }
+}
+
+/* Migrated from _marketplace-header-source-alignment.scss. */
+/* Phase 2.2: alignment to the supplied current-market DOM reference. */
+
+.veylune-header__inner {
+    padding-top: 10px;
+}
+
+.veylune-marketplace-search__form {
+    border-color: var(--veylune-marketplace-primary);
+}
+
+.veylune-marketplace-search__input::placeholder {
+    color: var(--veylune-marketplace-muted);
+    opacity: 1;
+}
+
+.veylune-header__nav {
+    min-height: 44px;
+    padding-block: 2px;
+}
+
+.veylune-header__nav-link,
+.veylune-header__nav-link--pending {
+    min-height: 40px;
+    padding: 11px 12px;
+    font-size: 0.8125rem;
+}
+
+.veylune-header__nav-link--pending:first-child {
+    color: var(--veylune-marketplace-primary);
+    font-weight: 800;
+}
+
+.veylune-header__nav-link--pending:last-of-type {
+    color: var(--veylune-marketplace-promo);
+    font-weight: 800;
+}
+
+/* Migrated from _marketplace-header-silhouette.scss. */
+/* Phase 2.4: full-bleed header silhouette and legacy-offset removal. */
+
+.header-main > .container {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+}
+
+.header-main .veylune-header,
+.header-main .veylune-header__bar {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+}
+
+.veylune-header .veylune-header__bar,
+.veylune-header.is-initial .veylune-header__bar,
+.veylune-header.is-scrolled .veylune-header__bar {
+    background: var(--veylune-marketplace-white);
+    border-bottom: 1px solid var(--veylune-marketplace-border);
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.veylune-header .veylune-header__inner {
+    width: min(calc(100% - 48px), 1600px);
+    max-width: 1600px;
+    margin-inline: auto;
+}
+
+.veylune-header .veylune-header__nav {
+    width: 100%;
+    margin: 0;
+    padding: 2px 0;
+}
+
+@media (max-width: 767.98px) {
+    .veylune-header .veylune-header__inner {
+        width: calc(100% - 24px);
+    }
+}
+
+/* Migrated from _marketplace-header-proportion.scss. */
+/* Phase 2.5: exact 2/7/3 header grid and outlined-search anatomy. */
+
+@media (min-width: 992px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 2fr 7fr 3fr;
+        grid-template-rows: 72px 48px;
+        column-gap: 24px;
+        row-gap: 0;
+        min-height: 120px;
+        padding: 0;
+    }
+
+    .veylune-header__logo {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: start;
+    }
+
+    .veylune-header__logo-image {
+        width: 150px;
+        max-width: 150px;
+        max-height: 48px;
+    }
+
+    .veylune-marketplace-search {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: center;
+    }
+
+    .veylune-header__actions {
+        grid-column: 3;
+        grid-row: 1;
+        min-width: 0;
+        align-self: center;
+        justify-content: flex-end;
+        gap: 16px;
+    }
+
+    .veylune-marketplace-action {
+        min-width: 0;
+        min-height: 48px;
+        flex-direction: row;
+        gap: 8px;
+        padding: 8px;
+        border-radius: var(--veylune-marketplace-radius-md);
+    }
+
+    .veylune-marketplace-action__label,
+    .veylune-header__bag-label.veylune-marketplace-action__label {
+        font-size: var(--veylune-marketplace-font-size-500);
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    .veylune-header .veylune-header__nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        min-height: 48px;
+        align-self: stretch;
+    }
+}
+
+.veylune-marketplace-search__form {
+    grid-template-columns: minmax(0, 1fr) 56px;
+    height: 48px;
+    min-height: 48px;
+    border: 1px solid var(--veylune-marketplace-primary);
+    border-radius: var(--veylune-marketplace-radius-lg);
+}
+
+.veylune-marketplace-search__input {
+    height: 46px;
+    min-height: 46px;
+    padding: 8px 16px;
+    border: 0;
+    border-radius: var(--veylune-marketplace-radius-lg) 0 0 var(--veylune-marketplace-radius-lg);
+    font-size: var(--veylune-marketplace-font-size-1000);
+    line-height: 1.5;
+}
+
+.veylune-marketplace-search__submit {
+    width: 56px;
+    height: 46px;
+    min-height: 46px;
+    border: 0;
+    border-radius: 0 var(--veylune-marketplace-radius-lg) var(--veylune-marketplace-radius-lg) 0;
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary);
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    color: var(--veylune-marketplace-white);
+    background: var(--veylune-marketplace-primary-hover);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-rows: 56px 48px;
+        min-height: 104px;
+        row-gap: 8px;
+    }
+
+    .veylune-marketplace-search__form {
+        width: 100%;
+    }
+}
+
+/* Migrated from _marketplace-sticky-header.scss. */
+/* Phase 2.8: compact, stable marketplace header states. */
+
+.header-main {
+    position: sticky;
+    top: 0;
+    z-index: 1040;
+}
+
+.header-main .veylune-header {
+    position: relative;
+    top: auto;
+}
+
+.veylune-header {
+    --veylune-marketplace-header-shadow: 0 2px 8px rgb(33 30 34 / 10%);
+
+    background: var(--veylune-marketplace-white);
+}
+
+.veylune-header .veylune-header__bar {
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.veylune-header.is-scrolled .veylune-header__bar {
+    border-bottom-color: var(--veylune-marketplace-border);
+    box-shadow: var(--veylune-marketplace-header-shadow);
+}
+
+.veylune-header.is-scrolled .veylune-header__progress {
+    background: var(--veylune-marketplace-primary);
+}
+
+@media (min-width: 992px) {
+    .veylune-header.is-scrolled .veylune-header__inner,
+    .veylune-header.is-scrolling-up.is-scrolled .veylune-header__inner {
+        grid-template-rows: 64px 44px;
+        min-height: 108px;
+        padding: 0;
+        column-gap: 24px;
+        row-gap: 0;
+    }
+
+    .veylune-header.is-scrolled .veylune-header__logo-image {
+        width: 142px;
+        max-width: 142px;
+        max-height: 42px;
+    }
+
+    .veylune-header.is-scrolled .veylune-marketplace-search__form {
+        height: 44px;
+        min-height: 44px;
+    }
+
+    .veylune-header.is-scrolled .veylune-marketplace-search__input,
+    .veylune-header.is-scrolled .veylune-marketplace-search__submit {
+        height: 42px;
+        min-height: 42px;
+    }
+
+    .veylune-header.is-scrolled .veylune-header__nav {
+        min-height: 44px;
+    }
+
+    .veylune-header.is-scrolled .veylune-mega__panel {
+        top: 108px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header.is-scrolled .veylune-header__inner,
+    .veylune-header.is-scrolling-up.is-scrolled .veylune-header__inner {
+        min-height: 104px;
+        padding: 0;
+        row-gap: 8px;
+    }
+
+    .veylune-header.is-scrolled .veylune-header__logo-image {
+        max-height: 38px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-header .veylune-header__bar {
+        transition-duration: 1ms;
+    }
+}
+
+/* Migrated from _marketplace-header-reference-refinement.scss. */
+/* Reference refinement: preserve Wayfair's hierarchy while tightening Veylune execution. */
+
+.veylune-header .veylune-header__bar,
+.veylune-header.is-initial .veylune-header__bar,
+.veylune-header.is-scrolled .veylune-header__bar {
+    background: #fff;
+    border-bottom: 1px solid #dedde0;
+}
+
+@media (min-width: 992px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 246px minmax(460px, 1fr) 339px;
+        grid-template-rows: 60px 74px;
+        column-gap: 20px;
+        min-height: 134px;
+    }
+
+    .veylune-header__logo-image {
+        width: 180px;
+        max-width: 180px;
+        max-height: 52px;
+    }
+
+    .veylune-header__actions {
+        gap: 14px;
+    }
+
+    .veylune-header__search-toggle--mobile {
+        display: none !important;
+    }
+
+    .veylune-marketplace-action {
+        min-height: 48px;
+        padding: 8px 10px;
+        border-radius: 999px;
+    }
+}
+
+.veylune-marketplace-search__form {
+    grid-template-columns: minmax(0, 1fr) 56px;
+    height: 48px;
+    min-height: 48px;
+    overflow: hidden;
+    border: 1px solid #2f2b31;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: none;
+}
+
+.veylune-header .veylune-marketplace-search__input {
+    height: 46px;
+    min-height: 46px;
+    padding: 8px 18px;
+    font-size: 1rem;
+}
+
+.veylune-marketplace-search__submit {
+    width: 56px;
+    height: 46px;
+    min-height: 46px;
+    border-radius: 0;
+    color: #fff;
+    background: #7f187f;
+}
+
+.veylune-marketplace-search__form:focus-within {
+    border-color: #7f187f;
+    box-shadow: 0 0 0 2px rgb(127 24 127 / 18%);
+}
+
+.veylune-marketplace-action__count {
+    background: #c61d46;
+}
+
+/* Two calm nav bands from one semantic list: discovery first, departments second. */
+.veylune-header .veylune-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
+    justify-content: center;
+    gap: 0;
+    height: 74px;
+    min-height: 74px;
+    overflow: hidden;
+    padding: 0;
+    border-top: 0;
+}
+
+.veylune-header .veylune-header__nav::after {
+    content: "";
+    order: 2;
+    flex-basis: 100%;
+    height: 0;
+}
+
+.veylune-header__nav-link {
+    display: inline-flex;
+    height: 37px;
+    min-height: 37px;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 0;
+    color: #2f2b31;
+    background: transparent;
+    font-size: 0.75rem;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.veylune-header__nav-link:nth-child(-n + 9) {
+    order: 1;
+}
+
+.veylune-header__nav-link:nth-child(n + 10) {
+    order: 3;
+    font-weight: 750;
+}
+
+.veylune-header__nav-link:hover,
+.veylune-header__nav-link:focus-visible {
+    color: #7f187f;
+    background: transparent;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+}
+
+.veylune-header__nav-link::after,
+.veylune-marketplace-header .main-navigation-link::after {
+    display: none;
+}
+
+@media (max-width: 1199.98px) and (min-width: 992px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 170px minmax(380px, 1fr) 250px;
+        column-gap: 14px;
+    }
+
+    .veylune-header__nav-link {
+        padding-inline: 9px;
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header .veylune-header__inner {
+        grid-template-rows: 56px 48px;
+        min-height: 112px;
+        row-gap: 0;
+        padding: 4px 0;
+    }
+
+    .veylune-header .veylune-marketplace-search__input {
+        padding-left: 16px;
+    }
+
+    .veylune-header .veylune-header__nav {
+        display: none;
+    }
+}
+
+/* Migrated from _marketplace-header-premium-polish.scss. */
+/* Premium polish: restrained character layered onto the approved reference structure. */
+
+@media (min-width: 992px) {
+    .veylune-header .veylune-header__inner {
+        width: min(calc(100% - 64px), 1310px);
+        max-width: 1310px;
+    }
+
+    .veylune-header .veylune-header__inner {
+        grid-template-columns: 227px minmax(500px, 1fr) 308px;
+        column-gap: 22px;
+    }
+
+    .veylune-header__logo-main {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .veylune-header__logo-image {
+        display: none;
+    }
+
+    .veylune-header__logo-main::before {
+        content: "veylune";
+        color: #7f187f;
+        font-family: var(--veylune-marketplace-font);
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.055em;
+    }
+
+    .veylune-header__logo-main::after {
+        content: "HOME";
+        align-self: flex-end;
+        margin: 0 0 1px 9px;
+        color: rgb(47 43 49 / 48%);
+        font-size: 0.54rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+    }
+}
+
+.veylune-marketplace-search__form {
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.veylune-marketplace-search__form:hover {
+    border-color: #7f187f;
+}
+
+.veylune-marketplace-search__form:focus-within {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgb(83 25 83 / 11%), 0 0 0 2px rgb(127 24 127 / 14%);
+}
+
+.veylune-marketplace-search__submit {
+    background: linear-gradient(145deg, #8b208b, #741474);
+}
+
+.veylune-marketplace-search__submit:hover,
+.veylune-marketplace-search__submit:focus-visible {
+    background: #651065;
+}
+
+.veylune-marketplace-action {
+    transition: color 150ms ease, background-color 150ms ease;
+}
+
+.veylune-marketplace-action:hover,
+.veylune-marketplace-action:focus-visible {
+    color: #7f187f;
+    background: #f7f0f7;
+}
+
+.veylune-header__nav-link:first-child::before {
+    content: "✓";
+    display: inline-grid;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #7f187f;
+    font-size: 0.65rem;
+    font-weight: 900;
+}
+
+.veylune-header__nav-link:nth-child(18) {
+    color: #c61d46;
+}
+
+.veylune-header__nav-link:hover,
+.veylune-header__nav-link:focus-visible {
+    text-decoration: none;
+}
+
+.veylune-header__nav-link {
+    position: relative;
+}
+
+.veylune-header__nav-link::after {
+    content: "";
+    position: absolute;
+    right: 9px;
+    bottom: 4px;
+    left: 9px;
+    display: block;
+    height: 2px;
+    background: #7f187f;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 160ms ease;
+}
+
+.veylune-header__nav-link:hover::after,
+.veylune-header__nav-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header__logo-image {
+        display: none;
+    }
+
+    .veylune-header__logo-main {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .veylune-header__logo-main::before {
+        content: "veylune";
+        color: #7f187f;
+        font-family: var(--veylune-marketplace-font);
+        font-size: 1.25rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.055em;
+    }
+
+    .veylune-marketplace-search__form:focus-within {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .veylune-marketplace-search__form,
+    .veylune-marketplace-action,
+    .veylune-header__nav-link::after {
+        transition: none;
+    }
+}
+
+/* Migrated from _marketplace-header-type-rhythm.scss. */
+/* Three-tier type rhythm: signature, interface and index. */
+
+.veylune-header {
+    --veylune-type-signature-size: 1.95rem;
+    --veylune-type-interface-size: 0.875rem;
+    --veylune-type-index-size: 0.72rem;
+    --veylune-type-signature-weight: 900;
+    --veylune-type-interface-weight: 700;
+    --veylune-type-index-weight: 650;
+}
+
+/* Tier 1 / Tier 2 / Tier 3 across the main workspace. */
+@media (min-width: 992px) {
+    .veylune-header__logo-main::before {
+        font-size: var(--veylune-type-signature-size);
+        font-weight: var(--veylune-type-signature-weight);
+        letter-spacing: -0.06em;
+    }
+
+    .veylune-header__logo-main::after {
+        font-size: 0.5rem;
+        font-weight: 800;
+        letter-spacing: 0.17em;
+    }
+}
+
+.veylune-header .veylune-marketplace-search__input {
+    font-size: 0.9375rem;
+    font-weight: 450;
+    letter-spacing: -0.012em;
+}
+
+.veylune-marketplace-action__label,
+.veylune-header__bag-label.veylune-marketplace-action__label {
+    font-size: var(--veylune-type-interface-size);
+    font-weight: var(--veylune-type-interface-weight);
+    letter-spacing: -0.018em;
+}
+
+/* The two nav rows alternate scale and weight to create a three-beat pattern. */
+.veylune-header__nav-link:nth-child(-n + 9) {
+    font-size: 0.775rem;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+}
+
+.veylune-header__nav-link:nth-child(n + 10) {
+    font-size: var(--veylune-type-index-size);
+    font-weight: 760;
+    letter-spacing: 0.005em;
+}
+
+.veylune-header__nav-link:nth-child(3n + 1) {
+    letter-spacing: -0.018em;
+}
+
+.veylune-header__nav-link:nth-child(3n + 2) {
+    letter-spacing: 0;
+}
+
+.veylune-header__nav-link:nth-child(3n) {
+    letter-spacing: 0.012em;
+}
+
+@media (max-width: 991.98px) {
+    .veylune-header__logo-main::before {
+        font-size: 1.25rem;
+        font-weight: 900;
+        letter-spacing: -0.06em;
+    }
+
+    .veylune-header .veylune-marketplace-search__input {
+        font-size: 1rem;
+    }
+}
+
+/* Migrated from _marketplace-header-type-rhythm-visible.scss. */
+/* Visible three-beat typography pattern requested for the header system. */
+
+.veylune-header__nav-link:nth-child(-n + 9) {
+    font-size: 0.79rem;
+    font-weight: 650;
+    letter-spacing: -0.012em;
+    text-transform: none;
+}
+
+.veylune-header__nav-link:nth-child(n + 10) {
+    font-size: 0.75rem;
+    font-weight: 720;
+    letter-spacing: -0.008em;
+    text-transform: none;
+}
+
+/* Migrated from the former inline base.scss logo correction. */
+.header-logo-picture {
+    width: clamp(210px, 22vw, 260px);
+    min-width: 0;
+    max-width: 260px;
+}
+
+.header-logo-main-img {
+    width: 100%;
+    max-height: 72px;
+    object-fit: contain;
+}
+
+@include media-breakpoint-down(md) {
+    .header-logo-picture {
+        width: 210px;
+        max-width: 210px;
+    }
+
+    .header-logo-main-img {
+        max-height: 64px;
+    }
+}

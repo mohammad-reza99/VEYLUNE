@@ -49,7 +49,7 @@ Exit gate:
 
 ## Phase 2 - Unified design system and global shell
 
-Current estimate: 85 percent complete. Packages 2.1A through 2.1F are complete; packages 2.1G and 2.1H remain.
+Current estimate: 95 percent complete. Packages 2.1A through 2.1G are complete; package 2.1H remains.
 
 Scope:
 
@@ -240,4 +240,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 2.1G Global-shell Cascade Migration. Phase 2.1F retired the duplicate mobile drawer template, activated public mobile search, consolidated four ARIA-linked accordion groups, verified focus trapping plus Escape and backdrop restoration, and passed 15 standard plus 6 interaction captures across 80 navigation link occurrences and 26 unique destinations per breakpoint. Next, move the approved shell declarations into their canonical owners, remove redundant late overrides, and prove visual and behavioral parity after the source-order migration.
+Start Phase 2.1H Global Shell Exit Gate and Control Normalization. Phase 2.1G migrated the approved shell cascade into four canonical owners, retired 16 override partials, reduced active SCSS files from 137 to 121 and base imports from 135 to 119, and proved exact SHA-256 parity across all 21 Phase 2.1F screenshots with zero route, runtime, overflow, or interaction issues. Next, normalize the remaining shared global controls and close Phase 2 only after focus, target-size, reduced-motion, cookie UI, footer, responsive, keyboard, and route-state exit gates all pass.

@@ -121,6 +121,7 @@ php -l bin/veylune-topbar-contract-audit >/dev/null
 php -l bin/veylune-primary-header-contract-audit >/dev/null
 php -l bin/veylune-navigation-contract-audit >/dev/null
 php -l bin/veylune-mobile-shell-contract-audit >/dev/null
+php -l bin/veylune-shell-cascade-audit >/dev/null
 php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
 php bin/veylune-architecture-guard-audit >/dev/null
@@ -131,6 +132,7 @@ php bin/veylune-topbar-contract-audit >/dev/null
 php bin/veylune-primary-header-contract-audit >/dev/null
 php bin/veylune-navigation-contract-audit >/dev/null
 php bin/veylune-mobile-shell-contract-audit >/dev/null
+php bin/veylune-shell-cascade-audit >/dev/null
 
 step 'container lint'
 run_console lint:container >/dev/null
@@ -496,8 +498,8 @@ assert_status '/atelier-partnerships' 200 "$partnership_file"
 assert_contains "$partnership_file" 'href="/atelier-partnerships"' 'partnership trade self-route'
 assert_absent_pattern "$partnership_file" '/search\?search=trade' 'partnership dead trade route removal'
 
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-header-reference-refinement.scss' 'grid-template-rows: 60px 74px' 'reference-aligned header height'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-header-premium-polish.scss' 'grid-template-columns: 227px minmax(500px, 1fr) 308px' 'reference-aligned desktop search width'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_header.scss' 'grid-template-rows: 60px 74px' 'canonical reference-aligned header height'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_header.scss' 'grid-template-columns: 227px minmax(500px, 1fr) 308px' 'canonical reference-aligned desktop search width'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-plp-discovery.scss' 'grid-template-columns: repeat(4, minmax(0, 1fr))' 'reference-aligned PLP category grid'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-plp-discovery.scss' 'font-size: 2rem' 'reference-aligned PLP title scale'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-pdp-wayfair-alignment.scss' 'grid-template-columns: minmax(0, 0.98fr) minmax(0, 1fr)' 'reference-aligned PDP columns'

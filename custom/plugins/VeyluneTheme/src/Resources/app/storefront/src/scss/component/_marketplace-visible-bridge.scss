@@ -1,58 +1,5 @@
-/* Visible bridge from the legacy editorial shell to Marketplace Design System v1. */
-
-.veylune-header,
-.veylune-header.is-initial,
-.veylune-header.is-scrolled {
-    color: var(--veylune-marketplace-ink);
-    background: var(--veylune-marketplace-white);
-    border-bottom: 1px solid var(--veylune-marketplace-border);
-    box-shadow: var(--veylune-marketplace-shadow-sm);
-}
-
-.veylune-header__bar {
-    min-height: 72px;
-}
-
-.veylune-header__nav-link,
-.veylune-header__action-link {
-    padding: 9px 12px;
-    border-radius: var(--veylune-marketplace-radius-pill);
-    color: var(--veylune-marketplace-ink);
-    font-family: var(--veylune-marketplace-font);
-    font-size: 0.9375rem;
-    font-weight: 700;
-    letter-spacing: 0;
-    text-transform: none;
-}
-
-.veylune-header__nav-link:hover,
-.veylune-header__nav-link:focus-visible,
-.veylune-header__action-link:hover,
-.veylune-header__action-link:focus-visible {
-    color: var(--veylune-marketplace-primary);
-    background: var(--veylune-marketplace-primary-soft);
-}
-
-.veylune-header__icon-button,
-.veylune-mega__close,
-.veylune-mobile-nav__close {
-    display: inline-grid;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    place-items: center;
-    border: 1px solid transparent;
-    border-radius: var(--veylune-marketplace-radius-pill);
-    color: var(--veylune-marketplace-ink);
-    background: transparent;
-}
-
-.veylune-header__icon-button:hover,
-.veylune-mega__close:hover,
-.veylune-mobile-nav__close:hover {
-    color: var(--veylune-marketplace-primary);
-    background: var(--veylune-marketplace-primary-soft);
-}
+/* Homepage bridge from the legacy editorial shell to Marketplace Design System v1.
+   Global shell declarations moved to their canonical owners in Phase 2.1G. */
 
 .veylune-home {
     color: var(--veylune-marketplace-ink);
@@ -120,35 +67,7 @@
     border-color: var(--veylune-marketplace-border);
 }
 
-.veylune-footer {
-    border-top: 1px solid var(--veylune-marketplace-border);
-    color: var(--veylune-marketplace-ink);
-    background: var(--veylune-marketplace-surface);
-}
-
-.veylune-footer__title,
-.veylune-footer__text,
-.veylune-footer__link,
-.veylune-footer__bottom {
-    color: var(--veylune-marketplace-muted);
-    font-family: var(--veylune-marketplace-font);
-}
-
-.veylune-footer__title {
-    color: var(--veylune-marketplace-ink);
-    font-weight: 800;
-}
-
-.veylune-footer__link:hover,
-.veylune-footer__link:focus-visible {
-    color: var(--veylune-marketplace-primary);
-}
-
 @media (max-width: 767.98px) {
-    .veylune-header__bar {
-        min-height: 64px;
-    }
-
     .veylune-home__link {
         width: 100%;
     }

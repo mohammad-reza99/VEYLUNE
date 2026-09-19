@@ -80,3 +80,27 @@
         flex-direction: column;
     }
 }
+/* Phase 2.1G canonical marketplace bridge. */
+.veylune-footer {
+    border-top: 1px solid var(--veylune-marketplace-border);
+    color: var(--veylune-marketplace-ink);
+    background: var(--veylune-marketplace-surface);
+}
+
+.veylune-footer__title,
+.veylune-footer__text,
+.veylune-footer__link,
+.veylune-footer__bottom {
+    color: var(--veylune-marketplace-muted);
+    font-family: var(--veylune-marketplace-font);
+}
+
+.veylune-footer__title {
+    color: var(--veylune-marketplace-ink);
+    font-weight: 800;
+}
+
+.veylune-footer__link:hover,
+.veylune-footer__link:focus-visible {
+    color: var(--veylune-marketplace-primary);
+}

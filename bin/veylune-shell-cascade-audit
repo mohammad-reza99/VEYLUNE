@@ -1,0 +1,142 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-shell-cascade][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $decoded = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($decoded)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+    return $decoded;
+}
+
+$contract = readJson($root . '/config/veylune-shell-cascade-contract.json');
+$expected = $contract['expected'] ?? [];
+$scssRoot = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss';
+$componentRoot = $scssRoot . '/component';
+$base = (string) file_get_contents($root . '/' . ($contract['entrypoint'] ?? ''));
+
+$imports = [];
+preg_match_all('/^@import\s+"([^"]+)";/m', $base, $matches);
+$imports = $matches[1] ?? [];
+if (count($imports) !== ($expected['baseImports'] ?? 0)) {
+    fail('Base import count drifted.');
+}
+
+$positions = [];
+foreach ($contract['canonicalOwners'] ?? [] as $owner) {
+    if (count(array_keys($imports, $owner, true)) !== 1) {
+        fail("Canonical owner {$owner} must be imported exactly once.");
+    }
+    $positions[$owner] = array_search($owner, $imports, true);
+    $partial = $scssRoot . '/' . dirname($owner) . '/_' . basename($owner) . '.scss';
+    if (!is_file($partial)) {
+        fail("Canonical owner {$owner} is missing.");
+    }
+}
+if (!($positions['component/topbar'] < $positions['component/navigation'] &&
+      $positions['component/navigation'] < $positions['component/header'])) {
+    fail('Canonical topbar, navigation, and header cascade order drifted.');
+}
+
+foreach ($contract['retiredPartials'] ?? [] as $partial) {
+    if (is_file($componentRoot . '/_' . $partial . '.scss') || in_array('component/' . $partial, $imports, true)) {
+        fail("Retired shell partial {$partial} remains present or imported.");
+    }
+}
+if (count($contract['retiredPartials'] ?? []) !== ($expected['retiredPartials'] ?? 0)) {
+    fail('Retired partial contract count drifted.');
+}
+
+$allScss = [];
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($scssRoot, FilesystemIterator::SKIP_DOTS));
+foreach ($iterator as $file) {
+    if ($file->isFile() && $file->getExtension() === 'scss') {
+        $allScss[] = $file->getPathname();
+    }
+}
+if (count($allScss) !== ($expected['scssFiles'] ?? 0)) {
+    fail('Active SCSS file count drifted.');
+}
+
+$header = (string) file_get_contents($componentRoot . '/_header.scss');
+$navigation = (string) file_get_contents($componentRoot . '/_navigation.scss');
+$footer = (string) file_get_contents($componentRoot . '/_footer.scss');
+$bridge = (string) file_get_contents($componentRoot . '/_marketplace-visible-bridge.scss');
+foreach (['Phase 2.1G consolidated shell cascade', 'Migrated from _marketplace-header.scss', 'Migrated from _marketplace-sticky-header.scss', 'Migrated from the former inline base.scss logo correction'] as $marker) {
+    if (!str_contains($header, $marker)) {
+        fail("Canonical header is missing migration marker {$marker}.");
+    }
+}
+foreach (['Phase 2.1G consolidated shell cascade', 'Migrated from _marketplace-mega-menu.scss', 'Migrated from _marketplace-mobile-drawer.scss', 'Migrated from _marketplace-phase-9-header-ia-closure.scss'] as $marker) {
+    if (!str_contains($navigation, $marker)) {
+        fail("Canonical navigation is missing migration marker {$marker}.");
+    }
+}
+if (!str_contains($footer, 'Phase 2.1G canonical marketplace bridge')) {
+    fail('Canonical footer is missing its migrated bridge declarations.');
+}
+foreach (['.veylune-header', '.veylune-mobile-nav', '.veylune-mega', '.veylune-footer'] as $selector) {
+    if (str_contains($bridge, $selector)) {
+        fail("Homepage bridge still owns global shell selector {$selector}.");
+    }
+}
+
+$report = readJson($root . '/' . ($contract['visualReport'] ?? ''));
+if (($report['phase'] ?? '') !== '2.1G' || count($report['captures'] ?? []) !== ($expected['captureCount'] ?? 0)) {
+    fail('Phase 2.1G visual report is invalid.');
+}
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    if (($capture['status'] ?? null) !== 200 || ($capture['computed']['document']['horizontalOverflow'] ?? true) !== false) {
+        fail("{$key} failed HTTP or viewport containment validation.");
+    }
+    foreach (['consoleErrors', 'pageErrors', 'failedResponses'] as $errorType) {
+        if (!empty($capture['errors'][$errorType] ?? [])) {
+            fail("{$key} contains {$errorType}.");
+        }
+    }
+    if (($capture['route'] ?? '') !== 'home') {
+        continue;
+    }
+    if (count($capture['computed']['actions']['navigationLinks'] ?? []) !== ($expected['navigationLinkOccurrences'] ?? 0) ||
+        count($capture['navigationRoutes'] ?? []) !== ($expected['uniqueNavigationRoutes'] ?? 0)) {
+        fail("{$key} navigation inventory drifted.");
+    }
+    foreach ($capture['navigationRoutes'] as $route) {
+        if (($route['status'] ?? null) !== 200) {
+            fail("{$key} navigation route {$route['href']} returned {$route['status']}.");
+        }
+    }
+}
+
+$evidenceDirectory = $root . '/' . ($contract['visualEvidenceDirectory'] ?? '');
+$referenceDirectory = $root . '/' . ($contract['parityReferenceDirectory'] ?? '');
+$screenshots = glob($evidenceDirectory . '/*.png') ?: [];
+if (count($screenshots) !== ($expected['screenshotCount'] ?? 0)) {
+    fail('Phase 2.1G screenshot count drifted.');
+}
+$identical = 0;
+foreach ($screenshots as $screenshot) {
+    $reference = $referenceDirectory . '/' . basename($screenshot);
+    if (!is_file($reference) || hash_file('sha256', $screenshot) !== hash_file('sha256', $reference)) {
+        fail('Pixel parity drifted for ' . basename($screenshot) . '.');
+    }
+    ++$identical;
+}
+if ($identical !== ($expected['pixelIdenticalScreenshots'] ?? 0)) {
+    fail('Exact pixel parity evidence count drifted.');
+}
+
+echo "[veylune-shell-cascade] PASS owners=4 retired=16 imports=119 screenshots=21 exact=21\n";
+echo "next=2.1H Global shell exit gate and control normalization\n";
