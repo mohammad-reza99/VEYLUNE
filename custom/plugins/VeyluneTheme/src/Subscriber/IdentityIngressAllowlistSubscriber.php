@@ -152,6 +152,32 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             return;
         }
 
+        if ($this->isCanonicalPublicStorefrontRequest($request) && $originalPath === '/checkout/confirm') {
+            $event->setResponse(new RedirectResponse('/checkout/cart?checkout=guarded', Response::HTTP_SEE_OTHER));
+
+            return;
+        }
+
+        if ($this->isCanonicalPublicStorefrontRequest($request) && $originalPath === '/wishlist') {
+            $event->setResponse(new RedirectResponse('/selection?source=wishlist', Response::HTTP_FOUND));
+
+            return;
+        }
+
+        if ($this->isCanonicalPublicStorefrontRequest($request)) {
+            $legacyCollectionCanonicalPath = match ($originalPath) {
+                '/collections/permanent-collections' => '/collections/permanent',
+                '/collections/editorial-collections' => '/collections/editorial',
+                default => null,
+            };
+
+            if ($legacyCollectionCanonicalPath !== null) {
+                $event->setResponse(new RedirectResponse($legacyCollectionCanonicalPath, Response::HTTP_MOVED_PERMANENTLY));
+
+                return;
+            }
+        }
+
         if ($this->isCanonicalPublicStorefrontRequest($request)) {
             $publicAliasCanonicalPath = match ($originalPath) {
                 '/about' => '/about-studio',

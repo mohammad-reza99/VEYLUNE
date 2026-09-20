@@ -1,0 +1,188 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "[veylune-phase-3-exit][FAIL] {$message}\n");
+    exit(1);
+}
+
+function readJson(string $path): array
+{
+    $value = is_file($path) ? json_decode((string) file_get_contents($path), true) : null;
+    if (!is_array($value)) {
+        fail("Missing or invalid JSON: {$path}");
+    }
+    return $value;
+}
+
+$contract = readJson($root . '/config/veylune-phase-3-exit-contract.json');
+$surfaceContract = readJson($root . '/' . $contract['surfaceContract']);
+$report = readJson($root . '/' . $contract['report']);
+$expected = $contract['expected'];
+
+if (($report['phase'] ?? '') !== '3.1H'
+    || count($report['routeDefinitions'] ?? []) !== $expected['routes']
+    || count($report['viewports'] ?? []) !== $expected['viewports']
+    || count($report['captures'] ?? []) !== $expected['surfaces']
+) {
+    fail('Phase 3 exit report shape drifted.');
+}
+
+$forms = [];
+foreach ($report['captures'] as $capture) {
+    $key = ($capture['viewport'] ?? '') . ':' . ($capture['route'] ?? '');
+    $computed = $capture['computed'] ?? [];
+    $keyboard = $capture['keyboard'] ?? [];
+    $errors = $capture['errors'] ?? [];
+
+    if (!($capture['directAccepted'] ?? false)
+        || ($capture['followedStatus'] ?? null) !== 200
+        || ($computed['mainCount'] ?? null) !== 1
+        || ($computed['h1Count'] ?? 0) < 1
+        || !($computed['headerPresent'] ?? false)
+        || !($computed['footerPresent'] ?? false)
+        || ($computed['horizontalOverflow'] ?? true)
+        || !empty($computed['missingAccessibleNames'] ?? [])
+        || !empty($computed['emptyTargets'] ?? [])
+        || !empty($computed['brokenImages'] ?? [])
+        || !empty($computed['missingImageAlt'] ?? [])
+        || !empty($computed['nestedInteractive'] ?? [])
+        || !empty($computed['unresolvedFragments'] ?? [])
+        || !empty($computed['privatePreviewMarkers'] ?? [])
+        || ($computed['publicWishlistControls'] ?? 1) !== 0
+        || $keyboard === []
+        || array_filter($keyboard, static fn (array $sample): bool => !($sample['visibleIndicator'] ?? false)) !== []
+        || !empty($errors['consoleErrors'] ?? [])
+        || !empty($errors['pageErrors'] ?? [])
+        || !empty($errors['failedResponses'] ?? [])
+    ) {
+        fail("Public surface contract failed for {$key}.");
+    }
+
+    foreach ($computed['forms'] ?? [] as $form) {
+        if (empty($form['action']) || !in_array($form['method'] ?? '', ['GET', 'POST'], true) || ($form['unnamedControls'] ?? 1) !== 0) {
+            fail("Invalid visible form contract on {$key}.");
+        }
+        $forms[] = ($form['method'] ?? '') . ':' . ($form['action'] ?? '');
+    }
+}
+
+if (count($forms) !== $expected['formOccurrences'] || count(array_unique($forms)) !== $expected['uniqueFormActions']) {
+    fail('Visible form inventory drifted.');
+}
+
+if (count($report['internalActions'] ?? []) !== $expected['internalActions']) {
+    fail('Internal action inventory drifted.');
+}
+foreach ($report['internalActions'] as $action) {
+    if (!($action['pass'] ?? false)) {
+        fail('Internal action failed: ' . ($action['href'] ?? 'unknown'));
+    }
+}
+
+if (count($report['canonicalRedirects'] ?? []) !== $expected['canonicalRedirects']) {
+    fail('Canonical redirect inventory drifted.');
+}
+foreach ($report['canonicalRedirects'] as $redirect) {
+    if (!($redirect['pass'] ?? false)) {
+        fail('Canonical redirect failed: ' . ($redirect['path'] ?? 'unknown'));
+    }
+}
+
+$summary = $report['summary'] ?? [];
+foreach ([
+    'currentFailureSurfaces',
+    'failedInternalActions',
+    'failedCanonicalRedirects',
+    'undersizedMobileTargets',
+    'oldCmsSurfaces',
+] as $key) {
+    if (count($summary[$key] ?? []) !== $expected[$key]) {
+        fail("Summary metric {$key} drifted.");
+    }
+}
+foreach ([
+    'overflowSurfaces',
+    'brokenImageSurfaces',
+    'publicWishlistControlSurfaces',
+    'privatePreviewCopySurfaces',
+    'runtimeIssueSurfaces',
+] as $key) {
+    if (($summary[$key] ?? -1) !== $expected[$key]) {
+        fail("Summary metric {$key} drifted.");
+    }
+}
+
+$desktopMega = $report['shellInteractions']['desktopMega'] ?? [];
+$mobileDrawer = $report['shellInteractions']['mobileDrawer'] ?? [];
+foreach (['expandedAfterFocus', 'escapeClosed', 'focusRestored', 'outsideClosed', 'pointerLeaveClosed'] as $key) {
+    if (!($desktopMega[$key] ?? false)) {
+        fail("Desktop mega interaction {$key} failed.");
+    }
+}
+foreach (['opened', 'contained', 'focusInside', 'escapeClosed', 'focusRestored'] as $key) {
+    if (!($mobileDrawer[$key] ?? false)) {
+        fail("Mobile drawer interaction {$key} failed.");
+    }
+}
+
+$zero = $report['specialStates']['zeroResult'] ?? [];
+$notFound = $report['specialStates']['controlled404'] ?? [];
+if (($zero['status'] ?? null) !== 200 || !($zero['countMarker'] ?? false) || !($zero['recoveryCopy'] ?? false)) {
+    fail('Zero-result recovery contract failed.');
+}
+if (($notFound['status'] ?? null) !== 404 || !($notFound['releaseMarker'] ?? false) || !($notFound['noIndex'] ?? false)) {
+    fail('Controlled 404 contract failed.');
+}
+
+$screenshots = glob($root . '/' . $contract['evidenceDirectory'] . '/*.png') ?: [];
+if (count($screenshots) !== $expected['screenshots']) {
+    fail('Screenshot evidence count drifted.');
+}
+
+if (($surfaceContract['public']['decisions'] ?? null) !== []) {
+    fail('Resolved public decisions reappeared.');
+}
+$commerceCurrent = false;
+foreach ($surfaceContract['public']['groups'] ?? [] as $group) {
+    if (($group['id'] ?? '') === 'commerce' && ($group['currentClassification'] ?? '') === 'current') {
+        $commerceCurrent = true;
+    }
+}
+if (!$commerceCurrent) {
+    fail('Public commerce decision surfaces are not current.');
+}
+
+$subscriber = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Subscriber/IdentityIngressAllowlistSubscriber.php');
+$header = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig');
+$card = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/component/product/card/box-standard.html.twig');
+$cart = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/checkout/cart/index.html.twig');
+$offcanvas = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/component/checkout/offcanvas-cart.html.twig');
+$continuityJs = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-legacy.js');
+
+foreach (["originalPath === '/checkout/confirm'", "'/checkout/cart?checkout=guarded'", "originalPath === '/wishlist'", "'/selection?source=wishlist'", 'HTTP_MOVED_PERMANENTLY'] as $marker) {
+    if (!str_contains($subscriber, $marker)) {
+        fail("Ingress policy is missing {$marker}.");
+    }
+}
+if (str_contains($header, 'veylune-product-card__wishlist') || str_contains($card, 'veylune-product-card__wishlist')) {
+    fail('Retired public wishlist promise returned.');
+}
+foreach ([$cart, $offcanvas] as $template) {
+    if (!str_contains($template, 'frontend.veylune.consultation.page')) {
+        fail('Guarded cart does not route to consultation.');
+    }
+}
+foreach (['veylune-legacy-ready', 'veylune-legacy-atmosphere'] as $marker) {
+    if (str_contains($continuityJs, $marker)) {
+        fail("Global legacy marker still active: {$marker}.");
+    }
+}
+
+echo "[veylune-phase-3-exit] PASS routes=47 surfaces=94 actions=168 forms=110 redirects=3 failures=0\n";
+echo "next=Phase 4 Admin catalog and media source of truth\n";

@@ -2,6 +2,7 @@
   "veylune": {
     "cart": {
       "cartTitle": "Ihre private Auswahl",
+      "checkoutGuard": "Der Checkout oeffnet erst nach Auswahl eines verkaeuflichen Objekts und abgeschlossener Commerce-Aktivierung. Pruefen Sie weiter oder beginnen Sie eine private Beratung.",
       "continueExploring": "Weiter prüfen",
       "emptyEyebrow": "Private Auswahl",
       "emptyText": "Eine überlegte Auswahl kann mit einer ruhigen Anfrage beginnen.",
@@ -10,6 +11,7 @@
       "offcanvasTitle": "Private Auswahl",
       "orderSummary": "Auswahlübersicht",
       "proceedToCheckout": "Weiter zu den Details",
+      "requestAcquisition": "Ankauf anfragen",
       "selectionEyebrow": "Private Auswahl",
       "viewSelection": "Auswahl ansehen"
     },

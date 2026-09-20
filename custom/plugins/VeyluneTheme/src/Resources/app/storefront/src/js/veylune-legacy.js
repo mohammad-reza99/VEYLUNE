@@ -8,17 +8,17 @@ const initVeyluneLegacy = () => {
         return;
     }
 
-    if (body.dataset.veyluneLegacyInitialized === 'true') {
+    if (body.dataset.veyluneContinuityInitialized === 'true') {
         return;
     }
 
-    body.dataset.veyluneLegacyInitialized = 'true';
+    body.dataset.veyluneContinuityInitialized = 'true';
 
-    body.classList.add('veylune-legacy-ready');
+    body.classList.add('veylune-continuity-ready');
 
-    if (!document.querySelector('.veylune-legacy-atmosphere')) {
+    if (!document.querySelector('.veylune-continuity-atmosphere')) {
         const atmosphere = document.createElement('div');
-        atmosphere.className = 'veylune-legacy-atmosphere';
+        atmosphere.className = 'veylune-continuity-atmosphere';
         atmosphere.setAttribute('aria-hidden', 'true');
         atmosphere.innerHTML = '<span></span><span></span><span></span>';
         body.prepend(atmosphere);
@@ -62,9 +62,9 @@ const initVeyluneLegacy = () => {
     const updateContinuity = () => {
         const scrollMax = Math.max(root.scrollHeight - window.innerHeight, 1);
         const progress = Math.min(window.scrollY / scrollMax, 1);
-        const legacyDepth = Math.round(progress * 1000) / 1000;
+        const continuityDepth = Math.round(progress * 1000) / 1000;
 
-        root.style.setProperty('--veylune-legacy-depth', legacyDepth);
+        root.style.setProperty('--veylune-continuity-depth', continuityDepth);
         body.toggleAttribute('data-veylune-deep-memory', progress > 0.55);
     };
 
@@ -79,14 +79,14 @@ const initVeyluneLegacy = () => {
                     return;
                 }
 
-                entry.target.classList.add('is-legacy-visible');
+                    entry.target.classList.add('is-continuity-visible');
                 observer.unobserve(entry.target);
             });
         }, { threshold: 0.22, rootMargin: '0px 0px -8% 0px' });
 
         signatureTargets.forEach((target) => observer.observe(target));
     } else {
-        signatureTargets.forEach((target) => target.classList.add('is-legacy-visible'));
+        signatureTargets.forEach((target) => target.classList.add('is-continuity-visible'));
     }
 };
 

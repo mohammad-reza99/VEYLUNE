@@ -37,10 +37,10 @@
 
 {% block component_offcanvas_cart_actions_checkout %}
     <div class="d-grid">
-        <a {% if isCartNotEmpty %}href="{{ path('frontend.checkout.confirm.page') }}"{% else %}aria-disabled="true" tabindex="-1"{% endif %}
+        <a {% if isCartNotEmpty %}href="{{ path('frontend.veylune.consultation.page', { source: 'cart' }) }}"{% else %}aria-disabled="true" tabindex="-1"{% endif %}
            class="btn begin-checkout-btn{% if isCartNotEmpty %} veylune-button{% else %} btn-light disabled{% endif %}"
-           title="{{ 'veylune.cart.proceedToCheckout'|trans|striptags }}">
-            {{ 'veylune.cart.proceedToCheckout'|trans|sw_sanitize }}
+           title="{{ 'veylune.cart.requestAcquisition'|trans|striptags }}">
+            {{ 'veylune.cart.requestAcquisition'|trans|sw_sanitize }}
         </a>
     </div>
 {% endblock %}

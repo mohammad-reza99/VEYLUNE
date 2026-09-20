@@ -60,16 +60,6 @@
                 </span>
             </a>
 
-            {% if config('core.cart.wishlistEnabled') and not veyluneDisableWishlist|default(false) %}
-                <div class="veylune-product-card__wishlist">
-                    {% sw_include '@Storefront/storefront/component/product/card/wishlist.html.twig' with {
-                        showText: false,
-                        size: 'sm',
-                        productId: id
-                    } %}
-                </div>
-            {% endif %}
-
             <div class="veylune-product-card__body">
                 <div class="veylune-product-card__meta">
                     <span>{{ product.categories.first.translated.name|default('veylune.productCard.categoryFallback'|trans|sw_sanitize) }}</span>

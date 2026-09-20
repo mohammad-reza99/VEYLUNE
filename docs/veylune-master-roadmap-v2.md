@@ -1,13 +1,13 @@
 # Veylune Master Roadmap v2
 
-Status date: 2026-09-13
+Status date: 2026-09-20
 
 This is the canonical 9-phase roadmap for the rest of the Veylune project. Older phase names remain useful as evidence, but no longer control execution order.
 
 ## Current evidence baseline
 
-- Public audit: 47 routes and 94 desktop/mobile surfaces. 90 returned 200. Desktop classification was 42 current, 3 mixed, 0 legacy, and 2 broken.
-- Public exceptions: `/editions`, `/journal`, and `/inspiration` are mixed; `/checkout/confirm` and `/wishlist` return 404 and need an explicit product decision.
+- Public audit: 47 routes and 94 desktop/mobile surfaces. All 94 have approved direct outcomes and successful followed destinations; zero mixed, legacy, broken, overflow, or runtime-failure surfaces remain.
+- Public action audit: 168 visible same-origin destinations and 110 visible form occurrences across five unique form actions pass. Checkout is intentionally guarded and the unavailable public wishlist promise is retired.
 - Private audit: 67 routes and 134 desktop/mobile surfaces. All 134 returned 200 with no document overflow, JavaScript errors, or failed responses.
 - Private modernization: catalog home, legacy prototype retirement, and all 13 category/room/collection destinations are complete.
 - Private remaining debt: all 50 PDPs still match legacy-preview markers and render no semantic product image elements; private account is still mixed.
@@ -69,7 +69,7 @@ Exit gate:
 
 ## Phase 3 - Public information architecture and content surfaces
 
-Current estimate: 75 percent complete. Phase 3.1A is complete; 3.1B through 3.1H remain.
+Current estimate: 100 percent complete. Packages 3.1A through 3.1H and the Phase 3 exit gate pass.
 
 Scope:
 
@@ -86,6 +86,15 @@ Exit gate:
 - Zero mixed or legacy-classified public surfaces.
 - Zero unexplained 404 responses.
 - Every clickable-looking control performs the documented action.
+
+Completion evidence:
+
+- 47 routes, two viewports, 94 audited surfaces, and 94 screenshots.
+- 168 visible same-origin destinations with zero failed followed outcomes.
+- 110 visible form occurrences across five actions with zero missing action, method, or control-name contracts.
+- Exact checkout, wishlist, collection, and consultation redirect contracts pass.
+- Desktop mega navigation and mobile drawer pass open, containment, pointer-leave, click-away, Escape, and focus-restoration checks.
+- Zero-result search and the controlled noindex 404 surface are recoverable.
 
 ## Phase 4 - Admin catalog and media source of truth
 
@@ -240,4 +249,4 @@ The percentage is an evidence-based planning estimate, not a claim that all work
 
 ## Exact next step
 
-Start Phase 3.1B, Checkout Guard and Wishlist Promise Closure. Phase 3.1A rebaselined all 47 public routes across 94 desktop/mobile surfaces, reduced mixed and broken surfaces to zero, removed public private-preview language, and gave Editions, Journal, and Inspiration distinct 200 outcomes. The only remaining non-current surfaces are the declared empty-session `/checkout/confirm` and unavailable `/wishlist` decisions. Phase 3.1B must replace both unexplained 404 outcomes with intentional public contracts and verify that every related CTA tells the truth.
+Start Phase 4.1A, Admin catalog and media source-of-truth baseline. Inventory the 50 draft products and every active product/editorial media reference, map theme-only assets to Shopware Media, define the minimum governed gallery and metadata contract, and produce a reversible migration plan before moving media authority out of theme code.

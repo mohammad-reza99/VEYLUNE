@@ -1,15 +1,15 @@
 {
   "schemaVersion": "2.0",
-  "capturedAt": "2026-09-19",
+  "capturedAt": "2026-09-20",
   "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
   "currentPhase": {
-    "id": "3.1",
-    "name": "Public Information Architecture and Content Surfaces",
-    "status": "in_progress"
+    "id": "4",
+    "name": "Admin Catalog and Media Source of Truth",
+    "status": "next"
   },
   "currentWorkPackage": {
-    "id": "3.1A",
-    "name": "Public IA rebaseline and editorial closure",
+    "id": "3.1H",
+    "name": "Full public exit matrix and governance gate",
     "status": "complete"
   },
   "gitBaseline": {
@@ -33,13 +33,13 @@
     "public": {
       "routes": 47,
       "desktopMobileSurfaces": 94,
-      "status200": 90,
-      "currentDesktop": 45,
+      "status200": 94,
+      "currentDesktop": 47,
       "mixedDesktop": 0,
       "legacyDesktop": 0,
       "brokenDesktop": 0,
-      "decisionRequiredDesktop": 2,
-      "capturedAt": "2026-09-19"
+      "decisionRequiredDesktop": 0,
+      "capturedAt": "2026-09-20"
     },
     "privatePreview": {
       "routes": 67,
@@ -269,8 +269,8 @@
     }
   },
   "phase31Progress": {
-    "completePackages": ["3.1A"],
-    "pendingPackages": ["3.1B", "3.1C", "3.1D", "3.1E", "3.1F", "3.1G", "3.1H"],
+    "completePackages": ["3.1A", "3.1B", "3.1C", "3.1D", "3.1E", "3.1F", "3.1G", "3.1H"],
+    "pendingPackages": [],
     "phase31ACompletionEvidence": {
       "publicRoutesCaptured": 47,
       "viewportsCaptured": 2,
@@ -287,12 +287,36 @@
       "distinctEditorialRoutes": 3,
       "publicIaContractAudit": "pass",
       "report": "reports/visual-baselines/phase-3-1a-public-ia/public-ia-baseline.json"
+    },
+    "phase31HCompletionEvidence": {
+      "publicRoutesCaptured": 47,
+      "viewportsCaptured": 2,
+      "publicSurfacesCaptured": 94,
+      "approvedSurfaceOutcomes": 94,
+      "currentFailureSurfaces": 0,
+      "visibleInternalActions": 168,
+      "failedInternalActions": 0,
+      "visibleFormOccurrences": 110,
+      "uniqueFormActions": 5,
+      "invalidForms": 0,
+      "canonicalRedirects": 3,
+      "failedCanonicalRedirects": 0,
+      "screenshots": 94,
+      "horizontalOverflowSurfaces": 0,
+      "brokenImageSurfaces": 0,
+      "legacyStructureSurfaces": 0,
+      "publicWishlistControlSurfaces": 0,
+      "privatePreviewCopySurfaces": 0,
+      "runtimeIssueSurfaces": 0,
+      "phase3ExitAudit": "pass",
+      "storefrontBuild": "pass",
+      "report": "reports/visual-baselines/phase-3-exit/phase-3-exit-baseline.json"
     }
   },
   "phaseMap": [
     {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
     {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 100, "status": "complete"},
-    {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 75, "status": "in_progress"},
+    {"id": 3, "name": "Public information architecture and content surfaces", "estimatedPercent": 100, "status": "complete"},
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 30, "status": "partial"},
     {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 70, "status": "partial"},
     {"id": 6, "name": "PDP and customer-commerce journey", "estimatedPercent": 30, "status": "partial"},
@@ -310,8 +334,8 @@
     "auditEvidence": "generated_reports"
   },
   "nextStep": {
-    "id": "3.1B",
-    "name": "Checkout guard and wishlist promise closure",
-    "phase": 3
+    "id": "4.1A",
+    "name": "Admin catalog and media source-of-truth baseline",
+    "phase": 4
   }
 }

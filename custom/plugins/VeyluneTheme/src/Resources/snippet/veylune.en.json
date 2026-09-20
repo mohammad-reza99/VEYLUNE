@@ -2,6 +2,7 @@
   "veylune": {
     "cart": {
       "cartTitle": "Your Private Selection",
+      "checkoutGuard": "Checkout opens only after a sellable object is added and commerce activation is complete. Continue reviewing or begin a private consultation.",
       "continueExploring": "Continue Reviewing",
       "emptyEyebrow": "Private Selection",
       "emptyText": "A considered selection can begin with a quiet inquiry.",
@@ -10,6 +11,7 @@
       "offcanvasTitle": "Private Selection",
       "orderSummary": "Selection Summary",
       "proceedToCheckout": "Continue to Details",
+      "requestAcquisition": "Request Acquisition",
       "selectionEyebrow": "Private Selection",
       "viewSelection": "View Selection"
     },

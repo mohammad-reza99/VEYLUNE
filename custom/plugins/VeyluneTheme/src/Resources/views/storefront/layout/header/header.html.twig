@@ -258,14 +258,6 @@
                             {% endif %}
                         {% endblock %}
 
-                        {% if config('core.cart.wishlistEnabled') %}
-                            {% block layout_header_actions_wishlist %}
-                                <span class="veylune-header__utility veylune-header__utility--desktop" aria-disabled="true" title="Wishlist activation pending">
-                                    {{ 'header.wishlist'|trans|sw_sanitize }}
-                                </span>
-                            {% endblock %}
-                        {% endif %}
-
 						{% block layout_header_actions_cart %}
                             {% if isPrivatePreview %}
                                 <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Cart, 0 items" data-veylune-preview-cart data-veylune-header-cart>

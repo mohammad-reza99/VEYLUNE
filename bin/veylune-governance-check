@@ -115,6 +115,8 @@ php -l bin/veylune-roadmap-baseline-audit >/dev/null
 php -l bin/veylune-component-ownership-audit >/dev/null
 php -l bin/veylune-architecture-guard-audit >/dev/null
 php -l bin/veylune-phase-1-exit-audit >/dev/null
+php -l bin/veylune-phase-3-public-ia-audit >/dev/null
+php -l bin/veylune-phase-3-exit-audit >/dev/null
 php -l bin/veylune-shell-baseline-audit >/dev/null
 php -l bin/veylune-token-contract-audit >/dev/null
 php -l bin/veylune-topbar-contract-audit >/dev/null
@@ -126,6 +128,8 @@ php bin/veylune-roadmap-baseline-audit >/dev/null
 php bin/veylune-component-ownership-audit >/dev/null
 php bin/veylune-architecture-guard-audit >/dev/null
 php bin/veylune-phase-1-exit-audit >/dev/null
+php bin/veylune-phase-3-public-ia-audit >/dev/null
+php bin/veylune-phase-3-exit-audit >/dev/null
 php bin/veylune-shell-baseline-audit >/dev/null
 php bin/veylune-token-contract-audit >/dev/null
 php bin/veylune-topbar-contract-audit >/dev/null
@@ -724,7 +728,6 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 activation_pending_routes=(
     '/search'
     '/suggest'
-    '/wishlist'
     '/detail/019e4c3232987add9b4d98318913cc4f'
     '/navigation/019e47255c4f7a8f947adc9f036f367f'
     '/store-api/category'
@@ -740,6 +743,9 @@ assert_contains "$trade_program_file" '<h1>Private sourcing for designers, archi
 public_cart_file="${TMP_DIR}/storefront_active_empty_cart.html"
 assert_status '/checkout/cart' 200 "$public_cart_file"
 assert_contains "$public_cart_file" '<h1>No pieces are selected.' '/checkout/cart active empty state'
+
+wishlist_redirect_file="${TMP_DIR}/storefront_wishlist_redirect.html"
+assert_status '/wishlist' 302 "$wishlist_redirect_file"
 
 for route in "${activation_pending_routes[@]}"; do
     file="${TMP_DIR}/storefront_denied_${route//\//_}.html"

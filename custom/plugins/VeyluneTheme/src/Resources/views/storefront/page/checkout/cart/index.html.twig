@@ -6,6 +6,11 @@
             <p class="veylune-cart-empty__eyebrow">{{ 'veylune.cart.emptyEyebrow'|trans|sw_sanitize }}</p>
             <h1>{{ 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h1>
             <p>{{ 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
+            {% if app.request.query.get('checkout') == 'guarded' %}
+                <p class="veylune-cart-empty__notice" data-veylune-checkout-guard>
+                    {{ 'veylune.cart.checkoutGuard'|trans|sw_sanitize }}
+                </p>
+            {% endif %}
             <a class="btn veylune-button" href="{{ path('frontend.home.page') }}">
                 {{ 'veylune.cart.continueExploring'|trans|sw_sanitize }}
             </a>
@@ -49,10 +54,10 @@
 
 {% block page_checkout_cart_action_proceed %}
     <div class="checkout-aside-action d-grid">
-        <a href="{{ path('frontend.checkout.confirm.page') }}"
+        <a href="{{ path('frontend.veylune.consultation.page', { source: 'cart' }) }}"
            class="btn btn-lg veylune-button begin-checkout-btn"
-           title="{{ 'veylune.cart.proceedToCheckout'|trans|striptags }}">
-            {{ 'veylune.cart.proceedToCheckout'|trans|sw_sanitize }}
+           title="{{ 'veylune.cart.requestAcquisition'|trans|striptags }}">
+            {{ 'veylune.cart.requestAcquisition'|trans|sw_sanitize }}
         </a>
     </div>
 {% endblock %}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "3.1H",
+  "capturedAt": "2026-09-20",
+  "surfaceContract": "config/veylune-surface-contract.json",
+  "report": "reports/visual-baselines/phase-3-exit/phase-3-exit-baseline.json",
+  "evidenceDirectory": "reports/visual-baselines/phase-3-exit",
+  "harness": "tools/audit/veylune-phase-3-exit-baseline.cjs",
+  "reference": "https://www.wayfair.com/",
+  "expected": {
+    "routes": 47,
+    "viewports": 2,
+    "surfaces": 94,
+    "screenshots": 94,
+    "internalActions": 168,
+    "formOccurrences": 110,
+    "uniqueFormActions": 5,
+    "canonicalRedirects": 3,
+    "currentFailureSurfaces": 0,
+    "failedInternalActions": 0,
+    "failedCanonicalRedirects": 0,
+    "undersizedMobileTargets": 0,
+    "oldCmsSurfaces": 0,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "publicWishlistControlSurfaces": 0,
+    "privatePreviewCopySurfaces": 0,
+    "runtimeIssueSurfaces": 0
+  },
+  "packages": {
+    "3.1B": "checkout_guard_and_wishlist_promise_closure",
+    "3.1C": "canonical_route_and_duplicate_path_closure",
+    "3.1D": "public_link_action_and_form_inventory",
+    "3.1E": "legacy_marker_and_accessible_control_closure",
+    "3.1F": "responsive_shell_interaction_verification",
+    "3.1G": "zero_result_and_controlled_error_recovery",
+    "3.1H": "full_public_exit_matrix_and_governance_gate"
+  },
+  "acceptance": [
+    "all_47_public_routes_have_approved_direct_and_followed_outcomes",
+    "all_visible_internal_links_resolve",
+    "all_visible_forms_have_actions_methods_and_named_controls",
+    "zero_public_wishlist_promises_until_real_commerce_activation",
+    "empty_checkout_is_guarded_and_recoverable",
+    "zero_legacy_markers_overflow_broken_images_or_runtime_issues",
+    "desktop_mega_and_mobile_drawer_interactions_pass",
+    "zero_result_and_controlled_404_states_recover_cleanly"
+  ],
+  "nextPhase": {
+    "id": "4",
+    "name": "Admin catalog and media source of truth"
+  }
+}

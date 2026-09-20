@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "capturedAt": "2026-09-19",
+  "capturedAt": "2026-09-20",
   "public": {
     "expectedRouteCount": 47,
     "groups": [
@@ -62,26 +62,11 @@
       {
         "id": "commerce",
         "owner": "shopware_commerce",
-        "currentClassification": "decision_required",
+        "currentClassification": "current",
         "routes": ["/checkout/cart", "/checkout/confirm", "/wishlist"]
       }
     ],
-    "decisions": [
-      {
-        "path": "/checkout/confirm",
-        "owner": "shopware_commerce",
-        "currentBehavior": "404_on_direct_empty_session",
-        "requiredDecision": "redirect_to_cart_or_guarded_checkout_contract",
-        "targetPhase": 3
-      },
-      {
-        "path": "/wishlist",
-        "owner": "customer_state",
-        "currentBehavior": "404",
-        "requiredDecision": "activate_real_wishlist_or_remove_public_wishlist_promise",
-        "targetPhase": 3
-      }
-    ],
+    "decisions": [],
     "conditionalAndRedirectContracts": [
       {
         "pathPattern": "/objects/{productNumber}",
@@ -100,6 +85,24 @@
         "owner": "public_content",
         "visibility": "public_redirect",
         "expectedBehavior": "301_to_about_studio"
+      },
+      {
+        "pathPattern": "/checkout/confirm",
+        "owner": "shopware_commerce",
+        "visibility": "guarded_public_redirect",
+        "expectedBehavior": "303_to_cart_with_checkout_guard_until_commerce_activation"
+      },
+      {
+        "pathPattern": "/wishlist",
+        "owner": "customer_state",
+        "visibility": "retired_public_promise",
+        "expectedBehavior": "302_to_selection_without_public_wishlist_controls"
+      },
+      {
+        "pathPattern": "/collections/permanent-collections|/collections/editorial-collections",
+        "owner": "public_discovery",
+        "visibility": "legacy_redirect",
+        "expectedBehavior": "301_to_short_canonical_collection_path"
       },
       {
         "pathPattern": "/consultation",
@@ -138,8 +141,8 @@
       {
         "id": "duplicate_collection_render_paths",
         "severity": "medium",
-        "status": "open",
-        "evidence": "permanent_and_editorial_have_short_and_long_self_canonical_render_paths",
+        "status": "resolved_phase_3_1c",
+        "evidence": "long_collection_keys_redirect_301_to_short_canonical_paths",
         "owner": "public_discovery",
         "targetPhase": 3
       },
@@ -152,16 +155,24 @@
         "targetPhase": 3
       }
     ],
+    "phase3Exit": {
+      "status": "complete",
+      "routes": 47,
+      "desktopMobileSurfaces": 94,
+      "visibleInternalActions": 168,
+      "visibleFormOccurrences": 110,
+      "canonicalRedirects": 3,
+      "currentFailureSurfaces": 0,
+      "report": "reports/visual-baselines/phase-3-exit/phase-3-exit-baseline.json"
+    },
     "coverageGaps": [
       "editionen_and_locale_variants",
       "governed_edition_details",
       "governed_product_objects",
-      "redirect_status_without_browser_follow",
       "native_search_and_product_denial_contracts",
       "api_and_store_api_boundaries",
       "authenticated_account_states",
       "product_populated_cart_checkout_and_listing_states",
-      "unknown_route_404",
       "non_get_method_contracts"
     ]
   },

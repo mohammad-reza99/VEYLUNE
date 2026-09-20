@@ -317,12 +317,12 @@ const initVeyluneHeader = () => {
 
         const firstFocusable = getFocusableElements(mobileNav)[0];
 
-        if (firstFocusable && !reducedMotion) {
-            window.setTimeout(() => firstFocusable.focus(), 180);
-            return;
+        if (firstFocusable) {
+            window.setTimeout(
+                () => firstFocusable.focus({ preventScroll: true }),
+                reducedMotion ? 0 : 180,
+            );
         }
-
-        firstFocusable?.focus();
     };
 
     function closeMobileNav({ restoreFocus = false } = {}) {
