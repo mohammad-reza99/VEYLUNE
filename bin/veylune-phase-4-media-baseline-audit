@@ -1,0 +1,116 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+use VeyluneTheme\Catalog\DraftCatalogManifest;
+
+$root = dirname(__DIR__);
+require $root . '/vendor/autoload.php';
+require_once $root . '/custom/plugins/VeyluneTheme/src/Catalog/DraftCatalogManifest.php';
+
+$fail = static function (string $message): never {
+    fwrite(STDERR, '[veylune-phase-4-media-baseline][FAIL] ' . $message . PHP_EOL);
+    exit(1);
+};
+
+$readJson = static function (string $path) use ($fail): array {
+    if (!is_file($path)) {
+        $fail('Missing file: ' . $path);
+    }
+
+    $decoded = json_decode((string) file_get_contents($path), true);
+    if (!is_array($decoded)) {
+        $fail('Invalid JSON: ' . $path);
+    }
+
+    return $decoded;
+};
+
+$contract = $readJson($root . '/config/veylune-phase-4-media-source-contract.json');
+$report = $readJson($root . '/reports/catalog/phase-4-1a-media-baseline.json');
+$manifest = DraftCatalogManifest::products();
+$records = $report['records'] ?? null;
+
+if (($contract['workPackage'] ?? null) !== '4.1A' || ($report['workPackage'] ?? null) !== '4.1A') {
+    $fail('Work package identity mismatch.');
+}
+
+if (($report['mode'] ?? null) !== 'read_only') {
+    $fail('Baseline report must be read-only.');
+}
+
+if (($contract['canonicalProductMediaSource'] ?? null) !== 'shopware_admin_media'
+    || ($report['canonicalTarget'] ?? null) !== 'shopware_admin_media') {
+    $fail('Shopware Admin Media is not the canonical target.');
+}
+
+if (!is_array($records) || count($records) !== 50 || count($manifest) !== 50) {
+    $fail('Exactly 50 manifest products and report records are required.');
+}
+
+$expectedSkus = array_column($manifest, 'sku');
+$actualSkus = array_column($records, 'sku');
+sort($expectedSkus, SORT_STRING);
+sort($actualSkus, SORT_STRING);
+if ($expectedSkus !== $actualSkus || count(array_unique($actualSkus)) !== 50) {
+    $fail('Report SKUs do not exactly match the draft manifest.');
+}
+
+$expectedIds = array_column($manifest, 'id');
+$actualIds = array_column($records, 'recordId');
+sort($expectedIds, SORT_STRING);
+sort($actualIds, SORT_STRING);
+if ($expectedIds !== $actualIds || count(array_unique($actualIds)) !== 50) {
+    $fail('Report record IDs do not exactly match the draft manifest.');
+}
+
+foreach (($contract['baselineExpected'] ?? []) as $key => $expected) {
+    $actual = $report['summary'][$key] ?? null;
+    if ($actual !== $expected) {
+        $fail(sprintf('Summary %s is %s, expected %s.', $key, var_export($actual, true), var_export($expected, true)));
+    }
+}
+
+$assetCount = 0;
+foreach ($records as $record) {
+    if (($record['databaseProductPresent'] ?? false) !== true) {
+        $fail('Missing database product for ' . ($record['sku'] ?? 'unknown'));
+    }
+
+    if (($record['launchMediaReady'] ?? true) !== false || ($record['rightsStatus'] ?? '') !== 'unverified') {
+        $fail('Baseline must not claim launch readiness or verified rights for ' . ($record['sku'] ?? 'unknown'));
+    }
+
+    $asset = $record['themeAsset'] ?? null;
+    if ($asset === null) {
+        continue;
+    }
+
+    ++$assetCount;
+    if (($record['qualityStatus'] ?? null) !== 'below_minimum_long_edge') {
+        $fail('Existing theme asset must retain its measured below-minimum quality state for ' . ($record['sku'] ?? 'unknown'));
+    }
+    $relativePath = $asset['path'] ?? '';
+    $absolutePath = $root . '/' . $relativePath;
+    if (!is_file($absolutePath)) {
+        $fail('Theme asset is missing: ' . $relativePath);
+    }
+
+    $actualHash = hash_file('sha256', $absolutePath);
+    if ($actualHash !== ($asset['sha256'] ?? null)) {
+        $fail('Theme asset hash changed: ' . $relativePath);
+    }
+}
+
+if ($assetCount !== 19) {
+    $fail('Expected exactly 19 inventoried theme product assets.');
+}
+
+if (($contract['rollback']['databaseMutationAllowedIn41A'] ?? true) !== false) {
+    $fail('Phase 4.1A must remain non-mutating.');
+}
+
+if (!is_file($root . '/reports/catalog/phase-4-1a-media-baseline.csv')) {
+    $fail('CSV inventory is missing.');
+}
+
+fwrite(STDOUT, "Veylune Phase 4.1A media baseline audit passed.\n");

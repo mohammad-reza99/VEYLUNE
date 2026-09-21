@@ -54,6 +54,7 @@
 
         <service id="VeyluneTheme\Controller\LivingIndexUtilityController" public="true">
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <argument type="service" id="VeyluneTheme\Discovery\EditorialMediaResolver" />
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -81,6 +82,12 @@
             <argument type="service" id="sales_channel.product.repository" />
             <argument type="service" id="VeyluneTheme\Catalog\SupplierEvidenceAcceptanceGate" />
         </service>
+
+        <service id="VeyluneTheme\Discovery\EditorialMediaResolver">
+            <argument type="service" id="media.repository" />
+        </service>
+
+        <service id="VeyluneTheme\Product\PdpPresentationService" />
 
         <service id="VeyluneTheme\Catalog\SupplierEvidenceAcceptanceGate">
             <argument>%kernel.project_dir%</argument>
@@ -115,6 +122,28 @@
         <service id="VeyluneTheme\Command\Level3SupplierIntakeAuditCommand" />
         <service id="VeyluneTheme\Command\Level1ReadinessEvaluationCommand" />
         <service id="VeyluneTheme\Command\CatalogActivationAuditCommand" />
+        <service id="VeyluneTheme\Command\MediaSourceBaselineCommand">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument>%kernel.project_dir%</argument>
+        </service>
+        <service id="VeyluneTheme\Command\MediaIntakePlanCommand">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument>%kernel.project_dir%</argument>
+        </service>
+        <service id="VeyluneTheme\Command\MediaCoverPipelineCommand">
+            <argument type="service" id="media.repository" />
+            <argument type="service" id="product_media.repository" />
+            <argument type="service" id="product.repository" />
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument>%kernel.project_dir%</argument>
+        </service>
+        <service id="VeyluneTheme\Command\EditorialMediaPipelineCommand">
+            <argument type="service" id="media.repository" />
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument>%kernel.project_dir%</argument>
+        </service>
         <service id="VeyluneTheme\Command\CalmaRuntimeQuarantineCommand" />
         <service id="VeyluneTheme\Command\AureliaRuntimeQuarantineCommand" />
 
@@ -145,6 +174,7 @@
 
         <service id="VeyluneTheme\Preview\DraftCatalogPreviewService">
             <argument type="service" id="product.repository" />
+            <argument type="service" id="media.repository" />
         </service>
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
@@ -154,6 +184,8 @@
         </service>
 
         <service id="VeyluneTheme\Subscriber\ProductExposurePageSubscriber" />
+
+        <service id="VeyluneTheme\Subscriber\ProductPdpPresentationSubscriber" />
 
         <service id="VeyluneTheme\Subscriber\IdentitySitemapSourceFilterSubscriber" />
 

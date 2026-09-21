@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "5",
+  "name": "Catalog discovery unification exit",
+  "baseUrl": "https://veylune-shopware.ddev.site",
+  "routeContract": "config/veylune-phase-5-discovery-contract.json",
+  "report": "reports/visual-baselines/phase-5-exit/phase-5-exit.json",
+  "evidenceDirectory": "reports/visual-baselines/phase-5-exit",
+  "viewports": [
+    {"id": "desktop", "width": 1440, "height": 1000},
+    {"id": "tablet", "width": 834, "height": 1112},
+    {"id": "mobile", "width": 390, "height": 844}
+  ],
+  "packages": [
+    {"id": "5.1A", "name": "Unified catalog discovery rebaseline"},
+    {"id": "5.1B", "name": "Shared discovery card and data contract"},
+    {"id": "5.1C", "name": "Public/private destination template convergence"},
+    {"id": "5.1D", "name": "Filter, sort, pagination, and mobile-panel convergence"},
+    {"id": "5.1E", "name": "Search, zero-result, loading, and transport-error convergence"},
+    {"id": "5.1F", "name": "Selection, saved-piece, and cart-state semantics"},
+    {"id": "5.1G", "name": "Admin editorial-media adoption on public discovery"},
+    {"id": "5.1H", "name": "Phase 5 interaction and visual exit gate"}
+  ],
+  "stateSemantics": {
+    "selection": "Public inspiration context saved in local browser state",
+    "savedPiece": "Private preview shortlist state",
+    "previewCart": "Private simulated cart state",
+    "realCart": "Shopware commerce cart, entered only through approved public commerce"
+  },
+  "publicationBoundary": "Public product discovery stays empty until ProductExposureService approves active sellable products.",
+  "expected": {
+    "routes": 39,
+    "viewports": 3,
+    "surfaces": 117,
+    "status200Surfaces": 117,
+    "runtimeIssueSurfaces": 0,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "accessibilityIssueSurfaces": 0,
+    "privateDestinationScenarios": 39,
+    "failedPrivateDestinationScenarios": 0,
+    "searchScenarios": 6,
+    "failedSearchScenarios": 0,
+    "unauthorizedPrivateRoutes": 14,
+    "unauthorizedPrivateRouteFailures": 0,
+    "publicDiscoveryListings": 22,
+    "sharedCardTemplates": 1,
+    "sharedListingTemplates": 1,
+    "adminEditorialDestinations": 13,
+    "screenshots": 162,
+    "unresolvedImplementationGaps": 0
+  }
+}

@@ -1,0 +1,116 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+function phase5Require(bool $condition, string $message): void
+{
+    if (!$condition) {
+        throw new RuntimeException($message);
+    }
+}
+
+/** @return array<string, mixed> */
+function phase5Json(string $path): array
+{
+    phase5Require(is_file($path), 'Missing JSON: ' . $path);
+    $data = json_decode((string) file_get_contents($path), true, flags: JSON_THROW_ON_ERROR);
+    phase5Require(is_array($data), 'JSON root must be an object: ' . $path);
+
+    return $data;
+}
+
+try {
+    $contract = phase5Json($root . '/config/veylune-phase-5-exit-contract.json');
+    $report = phase5Json($root . '/' . $contract['report']);
+    phase5Require(($contract['phase'] ?? null) === '5', 'Exit contract phase must be 5.');
+    phase5Require(count($contract['packages'] ?? []) === 8, 'All eight Phase 5 packages must be declared.');
+    phase5Require(($report['phase'] ?? null) === '5', 'Exit report phase must be 5.');
+
+    $runtimeKeys = [
+        'routes', 'viewports', 'surfaces', 'status200Surfaces', 'runtimeIssueSurfaces', 'overflowSurfaces',
+        'brokenImageSurfaces', 'accessibilityIssueSurfaces', 'privateDestinationScenarios',
+        'failedPrivateDestinationScenarios', 'searchScenarios', 'failedSearchScenarios',
+        'unauthorizedPrivateRoutes', 'unauthorizedPrivateRouteFailures', 'publicDiscoveryListings',
+        'adminEditorialDestinations', 'screenshots',
+    ];
+    foreach ($runtimeKeys as $key) {
+        phase5Require(array_key_exists($key, $report['summary'] ?? []), 'Missing runtime summary field: ' . $key);
+        phase5Require(($report['summary'][$key] ?? null) === ($contract['expected'][$key] ?? null), sprintf(
+            'Runtime summary mismatch for %s: expected %s, got %s.',
+            $key,
+            json_encode($contract['expected'][$key] ?? null),
+            json_encode($report['summary'][$key] ?? null),
+        ));
+    }
+
+    phase5Require(($report['summary']['publicProductSurfaces'] ?? -1) === 0, 'Public products must remain fail-closed until publication approval.');
+    phase5Require(count($report['surfaces'] ?? []) === 117, 'Exactly 117 route surfaces are required.');
+    phase5Require(count($report['privateDestinations'] ?? []) === 39, 'Exactly 39 private destination scenarios are required.');
+    phase5Require(count($report['searchScenarios'] ?? []) === 6, 'Exactly six search scenarios are required.');
+    phase5Require(count($report['unauthorizedPrivateRoutes'] ?? []) === 14, 'Exactly 14 unauthorized private route checks are required.');
+
+    foreach ($report['surfaces'] as $surface) {
+        $label = ($surface['viewport'] ?? '?') . ':' . ($surface['route'] ?? '?');
+        phase5Require(($surface['status'] ?? null) === 200, 'Non-200 surface: ' . $label);
+        phase5Require(($surface['computed']['overflow'] ?? true) === false, 'Overflow: ' . $label);
+        phase5Require(($surface['computed']['brokenImages'] ?? null) === [], 'Broken image: ' . $label);
+        phase5Require(($surface['computed']['missingAccessibleNames'] ?? null) === [], 'Missing accessible name: ' . $label);
+        phase5Require(($surface['computed']['mainCount'] ?? null) === 1, 'Invalid main count: ' . $label);
+        phase5Require(($surface['computed']['h1Count'] ?? 0) >= 1, 'Missing h1: ' . $label);
+        phase5Require(($surface['computed']['scopeRootCorrect'] ?? false) === true, 'Wrong scope root: ' . $label);
+        phase5Require(($surface['errors']['consoleErrors'] ?? null) === [], 'Console error: ' . $label);
+        phase5Require(($surface['errors']['pageErrors'] ?? null) === [], 'Page error: ' . $label);
+        phase5Require(($surface['errors']['failedResponses'] ?? null) === [], 'Failed response: ' . $label);
+        if (($surface['scope'] ?? '') === 'private') {
+            $cache = (string) ($surface['privateHeaders']['cacheControl'] ?? '');
+            $robots = (string) ($surface['privateHeaders']['robots'] ?? '');
+            phase5Require(str_contains($cache, 'private') && str_contains($cache, 'no-store'), 'Private cache boundary failed: ' . $label);
+            phase5Require(str_contains($robots, 'noindex'), 'Private noindex boundary failed: ' . $label);
+        }
+    }
+
+    foreach ($report['privateDestinations'] as $scenario) {
+        phase5Require(($scenario['pass'] ?? false) === true, 'Private interaction failed: ' . ($scenario['viewport'] ?? '?') . ':' . ($scenario['route'] ?? '?'));
+    }
+    foreach ($report['searchScenarios'] as $scenario) {
+        phase5Require(($scenario['pass'] ?? false) === true, 'Search interaction failed: ' . ($scenario['viewport'] ?? '?') . ':' . ($scenario['kind'] ?? '?'));
+    }
+    foreach ($report['unauthorizedPrivateRoutes'] as $route) {
+        phase5Require(($route['pass'] ?? false) === true && ($route['status'] ?? null) === 404, 'Private route leaked without a token: ' . ($route['route'] ?? '?'));
+    }
+
+    $screenshots = glob($root . '/' . $contract['evidenceDirectory'] . '/*.png') ?: [];
+    phase5Require(count($screenshots) === 162, sprintf('Expected 162 screenshots, found %d.', count($screenshots)));
+
+    $sharedCard = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-product-card.html.twig');
+    $previewWrapper = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-card.html.twig');
+    $publicWrapper = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/component/product/card/box-standard.html.twig');
+    $sharedListing = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-listing.html.twig');
+    $previewDestination = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-destination.html.twig');
+    $publicDestination = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-discovery.html.twig');
+    $searchCards = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search-results.html.twig');
+    $listingEngine = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-plp-v2.js');
+    $selectionState = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-living-index-state.js');
+    $resolver = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Discovery/EditorialMediaResolver.php');
+
+    phase5Require(str_contains($sharedCard, 'data-discovery-card-kind="product"'), 'Shared product-card contract is missing.');
+    phase5Require(str_contains($previewWrapper, 'discovery-product-card.html.twig'), 'Private card does not use the shared card.');
+    phase5Require(str_contains($publicWrapper, 'discovery-product-card.html.twig'), 'Public card does not use the shared card.');
+    phase5Require(str_contains($sharedListing, 'data-discovery-listing'), 'Shared listing contract is missing.');
+    phase5Require(str_contains($previewDestination, 'discovery-listing.html.twig'), 'Private destination does not use the shared listing.');
+    phase5Require(str_contains($publicDestination, 'discovery-listing.html.twig'), 'Public destination does not use the shared listing.');
+    phase5Require(!str_contains($publicDestination, 'vli-index__controls'), 'Legacy public listing controls remain active.');
+    phase5Require(str_contains($searchCards, 'data-discovery-card-kind="context"'), 'Search context-card semantics are missing.');
+    phase5Require(str_contains($listingEngine, "addEventListener('pointerleave'"), 'Pointer-leave dismissal is missing.');
+    phase5Require(str_contains($listingEngine, "addEventListener('popstate'"), 'Back/forward listing state is missing.');
+    phase5Require(str_contains($selectionState, "pathname.includes('/media/')"), 'Admin media is not accepted by Selection state.');
+    phase5Require(str_contains($resolver, "'shopware_admin_media'"), 'Admin editorial-media resolution is missing.');
+
+    printf("Phase 5 exit audit passed: 117 surfaces, 39 destination interactions, 6 search scenarios, 14 access-boundary checks, and 162 screenshots.\n");
+} catch (Throwable $error) {
+    fwrite(STDERR, 'Phase 5 exit audit failed: ' . $error->getMessage() . PHP_EOL);
+    exit(1);
+}

@@ -33,7 +33,9 @@ const initLivingIndexState = () => {
         try {
             const url = new URL(String(rawUrl || ''), window.location.origin);
 
-            if (url.origin !== window.location.origin || !url.pathname.includes('/assets/')) {
+            if (url.origin !== window.location.origin
+                || (!url.pathname.includes('/assets/') && !url.pathname.includes('/media/'))
+            ) {
                 return null;
             }
 

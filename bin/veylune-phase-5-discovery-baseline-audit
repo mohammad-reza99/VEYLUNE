@@ -1,0 +1,171 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$contractPath = $root . '/config/veylune-phase-5-discovery-contract.json';
+
+/** @return array<string, mixed> */
+function readJson(string $path): array
+{
+    if (!is_file($path)) {
+        throw new RuntimeException(sprintf('Required JSON file is missing: %s', $path));
+    }
+
+    $decoded = json_decode((string) file_get_contents($path), true, flags: JSON_THROW_ON_ERROR);
+    if (!is_array($decoded)) {
+        throw new RuntimeException(sprintf('JSON root must be an object: %s', $path));
+    }
+
+    return $decoded;
+}
+
+function requireCondition(bool $condition, string $message): void
+{
+    if (!$condition) {
+        throw new RuntimeException($message);
+    }
+}
+
+/** @param array<string, mixed> $expected @param array<string, mixed> $actual */
+function requireSummary(array $expected, array $actual): void
+{
+    foreach ($expected as $key => $value) {
+        requireCondition(array_key_exists($key, $actual), sprintf('Summary field is missing: %s', $key));
+        requireCondition($actual[$key] === $value, sprintf(
+            'Summary mismatch for %s: expected %s, got %s',
+            $key,
+            json_encode($value, JSON_UNESCAPED_SLASHES),
+            json_encode($actual[$key], JSON_UNESCAPED_SLASHES),
+        ));
+    }
+}
+
+try {
+    $contract = readJson($contractPath);
+    requireCondition(($contract['workPackage'] ?? null) === '5.1A', 'Unexpected discovery work package.');
+    requireCondition(($contract['nextWorkPackage']['id'] ?? null) === '5.1B', 'The next work package must be 5.1B.');
+
+    $reportRelativePath = $contract['report'] ?? null;
+    requireCondition(is_string($reportRelativePath) && $reportRelativePath !== '', 'Contract report path is invalid.');
+    $report = readJson($root . '/' . $reportRelativePath);
+    requireCondition(($report['phase'] ?? null) === '5.1A', 'Report phase must be 5.1A.');
+
+    $publicRoutes = $contract['publicRoutes'] ?? [];
+    $privateRoutes = $contract['privateRoutes'] ?? [];
+    $viewports = $contract['viewports'] ?? [];
+    $routeDefinitions = $report['routeDefinitions'] ?? [];
+    $captures = $report['captures'] ?? [];
+    $interactions = $report['interactions'] ?? [];
+
+    requireCondition(is_array($publicRoutes) && count($publicRoutes) === 25, 'Exactly 25 public routes are required.');
+    requireCondition(is_array($privateRoutes) && count($privateRoutes) === 14, 'Exactly 14 private routes are required.');
+    requireCondition(is_array($viewports) && count($viewports) === 2, 'Exactly two governed viewports are required.');
+    requireCondition(is_array($routeDefinitions) && count($routeDefinitions) === 39, 'Exactly 39 route definitions are required.');
+    requireCondition(is_array($captures) && count($captures) === 78, 'Exactly 78 route/viewport captures are required.');
+    requireCondition(is_array($interactions) && count($interactions) === 8, 'Exactly eight interaction scenarios are required.');
+
+    requireSummary($contract['expected'] ?? [], $report['summary'] ?? []);
+    requireCondition(($report['summary']['failedInteractions'] ?? null) === [], 'No failed interactions are permitted.');
+
+    $routeKeys = [];
+    foreach ($routeDefinitions as $definition) {
+        requireCondition(is_array($definition), 'Every route definition must be an object.');
+        $scope = $definition['scope'] ?? null;
+        $route = $definition['route'] ?? null;
+        requireCondition(in_array($scope, ['public', 'private'], true), 'Route scope must be public or private.');
+        requireCondition(is_string($route) && str_starts_with($route, '/'), 'Route path must be absolute.');
+        $key = $scope . ':' . $route;
+        requireCondition(!isset($routeKeys[$key]), sprintf('Duplicate route definition: %s', $key));
+        $routeKeys[$key] = true;
+    }
+
+    $captureKeys = [];
+    foreach ($captures as $capture) {
+        requireCondition(is_array($capture), 'Every capture must be an object.');
+        $scope = (string) ($capture['scope'] ?? '');
+        $route = (string) ($capture['route'] ?? '');
+        $viewport = (string) ($capture['viewport'] ?? '');
+        $label = $viewport . ':' . $scope . ':' . $route;
+        $computed = $capture['computed'] ?? [];
+        $errors = $capture['errors'] ?? [];
+
+        requireCondition(isset($routeKeys[$scope . ':' . $route]), sprintf('Capture has an unknown route: %s', $label));
+        requireCondition(!isset($captureKeys[$label]), sprintf('Duplicate capture: %s', $label));
+        $captureKeys[$label] = true;
+        requireCondition(($capture['status'] ?? null) === 200, sprintf('Non-200 capture: %s', $label));
+        requireCondition(($computed['mainCount'] ?? null) === 1, sprintf('Capture must expose exactly one main: %s', $label));
+        requireCondition(($computed['h1Count'] ?? 0) >= 1, sprintf('Capture is missing an h1: %s', $label));
+        requireCondition(($computed['headerPresent'] ?? false) === true, sprintf('Capture is missing the header: %s', $label));
+        requireCondition(($computed['footerPresent'] ?? false) === true, sprintf('Capture is missing the footer: %s', $label));
+        requireCondition(($computed['scopeRootCorrect'] ?? false) === true, sprintf('Capture uses the wrong discovery root: %s', $label));
+        requireCondition(($computed['horizontalOverflow'] ?? true) === false, sprintf('Horizontal overflow found: %s', $label));
+        requireCondition(($computed['brokenImages'] ?? null) === [], sprintf('Broken image found: %s', $label));
+        requireCondition(($computed['missingAccessibleNames'] ?? null) === [], sprintf('Accessible name gap found: %s', $label));
+        requireCondition(($errors['consoleErrors'] ?? null) === [], sprintf('Console error found: %s', $label));
+        requireCondition(($errors['pageErrors'] ?? null) === [], sprintf('Page error found: %s', $label));
+        requireCondition(($errors['failedResponses'] ?? null) === [], sprintf('Failed response found: %s', $label));
+
+        if ($scope === 'private') {
+            $headers = $capture['privateHeaders'] ?? [];
+            $cacheControl = (string) ($headers['cacheControl'] ?? '');
+            $robots = (string) ($headers['robots'] ?? '');
+            requireCondition(str_contains((string) ($capture['finalPath'] ?? ''), 'token=REDACTED'), sprintf('Private token was not redacted: %s', $label));
+            requireCondition(str_contains($cacheControl, 'private'), sprintf('Private cache directive missing: %s', $label));
+            requireCondition(str_contains($cacheControl, 'no-store'), sprintf('No-store directive missing: %s', $label));
+            requireCondition(str_contains($robots, 'noindex'), sprintf('Noindex directive missing: %s', $label));
+        }
+    }
+
+    requireCondition(count($captureKeys) === 78, 'The capture matrix is incomplete.');
+    foreach ($interactions as $interaction) {
+        requireCondition(is_array($interaction), 'Every interaction result must be an object.');
+        $id = (string) ($interaction['id'] ?? 'unknown');
+        requireCondition(($interaction['pass'] ?? false) === true, sprintf('Interaction failed: %s', $id));
+        $errors = $interaction['errors'] ?? [];
+        requireCondition(($errors['consoleErrors'] ?? null) === [], sprintf('Interaction console error: %s', $id));
+        requireCondition(($errors['pageErrors'] ?? null) === [], sprintf('Interaction page error: %s', $id));
+        requireCondition(($errors['failedResponses'] ?? null) === [], sprintf('Interaction failed response: %s', $id));
+    }
+
+    requireCondition(count($report['implementationFamilies'] ?? []) === 3, 'Three implementation families must be documented.');
+    requireCondition(count($report['knownUnificationGaps'] ?? []) === 8, 'Eight unification gaps must be documented.');
+
+    $evidenceDirectory = $contract['evidenceDirectory'] ?? null;
+    requireCondition(is_string($evidenceDirectory) && $evidenceDirectory !== '', 'Evidence directory is invalid.');
+    $screenshots = glob($root . '/' . $evidenceDirectory . '/*.png') ?: [];
+    requireCondition(count($screenshots) === 86, sprintf('Expected 86 screenshots, found %d.', count($screenshots)));
+
+    $sourceMarkers = [
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-destination.html.twig' => 'discovery-listing.html.twig',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-card.html.twig' => 'discovery-product-card.html.twig',
+        'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-plp-v2.js' => '[data-veylune-plp]',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-discovery.html.twig' => 'discovery-listing.html.twig',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/component/product/card/box-standard.html.twig' => 'discovery-product-card.html.twig',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-listing.html.twig' => 'data-veylune-plp',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-product-card.html.twig' => 'data-discovery-card-kind="product"',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search.html.twig' => 'data-veylune-living-index-search',
+        'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search-results.html.twig' => 'vli-search-card',
+        'custom/plugins/VeyluneTheme/src/Preview/DraftCatalogPreviewService.php' => 'final class DraftCatalogPreviewService',
+        'custom/plugins/VeyluneTheme/src/Discovery/ProductExposureService.php' => 'final class ProductExposureService',
+        'custom/plugins/VeyluneTheme/src/Controller/LivingIndexUtilityController.php' => 'final class LivingIndexUtilityController',
+    ];
+    foreach ($sourceMarkers as $relativePath => $marker) {
+        $source = $root . '/' . $relativePath;
+        requireCondition(is_file($source), sprintf('Discovery source is missing: %s', $relativePath));
+        requireCondition(str_contains((string) file_get_contents($source), $marker), sprintf('Discovery marker is missing from %s.', $relativePath));
+    }
+
+    printf(
+        "Phase 5.1A discovery baseline audit passed: %d routes, %d surfaces, %d screenshots, %d interactions, %d documented gaps.\n",
+        count($routeDefinitions),
+        count($captures),
+        count($screenshots),
+        count($interactions),
+        count($report['knownUnificationGaps'] ?? []),
+    );
+} catch (Throwable $error) {
+    fwrite(STDERR, 'Phase 5.1A discovery baseline audit failed: ' . $error->getMessage() . PHP_EOL);
+    exit(1);
+}

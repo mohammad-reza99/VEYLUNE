@@ -1,5 +1,6 @@
 import {
     emitSelectionChange,
+    hydrateSelectionMedia,
     readSelectionState,
     selectionQuantity,
     selectionSubtotal,
@@ -19,6 +20,12 @@ document.querySelectorAll('[data-veylune-checkout-preview]').forEach((root) => {
     const items = root.querySelector('[data-checkout-items]');
     const itemTemplate = root.querySelector('[data-checkout-item-template]');
     let selectionState = readSelectionState();
+    try {
+        const hydration = hydrateSelectionMedia(selectionState, JSON.parse(root.dataset.productMedia || '{}'));
+        selectionState = hydration.changed ? writeSelectionState(hydration.state) : hydration.state;
+    } catch (error) {
+        // Checkout remains usable when the server-provided media manifest is unavailable.
+    }
 
     const formatPrice = (value) => new Intl.NumberFormat('en-US', {
         style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
@@ -36,6 +43,13 @@ document.querySelectorAll('[data-veylune-checkout-preview]').forEach((root) => {
             article.querySelector('[data-checkout-item-material]').textContent = item.material;
             article.querySelector('[data-checkout-item-quantity]').textContent = String(item.quantity);
             article.querySelector('[data-checkout-item-total]').textContent = formatPrice(item.unitPrice * item.quantity);
+            const image = article.querySelector('[data-checkout-item-image]');
+            if (image && item.imageUrl) {
+                image.src = item.imageUrl;
+                image.alt = item.imageAlt || `${item.productName} product view`;
+            } else {
+                image?.remove();
+            }
             return article;
         }));
         const total = selectionSubtotal(selectionState);

@@ -7,6 +7,8 @@
             <span>Preview mode</span>
         </header>
 
+        {% sw_include '@Storefront/storefront/veylune/commerce-journey-status.html.twig' with { commerceJourneyStep: 'account' } %}
+
         <nav class="veylune-account-preview__nav" aria-label="Account sections">
             <a href="#veyluneAccountDashboardTitle">Overview</a>
             <a href="#veyluneSavedProjectsTitle">Saved projects</a>

@@ -11,6 +11,7 @@ use Shopware\Storefront\Page\GenericPageLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use VeyluneTheme\Discovery\EditorialMediaResolver;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
 #[Package('storefront')]
@@ -333,7 +334,10 @@ final class LivingIndexUtilityController extends StorefrontController
         ],
     ];
 
-    public function __construct(private readonly GenericPageLoader $genericPageLoader)
+    public function __construct(
+        private readonly GenericPageLoader $genericPageLoader,
+        private readonly EditorialMediaResolver $editorialMediaResolver
+    )
     {
     }
 
@@ -375,6 +379,17 @@ final class LivingIndexUtilityController extends StorefrontController
                 return $typeOrder !== 0 ? $typeOrder : strcasecmp($left['title'], $right['title']);
             });
         }
+
+        $results = array_map(function (array $entry) use ($context): array {
+            $entry['media'] = $this->editorialMediaResolver->resolve(
+                $this->editorialDestinationId($entry),
+                (string) $entry['asset'],
+                (string) $entry['title'] . ' context',
+                $context->getContext()
+            );
+
+            return $entry;
+        }, $results);
 
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle($query === '' ? 'Search the Living Index' : sprintf('Search: %s', $query));
@@ -479,5 +494,29 @@ final class LivingIndexUtilityController extends StorefrontController
         $normalized = preg_replace('/[^\p{L}\p{N}]+/u', ' ', mb_strtolower($value));
 
         return trim((string) $normalized);
+    }
+
+    /** @param array<string, mixed> $entry */
+    private function editorialDestinationId(array $entry): string
+    {
+        $parameters = $entry['routeParams'] ?? [];
+
+        if (isset($parameters['categoryKey'])) {
+            return 'category:' . $parameters['categoryKey'];
+        }
+
+        if (isset($parameters['roomKey'])) {
+            return 'room:' . $parameters['roomKey'];
+        }
+
+        if (isset($parameters['collectionKey'])) {
+            return 'collection:' . $parameters['collectionKey'];
+        }
+
+        return match ($entry['route'] ?? '') {
+            'frontend.veylune.discovery.collection.permanent' => 'collection:permanent-collections',
+            'frontend.veylune.discovery.collection.editorial' => 'collection:editorial-collections',
+            default => (string) ($entry['key'] ?? 'search:unknown'),
+        };
     }
 }

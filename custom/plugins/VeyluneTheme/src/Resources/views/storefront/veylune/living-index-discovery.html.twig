@@ -7,6 +7,8 @@
 {% set indexRouteParams = isDepartment ? { categoryKey: veyluneDestinationKey } : (isRoom ? { roomKey: veyluneDestinationKey } : { collectionKey: veyluneDestinationKey }) %}
 {% set listingTotal = veyluneListingTotal|default(veyluneExposedProducts|length) %}
 {% set scenePathCount = veyluneScene.paths|default([])|length %}
+{% set sceneMediaUrl = veyluneScene.media.url|default('') ?: (veyluneScene.asset|default('') ? asset('assets/' ~ veyluneScene.asset, 'theme') : '') %}
+{% set sceneMediaAlt = veyluneScene.media.alt|default(veyluneDestination.title|trans|striptags ~ ' context') %}
 {% set discoveryReturnParams = {} %}
 {% if app.request.query.get('q') %}{% set discoveryReturnParams = discoveryReturnParams|merge({ q: app.request.query.get('q') }) %}{% endif %}
 {% if app.request.query.get('axis') %}{% set discoveryReturnParams = discoveryReturnParams|merge({ axis: app.request.query.get('axis') }) %}{% endif %}
@@ -55,7 +57,7 @@
                     <dd>{{ isDepartment ? 'I' : 'S' }}</dd>
                 </div>
             </dl>
-            {% if not isCollection and veyluneScene.asset|default('') %}
+            {% if not isCollection and sceneMediaUrl %}
                 <div class="vli-discovery__context-actions">
                     <button type="button"
                             data-vli-selection-add
@@ -64,7 +66,7 @@
                             data-selection-title="{{ veyluneDestination.title|trans|striptags|e('html_attr') }}"
                             data-selection-description="{{ veyluneDestination.text|trans|striptags|e('html_attr') }}"
                             data-selection-url="{{ path(indexRoute, indexRouteParams)|e('html_attr') }}"
-                            data-selection-asset="{{ asset('assets/' ~ veyluneScene.asset, 'theme')|e('html_attr') }}"
+                            data-selection-asset="{{ sceneMediaUrl|e('html_attr') }}"
                             aria-pressed="false">
                         Save this context
                     </button>
@@ -75,10 +77,12 @@
                 </div>
             {% endif %}
         </div>
-        <figure class="vli-discovery__hero-media">
-            {% if veyluneScene.asset|default('') %}
-                <img src="{{ asset('assets/' ~ veyluneScene.asset, 'theme') }}"
-                     alt="{{ 'veylune.destination.livingIndex.scene.imageAlt'|trans({ '%title%': veyluneDestination.title|trans|striptags })|striptags }}"
+        <figure class="vli-discovery__hero-media" data-media-source="{{ veyluneScene.media.source|default('theme_fallback') }}">
+            {% if sceneMediaUrl %}
+                <img src="{{ sceneMediaUrl }}"
+                     alt="{{ sceneMediaAlt }}"
+                     {% if veyluneScene.media.width|default(0) %}width="{{ veyluneScene.media.width }}"{% endif %}
+                     {% if veyluneScene.media.height|default(0) %}height="{{ veyluneScene.media.height }}"{% endif %}
                      loading="eager"
                      fetchpriority="high">
             {% endif %}
@@ -147,88 +151,27 @@
         </section>
     {% endif %}
 
-    <section class="vli-index" id="vli-object-index" aria-labelledby="vli-object-index-title">
-        <header class="vli-discovery__section-head vli-index__head">
-            <div>
-                <p class="vli-discovery__kicker">{{ 'veylune.destination.livingIndex.indexEyebrow'|trans|sw_sanitize }}</p>
-                <h2 id="vli-object-index-title">{{ 'veylune.destination.livingIndex.indexTitle'|trans|sw_sanitize }}</h2>
-            </div>
-            <p>{{ 'veylune.destination.livingIndex.indexText'|trans|sw_sanitize }}</p>
-        </header>
-
-        <div class="vli-index__toolbar" aria-label="{{ 'veylune.destination.listing.label'|trans|striptags }}">
-            <p class="vli-index__count" aria-live="polite">
-                {{ 'veylune.destination.livingIndex.resultCount'|trans({ '%count%': veyluneExposedProducts|length })|sw_sanitize }}
-            </p>
-            {% if listingTotal > 0 %}
-                <form class="vli-index__controls" action="{{ path(indexRoute, indexRouteParams) }}" method="get">
-                    {% if veyluneListingMaterialOptions|default({}) is not empty %}
-                        <label>
-                            <span>{{ 'veylune.destination.livingIndex.materialLabel'|trans|sw_sanitize }}</span>
-                            <select name="material">
-                                <option value="">{{ 'veylune.destination.livingIndex.allMaterials'|trans|sw_sanitize }}</option>
-                                {% for materialKey, materialCount in veyluneListingMaterialOptions %}
-                                    <option value="{{ materialKey }}"{% if veyluneListingMaterial == materialKey %} selected="selected"{% endif %}>
-                                        {{ ('veylune.destination.materials.' ~ materialKey)|trans|striptags }} ({{ materialCount }})
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </label>
-                    {% endif %}
-                    <label>
-                        <span>{{ 'veylune.destination.livingIndex.sortLabel'|trans|sw_sanitize }}</span>
-                        <select name="sort">
-                            <option value="curated"{% if veyluneListingSort == 'curated' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortCurated'|trans|sw_sanitize }}</option>
-                            <option value="name"{% if veyluneListingSort == 'name' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortName'|trans|sw_sanitize }}</option>
-                            <option value="price-asc"{% if veyluneListingSort == 'price-asc' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortPriceAsc'|trans|sw_sanitize }}</option>
-                            <option value="price-desc"{% if veyluneListingSort == 'price-desc' %} selected="selected"{% endif %}>{{ 'veylune.destination.livingIndex.sortPriceDesc'|trans|sw_sanitize }}</option>
-                        </select>
-                    </label>
-                    <button type="submit">{{ 'veylune.destination.livingIndex.apply'|trans|sw_sanitize }}</button>
-                    {% if veyluneListingHasActiveFilter|default(false) %}
-                        <a href="{{ path(indexRoute, indexRouteParams) }}#vli-object-index">{{ 'veylune.destination.livingIndex.clear'|trans|sw_sanitize }}</a>
-                    {% endif %}
-                </form>
-            {% endif %}
-        </div>
-
-        <div class="vli-index__grid">
-            {% if veyluneExposedProducts is not empty %}
-                {% for product in veyluneExposedProducts %}
-                    {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {
-                        product: product,
-                        layout: 'standard',
-                        veyluneDisableWishlist: true,
-                        veyluneUseLivingIndexObjectRoute: true,
-                        sizes: {
-                            xs: '50vw',
-                            sm: '50vw',
-                            md: '33vw',
-                            lg: '25vw',
-                            xl: '25vw'
-                        }
-                    } %}
-                {% endfor %}
-            {% else %}
-                <div class="vli-index__empty" role="status">
-                    <span class="vli-index__empty-mark" aria-hidden="true">00</span>
-                    <div>
-                        <p class="vli-discovery__kicker">{{ 'veylune.destination.livingIndex.indexEyebrow'|trans|sw_sanitize }}</p>
-                        <h3>{{ (veyluneListingHasActiveFilter|default(false) ? 'veylune.destination.livingIndex.emptyFilteredTitle' : 'veylune.destination.livingIndex.emptyTitle')|trans|sw_sanitize }}</h3>
-                        <p>{{ (veyluneListingHasActiveFilter|default(false) ? 'veylune.destination.livingIndex.emptyFilteredText' : 'veylune.destination.livingIndex.emptyText')|trans|sw_sanitize }}</p>
-                        <div class="vli-index__empty-actions">
-                            {% if veyluneListingHasActiveFilter|default(false) %}
-                                <a class="vli-button vli-button--primary" href="{{ path(indexRoute, indexRouteParams) }}#vli-object-index">{{ 'veylune.destination.livingIndex.clear'|trans|sw_sanitize }}</a>
-                            {% else %}
-                                <a class="vli-button vli-button--primary" href="{{ path('frontend.veylune.living_index.search', { q: veyluneDestination.title|trans|striptags }) }}">{{ 'veylune.destination.livingIndex.searchCta'|trans|sw_sanitize }}</a>
-                            {% endif %}
-                            <a class="vli-button" href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.destination.livingIndex.consultationCta'|trans|sw_sanitize }}</a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    </section>
+    {% set publicMaterialFilters = {} %}
+    {% for materialKey, materialCount in veyluneListingMaterialOptions|default({}) %}
+        {% set publicMaterialFilters = publicMaterialFilters|merge({ (materialKey): (('veylune.destination.materials.' ~ materialKey)|trans|striptags ~ ' (' ~ materialCount ~ ')') }) %}
+    {% endfor %}
+    {% sw_include '@Storefront/storefront/veylune/discovery-listing.html.twig' with {
+        discoveryListingId: 'vli-object-index', discoveryListingScope: 'public',
+        discoveryListingEyebrow: 'Objects in this path',
+        discoveryListingTitle: 'veylune.destination.livingIndex.indexTitle'|trans|striptags,
+        discoveryListingDescription: 'veylune.destination.livingIndex.indexText'|trans|striptags,
+        discoveryListingLabel: 'veylune.destination.listing.label'|trans|striptags,
+        discoveryProducts: veyluneExposedProducts,
+        discoveryFilterOptions: { materials: publicMaterialFilters, prices: {}, statuses: {} },
+        discoveryCardTemplate: '@Storefront/storefront/component/product/card/box-standard.html.twig',
+        discoveryEmptyTitle: 'veylune.destination.livingIndex.emptyTitle'|trans|striptags,
+        discoveryEmptyText: 'veylune.destination.livingIndex.emptyText'|trans|striptags,
+        discoveryEmptyPrimaryUrl: path('frontend.veylune.living_index.search', { q: veyluneDestination.title|trans|striptags }),
+        discoveryEmptyPrimaryLabel: 'veylune.destination.livingIndex.searchCta'|trans|striptags,
+        discoveryEmptySecondaryUrl: path('frontend.veylune.consultation.page'),
+        discoveryEmptySecondaryLabel: 'veylune.destination.livingIndex.consultationCta'|trans|striptags,
+        veyluneUseLivingIndexObjectRoute: true
+    } %}
 
     <section class="vli-discovery__axes" aria-labelledby="vli-discovery-axes-title">
         <header>

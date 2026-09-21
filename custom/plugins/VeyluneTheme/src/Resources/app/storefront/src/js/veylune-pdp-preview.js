@@ -201,7 +201,7 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
                 : null;
             emitSelectionChange(selectionState);
         } catch (error) {
-            cartStatus.textContent = 'Cart updated for this session. Browser storage is unavailable.';
+            cartStatus.textContent = 'Preview cart updated for this session. Browser storage is unavailable.';
         }
     };
 
@@ -252,14 +252,16 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
             material: variantLabel?.textContent || '',
             quantity: plannedQuantity,
             unitPrice,
+            imageUrl: root.dataset.productImageUrl,
+            imageAlt: root.dataset.productImageAlt,
         });
         selectionState = result.state;
         selection = result.item;
         persistSelection();
         renderSelection();
         const totalQuantity = selectionQuantity(selectionState);
-        if (addStatus) addStatus.textContent = `${plannedQuantity} x ${root.dataset.productName} added to your cart.`;
-        cartStatus.textContent = `${totalQuantity} item${totalQuantity === 1 ? '' : 's'} across ${selectionState.items.length} cart line${selectionState.items.length === 1 ? '' : 's'}.`;
+        if (addStatus) addStatus.textContent = `${plannedQuantity} x ${root.dataset.productName} added to your preview cart.`;
+        cartStatus.textContent = `${totalQuantity} preview item${totalQuantity === 1 ? '' : 's'} across ${selectionState.items.length} saved line${selectionState.items.length === 1 ? '' : 's'}.`;
         openSelection(button);
     };
 
@@ -282,14 +284,14 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
         selection.quantity = clampSelectionQuantity(selection.quantity - 1);
         persistSelection();
         renderSelection();
-        cartStatus.textContent = `Cart quantity changed to ${selection.quantity}.`;
+        cartStatus.textContent = `Preview quantity changed to ${selection.quantity}.`;
     });
     cartIncrease?.addEventListener('click', () => {
         if (!selection) return;
         selection.quantity = clampSelectionQuantity(selection.quantity + 1);
         persistSelection();
         renderSelection();
-        cartStatus.textContent = `Cart quantity changed to ${selection.quantity}.`;
+        cartStatus.textContent = `Preview quantity changed to ${selection.quantity}.`;
     });
     cartRemove?.addEventListener('click', () => {
         const removedLineId = selection?.lineId;
@@ -300,8 +302,8 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
         renderSelection();
         const remaining = selectionQuantity(selectionState);
         cartStatus.textContent = remaining
-            ? `Item removed. ${remaining} item${remaining === 1 ? '' : 's'} remain in your cart.`
-            : 'Item removed. Your cart is empty.';
+            ? `Item removed. ${remaining} item${remaining === 1 ? '' : 's'} remain in your preview cart.`
+            : 'Item removed. Your preview cart is empty.';
     });
     cartCheckout?.addEventListener('click', () => {
         cartStatus.textContent = 'Checkout activation is pending supplier, delivery and pricing approval.';

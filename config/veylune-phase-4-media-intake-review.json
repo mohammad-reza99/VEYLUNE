@@ -1,0 +1,661 @@
+{
+    "schemaVersion": "1.0",
+    "workPackage": "4.1B",
+    "batchId": "WP-CAT-04-DRAFT-50",
+    "policy": {
+        "defaultDecision": "hold",
+        "unknownRightsMayImport": false,
+        "belowMinimumQualityMayBecomeCover": false,
+        "privateIntakeRequiresExplicitApproval": true,
+        "productAssociationAllowedIn41B": false,
+        "adminCoverAllowedIn41B": false
+    },
+    "records": [
+        {
+            "recordId": "F01",
+            "sku": "VLS-FUR-000001",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f01-aurelia-modular-sofa-v1.webp",
+                "sha256": "aa607005c7f651961df3e68d506d8dbae1e55bdc34a022aa57a6fb34943eee4e",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Aurelia Modular Sofa product view",
+                "deAlt": "Aurelia Modulares Sofa Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F02",
+            "sku": "VLS-FUR-000002",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f02-liora-curved-sofa-v1.webp",
+                "sha256": "337fb2b82c40b1c70cfc9c34f9de009c2b96a9646ec809cf8d5f8140a7e167c0",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Liora Curved Sofa product view",
+                "deAlt": "Liora Geschwungenes Sofa Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F03",
+            "sku": "VLS-FUR-000003",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f03-oris-leather-lounge-chair-v1.webp",
+                "sha256": "1f562887d933959e18789f108e30c7f6f72674f5950939b54629f75993363bf7",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Oris Leather Lounge Chair product view",
+                "deAlt": "Oris Leder-Loungesessel Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F04",
+            "sku": "VLS-FUR-000004",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f04-selene-oak-lounge-chair-v1.webp",
+                "sha256": "220a3c1c925b2c0bfa83c27b6d49e1d3ab9521f207f1e78293a7c478287633e6",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Selene Oak Lounge Chair product view",
+                "deAlt": "Selene Lounge-Sessel aus Eiche Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F05",
+            "sku": "VLS-FUR-000005",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f05-edda-dining-chair-v1.webp",
+                "sha256": "9acd2aa7d50c1ec2b36d7a16aa83bd9175a04b11c183099ce0319400eb201590",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Edda Dining Chair product view",
+                "deAlt": "Edda Esszimmerstuhl Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F06",
+            "sku": "VLS-FUR-000006",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f06-noma-metal-dining-chair-v1.webp",
+                "sha256": "00273ee62c4f7b291c2e888dd0479fc1d5753e8772e95c2670a21491c50a49a4",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Noma Metal Dining Chair product view",
+                "deAlt": "Noma Metall-Esszimmerstuhl Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F07",
+            "sku": "VLS-FUR-000007",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f07-forma-desk-chair-v1.webp",
+                "sha256": "09ad9638f17b4ce30d14595c42c451324e19fb39fea6e99c93c4613e4d32a2a0",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Forma Desk Chair product view",
+                "deAlt": "Forma Schreibtischstuhl Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F08",
+            "sku": "VLS-FUR-000008",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f08-talo-counter-stool-v1.webp",
+                "sha256": "6a7210ff0ab91c98ef08aff69ba7638d989d7efd5e78e2ac03811c068852ce0c",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Talo Counter Stool product view",
+                "deAlt": "Talo Barhocker Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F09",
+            "sku": "VLS-FUR-000009",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f09-stillwater-oak-bench-v1.webp",
+                "sha256": "989012c8baa3aeeed7b98587a4a077378801d93e7d0abf605bc040e3e5e5f55f",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Stillwater Oak Bench product view",
+                "deAlt": "Stillwater Eichenbank Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F10",
+            "sku": "VLS-FUR-000010",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f10-elara-travertine-coffee-table-v1.webp",
+                "sha256": "c2cf64e5f1e12cbb8356417e252dbf01b7ca34b28fe7632eed6d6b850e175ef2",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Elara Travertine Coffee Table product view",
+                "deAlt": "Elara Couchtisch aus Travertin Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F11",
+            "sku": "VLS-FUR-000011",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f11-varo-oak-coffee-table-v1.webp",
+                "sha256": "4673328e8e03634309252f5af65d90153842c30dce6a8fbcdcbba6df5f169e1b",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Varo Oak Coffee Table product view",
+                "deAlt": "Varo Couchtisch aus Eiche Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F12",
+            "sku": "VLS-FUR-000012",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f12-neri-marble-side-table-v1.webp",
+                "sha256": "05bcc774a0fc72515300795385274f80d82220ddb81930cccc794ee15c90b4f5",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Neri Marble Side Table product view",
+                "deAlt": "Neri Beistelltisch aus Marmor Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F13",
+            "sku": "VLS-FUR-000013",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f13-portico-travertine-console-v1.webp",
+                "sha256": "615249b52b49552fa5415675019754bef7768534d4e902c5fe650fba31f6168d",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Portico Travertine Console product view",
+                "deAlt": "Portico Konsole aus Travertin Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F14",
+            "sku": "VLS-FUR-000014",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f14-linea-writing-desk-v1.webp",
+                "sha256": "6a1cba353d191c53f07090d93a2c3f411385f79620067afdd2561b7d93d055bc",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Linea Writing Desk product view",
+                "deAlt": "Linea Schreibtisch Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F15",
+            "sku": "VLS-FUR-000015",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f15-serein-platform-bed-v1.webp",
+                "sha256": "80d9def0b83852c4c3760b6ac97dc04394c193334c6a26948801409777eceb8c",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Serein Platform Bed product view",
+                "deAlt": "Serein Polsterbett Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F16",
+            "sku": "VLS-FUR-000016",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f16-vale-low-cabinet-v1.webp",
+                "sha256": "baf6d832e61aed13f6a8beef43acc26a3befcf0f1db0111f0ef980cfde44d199",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Vale Low Cabinet product view",
+                "deAlt": "Vale Niedriges Sideboard Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F17",
+            "sku": "VLS-FUR-000017",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f17-canto-tall-cabinet-v1.webp",
+                "sha256": "82a191f27c6a5316eebb239c5a4f48cf1948c4ea84db96c1d7ddab946c3244b7",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Canto Tall Cabinet product view",
+                "deAlt": "Canto Hochschrank Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F18",
+            "sku": "VLS-FUR-000018",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f18-mira-leather-day-chair-v1.webp",
+                "sha256": "219bc10d04392c5c1d335e2c167f9194e4b87b6a73e659543838a3908efaacaf",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Mira Leather Day Chair product view",
+                "deAlt": "Mira Leder-Tagessessel Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        },
+        {
+            "recordId": "F19",
+            "sku": "VLS-FUR-000019",
+            "sourceCandidate": {
+                "path": "custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/assets/products/f19-plinth-glass-side-table-v1.webp",
+                "sha256": "f5a3743c33ceb23ebed48154413a9fd1ecaa34bb57819a0cfe93f0540d43cd21",
+                "width": 1122,
+                "height": 1402,
+                "mime": "image/webp"
+            },
+            "rights": {
+                "status": "pending",
+                "owner": null,
+                "licenseReference": null,
+                "sourceProvenance": "legacy_theme_asset",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "quality": {
+                "status": "blocked_below_minimum_long_edge",
+                "requiredLongEdgePx": 1600,
+                "measuredLongEdgePx": 1402,
+                "decision": "replace_with_higher_quality_source",
+                "reviewedBy": null,
+                "reviewedAt": null
+            },
+            "localizedMetadataDraft": {
+                "enAlt": "Plinth Glass Side Table product view",
+                "deAlt": "Plinth Beistelltisch aus Glas Produktansicht",
+                "reviewed": false
+            },
+            "approvedForPrivateIntake": false,
+            "approvalNote": null
+        }
+    ]
+}

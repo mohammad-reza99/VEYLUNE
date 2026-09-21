@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "6",
+  "workPackage": "6.1A",
+  "name": "PDP and customer-commerce journey rebaseline",
+  "baseUrl": "https://veylune-shopware.ddev.site",
+  "productSource": "reports/catalog/phase-4-1a-media-baseline.json",
+  "mediaSource": "reports/catalog/phase-4-media-cover-pipeline.json",
+  "report": "reports/visual-baselines/phase-6-1a-commerce/commerce-baseline.json",
+  "evidenceDirectory": "reports/visual-baselines/phase-6-1a-commerce",
+  "privateProductRouteTemplate": "/__veylune-preview/catalog/product/{recordId}",
+  "publicProductRouteTemplate": "/detail/{databaseProductId}",
+  "viewports": [
+    {"id": "desktop", "width": 1440, "height": 1000},
+    {"id": "tablet", "width": 834, "height": 1112},
+    {"id": "mobile", "width": 390, "height": 844}
+  ],
+  "privateJourneyRoutes": [
+    {"id": "cart", "route": "/__veylune-preview/cart", "marker": "data-veylune-cart-preview"},
+    {"id": "checkout", "route": "/__veylune-preview/checkout", "marker": "data-veylune-checkout-preview"},
+    {"id": "account", "route": "/__veylune-preview/account", "marker": "data-veylune-account-preview"}
+  ],
+  "publicSurfaceRoutes": [
+    {"id": "cart", "route": "/checkout/cart", "expectedStatus": 200, "finalPathPrefix": "/checkout/cart"},
+    {"id": "checkout-guard", "route": "/checkout/confirm", "expectedStatus": 200, "finalPathPrefix": "/checkout/cart"},
+    {"id": "checkout-finish-guard", "route": "/checkout/finish", "expectedStatus": 404, "finalPathPrefix": "/checkout/finish"},
+    {"id": "checkout-register-guard", "route": "/checkout/register", "expectedStatus": 404, "finalPathPrefix": "/checkout/register"},
+    {"id": "account-login", "route": "/account/login", "expectedStatus": 200, "finalPathPrefix": "/account/login"},
+    {"id": "account-register", "route": "/account/register", "expectedStatus": 200, "finalPathPrefix": "/account/register"},
+    {"id": "account-recover", "route": "/account/recover", "expectedStatus": 200, "finalPathPrefix": "/account/recover"},
+    {"id": "account-home-guard", "route": "/account", "expectedStatus": 200, "finalPathPrefix": "/account/login"},
+    {"id": "account-profile-guard", "route": "/account/profile", "expectedStatus": 200, "finalPathPrefix": "/account/login"},
+    {"id": "account-address-guard", "route": "/account/address", "expectedStatus": 200, "finalPathPrefix": "/account/login"},
+    {"id": "account-order-guard", "route": "/account/order", "expectedStatus": 200, "finalPathPrefix": "/account/login"}
+  ],
+  "interactionViewports": ["desktop", "mobile"],
+  "knownGaps": [
+    {"id": "P6-G01", "area": "public-pdp", "summary": "No launch-approved product exists, so real public PDP and add-to-cart behavior cannot yet be exercised."},
+    {"id": "P6-G02", "area": "gallery", "summary": "Each draft product has a governed cover, but launch-grade multi-view gallery approval remains pending."},
+    {"id": "P6-G03", "area": "checkout", "summary": "Server-authoritative guest and account checkout cannot be completed until at least one sellable product is approved."},
+    {"id": "P6-G04", "area": "account", "summary": "Authenticated dashboard, addresses, order history and profile states require governed test-customer fixtures."},
+    {"id": "P6-G05", "area": "architecture", "summary": "Private simulated commerce and native Shopware commerce remain separate implementation families."},
+    {"id": "P6-G06", "area": "pdp-information", "summary": "The private PDP uses one generic information hierarchy; product-type-aware specifications remain to be introduced."},
+    {"id": "P6-G07", "area": "authority", "summary": "Preview totals and delivery language are explicitly non-binding, while real tax, shipping and order authority remain activation-pending."}
+  ],
+  "expected": {
+    "products": 50,
+    "viewports": 3,
+    "privatePdpSurfaces": 150,
+    "privateJourneySurfaces": 9,
+    "publicSurfaceSurfaces": 33,
+    "surfaces": 192,
+    "statusExpectationFailures": 0,
+    "runtimeIssueSurfaces": 0,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "accessibilityIssueSurfaces": 0,
+    "privatePdpInteractionScenarios": 100,
+    "failedPrivatePdpInteractions": 0,
+    "privateJourneyScenarios": 3,
+    "failedPrivateJourneyScenarios": 0,
+    "publicProductBoundaryChecks": 50,
+    "failedPublicProductBoundaryChecks": 0,
+    "unauthorizedPrivateRouteChecks": 53,
+    "failedUnauthorizedPrivateRouteChecks": 0,
+    "registeredGaps": 7,
+    "screenshots": 192
+  }
+}

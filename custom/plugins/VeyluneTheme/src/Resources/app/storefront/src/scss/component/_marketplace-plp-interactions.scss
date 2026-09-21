@@ -37,9 +37,46 @@
 .veylune-plp-popover--sort button:hover, .veylune-plp-popover--sort button[aria-checked="true"] { background: #f5f1f5; }
 .veylune-plp-empty { grid-column: 1 / -1; margin: 0; padding: 5rem 1rem; text-align: center; }
 
+.veylune-discovery-listing {
+    width: min(100%, 1480px);
+    margin-inline: auto;
+    padding: clamp(2.5rem, 5vw, 5.5rem) clamp(1rem, 3vw, 3rem);
+}
+
+.veylune-discovery-listing .veylune-plp-marketplace-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+    gap: clamp(1rem, 2vw, 2rem);
+}
+
+.veylune-discovery-listing .veylune-plp-filter-rail {
+    position: sticky;
+    top: calc(var(--veylune-header-offset, 0px) + 1rem);
+    align-self: start;
+    max-height: calc(100vh - var(--veylune-header-offset, 0px) - 2rem);
+    overflow-y: auto;
+}
+
+.veylune-discovery-listing .veylune-plp-filter-rail:not(:has(fieldset)) { display: none; }
+.veylune-discovery-listing .veylune-plp-filter-rail:not(:has(fieldset)) + .veylune-plp-results { grid-column: 1 / -1; }
+
+.veylune-discovery-listing .veylune-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.5rem, 2.5vw, 2.5rem) clamp(0.65rem, 1.3vw, 1.2rem);
+    width: 100%;
+}
+
+.veylune-discovery-listing .veylune-plp-progress { grid-column: 1 / -1; }
+
 @include media-breakpoint-down(md) {
+    .veylune-discovery-listing .veylune-plp-marketplace-layout { display: block; }
+    .veylune-discovery-listing .veylune-plp-filter-rail { display: none; }
+    .veylune-discovery-listing .veylune-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
     .veylune-plp-toolbar__actions {
         position: relative;
+        width: min(100%, 28rem);
     }
 
     .veylune-plp-menu {
@@ -54,10 +91,16 @@
         width: 100%;
         max-height: var(--veylune-plp-panel-max-height, min(62vh, 430px));
         overflow-y: auto;
+        overscroll-behavior: contain;
     }
 
     .veylune-plp-popover.is-above {
         top: auto;
         bottom: calc(100% + 0.55rem);
     }
+}
+
+@media (max-width: 575.98px) {
+    .veylune-discovery-listing { padding-inline: 0.75rem; }
+    .veylune-discovery-listing .veylune-preview-grid { gap: 1.4rem 0.55rem; }
 }

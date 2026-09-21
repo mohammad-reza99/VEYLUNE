@@ -1,0 +1,47 @@
+{% set presentation = veylunePdpPresentation %}
+{% set sectionId = veylunePdpSectionId|default('veylunePdpSemanticInformation') %}
+
+<section class="veylune-pdp-semantic"
+         data-veylune-pdp-semantic
+         data-pdp-family="{{ presentation.family }}"
+         data-commerce-mode="{{ presentation.commerce.mode }}"
+         data-commerce-state="{{ presentation.commerce.state }}"
+         aria-labelledby="{{ sectionId }}Title">
+    <header class="veylune-pdp-semantic__header">
+        <div>
+            <p>{{ presentation.familyLabel }}</p>
+            <h2 id="{{ sectionId }}Title">Information for this {{ presentation.typeLabel|lower }}</h2>
+        </div>
+        <p>{{ presentation.focus }}</p>
+    </header>
+
+    <div class="veylune-pdp-semantic__layout">
+        <section aria-labelledby="{{ sectionId }}Specifications">
+            <p class="veylune-pdp-semantic__eyebrow">Product specification</p>
+            <h3 id="{{ sectionId }}Specifications">What is known now</h3>
+            <dl class="veylune-pdp-semantic__facts">
+                {% for specification in presentation.specifications %}
+                    <div><dt>{{ specification.label }}</dt><dd>{{ specification.value }}</dd></div>
+                {% endfor %}
+            </dl>
+        </section>
+
+        <aside class="veylune-pdp-semantic__authority" aria-label="Commercial information authority">
+            <div data-pdp-gallery-authority="{{ presentation.gallery.state }}">
+                <span>Gallery evidence</span>
+                <strong>{{ presentation.gallery.count }} approved view{{ presentation.gallery.count == 1 ? '' : 's' }}</strong>
+                <p>{{ presentation.gallery.label }}</p>
+            </div>
+            <div>
+                <span>{{ presentation.delivery.title }}</span>
+                <p>{{ presentation.delivery.copy }}</p>
+            </div>
+            <div>
+                <span>{{ presentation.returns.title }}</span>
+                <p>{{ presentation.returns.copy }}</p>
+            </div>
+        </aside>
+    </div>
+
+    <p class="veylune-pdp-semantic__disclosure" data-commerce-disclosure>{{ presentation.commerce.disclosure }}</p>
+</section>

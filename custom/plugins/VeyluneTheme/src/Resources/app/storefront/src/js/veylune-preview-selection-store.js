@@ -8,6 +8,15 @@ const maxQuantity = 10;
 export const clampSelectionQuantity = (value) => Math.min(maxQuantity, Math.max(1, Number.parseInt(value, 10) || 1));
 
 const normalizeMaterial = (value) => String(value || 'Material pending').replace(/\s+/g, ' ').trim().slice(0, 60);
+const normalizeImageUrl = (value) => {
+    try {
+        const url = new URL(String(value || ''), window.location.origin);
+        if (url.origin !== window.location.origin || !url.pathname.startsWith('/media/')) return '';
+        return `${url.pathname}${url.search}`;
+    } catch (error) {
+        return '';
+    }
+};
 const lineIdFor = (productId, material) => `${productId}::${normalizeMaterial(material).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
 const normalizeItem = (item) => {
@@ -15,6 +24,8 @@ const normalizeItem = (item) => {
     const productName = String(item?.productName || '').replace(/\s+/g, ' ').trim().slice(0, 100);
     const material = normalizeMaterial(item?.material);
     const unitPrice = Number(item?.unitPrice);
+    const imageUrl = normalizeImageUrl(item?.imageUrl);
+    const imageAlt = String(item?.imageAlt || productName).replace(/\s+/g, ' ').trim().slice(0, 160);
 
     if (!/^[A-Z][0-9]{2}$/.test(productId) || !productName || !Number.isFinite(unitPrice) || unitPrice <= 0) return null;
 
@@ -25,6 +36,8 @@ const normalizeItem = (item) => {
         material,
         quantity: clampSelectionQuantity(item?.quantity),
         unitPrice,
+        imageUrl,
+        imageAlt,
     };
 };
 
@@ -118,6 +131,29 @@ export const readSelectionState = () => {
     return emptyState();
 };
 
+export const hydrateSelectionMedia = (candidateState, candidateManifest) => {
+    const state = normalizeState(candidateState);
+    const manifest = candidateManifest && typeof candidateManifest === 'object' ? candidateManifest : {};
+    let changed = false;
+
+    state.items = state.items.map((item) => {
+        const source = manifest[item.productId];
+        const imageUrl = normalizeImageUrl(source?.imageUrl);
+        if (!imageUrl) return item;
+
+        const imageAlt = String(source?.imageAlt || item.imageAlt || `${item.productName} product view`)
+            .replace(/\s+/g, ' ')
+            .trim()
+            .slice(0, 160);
+        if (item.imageUrl === imageUrl && item.imageAlt === imageAlt) return item;
+
+        changed = true;
+        return { ...item, imageUrl, imageAlt };
+    });
+
+    return { state, changed };
+};
+
 export const upsertSelectionItem = (candidateState, candidateItem) => {
     const state = normalizeState(candidateState);
     const item = normalizeItem(candidateItem);
@@ -128,6 +164,8 @@ export const upsertSelectionItem = (candidateState, candidateItem) => {
         existing.quantity = clampSelectionQuantity(existing.quantity + item.quantity);
         existing.unitPrice = item.unitPrice;
         existing.productName = item.productName;
+        existing.imageUrl = item.imageUrl;
+        existing.imageAlt = item.imageAlt;
         state.activeLineId = existing.lineId;
         return { state, item: existing };
     }

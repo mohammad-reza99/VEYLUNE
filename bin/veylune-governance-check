@@ -117,6 +117,12 @@ php -l bin/veylune-architecture-guard-audit >/dev/null
 php -l bin/veylune-phase-1-exit-audit >/dev/null
 php -l bin/veylune-phase-3-public-ia-audit >/dev/null
 php -l bin/veylune-phase-3-exit-audit >/dev/null
+php -l bin/veylune-phase-4-media-baseline-audit >/dev/null
+php -l bin/veylune-phase-4-media-intake-audit >/dev/null
+php -l bin/veylune-phase-5-discovery-baseline-audit >/dev/null
+php -l bin/veylune-phase-5-exit-audit >/dev/null
+php -l bin/veylune-phase-6-commerce-baseline-audit >/dev/null
+php -l bin/veylune-phase-6-exit-audit >/dev/null
 php -l bin/veylune-shell-baseline-audit >/dev/null
 php -l bin/veylune-token-contract-audit >/dev/null
 php -l bin/veylune-topbar-contract-audit >/dev/null
@@ -130,6 +136,15 @@ php bin/veylune-architecture-guard-audit >/dev/null
 php bin/veylune-phase-1-exit-audit >/dev/null
 php bin/veylune-phase-3-public-ia-audit >/dev/null
 php bin/veylune-phase-3-exit-audit >/dev/null
+php bin/veylune-phase-4-media-baseline-audit >/dev/null
+php bin/veylune-phase-4-media-intake-audit >/dev/null
+run_console veylune:media:cover-pipeline --audit >/dev/null
+run_console veylune:media:editorial-pipeline --audit >/dev/null
+php bin/veylune-phase-4-exit-audit >/dev/null
+php bin/veylune-phase-5-discovery-baseline-audit >/dev/null
+php bin/veylune-phase-5-exit-audit >/dev/null
+php bin/veylune-phase-6-commerce-baseline-audit >/dev/null
+php bin/veylune-phase-6-exit-audit >/dev/null
 php bin/veylune-shell-baseline-audit >/dev/null
 php bin/veylune-token-contract-audit >/dev/null
 php bin/veylune-topbar-contract-audit >/dev/null
@@ -251,7 +266,7 @@ room_scene_file="${TMP_DIR}/living_index_room_scene.html"
 assert_status '/rooms/living-room' 200 "$room_scene_file"
 assert_contains "$room_scene_file" 'data-veylune-living-index-mode="scene-index"' '/rooms/living-room Scene Mode shell'
 assert_contains "$room_scene_file" 'data-veylune-scene-integration="room:living-room"' '/rooms/living-room governed scene marker'
-assert_contains "$room_scene_file" 'veylune-room-living-v1.webp' '/rooms/living-room approved scene asset'
+assert_contains "$room_scene_file" 'data-media-source="shopware_admin_media"' '/rooms/living-room governed Admin scene media'
 assert_contains "$room_scene_file" 'data-veylune-scene-path="seating"' '/rooms/living-room object discovery path'
 assert_contains "$room_scene_file" 'data-veylune-scene-path="lighting"' '/rooms/living-room lighting discovery path'
 assert_absent_pattern "$room_scene_file" 'VLS-FUR-000001|VLS-FUR-000010|__veylune-vision|__veylune-preview' '/rooms/living-room draft containment'
@@ -259,7 +274,7 @@ assert_absent_pattern "$room_scene_file" 'VLS-FUR-000001|VLS-FUR-000010|__veylun
 collection_scene_file="${TMP_DIR}/living_index_collection_scene.html"
 assert_status '/collections/founder-selection' 200 "$collection_scene_file"
 assert_contains "$collection_scene_file" 'data-veylune-scene-integration="collection:founder-selection"' '/collections/founder-selection governed scene marker'
-assert_contains "$collection_scene_file" 'veylune-promo-living-room-v1.webp' '/collections/founder-selection approved scene asset'
+assert_contains "$collection_scene_file" 'data-media-source="shopware_admin_media"' '/collections/founder-selection governed Admin scene media'
 assert_contains "$collection_scene_file" 'data-veylune-scene-path="form"' '/collections/founder-selection form discovery path'
 assert_contains "$collection_scene_file" 'data-veylune-scene-path="project"' '/collections/founder-selection project action'
 assert_absent_pattern "$collection_scene_file" 'VLS-FUR-000001|VLS-FUR-000010|__veylune-vision|__veylune-preview' '/collections/founder-selection draft containment'
@@ -721,8 +736,11 @@ assert_contains "$living_index_collection_file" 'data-veylune-living-index-mode=
 assert_absent_pattern "$living_index_collection_file" 'Awaiting governed product population|data-veylune-identity-denial' '/collections/founder-selection public-copy and access closure'
 
 living_index_discovery_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-discovery.html.twig'
-assert_contains "$living_index_discovery_template" 'method="get"' 'Living Index server-side refine contract'
-assert_contains "$living_index_discovery_template" 'veyluneDisableWishlist: true' 'Living Index activation-pending wishlist containment'
+shared_discovery_listing_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-listing.html.twig'
+shared_discovery_card_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-product-card.html.twig'
+assert_contains "$living_index_discovery_template" 'discovery-listing.html.twig' 'Living Index shared discovery listing contract'
+assert_contains "$shared_discovery_listing_template" 'data-veylune-plp' 'Living Index client-side refine contract'
+assert_contains "$shared_discovery_card_template" 'data-vli-selection-add' 'Living Index activation-pending Selection contract'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-discovery.scss' 'min-height: 44px' 'Living Index mobile control target'
 
 activation_pending_routes=(
@@ -877,6 +895,12 @@ assert_contains "$identity_ingress_subscriber" "'Content-Security-Policy'" 'cont
 bash bin/veylune-production-readiness >/dev/null
 php bin/veylune-phase-2-exit-audit >/dev/null
 php bin/veylune-phase-3-public-ia-audit >/dev/null
+php bin/veylune-phase-4-media-baseline-audit >/dev/null
+php bin/veylune-phase-4-media-intake-audit >/dev/null
+php bin/veylune-phase-5-discovery-baseline-audit >/dev/null
+php bin/veylune-phase-5-exit-audit >/dev/null
+php bin/veylune-phase-6-commerce-baseline-audit >/dev/null
+php bin/veylune-phase-6-exit-audit >/dev/null
 
 step 'complete'
 printf 'Veylune governance verification passed.\n'

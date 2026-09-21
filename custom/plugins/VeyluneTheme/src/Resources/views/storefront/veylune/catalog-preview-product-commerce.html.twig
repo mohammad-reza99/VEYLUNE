@@ -1,4 +1,6 @@
-<section class="veylune-pdp-commerce-options" aria-label="Product configuration">
+<section class="veylune-pdp-commerce-options" aria-label="Product configuration"
+         data-commerce-mode="{{ veylunePdpPresentation.commerce.mode }}"
+         data-commerce-state="{{ veylunePdpPresentation.commerce.state }}">
     <div class="veylune-pdp-variants">
         <div class="veylune-pdp-commerce-options__label"><span>Material direction:</span><strong data-pdp-variant-label>{{ product.materialLabel }}</strong></div>
         <div class="veylune-pdp-variants__grid" role="group" aria-label="Choose a material direction">
@@ -28,8 +30,8 @@
                 <button type="button" data-pdp-quantity-increase aria-label="Increase quantity">+</button>
             </div>
         </div>
-        <button class="veylune-pdp-purchase__add" type="button" data-pdp-add-selection>Add to cart</button>
-        <p data-pdp-add-status aria-live="polite">No payment or public order is created in this private preview.</p>
+        <button class="veylune-pdp-purchase__add" type="button" data-pdp-add-selection>{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
+        <p data-pdp-add-status aria-live="polite">{{ veylunePdpPresentation.commerce.disclosure }}</p>
     </div>
 
     <fieldset class="veylune-pdp-services" data-pdp-services>

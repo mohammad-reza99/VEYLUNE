@@ -1,12 +1,14 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
 {% block base_content %}
-    <div class="veylune-checkout-preview" data-veylune-checkout-preview>
+    <div class="veylune-checkout-preview" data-veylune-checkout-preview data-product-media="{{ veylunePreviewMediaManifest|json_encode|e('html_attr') }}">
         <nav aria-label="Checkout progress">
             <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}"><span>1</span>Cart</a>
             <span aria-current="step"><span>2</span>Delivery</span>
             <span><span>3</span>Review</span>
         </nav>
+
+        {% sw_include '@Storefront/storefront/veylune/commerce-journey-status.html.twig' with { commerceJourneyStep: 'checkout' } %}
 
         <header>
             <p>Private checkout preview</p>
@@ -59,7 +61,7 @@
                 <div class="veylune-checkout-preview__summary-items" data-checkout-items></div>
                 <template data-checkout-item-template>
                     <article data-checkout-item>
-                        <div aria-hidden="true"><span></span></div>
+                        <div><img data-checkout-item-image src="" alt="" loading="lazy" decoding="async"></div>
                         <section><h3 data-checkout-item-name>Selected piece</h3><p data-checkout-item-material>Material pending</p><p>Qty <span data-checkout-item-quantity>0</span></p></section>
                         <strong data-checkout-item-total>€0</strong>
                     </article>

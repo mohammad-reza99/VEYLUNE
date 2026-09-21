@@ -1,0 +1,4135 @@
+{
+  "schemaVersion": "1.0",
+  "phase": "5",
+  "capturedAt": "2026-09-21T17:28:49.728Z",
+  "surfaces": [
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/furniture",
+      "status": 200,
+      "screenshot": "desktop--public--categories-furniture.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/lighting",
+      "status": 200,
+      "screenshot": "desktop--public--categories-lighting.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/decor-objects",
+      "status": 200,
+      "screenshot": "desktop--public--categories-decor-objects.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/textiles-rugs",
+      "status": 200,
+      "screenshot": "desktop--public--categories-textiles-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/dining-kitchen",
+      "status": 200,
+      "screenshot": "desktop--public--categories-dining-kitchen.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/outdoor",
+      "status": 200,
+      "screenshot": "desktop--public--categories-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/bedding-bath",
+      "status": 200,
+      "screenshot": "desktop--public--categories-bedding-bath.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/mattresses",
+      "status": 200,
+      "screenshot": "desktop--public--categories-mattresses.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/rugs",
+      "status": 200,
+      "screenshot": "desktop--public--categories-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/categories/organization",
+      "status": 200,
+      "screenshot": "desktop--public--categories-organization.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/rooms/living-room",
+      "status": 200,
+      "screenshot": "desktop--public--rooms-living-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/rooms/dining-room",
+      "status": 200,
+      "screenshot": "desktop--public--rooms-dining-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/rooms/bedroom",
+      "status": 200,
+      "screenshot": "desktop--public--rooms-bedroom.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/rooms/workspace",
+      "status": 200,
+      "screenshot": "desktop--public--rooms-workspace.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/rooms/hallway",
+      "status": 200,
+      "screenshot": "desktop--public--rooms-hallway.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/rooms/outdoor",
+      "status": 200,
+      "screenshot": "desktop--public--rooms-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/collections/founder-selection",
+      "status": 200,
+      "screenshot": "desktop--public--collections-founder-selection.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/collections/new-arrivals",
+      "status": 200,
+      "screenshot": "desktop--public--collections-new-arrivals.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/collections/best-sellers",
+      "status": 200,
+      "screenshot": "desktop--public--collections-best-sellers.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/collections/sale",
+      "status": 200,
+      "screenshot": "desktop--public--collections-sale.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/collections/permanent",
+      "status": 200,
+      "screenshot": "desktop--public--collections-permanent.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/collections/editorial",
+      "status": 200,
+      "screenshot": "desktop--public--collections-editorial.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/discover",
+      "status": 200,
+      "screenshot": "desktop--public--discover.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 28,
+        "adminMedia": 13
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/discover?q=room",
+      "status": 200,
+      "screenshot": "desktop--public--discover-q-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 13,
+        "adminMedia": 8
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "public",
+      "route": "/discover?q=zzzx-no-confident-match",
+      "status": 200,
+      "screenshot": "desktop--public--discover-q-zzzx-no-confident-match.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 42,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-category-furniture.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 19,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-category-lighting.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 10,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-category-decor-objects.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 9,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-category-textiles-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 5,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-category-dining-kitchen.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 4,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-category-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 3,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-room-living-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 29,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-room-dining-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 14,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-room-bedroom.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 19,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-room-workspace.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 8,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-room-hallway.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 11,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-collection-founder-selection.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 15,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "desktop",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "status": 200,
+      "screenshot": "desktop--private--veylune-preview-catalog-collection-new-arrivals.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 16,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/furniture",
+      "status": 200,
+      "screenshot": "tablet--public--categories-furniture.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/lighting",
+      "status": 200,
+      "screenshot": "tablet--public--categories-lighting.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/decor-objects",
+      "status": 200,
+      "screenshot": "tablet--public--categories-decor-objects.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/textiles-rugs",
+      "status": 200,
+      "screenshot": "tablet--public--categories-textiles-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/dining-kitchen",
+      "status": 200,
+      "screenshot": "tablet--public--categories-dining-kitchen.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/outdoor",
+      "status": 200,
+      "screenshot": "tablet--public--categories-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/bedding-bath",
+      "status": 200,
+      "screenshot": "tablet--public--categories-bedding-bath.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/mattresses",
+      "status": 200,
+      "screenshot": "tablet--public--categories-mattresses.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/rugs",
+      "status": 200,
+      "screenshot": "tablet--public--categories-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/categories/organization",
+      "status": 200,
+      "screenshot": "tablet--public--categories-organization.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/rooms/living-room",
+      "status": 200,
+      "screenshot": "tablet--public--rooms-living-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/rooms/dining-room",
+      "status": 200,
+      "screenshot": "tablet--public--rooms-dining-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/rooms/bedroom",
+      "status": 200,
+      "screenshot": "tablet--public--rooms-bedroom.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/rooms/workspace",
+      "status": 200,
+      "screenshot": "tablet--public--rooms-workspace.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/rooms/hallway",
+      "status": 200,
+      "screenshot": "tablet--public--rooms-hallway.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/rooms/outdoor",
+      "status": 200,
+      "screenshot": "tablet--public--rooms-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/collections/founder-selection",
+      "status": 200,
+      "screenshot": "tablet--public--collections-founder-selection.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/collections/new-arrivals",
+      "status": 200,
+      "screenshot": "tablet--public--collections-new-arrivals.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/collections/best-sellers",
+      "status": 200,
+      "screenshot": "tablet--public--collections-best-sellers.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/collections/sale",
+      "status": 200,
+      "screenshot": "tablet--public--collections-sale.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/collections/permanent",
+      "status": 200,
+      "screenshot": "tablet--public--collections-permanent.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/collections/editorial",
+      "status": 200,
+      "screenshot": "tablet--public--collections-editorial.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/discover",
+      "status": 200,
+      "screenshot": "tablet--public--discover.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 28,
+        "adminMedia": 13
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/discover?q=room",
+      "status": 200,
+      "screenshot": "tablet--public--discover-q-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 13,
+        "adminMedia": 8
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "public",
+      "route": "/discover?q=zzzx-no-confident-match",
+      "status": 200,
+      "screenshot": "tablet--public--discover-q-zzzx-no-confident-match.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 42,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-category-furniture.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 19,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-category-lighting.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 10,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-category-decor-objects.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 9,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-category-textiles-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 5,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-category-dining-kitchen.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 4,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-category-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 3,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-room-living-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 29,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-room-dining-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 14,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-room-bedroom.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 19,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-room-workspace.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 8,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-room-hallway.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 11,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-collection-founder-selection.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 15,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "tablet",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "status": 200,
+      "screenshot": "tablet--private--veylune-preview-catalog-collection-new-arrivals.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 16,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/furniture",
+      "status": 200,
+      "screenshot": "mobile--public--categories-furniture.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/lighting",
+      "status": 200,
+      "screenshot": "mobile--public--categories-lighting.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/decor-objects",
+      "status": 200,
+      "screenshot": "mobile--public--categories-decor-objects.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/textiles-rugs",
+      "status": 200,
+      "screenshot": "mobile--public--categories-textiles-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/dining-kitchen",
+      "status": 200,
+      "screenshot": "mobile--public--categories-dining-kitchen.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/outdoor",
+      "status": 200,
+      "screenshot": "mobile--public--categories-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/bedding-bath",
+      "status": 200,
+      "screenshot": "mobile--public--categories-bedding-bath.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/mattresses",
+      "status": 200,
+      "screenshot": "mobile--public--categories-mattresses.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/rugs",
+      "status": 200,
+      "screenshot": "mobile--public--categories-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/categories/organization",
+      "status": 200,
+      "screenshot": "mobile--public--categories-organization.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/rooms/living-room",
+      "status": 200,
+      "screenshot": "mobile--public--rooms-living-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/rooms/dining-room",
+      "status": 200,
+      "screenshot": "mobile--public--rooms-dining-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/rooms/bedroom",
+      "status": 200,
+      "screenshot": "mobile--public--rooms-bedroom.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/rooms/workspace",
+      "status": 200,
+      "screenshot": "mobile--public--rooms-workspace.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/rooms/hallway",
+      "status": 200,
+      "screenshot": "mobile--public--rooms-hallway.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/rooms/outdoor",
+      "status": 200,
+      "screenshot": "mobile--public--rooms-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/collections/founder-selection",
+      "status": 200,
+      "screenshot": "mobile--public--collections-founder-selection.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/collections/new-arrivals",
+      "status": 200,
+      "screenshot": "mobile--public--collections-new-arrivals.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 1
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/collections/best-sellers",
+      "status": 200,
+      "screenshot": "mobile--public--collections-best-sellers.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/collections/sale",
+      "status": 200,
+      "screenshot": "mobile--public--collections-sale.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/collections/permanent",
+      "status": 200,
+      "screenshot": "mobile--public--collections-permanent.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/collections/editorial",
+      "status": 200,
+      "screenshot": "mobile--public--collections-editorial.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/discover",
+      "status": 200,
+      "screenshot": "mobile--public--discover.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 28,
+        "adminMedia": 13
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/discover?q=room",
+      "status": 200,
+      "screenshot": "mobile--public--discover-q-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 13,
+        "adminMedia": 8
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "public",
+      "route": "/discover?q=zzzx-no-confident-match",
+      "status": 200,
+      "screenshot": "mobile--public--discover-q-zzzx-no-confident-match.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 0,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": null
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 0,
+        "sharedProductCards": 42,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-category-furniture.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 19,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-category-lighting.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 10,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-category-decor-objects.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 9,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-category-textiles-rugs.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 5,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-category-dining-kitchen.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 4,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-category-outdoor.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 3,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-room-living-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 29,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-room-dining-room.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 14,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-room-bedroom.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 19,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-room-workspace.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 8,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-room-hallway.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 11,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-collection-founder-selection.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 15,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    },
+    {
+      "viewport": "mobile",
+      "scope": "private",
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "status": 200,
+      "screenshot": "mobile--private--veylune-preview-catalog-collection-new-arrivals.png",
+      "computed": {
+        "mainCount": 1,
+        "h1Count": 1,
+        "header": true,
+        "footer": true,
+        "overflow": false,
+        "brokenImages": [],
+        "missingAccessibleNames": [],
+        "scopeRootCorrect": true,
+        "sharedListings": 1,
+        "sharedProductCards": 16,
+        "contextCards": 0,
+        "adminMedia": 0
+      },
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "privateHeaders": {
+        "cacheControl": "no-store, private",
+        "robots": "noindex,nofollow,noarchive,nosnippet"
+      }
+    }
+  ],
+  "privateDestinations": [
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "total": 19,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-category-furniture.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "total": 10,
+      "initialVisible": 10,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-category-lighting.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "total": 9,
+      "initialVisible": 9,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-category-decor-objects.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "total": 5,
+      "initialVisible": 5,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-category-textiles-rugs.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "total": 4,
+      "initialVisible": 4,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-category-dining-kitchen.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "total": 3,
+      "initialVisible": 3,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-category-outdoor.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "total": 29,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-room-living-room.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "total": 14,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-room-dining-room.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "total": 19,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-room-bedroom.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "total": 8,
+      "initialVisible": 8,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-room-workspace.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "total": 11,
+      "initialVisible": 11,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-room-hallway.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "total": 15,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-collection-founder-selection.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "total": 16,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "desktop--interaction--veylune-preview-catalog-collection-new-arrivals.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "total": 19,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-category-furniture.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "total": 10,
+      "initialVisible": 10,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-category-lighting.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "total": 9,
+      "initialVisible": 9,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-category-decor-objects.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "total": 5,
+      "initialVisible": 5,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-category-textiles-rugs.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "total": 4,
+      "initialVisible": 4,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-category-dining-kitchen.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "total": 3,
+      "initialVisible": 3,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-category-outdoor.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "total": 29,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-room-living-room.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "total": 14,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-room-dining-room.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "total": 19,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-room-bedroom.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "total": 8,
+      "initialVisible": 8,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-room-workspace.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "total": 11,
+      "initialVisible": 11,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-room-hallway.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "total": 15,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-collection-founder-selection.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "total": 16,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "tablet--interaction--veylune-preview-catalog-collection-new-arrivals.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "total": 19,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-category-furniture.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "total": 10,
+      "initialVisible": 10,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-category-lighting.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "total": 9,
+      "initialVisible": 9,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-category-decor-objects.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "total": 5,
+      "initialVisible": 5,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-category-textiles-rugs.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "total": 4,
+      "initialVisible": 4,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-category-dining-kitchen.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "total": 3,
+      "initialVisible": 3,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-category-outdoor.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "total": 29,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-room-living-room.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "total": 14,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-room-dining-room.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "total": 19,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-room-bedroom.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "total": 8,
+      "initialVisible": 8,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-room-workspace.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "total": 11,
+      "initialVisible": 11,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-room-hallway.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "total": 15,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-collection-founder-selection.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "total": 16,
+      "initialVisible": 12,
+      "sortPass": true,
+      "filterPass": true,
+      "panelContained": true,
+      "loadMorePass": true,
+      "screenshot": "mobile--interaction--veylune-preview-catalog-collection-new-arrivals.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    }
+  ],
+  "searchScenarios": [
+    {
+      "viewport": "desktop",
+      "kind": "results",
+      "results": 13,
+      "sorted": true,
+      "saved": true,
+      "facets": 22,
+      "screenshot": "desktop--interaction--search-results.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "desktop",
+      "kind": "zero",
+      "empty": true,
+      "recoveryLinks": 4,
+      "screenshot": "desktop--interaction--search-zero.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "kind": "results",
+      "results": 13,
+      "sorted": true,
+      "saved": true,
+      "facets": 22,
+      "screenshot": "tablet--interaction--search-results.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "tablet",
+      "kind": "zero",
+      "empty": true,
+      "recoveryLinks": 4,
+      "screenshot": "tablet--interaction--search-zero.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "kind": "results",
+      "results": 13,
+      "sorted": true,
+      "saved": true,
+      "facets": 22,
+      "screenshot": "mobile--interaction--search-results.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    },
+    {
+      "viewport": "mobile",
+      "kind": "zero",
+      "empty": true,
+      "recoveryLinks": 4,
+      "screenshot": "mobile--interaction--search-zero.png",
+      "errors": {
+        "consoleErrors": [],
+        "pageErrors": [],
+        "failedResponses": []
+      },
+      "pass": true
+    }
+  ],
+  "unauthorizedPrivateRoutes": [
+    {
+      "route": "/__veylune-preview/catalog",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/category/furniture",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/category/lighting",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/category/decor-objects",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/category/textiles-rugs",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/category/dining-kitchen",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/category/outdoor",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/room/living-room",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/room/dining-room",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/room/bedroom",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/room/workspace",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/room/hallway",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/collection/founder-selection",
+      "status": 404,
+      "pass": true
+    },
+    {
+      "route": "/__veylune-preview/catalog/collection/new-arrivals",
+      "status": 404,
+      "pass": true
+    }
+  ],
+  "summary": {
+    "routes": 39,
+    "viewports": 3,
+    "surfaces": 117,
+    "status200Surfaces": 117,
+    "runtimeIssueSurfaces": 0,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "accessibilityIssueSurfaces": 0,
+    "privateDestinationScenarios": 39,
+    "failedPrivateDestinationScenarios": 0,
+    "searchScenarios": 6,
+    "failedSearchScenarios": 0,
+    "unauthorizedPrivateRoutes": 14,
+    "unauthorizedPrivateRouteFailures": 0,
+    "publicDiscoveryListings": 22,
+    "publicProductSurfaces": 0,
+    "adminEditorialDestinations": 13,
+    "screenshots": 162
+  }
+}

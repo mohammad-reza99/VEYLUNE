@@ -23,16 +23,13 @@ final class DraftCatalogPreviewService
         'F05', // Edda Dining Chair
         'F10', // Elara Travertine Coffee Table
     ];
-    private const OBJECT_PROBE_ASSETS = [
-        'F01' => 'products/f01-aurelia-modular-sofa-v1.webp',
-        'F10' => 'products/f10-elara-travertine-coffee-table-v1.webp',
-    ];
-
     /**
      * @param EntityRepository<\Shopware\Core\Content\Product\ProductCollection> $productRepository
+     * @param EntityRepository<\Shopware\Core\Content\Media\MediaCollection> $mediaRepository
      */
     public function __construct(
-        private readonly EntityRepository $productRepository
+        private readonly EntityRepository $productRepository,
+        private readonly EntityRepository $mediaRepository
     ) {
     }
 
@@ -44,7 +41,9 @@ final class DraftCatalogPreviewService
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('customFields.veylune_source_batch', DraftCatalogManifest::BATCH_ID))
             ->addFilter(new EqualsFilter('active', false))
-            ->addAssociation('properties.group');
+            ->addAssociation('properties.group')
+            ->addAssociation('cover.media')
+            ->addAssociation('media.media');
         $criteria->addSorting(new \Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting('productNumber'));
 
         $products = [];
@@ -53,6 +52,55 @@ final class DraftCatalogPreviewService
         }
 
         return $products;
+    }
+
+    /**
+     * @return array<string, array{imageUrl: string, imageAlt: string}>
+     */
+    public function selectionMediaManifest(): array
+    {
+        $manifest = [];
+        foreach ($this->products() as $product) {
+            $recordId = (string) ($product['recordId'] ?? '');
+            $coverUrl = (string) ($product['coverUrl'] ?? '');
+            if ($recordId === '' || $coverUrl === '') {
+                continue;
+            }
+
+            $manifest[$recordId] = [
+                'imageUrl' => $coverUrl,
+                'imageAlt' => (string) ($product['coverAlt'] ?? $product['name'] ?? ''),
+            ];
+        }
+
+        return $manifest;
+    }
+
+    /**
+     * @return array{url: string, alt: string, width: int|null, height: int|null}|null
+     */
+    public function editorialMedia(string $destinationId): ?array
+    {
+        if (!isset(EditorialMediaRegistry::destinations()[$destinationId])) {
+            return null;
+        }
+
+        $media = $this->mediaRepository->search(
+            new Criteria([EditorialMediaRegistry::mediaId($destinationId)]),
+            Context::createDefaultContext()
+        )->first();
+        if ($media === null || $media->getUrl() === null) {
+            return null;
+        }
+        $translated = $media->getTranslated();
+        $metadata = $media->getMetaData() ?? [];
+
+        return [
+            'url' => $media->getUrl(),
+            'alt' => (string) ($translated['alt'] ?? ''),
+            'width' => isset($metadata['width']) ? (int) $metadata['width'] : null,
+            'height' => isset($metadata['height']) ? (int) $metadata['height'] : null,
+        ];
     }
 
     /**
@@ -174,6 +222,24 @@ final class DraftCatalogPreviewService
 
         $primaryMaterial = (string) ($customFields['veylune_primary_material_key'] ?? 'material');
         $recordId = (string) ($customFields['veylune_catalog_record_id'] ?? '');
+        $coverMedia = $product->getCover()?->getMedia();
+        $media = [];
+        foreach ($product->getMedia() ?? [] as $productMedia) {
+            $mediaEntity = $productMedia->getMedia();
+            if ($mediaEntity === null || $mediaEntity->getUrl() === null) {
+                continue;
+            }
+            $translated = $mediaEntity->getTranslated();
+            $media[] = [
+                'url' => $mediaEntity->getUrl(),
+                'alt' => (string) ($translated['alt'] ?? $product->getTranslated()['name'] ?? ''),
+                'title' => (string) ($translated['title'] ?? $product->getTranslated()['name'] ?? ''),
+                'width' => $mediaEntity->getMetaData()['width'] ?? null,
+                'height' => $mediaEntity->getMetaData()['height'] ?? null,
+                'position' => $productMedia->getPosition(),
+            ];
+        }
+        usort($media, static fn (array $left, array $right): int => ($left['position'] ?? 0) <=> ($right['position'] ?? 0));
 
         return [
             'recordId' => $recordId,
@@ -190,7 +256,9 @@ final class DraftCatalogPreviewService
             'rooms' => $rooms,
             'collections' => $collections,
             'rails' => $this->decodeList($customFields['veylune_rail_candidates'] ?? null),
-            'coverAsset' => self::OBJECT_PROBE_ASSETS[$recordId] ?? null,
+            'coverUrl' => $coverMedia?->getUrl(),
+            'coverAlt' => (string) ($coverMedia?->getTranslated()['alt'] ?? $product->getTranslated()['name'] ?? ''),
+            'media' => $media,
             'customFields' => $customFields,
             'width' => $product->getWidth(),
             'height' => $product->getHeight(),

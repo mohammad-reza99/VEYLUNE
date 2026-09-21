@@ -27,6 +27,7 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
     let visibleLimit = pageSize;
     let renderFrame = null;
     let floatingFrame = null;
+    let pointerLeaveTimer = null;
 
     const menuPairs = [[filterToggle, filterPanel], [sortToggle, sortPanel]];
     const storefrontHeader = document.querySelector('.header-main');
@@ -215,7 +216,9 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         const params = new URL(window.location.href).searchParams;
         const requestedType = params.get('type') || 'all';
         activeType = chips.some((chip) => chip.dataset.plpType === requestedType) ? requestedType : 'all';
-        activeSort = sortOptions.some((option) => option.dataset.plpSort === params.get('sort')) ? params.get('sort') : 'featured';
+        const sortAliases = { curated: 'featured', 'price-asc': 'price-low', 'price-desc': 'price-high' };
+        const requestedSort = sortAliases[params.get('sort')] || params.get('sort');
+        activeSort = sortOptions.some((option) => option.dataset.plpSort === requestedSort) ? requestedSort : 'featured';
         const requested = {
             material: new Set((params.get('materials') || '').split(',').filter(Boolean)),
             price: new Set((params.get('prices') || '').split(',').filter(Boolean)),
@@ -283,6 +286,14 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         scheduleRender();
     });
     menuPairs.forEach(([toggle, panel]) => toggle.addEventListener('click', () => openMenu(toggle, panel)));
+    root.querySelectorAll('.veylune-plp-menu').forEach((menu) => {
+        menu.addEventListener('pointerenter', () => window.clearTimeout(pointerLeaveTimer));
+        menu.addEventListener('pointerleave', (event) => {
+            if (event.pointerType === 'touch' || !window.matchMedia('(hover: hover)').matches) return;
+            window.clearTimeout(pointerLeaveTimer);
+            pointerLeaveTimer = window.setTimeout(() => closeMenus(), 180);
+        });
+    });
     sortPanel.addEventListener('keydown', (event) => {
         const option = event.target.closest('[data-plp-sort]');
         if (option && (event.key === 'Enter' || event.key === ' ')) {
@@ -300,6 +311,7 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
     filterPanel.addEventListener('keydown', (event) => trapPanelFocus(event, filterPanel));
     sortPanel.addEventListener('keydown', (event) => trapPanelFocus(event, sortPanel));
     document.addEventListener('click', (event) => { if (!event.target.closest('.veylune-plp-menu')) closeMenus(); });
+    document.addEventListener('focusin', (event) => { if (!event.target.closest('.veylune-plp-menu')) closeMenus(); });
     root.addEventListener('keydown', (event) => { if (event.key === 'Escape') { event.preventDefault(); closeMenus(null, true); } });
     const syncFloatingControls = () => {
         syncHeaderOffset();

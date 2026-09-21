@@ -1,8 +1,10 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
 {% block base_content %}
-    <div class="veylune-cart-preview" data-veylune-cart-preview>
+    <div class="veylune-cart-preview" data-veylune-cart-preview data-product-media="{{ veylunePreviewMediaManifest|json_encode|e('html_attr') }}">
         <nav aria-label="Breadcrumb"><a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Catalog preview</a><span aria-hidden="true">/</span><span aria-current="page">Cart</span></nav>
+
+        {% sw_include '@Storefront/storefront/veylune/commerce-journey-status.html.twig' with { commerceJourneyStep: 'cart' } %}
 
         <header class="veylune-cart-preview__header">
             <div><p>Private commerce preview</p><h1>Your cart</h1></div>
@@ -30,7 +32,7 @@
                 <div class="veylune-cart-preview__items-list" data-cart-page-items></div>
                 <template data-cart-page-item-template>
                     <article class="veylune-cart-preview__item" data-cart-page-item>
-                        <div class="veylune-cart-preview__visual" aria-hidden="true"><span></span></div>
+                        <div class="veylune-cart-preview__visual"><img data-cart-page-item-image src="" alt="" loading="lazy" decoding="async"></div>
                         <div class="veylune-cart-preview__item-copy">
                             <p>Veylune draft reference</p>
                             <h3 data-cart-page-item-name>Selected piece</h3>

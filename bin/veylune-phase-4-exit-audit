@@ -1,0 +1,116 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$fail = static function (string $message): never {
+    fwrite(STDERR, '[veylune-phase-4-exit][FAIL] ' . $message . PHP_EOL);
+    exit(1);
+};
+$readJson = static function (string $relative) use ($root, $fail): array {
+    $path = $root . '/' . $relative;
+    if (!is_file($path)) {
+        $fail('Missing file: ' . $relative);
+    }
+    $decoded = json_decode((string) file_get_contents($path), true);
+    if (!is_array($decoded)) {
+        $fail('Invalid JSON: ' . $relative);
+    }
+
+    return $decoded;
+};
+
+$report = $readJson('reports/catalog/phase-4-media-cover-pipeline.json');
+$editorialReport = $readJson('reports/catalog/phase-4-editorial-media-pipeline.json');
+$contract = $readJson('config/veylune-phase-4-media-source-contract.json');
+$status = $readJson('config/veylune-roadmap-status.json');
+
+if (($report['mode'] ?? null) !== 'audit' || ($report['summary']['pass'] ?? false) !== true) {
+    $fail('Persisted media audit has not passed.');
+}
+if (($report['summary']['expectedProducts'] ?? null) !== 50
+    || ($report['summary']['auditedProducts'] ?? null) !== 50
+    || ($report['summary']['productsWithGovernedAdminCover'] ?? null) !== 50
+    || ($report['summary']['productsRemainingInactive'] ?? null) !== 50) {
+    $fail('The 50-product cover gate is incomplete or fail-closed state was lost.');
+}
+if (($report['summary']['launchApprovedProducts'] ?? null) !== 0
+    || ($report['summary']['minimumGalleryGate'] ?? null) !== 'not_applicable_until_launch_approval') {
+    $fail('Draft cover completion must not be represented as launch-gallery approval.');
+}
+if (($editorialReport['mode'] ?? null) !== 'audit'
+    || ($editorialReport['summary']['pass'] ?? false) !== true
+    || ($editorialReport['summary']['expectedDestinations'] ?? null) !== 13
+    || ($editorialReport['summary']['adminEditorialMedia'] ?? null) !== 13
+    || count($editorialReport['records'] ?? []) !== 13) {
+    $fail('The 13-destination Admin editorial media gate is incomplete.');
+}
+if (($contract['generatedDraftCoverProfile']['minimumLongEdgePx'] ?? null) !== 1400
+    || ($contract['generatedDraftCoverProfile']['mayActivateProduct'] ?? true) !== false
+    || ($contract['generatedDraftCoverProfile']['maySatisfyLaunchGalleryAlone'] ?? true) !== false) {
+    $fail('Generated draft cover policy is incomplete.');
+}
+
+$records = $report['records'] ?? [];
+if (count($records) !== 50 || count(array_unique(array_column($records, 'sku'))) !== 50) {
+    $fail('Audit must contain 50 unique SKUs.');
+}
+foreach ($records as $record) {
+    if (($record['pass'] ?? false) !== true || in_array(false, $record['checks'] ?? [], true)) {
+        $fail('Media checks failed for ' . ($record['sku'] ?? 'unknown'));
+    }
+    if (!is_string($record['mediaUrl'] ?? null) || $record['mediaUrl'] === '') {
+        $fail('Renderable Admin Media URL missing for ' . ($record['sku'] ?? 'unknown'));
+    }
+}
+
+$scssPath = $root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-product-media-closure.scss';
+$scss = (string) file_get_contents($scssPath);
+foreach (['data-preview-record="F01"', '--veylune-product-media:', '/products/f01-', 'background-image: var(--veylune-product-media)'] as $blocked) {
+    if (str_contains($scss, $blocked)) {
+        $fail('Record-specific CSS product media remains active: ' . $blocked);
+    }
+}
+
+$card = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-product-card.html.twig');
+$pdp = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-product.html.twig');
+$cart = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-cart.html.twig');
+$checkout = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-checkout.html.twig');
+$selectionStore = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-selection-store.js');
+$cartScript = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-cart-page.js');
+$checkoutScript = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-checkout.js');
+$service = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Preview/DraftCatalogPreviewService.php');
+$controller = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Controller/DraftCatalogPreviewController.php');
+$destination = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-destination.html.twig');
+foreach ([
+    [$card, 'src="{{ discoveryCard.coverUrl }}"'],
+    [$card, 'alt="{{ discoveryCard.coverAlt'],
+    [$pdp, 'class="veylune-pdp-gallery__media"'],
+    [$cart, 'data-product-media="{{ veylunePreviewMediaManifest|json_encode'],
+    [$cart, 'data-cart-page-item-image'],
+    [$checkout, 'data-product-media="{{ veylunePreviewMediaManifest|json_encode'],
+    [$checkout, 'data-checkout-item-image'],
+    [$selectionStore, 'export const hydrateSelectionMedia'],
+    [$cartScript, 'hydrateSelectionMedia(selectionState'],
+    [$checkoutScript, 'hydrateSelectionMedia(selectionState'],
+    [$service, "->addAssociation('cover.media')"],
+    [$service, "->addAssociation('media.media')"],
+    [$service, 'public function selectionMediaManifest()'],
+    [$service, 'public function editorialMedia(string $destinationId)'],
+    [$controller, "\$content['heroUrl'] = \$editorialMedia['url'];"],
+    [$destination, 'src="{{ veylunePreviewDestination.heroUrl }}"'],
+] as [$haystack, $needle]) {
+    if (!str_contains($haystack, $needle)) {
+        $fail('Semantic Admin Media contract missing: ' . $needle);
+    }
+}
+if (str_contains($controller, "'heroAsset' =>") || str_contains($destination, "asset('assets/' ~ veylunePreviewDestination.heroAsset")) {
+    $fail('Destination editorial media still depends on a hard-coded theme asset.');
+}
+
+if (($status['phase41Progress']['pendingPackages'] ?? null) !== []
+    || ($status['phaseMap'][3]['estimatedPercent'] ?? null) !== 100
+    || ($status['phaseMap'][3]['status'] ?? null) !== 'complete') {
+    $fail('Roadmap does not mark Phase 4 complete.');
+}
+
+fwrite(STDOUT, "Veylune Phase 4 exit audit passed.\n");

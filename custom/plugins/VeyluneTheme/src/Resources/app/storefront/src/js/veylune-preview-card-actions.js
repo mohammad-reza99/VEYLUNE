@@ -13,6 +13,8 @@ const itemForCard = (card) => ({
     material: card.dataset.plpMaterialLabel,
     unitPrice: Number(card.dataset.plpPrice),
     quantity: 1,
+    imageUrl: card.dataset.plpImageUrl,
+    imageAlt: card.dataset.plpImageAlt,
 });
 
 const lineForCard = (state, card) => state.items.find((item) => (

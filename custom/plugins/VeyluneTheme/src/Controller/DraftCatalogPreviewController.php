@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use VeyluneTheme\Catalog\DraftCatalogManifest;
 use VeyluneTheme\Preview\DraftCatalogPreviewAccess;
 use VeyluneTheme\Preview\DraftCatalogPreviewService;
+use VeyluneTheme\Product\PdpPresentationService;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
 #[Package('storefront')]
@@ -60,13 +61,12 @@ final class DraftCatalogPreviewController extends StorefrontController
     ];
 
     /**
-     * @var array<string, array{eyebrow: string, summary: string, heroAsset: string, heroAlt: string, guideTitle: string, guideLead: string}>
+     * @var array<string, array{eyebrow: string, summary: string, heroAlt: string, guideTitle: string, guideLead: string}>
      */
     private const DESTINATION_CONTENT = [
         'category:furniture' => [
             'eyebrow' => 'Furniture department',
             'summary' => 'Anchor a room with seating, tables, storage and beds selected for proportion, material clarity and everyday use.',
-            'heroAsset' => 'veylune-category-furniture-v1.webp',
             'heroAlt' => 'Sculptural furniture arranged in a warm neutral interior',
             'guideTitle' => 'Build from the anchor pieces.',
             'guideLead' => 'Begin with the largest object and protect circulation around it. Add supporting pieces only when they improve comfort, storage or the relationship between zones.',
@@ -74,7 +74,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'category:lighting' => [
             'eyebrow' => 'Lighting department',
             'summary' => 'Layer ambient, task and architectural light to give every room a clear rhythm from morning through evening.',
-            'heroAsset' => 'veylune-category-lighting-v1.webp',
             'heroAlt' => 'Layered table and pendant lighting in a quiet living room',
             'guideTitle' => 'Plan light as a system.',
             'guideLead' => 'Combine a broad ambient source with focused task light and one lower decorative glow. Scale, beam direction and color temperature should be reviewed together.',
@@ -82,7 +81,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'category:decor-objects' => [
             'eyebrow' => 'Decor and objects',
             'summary' => 'Objects, vessels and mirrors chosen to add character without introducing visual noise.',
-            'heroAsset' => 'veylune-category-decor-v1.webp',
             'heroAlt' => 'Ceramic vessels and sculptural objects on a pale stone console',
             'guideTitle' => 'Use fewer objects with more presence.',
             'guideLead' => 'Group objects by scale, silhouette or material rather than filling every surface. Negative space gives each piece a reason to be noticed.',
@@ -90,7 +88,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'category:textiles-rugs' => [
             'eyebrow' => 'Textiles and rugs',
             'summary' => 'Tactile layers that soften architecture, connect furniture and bring warmth to the rooms you use most.',
-            'heroAsset' => 'veylune-category-textiles-v1.webp',
             'heroAlt' => 'Neutral rug, cushions and folded textiles in a bright room',
             'guideTitle' => 'Connect the room through texture.',
             'guideLead' => 'Let the rug establish the shared footprint of the furniture. Add textiles with controlled variation in weave, weight and tone.',
@@ -98,7 +95,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'category:dining-kitchen' => [
             'eyebrow' => 'Dining and kitchen',
             'summary' => 'Tables, seating and serving objects selected for daily rituals, generous gatherings and durable use.',
-            'heroAsset' => 'veylune-category-dining-v1.webp',
             'heroAlt' => 'Oak dining table set for a relaxed gathering',
             'guideTitle' => 'Design around the way people gather.',
             'guideLead' => 'Start with clear movement around the table, then balance seating comfort, surface durability and the objects used for serving.',
@@ -106,7 +102,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'category:outdoor' => [
             'eyebrow' => 'Outdoor department',
             'summary' => 'Considered seating, tables and planters for open-air rooms that need comfort and material resilience.',
-            'heroAsset' => 'veylune-category-outdoor-v1.webp',
             'heroAlt' => 'Outdoor lounge chair and table on a planted terrace',
             'guideTitle' => 'Treat outside as another room.',
             'guideLead' => 'Define shade, circulation and the main view before selecting furniture. Material performance and storage planning are part of the composition.',
@@ -114,7 +109,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'room:living-room' => [
             'eyebrow' => 'Shop by room',
             'summary' => 'A connected living-room edit built around conversation, comfort and balanced sightlines.',
-            'heroAsset' => 'veylune-room-living-v1.webp',
             'heroAlt' => 'Warm living room with curved sofa and sculptural coffee table',
             'guideTitle' => 'Compose for conversation and pause.',
             'guideLead' => 'Set the seating relationship first, then use tables, lighting and objects to support reach, movement and atmosphere.',
@@ -122,7 +116,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'room:dining-room' => [
             'eyebrow' => 'Shop by room',
             'summary' => 'Dining pieces coordinated for circulation, comfortable gatherings and a table that can serve more than one occasion.',
-            'heroAsset' => 'veylune-room-dining-v1.webp',
             'heroAlt' => 'Dining room with oak table, upholstered chairs and pendant light',
             'guideTitle' => 'Make room for the gathering.',
             'guideLead' => 'Protect chair clearance and circulation before choosing table scale. Lighting and serving pieces should reinforce the center without crowding it.',
@@ -130,7 +123,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'room:bedroom' => [
             'eyebrow' => 'Shop by room',
             'summary' => 'Beds, lighting, storage and textiles selected to make private space calmer and easier to use.',
-            'heroAsset' => 'veylune-room-bedroom-v1.webp',
             'heroAlt' => 'Quiet bedroom with upholstered bed and warm bedside lighting',
             'guideTitle' => 'Reduce the room to what supports rest.',
             'guideLead' => 'Establish bed position and clear movement first. Add storage, light and textile layers with controlled contrast and simple reach.',
@@ -138,7 +130,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'room:workspace' => [
             'eyebrow' => 'Shop by room',
             'summary' => 'Desks, chairs, storage and task lighting composed for focused work inside the home.',
-            'heroAsset' => 'veylune-room-workspace-v1.webp',
             'heroAlt' => 'Home workspace with oak desk, storage and directional lamp',
             'guideTitle' => 'Create focus without isolation.',
             'guideLead' => 'Align desk scale, posture, daylight and storage before adding decorative layers. The best workspace stays visually connected to the home.',
@@ -146,7 +137,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'room:hallway' => [
             'eyebrow' => 'Shop by room',
             'summary' => 'Slim storage, consoles, mirrors and objects that turn circulation space into a useful first impression.',
-            'heroAsset' => 'veylune-category-decor-v1.webp',
             'heroAlt' => 'Narrow console with mirror and sculptural objects for an entry hall',
             'guideTitle' => 'Give transition space a clear role.',
             'guideLead' => 'Keep the walking line open and use shallow pieces for landing, storage and reflection. One strong material gesture is usually enough.',
@@ -154,7 +144,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'collection:founder-selection' => [
             'eyebrow' => 'The signature edit',
             'summary' => 'The pieces that define Veylune through material integrity, quiet character and lasting spatial relevance.',
-            'heroAsset' => 'veylune-promo-living-room-v1.webp',
             'heroAlt' => 'Founder selected furniture in a warm architectural living room',
             'guideTitle' => 'The edit behind the identity.',
             'guideLead' => 'Each selection is reviewed for proportion, material expression and the ability to work with other objects across the home.',
@@ -162,7 +151,6 @@ final class DraftCatalogPreviewController extends StorefrontController
         'collection:new-arrivals' => [
             'eyebrow' => 'Recently introduced',
             'summary' => 'The latest furniture, lighting and objects entering the private catalog for material and project review.',
-            'heroAsset' => 'veylune-home-hero-architectural-warm-v1.webp',
             'heroAlt' => 'New Veylune objects presented in a warm architectural interior',
             'guideTitle' => 'New does not mean unconsidered.',
             'guideLead' => 'New arrivals enter the edit only when they add a useful form, material or spatial function to the wider catalog.',
@@ -172,7 +160,8 @@ final class DraftCatalogPreviewController extends StorefrontController
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
         private readonly DraftCatalogPreviewAccess $access,
-        private readonly DraftCatalogPreviewService $previewService
+        private readonly DraftCatalogPreviewService $previewService,
+        private readonly PdpPresentationService $pdpPresentationService
     ) {
     }
 
@@ -262,6 +251,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
             'veylunePreviewProduct' => $product,
+            'veylunePdpPresentation' => $this->pdpPresentationService->forDraft($product),
             'veylunePreviewRelated' => \array_slice($related, 0, 4),
         ]);
     }
@@ -278,6 +268,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-cart.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
+            'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest(),
         ]);
     }
 
@@ -293,6 +284,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-checkout.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
+            'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest(),
         ]);
     }
 
@@ -330,6 +322,14 @@ final class DraftCatalogPreviewController extends StorefrontController
         if ($content === null) {
             throw new NotFoundHttpException();
         }
+        $editorialMedia = $this->previewService->editorialMedia($destinationId);
+        if ($editorialMedia === null) {
+            throw new \RuntimeException('Governed Admin editorial media is missing for ' . $destinationId);
+        }
+        $content['heroUrl'] = $editorialMedia['url'];
+        $content['heroAlt'] = $editorialMedia['alt'] !== '' ? $editorialMedia['alt'] : $content['heroAlt'];
+        $content['heroWidth'] = $editorialMedia['width'];
+        $content['heroHeight'] = $editorialMedia['height'];
 
         return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-destination.html.twig', [
             'page' => $this->page($request, $context, $title . ' Preview'),

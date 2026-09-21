@@ -1,4 +1,4 @@
-{% set filterOptions = veylunePreviewFilterOptions|default({ materials: {}, prices: {}, statuses: {} }) %}
+{% set filterOptions = discoveryFilterOptions|default(veylunePreviewFilterOptions|default({ materials: {}, prices: {}, statuses: {} })) %}
 
 {% if filterOptions.materials is not empty %}
     <fieldset>

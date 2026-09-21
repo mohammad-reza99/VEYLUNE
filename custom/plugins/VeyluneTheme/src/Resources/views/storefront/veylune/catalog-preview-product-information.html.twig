@@ -2,10 +2,10 @@
     <section class="veylune-pdp-glance" aria-labelledby="veylunePdpGlanceTitle">
         <h2 id="veylunePdpGlanceTitle">At a Glance</h2>
         <div class="veylune-pdp-glance__grid">
-            <div><span aria-hidden="true">01</span><strong>{{ product.materialLabel }}</strong><small>Primary material</small></div>
-            <div><span aria-hidden="true">02</span><strong>{{ product.productType|replace({'_': ' '})|title }}</strong><small>Product type</small></div>
-            <div><span aria-hidden="true">03</span><strong>Studio reviewed</strong><small>Veylune draft cohort</small></div>
-            <div><span aria-hidden="true">04</span><strong>Private consultation</strong><small>Configuration pathway</small></div>
+            <div><span aria-hidden="true">01</span><strong>{{ product.materialLabel }}</strong><small>Primary material direction</small></div>
+            <div><span aria-hidden="true">02</span><strong>{{ veylunePdpPresentation.familyLabel }}</strong><small>Product family</small></div>
+            <div><span aria-hidden="true">03</span><strong>{{ veylunePdpPresentation.gallery.count }} approved view{{ veylunePdpPresentation.gallery.count == 1 ? '' : 's' }}</strong><small>Gallery evidence</small></div>
+            <div><span aria-hidden="true">04</span><strong>Private specification</strong><small>Non-binding pathway</small></div>
         </div>
     </section>
 
@@ -15,52 +15,19 @@
             <h2 id="veylunePdpDescriptionTitle">About This Product</h2>
         </div>
         <div class="veylune-pdp-description__body">
-            <p>{{ product.name }} is a considered {{ product.productType|replace({'_': ' '}) }} selected for its material presence, balanced silhouette and ability to sit quietly within an interior.</p>
-            <div class="veylune-pdp-description__lists">
-                <div><h3>What is included</h3><ul><li>One {{ product.productType|replace({'_': ' '}) }}</li><li>Material and care specification after approval</li><li>Project delivery planning</li></ul></div>
-                <div><h3>Features</h3><ul><li>{{ product.materialLabel }} material direction</li><li>Reviewed for {{ product.rooms|length ? product.rooms|join(', ')|replace({'_': ' '}) : 'residential interiors' }}</li><li>Final variant confirmed before order</li></ul></div>
-            </div>
+            {% if product.description %}
+                <div>{{ product.description|raw }}</div>
+            {% else %}
+                <p>{{ product.name }} is a considered {{ product.productType|replace({'_': ' '}) }} selected for its material presence, balanced silhouette and role within a complete interior.</p>
+            {% endif %}
+            <p>{{ veylunePdpPresentation.focus }}</p>
         </div>
     </section>
 
-    <section class="veylune-pdp-specifications" aria-labelledby="veylunePdpSpecificationsTitle">
-        <div class="veylune-pdp-information__heading">
-            <p>Specifications</p>
-            <h2 id="veylunePdpSpecificationsTitle">Product Dimensions</h2>
-        </div>
-        <div class="veylune-pdp-specifications__layout">
-            <div class="veylune-pdp-dimensions" role="img" aria-label="Dimensions pending exact supplier variant confirmation">
-                <span class="veylune-pdp-dimensions__object" aria-hidden="true"></span>
-                <span class="veylune-pdp-dimensions__width">Width pending</span>
-                <span class="veylune-pdp-dimensions__height">Height pending</span>
-                <strong>Exact variant confirmation required</strong>
-            </div>
-            <div>
-                <h3>Other Dimensions</h3>
-                <dl class="veylune-pdp-spec-list">
-                    <div><dt>Overall dimensions</dt><dd>Pending supplier confirmation</dd></div>
-                    <div><dt>Overall product weight</dt><dd>Pending supplier confirmation</dd></div>
-                    <div><dt>Seat dimensions</dt><dd>Pending supplier confirmation</dd></div>
-                </dl>
-                <h3>Details</h3>
-                <dl class="veylune-pdp-spec-list">
-                    <div><dt>Product type</dt><dd>{{ product.productType|replace({'_': ' '})|title }}</dd></div>
-                    <div><dt>Primary material</dt><dd>{{ product.materialLabel }}</dd></div>
-                    <div><dt>Additional materials</dt><dd>{{ product.materials|length ? product.materials|join(', ')|replace({'_': ' '})|title : 'Pending final specification' }}</dd></div>
-                    <div><dt>Reference</dt><dd>{{ product.recordId }}</dd></div>
-                    <div><dt>Quality state</dt><dd>{{ product.status }}</dd></div>
-                    <div><dt>Assembly</dt><dd>Pending supplier confirmation</dd></div>
-                    <div><dt>Warranty</dt><dd>Pending supplier confirmation</dd></div>
-                </dl>
-            </div>
-        </div>
-    </section>
-
-    <section class="veylune-pdp-policy" aria-labelledby="veylunePdpPolicyTitle">
-        <div><p>Return Policy</p><h2 id="veylunePdpPolicyTitle">Terms confirmed before commitment.</h2></div>
-        <p>Delivery scope, damage procedure, cancellation terms and return eligibility remain supplier-dependent. The complete terms are reviewed with you before an order is placed.</p>
-        <a href="{{ path('frontend.veylune.consultation.page') }}">Discuss delivery and returns</a>
-    </section>
+    {% sw_include '@Storefront/storefront/veylune/pdp-semantic-information.html.twig' with {
+        veylunePdpPresentation: veylunePdpPresentation,
+        veylunePdpSectionId: 'veylunePrivatePdpSemantic'
+    } %}
 
     <section class="veylune-pdp-reviews" aria-labelledby="veylunePdpReviewsTitle">
         <div class="veylune-pdp-information__heading"><p>Customer Reviews</p><h2 id="veylunePdpReviewsTitle">New to the Veylune edit</h2></div>

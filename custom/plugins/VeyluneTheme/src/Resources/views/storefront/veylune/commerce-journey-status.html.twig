@@ -1,0 +1,9 @@
+{% set currentStep = commerceJourneyStep|default('cart') %}
+<section class="veylune-commerce-journey" data-commerce-journey data-commerce-step="{{ currentStep }}" aria-label="Private commerce preview status">
+    <div class="veylune-commerce-journey__steps" aria-label="Journey progress">
+        {% for key, label in { cart: 'Preview cart', checkout: 'Project details', account: 'Saved project' } %}
+            <span{% if key == currentStep %} aria-current="step"{% endif %} data-journey-state="{{ key == currentStep ? 'current' : 'available' }}"><b>{{ loop.index }}</b>{{ label }}</span>
+        {% endfor %}
+    </div>
+    <p><strong>Private simulation</strong> Product, quantity and project details stay in this browser. No stock is reserved, no payment is collected and no Shopware order is created.</p>
+</section>

@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0",
+  "workPackage": "4.1A",
+  "batchId": "WP-CAT-04-DRAFT-50",
+  "canonicalProductMediaSource": "shopware_admin_media",
+  "codeAssetPolicy": {
+    "allowed": ["logo", "icon", "decorative_texture", "stable_brand_asset"],
+    "productContentAllowed": false,
+    "themeAssetRemovalBeforeAdminVerification": false
+  },
+  "minimumGallery": {
+    "requiredSlots": 5,
+    "targetUsefulImages": 6,
+    "roles": [
+      "primary",
+      "alternate_angle",
+      "material_detail",
+      "scale_context",
+      "dimensions_or_variant"
+    ]
+  },
+  "requiredPerMedia": [
+    "shopware_media_id",
+    "product_media_association",
+    "position",
+    "en_alt_text",
+    "de_alt_text",
+    "rights_owner",
+    "rights_status",
+    "source_provenance",
+    "quality_status",
+    "width",
+    "height",
+    "mime_type",
+    "sha256"
+  ],
+  "requiredPerProduct": [
+    "admin_cover",
+    "minimum_gallery",
+    "semantic_responsive_rendering",
+    "localized_alt_text",
+    "verified_rights",
+    "approved_quality"
+  ],
+  "qualityRules": {
+    "minimumSourceLongEdgePx": 1600,
+    "preferredSourceLongEdgePx": 2400,
+    "allowedMimeTypes": ["image/avif", "image/webp", "image/jpeg", "image/png"],
+    "cssBackgroundMayRepresentProductContent": false,
+    "unknownRightsMayPublish": false,
+    "missingAltMayPublish": false
+  },
+  "generatedDraftCoverProfile": {
+    "minimumLongEdgePx": 1400,
+    "requiredDimensions": [1122, 1402],
+    "allowedMimeTypes": ["image/png"],
+    "sourceProvenance": "openai_imagegen_builtin",
+    "promptFamily": "veylune_product_cover_v1",
+    "visualReviewRequired": true,
+    "mayActivateProduct": false,
+    "maySatisfyLaunchGalleryAlone": false,
+    "minimumLaunchGalleryStillRequired": 5,
+    "status": "approved_cover_candidate"
+  },
+  "baselineExpected": {
+    "manifestProducts": 50,
+    "databaseProductsPresent": 50,
+    "productsWithAdminMedia": 0,
+    "productsWithAdminCover": 0,
+    "adminMediaAssociations": 0,
+    "productsWithLocalizedAltText": 0,
+    "themeProductAssets": 19,
+    "themeAssetsMappedByCss": 19,
+    "themeAssetsMeetingMinimumLongEdge": 0,
+    "themeAssetsBelowMinimumLongEdge": 19,
+    "semanticProductImageReady": 0,
+    "productsWithoutDedicatedAsset": 31,
+    "launchMediaReadyProducts": 0
+  },
+  "migrationOrder": [
+    "inventory_and_hash",
+    "rights_and_quality_review",
+    "import_into_shopware_media",
+    "associate_and_set_cover",
+    "write_localized_metadata",
+    "switch_templates_to_semantic_media",
+    "verify_public_and_private_surfaces",
+    "retire_css_product_mapping"
+  ],
+  "rollback": {
+    "retainThemeAssetsUntil": "admin_media_and_storefront_verification_pass",
+    "databaseMutationAllowedIn41A": false,
+    "nextPackageMutationMode": "idempotent_import_with_dry_run"
+  },
+  "intakePolicy": {
+    "databaseMutationAllowedIn41B": false,
+    "targetMediaPrivate": true,
+    "privateIntakeRequiresExplicitApproval": true,
+    "productAssociationAllowedIn41B": false,
+    "adminCoverAllowedIn41B": false,
+    "cssFallbackRemovalAllowedIn41B": false,
+    "deterministicTargetNaming": true,
+    "sourceChecksumRequired": true,
+    "nameCollisionMustFailClosed": true
+  }
+}

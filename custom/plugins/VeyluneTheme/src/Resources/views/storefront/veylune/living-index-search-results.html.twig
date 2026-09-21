@@ -6,10 +6,10 @@
             {% if veyluneSearchActiveAxis %}{% set returnParams = returnParams|merge({ axis: veyluneSearchActiveAxis }) %}{% endif %}
             {% if veyluneSearchSort != 'relevance' %}{% set returnParams = returnParams|merge({ sort: veyluneSearchSort }) %}{% endif %}
             {% set resultUrl = path(result.route, result.routeParams|merge(returnParams)) %}
-            {% set resultAsset = asset('assets/' ~ result.asset, 'theme') %}
-            <article class="vli-search-card" data-vli-search-result data-vli-search-result-type="{{ result.type|lower }}">
+            {% set resultAsset = result.media.url|default('') ?: asset('assets/' ~ result.media.fallbackAsset|default(result.asset), 'theme') %}
+            <article class="vli-search-card" data-discovery-card data-discovery-card-kind="context" data-discovery-card-scope="public" data-media-source="{{ result.media.source|default('theme_fallback') }}" data-vli-search-result data-vli-search-result-type="{{ result.type|lower }}">
                 <a class="vli-search-card__media" href="{{ resultUrl }}" aria-label="Open {{ result.title }}">
-                    <img src="{{ resultAsset }}" alt="{{ result.title }} context" loading="lazy" decoding="async">
+                    <img src="{{ resultAsset }}" alt="{{ result.media.alt|default(result.title ~ ' context') }}" loading="lazy" decoding="async">
                 </a>
                 <button type="button"
                         class="vli-search-card__save"

@@ -87,7 +87,7 @@ final class LivingIndexObjectController extends StorefrontController
 
         $draft = $this->draftCatalogPreviewService->forRecordId($recordId);
 
-        if ($draft === null || !\is_string($draft['coverAsset'] ?? null)) {
+        if ($draft === null || !\is_string($draft['coverUrl'] ?? null) || $draft['coverUrl'] === '') {
             throw new NotFoundHttpException();
         }
 
@@ -242,8 +242,8 @@ final class LivingIndexObjectController extends StorefrontController
             'primaryRoomKey' => $primaryRoomKey,
             'primaryCollectionKey' => $primaryCollectionKey,
             'roomSceneAsset' => $this->roomSceneAsset($primaryRoomKey),
-            'media' => [],
-            'coverAsset' => $draft['coverAsset'],
+            'media' => \is_array($draft['media'] ?? null) ? $draft['media'] : [],
+            'coverAsset' => null,
             'width' => $draft['width'] ?? null,
             'height' => $draft['height'] ?? null,
             'length' => $draft['length'] ?? null,

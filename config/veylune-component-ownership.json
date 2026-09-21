@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "phase": "1.2",
-  "capturedAt": "2026-09-14",
+  "capturedAt": "2026-09-21",
   "policy": {
     "singleOwnerRequired": true,
     "visualChangeAllowedInPhase12": false,
@@ -12,7 +12,7 @@
   "baseline": {
     "scssFiles": 119,
     "baseImports": 117,
-    "scssLines": 30530,
+    "scssLines": 30775,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
     "importantDeclarations": 130,
     "debtNamedFiles": 39,
@@ -20,7 +20,7 @@
     "headerSelectorFiles": 31,
     "sharedControlSelectorFiles": 29,
     "javascriptFiles": 19,
-    "twigFiles": 97
+    "twigFiles": 102
   },
   "phase13Quarantine": {
     "preQuarantineScssFiles": 138,
@@ -134,7 +134,7 @@
       "label": "Product detail gallery information tabs and buy widget",
       "canonical": {
         "scss": ["component/product-detail", "component/gallery", "component/buy-widget", "component/tabs"],
-        "twig": ["page/content/product-detail.html.twig", "component/product/description.html.twig", "component/product/veylune-product-story.html.twig"],
+        "twig": ["page/content/product-detail.html.twig", "component/product/description.html.twig", "component/product/veylune-product-story.html.twig", "veylune/pdp-semantic-information.html.twig"],
         "javascript": ["veylune-pdp-preview.js"]
       },
       "scssImports": [
@@ -166,7 +166,7 @@
       "label": "Checkout address confirm finish forms and summary",
       "canonical": {
         "scss": ["component/checkout", "component/checkout-forms", "component/checkout-summary", "component/checkout-steps", "component/checkout-success"],
-        "twig": ["page/checkout/address", "page/checkout/confirm", "page/checkout/finish"],
+        "twig": ["page/checkout/address", "page/checkout/confirm", "page/checkout/finish", "veylune/commerce-journey-status.html.twig"],
         "javascript": ["veylune-preview-checkout.js"]
       },
       "scssImports": [

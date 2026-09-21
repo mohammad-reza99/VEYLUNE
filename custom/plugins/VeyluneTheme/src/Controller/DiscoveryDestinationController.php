@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use VeyluneTheme\Discovery\EditorialMediaResolver;
 use VeyluneTheme\Discovery\ProductExposureService;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
@@ -54,6 +55,19 @@ class DiscoveryDestinationController extends StorefrontController
         'sale' => 'veylune-category-dining-v1.webp',
         'permanent-collections' => 'veylune-room-living-v1.webp',
         'editorial-collections' => 'veylune-promo-living-room-v1.webp',
+    ];
+
+    private const CATEGORY_SCENE_ASSETS = [
+        'furniture' => 'veylune-category-furniture-v1.webp',
+        'lighting' => 'veylune-category-lighting-v1.webp',
+        'decor-objects' => 'veylune-category-decor-v1.webp',
+        'textiles-rugs' => 'veylune-category-textiles-v1.webp',
+        'dining-kitchen' => 'veylune-category-dining-v1.webp',
+        'outdoor' => 'veylune-category-outdoor-v1.webp',
+        'bedding-bath' => 'veylune-room-bedroom-v1.webp',
+        'mattresses' => 'veylune-room-bedroom-v1.webp',
+        'rugs' => 'veylune-category-textiles-v1.webp',
+        'organization' => 'veylune-room-workspace-v1.webp',
     ];
 
     private const CATEGORIES = [
@@ -147,7 +161,8 @@ class DiscoveryDestinationController extends StorefrontController
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
         private readonly TranslatorInterface $translator,
-        private readonly ProductExposureService $productExposureService
+        private readonly ProductExposureService $productExposureService,
+        private readonly EditorialMediaResolver $editorialMediaResolver
     ) {
     }
 
@@ -174,13 +189,13 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestinationKey' => $roomKey,
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
-            'veyluneExposedProducts' => $listing['products'],
+            'veyluneExposedProducts' => $products,
             'veyluneListingTotal' => \count($products),
             'veyluneListingSort' => $listing['sort'],
             'veyluneListingMaterial' => $listing['material'],
             'veyluneListingMaterialOptions' => $listing['materialOptions'],
             'veyluneListingHasActiveFilter' => $listing['material'] !== '',
-            'veyluneScene' => $this->buildSceneModel('room', $roomKey, $this->translator->trans($destination['title'])),
+            'veyluneScene' => $this->buildSceneModel('room', $roomKey, $this->translator->trans($destination['title']), $context),
         ]);
     }
 
@@ -209,13 +224,13 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneDestinationKey' => $collectionKey,
             'veyluneDestination' => $destination,
             'veyluneCategoryShortcuts' => [],
-            'veyluneExposedProducts' => $listing['products'],
+            'veyluneExposedProducts' => $products,
             'veyluneListingTotal' => \count($products),
             'veyluneListingSort' => $listing['sort'],
             'veyluneListingMaterial' => $listing['material'],
             'veyluneListingMaterialOptions' => $listing['materialOptions'],
             'veyluneListingHasActiveFilter' => $listing['material'] !== '',
-            'veyluneScene' => $this->buildSceneModel('collection', $collectionKey, $this->translator->trans($destination['title'])),
+            'veyluneScene' => $this->buildSceneModel('collection', $collectionKey, $this->translator->trans($destination['title']), $context),
         ]);
     }
 
@@ -244,12 +259,13 @@ class DiscoveryDestinationController extends StorefrontController
             'veyluneCategoryShortcuts' => self::CATEGORY_SHORTCUTS,
             'veyluneDestinationShortcuts' => $this->buildDestinationShortcuts($destination['shortcuts']),
             'veyluneMaterialKeys' => $destination['materials'],
-            'veyluneExposedProducts' => $listing['products'],
+            'veyluneExposedProducts' => $products,
             'veyluneListingTotal' => \count($products),
             'veyluneListingSort' => $listing['sort'],
             'veyluneListingMaterial' => $listing['material'],
             'veyluneListingMaterialOptions' => $listing['materialOptions'],
             'veyluneListingHasActiveFilter' => $listing['material'] !== '',
+            'veyluneScene' => $this->buildSceneModel('category', $categoryKey, $this->translator->trans($destination['title']), $context),
         ]);
     }
 
@@ -360,11 +376,24 @@ class DiscoveryDestinationController extends StorefrontController
      *     paths: list<array{key: string, label: string, text: string, route: string, routeParams: array<string, string>}>
      * }
      */
-    private function buildSceneModel(string $surfaceType, string $surfaceKey, string $queryLabel): array
+    private function buildSceneModel(string $surfaceType, string $surfaceKey, string $queryLabel, SalesChannelContext $context): array
     {
-        if ($surfaceType === 'room') {
+        if ($surfaceType === 'category') {
+            $asset = self::CATEGORY_SCENE_ASSETS[$surfaceKey];
+
             return [
-                'asset' => self::ROOM_SCENE_ASSETS[$surfaceKey],
+                'asset' => $asset,
+                'media' => $this->editorialMediaResolver->resolve('category:' . $surfaceKey, $asset, $queryLabel . ' collection', $context->getContext()),
+                'paths' => [],
+            ];
+        }
+
+        if ($surfaceType === 'room') {
+            $asset = self::ROOM_SCENE_ASSETS[$surfaceKey];
+
+            return [
+                'asset' => $asset,
+                'media' => $this->editorialMediaResolver->resolve('room:' . $surfaceKey, $asset, $queryLabel . ' interior', $context->getContext()),
                 'paths' => [
                     $this->scenePath('seating', 'room', 'frontend.veylune.discovery.category', ['categoryKey' => 'furniture']),
                     $this->scenePath('tables-storage', 'room', 'frontend.veylune.discovery.category', ['categoryKey' => 'organization']),
@@ -374,8 +403,11 @@ class DiscoveryDestinationController extends StorefrontController
             ];
         }
 
+        $asset = self::COLLECTION_SCENE_ASSETS[$surfaceKey];
+
         return [
-            'asset' => self::COLLECTION_SCENE_ASSETS[$surfaceKey],
+            'asset' => $asset,
+            'media' => $this->editorialMediaResolver->resolve('collection:' . $surfaceKey, $asset, $queryLabel . ' edit', $context->getContext()),
             'paths' => [
                 $this->scenePath('form', 'collection', 'frontend.veylune.discovery.category', ['categoryKey' => 'furniture']),
                 $this->scenePath('material', 'collection', 'frontend.veylune.editions.page'),

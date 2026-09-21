@@ -1,0 +1,139 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+$root = dirname(__DIR__);
+
+$fail = static function (string $message): never {
+    fwrite(STDERR, '[veylune-phase-4-media-intake][FAIL] ' . $message . PHP_EOL);
+    exit(1);
+};
+
+$readJson = static function (string $path) use ($fail): array {
+    if (!is_file($path)) {
+        $fail('Missing file: ' . $path);
+    }
+
+    $decoded = json_decode((string) file_get_contents($path), true);
+    if (!is_array($decoded)) {
+        $fail('Invalid JSON: ' . $path);
+    }
+
+    return $decoded;
+};
+
+$baseline = $readJson($root . '/reports/catalog/phase-4-1a-media-baseline.json');
+$review = $readJson($root . '/config/veylune-phase-4-media-intake-review.json');
+$plan = $readJson($root . '/reports/catalog/phase-4-1b-media-intake-plan.json');
+$contract = $readJson($root . '/config/veylune-phase-4-media-source-contract.json');
+
+if (($plan['workPackage'] ?? null) !== '4.1B' || ($plan['mode'] ?? null) !== 'read_only_dry_run') {
+    $fail('Phase 4.1B plan identity or mode is invalid.');
+}
+
+if (($plan['databaseMutation'] ?? true) !== false
+    || ($plan['productAssociationsCreated'] ?? -1) !== 0
+    || ($plan['adminCoversCreated'] ?? -1) !== 0
+    || ($plan['cssFallbackRemoved'] ?? true) !== false) {
+    $fail('Phase 4.1B must not mutate catalog media authority.');
+}
+
+if (($contract['intakePolicy']['databaseMutationAllowedIn41B'] ?? true) !== false
+    || ($contract['intakePolicy']['targetMediaPrivate'] ?? false) !== true
+    || ($contract['intakePolicy']['productAssociationAllowedIn41B'] ?? true) !== false
+    || ($contract['intakePolicy']['adminCoverAllowedIn41B'] ?? true) !== false) {
+    $fail('Phase 4.1B fail-closed intake contract is incomplete.');
+}
+
+$baselineCandidates = array_values(array_filter(
+    $baseline['records'] ?? [],
+    static fn (array $record): bool => ($record['themeAsset'] ?? null) !== null
+));
+$reviewRecords = $review['records'] ?? [];
+$planRecords = $plan['records'] ?? [];
+
+if (count($baselineCandidates) !== 19 || count($reviewRecords) !== 19 || count($planRecords) !== 19) {
+    $fail('Baseline, review, and plan must each cover exactly 19 candidates.');
+}
+
+$baselineBySku = [];
+foreach ($baselineCandidates as $record) {
+    $baselineBySku[$record['sku']] = $record;
+}
+
+$reviewBySku = [];
+foreach ($reviewRecords as $record) {
+    $reviewBySku[$record['sku']] = $record;
+}
+
+$targetNames = [];
+$idempotencyKeys = [];
+foreach ($planRecords as $record) {
+    $sku = $record['sku'] ?? '';
+    $baselineRecord = $baselineBySku[$sku] ?? null;
+    $reviewRecord = $reviewBySku[$sku] ?? null;
+    if (!is_array($baselineRecord) || !is_array($reviewRecord)) {
+        $fail('Plan SKU is not covered by baseline and review: ' . $sku);
+    }
+
+    $asset = $baselineRecord['themeAsset'];
+    $absolutePath = $root . '/' . $asset['path'];
+    if (!is_file($absolutePath) || hash_file('sha256', $absolutePath) !== $record['sourceSha256']) {
+        $fail('Source checksum mismatch for ' . $sku);
+    }
+
+    if (($reviewRecord['sourceCandidate']['sha256'] ?? null) !== $record['sourceSha256']) {
+        $fail('Review source checksum mismatch for ' . $sku);
+    }
+
+    if (($record['targetPrivate'] ?? false) !== true
+        || ($record['productAssociationPlanned'] ?? true) !== false
+        || ($record['adminCoverPlanned'] ?? true) !== false
+        || ($record['cssFallbackRetained'] ?? false) !== true) {
+        $fail('Fail-closed target state is invalid for ' . $sku);
+    }
+
+    if (($record['plannedAction'] ?? null) !== 'hold_for_review'
+        || ($record['approvedForPrivateIntake'] ?? true) !== false
+        || ($record['rightsStatus'] ?? null) !== 'pending'
+        || ($record['qualityStatus'] ?? null) !== 'blocked_below_minimum_long_edge') {
+        $fail('Unreviewed source must remain held for ' . $sku);
+    }
+
+    foreach (['rights_not_approved', 'quality_not_approved', 'localized_metadata_not_reviewed', 'private_intake_not_approved'] as $reason) {
+        if (!in_array($reason, $record['blockedReasons'] ?? [], true)) {
+            $fail('Missing blocked reason ' . $reason . ' for ' . $sku);
+        }
+    }
+
+    $targetNames[] = $record['targetFileName'];
+    $idempotencyKeys[] = $record['idempotencyKey'];
+}
+
+if (count(array_unique($targetNames)) !== 19 || count(array_unique($idempotencyKeys)) !== 19) {
+    $fail('Deterministic target names and idempotency keys must be unique.');
+}
+
+$expectedSummary = [
+    'candidates' => 19,
+    'uniqueTargetNames' => 19,
+    'uniqueIdempotencyKeys' => 19,
+    'approvedForPrivateIntake' => 0,
+    'heldByGovernance' => 19,
+    'wouldImportPrivateMedia' => 0,
+    'existingPrivateCandidates' => 0,
+    'nameCollisions' => 0,
+    'productAssociationsPlanned' => 0,
+    'adminCoversPlanned' => 0,
+];
+
+foreach ($expectedSummary as $key => $expected) {
+    if (($plan['summary'][$key] ?? null) !== $expected) {
+        $fail(sprintf('Summary %s is not %d.', $key, $expected));
+    }
+}
+
+if (!is_file($root . '/reports/catalog/phase-4-1b-media-intake-plan.csv')) {
+    $fail('CSV intake plan is missing.');
+}
+
+fwrite(STDOUT, "Veylune Phase 4.1B media intake audit passed.\n");

@@ -1,0 +1,47 @@
+{% set cardScope = discoveryCard.scope|default('public') %}
+{% set isPrivateCard = cardScope == 'private' %}
+{% set cardPrice = discoveryCard.price|default(null) %}
+{% set cardMaterials = discoveryCard.materials|default([]) %}
+
+<article class="veylune-discovery-card veylune-preview-card{% if not isPrivateCard %} product-box{% endif %}"
+         data-discovery-card data-discovery-card-kind="product" data-discovery-card-scope="{{ cardScope }}"
+         data-preview-record="{{ discoveryCard.recordId }}" data-plp-card
+         data-plp-type="{{ discoveryCard.productType }}" data-plp-materials="{{ cardMaterials|join(',') }}"
+         data-plp-status="{{ discoveryCard.statusKey }}" data-plp-price="{{ cardPrice is not null ? cardPrice : 0 }}"
+         data-plp-name="{{ discoveryCard.name }}" data-plp-material-label="{{ discoveryCard.materialLabel }}"
+         data-plp-image-url="{{ discoveryCard.coverUrl|default('') }}" data-plp-image-alt="{{ discoveryCard.coverAlt }}"
+         data-plp-index="{{ productIndex|default(0) }}">
+    <div class="veylune-preview-card__visual">
+        {% if discoveryCard.coverUrl %}
+            {% if not isPrivateCard and publicProduct|default(null) and publicProduct.cover.media|default(null) %}
+                {% set attributes = { class: 'veylune-preview-card__media product-image', alt: discoveryCard.coverAlt, title: discoveryCard.name, loading: 'lazy', decoding: 'async' } %}
+                {% sw_thumbnails 'discovery-card-thumbnails' with { media: publicProduct.cover.media, sizes: { xs: '50vw', sm: '50vw', md: '33vw', lg: '25vw', xl: '25vw' }, attributes: attributes } %}
+            {% else %}
+                <img class="veylune-preview-card__media" src="{{ discoveryCard.coverUrl }}" alt="{{ discoveryCard.coverAlt }}" loading="lazy" decoding="async">
+            {% endif %}
+        {% else %}
+            <span class="veylune-preview-card__object veylune-preview-card__object--{{ discoveryCard.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>
+        {% endif %}
+        <a class="veylune-preview-card__image-link" href="{{ productUrl }}" aria-label="View {{ discoveryCard.name }} details"></a>
+        {% if isPrivateCard %}
+            <button class="veylune-preview-card__wishlist" type="button" aria-label="Save {{ discoveryCard.name }} as a private saved piece" aria-pressed="false" data-plp-wishlist></button>
+        {% else %}
+            <button class="veylune-preview-card__wishlist" type="button" aria-label="Save {{ discoveryCard.name }} to Selection" aria-pressed="false"
+                    data-vli-selection-add data-selection-key="object:{{ discoveryCard.recordId|lower|e('html_attr') }}" data-selection-type="Object"
+                    data-selection-title="{{ discoveryCard.name|e('html_attr') }}" data-selection-description="{{ discoveryCard.materialLabel|e('html_attr') }}"
+                    data-selection-url="{{ productUrl|e('html_attr') }}" data-selection-asset="{{ discoveryCard.coverUrl|e('html_attr') }}"
+                    data-selection-default-label="Save to Selection"><span class="visually-hidden" data-vli-selection-label>Save to Selection</span></button>
+        {% endif %}
+        <span class="veylune-preview-card__status">{{ discoveryCard.status }}</span>
+        {% if not discoveryCard.coverUrl %}<span class="veylune-preview-card__material">{{ discoveryCard.materialLabel }}</span>{% endif %}
+    </div>
+    <div class="veylune-preview-card__body">
+        <div class="veylune-preview-card__meta"><p class="veylune-preview-card__type">{{ discoveryCard.productType|replace({'_': ' '})|title }}</p><span>Ref. {{ discoveryCard.recordId }}</span></div>
+        <h3><a href="{{ productUrl }}">{{ discoveryCard.name }}</a></h3>
+        <p class="veylune-preview-card__variant">{{ discoveryCard.materialLabel }}</p>
+        <div class="veylune-preview-card__commerce">{% if cardPrice is not null %}<strong>{{ cardPrice|currency }}</strong>{% endif %}<span>{{ discoveryCard.priceNote }}</span></div>
+        <p class="veylune-preview-card__availability">{{ discoveryCard.availability }}</p>
+        <div class="veylune-preview-card__actions"><a href="{{ productUrl }}">View details</a>{% if isPrivateCard %}<button type="button" data-preview-card-add>Add to preview cart</button>{% endif %}</div>
+        {% if isPrivateCard %}<p class="visually-hidden" data-preview-card-status aria-live="polite"></p>{% endif %}
+    </div>
+</article>

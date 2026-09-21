@@ -23,8 +23,9 @@
     {% set productCustomFields = product.translated.customFields|default(product.customFields|default({})) %}
     {% set commercePosture = productCustomFields.veylune_consultation_mode|default(product.available ? 'direct' : 'consultation') %}
     {% set cmsPageClasses = ('cms-page veylune-product-detail__cms ' ~ page.cmsPage.cssClass|striptags)|trim %}
+    {% set veylunePdpPresentation = page.extensions.veylunePdpPresentation|default(null) %}
 
-    <article class="veylune-product-detail" data-veylune-commerce-posture="{{ commercePosture|e('html_attr') }}">
+    <article class="veylune-product-detail" data-veylune-commerce-posture="{{ commercePosture|e('html_attr') }}"{% if veylunePdpPresentation %} data-pdp-family="{{ veylunePdpPresentation.family }}" data-commerce-state="{{ veylunePdpPresentation.commerce.state }}"{% endif %}>
         <div class="veylune-product-detail__frame">
             <div class="{{ cmsPageClasses }}"
                  {% if not feature('JSON_LD_DATA') %}
@@ -102,5 +103,12 @@
                 {% endif %}
             </dl>
         </section>
+
+        {% if veylunePdpPresentation %}
+            {% sw_include '@Storefront/storefront/veylune/pdp-semantic-information.html.twig' with {
+                veylunePdpPresentation: veylunePdpPresentation,
+                veylunePdpSectionId: 'veylunePublicPdpSemantic'
+            } %}
+        {% endif %}
     </article>
 {% endblock %}

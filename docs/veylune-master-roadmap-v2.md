@@ -11,7 +11,7 @@ This is the canonical 9-phase roadmap for the rest of the Veylune project. Older
 - Private audit: 67 routes and 134 desktop/mobile surfaces. All 134 returned 200 with no document overflow, JavaScript errors, or failed responses.
 - Private modernization: catalog home, legacy prototype retirement, and all 13 category/room/collection destinations are complete.
 - Private remaining debt: all 50 PDPs still match legacy-preview markers and render no semantic product image elements; private account is still mixed.
-- Media: 19 of 50 products have dedicated product assets in theme code. 31 products have no dedicated product asset. Product media is not yet managed from Shopware Admin.
+- Media: all 50 draft products exist in Shopware, but they have 0 product-media associations and 0 Admin covers. Nineteen products have one CSS-mapped theme asset; 31 have no dedicated asset. Product media is not yet managed from Shopware Admin.
 - Frontend debt: 138 SCSS files, about 31,061 SCSS lines, 135 imports in `base.scss`, 21 JavaScript source files, 99 Twig files, and 40 `.orig` files.
 - Catalog governance: 50 draft identities exist, but the older readiness baseline records 0 of 10 launch-cohort products at Level 3 and 0 of 120 required supplier-evidence cells accepted.
 - Release state: local release tooling and rollback documentation exist, but the repository has a large uncommitted working set and the old release-candidate evidence predates the latest private-preview work.
@@ -98,7 +98,23 @@ Completion evidence:
 
 ## Phase 4 - Admin catalog and media source of truth
 
-Current estimate: 30 percent complete.
+Current estimate: 100 percent complete. Packages 4.1A through 4.1E and the Phase 4 exit gate are complete.
+
+Completed evidence:
+
+- All 50 manifest SKUs are present in the Shopware database.
+- A read-only per-product JSON and CSV inventory records Admin associations, covers, localized alt coverage, theme assets, dimensions, hashes, CSS mappings, rights state, missing slots, and the next migration action.
+- The baseline proves 0 Admin media associations, 0 Admin covers, 19 theme-only CSS assets, 31 products with no dedicated asset, and 0 launch-media-ready products. All 19 existing files are 1122 by 1402 pixels, below the governed 1600 px minimum long edge.
+- The canonical gallery, metadata, rights, quality, semantic rendering, rollback, and migration contracts are machine-readable and regression-audited.
+- All 19 existing assets have deterministic target names, unique idempotency keys, checksum-bound review inputs, and a repeatable Shopware Media collision check.
+- The 4.1B dry run holds all 19 candidates because rights, quality, localized metadata, and private-intake approval remain incomplete. It produces 0 imports, 0 associations, 0 covers, and preserves every CSS fallback.
+- Fifty original, visually reviewed product-cover candidates were generated under one governed Veylune product-cover prompt family. Every source is checksum-bound and records project-generated provenance.
+- The idempotent importer validates all 50 sources before mutation, captures a rollback manifest, imports the files into Shopware Admin Media, creates deterministic product-media associations, and assigns all 50 covers while keeping every draft inactive.
+- All 50 products have localized en-GB and de-DE alt text plus rights, quality, source, prompt-family, visual-review, batch, and checksum metadata.
+- Private catalog cards, product detail galleries, lightboxes, Object Mode, cart, and checkout now consume semantic Shopware Media URLs. Existing saved selections are migrated to real covers, and the 19 record-specific CSS image mappings are retired.
+- All 13 category, room, and collection destination heroes are imported as localized Shopware Admin Media and resolved by deterministic destination identity. The active template no longer names theme image files, so editorial media can be replaced without a code deployment.
+- Phase 4 recovery, audit commands, manual verification routes, and the launch-gallery boundary are recorded in `docs/veylune-phase-4-admin-media-exit.md`.
+- The launch gallery gate remains fail-closed: zero products are launch-approved, so a single draft cover cannot be misrepresented as the required five-image launch gallery.
 
 Scope:
 
@@ -119,33 +135,49 @@ Exit gate:
 
 ## Phase 5 - Catalog discovery unification
 
-Current estimate: 70 percent complete.
+Current estimate: 100 percent complete. Packages 5.1A through 5.1H and the Phase 5 exit gate pass.
 
 Completed evidence absorbed here:
 
 - Private A.1 catalog home modernization.
 - Private A.2 legacy vision-prototype retirement.
 - Private A.3 modernization of 6 categories, 5 rooms, and 2 collections.
+- Phase 5.1A rebaselined 25 public and 14 private discovery routes across desktop and mobile: 78 of 78 surfaces return 200 with zero runtime issues, overflow, broken images, accessible-name gaps, or private-header failures.
+- Eight representative interaction scenarios pass, 86 screenshots are retained, and the three current implementation families plus eight unification gaps are now machine-readable and regression-audited.
+- Shared discovery cards and listings now govern public and private destinations through one semantic product contract.
+- Filter, sort, URL state, popstate, load-more, pointer-leave, Escape, click-away, and mobile-panel behavior now converge on one client engine.
+- All 13 registered editorial destinations resolve Shopware Admin media first and use explicit theme fallbacks only when Admin media is absent.
+- Selection, saved-piece, cart, product, and context actions now expose distinct labels and state semantics.
+- The final exit run covers 39 routes at desktop, tablet, and mobile widths: 117 of 117 surfaces return 200 with zero runtime, overflow, broken-image, or accessibility issues.
+- Thirty-nine private destination scenarios, six search scenarios, and fourteen unauthorized access-boundary checks pass; 162 exit screenshots are retained.
 
-Remaining scope:
+Execution packages:
 
-- Unify public and private card, filter, sort, pagination, search, breadcrumb, and merchandising behavior around shared components.
-- Feed cards from Admin media and governed product data.
-- Preserve preview token, noindex, no-store, and environment restrictions.
-- Make filters truthful to available data and keep all mobile panels inside the viewport.
-- Separate wishlist, inspiration Selection, and cart concepts so the user always knows what an action does.
-- Add deliberate empty, loading, error, and no-result states.
+- 5.1A - Unified catalog discovery rebaseline: complete.
+- 5.1B - Shared discovery card and data contract: complete.
+- 5.1C - Public/private destination template convergence: complete.
+- 5.1D - Filter, sort, pagination, and mobile-panel convergence: complete.
+- 5.1E - Search, zero-result, loading, and transport-error convergence: complete.
+- 5.1F - Selection, saved-piece, and cart-state semantics: complete.
+- 5.1G - Admin editorial-media adoption on public discovery: complete.
+- 5.1H - Phase 5 interaction and visual exit gate: complete.
+
+Closure notes:
+
+- Public product grids remain intentionally empty while no products satisfy the publication approval contract; this is a verified fail-closed state, not missing discovery UI.
+- Preview token, noindex, no-store, and environment restrictions remain enforced.
+- The phase evidence is stored in `reports/visual-baselines/phase-5-exit/phase-5-exit.json` and its 162 screenshots.
 
 Exit gate:
 
-- All 13 private destinations pass desktop/mobile interaction regression.
-- All public discovery destinations use the approved component system.
-- Filters, sort, pagination/load-more, search, save, and product navigation work with real data.
-- No duplicate or contradictory public/private UI implementation remains without a documented reason.
+- Passed: all 13 private destinations pass desktop, tablet, and mobile interaction regression.
+- Passed: all public discovery destinations use the approved shared listing and product-card system.
+- Passed: filters, sort, pagination/load-more, search, save, and governed navigation states work against available data.
+- Passed: no contradictory public/private product-card or listing implementation remains.
 
 ## Phase 6 - PDP and customer-commerce journey
 
-Current estimate: 30 percent complete.
+Current estimate: 100 percent complete. Packages 6.1A through 6.1H are complete.
 
 This phase absorbs the previously planned Private A.4 and A.5.
 
@@ -158,12 +190,37 @@ Scope:
 - Use exactly one truthful primary CTA for each commerce state: buy, configure, inquire, or unavailable.
 - Keep preview cart simulation visually and semantically distinct from a real order.
 
+Completed evidence:
+
+- Phase 6.1A inventories all 50 private PDPs, three private journey surfaces, eleven public commerce boundaries, and all 50 public product publication boundaries.
+- Desktop, tablet, and mobile capture covers 192 surfaces with zero status, runtime, overflow, broken-image, or accessibility failures.
+- All 50 private PDPs pass desktop and mobile gallery-keyboard, zoom, variant, quantity, delivery-validation, and preview-cart interaction scenarios: 100 of 100 pass.
+- Private cart-to-checkout validation, quantity, remove/undo, promo, delivery, and non-order review behavior passes at all three viewports.
+- Fifty draft products remain fail-closed on public PDP routes, and all 53 token-protected private commerce routes return 404 without authorization.
+- One shared PDP presentation service now provides product-aware information for 30 product types across eight semantic families.
+- All 150 private PDP viewport surfaces expose the semantic information contract and the truthful `Add to preview cart` / `non-binding-preview` state.
+- Private cart, checkout, and account use one visible journey contract; saved-project state now consumes the shared v2 selection store.
+- Three account-state scenarios and nine public account-validation scenarios pass across desktop, tablet, and mobile.
+- The Phase 6 exit has zero unresolved implementation gaps and retains 192 current screenshots in `reports/visual-baselines/phase-6-exit/`.
+- Four production activation inputs remain explicitly owned by Phase 7: accepted supplier evidence, multi-view launch media, payment/shipping/tax/legal configuration, and governed customer/order fixtures.
+
+Execution packages:
+
+- 6.1A - PDP and customer-commerce journey rebaseline: complete.
+- 6.1B - Shared PDP semantic contract and product-type information: complete.
+- 6.1C - Gallery, media, variant, and configuration convergence: complete.
+- 6.1D - Truthful commerce posture and primary-action state machine: complete.
+- 6.1E - Private cart, checkout, account, and request-history consolidation: complete.
+- 6.1F - Native public Shopware cart and checkout boundary validation: complete; production activation remains Phase 7.
+- 6.1G - Account, address, order-history, and confirmation state closure: complete for available preview/public entry states.
+- 6.1H - Phase 6 interaction, authority, and visual exit gate: complete.
+
 Exit gate:
 
-- 50 PDPs pass desktop/mobile rendering, gallery, keyboard, token, and action tests.
-- A real approved Shopware product can complete a sandbox guest and account checkout.
-- Cart totals, tax, shipping, stock, quantity, and order state are server-authoritative.
-- No fake review, stock, delivery, or checkout success is shown.
+- Passed: 50 PDPs pass desktop/mobile rendering, gallery, keyboard, token, and action tests.
+- Passed: preview state is explicitly non-binding and no fake review, stock, delivery, payment, or checkout success is shown.
+- Passed: native cart/account entry and checkout guards remain server-controlled while unapproved products remain fail-closed.
+- Deferred to Phase 7 activation evidence: a supplier-approved Shopware product completing sandbox guest/account checkout with server-authoritative tax, shipping, stock, payment, and order state.
 
 ## Phase 7 - Commercial, supplier, localization, and operational readiness
 
@@ -233,20 +290,20 @@ Exit gate:
 | Product-card, PLP, slider, filter, and mobile work | Phase 5 |
 | Account/cart/checkout visual closures | Phase 6 |
 | Private A.1, A.2, A.3 | Phase 5, completed portions |
-| Private A.4 and A.5 | Phase 6, pending |
+| Private A.4 and A.5 | Phase 6, complete |
 | WP-07 catalog governance and supplier programs | Phases 4 and 7 |
 | Existing audit, performance, RC, and rollback tooling | Phase 8 |
 | Hosting/domain/deployment work | Phase 9 |
 
 ## Progress interpretation
 
-- Frontend and experience foundation: approximately 65 percent.
+- Frontend and experience foundation: approximately 78 percent.
 - Real catalog, Admin media, and commercial readiness: approximately 20 percent.
 - Production infrastructure and launch operations: approximately 15 percent.
-- Weighted overall launch readiness: approximately 42 percent complete and 58 percent remaining.
+- Weighted overall launch readiness: approximately 50 percent complete and 50 percent remaining.
 
 The percentage is an evidence-based planning estimate, not a claim that all work units have equal size. The largest remaining risks are real product media, supplier evidence, source-of-truth migration, real checkout configuration, CSS consolidation, cross-browser QA, and infrastructure.
 
 ## Exact next step
 
-Start Phase 4.1A, Admin catalog and media source-of-truth baseline. Inventory the 50 draft products and every active product/editorial media reference, map theme-only assets to Shopware Media, define the minimum governed gallery and metadata contract, and produce a reversible migration plan before moving media authority out of theme code.
+Start Phase 7.1A by obtaining accepted supplier evidence for the launch cohort, then complete governed multi-view media and production payment, shipping, tax, legal, customer, and order fixtures before opening public product or checkout activation.

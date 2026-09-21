@@ -1,3 +1,5 @@
+import { readSelectionState } from './veylune-preview-selection-store';
+
 document.querySelectorAll('[data-veylune-account-preview]').forEach((root) => {
     const tabs = Array.from(root.querySelectorAll('[data-account-tab]'));
     const panels = Array.from(root.querySelectorAll('[data-account-panel]'));
@@ -61,7 +63,6 @@ document.querySelectorAll('[data-veylune-account-preview]').forEach((root) => {
     const readinessList = root.querySelector('[data-account-readiness-list]');
     const readinessScore = root.querySelector('[data-account-readiness-score]');
     const readinessSummary = root.querySelector('[data-account-readiness-summary-copy]');
-    const selectionStorageKey = 'veylune-private-selection-v1';
     const projectsStorageKey = 'veylune-saved-projects-v1';
     const addressesStorageKey = 'veylune-address-book-v1';
     const reviewsStorageKey = 'veylune-checkout-reviews-v1';
@@ -165,9 +166,9 @@ document.querySelectorAll('[data-veylune-account-preview]').forEach((root) => {
     let lastAccountTrigger = null;
 
     try {
-        const stored = JSON.parse(window.localStorage.getItem(selectionStorageKey) || 'null');
-        const expired = Number(stored?.updatedAt) > 0 && Date.now() - Number(stored.updatedAt) > 30 * 24 * 60 * 60 * 1000;
-        if (!expired && stored?.productName && Number(stored.unitPrice) > 0 && Number(stored.quantity) > 0) {
+        const selectionState = readSelectionState();
+        const stored = selectionState.items.find((item) => item.lineId === selectionState.activeLineId) || selectionState.items[0] || null;
+        if (stored?.productName && Number(stored.unitPrice) > 0 && Number(stored.quantity) > 0) {
             currentSelection = {
                 productName: String(stored.productName),
                 material: String(stored.material || 'Material pending'),

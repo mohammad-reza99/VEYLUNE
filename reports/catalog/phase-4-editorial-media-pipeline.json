@@ -1,0 +1,195 @@
+{
+    "schemaVersion": "1.0",
+    "capturedAt": "2026-09-21T20:14:49+00:00",
+    "workPackage": "4.1E",
+    "mode": "audit",
+    "summary": {
+        "expectedDestinations": 13,
+        "adminEditorialMedia": 13,
+        "pass": true
+    },
+    "records": [
+        {
+            "destinationId": "category:furniture",
+            "mediaId": "8e9d1d50636498384e0281234a1f8f35",
+            "mediaUrl": "/media/f8/37/f2/1789954631/veylune-editorial-category-furniture-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "category:lighting",
+            "mediaId": "3d80c51f7f94f8a666551c7ad82022a3",
+            "mediaUrl": "/media/be/4e/99/1789954631/veylune-editorial-category-lighting-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "category:decor-objects",
+            "mediaId": "e4972d0cad039b10721030b374e0946b",
+            "mediaUrl": "/media/d1/12/9b/1789954631/veylune-editorial-category-decor-objects-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "category:textiles-rugs",
+            "mediaId": "730aa07f0838504b6028ea2178f9273f",
+            "mediaUrl": "/media/d6/ed/81/1789954631/veylune-editorial-category-textiles-rugs-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "category:dining-kitchen",
+            "mediaId": "c10de46661e279827a9a1543774ebc2c",
+            "mediaUrl": "/media/59/32/1a/1789954631/veylune-editorial-category-dining-kitchen-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "category:outdoor",
+            "mediaId": "aa2d772701a069a28b6300cae8529634",
+            "mediaUrl": "/media/8d/95/59/1789954631/veylune-editorial-category-outdoor-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "room:living-room",
+            "mediaId": "3b0156cf1b7f163d4fb2b8e9bacd8499",
+            "mediaUrl": "/media/73/d2/72/1789954631/veylune-editorial-room-living-room-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "room:dining-room",
+            "mediaId": "9028bdf9483d486948fe4b3e247b16b7",
+            "mediaUrl": "/media/c2/36/8d/1789954631/veylune-editorial-room-dining-room-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "room:bedroom",
+            "mediaId": "7ce8067d01a1d31c757eeb0c34a16f65",
+            "mediaUrl": "/media/53/41/65/1789954631/veylune-editorial-room-bedroom-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "room:workspace",
+            "mediaId": "622ab8ab6de67ac6d03f7d5b78f2440c",
+            "mediaUrl": "/media/bd/a3/da/1789954631/veylune-editorial-room-workspace-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "room:hallway",
+            "mediaId": "bf0dc17b159703c8f3e6c5724c3d4dc8",
+            "mediaUrl": "/media/39/2e/74/1789954631/veylune-editorial-room-hallway-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "collection:founder-selection",
+            "mediaId": "5f7cf1d73503043a288182a66ab59d34",
+            "mediaUrl": "/media/3c/35/51/1789954631/veylune-editorial-collection-founder-selection-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        },
+        {
+            "destinationId": "collection:new-arrivals",
+            "mediaId": "b2b2a9fbbc3bd259a00d8767a9725142",
+            "mediaUrl": "/media/c8/fc/43/1789954631/veylune-editorial-collection-new-arrivals-v1.webp",
+            "checks": {
+                "media_present": true,
+                "public_renderable_media": true,
+                "minimum_resolution": true,
+                "localized_alt_text": true,
+                "destination_metadata": true,
+                "source_checksum_recorded": true
+            },
+            "pass": true
+        }
+    ]
+}

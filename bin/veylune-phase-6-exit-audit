@@ -1,0 +1,135 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+$root = dirname(__DIR__);
+$fail = static function (string $message): never {
+    fwrite(STDERR, 'Phase 6 exit audit failed: ' . $message . PHP_EOL);
+    exit(1);
+};
+$require = static function (bool $condition, string $message) use ($fail): void {
+    if (!$condition) {
+        $fail($message);
+    }
+};
+$readJson = static function (string $relative) use ($root, $fail): array {
+    $path = $root . '/' . $relative;
+    if (!is_file($path)) {
+        $fail('Missing file: ' . $relative);
+    }
+    try {
+        $decoded = json_decode((string) file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+    } catch (Throwable $error) {
+        $fail('Invalid JSON in ' . $relative . ': ' . $error->getMessage());
+    }
+    if (!is_array($decoded)) {
+        $fail('JSON root must be an object: ' . $relative);
+    }
+
+    return $decoded;
+};
+$source = static function (string $relative) use ($root, $require): string {
+    $path = $root . '/' . $relative;
+    $require(is_file($path), 'Missing source file: ' . $relative);
+
+    return (string) file_get_contents($path);
+};
+$contains = static function (string $relative, string $marker) use ($source, $require): void {
+    $require(str_contains($source($relative), $marker), sprintf('Missing marker in %s: %s', $relative, $marker));
+};
+
+$contract = $readJson('config/veylune-phase-6-exit-contract.json');
+$reportPath = $contract['report'] ?? '';
+$require(is_string($reportPath) && $reportPath !== '', 'Contract report path is missing.');
+$report = $readJson($reportPath);
+$require(($contract['phase'] ?? null) === '6', 'Contract phase must be 6.');
+$require(($report['workPackage'] ?? null) === '6-exit', 'Report work package must be 6-exit.');
+
+$expected = $contract['expected'] ?? [];
+$summary = $report['summary'] ?? [];
+foreach ($expected as $metric => $value) {
+    $require(array_key_exists($metric, $summary), 'Missing summary metric: ' . $metric);
+    $require($summary[$metric] === $value, sprintf('Metric %s expected %s, got %s.', $metric, json_encode($value), json_encode($summary[$metric])));
+}
+
+$inventory = $report['productInventory'] ?? [];
+$require(count($inventory) === 50, 'Product inventory must contain 50 records.');
+$require(count(array_unique(array_column($inventory, 'recordId'))) === 50, 'Product record IDs must be unique.');
+$require(count(array_unique(array_column($inventory, 'databaseProductId'))) === 50, 'Database product IDs must be unique.');
+$require(count(array_filter($inventory, static fn (array $item): bool => ($item['governedCover'] ?? false) === true)) === 50, 'All products must retain a governed Admin cover.');
+$require(count(array_filter($inventory, static fn (array $item): bool => ($item['launchApproved'] ?? true) === true)) === 0, 'Draft products must remain fail-closed.');
+
+$surfaces = $report['surfaces'] ?? [];
+$require(count($surfaces) === 192, 'Surface inventory must contain 192 entries.');
+foreach ($surfaces as $surface) {
+    $label = sprintf('%s at %s', $surface['route'] ?? 'unknown', $surface['viewport'] ?? 'unknown');
+    $require(($surface['statusPass'] ?? false) === true, 'Status expectation failed for ' . $label);
+    $require(($surface['finalPathPass'] ?? false) === true, 'Redirect boundary failed for ' . $label);
+    $require(($surface['markerPass'] ?? false) === true, 'Surface marker failed for ' . $label);
+    $require(($surface['accessibilityPass'] ?? false) === true, 'Accessibility baseline failed for ' . $label);
+}
+
+$privatePdpSurfaces = array_values(array_filter($surfaces, static fn (array $item): bool => ($item['scope'] ?? '') === 'private-pdp'));
+$require(count($privatePdpSurfaces) === 150, 'Expected 150 private PDP surfaces.');
+$families = [];
+foreach ($privatePdpSurfaces as $surface) {
+    $computed = $surface['computed'] ?? [];
+    $require(($computed['semanticPdp'] ?? false) === true, 'A private PDP is missing the semantic information contract.');
+    $require(($computed['semanticFacts'] ?? 0) > 0, 'A private PDP has no semantic facts.');
+    $require(($computed['commerceState'] ?? '') === 'non-binding-preview', 'A private PDP crossed the preview commerce boundary.');
+    $require(($computed['primaryActionLabels'] ?? []) === ['Add to preview cart', 'Add to preview cart'], 'A private PDP does not expose the truthful desktop/mobile primary action pair.');
+    $families[] = $computed['productFamily'] ?? '';
+}
+$require(count(array_unique(array_filter($families))) === 8, 'Expected eight product-aware semantic families.');
+
+$scenarioSets = [
+    'privatePdpInteractions' => 100,
+    'privateJourneyScenarios' => 3,
+    'privateAccountStateScenarios' => 3,
+    'publicAccountValidationScenarios' => 9,
+    'publicProductBoundaries' => 50,
+    'unauthorizedPrivateRoutes' => 53,
+];
+foreach ($scenarioSets as $key => $count) {
+    $items = $report[$key] ?? [];
+    $require(count($items) === $count, sprintf('%s expected %d entries.', $key, $count));
+    $require(count(array_filter($items, static fn (array $item): bool => ($item['pass'] ?? false) !== true)) === 0, $key . ' contains a failed scenario.');
+}
+
+$checks = $report['implementationChecks'] ?? [];
+$require(count($checks) >= 14, 'Implementation check matrix is incomplete.');
+$require(count(array_filter($checks, static fn (array $item): bool => ($item['pass'] ?? false) !== true)) === 0, 'An implementation check remains unresolved.');
+
+$externalGates = $report['externalActivationGates'] ?? [];
+$require(count($externalGates) === 4, 'Exactly four external Phase 7 activation gates must remain explicit.');
+$require(count(array_unique(array_column($externalGates, 'id'))) === 4, 'External activation gate IDs must be unique.');
+
+$evidenceDirectory = $contract['evidenceDirectory'] ?? '';
+$screenshots = glob($root . '/' . $evidenceDirectory . '/*.png') ?: [];
+$require(count($screenshots) === 192, sprintf('Expected 192 screenshots, found %d.', count($screenshots)));
+
+$contains('custom/plugins/VeyluneTheme/src/Product/PdpPresentationService.php', "'non-binding-preview'");
+$contains('custom/plugins/VeyluneTheme/src/Product/PdpPresentationService.php', "'sleep'");
+$contains('custom/plugins/VeyluneTheme/src/Subscriber/ProductPdpPresentationSubscriber.php', 'veylunePdpPresentation');
+$contains('custom/plugins/VeyluneTheme/src/Resources/config/services.xml', 'ProductPdpPresentationSubscriber');
+$contains('custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-product-information.html.twig', 'pdp-semantic-information.html.twig');
+$contains('custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/content/product-detail.html.twig', 'pdp-semantic-information.html.twig');
+foreach (['cart', 'checkout', 'account'] as $surface) {
+    $contains('custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-' . $surface . '.html.twig', 'commerce-journey-status.html.twig');
+}
+$accountJs = $source('custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-preview-account.js');
+$require(str_contains($accountJs, 'readSelectionState'), 'Account must consume the shared v2 selection state.');
+$require(!str_contains($accountJs, 'veylune-private-selection-v1'), 'Legacy v1 selection storage must not remain in account code.');
+$contains('custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php', "'pdp_runtime_verification'");
+$contains('custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php', "'payment_shipping_readiness'");
+$contains('custom/plugins/VeyluneTheme/src/Catalog/SupplierEvidenceAcceptanceGate.php', 'accepted');
+
+printf(
+    "Phase 6 exit audit passed: %d products, %d surfaces, %d interactions, %d journey/account/auth scenarios, %d boundaries, %d screenshots, %d external activation gates.\n",
+    count($inventory),
+    count($surfaces),
+    count($report['privatePdpInteractions'] ?? []),
+    count($report['privateJourneyScenarios'] ?? []) + count($report['privateAccountStateScenarios'] ?? []) + count($report['publicAccountValidationScenarios'] ?? []),
+    count($report['publicProductBoundaries'] ?? []) + count($report['unauthorizedPrivateRoutes'] ?? []),
+    count($screenshots),
+    count($externalGates),
+);

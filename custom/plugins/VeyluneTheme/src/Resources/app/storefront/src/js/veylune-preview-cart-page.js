@@ -1,6 +1,7 @@
 import {
     clampSelectionQuantity,
     emitSelectionChange,
+    hydrateSelectionMedia,
     readSelectionState,
     selectionQuantity,
     selectionSubtotal,
@@ -25,6 +26,12 @@ document.querySelectorAll('[data-veylune-cart-preview]').forEach((root) => {
     const alertCopy = root.querySelector('[data-cart-page-alert-copy]');
     const undo = root.querySelector('[data-cart-page-undo]');
     let selectionState = readSelectionState();
+    try {
+        const hydration = hydrateSelectionMedia(selectionState, JSON.parse(root.dataset.productMedia || '{}'));
+        selectionState = hydration.changed ? writeSelectionState(hydration.state) : hydration.state;
+    } catch (error) {
+        // The cart remains usable when the server-provided media manifest is unavailable.
+    }
     let removedEntry = null;
 
     const formatPrice = (value) => new Intl.NumberFormat('en-US', {
@@ -52,6 +59,13 @@ document.querySelectorAll('[data-veylune-cart-preview]').forEach((root) => {
         article.querySelector('[data-cart-page-item-unit]').textContent = formatPrice(item.unitPrice);
         article.querySelector('[data-cart-page-item-quantity]').textContent = String(item.quantity);
         article.querySelector('[data-cart-page-item-total]').textContent = formatPrice(itemTotal);
+        const image = article.querySelector('[data-cart-page-item-image]');
+        if (image && item.imageUrl) {
+            image.src = item.imageUrl;
+            image.alt = item.imageAlt || `${item.productName} product view`;
+        } else {
+            image?.remove();
+        }
         article.querySelector('[data-cart-page-item-quantity-control]').setAttribute('aria-label', `${item.productName} quantity`);
         const decrease = article.querySelector('[data-cart-page-item-decrease]');
         const increase = article.querySelector('[data-cart-page-item-increase]');

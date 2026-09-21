@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "1.0",
+  "workPackage": "5.1A",
+  "name": "Unified catalog discovery rebaseline",
+  "baseUrl": "https://veylune-shopware.ddev.site",
+  "report": "reports/visual-baselines/phase-5-1a-discovery/discovery-baseline.json",
+  "evidenceDirectory": "reports/visual-baselines/phase-5-1a-discovery",
+  "viewports": [
+    {"id": "desktop", "width": 1440, "height": 1000},
+    {"id": "mobile", "width": 390, "height": 844}
+  ],
+  "publicRoutes": [
+    "/categories/furniture",
+    "/categories/lighting",
+    "/categories/decor-objects",
+    "/categories/textiles-rugs",
+    "/categories/dining-kitchen",
+    "/categories/outdoor",
+    "/categories/bedding-bath",
+    "/categories/mattresses",
+    "/categories/rugs",
+    "/categories/organization",
+    "/rooms/living-room",
+    "/rooms/dining-room",
+    "/rooms/bedroom",
+    "/rooms/workspace",
+    "/rooms/hallway",
+    "/rooms/outdoor",
+    "/collections/founder-selection",
+    "/collections/new-arrivals",
+    "/collections/best-sellers",
+    "/collections/sale",
+    "/collections/permanent",
+    "/collections/editorial",
+    "/discover",
+    "/discover?q=room",
+    "/discover?q=zzzx-no-confident-match"
+  ],
+  "privateRoutes": [
+    "/__veylune-preview/catalog",
+    "/__veylune-preview/catalog/category/furniture",
+    "/__veylune-preview/catalog/category/lighting",
+    "/__veylune-preview/catalog/category/decor-objects",
+    "/__veylune-preview/catalog/category/textiles-rugs",
+    "/__veylune-preview/catalog/category/dining-kitchen",
+    "/__veylune-preview/catalog/category/outdoor",
+    "/__veylune-preview/catalog/room/living-room",
+    "/__veylune-preview/catalog/room/dining-room",
+    "/__veylune-preview/catalog/room/bedroom",
+    "/__veylune-preview/catalog/room/workspace",
+    "/__veylune-preview/catalog/room/hallway",
+    "/__veylune-preview/catalog/collection/founder-selection",
+    "/__veylune-preview/catalog/collection/new-arrivals"
+  ],
+  "representativeInteractions": {
+    "privateListing": "/__veylune-preview/catalog/category/furniture",
+    "publicListing": "/categories/furniture",
+    "searchResults": "/discover?q=room",
+    "zeroResult": "/discover?q=zzzx-no-confident-match"
+  },
+  "expected": {
+    "publicRoutes": 25,
+    "privateRoutes": 14,
+    "routes": 39,
+    "viewports": 2,
+    "surfaces": 78,
+    "screenshots": 86,
+    "http200Surfaces": 78,
+    "runtimeIssueSurfaces": 0,
+    "overflowSurfaces": 0,
+    "brokenImageSurfaces": 0,
+    "missingAccessibleNameSurfaces": 0,
+    "privateHeaderFailures": 0,
+    "interactionScenarios": 8,
+    "implementationFamilies": 3,
+    "knownUnificationGaps": 8
+  },
+  "nextWorkPackage": {
+    "id": "5.1B",
+    "name": "Shared discovery card and data contract"
+  }
+}
