@@ -122,6 +122,10 @@
         <service id="VeyluneTheme\Command\Level3SupplierIntakeAuditCommand" />
         <service id="VeyluneTheme\Command\Level1ReadinessEvaluationCommand" />
         <service id="VeyluneTheme\Command\CatalogActivationAuditCommand" />
+        <service id="VeyluneTheme\Command\Phase7CommercialReadinessAuditCommand">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument>%kernel.project_dir%</argument>
+        </service>
         <service id="VeyluneTheme\Command\MediaSourceBaselineCommand">
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument>%kernel.project_dir%</argument>

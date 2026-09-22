@@ -12,7 +12,7 @@
   "baseline": {
     "scssFiles": 119,
     "baseImports": 117,
-    "scssLines": 30775,
+    "scssLines": 30798,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
     "importantDeclarations": 130,
     "debtNamedFiles": 39,

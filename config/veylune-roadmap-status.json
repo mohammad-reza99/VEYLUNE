@@ -58,7 +58,7 @@
   },
   "engineeringInventory": {
     "scssFiles": 119,
-    "scssLines": 30775,
+    "scssLines": 30798,
     "baseScssImports": 117,
     "javascriptSourceFiles": 19,
     "twigFiles": 102,
@@ -88,7 +88,12 @@
     "launchCohortProducts": 10,
     "level3ReadyProducts": 0,
     "requiredSupplierEvidenceCells": 120,
-    "acceptedSupplierEvidenceCells": 0
+    "acceptedSupplierEvidenceCells": 0,
+    "galleryReadyProducts": 0,
+    "operationalGates": 12,
+    "acceptedOperationalGates": 0,
+    "phase7TechnicalGate": "pass",
+    "runtimeActivationAllowed": false
   },
   "securityBaseline": {
     "trackedPreviewTokenLiteralRemoved": true,
@@ -517,6 +522,29 @@
       "exitDocument": "docs/veylune-phase-6-exit.md"
     }
   },
+  "phase71Progress": {
+    "technicalPackagesComplete": [
+      "canonical_launch_candidate_cohort",
+      "supplier_intake_identity_binding",
+      "runtime_exposure_registry_alignment",
+      "operational_evidence_contract",
+      "deterministic_readiness_audit",
+      "fail_closed_activation_boundary"
+    ],
+    "blockedExternalPackages": [
+      "supplier_evidence_acceptance",
+      "five_image_gallery_acceptance",
+      "price_stock_and_availability_authority",
+      "shipping_tax_payment_email_returns_signoff",
+      "legal_and_localization_approval",
+      "customer_order_fixture_signoff",
+      "founder_launch_approval",
+      "controlled_runtime_activation"
+    ],
+    "auditCommand": "veylune:catalog:phase7-readiness-audit",
+    "report": "reports/commercial/phase-7-readiness.json",
+    "exitDocument": "docs/veylune-phase-7-readiness-exit.md"
+  },
   "phaseMap": [
     {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
     {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 100, "status": "complete"},
@@ -524,7 +552,7 @@
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 100, "status": "complete"},
     {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 100, "status": "complete"},
     {"id": 6, "name": "PDP and customer-commerce journey", "estimatedPercent": 100, "status": "complete"},
-    {"id": 7, "name": "Commercial, supplier, localization, and operational readiness", "estimatedPercent": 10, "status": "blocked_external_inputs"},
+    {"id": 7, "name": "Commercial, supplier, localization, and operational readiness", "estimatedPercent": 30, "status": "blocked_external_inputs"},
     {"id": 8, "name": "Quality, security, performance, and release candidate", "estimatedPercent": 45, "status": "partial"},
     {"id": 9, "name": "EU staging, deployment, launch, and measured growth", "estimatedPercent": 15, "status": "deferred"}
   ],

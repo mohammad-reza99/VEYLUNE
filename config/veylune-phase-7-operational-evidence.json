@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0",
+  "baselineDate": "2026-09-22",
+  "phase": "7",
+  "launchCohortMinimum": 10,
+  "galleryMinimumPerProduct": 5,
+  "activationPolicy": "fail_closed_until_all_product_and_operational_evidence_is_accepted",
+  "allowedStates": ["missing", "pending_review", "accepted", "rejected"],
+  "gates": [
+    {
+      "id": "supplier_evidence",
+      "owner": "product_governance",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "multi_view_media_rights",
+      "owner": "media_governance",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "price_stock_authority",
+      "owner": "commercial_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "shipping_configuration_signoff",
+      "owner": "fulfillment_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "tax_configuration_signoff",
+      "owner": "finance_legal",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "payment_sandbox_signoff",
+      "owner": "commerce_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "transactional_email_signoff",
+      "owner": "customer_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "returns_support_signoff",
+      "owner": "customer_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "legal_entity_signoff",
+      "owner": "finance_legal",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "en_de_localization_approval",
+      "owner": "content_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "customer_order_fixture_signoff",
+      "owner": "quality_operations",
+      "state": "missing",
+      "evidenceReference": null
+    },
+    {
+      "id": "founder_launch_approval",
+      "owner": "founder",
+      "state": "missing",
+      "evidenceReference": null
+    }
+  ]
+}

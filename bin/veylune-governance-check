@@ -163,6 +163,7 @@ run_console veylune:runtime:distributed-audit >/dev/null
 run_console veylune:runtime:topology-pressure-audit >/dev/null
 run_console veylune:publication-state:audit >/dev/null
 run_console veylune:sitemap:audit >/dev/null
+run_console veylune:catalog:phase7-readiness-audit >/dev/null
 
 step 'semantic and authoring regression harness'
 run_ddev_php custom/plugins/VeyluneTheme/bin/governance-regression-check.php >/dev/null
@@ -174,7 +175,8 @@ for command in \
     'veylune:runtime:distributed-audit' \
     'veylune:runtime:topology-pressure-audit' \
     'veylune:publication-state:audit' \
-    'veylune:sitemap:audit'
+    'veylune:sitemap:audit' \
+    'veylune:catalog:phase7-readiness-audit'
 do
     safe_name="${command//:/_}"
     previous_file=''

@@ -2,7 +2,7 @@
     scope: 'private', id: product.id|default(product.recordId), recordId: product.recordId, name: product.name,
     productType: product.productType, materials: product.materials|default([product.material]), materialLabel: product.materialLabel,
     status: product.status, statusKey: product.status|lower|replace({' ': '_'}), price: product.targetPrice,
-    priceNote: 'Target estimate / final terms confirmed before order', availability: 'Studio availability check',
+    priceNote: 'Estimate', availability: 'Studio availability check',
     coverUrl: product.coverUrl|default(''), coverAlt: product.coverAlt|default(product.name ~ ' product view')
 } %}
 {% set productUrl = path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) %}

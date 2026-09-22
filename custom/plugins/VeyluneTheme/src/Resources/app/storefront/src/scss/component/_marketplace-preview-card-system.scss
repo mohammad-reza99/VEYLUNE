@@ -1,15 +1,25 @@
 /* P2-E.1A: one commerce card language across discovery, PLP and PDP bundles. */
-.veylune-preview-card {
+.veylune-preview-card,
+.veylune-preview--destination .veylune-preview-card {
     --veylune-card-ink: #211e22;
     --veylune-card-muted: #706a72;
     --veylune-card-accent: #7f187f;
     position: relative;
     display: flex;
     min-width: 0;
+    padding: 0;
     flex-direction: column;
+    border: 0;
     color: var(--veylune-card-ink);
+    background: transparent;
     font-family: var(--veylune-marketplace-font, Arial, sans-serif);
     scroll-snap-align: start;
+}
+
+.veylune-preview-card:hover,
+.veylune-preview-card:focus-visible {
+    border-color: transparent;
+    background: transparent;
 }
 
 .veylune-preview-card__visual,
@@ -20,8 +30,8 @@
     aspect-ratio: 4 / 5;
     border: 0;
     border-radius: 3px;
-    background-color: #f3f0ec;
-    box-shadow: inset 0 0 0 1px rgb(33 30 34 / 7%);
+    background-color: #fbfaf8;
+    box-shadow: inset 0 0 0 1px rgb(33 30 34 / 4%);
     isolation: isolate;
     transition: box-shadow 180ms ease, transform 180ms ease;
 }
@@ -57,23 +67,32 @@
 
 .veylune-preview-card__status,
 .veylune-preview--destination .veylune-preview-card__status {
-    top: 0.7rem;
-    left: 0.65rem;
+    top: 0.48rem;
+    left: 0.48rem;
     z-index: 3;
-    max-width: calc(100% - 4.2rem);
-    padding: 0.38rem 0.55rem;
-    border-radius: 2px;
-    color: #fff;
-    background: var(--veylune-card-accent);
+    overflow: hidden;
+    max-width: calc(100% - 3.9rem);
+    padding: 0.25rem 0.4rem;
+    border: 1px solid rgb(33 30 34 / 9%);
+    border-radius: 999px;
+    color: #4b454c;
+    background: rgb(255 255 255 / 84%);
     font-family: var(--veylune-marketplace-font, Arial, sans-serif);
-    font-size: 0.6rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: 0.075em;
+    font-size: 0.52rem;
+    font-weight: 760;
+    line-height: 1.05;
+    letter-spacing: 0.055em;
+    text-overflow: ellipsis;
     text-transform: uppercase;
+    white-space: nowrap;
+    backdrop-filter: blur(7px);
 }
 
-.veylune-preview-card[data-plp-status="coming_soon"] .veylune-preview-card__status { background: #28242a; }
+.veylune-preview-card[data-plp-status="coming_soon"] .veylune-preview-card__status {
+    border-color: transparent;
+    color: #fff;
+    background: rgb(33 30 34 / 74%);
+}
 
 .veylune-preview-card__material,
 .veylune-preview--destination .veylune-preview-card__material {
@@ -99,7 +118,7 @@
     min-height: 0;
     flex: 1;
     flex-direction: column;
-    padding: 0.8rem 0 0;
+    padding: 0.68rem 0 0;
 }
 
 .veylune-preview-card__meta { display: flex; align-items: center; justify-content: space-between; gap: 0.65rem; margin-bottom: 0.28rem; }
@@ -172,8 +191,8 @@
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
-    gap: 0.45rem;
-    margin-top: 0.45rem;
+    gap: 0.38rem;
+    margin-top: 0.38rem;
     padding: 0;
     border: 0;
 }
@@ -193,10 +212,14 @@
 
 .veylune-preview-card__price-note,
 .veylune-preview--destination .veylune-preview-card__price-note {
-    margin: 0.3rem 0 0;
-    color: var(--veylune-card-muted);
-    font-size: 0.65rem;
-    line-height: 1.35;
+    overflow: hidden;
+    max-width: 7rem;
+    margin: 0;
+    color: rgb(112 106 114 / 78%);
+    font-size: 0.58rem;
+    line-height: 1.15;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .veylune-preview-card__availability,
@@ -265,7 +288,7 @@
     .veylune-preview--destination .veylune-preview-card__wishlist { width: 36px; height: 36px; }
 
     .veylune-preview-card__status,
-    .veylune-preview--destination .veylune-preview-card__status { max-width: calc(100% - 3.9rem); font-size: 0.56rem; }
+    .veylune-preview--destination .veylune-preview-card__status { max-width: calc(100% - 3.65rem); font-size: 0.5rem; }
 
     .veylune-preview-card h3,
     .veylune-preview--destination .veylune-preview-card h3 { font-size: 0.86rem; }

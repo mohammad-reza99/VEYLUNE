@@ -1,18 +1,14 @@
 <?php declare(strict_types=1);
 
-$skus = [
-    'VLS-SOF-001', 'VLS-SOF-003', 'VLS-SOF-004', 'VLS-SOF-002',
-    'VLS-DEC-000003', 'VLS-DEC-000004', 'VLS-DEC-000006',
-    'VLS-TEX-000001', 'VLS-LGT-000003', 'VLS-FUR-000009',
-];
+$cohort = require __DIR__ . '/level3_cohort.php';
+$skus = array_values(array_filter(array_map(
+    static fn (array $product): string => trim((string) ($product['sku'] ?? '')),
+    is_array($cohort['products'] ?? null) ? $cohort['products'] : []
+)));
 
 $emptyEvidence = static fn (string $sku): array => [
     'veylune_sku' => $sku,
-    'status' => match ($sku) {
-        'VLS-SOF-001' => 'blocked_identity_conflict',
-        'VLS-SOF-003' => 'blocked_identity_conflict',
-        default => 'blocked_external_evidence',
-    },
+    'status' => 'blocked_external_evidence',
     'supplier_id' => null,
     'supplier_legal_name' => null,
     'supplier_sku' => null,
@@ -28,7 +24,7 @@ $emptyEvidence = static fn (string $sku): array => [
 ];
 
 return [
-    'intake_id' => 'stage-b1-1-first-10-supplier-evidence',
+    'intake_id' => 'phase-7-launch-candidate-10-supplier-evidence',
     'accepted_status' => 'accepted',
     'records' => array_map($emptyEvidence, $skus),
 ];

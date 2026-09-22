@@ -27,8 +27,7 @@ final class Level3CohortBaselineAuditCommand extends Command
         $products = \is_array($register['products'] ?? null) ? $register['products'] : [];
         $violations = [];
         $seen = [];
-        $legacy = 0;
-        $drafts = 0;
+        $launchCandidates = 0;
 
         if (\count($products) !== 10) {
             $violations[] = 'cohort.must_contain_exactly_10_products';
@@ -62,27 +61,27 @@ final class Level3CohortBaselineAuditCommand extends Command
                 $violations[] = 'product.active_state_drift:' . $sku;
             }
 
-            if (($candidate['lane'] ?? '') === 'governed_draft') {
-                ++$drafts;
-                if ((int) $row['stock'] !== 0 || (int) $row['visibility_count'] !== 0) {
-                    $violations[] = 'draft.not_fail_closed:' . $sku;
-                }
-            } else {
-                ++$legacy;
+            if (($candidate['lane'] ?? '') !== 'launch_candidate') {
+                $violations[] = 'cohort.invalid_lane:' . $sku;
+                continue;
+            }
+
+            ++$launchCandidates;
+            if ((bool) $row['active'] || (int) $row['stock'] !== 0 || (int) $row['visibility_count'] !== 0) {
+                $violations[] = 'candidate.not_fail_closed:' . $sku;
             }
         }
 
         $evidence = \is_array($register['external_evidence'] ?? null) ? $register['external_evidence'] : [];
         $missingEvidence = \count(\array_filter($evidence, static fn (mixed $status): bool => $status === 'missing'));
-        if ($missingEvidence !== 8) {
+        if ($evidence === [] || $missingEvidence !== \count($evidence)) {
             $violations[] = 'evidence.baseline_must_remain_explicit';
         }
 
         $passed = $violations === [];
         $output->writeln($passed ? 'BASELINE PASS' : 'BASELINE FAIL');
         $output->writeln('Cohort products: ' . \count($products));
-        $output->writeln('Legacy remediation: ' . $legacy);
-        $output->writeln('Governed drafts: ' . $drafts);
+        $output->writeln('Canonical launch candidates: ' . $launchCandidates);
         $output->writeln('Level 3 ready: 0');
         $output->writeln('Supplier/evidence blockers: ' . $missingEvidence);
         foreach ($violations as $violation) {

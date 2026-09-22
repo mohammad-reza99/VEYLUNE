@@ -1,0 +1,145 @@
+{
+    "schemaVersion": "1.0",
+    "capturedAt": "2026-09-22",
+    "phase": "7",
+    "status": "blocked_external_inputs",
+    "auditStatus": "pass",
+    "cohort": {
+        "id": "phase-7-launch-candidate-10",
+        "products": 10,
+        "acceptedSupplierEvidence": 0,
+        "missingSupplierEvidenceCells": 120,
+        "galleryReadyProducts": 0,
+        "failClosedProducts": 10,
+        "activeProducts": 0,
+        "visibleProducts": 0
+    },
+    "operations": {
+        "acceptedGates": 0,
+        "totalGates": 12,
+        "externalBlockers": [
+            "supplier_evidence:missing",
+            "multi_view_media_rights:missing",
+            "price_stock_authority:missing",
+            "shipping_configuration_signoff:missing",
+            "tax_configuration_signoff:missing",
+            "payment_sandbox_signoff:missing",
+            "transactional_email_signoff:missing",
+            "returns_support_signoff:missing",
+            "legal_entity_signoff:missing",
+            "en_de_localization_approval:missing",
+            "customer_order_fixture_signoff:missing",
+            "founder_launch_approval:missing"
+        ],
+        "commerceInventory": {
+            "activePaymentMethods": 3,
+            "activeShippingMethods": 2,
+            "taxRules": 3,
+            "configuredCurrencies": 9
+        }
+    },
+    "runtimeActivationAllowed": false,
+    "technicalViolations": [],
+    "products": [
+        {
+            "sku": "VLS-FUR-000001",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000002",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000003",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000004",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000005",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000006",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000007",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000008",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000009",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        },
+        {
+            "sku": "VLS-FUR-000010",
+            "active": false,
+            "stock": 0,
+            "visibilityCount": 0,
+            "mediaCount": 1,
+            "hasCover": true,
+            "galleryReady": false,
+            "failClosed": true
+        }
+    ]
+}

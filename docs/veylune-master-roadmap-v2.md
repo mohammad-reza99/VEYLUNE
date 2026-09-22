@@ -224,7 +224,22 @@ Exit gate:
 
 ## Phase 7 - Commercial, supplier, localization, and operational readiness
 
-Current estimate: 10 percent complete.
+Current estimate: 30 percent complete. Technical readiness controls are complete;
+commercial activation remains blocked by external evidence.
+
+Implemented technical foundation:
+
+- The fixed launch-candidate cohort now uses ten canonical products from the
+  current 50-product Admin catalog.
+- Supplier intake, the handoff template, and the runtime exposure registry use
+  the same product identities and canonical material vocabulary.
+- Twelve operational evidence gates cover supplier, media, pricing,
+  availability, shipping, tax, payment, email, returns, legal, localization,
+  customer/order fixtures, and founder approval.
+- A deterministic Phase 7 readiness audit is part of global governance and
+  writes `reports/commercial/phase-7-readiness.json`.
+- All candidates remain inactive, stock-zero, and without public visibility
+  until every required authority is accepted.
 
 Scope:
 
