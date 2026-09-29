@@ -21,7 +21,14 @@
         <p id="veylunePdpDeliveryStatus" data-pdp-delivery-status aria-live="polite">Lead time and delivery scope are confirmed during consultation.</p>
     </form>
 
-    <div class="veylune-pdp-purchase" aria-label="Cart quantity">
+    {% if veyluneNativeProductId %}
+    <div class="veylune-pdp-purchase" aria-label="Native test cart action">
+        <a class="veylune-pdp-purchase__add"
+           href="{{ path('frontend.veylune.catalog.test_cart.add', { recordId: product.recordId }) }}">Add test product to cart</a>
+        <p data-pdp-add-status aria-live="polite">Local test fixture only. No real charge, supplier reservation or fulfillment is created.</p>
+    </div>
+    {% else %}
+    <div class="veylune-pdp-purchase" aria-label="Project quantity">
         <div>
             <strong>Quantity</strong>
             <div class="veylune-pdp-quantity" data-pdp-quantity>
@@ -33,6 +40,7 @@
         <button class="veylune-pdp-purchase__add" type="button" data-pdp-add-selection>{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
         <p data-pdp-add-status aria-live="polite">{{ veylunePdpPresentation.commerce.disclosure }}</p>
     </div>
+    {% endif %}
 
     <fieldset class="veylune-pdp-services" data-pdp-services>
         <legend>Services</legend>

@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "checks": [
+    "fresh guest registration",
+    "390/768/1440 no overflow",
+    "desktop two-column checkout",
+    "unchecked terms rejected"
+  ],
+  "validOrderSubmitted": false
+}

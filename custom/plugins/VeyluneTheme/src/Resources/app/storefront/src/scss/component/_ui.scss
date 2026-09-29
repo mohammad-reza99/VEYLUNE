@@ -578,11 +578,6 @@ label {
             padding-block: .7rem;
         }
 
-        .vli-search-query-suggestions a,
-        .vli-search-mobile-filters a,
-        .vli-search-card__title,
-        .vli-search-card__view,
-        .vli-home .vlx-text-link,
         .login-password-recover a,
         main nav[aria-label="Breadcrumb"] a {
             display: inline-flex;
@@ -591,22 +586,6 @@ label {
             align-items: center;
         }
 
-        .vli-search-sort button {
-            min-width: 44px;
-            min-height: 44px;
-        }
-
-        .vli-search-mobile-filters a {
-            padding-block: .65rem;
-        }
-
-        .vli-search-card__title {
-            margin-bottom: 0;
-        }
-
-        .vli-search-card__view {
-            margin-top: .1rem;
-        }
     }
 
     @media (prefers-reduced-motion: reduce) {

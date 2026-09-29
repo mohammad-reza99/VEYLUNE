@@ -1,5 +1,8 @@
 {% sw_extends '@Storefront/storefront/page/account/profile/index.html.twig' %}
 
+{% set isCanonicalLocalAccount = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestAccount = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalAccount %}
+
 {% block page_account_profile %}
     <div class="account-profile veylune-account-profile">
         {{ parent() }}
@@ -9,7 +12,7 @@
 {% block page_account_profile_personal_welcome %}
     <header class="account-welcome veylune-account-hero">
         {% block page_account_profile_personal_welcome_headline %}
-            <p class="veylune-account-hero__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+            <p class="veylune-account-hero__eyebrow">{{ isLocalTestAccount ? 'Your Veylune account' : 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
             <h1>{{ 'veylune.account.personalDetails'|trans|sw_sanitize }}</h1>
         {% endblock %}
 

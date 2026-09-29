@@ -1,9 +1,13 @@
 {% sw_extends '@Storefront/storefront/page/checkout/finish/finish-details.html.twig' %}
 
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+
 {% block page_checkout_finish_header %}
     <h1 class="finish-header">
         {% if page.changedPayment == true %}
             {{ 'checkout.finishUpdateHeader'|trans|sw_sanitize }}
+        {% elseif context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+            Your test order has been received.
         {% else %}
             {{ 'veylune.checkout.thankYou'|trans|sw_sanitize }}
         {% endif %}

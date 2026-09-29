@@ -1,5 +1,8 @@
 {% sw_extends '@Storefront/storefront/page/account/order-history/order-item.html.twig' %}
 
+{% set isCanonicalLocalAccount = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestAccount = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalAccount %}
+
 {% block page_account_order_item_overview %}
     <div class="veylune-order-card">
         {{ parent() }}
@@ -8,7 +11,7 @@
 
 {% block page_account_order_item_heading %}
     <div class="h3 col-auto order-table-header-heading veylune-order-card__heading">
-        <span>{{ 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</span>
+        <span>{{ isLocalTestAccount ? 'Test order' : 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</span>
         {{ order.orderDateTime|format_date('medium', locale=app.request.locale) }}
     </div>
 {% endblock %}

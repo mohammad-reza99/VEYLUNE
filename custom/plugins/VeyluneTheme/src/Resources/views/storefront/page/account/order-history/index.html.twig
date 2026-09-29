@@ -1,5 +1,8 @@
 {% sw_extends '@Storefront/storefront/page/account/order-history/index.html.twig' %}
 
+{% set isCanonicalLocalAccount = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestAccount = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalAccount %}
+
 {% block page_account_orders %}
     <div class="account-orders veylune-account-orders">
         {{ parent() }}
@@ -9,22 +12,22 @@
 {% block page_account_orders_welcome %}
     <header class="account-welcome veylune-account-hero">
         {% block page_account_orders_welcome_headline %}
-            <p class="veylune-account-hero__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
-            <h1>{{ 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</h1>
+            <p class="veylune-account-hero__eyebrow">{{ isLocalTestAccount ? 'Your Veylune account' : 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+            <h1>{{ isLocalTestAccount ? 'Order history' : 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</h1>
         {% endblock %}
 
         {% block page_account_orders_welcome_intro %}
-            <p>{{ 'veylune.account.ordersIntro'|trans|sw_sanitize }}</p>
+            <p>{{ isLocalTestAccount ? 'Review your test orders, payment status and delivery details. No real payment or delivery takes place.' : 'veylune.account.ordersIntro'|trans|sw_sanitize }}</p>
         {% endblock %}
     </header>
 {% endblock %}
 
 {% block page_account_orders_info_empty %}
     <div class="veylune-account-empty" role="status">
-        <p class="veylune-account-empty__eyebrow">{{ 'veylune.account.noAcquisitionsYet'|trans|sw_sanitize }}</p>
-        <h2>{{ 'account.ordersInfoEmpty'|trans|sw_sanitize }}</h2>
+        <p class="veylune-account-empty__eyebrow">{{ isLocalTestAccount ? 'No test orders yet' : 'veylune.account.noAcquisitionsYet'|trans|sw_sanitize }}</p>
+        <h2>{{ isLocalTestAccount ? 'Your order history is empty.' : 'account.ordersInfoEmpty'|trans|sw_sanitize }}</h2>
         <a href="{{ path('frontend.home.page') }}" class="btn veylune-button">
-            {{ 'veylune.account.continueCollection'|trans|sw_sanitize }}
+            {{ isLocalTestAccount ? 'Continue shopping' : 'veylune.account.continueCollection'|trans|sw_sanitize }}
         </a>
     </div>
 {% endblock %}

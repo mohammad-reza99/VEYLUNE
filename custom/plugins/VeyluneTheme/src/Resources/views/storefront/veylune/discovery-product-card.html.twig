@@ -4,7 +4,10 @@
 {% set cardMaterials = discoveryCard.materials|default([]) %}
 {% set cardStatusLabel = discoveryCard.statusKey == 'supplier_selection'
     ? 'Supplier'
-    : (discoveryCard.statusKey == 'coming_soon' ? 'Soon' : discoveryCard.status) %}
+    : (discoveryCard.statusKey == 'coming_soon' ? 'Review' : discoveryCard.status) %}
+{% set cardStatusTitle = discoveryCard.statusKey == 'supplier_selection'
+    ? 'Supplier review'
+    : (discoveryCard.statusKey == 'coming_soon' ? 'Catalog review' : discoveryCard.status) %}
 
 <article class="veylune-discovery-card veylune-preview-card{% if not isPrivateCard %} product-box{% endif %}"
          data-discovery-card data-discovery-card-kind="product" data-discovery-card-scope="{{ cardScope }}"
@@ -35,7 +38,7 @@
                     data-selection-url="{{ productUrl|e('html_attr') }}" data-selection-asset="{{ discoveryCard.coverUrl|e('html_attr') }}"
                     data-selection-default-label="Save to Selection"><span class="visually-hidden" data-vli-selection-label>Save to Selection</span></button>
         {% endif %}
-        <span class="veylune-preview-card__status" title="{{ discoveryCard.status }}">{{ cardStatusLabel }}</span>
+        <span class="veylune-preview-card__status" title="{{ cardStatusTitle }}">{{ cardStatusLabel }}</span>
         {% if not discoveryCard.coverUrl %}<span class="veylune-preview-card__material">{{ discoveryCard.materialLabel }}</span>{% endif %}
     </div>
     <div class="veylune-preview-card__body">

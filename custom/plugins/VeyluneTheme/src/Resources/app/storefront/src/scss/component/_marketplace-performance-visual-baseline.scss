@@ -1,7 +1,6 @@
 /* PV-01: Wayfair-referenced navigation density and stable LCP shell. */
 
-.veylune-marketplace-department-rail,
-.vli-home__merchandising-rail {
+.veylune-marketplace-department-rail {
     display: none;
 }
 
@@ -51,61 +50,10 @@
     .veylune-marketplace-department-rail__sale {
         color: #ad1e55 !important;
     }
-
-    .vli-home__merchandising-rail {
-        display: grid;
-        min-height: 52px;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        background: var(--veylune-marketplace-primary, #7b1f7e);
-        color: #fff;
-    }
-
-    .vli-home__merchandising-rail a {
-        display: flex;
-        min-width: 0;
-        min-height: 52px;
-        align-items: center;
-        justify-content: center;
-        gap: .65rem;
-        padding: .6rem 1rem;
-        border-right: 1px solid rgb(255 255 255 / 42%);
-        color: inherit;
-        line-height: 1.1;
-        text-align: center;
-        text-decoration: none;
-    }
-
-    .vli-home__merchandising-rail a:last-child {
-        border-right: 0;
-    }
-
-    .vli-home__merchandising-rail strong {
-        font-size: .76rem;
-        font-weight: 820;
-        letter-spacing: .035em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    .vli-home__merchandising-rail span {
-        overflow: hidden;
-        font-size: .72rem;
-        font-weight: 620;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .vli-home__merchandising-rail a:hover,
-    .vli-home__merchandising-rail a:focus-visible {
-        background: rgb(40 13 43 / 22%);
-        outline: 2px solid #fff;
-        outline-offset: -4px;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .veylune-marketplace-department-rail a,
-    .vli-home__merchandising-rail a {
+    .veylune-marketplace-department-rail a {
         scroll-behavior: auto;
         transition: none;
     }
@@ -333,11 +281,9 @@ body.is-ctl-auth.is-act-loginpage {
 
 /* PV-03: defer paint work for modules that cannot contribute to initial view. */
 @supports (content-visibility: auto) {
-    .vli-home > [data-vli-home-module="objects"],
-    .vli-home > [data-vli-home-module="material"],
-    .vli-home > [data-vli-home-module="access-status"],
-    .vli-home > [data-vli-home-module="project"],
-    .vli-search-page__results > .vli-search-card:nth-child(n + 7) {
+    .veylune-preview-marketplace-home > .veylune-preview-marketplace-section:nth-of-type(n + 3),
+    .veylune-preview-marketplace-home > .veylune-preview-marketplace-services,
+    .veylune-preview-grid > .veylune-preview-card:nth-child(n + 7) {
         content-visibility: auto;
         contain-intrinsic-size: auto 720px;
     }

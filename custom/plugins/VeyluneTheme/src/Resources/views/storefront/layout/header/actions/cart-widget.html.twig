@@ -1,0 +1,12 @@
+{% sw_extends '@Storefront/storefront/layout/header/actions/cart-widget.html.twig' %}
+
+{% block layout_header_actions_cart_widget %}
+    {% if context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] %}
+        <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
+        <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
+        <span class="veylune-local-cart-count" aria-hidden="true">{{ page.cart.lineItems|length }}</span>
+        <span class="visually-hidden" id="cart-widget-aria-label">{{ 'checkout.cartScreenReaderUpdate'|trans({'%count%': page.cart.lineItems|length, '%total%': page.cart.price.positionPrice|currency})|sw_sanitize }}</span>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

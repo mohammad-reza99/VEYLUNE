@@ -8,12 +8,15 @@ use Shopware\Core\Framework\Struct\ArrayStruct;
 use Shopware\Storefront\Page\Navigation\NavigationPageLoadedEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VeyluneTheme\Discovery\ProductExposureService;
+use VeyluneTheme\Preview\DraftCatalogPreviewService;
 
 #[Package('storefront')]
 final class ProductExposurePageSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly ProductExposureService $productExposureService
+        private readonly ProductExposureService $productExposureService,
+        private readonly DraftCatalogPreviewService $previewService,
+        private readonly string $environment
     ) {
     }
 
@@ -35,10 +38,43 @@ final class ProductExposurePageSubscriber implements EventSubscriberInterface
             'veyluneProductExposure',
             new ArrayStruct($this->productExposureService->homepageProducts($event->getSalesChannelContext()))
         );
+
+        if ($this->environment === 'dev'
+            && $event->getRequest()->getHost() === 'veylune-shopware.ddev.site'
+            && getenv('DDEV_PROJECT') === 'veylune-shopware') {
+            $event->getPage()->addExtension('veyluneMarketplace', new ArrayStruct([
+                'rails' => $this->previewService->homepageRails(),
+                'categories' => [
+                    'furniture' => 'Furniture',
+                    'lighting' => 'Lighting',
+                    'decor-objects' => 'Decor & Objects',
+                    'textiles-rugs' => 'Textiles & Rugs',
+                    'dining-kitchen' => 'Dining & Kitchen',
+                    'outdoor' => 'Outdoor',
+                ],
+                'rooms' => [
+                    'living-room' => 'Living Room',
+                    'dining-room' => 'Dining Room',
+                    'bedroom' => 'Bedroom',
+                    'workspace' => 'Workspace',
+                    'hallway' => 'Hallway',
+                ],
+                'collections' => [
+                    'founder-selection' => 'Founder Selection',
+                    'new-arrivals' => 'New Arrivals',
+                ],
+            ]));
+        }
     }
 
     public function onStorefrontRender(StorefrontRenderEvent $event): void
     {
+        $event->setParameter(
+            'veyluneCanonicalCatalogEnabled',
+            $this->environment === 'dev'
+                && getenv('DDEV_PROJECT') === 'veylune-shopware'
+                && $event->getRequest()->getHost() === 'veylune-shopware.ddev.site'
+        );
         $event->setParameter(
             'veylunePublicSurfaces',
             $this->productExposureService->publicSurfaceAvailability($event->getSalesChannelContext())

@@ -2,10 +2,20 @@
 
 {% block base_content %}
     {% set product = veylunePreviewProduct %}
+    {% set veyluneCatalogIsPublic = veyluneCatalogRouteMode|default('preview') == 'public' %}
+    {% set veyluneCategoryUrl = veyluneCatalogIsPublic
+        ? path('frontend.veylune.catalog.category', { categoryKey: product.department|replace({'_': '-'}) })
+        : path('frontend.veylune.preview.catalog.category', { categoryKey: product.department|replace({'_': '-'}), token: veylunePreviewToken }) %}
+    {% set veyluneCartUrl = veyluneCatalogIsPublic
+        ? path('frontend.checkout.cart.page')
+        : path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) %}
+    {% set veyluneCheckoutUrl = veyluneCatalogIsPublic
+        ? path('frontend.checkout.confirm.page')
+        : path('frontend.veylune.preview.checkout', { token: veylunePreviewToken }) %}
     <div class="veylune-pdp-preview" data-veylune-pdp-preview data-product-id="{{ product.recordId }}" data-product-name="{{ product.name }}" data-product-price="{{ product.targetPrice }}" data-product-image-url="{{ product.coverUrl|default('') }}" data-product-image-alt="{{ product.coverAlt|default(product.name ~ ' product view') }}" data-pdp-family="{{ veylunePdpPresentation.family }}" data-commerce-state="{{ veylunePdpPresentation.commerce.state }}">
         <nav class="veylune-pdp-preview__breadcrumb" aria-label="Breadcrumb">
             <a href="{{ path('frontend.home.page') }}">Home</a><span aria-hidden="true">/</span>
-            <a href="{{ path('frontend.veylune.preview.catalog.category', { categoryKey: product.department|replace({'_': '-'}), token: veylunePreviewToken }) }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
+            <a href="{{ veyluneCategoryUrl }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
             <span aria-current="page">{{ product.name }}</span>
         </nav>
 
@@ -94,6 +104,7 @@
             </section>
         {% endif %}
 
+        {% if not veyluneNativeProductId %}
         <dialog class="veylune-preview-cart" data-pdp-cart-drawer aria-labelledby="veylunePreviewCartTitle">
             <div class="veylune-preview-cart__shell">
                 <header>
@@ -103,7 +114,7 @@
                 <div class="veylune-preview-cart__empty" data-pdp-cart-empty>
                     <strong>This piece is not in your cart.</strong>
                     <p>Add it here or review the other items already in your cart.</p>
-                    <a href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">View cart</a>
+                    <a href="{{ veyluneCartUrl }}">View cart</a>
                 </div>
                 <div class="veylune-preview-cart__content" data-pdp-cart-content hidden>
                     <article class="veylune-preview-cart__item">
@@ -128,16 +139,22 @@
                         <div><dt>Estimated total</dt><dd data-pdp-cart-total>€{{ product.targetPrice|number_format(0, '.', ',') }}</dd></div>
                     </dl>
                     <p class="veylune-preview-cart__notice">Target pricing is not a binding offer. Variant, delivery and final total require studio approval.</p>
-                    <a class="veylune-preview-cart__review" href="{{ path('frontend.veylune.preview.cart', { token: veylunePreviewToken }) }}">View cart</a>
-                    <a class="veylune-preview-cart__checkout" data-pdp-cart-checkout href="{{ path('frontend.veylune.preview.checkout', { token: veylunePreviewToken }) }}">Continue to delivery details</a>
+                    <a class="veylune-preview-cart__review" href="{{ veyluneCartUrl }}">View cart</a>
+                    <a class="veylune-preview-cart__checkout" data-pdp-cart-checkout href="{{ veyluneCheckoutUrl }}">Continue to delivery details</a>
                     <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue instead</a>
                 </div>
                 <p class="visually-hidden" data-pdp-cart-status aria-live="polite"></p>
             </div>
         </dialog>
+        {% endif %}
 
         <div class="veylune-pdp-mobile-bar" data-pdp-mobile-bar role="region" aria-label="Product consultation action">
-            <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong><button type="button" data-pdp-add-selection-mobile>{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
+            <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong>
+            {% if veyluneNativeProductId %}
+                <a href="{{ path('frontend.veylune.catalog.test_cart.add', { recordId: product.recordId }) }}">Add test product to cart</a>
+            {% else %}
+                <button type="button" data-pdp-add-selection-mobile>{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -13,8 +13,8 @@ const baseUrl = process.env.VEYLUNE_BASE_URL || 'https://veylune-shopware.ddev.s
 
 const routes = [
     { id: 'home', path: '/' },
-    { id: 'category-furniture', path: '/categories/furniture' },
-    { id: 'discover-room', path: '/discover?q=room' },
+    { id: 'category-furniture', path: '/catalog/category/furniture' },
+    { id: 'catalog-search-room', path: '/catalog/search?q=room' },
     { id: 'account-login', path: '/account/login' },
     { id: 'cart-empty', path: '/checkout/cart' },
 ];
@@ -512,7 +512,7 @@ async function run() {
             checks.mobileDrawerOpen?.ariaHidden !== 'false' ||
             checks.mobileDrawerOpen?.bodyLocked !== true ||
             checks.mobileDrawerOpen?.viewportContained !== true ||
-            checks.mobileSearch?.action !== '/discover?q=chair' ||
+            checks.mobileSearch?.action !== '/catalog/search?q=chair' ||
             checks.mobileSearch?.inputEnabled !== true ||
             checks.mobileSearch?.submitEnabled !== true ||
             checks.mobileSearch?.queryName !== 'q' ||

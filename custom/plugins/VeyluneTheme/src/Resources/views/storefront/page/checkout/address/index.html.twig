@@ -1,12 +1,15 @@
 {% sw_extends '@Storefront/storefront/page/checkout/address/index.html.twig' %}
 
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestCheckout = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+
 {% block page_checkout_address_header %}
     <div class="veylune-checkout-page__header">
-        <p class="veylune-checkout-page__eyebrow">{{ 'veylune.checkout.privateAcquisition'|trans|sw_sanitize }}</p>
+        <p class="veylune-checkout-page__eyebrow">{{ isLocalTestCheckout ? 'Local test checkout' : 'veylune.checkout.privateAcquisition'|trans|sw_sanitize }}</p>
         <h1 class="address-main-header">
-            {{ 'veylune.checkout.secureCheckout'|trans|sw_sanitize }}
+            {{ isLocalTestCheckout ? 'Secure checkout' : 'veylune.checkout.secureCheckout'|trans|sw_sanitize }}
         </h1>
-        <p>{{ 'veylune.checkout.deliveryDetails'|trans|sw_sanitize }}</p>
+        <p>{{ isLocalTestCheckout ? 'Enter delivery details for this no-charge test order.' : 'veylune.checkout.deliveryDetails'|trans|sw_sanitize }}</p>
     </div>
 {% endblock %}
 
@@ -30,7 +33,7 @@
 
 {% block page_checkout_address_register_card %}
     {% sw_include '@Storefront/storefront/page/checkout/address/register.html.twig' with {
-        cardTitle: 'veylune.checkout.deliveryDetails'|trans|sw_sanitize
+        cardTitle: isLocalTestCheckout ? 'Delivery details' : 'veylune.checkout.deliveryDetails'|trans|sw_sanitize
     } %}
 {% endblock %}
 

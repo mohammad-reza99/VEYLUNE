@@ -1,16 +1,16 @@
 {
   "schemaVersion": "2.0",
-  "capturedAt": "2026-09-21",
+  "capturedAt": "2026-09-26",
   "canonicalRoadmap": "docs/veylune-master-roadmap-v2.md",
   "currentPhase": {
-    "id": "7",
-    "name": "Commercial, Supplier, Localization, and Operational Readiness",
-    "status": "blocked_external_inputs"
+    "id": "8",
+    "name": "Supplier-demo technical validation",
+    "status": "complete"
   },
   "currentWorkPackage": {
-    "id": "7.1A",
-    "name": "Supplier evidence and launch-cohort activation inputs",
-    "status": "blocked_external_inputs"
+    "id": "7A.6+8",
+    "name": "Final native-commerce parity, integrated quality matrix and supplier-demo technical sign-off",
+    "status": "complete"
   },
   "gitBaseline": {
     "checkpointRef": "veylune-phase-1.1-baseline-20260914",
@@ -57,11 +57,11 @@
     }
   },
   "engineeringInventory": {
-    "scssFiles": 119,
-    "scssLines": 30798,
-    "baseScssImports": 117,
+    "scssFiles": 120,
+    "scssLines": 31018,
+    "baseScssImports": 118,
     "javascriptSourceFiles": 19,
-    "twigFiles": 102,
+    "twigFiles": 107,
     "origFiles": 0,
     "archivedSnapshots": 44
   },
@@ -522,6 +522,36 @@
       "exitDocument": "docs/veylune-phase-6-exit.md"
     }
   },
+  "phase7ALocalCommerceProgress": {
+    "status": "complete",
+    "verified": [
+      "guest checkout success decline and recovery",
+      "cart quantity removal out-of-stock and responsive containment",
+      "account registration login logout history profile address and password recovery",
+      "cross-account read isolation",
+      "Sand and Charcoal native variant selection",
+      "out-of-stock variant purchase prevention",
+      "forged quantity capped to available stock",
+      "repeat order restores the original line item",
+      "customer cancellation persists cancelled order state",
+      "two simultaneous carts competing for one unit produce exactly one completed order",
+      "local full refund persists completed refund state and refunded transaction state",
+      "invalid terms and wrong password are rejected without successful mutation"
+    ],
+    "open": [],
+    "accountEvidence": "reports/local-commerce/final-signoff/account.json",
+    "accountLifecycleEvidence": "reports/local-commerce/final-signoff/account-lifecycle.json",
+    "cartEvidence": "reports/local-commerce/final-signoff/cart.json",
+    "checkoutEvidence": "reports/local-commerce/final-signoff/checkout.json",
+    "variantEvidence": "reports/local-commerce/final-signoff/variants.json",
+    "stockRaceEvidence": "reports/local-commerce/final-signoff/stock-race.json",
+    "refundEvidence": "reports/local-commerce/final-signoff/refund.json",
+    "surfaceMatrixEvidence": "reports/local-commerce/final-signoff/surface-matrix.json",
+    "acceptanceMatrix": "reports/local-commerce/final-signoff/acceptance-matrix.json",
+    "technicalSignoff": "docs/veylune-supplier-demo-technical-signoff.md",
+    "orderStateAudit": "tools/audit/veylune-local-order-state.sql",
+    "refundBoundary": "A local simulator refund is verified; external provider refund certification remains a Phase 7B dependency."
+  },
   "phase71Progress": {
     "technicalPackagesComplete": [
       "canonical_launch_candidate_cohort",
@@ -545,6 +575,25 @@
     "report": "reports/commercial/phase-7-readiness.json",
     "exitDocument": "docs/veylune-phase-7-readiness-exit.md"
   },
+  "phase8CompletionEvidence": {
+    "status": "pass",
+    "scope": "owner-approved local supplier-demo technical acceptance",
+    "responsiveWidths": [390, 768, 1440],
+    "anonymousNativeSurfaces": 7,
+    "anonymousResponsiveCaptures": 21,
+    "populatedCommerceStates": ["offcanvas", "cart", "checkout-registration"],
+    "horizontalOverflowFailures": 0,
+    "brokenLoadedImages": 0,
+    "unnamedVisibleControls": 0,
+    "capturedRuntimeErrors": 0,
+    "dependencyAdvisories": 0,
+    "performanceBaseline": "pass",
+    "productionReadinessBaseline": "pass",
+    "fullGovernance": "pass",
+    "surfaceMatrix": "reports/local-commerce/final-signoff/surface-matrix.json",
+    "acceptanceMatrix": "reports/local-commerce/final-signoff/acceptance-matrix.json",
+    "signoff": "docs/veylune-supplier-demo-technical-signoff.md"
+  },
   "phaseMap": [
     {"id": 1, "name": "Rebaseline, freeze, and architecture control", "estimatedPercent": 100, "status": "complete"},
     {"id": 2, "name": "Unified design system and global shell", "estimatedPercent": 100, "status": "complete"},
@@ -552,9 +601,9 @@
     {"id": 4, "name": "Admin catalog and media source of truth", "estimatedPercent": 100, "status": "complete"},
     {"id": 5, "name": "Catalog discovery unification", "estimatedPercent": 100, "status": "complete"},
     {"id": 6, "name": "PDP and customer-commerce journey", "estimatedPercent": 100, "status": "complete"},
-    {"id": 7, "name": "Commercial, supplier, localization, and operational readiness", "estimatedPercent": 30, "status": "blocked_external_inputs"},
-    {"id": 8, "name": "Quality, security, performance, and release candidate", "estimatedPercent": 45, "status": "partial"},
-    {"id": 9, "name": "EU staging, deployment, launch, and measured growth", "estimatedPercent": 15, "status": "deferred"}
+    {"id": 7, "name": "Local commerce and supplier-demo readiness", "estimatedPercent": 100, "status": "technical_scope_complete", "scopeNote": "Phase 7A is complete. Real supplier and commercial activation work formerly named Phase 7B is owner-managed and excluded from this technical test deliverable."},
+    {"id": 8, "name": "Quality, security, performance, and technical sign-off", "estimatedPercent": 100, "status": "complete"},
+    {"id": 9, "name": "EU staging, deployment, launch, and measured growth", "estimatedPercent": 0, "status": "out_of_scope_by_owner"}
   ],
   "sourceOfTruth": {
     "roadmap": "config/veylune-roadmap-status.json",
@@ -565,9 +614,22 @@
     "designTokensAndBehavior": "theme_code",
     "auditEvidence": "generated_reports"
   },
+  "projectScopeExit": {
+    "status": "approved_for_supplier_demo_and_supplier_conversations",
+    "technicalScopeComplete": true,
+    "commercialActivationAllowed": false,
+    "completedAt": "2026-09-26",
+    "exclusions": [
+      "real supplier evidence and contracts",
+      "supplier-authoritative product price stock and availability",
+      "external payment provider certification",
+      "EU hosting deployment domain cutover and production launch"
+    ],
+    "decision": "The requested local test and supplier-demo scope is complete. The excluded owner-managed work is not represented as completed commercial or production readiness."
+  },
   "nextStep": {
-    "id": "7.1A",
-    "name": "Supplier evidence and launch-cohort activation inputs",
-    "phase": 7
+    "id": "OWNER_SUPPLIER_HANDOFF",
+    "name": "Owner may begin supplier conversations using the approved local supplier-demo build",
+    "phase": 8
   }
 }

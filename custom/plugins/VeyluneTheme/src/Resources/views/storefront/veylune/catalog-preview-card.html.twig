@@ -1,9 +1,12 @@
+{% set veyluneCatalogIsPublic = veyluneCatalogRouteMode|default('preview') == 'public' %}
 {% set discoveryCard = {
-    scope: 'private', id: product.id|default(product.recordId), recordId: product.recordId, name: product.name,
+    scope: veyluneCatalogIsPublic ? 'public' : 'private', id: product.id|default(product.recordId), recordId: product.recordId, name: product.name,
     productType: product.productType, materials: product.materials|default([product.material]), materialLabel: product.materialLabel,
     status: product.status, statusKey: product.status|lower|replace({' ': '_'}), price: product.targetPrice,
     priceNote: 'Estimate', availability: 'Studio availability check',
     coverUrl: product.coverUrl|default(''), coverAlt: product.coverAlt|default(product.name ~ ' product view')
 } %}
-{% set productUrl = path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) %}
+{% set productUrl = veyluneCatalogIsPublic
+    ? path('frontend.veylune.catalog.product', { recordId: product.recordId })
+    : path('frontend.veylune.preview.catalog.product', { recordId: product.recordId, token: veylunePreviewToken }) %}
 {% sw_include '@Storefront/storefront/veylune/discovery-product-card.html.twig' with { discoveryCard: discoveryCard, productUrl: productUrl, productIndex: productIndex|default(0) } %}

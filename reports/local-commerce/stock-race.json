@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "checks": [
+    "two independent carts reached confirm with the same final unit",
+    "exactly one concurrent order reached finish",
+    "losing checkout stayed on a controlled storefront surface"
+  ],
+  "successCount": 1
+}

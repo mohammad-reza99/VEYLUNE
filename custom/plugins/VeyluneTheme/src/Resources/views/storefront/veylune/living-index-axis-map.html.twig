@@ -17,7 +17,7 @@
         title: vliAxisGerman ? 'Kuratierte Kompositionen' : 'Curated compositions',
         text: vliAxisGerman ? 'Formen und Objekte als zusammenhaengende Richtung erkunden.' : 'Explore forms and objects as a coherent direction.',
         asset: 'veylune-promo-living-room-v1.webp',
-        url: path('frontend.veylune.discovery.collection', { collectionKey: 'founder-selection' })
+        url: path('frontend.veylune.catalog.collection', { collectionKey: 'founder-selection' })
     },
     maker: {
         index: '03',
@@ -61,9 +61,9 @@
             <p>{{ vliAxisGerman ? 'Jede Achse ist ein direkter Einstieg und bleibt mit den anderen verbunden. So wird aus Inspiration eine nachvollziehbare Entscheidung.' : 'Each axis is a direct entry point and remains connected to the others, turning inspiration into a traceable decision.' }}</p>
             <div class="vli-axis-map__actions">
                 {% if vliReturnSource == 'discover' %}
-                    <a href="{{ path('frontend.veylune.living_index.search', vliReturnParams) }}" data-vli-return-to-discover>&larr; {{ vliAxisGerman ? 'Zurueck zu den Ergebnissen' : 'Back to results' }}</a>
+                    <a href="{{ path('frontend.veylune.catalog.search', vliReturnParams) }}" data-vli-return-to-discover>&larr; {{ vliAxisGerman ? 'Zurueck zu den Ergebnissen' : 'Back to results' }}</a>
                 {% elseif vliReturnSource == 'selection' %}
-                    <a href="{{ path('frontend.veylune.living_index.selection') }}" data-vli-return-to-selection>&larr; {{ vliAxisGerman ? 'Zurueck zur Auswahl' : 'Back to selection' }}</a>
+                    <a href="{{ path('frontend.checkout.cart.page') }}" data-vli-return-to-selection>&larr; {{ vliAxisGerman ? 'Zurueck zum Warenkorb' : 'Back to cart' }}</a>
                 {% endif %}
                 <button type="button"
                         data-vli-selection-add

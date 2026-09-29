@@ -29,8 +29,8 @@
 .veylune-pdp-services > p { min-height: 1.2em; margin: 0.6rem 0 0; }
 
 .veylune-pdp-bundle__summary { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; padding: 1rem; border-block: 1px solid var(--veylune-marketplace-border); font-size: 0.78rem; }
-.veylune-pdp-bundle__item { position: relative; min-width: 0; }
-.veylune-pdp-bundle__item > label { display: flex; min-height: 42px; align-items: center; gap: 0.55rem; margin: 0; font-size: 0.7rem; font-weight: 750; }
+.veylune-pdp-bundle__item { position: relative; min-width: 0; isolation: isolate; }
+.veylune-pdp-bundle__item > label { position: relative; z-index: 2; display: flex; min-height: 42px; align-items: center; gap: 0.55rem; margin: 0; cursor: pointer; font-size: 0.7rem; font-weight: 750; }
 .veylune-pdp-bundle__item > label input { width: 18px; height: 18px; accent-color: var(--veylune-marketplace-primary); }
 .veylune-pdp-bundle__cta { display: inline-flex; min-height: 46px; align-items: center; margin-top: 1.5rem; padding: 0 1.1rem; border: 1px solid var(--veylune-marketplace-primary); border-radius: 999px; color: var(--veylune-marketplace-primary); font-size: 0.76rem; font-weight: 850; text-decoration: none; }
 .veylune-pdp-bundle__item:has(input:checked) .veylune-preview-card__visual { box-shadow: 0 0 0 3px var(--veylune-marketplace-primary); }

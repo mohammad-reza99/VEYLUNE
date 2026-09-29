@@ -61,6 +61,18 @@ final class LivingIndexObjectController extends StorefrontController
         }
 
         $viewModel = $this->publicViewModel($product);
+        $translatedCustomFields = $product->getTranslated()['customFields'] ?? null;
+        $customFields = is_array($translatedCustomFields) ? $translatedCustomFields : ($product->getCustomFields() ?? []);
+        $recordId = strtoupper(trim((string) ($customFields['veylune_catalog_record_id'] ?? '')));
+
+        if (preg_match('/^[A-Z][0-9]{2}$/', $recordId) === 1
+            && $this->draftCatalogPreviewService->forRecordId($recordId) !== null) {
+            return $this->redirectToRoute(
+                'frontend.veylune.catalog.product',
+                ['recordId' => $recordId],
+                Response::HTTP_MOVED_PERMANENTLY
+            );
+        }
         $page = $this->genericPageLoader->load($request, $context);
         $page->getMetaInformation()?->setMetaTitle($viewModel['name'] . ' | Veylune');
         $page->getMetaInformation()?->setMetaDescription($viewModel['metaDescription']);

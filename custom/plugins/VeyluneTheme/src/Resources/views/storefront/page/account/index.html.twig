@@ -1,5 +1,8 @@
 {% sw_extends '@Storefront/storefront/page/account/index.html.twig' %}
 
+{% set isCanonicalLocalAccount = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestAccount = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalAccount %}
+
 {% block page_account_overview %}
     <div class="account-overview veylune-account-overview">
         {{ parent() }}
@@ -8,11 +11,11 @@
 
 {% block page_account_overview_welcome %}
     <header class="account-welcome veylune-account-hero">
-        <p class="veylune-account-hero__eyebrow">{{ 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
+        <p class="veylune-account-hero__eyebrow">{{ isLocalTestAccount ? 'Your Veylune account' : 'veylune.account.privateClientSalon'|trans|sw_sanitize }}</p>
         <h1>{{ 'veylune.account.yourAccount'|trans|sw_sanitize }}</h1>
 
         {% block page_account_overview_welcome_intro %}
-            <p>{{ 'veylune.account.overviewIntro'|trans|sw_sanitize }}</p>
+            <p>{{ isLocalTestAccount ? 'Manage personal details, delivery addresses and local test order history in one place.' : 'veylune.account.overviewIntro'|trans|sw_sanitize }}</p>
         {% endblock %}
     </header>
 {% endblock %}
@@ -32,5 +35,5 @@
 {% endblock %}
 
 {% block page_account_overview_newest_order_title %}
-    <h2 class="veylune-account-section-title">{{ 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</h2>
+    <h2 class="veylune-account-section-title">{{ isLocalTestAccount ? 'Recent orders' : 'veylune.account.acquisitionArchive'|trans|sw_sanitize }}</h2>
 {% endblock %}

@@ -9,8 +9,8 @@ const baseUrl = process.env.VEYLUNE_BASE_URL || 'https://veylune-shopware.ddev.s
 const outputRoot = process.env.VEYLUNE_EXIT_OUTPUT || path.resolve(process.cwd(), 'phase-2-1h-exit');
 const routes = [
     ['home', '/'],
-    ['category-furniture', '/categories/furniture'],
-    ['discover-room', '/discover?q=room'],
+    ['category-furniture', '/catalog/category/furniture'],
+    ['catalog-search-room', '/catalog/search?q=room'],
     ['account-login', '/account/login'],
     ['cart', '/checkout/cart'],
     ['privacy', '/legal/privacy'],

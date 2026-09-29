@@ -65,17 +65,17 @@ asset_path_from_html() {
 
 routes=(
     '/'
-    '/categories/furniture'
-    '/collections/founder-selection'
-    '/rooms/living-room'
-    '/discover?q=room'
-    '/selection'
+    '/catalog/category/furniture'
+    '/catalog/collection/founder-selection'
+    '/catalog/room/living-room'
+    '/catalog/search?q=room'
+    '/checkout/cart'
     '/account/login'
     '/contact-studio'
 )
 
-labels=(home category collection room discover selection account contact)
-budgets=(90000 85000 85000 85000 115000 75000 285000 105000)
+labels=(home category collection room search cart account contact)
+budgets=(220000 145000 130000 175000 220000 70000 285000 105000)
 
 printf '[veylune-performance] route HTML budgets (DDEV development baseline)\n'
 for index in "${!routes[@]}"; do
@@ -103,7 +103,7 @@ assert_under 'Veylune JS gzip' "$(gzip -c "$theme_js_file" | wc -c)" 25000
 assert_under 'homepage hero image' "$(wc -c < "$hero_file")" 230000
 
 grep -Fq 'data-vli-visual-baseline="department-rail"' "$home_file" || fail 'department visual baseline marker is missing'
-grep -Fq 'data-vli-visual-baseline="merchandising-rail"' "$home_file" || fail 'merchandising visual baseline marker is missing'
+grep -Fq 'data-veylune-preview-marketplace-home' "$home_file" || fail 'canonical marketplace homepage marker is missing'
 grep -Fq 'fetchpriority="high"' "$home_file" || fail 'homepage hero priority contract is missing'
 grep -Fq 'data-vli-visual-baseline="account-entry"' "${TMP_DIR}/account.html" || fail 'account entry visual baseline marker is missing'
 

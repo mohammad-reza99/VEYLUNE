@@ -165,7 +165,7 @@ $cart = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Res
 $offcanvas = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/views/storefront/component/checkout/offcanvas-cart.html.twig');
 $continuityJs = (string) file_get_contents($root . '/custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-legacy.js');
 
-foreach (["originalPath === '/checkout/confirm'", "'/checkout/cart?checkout=guarded'", "originalPath === '/wishlist'", "'/selection?source=wishlist'", 'HTTP_MOVED_PERMANENTLY'] as $marker) {
+foreach (["originalPath === '/checkout/confirm'", "'/checkout/cart?checkout=guarded'", "originalPath === '/wishlist'", "'/checkout/cart?source=wishlist'", 'HTTP_SEE_OTHER'] as $marker) {
     if (!str_contains($subscriber, $marker)) {
         fail("Ingress policy is missing {$marker}.");
     }

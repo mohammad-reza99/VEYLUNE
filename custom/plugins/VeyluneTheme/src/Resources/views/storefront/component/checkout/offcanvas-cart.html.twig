@@ -1,15 +1,17 @@
 {% sw_extends '@Storefront/storefront/component/checkout/offcanvas-cart.html.twig' %}
 
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+
 {% block utilities_offcanvas_close_text %}
-    {{ 'veylune.cart.continueExploring'|trans|sw_sanitize }}
+    {{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Continue shopping' : 'veylune.cart.continueExploring'|trans|sw_sanitize }}
 {% endblock %}
 
 {% block component_offcanvas_cart_header %}
     <div class="row align-items-start offcanvas-cart-header veylune-offcanvas-cart__header">
         <div class="col">
-            <p class="veylune-offcanvas-cart__eyebrow">{{ 'veylune.cart.selectionEyebrow'|trans|sw_sanitize }}</p>
+            <p class="veylune-offcanvas-cart__eyebrow">{{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Local commerce test' : 'Shopping cart' }}</p>
             <h4 data-id="off-canvas-headline">
-                {{ 'veylune.cart.offcanvasTitle'|trans|sw_sanitize }}
+                Your cart
             </h4>
         </div>
 
@@ -29,13 +31,16 @@
 
 {% block component_offcanvas_cart_empty %}
     <div class="veylune-offcanvas-cart__empty" role="status">
-        <p class="veylune-offcanvas-cart__eyebrow">{{ 'veylune.cart.emptyEyebrow'|trans|sw_sanitize }}</p>
-        <h4>{{ 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h4>
-        <p>{{ 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
+        <p class="veylune-offcanvas-cart__eyebrow">{{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Local commerce test' : 'Shopping cart' }}</p>
+        <h4>{{ context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] ? 'Your cart is empty' : 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h4>
+        <p>{{ context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] ? 'Explore the catalog and add a product to begin your order.' : 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
     </div>
 {% endblock %}
 
 {% block component_offcanvas_cart_actions_checkout %}
+    {% if context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+        {{ parent() }}
+    {% else %}
     <div class="d-grid">
         <a {% if isCartNotEmpty %}href="{{ path('frontend.veylune.consultation.page', { source: 'cart' }) }}"{% else %}aria-disabled="true" tabindex="-1"{% endif %}
            class="btn begin-checkout-btn{% if isCartNotEmpty %} veylune-button{% else %} btn-light disabled{% endif %}"
@@ -43,6 +48,7 @@
             {{ 'veylune.cart.requestAcquisition'|trans|sw_sanitize }}
         </a>
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block component_offcanvas_cart_actions_cart %}
@@ -50,7 +56,7 @@
         <a href="{{ path('frontend.checkout.cart.page') }}"
            class="btn btn-link"
            title="{{ 'veylune.cart.viewSelection'|trans|striptags }}">
-            {{ 'veylune.cart.viewSelection'|trans|sw_sanitize }}
+            {{ context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] ? 'View cart' : 'veylune.cart.viewSelection'|trans|sw_sanitize }}
         </a>
     </div>
 {% endblock %}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0",
+  "capturedAt": "2026-09-29",
+  "scope": "local-test-and-supplier-demonstration",
+  "status": "pass",
+  "decision": "approved",
+  "orderEvidence": {
+    "displayOrderNumber": "10032",
+    "orderId": "01a0ed50842d73ff89cbb1aeef98082a",
+    "payment": "synthetic-no-charge",
+    "externalSideEffects": false
+  },
+  "checks": {
+    "storefrontBuild": "pass",
+    "themeCompilation": "pass",
+    "cacheWarmup": "pass",
+    "twigFiles": 106,
+    "twigLint": "pass",
+    "routeUnification": "pass",
+    "governance": "pass",
+    "performanceBaseline": "pass",
+    "productionReadinessBaseline": "pass",
+    "composerSecurityAudit": "pass",
+    "cartMutation": "pass",
+    "accountLifecycle": "pass",
+    "checkoutSuccess": "pass",
+    "responsiveViewports": [390, 768, 1440],
+    "browserPageErrors": 0
+  },
+  "evidence": [
+    "reports/final-stateful/cart/result.json",
+    "reports/final-stateful/account/account-result.json",
+    "reports/final-stateful/checkout/result.json",
+    "reports/local-commerce/final-signoff",
+    "docs/veylune-supplier-demo-technical-signoff.md"
+  ],
+  "excluded": [
+    "real-supplier-contracts-and-data",
+    "external-payment-certification",
+    "eu-hosting-domain-and-production-launch"
+  ]
+}

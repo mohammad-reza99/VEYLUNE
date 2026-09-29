@@ -48,7 +48,7 @@
         <nav class="vli-object__breadcrumb" aria-label="Breadcrumb">
             <a href="{{ path('frontend.home.page') }}">{{ 'veylune.destination.breadcrumb.home'|trans|sw_sanitize }}</a>
             <span aria-hidden="true">/</span>
-            <a href="{{ path('frontend.veylune.discovery.category', { categoryKey: object.departmentKey }) }}">{{ object.departmentLabel }}</a>
+            <a href="{{ path('frontend.veylune.catalog.category', { categoryKey: object.departmentKey }) }}">{{ object.departmentLabel }}</a>
             <span aria-hidden="true">/</span>
             <span>{{ 'veylune.objectMode.breadcrumbObject'|trans|sw_sanitize }}</span>
             <span aria-hidden="true">/</span>
@@ -215,15 +215,15 @@
                 <h2 id="vli-object-context-title">{{ 'veylune.objectMode.contextTitle'|trans|sw_sanitize }}</h2>
                 <p>{{ 'veylune.objectMode.contextText'|trans|sw_sanitize }}</p>
                 <nav aria-label="{{ 'veylune.objectMode.contextNavLabel'|trans|striptags }}">
-                    <a href="{{ path('frontend.veylune.discovery.room', { roomKey: objectRoomKey }) }}">
+                    <a href="{{ path('frontend.veylune.catalog.room', { roomKey: objectRoomKey }) }}">
                         <span>01</span><strong>{{ 'veylune.objectMode.contextRoomCta'|trans({ '%room%': objectRoom })|sw_sanitize }}</strong><b aria-hidden="true">&rarr;</b>
                     </a>
                     {% if objectCollectionKey %}
-                        <a href="{{ path('frontend.veylune.discovery.collection', { collectionKey: objectCollectionKey }) }}">
+                        <a href="{{ path('frontend.veylune.catalog.collection', { collectionKey: objectCollectionKey }) }}">
                             <span>02</span><strong>{{ 'veylune.objectMode.contextCollectionCta'|trans|sw_sanitize }}</strong><b aria-hidden="true">&rarr;</b>
                         </a>
                     {% endif %}
-                    <a href="{{ path('frontend.veylune.discovery.category', { categoryKey: object.departmentKey }) }}">
+                    <a href="{{ path('frontend.veylune.catalog.category', { categoryKey: object.departmentKey }) }}">
                         <span>{{ objectCollectionKey ? '03' : '02' }}</span><strong>{{ 'veylune.objectMode.contextObjectCta'|trans|sw_sanitize }}</strong><b aria-hidden="true">&rarr;</b>
                     </a>
                 </nav>

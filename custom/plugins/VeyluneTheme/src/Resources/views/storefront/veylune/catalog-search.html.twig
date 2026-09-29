@@ -1,0 +1,45 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <div class="veylune-preview veylune-preview--destination veylune-preview-marketplace-destination veylune-catalog-search">
+        <nav class="veylune-preview-marketplace-destination__breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ path('frontend.veylune.catalog.home') }}">Catalog</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Search</span>
+        </nav>
+
+        <header class="veylune-catalog-search__hero">
+            <p class="veylune-preview-marketplace-destination__eyebrow">Catalog search</p>
+            <h1>Results for &ldquo;{{ veyluneSearchQuery }}&rdquo;</h1>
+            <p>
+                {% if veyluneSearchProducts is empty %}
+                    No products matched this search. Try a product type, room, material or product code.
+                {% else %}
+                    {{ veyluneSearchProducts|length }} {{ veyluneSearchProducts|length == 1 ? 'product' : 'products' }} matched across the current Veylune catalog.
+                {% endif %}
+            </p>
+            <form class="veylune-catalog-search__form" action="{{ path('frontend.veylune.catalog.search') }}" method="get" role="search">
+                <label class="visually-hidden" for="veyluneCatalogSearchInput">Search the product catalog</label>
+                <input id="veyluneCatalogSearchInput" type="search" name="q" value="{{ veyluneSearchQuery }}" required autocomplete="off" placeholder="Try sofa, oak, lighting, or F02">
+                <button type="submit">Search catalog</button>
+            </form>
+        </header>
+
+        {% sw_include '@Storefront/storefront/veylune/discovery-listing.html.twig' with {
+            discoveryListingId: 'veyluneCatalogSearchResults',
+            discoveryListingScope: 'public',
+            discoveryListingEyebrow: 'Search results',
+            discoveryListingTitle: veyluneSearchProducts is empty ? 'No matching products' : 'Matching products',
+            discoveryListingLabel: 'Catalog search results for ' ~ veyluneSearchQuery,
+            discoveryListingDescription: 'Refine the result by product family, material, price or availability.',
+            discoveryProducts: veyluneSearchProducts,
+            discoveryTypeChips: veyluneSearchTypeChips,
+            discoveryFilterOptions: veyluneSearchFilterOptions,
+            discoveryCardTemplate: '@Storefront/storefront/veylune/catalog-preview-card.html.twig',
+            discoveryEmptyTitle: 'We could not find a product for this search.',
+            discoveryEmptyText: 'Check the spelling or search by object, room, material, maker, or product code.',
+            discoveryEmptyPrimaryUrl: path('frontend.veylune.catalog.home'),
+            discoveryEmptyPrimaryLabel: 'Explore the catalog'
+        } %}
+    </div>
+{% endblock %}

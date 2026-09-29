@@ -1,0 +1,15 @@
+{% sw_extends '@Storefront/storefront/component/line-item/element/remove.html.twig' %}
+
+{% block component_line_item_remove_button %}
+    {% if context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] %}
+        <button type="submit"
+                aria-label="{{ 'checkout.removeLineItem'|trans({'%lineItemLabel%': label})|striptags }}"
+                title="{{ 'global.default.remove'|trans }}"
+                data-product-id="{{ lineItem.id }}"
+                class="btn btn-outline-secondary btn-sm line-item-remove-button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

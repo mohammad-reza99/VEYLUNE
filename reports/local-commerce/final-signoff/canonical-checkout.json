@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "orderId": "01a0e7e809f4727898ebad263b44827b",
+  "checks": [
+    "canonical cart exposes native checkout action",
+    "fresh guest registration reaches canonical confirm",
+    "local no-charge payment and fixed shipping selected",
+    "confirm passes 390, 768 and 1440 responsive geometry",
+    "unchecked terms are rejected with visible feedback",
+    "one no-charge canonical order reaches the final success page",
+    "no browser page errors"
+  ]
+}

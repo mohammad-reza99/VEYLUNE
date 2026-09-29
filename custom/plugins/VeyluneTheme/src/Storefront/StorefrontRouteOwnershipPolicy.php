@@ -160,7 +160,8 @@ final class StorefrontRouteOwnershipPolicy
             };
         }
 
-        if ($routeName === 'frontend.detail.page' || str_starts_with($routeName, 'frontend.detail.')) {
+        if ($routeName === 'frontend.veylune.catalog.product'
+            || $routeName === 'frontend.detail.page' || str_starts_with($routeName, 'frontend.detail.')) {
             return self::SURFACE_PRODUCTS;
         }
 
@@ -168,22 +169,23 @@ final class StorefrontRouteOwnershipPolicy
             return self::SURFACE_OBJECTS;
         }
 
-        if ($routeName === 'frontend.veylune.discovery.category') {
+        if (in_array($routeName, ['frontend.veylune.catalog.home', 'frontend.veylune.catalog.category', 'frontend.veylune.discovery.category'], true)) {
             return self::SURFACE_CATEGORIES;
         }
 
-        if ($routeName === 'frontend.veylune.discovery.room') {
+        if (in_array($routeName, ['frontend.veylune.catalog.room', 'frontend.veylune.discovery.room'], true)) {
             return self::SURFACE_ROOMS;
         }
 
-        if ($routeName === 'frontend.veylune.discovery.collection'
+        if ($routeName === 'frontend.veylune.catalog.collection'
+            || $routeName === 'frontend.veylune.discovery.collection'
             || $routeName === 'frontend.veylune.discovery.collection.permanent'
             || $routeName === 'frontend.veylune.discovery.collection.editorial'
         ) {
             return self::SURFACE_COLLECTIONS;
         }
 
-        if (str_starts_with($routeName, 'frontend.search.')) {
+        if ($routeName === 'frontend.veylune.catalog.search' || str_starts_with($routeName, 'frontend.search.')) {
             return self::SURFACE_SEARCH;
         }
 

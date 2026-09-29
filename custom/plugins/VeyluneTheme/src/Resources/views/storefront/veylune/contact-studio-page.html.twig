@@ -51,7 +51,7 @@
                 <li>Final scope is agreed separately in writing</li>
             </ul>
             {% if brief.source|default('') == 'selection' %}
-                <a class="veylune-contact-page__selection-link" href="{{ path('frontend.veylune.living_index.selection') }}">Review My Selection</a>
+                <a class="veylune-contact-page__selection-link" href="{{ path('frontend.checkout.cart.page') }}">Review My Cart</a>
             {% elseif isTradeBrief %}
                 <a href="{{ path('frontend.veylune.trade.page') }}">How the Trade Program works</a>
             {% else %}

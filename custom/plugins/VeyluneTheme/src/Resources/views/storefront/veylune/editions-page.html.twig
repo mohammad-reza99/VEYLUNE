@@ -64,7 +64,7 @@
                     { index: '04', query: 'metal', title: 'Metal', text: 'Patina, reflection, structure, and detail.' }
                 ] %}
                 {% for material in materialPaths %}
-                    <a href="{{ path('frontend.veylune.living_index.search', { q: material.query }) }}" data-veylune-material-path="{{ material.query }}">
+                    <a href="{{ path('frontend.veylune.catalog.search', { q: material.query }) }}" data-veylune-material-path="{{ material.query }}">
                         <span>{{ material.index }}</span>
                         <strong>{{ material.title }}</strong>
                         <small>{{ material.text }}</small>

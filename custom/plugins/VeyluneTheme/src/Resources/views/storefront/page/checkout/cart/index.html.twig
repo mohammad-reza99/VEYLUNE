@@ -1,18 +1,20 @@
 {% sw_extends '@Storefront/storefront/page/checkout/cart/index.html.twig' %}
 
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+
 {% block page_checkout_container %}
     {% if page.cart.lineItems.count is same as(0) %}
         <div class="veylune-cart-empty" role="status">
-            <p class="veylune-cart-empty__eyebrow">{{ 'veylune.cart.emptyEyebrow'|trans|sw_sanitize }}</p>
-            <h1>{{ 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h1>
-            <p>{{ 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
+            <p class="veylune-cart-empty__eyebrow">{{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Local commerce test' : 'Shopping cart' }}</p>
+            <h1>{{ context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] ? 'Your cart is empty' : 'veylune.cart.emptyTitle'|trans|sw_sanitize }}</h1>
+            <p>{{ context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] ? 'Explore the catalog and add a product to begin your order.' : 'veylune.cart.emptyText'|trans|sw_sanitize }}</p>
             {% if app.request.query.get('checkout') == 'guarded' %}
                 <p class="veylune-cart-empty__notice" data-veylune-checkout-guard>
                     {{ 'veylune.cart.checkoutGuard'|trans|sw_sanitize }}
                 </p>
             {% endif %}
             <a class="btn veylune-button" href="{{ path('frontend.home.page') }}">
-                {{ 'veylune.cart.continueExploring'|trans|sw_sanitize }}
+                {{ context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] ? 'Continue shopping' : 'veylune.cart.continueExploring'|trans|sw_sanitize }}
             </a>
         </div>
 
@@ -36,9 +38,9 @@
 
 {% block page_checkout_cart_header %}
     <div class="veylune-cart-page__header">
-        <p class="veylune-cart-page__eyebrow">{{ 'veylune.cart.selectionEyebrow'|trans|sw_sanitize }}</p>
+        <p class="veylune-cart-page__eyebrow">{{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Local commerce test' : 'Shopping cart' }}</p>
         <h1 class="cart-main-header">
-            {{ 'veylune.cart.cartTitle'|trans|sw_sanitize }}
+            {{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Your test cart' : 'Your cart' }}
         </h1>
         <span class="cart-main-header-item-counter">
             {{- 'checkout.itemCounter'|trans({'%count%': page.cart.lineItems|length})|sw_sanitize -}}
@@ -48,11 +50,14 @@
 
 {% block page_checkout_summary_header %}
     <h2 class="checkout-aside-summary-header">
-        {{ 'veylune.cart.orderSummary'|trans|sw_sanitize }}
+        {{ context.salesChannel.id == '019f7a00000070008000000000000001' ? 'Test order summary' : 'Order summary' }}
     </h2>
 {% endblock %}
 
 {% block page_checkout_cart_action_proceed %}
+    {% if context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+        {{ parent() }}
+    {% else %}
     <div class="checkout-aside-action d-grid">
         <a href="{{ path('frontend.veylune.consultation.page', { source: 'cart' }) }}"
            class="btn btn-lg veylune-button begin-checkout-btn"
@@ -60,4 +65,5 @@
             {{ 'veylune.cart.requestAcquisition'|trans|sw_sanitize }}
         </a>
     </div>
+    {% endif %}
 {% endblock %}

@@ -1,0 +1,103 @@
+// Canonical marketplace header search suggestions.
+.veylune-marketplace-search {
+    position: relative;
+    z-index: 35;
+}
+
+.vli-header-suggest {
+    position: absolute;
+    z-index: 80;
+    top: calc(100% + .5rem);
+    right: 0;
+    left: 0;
+    padding: 1rem;
+    border: 1px solid #d7d2d8;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 18px 48px rgba(32, 22, 33, .18);
+    color: #171419;
+}
+
+.vli-header-suggest[hidden],
+.vli-header-suggest [hidden] {
+    display: none !important;
+}
+
+.vli-header-suggest__query {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    min-height: 48px;
+    align-items: center;
+    gap: .5rem;
+    margin: -.25rem -.25rem .75rem;
+    padding: .65rem .75rem;
+    border-radius: 5px;
+    background: #f6eef7;
+    color: #171419;
+    text-decoration: none;
+}
+
+.vli-header-suggest__query span,
+.vli-header-suggest__query b {
+    color: #625c63;
+    font-size: .72rem;
+    font-weight: 650;
+}
+
+.vli-header-suggest__query strong {
+    overflow: hidden;
+    font-size: .82rem;
+    font-weight: 780;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vli-header-suggest__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.vli-header-suggest__grid > div {
+    display: grid;
+    align-content: start;
+    gap: .1rem;
+}
+
+.vli-header-suggest__grid p {
+    margin: 0 0 .35rem;
+    color: #625c63;
+    font-size: .66rem;
+    font-weight: 760;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.vli-header-suggest__grid a {
+    display: flex;
+    min-height: 38px;
+    align-items: center;
+    padding: .4rem .5rem;
+    border-radius: 4px;
+    color: #171419;
+    font-size: .78rem;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.vli-header-suggest__grid a:hover,
+.vli-header-suggest__grid a:focus-visible,
+.vli-header-suggest__query:hover,
+.vli-header-suggest__query:focus-visible {
+    background: #eee1f0;
+    outline: 2px solid transparent;
+}
+
+.vli-header-suggest > small {
+    display: block;
+    margin-top: .75rem;
+    padding-top: .65rem;
+    border-top: 1px solid #e5e1e6;
+    color: #777079;
+    font-size: .65rem;
+}

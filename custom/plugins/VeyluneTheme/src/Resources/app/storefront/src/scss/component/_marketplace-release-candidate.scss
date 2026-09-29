@@ -75,41 +75,4 @@
     .vli-account-create__action {
         width: 100%;
     }
-
-    .vli-search-results-toolbar {
-        grid-template-columns: auto minmax(0, 1fr);
-    }
-
-    .vli-search-mobile-filters {
-        grid-column: 1;
-        grid-row: 1;
-    }
-
-    .vli-search-results-toolbar__selection {
-        grid-column: 2;
-        grid-row: 1;
-        justify-self: end;
-    }
-
-    .vli-search-sort {
-        grid-column: 1 / -1;
-        grid-row: 2;
-        width: 100%;
-        justify-self: stretch;
-    }
-
-    .vli-search-sort select {
-        min-width: 0;
-        flex: 1 1 auto;
-    }
-
-    .vli-search-sort button {
-        position: static;
-        width: auto;
-        height: 44px;
-        min-width: 72px;
-        overflow: visible;
-        clip: auto;
-        white-space: nowrap;
-    }
 }

@@ -3,6 +3,7 @@
 namespace VeyluneTheme\Subscriber;
 
 use VeyluneTheme\Controller\EditionsController;
+use VeyluneTheme\Testing\LocalCommerce;
 use Shopware\Core\Framework\Event\BeforeSendRedirectResponseEvent;
 use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\PlatformRequest;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use VeyluneTheme\Storefront\StorefrontRoleRegistry;
@@ -56,6 +58,13 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.living_index.search',
         'frontend.veylune.living_index.selection',
         'frontend.veylune.object.page',
+        'frontend.veylune.catalog.home',
+        'frontend.veylune.catalog.search',
+        'frontend.veylune.catalog.category',
+        'frontend.veylune.catalog.room',
+        'frontend.veylune.catalog.collection',
+        'frontend.veylune.catalog.product',
+        'frontend.veylune.catalog.test_cart.add',
         'frontend.veylune.preview.catalog.home',
         'frontend.veylune.preview.catalog.category',
         'frontend.veylune.preview.catalog.room',
@@ -65,6 +74,14 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.veylune.preview.checkout',
         'frontend.veylune.preview.account',
         'frontend.checkout.cart.page',
+        'frontend.checkout.info',
+        'frontend.checkout.cart.json',
+        'frontend.cart.offcanvas',
+        'frontend.checkout.line-item.change-quantity',
+        'frontend.checkout.line-item.delete',
+        'frontend.checkout.line-items.update',
+        'frontend.checkout.line-items.delete',
+        'frontend.checkout.cart.delete',
         'frontend.form.contact.send',
         'frontend.country.country.data',
         'frontend.captcha.basic-captcha.load',
@@ -80,6 +97,14 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.footer',
     ];
 
+    private const CANONICAL_LOCAL_CHECKOUT_ROUTE_NAMES = [
+        'frontend.checkout.register.page',
+        'frontend.checkout.confirm.page',
+        'frontend.checkout.configure',
+        'frontend.checkout.finish.order',
+        'frontend.checkout.finish.page',
+    ];
+
     public function __construct(private readonly string $environment)
     {
     }
@@ -89,8 +114,17 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         return [
             KernelEvents::REQUEST => ['enforceAllowlist', -5],
             KernelEvents::EXCEPTION => 'enforceNotFoundDenial',
+            KernelEvents::RESPONSE => 'protectLocalCommerceResponse',
             BeforeSendRedirectResponseEvent::class => 'enforceCanonicalRedirectAllowlist',
         ];
+    }
+
+    public function protectLocalCommerceResponse(ResponseEvent $event): void
+    {
+        if ($event->getRequest()->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) === LocalCommerce::CHANNEL) {
+            $event->getResponse()->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+            $event->getResponse()->headers->set('Cache-Control', 'no-store, private');
+        }
     }
 
     public function enforceNotFoundDenial(ExceptionEvent $event): void
@@ -113,6 +147,11 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
     {
         $request = $event->getRequest();
 
+        if (LocalCommerce::matches($request, $this->environment)
+            || $this->isCanonicalLocalCheckoutRoute($request)) {
+            return;
+        }
+
         if (!$this->isCanonicalPublicStorefrontRequest($request)) {
             return;
         }
@@ -134,6 +173,15 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         $originalRequestUri = (string) $request->attributes->get(RequestTransformer::ORIGINAL_REQUEST_URI, $request->getRequestUri());
         $originalPath = parse_url($originalRequestUri, \PHP_URL_PATH) ?: $request->getPathInfo();
 
+        if ($request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) === LocalCommerce::CHANNEL) {
+            if (!LocalCommerce::matches($request, $this->environment)) {
+                $event->setResponse($this->deniedResponse($request));
+            } elseif ($request->attributes->get('_route') === 'frontend.home.page') {
+                $event->setResponse(new RedirectResponse($request->getBaseUrl() . '/test-products'));
+            }
+            return;
+        }
+
         // A legacy Shopware SEO URL maps /journal to an old landing page before
         // Symfony route matching. Preserve Admin data while making the approved
         // public editorial controller authoritative for the canonical path.
@@ -152,22 +200,24 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             return;
         }
 
-        if ($this->isCanonicalPublicStorefrontRequest($request) && $originalPath === '/checkout/confirm') {
+        if ($this->isCanonicalPublicStorefrontRequest($request)
+            && $originalPath === '/checkout/confirm'
+            && !$this->isCanonicalLocalCheckoutRoute($request)) {
             $event->setResponse(new RedirectResponse('/checkout/cart?checkout=guarded', Response::HTTP_SEE_OTHER));
 
             return;
         }
 
         if ($this->isCanonicalPublicStorefrontRequest($request) && $originalPath === '/wishlist') {
-            $event->setResponse(new RedirectResponse('/selection?source=wishlist', Response::HTTP_FOUND));
+            $event->setResponse(new RedirectResponse('/checkout/cart?source=wishlist', Response::HTTP_SEE_OTHER));
 
             return;
         }
 
         if ($this->isCanonicalPublicStorefrontRequest($request)) {
             $legacyCollectionCanonicalPath = match ($originalPath) {
-                '/collections/permanent-collections' => '/collections/permanent',
-                '/collections/editorial-collections' => '/collections/editorial',
+                '/collections/permanent-collections' => '/catalog',
+                '/collections/editorial-collections' => '/editions',
                 default => null,
             };
 
@@ -216,13 +266,21 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             return;
         }
 
-        if ($this->isActivationPendingRoute($request)) {
-            $event->setResponse($this->deniedResponse($request));
+        if ($this->isCanonicalLocalFixtureCartMutation($request)) {
+            return;
+        }
 
+        if ($this->isCanonicalLocalCheckoutRoute($request)) {
             return;
         }
 
         if ($this->isAllowed($request)) {
+            return;
+        }
+
+        if ($this->isActivationPendingRoute($request)) {
+            $event->setResponse($this->deniedResponse($request));
+
             return;
         }
 
@@ -316,6 +374,45 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             (string) $request->attributes->get('_route'),
             \is_string($navigationId) ? $navigationId : null
         );
+    }
+
+    private function isCanonicalLocalFixtureCartMutation(Request $request): bool
+    {
+        if ($this->environment !== 'dev'
+            || getenv('DDEV_PROJECT') !== 'veylune-shopware'
+            || $request->getHost() !== 'veylune-shopware.ddev.site'
+            || $request->attributes->get('_route') !== 'frontend.checkout.line-item.add'
+            || !$request->isMethod(Request::METHOD_POST)) {
+            return false;
+        }
+
+        $lineItems = $request->request->all('lineItems');
+        if ($lineItems === []) {
+            return false;
+        }
+
+        $allowed = array_fill_keys(array_map(LocalCommerce::productId(...), range(0, 9)), true);
+        foreach ($lineItems as $lineItem) {
+            $referencedId = is_array($lineItem) ? (string) ($lineItem['referencedId'] ?? '') : '';
+            if (!isset($allowed[$referencedId])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function isCanonicalLocalCheckoutRoute(Request $request): bool
+    {
+        return $this->environment === 'dev'
+            && getenv('DDEV_PROJECT') === 'veylune-shopware'
+            && $request->getHost() === 'veylune-shopware.ddev.site'
+            && $request->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) === LocalCommerce::CANONICAL_CHANNEL
+            && \in_array(
+                (string) $request->attributes->get('_route'),
+                self::CANONICAL_LOCAL_CHECKOUT_ROUTE_NAMES,
+                true
+            );
     }
 
     /**

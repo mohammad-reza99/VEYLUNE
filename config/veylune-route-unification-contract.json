@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "policy": "one public catalog, native cart, isolated token preview",
+  "canonicalRoutes": [
+    "/",
+    "/catalog",
+    "/catalog/category/furniture",
+    "/catalog/room/living-room",
+    "/catalog/collection/founder-selection",
+    "/catalog/search?q=chair",
+    "/catalog/product/F04",
+    "/editions",
+    "/journal",
+    "/inspiration",
+    "/private-consultation",
+    "/trade-program",
+    "/about-studio",
+    "/contact-studio",
+    "/checkout/cart"
+  ],
+  "aliases": [
+    {"path": "/discover?q=chair", "status": 301, "location": "/catalog/search?q=chair"},
+    {"path": "/discover", "status": 301, "location": "/catalog"},
+    {"path": "/categories/furniture?sort=name", "status": 301, "location": "/catalog/category/furniture?sort=name"},
+    {"path": "/categories/lighting", "status": 301, "location": "/catalog/category/lighting"},
+    {"path": "/categories/decor-objects", "status": 301, "location": "/catalog/category/decor-objects"},
+    {"path": "/categories/textiles-rugs", "status": 301, "location": "/catalog/category/textiles-rugs"},
+    {"path": "/categories/dining-kitchen", "status": 301, "location": "/catalog/category/dining-kitchen"},
+    {"path": "/categories/outdoor", "status": 301, "location": "/catalog/category/outdoor"},
+    {"path": "/rooms/living-room", "status": 301, "location": "/catalog/room/living-room"},
+    {"path": "/rooms/dining-room", "status": 301, "location": "/catalog/room/dining-room"},
+    {"path": "/rooms/bedroom", "status": 301, "location": "/catalog/room/bedroom"},
+    {"path": "/rooms/workspace", "status": 301, "location": "/catalog/room/workspace"},
+    {"path": "/rooms/hallway", "status": 301, "location": "/catalog/room/hallway"},
+    {"path": "/collections/founder-selection", "status": 301, "location": "/catalog/collection/founder-selection"},
+    {"path": "/collections/new-arrivals", "status": 301, "location": "/catalog/collection/new-arrivals"},
+    {"path": "/collections/permanent-collections", "status": 301, "location": "/catalog"},
+    {"path": "/collections/editorial-collections", "status": 301, "location": "/editions"},
+    {"path": "/selection", "status": 301, "location": "/checkout/cart?source=selection"},
+    {"path": "/wishlist", "status": 303, "location": "/checkout/cart?source=wishlist"},
+    {"path": "/about", "status": 301, "location": "/about-studio"},
+    {"path": "/categories/bedding-bath", "status": 301, "location": "/catalog/search?q=bedding%20bath"},
+    {"path": "/categories/mattresses", "status": 301, "location": "/catalog/search?q=mattress"},
+    {"path": "/categories/rugs", "status": 301, "location": "/catalog/search?q=rug"},
+    {"path": "/categories/organization", "status": 301, "location": "/catalog/search?q=storage"},
+    {"path": "/rooms/outdoor", "status": 301, "location": "/catalog/category/outdoor"},
+    {"path": "/collections/best-sellers", "status": 301, "location": "/catalog?from=best-sellers"},
+    {"path": "/collections/sale", "status": 301, "location": "/catalog?from=sale"},
+    {"path": "/collections/permanent", "status": 301, "location": "/catalog"},
+    {"path": "/collections/editorial", "status": 301, "location": "/editions"}
+  ],
+  "privatePreview": {
+    "path": "/__veylune-preview/catalog",
+    "unauthorizedStatus": 404,
+    "requiredHeaders": {
+      "cache-control": "no-store",
+      "x-robots-tag": "noindex"
+    }
+  },
+  "wave2RetainedCompatibilityRoutes": [
+    "/objects/{productNumber}"
+  ]
+}

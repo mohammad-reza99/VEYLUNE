@@ -104,13 +104,10 @@
 @import "component/marketplace-service-media-closure";
 @import "component/marketplace-content-media-closure";
 @import "component/marketplace-public-accessibility-closure";
-@import "component/living-index-home-foundation";
-@import "component/living-index-storefront";
-@import "component/living-index-discovery";
+@import "component/marketplace-header-core";
 @import "component/living-index-object";
 @import "component/living-index-axis-system";
-@import "component/living-index-search-selection";
-@import "component/living-index-wayfair-parity";
+@import "component/marketplace-header-suggest";
 @import "component/living-index-project-brief";
 @import "component/marketplace-performance-visual-baseline";
 @include veylune-production-readiness;
@@ -118,3 +115,4 @@
 @import "component/marketplace-preview-card-system";
 @import "component/marketplace-preview-home";
 @import "component/marketplace-preview-destination";
+@import "component/local-commerce";

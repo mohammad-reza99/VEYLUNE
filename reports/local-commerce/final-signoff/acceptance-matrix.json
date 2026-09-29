@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0",
+  "capturedAt": "2026-09-28",
+  "scope": "Phase 7A.6 plus Phase 8 local supplier-demo technical acceptance",
+  "status": "pass",
+  "decision": "approved_for_supplier_demo_and_supplier_conversations",
+  "gates": {
+    "responsiveSurfaceMatrix": "pass",
+    "cartRegression": "pass",
+    "checkoutRegression": "pass",
+    "accountAndLifecycle": "pass",
+    "variantAndStockBoundaries": "pass",
+    "variantLineItemRouting": "pass",
+    "singleUnitConcurrency": "pass",
+    "localRefund": "pass",
+    "privateNoStoreNoindexIsolation": "pass",
+    "securityHeaders": "pass",
+    "dependencyAdvisories": "pass_no_advisories",
+    "performanceBudgets": "pass",
+    "productionReadinessBaseline": "pass",
+    "themeBuildAndGovernance": "pass"
+  },
+  "evidence": {
+    "surfaceMatrix": "reports/local-commerce/final-signoff/surface-matrix.json",
+    "cart": "reports/local-commerce/final-signoff/cart.json",
+    "checkout": "reports/local-commerce/final-signoff/checkout.json",
+    "canonicalCheckout": "reports/local-commerce/final-signoff/canonical-checkout.json",
+    "account": "reports/local-commerce/final-signoff/account.json",
+    "accountLifecycle": "reports/local-commerce/final-signoff/account-lifecycle.json",
+    "variants": "reports/local-commerce/final-signoff/variants.json",
+    "stockRace": "reports/local-commerce/final-signoff/stock-race.json",
+    "refund": "reports/local-commerce/final-signoff/refund.json"
+  },
+  "exclusions": [
+    "real supplier evidence and contracts",
+    "supplier-authoritative media price stock and availability",
+    "external payment provider certification",
+    "EU hosting deployment domain cutover and production launch"
+  ],
+  "commercialActivationAllowed": false
+}

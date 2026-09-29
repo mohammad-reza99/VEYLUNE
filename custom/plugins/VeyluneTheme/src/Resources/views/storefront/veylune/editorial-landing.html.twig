@@ -87,7 +87,7 @@
             </header>
             <div class="vli-material-paths__grid">
                 {% for item in editorial.paths %}
-                    <a href="{{ path('frontend.veylune.living_index.search', { q: item.query }) }}">
+                    <a href="{{ path('frontend.veylune.catalog.search', { q: item.query }) }}">
                         <span>0{{ loop.index }}</span>
                         <strong>{{ item.title }}</strong>
                         <small>{{ item.text }}</small>
@@ -103,7 +103,7 @@
                 <h2 id="vli-editorial-closing-title">{{ vliGerman ? 'Aus einer Idee wird eine konkrete Auswahl.' : 'Turn a direction into a concrete selection.' }}</h2>
                 <p>{{ vliGerman ? 'Im Living Index koennen Raeume, Materialien und Objekte gemeinsam durchsucht und gespeichert werden.' : 'Use the Living Index to search and save rooms, materials, and objects together.' }}</p>
             </div>
-            <a class="vli-axis-button vli-axis-button--light" href="{{ path('frontend.veylune.living_index.search') }}">{{ vliGerman ? 'Living Index oeffnen' : 'Open Living Index' }} <span aria-hidden="true">&rarr;</span></a>
+            <a class="vli-axis-button vli-axis-button--light" href="{{ path('frontend.veylune.catalog.home') }}">{{ vliGerman ? 'Katalog oeffnen' : 'Open catalog' }} <span aria-hidden="true">&rarr;</span></a>
         </section>
     </div>
 {% endblock %}

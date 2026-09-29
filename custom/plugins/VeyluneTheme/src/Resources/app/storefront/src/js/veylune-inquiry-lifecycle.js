@@ -152,8 +152,8 @@ const initVeyluneInquiryLifecycle = () => {
         const actions = document.createElement('div');
         actions.className = 'vli-inquiry-confirmation__actions';
         const selectionLink = document.createElement('a');
-        selectionLink.href = '/selection';
-        selectionLink.textContent = 'Return to My Selection';
+        selectionLink.href = '/checkout/cart';
+        selectionLink.textContent = 'Review My Cart';
         const consultationLink = document.createElement('a');
         consultationLink.href = '/private-consultation';
         consultationLink.textContent = 'Review consultation process';

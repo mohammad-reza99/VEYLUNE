@@ -1,0 +1,31 @@
+{% sw_extends '@Storefront/storefront/component/line-item/type/product.html.twig' %}
+
+{% set veyluneTestProductNumber = lineItem.payload.productNumber|default('') %}
+{% set veyluneTestRecordId = veyluneTestProductNumber starts with 'VLT-TEST-'
+    ? veyluneTestProductNumber|replace({'VLT-TEST-': ''})
+    : '' %}
+{% set veyluneTestProductLink = veyluneTestRecordId matches '/^[A-Z][0-9]{2}$/'
+    ? path('frontend.veylune.catalog.product', { recordId: veyluneTestRecordId })
+    : null %}
+
+{% block component_line_item_type_product_image_inner %}
+    {% if veyluneTestProductLink %}
+        {% sw_include '@Storefront/storefront/component/line-item/element/image.html.twig' with {
+            lineItemLink: veyluneTestProductLink,
+            lineItemModalLink: false,
+        } %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_line_item_type_product_label %}
+    {% if veyluneTestProductLink %}
+        {% sw_include '@Storefront/storefront/component/line-item/element/label.html.twig' with {
+            lineItemLink: veyluneTestProductLink,
+            lineItemModalLink: false,
+        } %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

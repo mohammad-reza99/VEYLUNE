@@ -201,7 +201,9 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
                 : null;
             emitSelectionChange(selectionState);
         } catch (error) {
-            cartStatus.textContent = 'Preview cart updated for this session. Browser storage is unavailable.';
+            if (cartStatus) {
+                cartStatus.textContent = 'Preview cart updated for this session. Browser storage is unavailable.';
+            }
         }
     };
 
@@ -216,6 +218,7 @@ document.querySelectorAll('[data-veylune-pdp-preview]').forEach((root) => {
         if (cartEmpty) cartEmpty.hidden = hasSelection;
         if (cartContent) cartContent.hidden = !hasSelection;
         if (!selection) return;
+        if (!cartMaterial || !cartQuantity || !cartSubtotal || !cartTotal || !cartDecrease || !cartIncrease) return;
         const subtotal = selection.unitPrice * selection.quantity;
         cartMaterial.textContent = selection.material;
         cartQuantity.textContent = String(selection.quantity);

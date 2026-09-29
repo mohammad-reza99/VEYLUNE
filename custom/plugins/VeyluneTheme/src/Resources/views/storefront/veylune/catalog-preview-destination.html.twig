@@ -3,6 +3,13 @@
 {% set axisLabel = veylunePreviewType == 'category'
     ? 'Departments'
     : (veylunePreviewType == 'room' ? 'Rooms' : 'Collections') %}
+{% set veyluneCatalogIsPublic = veyluneCatalogRouteMode|default('preview') == 'public' %}
+{% set veyluneCatalogRouteParams = veyluneCatalogIsPublic ? {} : { token: veylunePreviewToken } %}
+{% set veyluneCatalogHomeRoute = veyluneCatalogIsPublic ? 'frontend.veylune.catalog.home' : 'frontend.veylune.preview.catalog.home' %}
+{% set veyluneCatalogCategoryRoute = veyluneCatalogIsPublic ? 'frontend.veylune.catalog.category' : 'frontend.veylune.preview.catalog.category' %}
+{% set veyluneCatalogRoomRoute = veyluneCatalogIsPublic ? 'frontend.veylune.catalog.room' : 'frontend.veylune.preview.catalog.room' %}
+{% set veyluneCatalogCollectionRoute = veyluneCatalogIsPublic ? 'frontend.veylune.catalog.collection' : 'frontend.veylune.preview.catalog.collection' %}
+{% set veyluneDestinationListingId = veyluneCatalogIsPublic ? 'veyluneCatalogListing' : 'veylunePrivateListing' %}
 
 {% block base_content %}
     <div class="veylune-preview veylune-preview--destination veylune-preview-marketplace-destination"
@@ -10,7 +17,7 @@
          data-preview-destination-type="{{ veylunePreviewType }}"
          data-preview-destination-key="{{ veylunePreviewKey }}">
         <nav class="veylune-preview-marketplace-destination__breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Private catalog</a>
+            <a href="{{ path(veyluneCatalogHomeRoute, veyluneCatalogRouteParams) }}">Catalog</a>
             <span aria-hidden="true">/</span>
             <span>{{ axisLabel }}</span>
             <span aria-hidden="true">/</span>
@@ -23,8 +30,8 @@
                 <h1>{{ veylunePreviewTitle }}</h1>
                 <p class="veylune-preview-marketplace-destination__summary">{{ veylunePreviewDestination.summary }}</p>
                 <div class="veylune-preview-marketplace-destination__hero-actions">
-                    <a class="is-primary" href="#veyluneProductGrid">Browse {{ veylunePreviewProducts|length }} products</a>
-                    <a href="{{ path('frontend.veylune.preview.catalog.home', { token: veylunePreviewToken }) }}">Return to catalog</a>
+                    <a class="is-primary" href="#{{ veyluneDestinationListingId }}">Browse {{ veylunePreviewProducts|length }} products</a>
+                    <a href="{{ path(veyluneCatalogHomeRoute, veyluneCatalogRouteParams) }}">Return to catalog</a>
                 </div>
             </div>
             <figure class="veylune-preview-marketplace-destination__hero-media">
@@ -35,7 +42,7 @@
                      loading="eager"
                      fetchpriority="high"
                      decoding="async">
-                <figcaption>{{ veylunePreviewTitle }} / Private catalog edit</figcaption>
+                <figcaption>{{ veylunePreviewTitle }} / {{ veyluneCatalogIsPublic ? 'Catalog edit' : 'Private catalog edit' }}</figcaption>
             </figure>
         </header>
 
@@ -48,29 +55,31 @@
         <nav class="veylune-preview-marketplace-destination__peer-nav" aria-label="Browse {{ axisLabel }}">
             <div>
                 <p class="veylune-preview-marketplace-destination__eyebrow">Explore {{ axisLabel|lower }}</p>
-                <strong>Move across the private catalog</strong>
+                <strong>{{ veyluneCatalogIsPublic ? 'Move across the catalog' : 'Move across the private catalog' }}</strong>
             </div>
             <div class="veylune-preview-marketplace-destination__peer-links">
                 {% for key, label in veylunePreviewPeers %}
                     <a class="{{ key == veylunePreviewKey ? 'is-current' : '' }}"
                        href="{{ veylunePreviewType == 'category'
-                           ? path('frontend.veylune.preview.catalog.category', { categoryKey: key, token: veylunePreviewToken })
+                           ? path(veyluneCatalogCategoryRoute, veyluneCatalogRouteParams|merge({ categoryKey: key }))
                            : (veylunePreviewType == 'room'
-                               ? path('frontend.veylune.preview.catalog.room', { roomKey: key, token: veylunePreviewToken })
-                               : path('frontend.veylune.preview.catalog.collection', { collectionKey: key, token: veylunePreviewToken })) }}"
+                               ? path(veyluneCatalogRoomRoute, veyluneCatalogRouteParams|merge({ roomKey: key }))
+                               : path(veyluneCatalogCollectionRoute, veyluneCatalogRouteParams|merge({ collectionKey: key }))) }}"
                        {% if key == veylunePreviewKey %}aria-current="page"{% endif %}>{{ label }}</a>
                 {% endfor %}
             </div>
         </nav>
 
         {% sw_include '@Storefront/storefront/veylune/discovery-listing.html.twig' with {
-            discoveryListingId: 'veylunePrivateListing', discoveryListingScope: 'private',
-            discoveryListingTitle: veylunePreviewTitle ~ ' products', discoveryListingLabel: veylunePreviewTitle ~ ' private catalog products',
+            discoveryListingId: veyluneDestinationListingId,
+            discoveryListingScope: veyluneCatalogIsPublic ? 'public' : 'private',
+            discoveryListingTitle: veylunePreviewTitle ~ ' products',
+            discoveryListingLabel: veylunePreviewTitle ~ (veyluneCatalogIsPublic ? ' catalog products' : ' private catalog products'),
             discoveryProducts: veylunePreviewProducts, discoveryTypeChips: veylunePreviewTypeChips,
             discoveryFilterOptions: veylunePreviewFilterOptions,
             discoveryCardTemplate: '@Storefront/storefront/veylune/catalog-preview-card.html.twig',
             discoveryEmptyTitle: 'No products match these filters.',
-            discoveryEmptyText: 'Clear the active filters or return to the private catalog.'
+            discoveryEmptyText: veyluneCatalogIsPublic ? 'Clear the active filters or return to the catalog.' : 'Clear the active filters or return to the private catalog.'
         } %}
 
         <section class="veylune-preview-marketplace-destination__guide" aria-labelledby="veyluneDestinationGuideTitle">

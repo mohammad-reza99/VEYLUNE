@@ -1,0 +1,22 @@
+{% sw_extends '@Storefront/storefront/layout/footer/footer-minimal.html.twig' %}
+
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestCheckout = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+
+{% block layout_footer_inner_container %}
+    {% if isLocalTestCheckout %}
+        <footer class="footer-minimal veylune-checkout-footer">
+            <div class="veylune-checkout-footer__inner">
+                <a class="veylune-checkout-footer__brand" href="{{ isCanonicalLocalCheckout ? path('frontend.home.page') : path('frontend.veylune.local_commerce') }}">veylune</a>
+                <p>Encrypted local test checkout. No external payment provider, charge or supplier reservation.</p>
+                <nav aria-label="Checkout information">
+                    <a href="{{ path('frontend.veylune.legal.page', { document: 'privacy' }) }}">Privacy</a>
+                    <a href="{{ path('frontend.veylune.legal.page', { document: 'terms' }) }}">Terms</a>
+                    <a href="{{ path('frontend.veylune.contact.page') }}">Contact Studio</a>
+                </nav>
+            </div>
+        </footer>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

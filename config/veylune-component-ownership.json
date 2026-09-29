@@ -10,9 +10,9 @@
     "sourceOrderIsBehaviorUntilConsolidated": true
   },
   "baseline": {
-    "scssFiles": 119,
-    "baseImports": 117,
-    "scssLines": 30798,
+    "scssFiles": 117,
+    "baseImports": 115,
+    "scssLines": 28204,
     "scssLineMetric": "PHP file logical lines; two more than newline count because two files have no terminal newline",
     "importantDeclarations": 130,
     "debtNamedFiles": 39,
@@ -20,7 +20,7 @@
     "headerSelectorFiles": 31,
     "sharedControlSelectorFiles": 29,
     "javascriptFiles": 19,
-    "twigFiles": 102
+    "twigFiles": 106
   },
   "phase13Quarantine": {
     "preQuarantineScssFiles": 138,
@@ -35,6 +35,18 @@
     "importantDeclarationMetric": "all active SCSS files; Phase 1.3 ceiling is 130"
   },
   "components": [
+    {
+      "id": "local_test_commerce",
+      "label": "Isolated native commerce test fixtures and cart badge",
+      "canonical": {
+        "scss": ["component/local-commerce"],
+        "twig": ["veylune/local-commerce.html.twig", "layout/header/actions/cart-widget.html.twig", "layout/header/header-minimal.html.twig", "base.html.twig", "component/line-item/element/remove.html.twig"],
+        "javascript": []
+      },
+      "scssImports": ["component/local-commerce"],
+      "javascriptModules": [],
+      "consolidationTarget": "Keep test-only overrides scoped; native Shopware owns transaction behavior."
+    },
     {
       "id": "foundation_controls",
       "label": "Foundation tokens and shared controls",
@@ -54,7 +66,7 @@
       "id": "global_shell",
       "label": "Topbar header navigation mega menu mobile drawer and footer",
       "canonical": {
-        "scss": ["component/topbar", "component/header", "component/navigation", "component/footer"],
+        "scss": ["component/topbar", "component/header", "component/navigation", "component/footer", "component/marketplace-header-core", "component/marketplace-header-suggest"],
         "twig": [
           "layout/header.html.twig",
           "layout/header/header.html.twig",
@@ -63,7 +75,7 @@
         ],
         "javascript": ["veylune-header.js"]
       },
-      "scssImports": ["component/topbar", "component/header", "component/navigation", "component/footer"],
+      "scssImports": ["component/topbar", "component/header", "component/navigation", "component/footer", "component/marketplace-header-core", "component/marketplace-header-suggest"],
       "javascriptModules": ["veylune-header.js"],
       "consolidationTarget": "Complete in Phase 2.1G: four SCSS owners, one header behavior module, and one Twig shell family."
     },
@@ -228,23 +240,21 @@
     },
     {
       "id": "living_index",
-      "label": "Living Index home discovery object axes search selection and project brief",
+      "label": "Living Index object compatibility axes and project brief",
       "canonical": {
         "scss": [
-          "component/living-index-home-foundation", "component/living-index-storefront", "component/living-index-discovery",
-          "component/living-index-object", "component/living-index-axis-system", "component/living-index-search-selection",
+          "component/living-index-object", "component/living-index-axis-system",
           "component/living-index-project-brief"
         ],
-        "twig": ["veylune/living-index-home.html.twig", "veylune/living-index-discovery.html.twig", "veylune/living-index-object.html.twig", "veylune/living-index-axis-map.html.twig", "veylune/living-index-search.html.twig", "veylune/living-index-selection.html.twig"],
+        "twig": ["veylune/living-index-object.html.twig", "veylune/living-index-axis-map.html.twig"],
         "javascript": ["veylune-living-index-state.js", "veylune-project-brief.js"]
       },
       "scssImports": [
-        "component/living-index-home-foundation", "component/living-index-storefront", "component/living-index-discovery",
-        "component/living-index-object", "component/living-index-axis-system", "component/living-index-search-selection",
-        "component/living-index-wayfair-parity", "component/living-index-project-brief"
+        "component/living-index-object", "component/living-index-axis-system",
+        "component/living-index-project-brief"
       ],
       "javascriptModules": ["veylune-living-index-state.js", "veylune-project-brief.js"],
-      "consolidationTarget": "Fold wayfair-parity corrections into the named Living Index surface owners after screenshot parity is locked."
+      "consolidationTarget": "Keep the object route as a compatibility fallback; public discovery, search, selection and commerce belong to the canonical catalog and native cart."
     },
     {
       "id": "cross_cutting_release",

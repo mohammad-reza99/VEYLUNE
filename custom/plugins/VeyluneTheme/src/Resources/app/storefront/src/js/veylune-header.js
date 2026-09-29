@@ -32,6 +32,7 @@ const initVeyluneHeader = () => {
     const mobileAccordions = [...(mobileNav?.querySelectorAll('[data-veylune-mobile-accordion]') || [])];
     const marketplaceSearchInput = header.querySelector('[data-vli-header-search-input]');
     const marketplaceSearchPanel = header.querySelector('[data-vli-header-suggest]');
+    const marketplaceSearchRoot = marketplaceSearchInput?.closest('[data-veylune-header-search]');
     const marketplaceSearchForm = marketplaceSearchInput?.closest('form');
     const marketplaceQueryLink = marketplaceSearchPanel?.querySelector('[data-vli-header-query-link]');
     const marketplaceQueryLabel = marketplaceSearchPanel?.querySelector('[data-vli-header-query-label]');
@@ -405,6 +406,7 @@ const initVeyluneHeader = () => {
 
     marketplaceSearchInput?.addEventListener('focus', updateMarketplaceSuggestions);
     marketplaceSearchInput?.addEventListener('input', updateMarketplaceSuggestions);
+    marketplaceSearchRoot?.addEventListener('mouseleave', () => closeMarketplaceSuggestions());
     marketplaceSearchInput?.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') {
             return;

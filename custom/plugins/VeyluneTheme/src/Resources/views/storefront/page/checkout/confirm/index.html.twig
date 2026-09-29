@@ -1,10 +1,13 @@
 {% sw_extends '@Storefront/storefront/page/checkout/confirm/index.html.twig' %}
 
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestCheckout = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+
 {% block page_checkout_confirm_header %}
     <div class="veylune-checkout-page__header">
-        <p class="veylune-checkout-page__eyebrow">{{ 'veylune.checkout.privateAcquisition'|trans|sw_sanitize }}</p>
+        <p class="veylune-checkout-page__eyebrow">{{ isLocalTestCheckout ? 'Local test checkout' : 'veylune.checkout.privateAcquisition'|trans|sw_sanitize }}</p>
         <h1 class="confirm-main-header">
-            {{ 'veylune.checkout.confirmSelection'|trans|sw_sanitize }}
+            {{ isLocalTestCheckout ? 'Review your test order' : 'veylune.checkout.confirmSelection'|trans|sw_sanitize }}
         </h1>
         <span class="confirm-main-header-item-counter">
             {{- 'checkout.itemCounter'|trans({'%count%': page.cart.lineItems|length})|sw_sanitize -}}
@@ -27,7 +30,7 @@
                 disabled
             {% endif %}
                 type="submit">
-            {{ 'veylune.checkout.completeOrder'|trans|sw_sanitize }}
+            {{ isLocalTestCheckout ? 'Place test order - no charge' : 'veylune.checkout.completeOrder'|trans|sw_sanitize }}
         </button>
     </div>
 {% endblock %}

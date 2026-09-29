@@ -24,9 +24,9 @@ final class VisionPrototypeController extends StorefrontController
     private const DESTINATIONS = [
         'home' => ['route' => 'frontend.home.page', 'parameters' => []],
         'header' => ['route' => 'frontend.home.page', 'parameters' => []],
-        'department' => ['route' => 'frontend.veylune.discovery.category', 'parameters' => ['categoryKey' => 'furniture']],
-        'listing' => ['route' => 'frontend.veylune.discovery.category', 'parameters' => ['categoryKey' => 'furniture']],
-        'product' => ['route' => 'frontend.veylune.discovery.category', 'parameters' => ['categoryKey' => 'furniture']],
+        'department' => ['route' => 'frontend.veylune.catalog.category', 'parameters' => ['categoryKey' => 'furniture']],
+        'listing' => ['route' => 'frontend.veylune.catalog.category', 'parameters' => ['categoryKey' => 'furniture']],
+        'product' => ['route' => 'frontend.veylune.catalog.category', 'parameters' => ['categoryKey' => 'furniture']],
     ];
 
     public function __construct(private readonly string $environment)

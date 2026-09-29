@@ -1,10 +1,13 @@
 {% sw_extends '@Storefront/storefront/page/account/register/index.html.twig' %}
 
+{% set isCanonicalLocalAccount = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestAccount = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalAccount %}
+
 {% block page_account_register_header %}
     <header class="vli-account-entry__header" data-vli-visual-baseline="account-entry">
-        <p class="vli-account-entry__kicker">Member access / Private account</p>
+        <p class="vli-account-entry__kicker">{{ isLocalTestAccount ? 'Account access / Local test' : 'Member access / Private account' }}</p>
         <h1>{{ 'account.loginRegistrationHeader'|trans|sw_sanitize }}</h1>
-        <p class="vli-account-entry__intro">Sign in to continue an existing request, or create an account for saved addresses, project history, and a faster return visit.</p>
+        <p class="vli-account-entry__intro">{{ isLocalTestAccount ? 'Sign in or create a local test account for saved addresses, order history and faster test checkout.' : 'Sign in to continue an existing request, or create an account for saved addresses, project history, and a faster return visit.' }}</p>
     </header>
 {% endblock %}
 
@@ -13,8 +16,8 @@
         <div class="col-lg-8">
             <section class="vli-account-create" aria-labelledby="vli-account-create-title">
                 <p class="vli-account-create__eyebrow">New to Veylune?</p>
-                <h2 id="vli-account-create-title">Create your private account.</h2>
-                <p>Save delivery details, return to project conversations, and keep your account history in one considered place.</p>
+                <h2 id="vli-account-create-title">{{ isLocalTestAccount ? 'Create your test account.' : 'Create your private account.' }}</h2>
+                <p>{{ isLocalTestAccount ? 'Save delivery details and review local test orders. No real charge or delivery takes place.' : 'Save delivery details, return to project conversations, and keep your account history in one considered place.' }}</p>
                 <ul aria-label="Account benefits">
                     <li>Faster future checkout</li>
                     <li>Saved addresses and account details</li>

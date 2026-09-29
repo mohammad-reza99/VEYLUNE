@@ -142,6 +142,67 @@ final class DraftCatalogPreviewService
     }
 
     /**
+     * @return list<array<string, mixed>>
+     */
+    public function search(string $query): array
+    {
+        $normalizedQuery = $this->normalizeSearchText($query);
+
+        if ($normalizedQuery === '') {
+            return [];
+        }
+
+        $tokens = \array_values(\array_filter(\explode(' ', $normalizedQuery)));
+        $matches = [];
+
+        foreach ($this->products() as $position => $product) {
+            $name = $this->normalizeSearchText((string) ($product['name'] ?? ''));
+            $recordId = $this->normalizeSearchText((string) ($product['recordId'] ?? ''));
+            $material = $this->normalizeSearchText((string) ($product['materialLabel'] ?? ''));
+            $searchable = $this->normalizeSearchText(\implode(' ', [
+                (string) ($product['recordId'] ?? ''),
+                (string) ($product['productNumber'] ?? ''),
+                (string) ($product['name'] ?? ''),
+                \strip_tags((string) ($product['description'] ?? '')),
+                (string) ($product['department'] ?? ''),
+                (string) ($product['productType'] ?? ''),
+                (string) ($product['materialLabel'] ?? ''),
+                \implode(' ', (array) ($product['materials'] ?? [])),
+                \implode(' ', (array) ($product['rooms'] ?? [])),
+                \implode(' ', (array) ($product['collections'] ?? [])),
+                \implode(' ', (array) ($product['rails'] ?? [])),
+            ]));
+
+            if (!\array_all($tokens, static fn (string $token): bool => \str_contains($searchable, $token))) {
+                continue;
+            }
+
+            $score = 0;
+            $score += $recordId === $normalizedQuery ? 500 : 0;
+            $score += $name === $normalizedQuery ? 300 : 0;
+            $score += \str_starts_with($name, $normalizedQuery) ? 180 : 0;
+            $score += \str_contains($name, $normalizedQuery) ? 120 : 0;
+            $score += \str_contains($material, $normalizedQuery) ? 60 : 0;
+
+            foreach ($tokens as $token) {
+                $score += \str_contains($name, $token) ? 30 : 0;
+                $score += \str_contains($material, $token) ? 10 : 0;
+            }
+
+            $matches[] = ['score' => $score, 'position' => $position, 'product' => $product];
+        }
+
+        \usort($matches, static fn (array $left, array $right): int =>
+            $right['score'] <=> $left['score'] ?: $left['position'] <=> $right['position']
+        );
+
+        return \array_values(\array_map(
+            static fn (array $match): array => $match['product'],
+            $matches
+        ));
+    }
+
+    /**
      * @return array<string, list<array<string, mixed>>>
      */
     public function homepageRails(): array
@@ -279,5 +340,13 @@ final class DraftCatalogPreviewService
         $decoded = \json_decode($value, true);
 
         return \is_array($decoded) ? \array_values(\array_filter($decoded, 'is_string')) : [];
+    }
+
+    private function normalizeSearchText(string $value): string
+    {
+        $value = \mb_strtolower(\html_entity_decode($value, \ENT_QUOTES | \ENT_HTML5, 'UTF-8'));
+        $value = \str_replace(['_', '-', '/', '&'], ' ', $value);
+
+        return \trim((string) \preg_replace('/[^\p{L}\p{N}]+/u', ' ', $value));
     }
 }

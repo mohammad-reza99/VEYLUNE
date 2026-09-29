@@ -51,12 +51,30 @@
 }
 
 .veylune-pdp-purchase__add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 3.25rem;
+    padding: .85rem 1.2rem;
     border: 1px solid #5b2b82;
     border-radius: 4px;
     background: #5b2b82;
     color: #fff;
+    cursor: pointer;
     font-weight: 750;
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+        border-color: #431c63;
+        background: #431c63;
+        color: #fff;
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(91, 43, 130, .32);
+        outline-offset: 3px;
+    }
 }
 
 .veylune-preview-cart {

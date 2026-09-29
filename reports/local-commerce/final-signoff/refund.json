@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "capturedAt": "2026-09-28",
+  "status": "pass",
+  "environment": "isolated_local_ddev",
+  "orderNumber": "10029",
+  "refundId": "01a0e7f19cb8718698ad5ab24f6579c4",
+  "refundState": "completed",
+  "transactionState": "refunded",
+  "boundary": "Local simulator only; no external payment provider was contacted or certified."
+}

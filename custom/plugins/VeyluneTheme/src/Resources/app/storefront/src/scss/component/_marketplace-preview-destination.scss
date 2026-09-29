@@ -221,6 +221,66 @@
 .veylune-preview-marketplace-destination__service a:hover,
 .veylune-preview-marketplace-destination__service a:focus-visible { background: #fff; color: var(--vpd-accent-dark); }
 
+.veylune-catalog-search__hero {
+    width: min(calc(100% - 2 * var(--vpd-gutter)), var(--vpd-max));
+    margin: 0 auto;
+    padding: clamp(3rem, 7vw, 6.5rem) clamp(1.25rem, 5vw, 5rem);
+    background: var(--vpd-warm);
+}
+
+.veylune-catalog-search__hero h1 {
+    max-width: 18ch;
+    margin: .6rem 0 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.7rem, 6vw, 6rem);
+    font-weight: 400;
+    line-height: .96;
+    letter-spacing: -.055em;
+}
+
+.veylune-catalog-search__hero > p:not(.veylune-preview-marketplace-destination__eyebrow) {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--vpd-muted);
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.65;
+}
+
+.veylune-catalog-search__form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: min(100%, 760px);
+    margin-top: clamp(1.75rem, 4vw, 3rem);
+    border: 1px solid var(--vpd-ink);
+    background: #fff;
+}
+
+.veylune-catalog-search__form input {
+    min-width: 0;
+    min-height: 54px;
+    padding: .8rem 1rem;
+    border: 0;
+    background: transparent;
+    color: var(--vpd-ink);
+    font: inherit;
+}
+
+.veylune-catalog-search__form input:focus { outline: 2px solid var(--vpd-accent); outline-offset: -3px; }
+
+.veylune-catalog-search__form button {
+    min-height: 54px;
+    padding: .8rem 1.35rem;
+    border: 0;
+    background: var(--vpd-accent-dark);
+    color: #fff;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+}
+
+.veylune-catalog-search__form button:hover,
+.veylune-catalog-search__form button:focus-visible { background: var(--vpd-accent); }
+
 @media (min-width: 992px) {
     .veylune-preview-marketplace-destination .veylune-plp-toolbar__actions .veylune-plp-menu:first-child { display: none; }
 }
@@ -275,6 +335,9 @@
     .veylune-preview-marketplace-destination__guide { gap: 1.5rem; padding: 2rem 1.25rem; }
     .veylune-preview-marketplace-destination__service { grid-template-columns: 1fr; padding: 2rem 1.25rem; }
     .veylune-preview-marketplace-destination__service a { width: 100%; }
+    .veylune-catalog-search__hero { width: calc(100% - 2rem); padding: 2.5rem 1.25rem; }
+    .veylune-catalog-search__form { grid-template-columns: 1fr; }
+    .veylune-catalog-search__form button { width: 100%; }
 }
 
 @media (max-width: 420px) {

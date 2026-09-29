@@ -130,15 +130,15 @@ assert_warm_ttfb() {
 printf '[veylune-release] semantic route contracts\n'
 routes=(
     '/'
-    '/categories/furniture'
-    '/collections/founder-selection'
-    '/rooms/living-room'
-    '/discover?q=room'
-    '/selection'
+    '/catalog/category/furniture'
+    '/catalog/collection/founder-selection'
+    '/catalog/room/living-room'
+    '/catalog/search?q=room'
+    '/checkout/cart'
     '/account/login'
     '/contact-studio'
 )
-labels=(home category collection room discover selection account contact)
+labels=(home category collection room search cart account contact)
 
 for index in "${!routes[@]}"; do
     route_file="${TMP_DIR}/${labels[$index]}.html"
@@ -153,9 +153,9 @@ assert_contains "${TMP_DIR}/contact.html" 'data-vli-inquiry-status' 'Contact Stu
 
 printf '[veylune-release] controlled error contracts\n'
 zero_file="${TMP_DIR}/zero.html"
-fetch_path '/discover?q=zxqv987654321' "$zero_file" 200
-assert_contains "$zero_file" 'No confident index match' 'zero-result recovery state'
-assert_contains "$zero_file" '<strong>0</strong> results' 'zero-result count'
+fetch_path '/catalog/search?q=zxqv987654321' "$zero_file" 200
+assert_contains "$zero_file" 'We could not find a product for this search.' 'zero-result recovery state'
+assert_contains "$zero_file" '<strong data-plp-count>0</strong> products' 'zero-result count'
 
 error_file="${TMP_DIR}/404.html"
 error_headers="${TMP_DIR}/404.headers"
@@ -176,8 +176,9 @@ printf '[veylune-release] interaction and accessibility source contracts\n'
 header_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js'
 inquiry_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-inquiry-lifecycle.js'
 readiness_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_ui.scss'
-release_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-release-candidate.scss'
-search_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search.html.twig'
+release_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-plp-interactions.scss'
+search_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-search.html.twig'
+listing_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-listing.html.twig'
 assert_contains "$header_js" 'setInertState(mega, true)' 'closed mega inert lifecycle'
 assert_contains "$header_js" 'setInertState(mobileNav, true)' 'closed mobile navigation inert lifecycle'
 assert_contains "$header_js" 'trapFocus(event, mobileNav)' 'mobile navigation focus trap'
@@ -187,14 +188,14 @@ assert_contains "$inquiry_js" "control.setAttribute('aria-invalid', 'true')" 'in
 assert_contains "$readiness_css" 'outline: 3px solid' 'visible focus ring'
 assert_contains "$readiness_css" 'min-height: 44px' 'mobile target size'
 assert_contains "$readiness_css" '@media (prefers-reduced-motion: reduce)' 'reduced motion fallback'
-assert_contains "$search_template" 'class="vli-search-sort"' 'Discover sort form'
-assert_contains "$search_template" 'button type="submit">Apply</button>' 'Discover sort submit action'
-assert_contains "$release_css" 'grid-row: 2' 'mobile Discover sort row separation'
-assert_contains "$release_css" 'position: static' 'mobile Discover Apply hit target'
+assert_contains "$search_template" 'action="{{ path('"'"'frontend.veylune.catalog.search'"'"') }}"' 'Catalog search form'
+assert_contains "$listing_template" 'data-plp-sort-toggle' 'Catalog sort action'
+assert_contains "$release_css" '@media (max-width: 575.98px)' 'mobile catalog layout contract'
+assert_contains "$release_css" '.veylune-plp-filter-rail' 'catalog filter ownership'
 
 printf '[veylune-release] warmed development timing guard\n'
 assert_warm_ttfb 'home' '/' 1800
-assert_warm_ttfb 'discover' '/discover?q=room' 1800
+assert_warm_ttfb 'catalog search' '/catalog/search?q=room' 1800
 assert_warm_ttfb 'account' '/account/login' 1800
 assert_warm_ttfb 'contact' '/contact-studio' 1800
 assert_warm_ttfb 'controlled 404' '/__release-gate/not-found' 1200

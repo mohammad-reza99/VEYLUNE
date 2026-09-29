@@ -1,10 +1,117 @@
 # Veylune Master Roadmap v2
 
-Status date: 2026-09-20
+## Final technical-scope closure — 2026-09-26
+
+The combined Phase 7A.6 and Phase 8 supplier-demo scope is complete. The
+isolated native-commerce build passed the final responsive surface matrix,
+cart, checkout, account, lifecycle, variant, stock-race and local-refund
+scenarios. Security headers, dependency audit, performance budgets, production
+readiness checks, theme compilation and repository governance also pass.
+
+This closure supersedes every older "open", percentage and "next step" note in
+this document for Phase 7A and Phase 8. The technical build is approved for a
+supplier demonstration and the owner may begin supplier conversations.
+
+By explicit owner decision, real supplier onboarding and commercial evidence
+(formerly Phase 7B) plus EU hosting/deployment/launch (Phase 9) are outside this
+deliverable. They are not falsely marked complete. The test build does not
+authorize public sales or production activation. Canonical evidence and exact
+limits are recorded in `docs/veylune-supplier-demo-technical-signoff.md` and
+`reports/local-commerce/final-signoff/acceptance-matrix.json`.
+
+## Latest execution checkpoint — 2026-09-25
+
+Scoped account lifecycle plus the first 7A.5 scenario set passed. Native Sand and
+Charcoal variants render correctly; the in-stock option enters the cart with its
+option, the zero-stock option cannot be bought, and a forged quantity is capped
+at available stock. Repeat order restores the original line item. Customer
+cancellation persists a cancelled order state, and a modal stacking bug found by
+the test was corrected. The transaction remains paid, so cancellation is not
+misreported as a refund. Evidence and reusable scripts are recorded in
+docs/veylune-phase-7a-local-commerce.md and reports/local-commerce/.
+The remaining 7A.5 scenarios now pass. Two independent carts reached checkout
+with the same final Sand unit; exactly one completed and persisted order, and
+stock reached zero without oversell. A full local refund then moved its native
+refund record to completed and the transaction to refunded. Wrong-password,
+unchecked-terms, forged-quantity and cross-account read boundaries retain their
+previous passes. 7A.5 is therefore technically closed. Next: 7A.6 final
+preview-to-native visual comparison and the integrated Phase 8 supplier-demo
+acceptance matrix. External payment-provider certification remains Phase 7B.
+This checkpoint supersedes older next-package wording below.
+
+Status date: 2026-09-22
 
 This is the canonical 9-phase roadmap for the rest of the Veylune project. Older phase names remain useful as evidence, but no longer control execution order.
 
-## Current evidence baseline
+## Execution amendment: technical validation before supplier outreach
+
+The current order is Phase 7A (isolated local native commerce fixtures), Phase 8
+(technical and visual QA for supplier demonstration), Phase 7B (real supplier and
+commercial activation evidence), then Phase 9 (staging and launch).
+Supplier contracts are NOT prerequisites for testing with clearly marked,
+independent products. They remain prerequisites for commercial publication.
+No phase or launch gate is deleted by this sequencing change.
+
+Phase 7A core guest checkout, success/decline/recovery, stock, email and cart
+smoke tests are verified. Account lifecycle, variants, native visual parity and
+broader Phase 8 QA remain open. See
+[the current evidence and remaining work](veylune-phase-7a-local-commerce.md).
+Historical zero-legacy counts below describe their original route inventory;
+they do not certify the newly opened native commerce surfaces.
+
+## Current implementation priority: preview design to native commerce
+
+The token preview already contains the visual work to preserve. Native test
+commerce currently uses separate templates and still exposes old styling.
+This is a design-to-function integration gap, not a new design project.
+Do not discard the preview design or equate a functional test pass with visual
+completion. This amendment takes priority over older next-step descriptions.
+
+### Phase 7A remaining work, in execution order
+
+1. **7A.1 — Surface mapping and visual contract.** Pair preview and native
+   catalog/PDP, cart/offcanvas, address, delivery/payment, review/confirmation,
+   account and order surfaces. Record reusable components and missing states.
+   Use the existing preview as the primary visual reference; consult Wayfair for
+   unresolved patterns, preserving Veylune branding. Do not certify unseen pages.
+2. **7A.2 — Native cart integration.** Reuse approved preview typography, color,
+   spacing, product rows, imagery, quantity controls, remove actions, totals and
+   responsive layouts. Preserve native server-calculated prices, stock and cart.
+3. **7A.3 — Native checkout integration.** Apply the same design to guest/account
+   entry, addresses, delivery/payment selection, validation, review and submit.
+   Preserve native form names, routes, validation, payment state and accessibility.
+4. **7A.4 — Outcome and account integration.** Align order confirmation, payment
+   failure/retry, empty/loading/error states, account and order history. Where
+   preview has no equivalent, extend its established components rather than
+   copying a simulated preview action into the native transaction flow.
+5. **7A.5 — Technical scenario closure.** Test registered account/login/reset,
+   order history/repeat purchase, variants, stock boundaries/concurrency,
+   invalid inputs and cancellation/refund behavior using clearly marked fixtures.
+   Retain successful guest, decline/recovery and email tests as regression tests.
+
+For each package: capture preview/native comparisons at matching desktop, tablet
+and mobile sizes; test both successful and error states; record unresolved gaps.
+Visual completion requires comparison evidence and founder review. Functional
+completion requires actual native behavior and persisted state, not appearance.
+No wholesale redesign, supplier activation or deployment is authorized by this plan.
+
+### Remaining phase exits
+
+- **Phase 8 — Supplier-demo technical readiness:** cross-surface regression,
+  visual consistency, accessibility, security, performance and media checks.
+  Produce an explicit pass/fail matrix and list any limitations. Supplier contracts
+  are not an exit dependency for a clearly identified local demonstration.
+- **Phase 7B — Commercial activation:** real supplier/product/stock/pricing/media
+  rights evidence, business/legal approval and selected payment-provider sandbox.
+  A local payment simulator does not certify an external provider.
+- **Phase 9 — Deployment and launch:** suitable hosting, staging, domain/TLS,
+  production configuration, email/payment integration, backups, rollback and
+  launch approval. Domain ownership alone is not hosting readiness.
+
+Current status: core local transactions tested; preview-to-native visual
+integration NOT complete. Next work package is 7A.1, followed by 7A.2.
+
+## Historical evidence baseline (not current completion claims)
 
 - Public audit: 47 routes and 94 desktop/mobile surfaces. All 94 have approved direct outcomes and successful followed destinations; zero mixed, legacy, broken, overflow, or runtime-failure surfaces remain.
 - Public action audit: 168 visible same-origin destinations and 110 visible form occurrences across five unique form actions pass. Checkout is intentionally guarded and the unavailable public wishlist promise is retired.
@@ -256,9 +363,10 @@ Exit gate:
 - Full catalog completion target: 50 of 50 products independently approved or explicitly retained as private drafts.
 - Payment, shipping, tax, email, cancellation, return, and support workflows pass sandbox tests.
 
-## Phase 8 - Quality, security, performance, and release candidate
+## Phase 8 - Quality, security, performance, and technical sign-off
 
-Current estimate: 45 percent complete.
+Current status: 100 percent complete for the owner-approved local supplier-demo
+scope. Production infrastructure and real-provider certification are excluded.
 
 Scope:
 
@@ -278,7 +386,7 @@ Exit gate:
 
 ## Phase 9 - EU staging, deployment, launch, and measured growth
 
-Current estimate: 15 percent complete.
+Current status: out of scope by owner; not started and not represented as complete.
 
 Scope:
 
@@ -312,13 +420,16 @@ Exit gate:
 
 ## Progress interpretation
 
-- Frontend and experience foundation: approximately 78 percent.
-- Real catalog, Admin media, and commercial readiness: approximately 20 percent.
-- Production infrastructure and launch operations: approximately 15 percent.
-- Weighted overall launch readiness: approximately 50 percent complete and 50 percent remaining.
+- Owner-approved local test and supplier-demo technical scope: 100 percent complete.
+- Commercial supplier activation: outside this deliverable and not approved.
+- Production infrastructure and public launch: outside this deliverable and not started.
 
-The percentage is an evidence-based planning estimate, not a claim that all work units have equal size. The largest remaining risks are real product media, supplier evidence, source-of-truth migration, real checkout configuration, CSS consolidation, cross-browser QA, and infrastructure.
+This separation prevents a technical-demo approval from being misread as
+permission to sell or production readiness.
 
 ## Exact next step
 
-Start Phase 7.1A by obtaining accepted supplier evidence for the launch cohort, then complete governed multi-view media and production payment, shipping, tax, legal, customer, and order fixtures before opening public product or checkout activation.
+The owner may begin supplier conversations using the isolated approved demo.
+No additional engineering phase remains inside the selected scope. Public
+product activation and live checkout remain gated until owner-managed supplier,
+provider and deployment work is completed later.

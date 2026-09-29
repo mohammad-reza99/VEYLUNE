@@ -265,37 +265,37 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 
 step 'VS-03D Room and Collection Scene Integration'
 room_scene_file="${TMP_DIR}/living_index_room_scene.html"
-assert_status '/rooms/living-room' 200 "$room_scene_file"
-assert_contains "$room_scene_file" 'data-veylune-living-index-mode="scene-index"' '/rooms/living-room Scene Mode shell'
-assert_contains "$room_scene_file" 'data-veylune-scene-integration="room:living-room"' '/rooms/living-room governed scene marker'
-assert_contains "$room_scene_file" 'data-media-source="shopware_admin_media"' '/rooms/living-room governed Admin scene media'
-assert_contains "$room_scene_file" 'data-veylune-scene-path="seating"' '/rooms/living-room object discovery path'
-assert_contains "$room_scene_file" 'data-veylune-scene-path="lighting"' '/rooms/living-room lighting discovery path'
-assert_absent_pattern "$room_scene_file" 'VLS-FUR-000001|VLS-FUR-000010|__veylune-vision|__veylune-preview' '/rooms/living-room draft containment'
+assert_status '/catalog/room/living-room' 200 "$room_scene_file"
+assert_contains "$room_scene_file" 'data-preview-destination-type="room"' '/catalog/room/living-room canonical room shell'
+assert_contains "$room_scene_file" 'data-preview-destination-key="living-room"' '/catalog/room/living-room governed room key'
+assert_contains "$room_scene_file" 'data-discovery-listing-scope="public"' '/catalog/room/living-room public listing boundary'
+assert_contains "$room_scene_file" 'data-veylune-plp' '/catalog/room/living-room shared listing engine'
+assert_contains "$room_scene_file" 'href="/catalog/product/' '/catalog/room/living-room product discovery path'
+assert_absent_pattern "$room_scene_file" '__veylune-vision|__veylune-preview' '/catalog/room/living-room preview containment'
 
 collection_scene_file="${TMP_DIR}/living_index_collection_scene.html"
-assert_status '/collections/founder-selection' 200 "$collection_scene_file"
-assert_contains "$collection_scene_file" 'data-veylune-scene-integration="collection:founder-selection"' '/collections/founder-selection governed scene marker'
-assert_contains "$collection_scene_file" 'data-media-source="shopware_admin_media"' '/collections/founder-selection governed Admin scene media'
-assert_contains "$collection_scene_file" 'data-veylune-scene-path="form"' '/collections/founder-selection form discovery path'
-assert_contains "$collection_scene_file" 'data-veylune-scene-path="project"' '/collections/founder-selection project action'
-assert_absent_pattern "$collection_scene_file" 'VLS-FUR-000001|VLS-FUR-000010|__veylune-vision|__veylune-preview' '/collections/founder-selection draft containment'
+assert_status '/catalog/collection/founder-selection' 200 "$collection_scene_file"
+assert_contains "$collection_scene_file" 'data-preview-destination-type="collection"' '/catalog/collection/founder-selection canonical collection shell'
+assert_contains "$collection_scene_file" 'data-preview-destination-key="founder-selection"' '/catalog/collection/founder-selection governed collection key'
+assert_contains "$collection_scene_file" 'data-discovery-listing-scope="public"' '/catalog/collection/founder-selection public listing boundary'
+assert_contains "$collection_scene_file" 'data-veylune-plp' '/catalog/collection/founder-selection shared listing engine'
+assert_absent_pattern "$collection_scene_file" '__veylune-vision|__veylune-preview' '/catalog/collection/founder-selection preview containment'
 
 assert_contains "$object_probe_file" 'data-veylune-object-scene-context="living-room"' 'Object Mode Room scene bridge'
-assert_contains "$object_probe_file" '/rooms/living-room' 'Object Mode governed Room return path'
-assert_contains "$object_probe_file" '/collections/founder-selection' 'Object Mode governed Collection return path'
+assert_contains "$object_probe_file" '/catalog/room/living-room' 'Object Mode governed Room return path'
+assert_contains "$object_probe_file" '/catalog/collection/founder-selection' 'Object Mode governed Collection return path'
 assert_contains "$object_probe_file" 'veylune-room-living-v1.webp' 'Object Mode approved context scene asset'
 
 assert_contains 'custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php' 'SURFACE_ROOMS' 'Room governed route ownership'
 assert_contains 'custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php' "OWNER_ROOM_TAXONOMY" 'Room taxonomy ownership'
-assert_contains 'custom/plugins/VeyluneTheme/src/Sitemap/IdentityUrlProvider.php' "'/rooms/living-room'" 'Room sitemap identity path'
-assert_contains 'custom/plugins/VeyluneTheme/src/Sitemap/IdentityUrlProvider.php' "'/collections/founder-selection'" 'Collection sitemap identity path'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-discovery.scss' 'min-height: 190px' 'Scene path touch target'
+assert_contains 'custom/plugins/VeyluneTheme/src/Sitemap/IdentityUrlProvider.php' "'/catalog/room/living-room'" 'Room sitemap identity path'
+assert_contains 'custom/plugins/VeyluneTheme/src/Sitemap/IdentityUrlProvider.php' "'/catalog/collection/founder-selection'" 'Collection sitemap identity path'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-preview-destination.scss' 'min-height: 48px' 'Canonical destination touch target'
 
 step 'VS-03E Material Style Maker and Project Axis Unification'
 axis_routes=(
     'material:/editions'
-    'style:/collections/founder-selection'
+    'style:/catalog/collection/founder-selection'
     'maker:/atelier-partnerships'
     'project:/private-consultation'
 )
@@ -305,13 +305,18 @@ for axis_record in "${axis_routes[@]}"; do
     axis_route="${axis_record#*:}"
     axis_file="${TMP_DIR}/living_index_axis_${axis_name}.html"
     assert_status "$axis_route" 200 "$axis_file"
-    assert_contains "$axis_file" "data-veylune-living-index-axis=\"${axis_name}\"" "$axis_route Living Index axis identity"
-    assert_contains "$axis_file" 'data-veylune-living-index-axis-map' "$axis_route shared axis map"
-    assert_contains "$axis_file" "data-veylune-living-index-axis-current=\"${axis_name}\"" "$axis_route active axis semantics"
-    assert_contains "$axis_file" 'data-veylune-axis-destination="material"' "$axis_route Material continuity"
-    assert_contains "$axis_file" 'data-veylune-axis-destination="style"' "$axis_route Style continuity"
-    assert_contains "$axis_file" 'data-veylune-axis-destination="maker"' "$axis_route Maker continuity"
-    assert_contains "$axis_file" 'data-veylune-axis-destination="project"' "$axis_route Project continuity"
+    if [[ "$axis_name" == 'style' ]]; then
+        assert_contains "$axis_file" 'data-veylune-plp' "$axis_route canonical collection listing"
+        assert_contains "$axis_file" 'data-preview-destination-type="collection"' "$axis_route canonical collection identity"
+    else
+        assert_contains "$axis_file" "data-veylune-living-index-axis=\"${axis_name}\"" "$axis_route Living Index axis identity"
+        assert_contains "$axis_file" 'data-veylune-living-index-axis-map' "$axis_route shared axis map"
+        assert_contains "$axis_file" "data-veylune-living-index-axis-current=\"${axis_name}\"" "$axis_route active axis semantics"
+        assert_contains "$axis_file" 'data-veylune-axis-destination="material"' "$axis_route Material continuity"
+        assert_contains "$axis_file" 'data-veylune-axis-destination="style"' "$axis_route Style continuity"
+        assert_contains "$axis_file" 'data-veylune-axis-destination="maker"' "$axis_route Maker continuity"
+        assert_contains "$axis_file" 'data-veylune-axis-destination="project"' "$axis_route Project continuity"
+    fi
     assert_absent_pattern "$axis_file" 'data-veylune-identity-denial|__veylune-preview|__veylune-vision' "$axis_route public axis containment"
 done
 
@@ -331,61 +336,61 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 
 step 'VS-03F Global Search Selection and Cross-Axis Navigation'
 discover_ranked_file="${TMP_DIR}/living_index_discover_ranked.html"
-assert_status '/discover?q=quiet%20living%20room' 200 "$discover_ranked_file"
-assert_contains "$discover_ranked_file" 'data-veylune-living-index-search' '/discover ranked search shell'
-assert_contains "$discover_ranked_file" 'data-veylune-search-query="quiet&#x20;living&#x20;room"' '/discover normalized query continuity'
-assert_contains "$discover_ranked_file" 'data-vli-search-result-type="room"' '/discover tokenized Room match'
-assert_contains "$discover_ranked_file" 'from=discover' '/discover return-state propagation'
-assert_contains "$discover_ranked_file" 'data-vli-selection-add' '/discover context save action'
-assert_contains "$discover_ranked_file" 'content="noindex,follow"' '/discover query indexing containment'
+assert_status '/catalog/search?q=quiet%20living%20room' 200 "$discover_ranked_file"
+assert_contains "$discover_ranked_file" 'veylune-catalog-search">' '/catalog/search canonical search shell'
+assert_contains "$discover_ranked_file" 'value="quiet living room"' '/catalog/search normalized query continuity'
+assert_contains "$discover_ranked_file" 'data-discovery-listing-scope="public"' '/catalog/search public listing boundary'
+assert_contains "$discover_ranked_file" 'action="/catalog/search"' '/catalog/search canonical form action'
+assert_contains "$discover_ranked_file" 'data-veylune-plp' '/catalog/search shared listing engine'
+assert_contains "$discover_ranked_file" 'content="noindex' '/catalog/search indexing containment'
 # The global shell owns the cart route. Discover content must still remain free
 # of product mutations, wishlist actions, and private-preview links.
-assert_absent_pattern "$discover_ranked_file" 'data-product-id|add-to-cart|wishlist|__veylune-preview' '/discover commerce and preview containment'
+assert_absent_pattern "$discover_ranked_file" '__veylune-preview|href="/discover' '/catalog/search preview and legacy-route containment'
 
 discover_material_file="${TMP_DIR}/living_index_discover_material.html"
-assert_status '/discover?q=oak&axis=material' 200 "$discover_material_file"
-assert_contains "$discover_material_file" 'data-veylune-search-axis="material"' '/discover Material facet state'
-assert_contains "$discover_material_file" 'aria-current="page"' '/discover active facet semantics'
-assert_contains "$discover_material_file" 'Wood Studies' '/discover synonym-ranked Material result'
+assert_status '/catalog/search?q=oak' 200 "$discover_material_file"
+assert_contains "$discover_material_file" 'value="oak"' '/catalog/search query state'
+assert_contains "$discover_material_file" 'data-plp-material' '/catalog/search material filter contract'
+assert_contains "$discover_material_file" 'data-discovery-listing' '/catalog/search result listing'
 
 selection_context_file="${TMP_DIR}/living_index_context_selection.html"
-assert_status '/selection' 200 "$selection_context_file"
-assert_contains "$selection_context_file" 'data-veylune-living-index-selection' '/selection private context shell'
-assert_contains "$selection_context_file" 'data-vli-selection-template' '/selection safe client render template'
-assert_contains "$selection_context_file" 'data-vli-selection-clear' '/selection confirmed clear action'
-assert_contains "$selection_context_file" 'private browser board, not a cart' '/selection commerce boundary disclosure'
-assert_contains "$selection_context_file" 'content="noindex,follow"' '/selection indexing containment'
-assert_absent_pattern "$selection_context_file" 'data-product-id|add-to-cart|__veylune-preview' '/selection commerce and preview containment'
+assert_status '/checkout/cart' 200 "$selection_context_file"
+assert_contains "$selection_context_file" 'Your cart is empty' '/checkout/cart native empty state'
+assert_contains "$selection_context_file" 'frontend.checkout.cart.page' '/checkout/cart native route metadata'
+assert_contains "$selection_context_file" 'href="/catalog"' '/checkout/cart catalog recovery action'
+assert_contains "$selection_context_file" 'href="/private-consultation"' '/checkout/cart consultation recovery action'
+assert_contains "$selection_context_file" '<h1' '/checkout/cart semantic heading'
+assert_absent_pattern "$selection_context_file" '__veylune-preview|data-veylune-living-index-selection' '/checkout/cart preview and retired selection containment'
 
 living_index_state_js='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-living-index-state.js'
 assert_contains "$living_index_state_js" "veylune-living-index-selection-v1" 'Selection versioned local state'
 assert_contains "$living_index_state_js" 'safePageUrl' 'Selection route poisoning containment'
 assert_contains "$living_index_state_js" 'safeAssetUrl' 'Selection asset poisoning containment'
 assert_contains "$living_index_state_js" "dataset.confirmClear" 'Selection two-step clear contract'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search.html.twig' 'data-vli-selection-count' 'Discover Selection count continuity'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-product-card.html.twig' 'data-vli-selection-add' 'Catalog saved-context continuity'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-axis-map.html.twig' 'data-vli-return-to-discover' 'Cross-axis return navigation'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-axis-map.html.twig' 'data-selection-type="{{ vliCurrentAxis.type' 'Locale-independent axis selection type'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-discovery.html.twig' 'data-selection-key="{{ selectionType|lower }}:' 'Object and Room context save action'
-assert_contains 'custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php' 'SURFACE_DISCOVER' 'Discover governed route ownership'
-assert_contains 'custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php' 'SURFACE_SELECTION' 'Selection governed route ownership'
-assert_contains 'custom/plugins/VeyluneTheme/src/Sitemap/IdentityUrlProvider.php' "'/discover', 'living-index:discover'" 'Discover sitemap identity path'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-search-selection.scss' 'min-height: 48px' 'Search and Selection primary touch target'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-destination.html.twig' 'discovery-listing.html.twig' 'Canonical destination shared listing'
+assert_contains 'custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php' 'SURFACE_SEARCH' 'Catalog search governed route ownership'
+assert_contains 'custom/plugins/VeyluneTheme/src/Storefront/StorefrontRouteOwnershipPolicy.php' 'SURFACE_CATEGORIES' 'Catalog category governed route ownership'
+assert_contains 'custom/plugins/VeyluneTheme/src/Sitemap/IdentityUrlProvider.php' "'/catalog', 'catalog:home'" 'Catalog sitemap identity path'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-preview-destination.scss' 'min-height: 48px' 'Catalog search and destination touch target'
 
 step 'VS-03F2 Wayfair Search Results and Saved Experience Parity'
 discover_parity_file="${TMP_DIR}/living_index_discover_parity.html"
-assert_status '/discover?q=quiet%20living%20room&sort=title' 200 "$discover_parity_file"
-assert_contains "$discover_parity_file" 'data-veylune-search-sort="title"' '/discover functional sort state'
-assert_contains "$discover_parity_file" 'class="vli-search-shell"' '/discover sidebar and result shell'
-assert_contains "$discover_parity_file" 'class="vli-search-sidebar"' '/discover desktop filter sidebar'
-assert_contains "$discover_parity_file" 'class="vli-search-sort"' '/discover functional sort control'
-assert_contains "$discover_parity_file" 'class="vli-search-card__flag"' '/discover marketplace-density result card'
-assert_contains "$discover_parity_file" 'data-vli-selection-icon' '/discover heart selection action'
+assert_status '/catalog/search?q=quiet%20living%20room' 200 "$discover_parity_file"
+assert_contains "$discover_parity_file" 'data-plp-sort-toggle' '/catalog/search functional sort control'
+assert_contains "$discover_parity_file" 'class="veylune-plp-marketplace-layout"' '/catalog/search listing shell'
+assert_contains "$discover_parity_file" 'class="veylune-plp-filter-rail"' '/catalog/search desktop filter sidebar'
+assert_contains "$discover_parity_file" 'data-plp-sort-panel' '/catalog/search sort menu'
+assert_contains "$discover_parity_file" 'data-discovery-card-kind="product"' '/catalog/search marketplace product card'
+assert_contains "$discover_parity_file" 'data-vli-selection-add' '/catalog/search saved-context action'
 assert_contains "$discover_parity_file" 'data-vli-header-suggest' 'Global search suggestion panel'
-assert_contains "$selection_context_file" 'class="vli-selection-page__tabs"' '/selection saved-items navigation'
-assert_contains "$selection_context_file" 'class="vli-selection-card__remove"' '/selection heart remove action'
+assert_contains "$selection_context_file" 'class="veylune-cart-empty"' '/checkout/cart native cart shell'
+assert_contains "$selection_context_file" 'frontend.checkout.cart.page' '/checkout/cart native route ownership'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/js/veylune-header.js' 'data-vli-header-query-link' 'Header query suggestion behavior'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-wayfair-parity.scss' 'grid-template-columns: 240px minmax(0, 1fr)' 'Desktop marketplace filter layout'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-wayfair-parity.scss' 'repeat(2, minmax(0, 1fr))' 'Mobile two-column result density'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-preview-destination.scss' 'grid-template-columns: 250px minmax(0, 1fr)' 'Desktop marketplace filter layout'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-preview-destination.scss' 'repeat(2, minmax(0, 1fr))' 'Mobile two-column result density'
 
 step 'VS-03G Project Brief Consultation Handoff and Service Conversion'
 consultation_selection_file="${TMP_DIR}/consultation_selection_handoff.html"
@@ -417,7 +422,7 @@ assert_contains "$project_brief_js" 'stripGeneratedBrief' 'Project brief repeat-
 assert_contains "$project_brief_js" 'form.addEventListener' 'Project brief send-time review composition'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-project-brief.scss' 'min-height: 48px' 'Project brief primary touch target'
 assert_contains 'custom/plugins/VeyluneTheme/src/Controller/ContactStudioController.php' 'PROJECT_SOURCES' 'Project handoff source allowlist'
-assert_contains "$selection_context_file" 'private-consultation?from=selection' '/selection project handoff entry'
+assert_contains "$selection_context_file" 'href="/private-consultation"' '/checkout/cart project handoff entry'
 
 step 'VS-03H Inquiry Validation Error Success and Mailpit Confirmation Closure'
 inquiry_lifecycle_file="${TMP_DIR}/contact_inquiry_lifecycle.html"
@@ -548,7 +553,7 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-cart-closure.scss' 'grid-template-columns: minmax(0, 1fr) auto' 'mobile cart form containment'
 header_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig'
 assert_contains "$header_template" 'veyluneLivingIndexAxes' 'header truthful Living Index route registry'
-assert_contains "$header_template" "path('frontend.veylune.living_index.search')" 'header active Living Index search action'
+assert_contains "$header_template" "veyluneHeaderSearchRoute = 'frontend.veylune.catalog.search'" 'header canonical catalog search action'
 assert_contains "$header_template" 'data-vli-header-search-scope' 'header public search-scope disclosure'
 mobile_navigation_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/mobile-navigation.html.twig'
 assert_contains "$mobile_navigation_template" 'data-veylune-preview-mobile-account' 'canonical mobile private account containment'
@@ -566,7 +571,7 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veyl
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-legacy-cms-closure.scss' '.veylune-legal-notice' 'governed legal page styling'
 
 pdp_commerce_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-product-commerce.html.twig'
-pdp_purchase_line="$(grep -n 'class="veylune-pdp-purchase"' "$pdp_commerce_template" | cut -d: -f1)"
+pdp_purchase_line="$(grep -n 'class="veylune-pdp-purchase"' "$pdp_commerce_template" | head -n 1 | cut -d: -f1)"
 pdp_services_line="$(grep -n 'class="veylune-pdp-services"' "$pdp_commerce_template" | cut -d: -f1)"
 [[ "$pdp_purchase_line" -lt "$pdp_services_line" ]] || fail 'PDP primary purchase action must precede optional services'
 
@@ -582,11 +587,10 @@ for route in "${discoverability_routes[@]}"; do
 done
 
 step 'canonical storefront transitional containment'
-storefront_drift_pattern='data-cart-widget|data-veylune-search|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
+storefront_drift_pattern='data-veylune-search|/search\?search=|quiet luxury|collectible furniture|curated artistic living|edition catalog|browse editions'
 
 for living_index_copy_file in \
     'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layout/header/header.html.twig' \
-    'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-search.html.twig' \
     'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/ecosystem.html.twig'
 do
     assert_contains "$living_index_copy_file" 'Quiet contrast' "$living_index_copy_file governed Quiet contrast taxonomy"
@@ -630,25 +634,19 @@ if [[ -n "${VEYLUNE_DRAFT_PREVIEW_TOKEN:-}" ]]; then
 
     assert_absent_pattern "$preview_home_file" 'href="/__veylune-preview/catalog/(category|collection|room)/[^"?]+"' 'private preview tokenless navigation containment'
 fi
-assert_contains "$home_file" 'data-veylune-home' '/ homepage transitional surface'
-assert_contains "$home_file" 'data-vli-home-access-status' '/ homepage operational boundary surface'
-assert_contains "$home_file" 'Discovery is open. Commerce remains governed.' '/ homepage truthful discovery status'
-assert_contains "$home_file" 'Open for discovery' '/ homepage active Living Index disclosure'
-assert_contains "$home_file" 'Verification pending' '/ homepage commerce readiness disclosure'
-assert_contains "$home_file" 'No address collected' '/ homepage editorial email boundary'
-assert_absent_pattern "$home_file" 'Online catalog opening soon.|Room collections opening soon.|Email delivery is in verification.' '/ homepage stale pending disclosure closure'
-assert_absent_pattern "$home_file" 'Coming soon →|Explore the room →' '/ homepage misleading pending actions'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-storefront.scss' '.vli-home__access-status' 'homepage Living Index boundary styling'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-storefront.scss' '.vli-home__project .vlx-button--light' 'homepage project CTA contrast closure'
+assert_contains "$home_file" 'data-veylune-preview-marketplace-home' '/ canonical marketplace homepage surface'
+assert_contains "$home_file" 'Everything for a considered home.' '/ canonical marketplace homepage message'
+assert_contains "$home_file" 'Veylune catalog' '/ public catalog access disclosure'
+assert_contains "$home_file" 'Final availability and delivery are confirmed by the studio.' '/ truthful availability boundary'
+assert_contains "$home_file" 'href="/catalog/category/furniture"' '/ homepage furniture navigation'
+assert_contains "$home_file" 'href="/catalog/collection/founder-selection"' '/ homepage collection navigation'
+assert_contains "$home_file" 'href="/catalog/room/living-room"' '/ homepage room navigation'
+assert_contains "$home_file" 'data-veylune-product-slider' '/ homepage product rail behavior'
+assert_contains "$home_file" 'aria-roledescription="carousel"' '/ homepage product rail semantics'
+assert_absent_pattern "$home_file" 'Online catalog opening soon.|Room collections opening soon.|Email delivery is in verification.|Coming soon' '/ homepage stale pending disclosure closure'
 assert_absent_pattern "$home_file" 'Support around every considered purchase.|eligible orders|financing options at checkout' '/ homepage unverified commerce promises'
-assert_contains "$home_file" 'data-vli-home-navigation="rooms"' '/ homepage room navigation landmark'
-assert_contains "$home_file" 'data-vli-home-navigation="objects"' '/ homepage object navigation landmark'
-assert_contains "$home_file" 'aria-labelledby="vli-room-title"' '/ homepage room navigation accessible name'
-assert_contains "$home_file" 'aria-labelledby="vli-object-title"' '/ homepage object navigation accessible name'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-storefront.scss' '.vli-home .vlx-section__head > a' 'homepage index action touch target closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-storefront.scss' 'min-height: 44px' 'homepage Living Index mobile touch target closure'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-storefront.scss' '.vli-home .vli-study-card:focus-visible' 'homepage object navigation keyboard focus closure'
-assert_absent_pattern "$home_file" 'aria-roledescription="carousel"|data-veylune-product-slider-(previous|next|track)' '/ homepage stale carousel semantics containment'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-preview-home.scss' '.veylune-preview-marketplace-home' 'canonical homepage styling ownership'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-7-interaction-closure.scss' 'min-width: 44px' 'homepage mobile touch target closure'
 assert_absent_pattern "$home_file" 'cws-devtools-toolbar|CWS Development Tools' '/ homepage development-toolbar containment'
 
 for governed_module in 'veylune-new-arrivals-foundation' 'veylune-founder-selection-title'; do
@@ -715,35 +713,35 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/sc
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-phase-9-account-actions-closure.scss' '.order-table-header-context-menu' 'account order action closure'
 
 living_index_search_file="${TMP_DIR}/living_index_search.html"
-assert_status '/discover?q=oak' 200 "$living_index_search_file"
-assert_contains "$living_index_search_file" 'data-veylune-living-index-search' '/discover governed Living Index search'
-assert_absent_pattern "$living_index_search_file" 'data-veylune-identity-denial|data-product-id|product-box' '/discover draft product containment'
+assert_status '/catalog/search?q=oak' 200 "$living_index_search_file"
+assert_contains "$living_index_search_file" 'veylune-catalog-search">' '/catalog/search governed catalog search'
+assert_absent_pattern "$living_index_search_file" 'data-veylune-identity-denial|__veylune-preview|href="/discover' '/catalog/search draft and legacy containment'
 
 living_index_selection_file="${TMP_DIR}/living_index_selection.html"
-assert_status '/selection' 200 "$living_index_selection_file"
-assert_contains "$living_index_selection_file" 'data-veylune-living-index-selection' '/selection governed commerce shell'
-assert_absent_pattern "$living_index_selection_file" 'data-veylune-identity-denial|data-product-id|product-box' '/selection draft product containment'
+assert_status '/checkout/cart' 200 "$living_index_selection_file"
+assert_contains "$living_index_selection_file" 'class="veylune-cart-empty"' '/checkout/cart governed commerce shell'
+assert_absent_pattern "$living_index_selection_file" 'data-veylune-identity-denial|__veylune-preview' '/checkout/cart preview containment'
 
 living_index_department_file="${TMP_DIR}/living_index_department.html"
-assert_status '/categories/furniture' 200 "$living_index_department_file"
-assert_contains "$living_index_department_file" 'data-veylune-living-index-discovery' '/categories/furniture Living Index Department'
-assert_contains "$living_index_department_file" 'data-veylune-living-index-mode="index"' '/categories/furniture Index Mode contract'
-assert_contains "$living_index_department_file" 'href="/discover?q=Sofas"' '/categories/furniture real object shortcut'
-assert_absent_pattern "$living_index_department_file" 'Awaiting governed product population|data-veylune-identity-denial' '/categories/furniture public-copy and access closure'
+assert_status '/catalog/category/furniture' 200 "$living_index_department_file"
+assert_contains "$living_index_department_file" 'data-preview-destination-type="category"' '/catalog/category/furniture canonical category'
+assert_contains "$living_index_department_file" 'data-preview-destination-key="furniture"' '/catalog/category/furniture key contract'
+assert_contains "$living_index_department_file" 'data-discovery-listing-scope="public"' '/catalog/category/furniture public listing contract'
+assert_absent_pattern "$living_index_department_file" 'data-veylune-identity-denial|__veylune-preview' '/catalog/category/furniture public access closure'
 
 living_index_collection_file="${TMP_DIR}/living_index_collection.html"
-assert_status '/collections/founder-selection' 200 "$living_index_collection_file"
-assert_contains "$living_index_collection_file" 'data-veylune-living-index-discovery' '/collections/founder-selection Living Index Scene'
-assert_contains "$living_index_collection_file" 'data-veylune-living-index-mode="scene-index"' '/collections/founder-selection Scene plus Index contract'
-assert_absent_pattern "$living_index_collection_file" 'Awaiting governed product population|data-veylune-identity-denial' '/collections/founder-selection public-copy and access closure'
+assert_status '/catalog/collection/founder-selection' 200 "$living_index_collection_file"
+assert_contains "$living_index_collection_file" 'data-preview-destination-type="collection"' '/catalog/collection/founder-selection canonical collection'
+assert_contains "$living_index_collection_file" 'data-preview-destination-key="founder-selection"' '/catalog/collection/founder-selection key contract'
+assert_absent_pattern "$living_index_collection_file" 'data-veylune-identity-denial|__veylune-preview' '/catalog/collection/founder-selection public access closure'
 
-living_index_discovery_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-discovery.html.twig'
+living_index_discovery_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-preview-destination.html.twig'
 shared_discovery_listing_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-listing.html.twig'
 shared_discovery_card_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/discovery-product-card.html.twig'
-assert_contains "$living_index_discovery_template" 'discovery-listing.html.twig' 'Living Index shared discovery listing contract'
+assert_contains "$living_index_discovery_template" 'discovery-listing.html.twig' 'Canonical catalog shared discovery listing contract'
 assert_contains "$shared_discovery_listing_template" 'data-veylune-plp' 'Living Index client-side refine contract'
 assert_contains "$shared_discovery_card_template" 'data-vli-selection-add' 'Living Index activation-pending Selection contract'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_living-index-discovery.scss' 'min-height: 44px' 'Living Index mobile control target'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-preview-destination.scss' 'min-height: 48px' 'Canonical catalog mobile control target'
 
 activation_pending_routes=(
     '/search'
@@ -762,10 +760,10 @@ assert_contains "$trade_program_file" '<h1>Private sourcing for designers, archi
 
 public_cart_file="${TMP_DIR}/storefront_active_empty_cart.html"
 assert_status '/checkout/cart' 200 "$public_cart_file"
-assert_contains "$public_cart_file" '<h1>No pieces are selected.' '/checkout/cart active empty state'
+assert_contains "$public_cart_file" '<h1>Your cart is empty' '/checkout/cart active empty state'
 
 wishlist_redirect_file="${TMP_DIR}/storefront_wishlist_redirect.html"
-assert_status '/wishlist' 302 "$wishlist_redirect_file"
+assert_status '/wishlist' 303 "$wishlist_redirect_file"
 
 for route in "${activation_pending_routes[@]}"; do
     file="${TMP_DIR}/storefront_denied_${route//\//_}.html"
@@ -786,15 +784,15 @@ assert_contains "$home_file" 'data-veylune-mobile-toggle' '/ mobile navigation t
 assert_contains "$home_file" 'data-veylune-mobile-nav' '/ mobile navigation dialog'
 assert_contains "$home_file" 'role="dialog"' '/ mobile dialog semantics'
 assert_contains "$home_file" 'aria-modal="true"' '/ mobile modal semantics'
-assert_contains "$home_file" 'data-vli-home-navigation="rooms"' '/ Living Index room navigation contract'
-assert_contains "$home_file" 'data-vli-home-navigation="objects"' '/ Living Index object navigation contract'
-assert_contains "$home_file" 'data-veylune-discovery-type="room"' '/ Living Index governed room route contract'
-assert_contains "$home_file" 'href="/rooms/living-room"' '/ public room navigation'
+assert_contains "$home_file" 'veylune-preview-marketplace-rooms__slider' '/ canonical room navigation contract'
+assert_contains "$home_file" 'veylune-preview-marketplace-categories__grid' '/ canonical department navigation contract'
+assert_contains "$home_file" 'veylune-preview-marketplace-collections__grid' '/ canonical collection navigation contract'
+assert_contains "$home_file" 'href="/catalog/room/living-room"' '/ public room navigation'
 assert_contains "$home_file" 'href="/editions"' '/ public material navigation'
-assert_contains "$home_file" 'href="/discover?q=room"' '/ public room index action'
+assert_contains "$home_file" 'href="/catalog/category/furniture"' '/ public department action'
 assert_absent_pattern "$home_file" 'href=""' '/ empty interaction target containment'
 
-for mega_key in furniture lighting textiles-rugs organization living-room dining-room bedroom workspace outdoor founder-selection new-arrivals best-sellers sale; do
+for mega_key in furniture lighting decor-objects textiles-rugs dining-kitchen outdoor living-room dining-room bedroom workspace hallway founder-selection new-arrivals consultation journal trade; do
     assert_contains "$home_file" "data-veylune-registry-key=\"${mega_key}\"" "/ header mega ${mega_key} action"
 done
 
@@ -827,25 +825,25 @@ public_surface_routes=(
     '/legal/terms'
     '/legal/payment-delivery'
     '/legal/cancellation'
-    '/categories/furniture'
-    '/categories/outdoor'
-    '/categories/bedding-bath'
-    '/categories/mattresses'
-    '/categories/rugs'
-    '/categories/decor-objects'
-    '/categories/lighting'
-    '/categories/organization'
-    '/categories/textiles-rugs'
-    '/categories/dining-kitchen'
-    '/collections/founder-selection'
-    '/collections/new-arrivals'
-    '/collections/best-sellers'
-    '/collections/sale'
-    '/rooms/living-room'
-    '/rooms/bedroom'
-    '/rooms/dining-room'
-    '/rooms/workspace'
-    '/rooms/outdoor'
+    '/catalog/category/furniture'
+    '/catalog/category/outdoor'
+    '/catalog/search?q=bedding%20bath'
+    '/catalog/search?q=mattress'
+    '/catalog/search?q=rug'
+    '/catalog/category/decor-objects'
+    '/catalog/category/lighting'
+    '/catalog/search?q=storage'
+    '/catalog/category/textiles-rugs'
+    '/catalog/category/dining-kitchen'
+    '/catalog/collection/founder-selection'
+    '/catalog/collection/new-arrivals'
+    '/catalog?from=best-sellers'
+    '/catalog?from=sale'
+    '/catalog/room/living-room'
+    '/catalog/room/bedroom'
+    '/catalog/room/dining-room'
+    '/catalog/room/workspace'
+    '/catalog/category/outdoor'
 )
 
 for route in "${public_surface_routes[@]}"; do
@@ -861,29 +859,28 @@ assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/layo
 assert_contains "$home_file" 'href="/contact-studio"' '/ contact action continuity'
 assert_contains "$home_file" 'href="/private-consultation"' '/ consultation action continuity'
 
-step 'Living Index homepage acceptance'
+step 'canonical marketplace homepage acceptance'
 homepage_template='custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/content/index.html.twig'
-assert_contains "$homepage_template" '{% set veyluneUseLivingIndexHome = true %}' '/ Living Index homepage activation'
-assert_contains "$homepage_template" 'living-index-home.html.twig' '/ Living Index homepage template ownership'
-assert_contains "$homepage_template" "rooms: path('frontend.veylune.living_index.search', { q: 'room' })" '/ Living Index room index target ownership'
-for home_module in hero rooms objects material access-status project; do
-    assert_contains "$home_file" "data-vli-home-module=\"${home_module}\"" "/ Living Index homepage ${home_module} module"
+assert_contains "$homepage_template" 'catalog-marketplace-content.html.twig' '/ canonical marketplace homepage ownership'
+assert_contains "$homepage_template" "veyluneCatalogRouteMode = 'public'" '/ canonical public route mode'
+assert_contains "$home_file" 'data-veylune-preview-marketplace-home' '/ canonical marketplace homepage root'
+for home_module in hero categories collections rooms services; do
+    assert_contains "$home_file" "veylune-preview-marketplace-${home_module}" "/ canonical marketplace homepage ${home_module} module"
 done
-assert_contains "$home_file" 'data-vli-home-navigation="rooms"' '/ Living Index room index navigation'
-assert_contains "$home_file" 'data-vli-home-navigation="objects"' '/ Living Index object index navigation'
-assert_absent_pattern "$home_file" 'veylune-home-hero--commerce|veylune-category-discovery|veylune-room-carousel|veylune-product-slider' '/ legacy homepage module containment'
+assert_contains "$home_file" 'data-veylune-product-slider' '/ canonical homepage product rails'
+assert_absent_pattern "$home_file" 'data-vli-home-module|data-vli-home-navigation|veylune-home-hero--commerce|veylune-category-discovery|veylune-room-carousel' '/ legacy homepage module containment'
 
 step 'performance and visual regression baseline'
 visual_baseline_css='custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-performance-visual-baseline.scss'
 assert_contains "$header_template" 'data-vli-visual-baseline="department-rail"' 'desktop department visual baseline marker'
-assert_contains "$home_file" 'data-vli-visual-baseline="merchandising-rail"' 'homepage merchandising visual baseline marker'
+assert_contains "$home_file" 'data-veylune-preview-marketplace-home' 'homepage canonical visual baseline marker'
 assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/page/account/register/index.html.twig' 'data-vli-visual-baseline="account-entry"' 'account entry visual baseline marker'
 assert_contains "$visual_baseline_css" '@supports (content-visibility: auto)' 'below-fold rendering optimization contract'
-assert_contains "$visual_baseline_css" '.vli-search-page__results > .vli-search-card:nth-child(n + 7)' 'Discover result paint deferral contract'
-assert_contains "$visual_baseline_css" '.veylune-header--living-index .veylune-mobile-nav__links a [data-vli-selection-count]' 'mobile Selection count spacing contract'
-assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/living-index-home.html.twig' 'fetchpriority="high"' 'homepage hero LCP priority'
+assert_contains "$visual_baseline_css" '.veylune-preview-grid > .veylune-preview-card:nth-child(n + 7)' 'Catalog result paint deferral contract'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/app/storefront/src/scss/component/_marketplace-header-suggest.scss' '.vli-header-suggest' 'canonical header suggestion contract'
+assert_contains 'custom/plugins/VeyluneTheme/src/Resources/views/storefront/veylune/catalog-marketplace-content.html.twig' 'fetchpriority="high"' 'homepage hero LCP priority'
 assert_contains "$visual_baseline_css" '@media (min-width: 992px)' 'desktop-only visual parity rail contract'
-assert_contains "$visual_baseline_css" '.veylune-marketplace-department-rail,' 'mobile default-hidden department rail contract'
+assert_contains "$visual_baseline_css" '.veylune-marketplace-department-rail {' 'mobile default-hidden department rail contract'
 bash bin/veylune-performance-baseline >/dev/null
 
 step 'production readiness closure'

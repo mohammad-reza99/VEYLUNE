@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "checks": [
+    "registered customer creation and authenticated overview",
+    "overview/profile/address/order routes: desktop and mobile no overflow",
+    "new customer has empty order history",
+    "logout protects account",
+    "wrong password rejected",
+    "valid login restores account",
+    "registered checkout creates local order visible in own history",
+    "anonymous visitor cannot view registered order history"
+  ]
+}

@@ -161,27 +161,59 @@ final class DraftCatalogPreviewController extends StorefrontController
         private readonly GenericPageLoader $genericPageLoader,
         private readonly DraftCatalogPreviewAccess $access,
         private readonly DraftCatalogPreviewService $previewService,
-        private readonly PdpPresentationService $pdpPresentationService
+        private readonly PdpPresentationService $pdpPresentationService,
+        private readonly string $environment
     ) {
     }
 
     #[Route(path: '/__veylune-preview/catalog', name: 'frontend.veylune.preview.catalog.home', methods: [Request::METHOD_GET])]
+    #[Route(path: '/catalog', name: 'frontend.veylune.catalog.home', methods: [Request::METHOD_GET])]
     public function home(Request $request, SalesChannelContext $context): Response
     {
         $this->denyUnlessAllowed($request);
         $page = $this->page($request, $context, 'Draft Catalog Preview');
 
-        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-home.html.twig', [
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-home.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
             'veylunePreviewRails' => $this->previewService->homepageRails(),
             'veylunePreviewCategories' => self::CATEGORIES,
             'veylunePreviewRooms' => self::ROOMS,
             'veylunePreviewCollections' => self::COLLECTIONS,
+            'veyluneCatalogRouteMode' => $this->routeMode($request),
+        ]);
+    }
+
+    #[Route(path: '/catalog/search', name: 'frontend.veylune.catalog.search', methods: [Request::METHOD_GET])]
+    public function search(Request $request, SalesChannelContext $context): Response
+    {
+        $this->denyUnlessAllowed($request);
+        $query = \trim((string) $request->query->get('q', ''));
+
+        if ($query === '') {
+            return $this->redirectToRoute('frontend.veylune.catalog.home');
+        }
+
+        $products = $this->previewService->search($query);
+        $page = $this->page($request, $context, 'Search results for ' . $query);
+        $page->getMetaInformation()?->setMetaDescription(\sprintf(
+            'Browse %d Veylune catalog results for %s.',
+            \count($products),
+            $query
+        ));
+
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-search.html.twig', [
+            'page' => $page,
+            'veyluneSearchQuery' => $query,
+            'veyluneSearchProducts' => $products,
+            'veyluneSearchTypeChips' => $this->productTypeChips($products),
+            'veyluneSearchFilterOptions' => $this->filterOptions($products),
+            'veyluneCatalogRouteMode' => 'public',
         ]);
     }
 
     #[Route(path: '/__veylune-preview/catalog/category/{categoryKey}', name: 'frontend.veylune.preview.catalog.category', requirements: ['categoryKey' => 'furniture|lighting|decor-objects|textiles-rugs|dining-kitchen|outdoor'], methods: [Request::METHOD_GET])]
+    #[Route(path: '/catalog/category/{categoryKey}', name: 'frontend.veylune.catalog.category', requirements: ['categoryKey' => 'furniture|lighting|decor-objects|textiles-rugs|dining-kitchen|outdoor'], methods: [Request::METHOD_GET])]
     public function category(string $categoryKey, Request $request, SalesChannelContext $context): Response
     {
         return $this->destination(
@@ -195,6 +227,7 @@ final class DraftCatalogPreviewController extends StorefrontController
     }
 
     #[Route(path: '/__veylune-preview/catalog/room/{roomKey}', name: 'frontend.veylune.preview.catalog.room', requirements: ['roomKey' => 'living-room|dining-room|bedroom|workspace|hallway'], methods: [Request::METHOD_GET])]
+    #[Route(path: '/catalog/room/{roomKey}', name: 'frontend.veylune.catalog.room', requirements: ['roomKey' => 'living-room|dining-room|bedroom|workspace|hallway'], methods: [Request::METHOD_GET])]
     public function room(string $roomKey, Request $request, SalesChannelContext $context): Response
     {
         return $this->destination(
@@ -208,6 +241,7 @@ final class DraftCatalogPreviewController extends StorefrontController
     }
 
     #[Route(path: '/__veylune-preview/catalog/collection/{collectionKey}', name: 'frontend.veylune.preview.catalog.collection', requirements: ['collectionKey' => 'founder-selection|new-arrivals'], methods: [Request::METHOD_GET])]
+    #[Route(path: '/catalog/collection/{collectionKey}', name: 'frontend.veylune.catalog.collection', requirements: ['collectionKey' => 'founder-selection|new-arrivals'], methods: [Request::METHOD_GET])]
     public function collection(string $collectionKey, Request $request, SalesChannelContext $context): Response
     {
         $canonicalKey = self::COLLECTION_KEYS[$collectionKey];
@@ -226,6 +260,7 @@ final class DraftCatalogPreviewController extends StorefrontController
     }
 
     #[Route(path: '/__veylune-preview/catalog/product/{recordId}', name: 'frontend.veylune.preview.catalog.product', requirements: ['recordId' => '[A-Z][0-9]{2}'], methods: [Request::METHOD_GET])]
+    #[Route(path: '/catalog/product/{recordId}', name: 'frontend.veylune.catalog.product', requirements: ['recordId' => '[A-Z][0-9]{2}'], methods: [Request::METHOD_GET])]
     public function product(string $recordId, Request $request, SalesChannelContext $context): Response
     {
         $this->denyUnlessAllowed($request);
@@ -247,12 +282,14 @@ final class DraftCatalogPreviewController extends StorefrontController
             $product['materialLabel']
         ));
 
-        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-product.html.twig', [
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-product.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
             'veylunePreviewProduct' => $product,
             'veylunePdpPresentation' => $this->pdpPresentationService->forDraft($product),
             'veylunePreviewRelated' => \array_slice($related, 0, 4),
+            'veyluneCatalogRouteMode' => $this->routeMode($request),
+            'veyluneNativeProductId' => $this->nativeProductId($recordId, $request),
         ]);
     }
 
@@ -265,7 +302,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'Review a private Veylune project selection, estimated pricing and delivery readiness before consultation.'
         );
 
-        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-cart.html.twig', [
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-cart.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
             'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest(),
@@ -281,7 +318,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'Preview contact, delivery and review steps for a private Veylune project selection without creating an order.'
         );
 
-        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-checkout.html.twig', [
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-checkout.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
             'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest(),
@@ -297,7 +334,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'Preview Veylune account access, saved project selections and private client services without creating an account.'
         );
 
-        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-account.html.twig', [
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-account.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
         ]);
@@ -331,7 +368,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         $content['heroWidth'] = $editorialMedia['width'];
         $content['heroHeight'] = $editorialMedia['height'];
 
-        return $this->previewResponse('@Storefront/storefront/veylune/catalog-preview-destination.html.twig', [
+        return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-destination.html.twig', [
             'page' => $this->page($request, $context, $title . ' Preview'),
             'veylunePreviewToken' => $this->access->token(),
             'veylunePreviewType' => $type,
@@ -342,6 +379,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'veylunePreviewPeers' => $this->destinationPeers($type),
             'veylunePreviewTypeChips' => $this->productTypeChips($products),
             'veylunePreviewFilterOptions' => $this->filterOptions($products),
+            'veyluneCatalogRouteMode' => $this->routeMode($request),
         ]);
     }
 
@@ -453,16 +491,46 @@ final class DraftCatalogPreviewController extends StorefrontController
 
     private function denyUnlessAllowed(Request $request): void
     {
+        if ($this->routeMode($request) === 'public') {
+            return;
+        }
+
         if (!$this->access->isAllowed($request)) {
             throw new NotFoundHttpException();
         }
     }
 
+    private function routeMode(Request $request): string
+    {
+        return str_starts_with((string) $request->attributes->get('_route'), 'frontend.veylune.catalog.')
+            ? 'public'
+            : 'preview';
+    }
+
+    private function nativeProductId(string $recordId, Request $request): ?string
+    {
+        if ($this->routeMode($request) !== 'public'
+            || $this->environment !== 'dev'
+            || getenv('DDEV_PROJECT') !== 'veylune-shopware'
+            || $request->getHost() !== 'veylune-shopware.ddev.site'
+            || !preg_match('/^F(0[1-9]|10)$/', $recordId, $matches)) {
+            return null;
+        }
+
+        return \VeyluneTheme\Testing\LocalCommerce::productId(((int) $matches[1]) - 1);
+    }
+
     private function page(Request $request, SalesChannelContext $context, string $title): \Shopware\Storefront\Page\Page
     {
         $page = $this->genericPageLoader->load($request, $context);
-        $page->getMetaInformation()?->setMetaTitle($title);
-        $page->getMetaInformation()?->setRobots('noindex,nofollow,noarchive,nosnippet');
+        $isPublic = $this->routeMode($request) === 'public';
+        $publicTitle = (string) \preg_replace('/ Preview$/', '', $title);
+
+        $page->getMetaInformation()?->setMetaTitle($isPublic ? $publicTitle . ' | Veylune' : $title);
+
+        if (!$isPublic) {
+            $page->getMetaInformation()?->setRobots('noindex,nofollow,noarchive,nosnippet');
+        }
 
         return $page;
     }
@@ -470,9 +538,14 @@ final class DraftCatalogPreviewController extends StorefrontController
     /**
      * @param array<string, mixed> $parameters
      */
-    private function previewResponse(string $view, array $parameters): Response
+    private function previewResponse(Request $request, string $view, array $parameters): Response
     {
         $response = $this->renderStorefront($view, $parameters);
+
+        if ($this->routeMode($request) === 'public') {
+            return $response;
+        }
+
         $response->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
         $response->headers->set('Cache-Control', 'private, no-store, max-age=0');
         $response->headers->set('Pragma', 'no-cache');

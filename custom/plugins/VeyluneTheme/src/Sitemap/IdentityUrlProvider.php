@@ -19,19 +19,19 @@ final class IdentityUrlProvider extends AbstractUrlProvider
     private const EDITION_PRIORITY = 0.7;
     private const OBJECT_PRIORITY = 0.8;
     private const DISCOVERY_ROUTES = [
-        ['/discover', 'living-index:discover', 0.8],
+        ['/catalog', 'catalog:home', 0.9],
         ['/editions', 'axis:material', 0.85],
         ['/atelier-partnerships', 'axis:maker', 0.75],
         ['/private-consultation', 'axis:project', 0.75],
         ['/trade-program', 'axis:trade', 0.75],
-        ['/rooms/living-room', 'room:living-room', 0.85],
-        ['/rooms/dining-room', 'room:dining-room', 0.8],
-        ['/rooms/bedroom', 'room:bedroom', 0.8],
-        ['/rooms/workspace', 'room:workspace', 0.75],
-        ['/rooms/hallway', 'room:hallway', 0.7],
-        ['/rooms/outdoor', 'room:outdoor', 0.75],
-        ['/collections/founder-selection', 'collection:founder-selection', 0.8],
-        ['/collections/new-arrivals', 'collection:new-arrivals', 0.75],
+        ['/catalog/room/living-room', 'room:living-room', 0.85],
+        ['/catalog/room/dining-room', 'room:dining-room', 0.8],
+        ['/catalog/room/bedroom', 'room:bedroom', 0.8],
+        ['/catalog/room/workspace', 'room:workspace', 0.75],
+        ['/catalog/room/hallway', 'room:hallway', 0.7],
+        ['/catalog/category/outdoor', 'room:outdoor', 0.75],
+        ['/catalog/collection/founder-selection', 'collection:founder-selection', 0.8],
+        ['/catalog/collection/new-arrivals', 'collection:new-arrivals', 0.75],
         ['/collections/best-sellers', 'collection:best-sellers', 0.7],
         ['/collections/sale', 'collection:sale', 0.65],
         ['/collections/permanent', 'collection:permanent-collections', 0.75],
@@ -108,8 +108,13 @@ final class IdentityUrlProvider extends AbstractUrlProvider
 
         foreach ($this->productExposureService->publicProducts($context) as $product) {
             $productNumber = (string) $product->getProductNumber();
-            $route = '/objects/' . rawurlencode($productNumber);
+            $translatedCustomFields = $product->getTranslated()['customFields'] ?? null;
+            $customFields = is_array($translatedCustomFields) ? $translatedCustomFields : ($product->getCustomFields() ?? []);
+            $recordId = strtoupper(trim((string) ($customFields['veylune_catalog_record_id'] ?? '')));
+            $route = preg_match('/^[A-Z][0-9]{2}$/', $recordId) === 1
+                ? '/catalog/product/' . rawurlencode($recordId)
 
+                : '/objects/' . rawurlencode($productNumber);
             if ($productNumber === '' || isset($emittedRoutes[$route])) {
                 continue;
             }

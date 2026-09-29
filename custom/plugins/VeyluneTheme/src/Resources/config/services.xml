@@ -6,6 +6,38 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true" />
+        <service id="VeyluneTheme\Command\LocalCommerceSetupCommand">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry" />
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="Shopware\Storefront\Theme\ThemeService" />
+            <argument>%kernel.environment%</argument>
+        </service>
+        <service id="VeyluneTheme\Testing\LocalPaymentHandler">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler" />
+            <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundStateHandler" />
+            <argument>%kernel.environment%</argument>
+            <tag name="shopware.payment.method" />
+        </service>
+        <service id="VeyluneTheme\Command\LocalCommerceRefundCommand">
+            <argument type="service" id="Doctrine\DBAL\Connection" />
+            <argument type="service" id="Shopware\Core\Checkout\Payment\Cart\PaymentRefundProcessor" />
+            <argument>%kernel.environment%</argument>
+        </service>
+        <service id="VeyluneTheme\Controller\LocalCommerceController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <argument type="service" id="sales_channel.product.repository" />
+            <argument>%kernel.environment%</argument>
+            <call method="setContainer"><argument type="service" id="service_container" /></call>
+        </service>
+
+        <service id="VeyluneTheme\Controller\CanonicalTestCartController" public="true">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
+            <argument type="service" id="Shopware\Core\Checkout\Cart\LineItemFactoryRegistry" />
+            <argument>%kernel.environment%</argument>
+            <call method="setContainer"><argument type="service" id="service_container" /></call>
+        </service>
 
         <service id="VeyluneTheme\Controller\PartnershipController" public="true">
             <call method="setContainer">
@@ -40,6 +72,11 @@
         </service>
 
         <service id="VeyluneTheme\Controller\DraftCatalogPreviewController" public="true">
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
+            <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewAccess" />
+            <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewService" />
+            <argument type="service" id="VeyluneTheme\Product\PdpPresentationService" />
+            <argument>%kernel.environment%</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -187,7 +224,11 @@
             <argument>%kernel.environment%</argument>
         </service>
 
-        <service id="VeyluneTheme\Subscriber\ProductExposurePageSubscriber" />
+        <service id="VeyluneTheme\Subscriber\ProductExposurePageSubscriber">
+            <argument type="service" id="VeyluneTheme\Discovery\ProductExposureService" />
+            <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewService" />
+            <argument>%kernel.environment%</argument>
+        </service>
 
         <service id="VeyluneTheme\Subscriber\ProductPdpPresentationSubscriber" />
 

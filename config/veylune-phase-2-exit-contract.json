@@ -14,8 +14,8 @@
     "marketplace-production-readiness"
   ],
   "expected": {
-    "scssFiles": 119,
-    "baseImports": 117,
+    "scssFiles": 117,
+    "baseImports": 115,
     "shellCaptures": 15,
     "shellScreenshots": 21,
     "pixelIdenticalShellScreenshots": 21,

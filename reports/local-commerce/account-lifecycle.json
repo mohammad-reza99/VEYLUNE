@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "checks": [
+    "profile changes persist",
+    "address changes persist",
+    "two registered accounts cannot read each other address or order details",
+    "Mailpit password reset; old password rejected, new password accepted, reset token single-use"
+  ]
+}

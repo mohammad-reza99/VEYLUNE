@@ -1,0 +1,32 @@
+{% sw_extends '@Storefront/storefront/page/account/convert.html.twig' %}
+
+{% set isCanonicalLocalAccount = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestAccount = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalAccount %}
+
+{% block component_account_guest_conversion_header %}
+    {% if isLocalTestAccount %}
+        <header class="account-guest-conversion__header veylune-account-hero">
+            <p class="veylune-account-hero__eyebrow">Guest order / Account conversion</p>
+            <h1 class="account-guest-conversion__title">Keep your test order history.</h1>
+            <p>Create a password for <strong>{{ context.customer.email|decodeIdnEmail }}</strong>. Your completed guest order and saved delivery details stay connected to this account.</p>
+        </header>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_account_guest_conversion_required_fields %}
+    {% if isLocalTestAccount %}
+        <p class="account-guest-conversion__required-info">Fields marked with an asterisk (*) are required.</p>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block component_account_guest_conversion_submit %}
+    <div class="account-guest-conversion__action">
+        <button type="submit" class="btn btn-primary btn-lg account-guest-conversion__submit">
+            {{ isLocalTestAccount ? 'Create test account' : 'general.formSubmit'|trans|sw_sanitize }}
+        </button>
+    </div>
+{% endblock %}

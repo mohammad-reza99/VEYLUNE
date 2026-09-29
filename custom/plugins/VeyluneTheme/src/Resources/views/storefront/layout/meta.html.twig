@@ -5,7 +5,9 @@
 {% set isVeyluneAccount = veyluneRoute starts with 'frontend.account.' %}
 {% set veyluneAccountTitle = 'recover' in veyluneRoute ? 'Password recovery | VEYLUNE' : (veyluneRoute in ['frontend.account.login.page', 'frontend.account.register.page'] ? 'Sign in or create account | VEYLUNE' : 'Your account | VEYLUNE') %}
 {% set veyluneAccountDescription = 'Securely access your Veylune account, addresses, saved projects and order history.' %}
-{% set isVeyluneIndexable = page.metaInformation.robots|default('') == 'index,follow' %}
+{% set isVeyluneLocalCommerce = context.salesChannel.id == '019f7a00000070008000000000000001' %}
+{% set isVeyluneCatalogSearch = veyluneRoute == 'frontend.veylune.catalog.search' %}
+{% set isVeyluneIndexable = not isVeyluneLocalCommerce and not isVeyluneCatalogSearch and page.metaInformation.robots|default('') == 'index,follow' %}
 {% set veyluneHomeShareImage = absolute_url(asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme')) %}
 {% set veyluneRouteShareAssets = {
     'frontend.veylune.editions.page': 'veylune-category-decor-v1.webp',
@@ -26,6 +28,16 @@
     'frontend.veylune.consultation.page',
     'frontend.veylune.partnership.page'
 ] %}
+
+{% block layout_head_meta_tags_robots -%}
+    {%- if isVeyluneLocalCommerce -%}
+        noindex,nofollow,noarchive
+    {%- elseif isVeyluneCatalogSearch -%}
+        noindex,follow
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{%- endblock %}
 
 {% block layout_head_meta_tags_description %}
     {{- isVeyluneHome ? 'veylune.home.seo.description'|trans|striptags|trim : (isVeyluneAccount ? veyluneAccountDescription : parent()) -}}

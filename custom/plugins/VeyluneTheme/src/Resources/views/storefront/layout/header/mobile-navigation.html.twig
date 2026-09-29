@@ -2,7 +2,7 @@
 {% set veyluneMobileDrawerPreviewToken = veyluneHeaderPreviewToken|default(veylunePreviewToken|default(null)) %}
 <div class="veylune-mobile-marketplace" data-veylune-mobile-marketplace data-veylune-nav-surface="mobile">
     <form class="veylune-mobile-marketplace__search"
-          action="{{ path('frontend.veylune.living_index.search') }}"
+          action="{{ path('frontend.veylune.catalog.search') }}"
           method="get"
           role="search"
           aria-label="Search Veylune"

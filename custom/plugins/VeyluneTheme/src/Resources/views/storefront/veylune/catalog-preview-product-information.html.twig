@@ -5,7 +5,7 @@
             <div><span aria-hidden="true">01</span><strong>{{ product.materialLabel }}</strong><small>Primary material direction</small></div>
             <div><span aria-hidden="true">02</span><strong>{{ veylunePdpPresentation.familyLabel }}</strong><small>Product family</small></div>
             <div><span aria-hidden="true">03</span><strong>{{ veylunePdpPresentation.gallery.count }} approved view{{ veylunePdpPresentation.gallery.count == 1 ? '' : 's' }}</strong><small>Gallery evidence</small></div>
-            <div><span aria-hidden="true">04</span><strong>Private specification</strong><small>Non-binding pathway</small></div>
+            <div><span aria-hidden="true">04</span><strong>{{ veyluneCatalogIsPublic|default(false) ? 'Studio specification' : 'Private specification' }}</strong><small>Non-binding pathway</small></div>
         </div>
     </section>
 

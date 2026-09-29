@@ -1,0 +1,25 @@
+{% sw_extends '@Storefront/storefront/layout/header/header-minimal.html.twig' %}
+
+{% set isCanonicalLocalCheckout = context.salesChannel.id == '019e3bf9c220717884d2a4eaca77c2d1' and app.request.host == 'veylune-shopware.ddev.site' %}
+{% set isLocalTestCheckout = context.salesChannel.id == '019f7a00000070008000000000000001' or isCanonicalLocalCheckout %}
+
+{% block layout_header_minimal_logo %}
+    {% if isLocalTestCheckout %}
+        <div class="col-6 col-md-4 header-minimal-logo">
+            <a class="veylune-native-wordmark" href="{{ isCanonicalLocalCheckout ? path('frontend.home.page') : path('frontend.veylune.local_commerce') }}" aria-label="Veylune home">veylune</a>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block layout_header_minimal_contact %}
+    {% if isLocalTestCheckout %}
+        <div class="col-md-4 header-minimal-contact">
+            <strong>Secure test checkout</strong><br>
+            Simulated payment. No real charge or delivery.
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

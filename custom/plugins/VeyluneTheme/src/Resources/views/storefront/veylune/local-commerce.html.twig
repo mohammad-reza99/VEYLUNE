@@ -1,0 +1,27 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+{% block base_content %}
+    <section class="container veylune-local-catalog" data-veylune-local-catalog>
+        <header class="veylune-local-catalog__header">
+            <p class="veylune-local-catalog__eyebrow">Supplier-demo validation</p>
+            <div class="veylune-local-catalog__heading">
+                <div>
+                    <h1>Veylune test catalog</h1>
+                    <p>Native product, cart, checkout and account scenarios using isolated test data. No money is charged and no fulfillment is created.</p>
+                </div>
+                <p class="veylune-local-catalog__count">{{ testProducts|length }} test objects</p>
+            </div>
+            <ul class="veylune-local-catalog__assurances" aria-label="Test catalog boundaries">
+                <li>Native cart</li>
+                <li>Live stock boundaries</li>
+                <li>No external payment</li>
+            </ul>
+        </header>
+        <div class="row g-3 g-lg-4 veylune-local-catalog__grid">
+            {% for product in testProducts %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    {% sw_include '@Storefront/storefront/component/product/card/box-standard.html.twig' with {product: product} %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

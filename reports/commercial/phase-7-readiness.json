@@ -32,8 +32,8 @@
             "founder_launch_approval:missing"
         ],
         "commerceInventory": {
-            "activePaymentMethods": 3,
-            "activeShippingMethods": 2,
+            "activePaymentMethods": 5,
+            "activeShippingMethods": 3,
             "taxRules": 3,
             "configuredCurrencies": 9
         }

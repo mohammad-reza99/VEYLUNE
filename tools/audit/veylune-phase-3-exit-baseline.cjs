@@ -22,7 +22,7 @@ const expectedDirect = {
     '/about': { statuses: [301], location: '/about-studio' },
     '/account': { statuses: [302, 303], locationPrefix: '/account/login' },
     '/checkout/confirm': { statuses: [303], location: '/checkout/cart?checkout=guarded' },
-    '/wishlist': { statuses: [302], location: '/selection?source=wishlist' },
+    '/wishlist': { statuses: [303], location: '/checkout/cart?source=wishlist' },
 };
 const canonicalRedirects = [
     { path: '/collections/permanent-collections', status: 301, location: '/collections/permanent' },
@@ -368,12 +368,12 @@ async function run() {
     fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 
     const specialContext = await browser.newContext({ ignoreHTTPSErrors: true });
-    const zero = await specialContext.request.get(`${baseUrl}/discover?q=zxqv987654321`, { failOnStatusCode: false, timeout: 10000 });
+    const zero = await specialContext.request.get(`${baseUrl}/catalog/search?q=zxqv987654321`, { failOnStatusCode: false, timeout: 10000 });
     const zeroBody = await zero.text();
     const unknown = await specialContext.request.get(`${baseUrl}/__phase-3-exit/not-found`, { failOnStatusCode: false, timeout: 10000 });
     const unknownBody = await unknown.text();
     report.specialStates = {
-        zeroResult: { status: zero.status(), countMarker: zeroBody.includes('<strong>0</strong> results'), recoveryCopy: zeroBody.includes('No confident index match') },
+        zeroResult: { status: zero.status(), countMarker: zeroBody.includes('No products matched this search'), recoveryCopy: zeroBody.includes('could not find a product') },
         controlled404: { status: unknown.status(), releaseMarker: unknownBody.includes('data-veylune-release-error'), noIndex: unknownBody.includes('noindex,nofollow') },
     };
     await zero.dispose();

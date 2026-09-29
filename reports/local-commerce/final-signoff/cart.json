@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "results": [
+    "catalog: 10 test products; noindex and no-store",
+    "mini-cart checkout points to native checkout, not consultation",
+    "native add-to-cart and header counter",
+    "quantity persists; two units plus shipping total EUR 9809.90",
+    "cart no horizontal overflow at 390/768/1440",
+    "remove item; empty cart and counter reset",
+    "out-of-stock product has no enabled buy button",
+    "test catalog denied outside test channel"
+  ]
+}

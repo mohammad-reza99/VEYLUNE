@@ -1,16 +1,27 @@
 {% sw_extends '@Storefront/storefront/layout/header/header.html.twig' %}
 
 {% block layout_header %}
+    {% if context.salesChannel.id == '019f7a00000070008000000000000001' %}
+        <div class="alert alert-info mb-0" role="status" data-local-commerce-banner>
+            Local commerce test - no real charges or deliveries.
+            <a href="{{ path('frontend.veylune.local_commerce') }}">Test catalog</a>
+            <a href="{{ path('frontend.checkout.cart.page') }}">Cart</a>
+            <a href="{{ path('frontend.account.home.page') }}">My account</a>
+        </div>
+    {% endif %}
 	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
     {% set publicSurfaces = veylunePublicSurfaces|default({}) %}
 	{% set veyluneHeaderPreviewToken = veylunePreviewToken|default(
         app.request.pathInfo starts with '/__veylune-preview/' ? app.request.query.get('token') : null
     ) %}
-	{% set isPrivatePreview = veyluneHeaderPreviewToken is not empty %}
+    {% set isPrivatePreview = veyluneHeaderPreviewToken is not empty %}
+    {% set isCanonicalCatalog = not isPrivatePreview %}
+	{% set isNativeCartSurface = context.salesChannel.id in ['019e3bf9c220717884d2a4eaca77c2d1', '019f7a00000070008000000000000001'] %}
+	{% set veyluneHeaderSearchRoute = 'frontend.veylune.catalog.search' %}
 	{% set veyluneRoutes = {
-        shop: isPrivatePreview ? path('frontend.veylune.preview.catalog.category', { categoryKey: 'furniture', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('furniture'),
-        rooms: isPrivatePreview ? path('frontend.veylune.preview.catalog.room', { roomKey: 'living-room', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('livingRoom'),
-        collections: isPrivatePreview ? path('frontend.veylune.preview.catalog.collection', { collectionKey: 'founder-selection', token: veyluneHeaderPreviewToken }) : veyluneCategoryRoutes.url('founderSelection'),
+        shop: isPrivatePreview ? path('frontend.veylune.preview.catalog.category', { categoryKey: 'furniture', token: veyluneHeaderPreviewToken }) : (isCanonicalCatalog ? path('frontend.veylune.catalog.category', { categoryKey: 'furniture' }) : veyluneCategoryRoutes.url('furniture')),
+        rooms: isPrivatePreview ? path('frontend.veylune.preview.catalog.room', { roomKey: 'living-room', token: veyluneHeaderPreviewToken }) : (isCanonicalCatalog ? path('frontend.veylune.catalog.room', { roomKey: 'living-room' }) : veyluneCategoryRoutes.url('livingRoom')),
+        collections: isPrivatePreview ? path('frontend.veylune.preview.catalog.collection', { collectionKey: 'founder-selection', token: veyluneHeaderPreviewToken }) : (isCanonicalCatalog ? path('frontend.veylune.catalog.collection', { collectionKey: 'founder-selection' }) : veyluneCategoryRoutes.url('founderSelection')),
         editions: path(app.request.locale starts with 'de' ? 'frontend.veylune.editions.page.de' : 'frontend.veylune.editions.page'),
         consultation: veyluneCategoryRoutes.url('consultation'),
         trade: path('frontend.veylune.trade.page'),
@@ -70,6 +81,26 @@
             { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: veyluneRoutes.collections, available: true },
             { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: path('frontend.veylune.preview.catalog.collection', { collectionKey: 'new-arrivals', token: veyluneHeaderPreviewToken }), available: true }
         ] %}
+    {% elseif isCanonicalCatalog %}
+        {% set veyluneMegaCategories = [
+            { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: path('frontend.veylune.catalog.category', { categoryKey: 'furniture' }), available: true },
+            { key: 'lighting', label: 'veylune.home.discovery.categories.lighting', url: path('frontend.veylune.catalog.category', { categoryKey: 'lighting' }), available: true },
+            { key: 'decor-objects', label: 'Decor & Objects', url: path('frontend.veylune.catalog.category', { categoryKey: 'decor-objects' }), available: true },
+            { key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', url: path('frontend.veylune.catalog.category', { categoryKey: 'textiles-rugs' }), available: true },
+            { key: 'dining-kitchen', label: 'Dining & Kitchen', url: path('frontend.veylune.catalog.category', { categoryKey: 'dining-kitchen' }), available: true },
+            { key: 'outdoor', label: 'Outdoor', url: path('frontend.veylune.catalog.category', { categoryKey: 'outdoor' }), available: true }
+        ] %}
+        {% set veyluneMegaRooms = [
+            { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: path('frontend.veylune.catalog.room', { roomKey: 'living-room' }), available: true },
+            { key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', url: path('frontend.veylune.catalog.room', { roomKey: 'dining-room' }), available: true },
+            { key: 'bedroom', label: 'veylune.home.discovery.rooms.bedroom', url: path('frontend.veylune.catalog.room', { roomKey: 'bedroom' }), available: true },
+            { key: 'workspace', label: 'veylune.home.discovery.rooms.workspace', url: path('frontend.veylune.catalog.room', { roomKey: 'workspace' }), available: true },
+            { key: 'hallway', label: 'Hallway', url: path('frontend.veylune.catalog.room', { roomKey: 'hallway' }), available: true }
+        ] %}
+        {% set veyluneMegaCollections = [
+            { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: path('frontend.veylune.catalog.collection', { collectionKey: 'founder-selection' }), available: true },
+            { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: path('frontend.veylune.catalog.collection', { collectionKey: 'new-arrivals' }), available: true }
+        ] %}
     {% else %}
         {# These destinations are governed public Living Index routes. Keep the menu
            independent from the legacy catalog-readiness registry so an open mega
@@ -101,7 +132,7 @@
             { key: 'sale', label: 'Sale', url: veyluneCategoryRoutes.url('sale'), available: true }
         ] %}
     {% endif %}
-    {% set veyluneDepartmentRail = isPrivatePreview ? [] : [
+    {% set veyluneDepartmentRail = (isPrivatePreview or isCanonicalCatalog) ? [] : [
         { key: 'furniture', label: 'Furniture', url: veyluneCategoryRoutes.url('furniture') },
         { key: 'outdoor', label: 'Outdoor', url: veyluneCategoryRoutes.url('departmentOutdoor') },
         { key: 'bedding-bath', label: 'Bedding & Bath', url: veyluneCategoryRoutes.url('beddingBath') },
@@ -121,6 +152,27 @@
         { key: 'maker', label: 'Maker', url: veyluneRoutes.partnership, mega: null },
         { key: 'project', label: 'Project', url: veyluneRoutes.consultation, mega: null },
         { key: 'sale', label: 'Sale', url: veyluneCategoryRoutes.url('sale'), mega: null }
+    ] %}
+    {% set veyluneHeaderPopularSearches = isCanonicalCatalog ? [
+        { label: 'Living room', query: 'living room', terms: 'living room sofa seating' },
+        { label: 'Sofas', query: 'sofa', terms: 'sofa seating upholstery' },
+        { label: 'Oak furniture', query: 'oak furniture', terms: 'oak wood furniture table' },
+        { label: 'Sculptural lighting', query: 'lighting', terms: 'light lighting lamp sculptural' },
+        { label: 'Travertine', query: 'travertine', terms: 'travertine stone table object' }
+    ] : [
+        { label: 'Living room', query: 'living room', terms: 'living room sofa seating' },
+        { label: 'Quiet contrast', query: 'quiet contrast', terms: 'quiet contrast style restraint' },
+        { label: 'Oak furniture', query: 'oak furniture', terms: 'oak wood furniture table' },
+        { label: 'Sculptural lighting', query: 'sculptural lighting', terms: 'light lighting lamp sculptural' },
+        { label: 'Private project', query: 'private project', terms: 'project design service consultation' }
+    ] %}
+    {% set veyluneHeaderProductSearches = [
+        { label: 'Furniture', query: 'furniture' },
+        { label: 'Lighting', query: 'lighting' },
+        { label: 'Vessels', query: 'vessels' },
+        { label: 'Seating', query: 'chair' },
+        { label: 'Tables', query: 'table' },
+        { label: 'Outdoor', query: 'outdoor' }
     ] %}
 
 	<header class="veylune-header veylune-header--living-index" data-veylune-header data-veylune-living-index-header>
@@ -165,13 +217,13 @@
 					{% endblock %}
 
                     <div class="veylune-marketplace-search" data-veylune-header-search>
-                        <form class="veylune-marketplace-search__form" action="{{ path('frontend.veylune.living_index.search') }}" method="get" role="search" data-veylune-header-search-form>
+                        <form class="veylune-marketplace-search__form" action="{{ path(veyluneHeaderSearchRoute) }}" method="get" role="search" data-veylune-header-search-form>
                             <label class="visually-hidden" for="veyluneMarketplaceSearch">{{ 'header.searchPlaceholder'|trans|striptags }}</label>
                             <input id="veyluneMarketplaceSearch"
                                    class="veylune-marketplace-search__input"
                                    type="search"
                                    name="q"
-                                   value="{{ app.request.attributes.get('_route') == 'frontend.veylune.living_index.search' ? app.request.query.get('q')|default('') : '' }}"
+                                   value="{{ app.request.attributes.get('_route') == 'frontend.veylune.catalog.search' ? app.request.query.get('q')|default('') : '' }}"
                                    autocomplete="off"
                                    placeholder="Search objects, rooms, materials, makers..."
                                    aria-autocomplete="list"
@@ -188,7 +240,7 @@
                                  data-vli-header-suggest
                                  hidden>
                             <a class="vli-header-suggest__query"
-                               href="{{ path('frontend.veylune.living_index.search') }}"
+                               href="{{ path(veyluneHeaderSearchRoute) }}"
                                data-vli-header-query-link
                                hidden>
                                 <span>Search for</span>
@@ -198,30 +250,32 @@
                             <div class="vli-header-suggest__grid">
                                 <div>
                                     <p>Popular searches</p>
-                                    {% for suggestion in [
-                                        { label: 'Living room', query: 'living room', terms: 'living room sofa seating' },
-                                        { label: 'Quiet contrast', query: 'quiet contrast', terms: 'quiet contrast style restraint' },
-                                        { label: 'Oak furniture', query: 'oak furniture', terms: 'oak wood furniture table' },
-                                        { label: 'Sculptural lighting', query: 'sculptural lighting', terms: 'light lighting lamp sculptural' },
-                                        { label: 'Private project', query: 'private project', terms: 'project design service consultation' }
-                                    ] %}
-                                        <a href="{{ path('frontend.veylune.living_index.search', { q: suggestion.query }) }}"
+                                    {% for suggestion in veyluneHeaderPopularSearches %}
+                                        <a href="{{ path(veyluneHeaderSearchRoute, { q: suggestion.query }) }}"
                                            data-vli-header-suggestion
                                            data-search-terms="{{ suggestion.terms }}">{{ suggestion.label }}</a>
                                     {% endfor %}
                                 </div>
                                 <div>
-                                    <p>Explore by type</p>
-                                    {% for axis in veyluneLivingIndexAxes %}
-                                        {% if axis.key != 'sale' %}
-                                            <a href="{{ path('frontend.veylune.living_index.search', { axis: axis.key }) }}"
+                                    <p>{{ isCanonicalCatalog ? 'Explore products' : 'Explore by type' }}</p>
+                                    {% if isCanonicalCatalog %}
+                                        {% for suggestion in veyluneHeaderProductSearches %}
+                                            <a href="{{ path(veyluneHeaderSearchRoute, { q: suggestion.query }) }}"
                                                data-vli-header-suggestion
-                                               data-search-terms="{{ axis.key }} {{ axis.label|lower }}">{{ axis.label }}</a>
-                                        {% endif %}
-                                    {% endfor %}
+                                               data-search-terms="{{ suggestion.query }} {{ suggestion.label|lower }}">{{ suggestion.label }}</a>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for axis in veyluneLivingIndexAxes %}
+                                            {% if axis.key != 'sale' %}
+                                                <a href="{{ path(veyluneHeaderSearchRoute, { axis: axis.key }) }}"
+                                                   data-vli-header-suggestion
+                                                   data-search-terms="{{ axis.key }} {{ axis.label|lower }}">{{ axis.label }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                             </div>
-                            <small data-vli-header-search-scope>Suggestions cover public Living Index paths only.</small>
+                            <small data-vli-header-search-scope>{{ isCanonicalCatalog ? 'Suggestions search the current product catalog.' : 'Suggestions cover public Living Index paths only.' }}</small>
                         </section>
                     </div>
 					<nav class="veylune-header__nav" id="veylunePrimaryNavigation" aria-label="{{ 'veylune.header.primaryNavAriaLabel'|trans|striptags }}" data-veylune-nav-surface="primary">
@@ -253,7 +307,7 @@
                             {% else %}
                                 <a class="veylune-marketplace-action" href="{{ path('frontend.account.home.page') }}" aria-label="{{ 'account.myAccount'|trans|striptags }}" data-veylune-header-account>
                                     <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
-                                    <span class="veylune-marketplace-action__label">Sign In</span>
+                                    <span class="veylune-marketplace-action__label">{{ context.salesChannel.id == '019f7a00000070008000000000000001' and context.customer and not context.customer.guest ? 'My account' : 'Sign In' }}</span>
                                 </a>
                             {% endif %}
                         {% endblock %}
@@ -265,9 +319,15 @@
                                     <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">0</span></span>
                                 </a>
                             {% else %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}" data-veylune-header-cart>
-                                    <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
-                                    <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}" data-veylune-header-cart {% if isNativeCartSurface %}data-off-canvas-cart="true"{% endif %}>
+                                    {% if isNativeCartSurface %}
+                                        <span data-cart-widget>
+                                            {% sw_include '@Storefront/storefront/layout/header/actions/cart-widget.html.twig' %}
+                                        </span>
+                                    {% else %}
+                                        <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
+                                        <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
+                                    {% endif %}
                                 </a>
                             {% endif %}
                         {% endblock %}
