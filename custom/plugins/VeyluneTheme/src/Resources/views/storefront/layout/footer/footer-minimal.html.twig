@@ -8,11 +8,11 @@
         <footer class="footer-minimal veylune-checkout-footer">
             <div class="veylune-checkout-footer__inner">
                 <a class="veylune-checkout-footer__brand" href="{{ isCanonicalLocalCheckout ? path('frontend.home.page') : path('frontend.veylune.local_commerce') }}">veylune</a>
-                <p>Encrypted local test checkout. No external payment provider, charge or supplier reservation.</p>
-                <nav aria-label="Checkout information">
-                    <a href="{{ path('frontend.veylune.legal.page', { document: 'privacy' }) }}">Privacy</a>
-                    <a href="{{ path('frontend.veylune.legal.page', { document: 'terms' }) }}">Terms</a>
-                    <a href="{{ path('frontend.veylune.contact.page') }}">Contact Studio</a>
+                <p>{{ 'veylune.marketplace.checkoutShell.footerText'|trans|sw_sanitize }}</p>
+                <nav aria-label="{{ 'veylune.marketplace.checkoutShell.infoAria'|trans|striptags }}">
+                    <a href="{{ path('frontend.veylune.legal.page', { document: 'privacy' }) }}">{{ 'veylune.marketplace.checkoutShell.privacy'|trans|sw_sanitize }}</a>
+                    <a href="{{ path('frontend.veylune.legal.page', { document: 'terms' }) }}">{{ 'veylune.marketplace.checkoutShell.terms'|trans|sw_sanitize }}</a>
+                    <a href="{{ path('frontend.veylune.contact.page') }}">{{ 'veylune.marketplace.checkoutShell.contact'|trans|sw_sanitize }}</a>
                 </nav>
             </div>
         </footer>

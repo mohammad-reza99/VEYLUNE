@@ -3,10 +3,10 @@
 {% block layout_header %}
     {% if context.salesChannel.id == '019f7a00000070008000000000000001' %}
         <div class="alert alert-info mb-0" role="status" data-local-commerce-banner>
-            Local commerce test - no real charges or deliveries.
-            <a href="{{ path('frontend.veylune.local_commerce') }}">Test catalog</a>
-            <a href="{{ path('frontend.checkout.cart.page') }}">Cart</a>
-            <a href="{{ path('frontend.account.home.page') }}">My account</a>
+            {{ 'veylune.marketplace.header.testBanner'|trans|sw_sanitize }}
+            <a href="{{ path('frontend.veylune.local_commerce') }}">{{ 'veylune.marketplace.header.testCatalog'|trans|sw_sanitize }}</a>
+            <a href="{{ path('frontend.checkout.cart.page') }}">{{ 'veylune.marketplace.header.testCart'|trans|sw_sanitize }}</a>
+            <a href="{{ path('frontend.account.home.page') }}">{{ 'veylune.marketplace.header.myAccount'|trans|sw_sanitize }}</a>
         </div>
     {% endif %}
 	{% import '@VeyluneTheme/storefront/veylune/category-routes.html.twig' as veyluneCategoryRoutes %}
@@ -85,17 +85,17 @@
         {% set veyluneMegaCategories = [
             { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: path('frontend.veylune.catalog.category', { categoryKey: 'furniture' }), available: true },
             { key: 'lighting', label: 'veylune.home.discovery.categories.lighting', url: path('frontend.veylune.catalog.category', { categoryKey: 'lighting' }), available: true },
-            { key: 'decor-objects', label: 'Decor & Objects', url: path('frontend.veylune.catalog.category', { categoryKey: 'decor-objects' }), available: true },
+            { key: 'decor-objects', label: 'veylune.marketplace.header.departments.decorObjects', url: path('frontend.veylune.catalog.category', { categoryKey: 'decor-objects' }), available: true },
             { key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', url: path('frontend.veylune.catalog.category', { categoryKey: 'textiles-rugs' }), available: true },
-            { key: 'dining-kitchen', label: 'Dining & Kitchen', url: path('frontend.veylune.catalog.category', { categoryKey: 'dining-kitchen' }), available: true },
-            { key: 'outdoor', label: 'Outdoor', url: path('frontend.veylune.catalog.category', { categoryKey: 'outdoor' }), available: true }
+            { key: 'dining-kitchen', label: 'veylune.marketplace.header.departments.diningKitchen', url: path('frontend.veylune.catalog.category', { categoryKey: 'dining-kitchen' }), available: true },
+            { key: 'outdoor', label: 'veylune.marketplace.header.departments.outdoor', url: path('frontend.veylune.catalog.category', { categoryKey: 'outdoor' }), available: true }
         ] %}
         {% set veyluneMegaRooms = [
             { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: path('frontend.veylune.catalog.room', { roomKey: 'living-room' }), available: true },
             { key: 'dining-room', label: 'veylune.home.discovery.rooms.diningRoom', url: path('frontend.veylune.catalog.room', { roomKey: 'dining-room' }), available: true },
             { key: 'bedroom', label: 'veylune.home.discovery.rooms.bedroom', url: path('frontend.veylune.catalog.room', { roomKey: 'bedroom' }), available: true },
             { key: 'workspace', label: 'veylune.home.discovery.rooms.workspace', url: path('frontend.veylune.catalog.room', { roomKey: 'workspace' }), available: true },
-            { key: 'hallway', label: 'Hallway', url: path('frontend.veylune.catalog.room', { roomKey: 'hallway' }), available: true }
+            { key: 'hallway', label: 'veylune.home.discovery.rooms.hallway', url: path('frontend.veylune.catalog.room', { roomKey: 'hallway' }), available: true }
         ] %}
         {% set veyluneMegaCollections = [
             { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: path('frontend.veylune.catalog.collection', { collectionKey: 'founder-selection' }), available: true },
@@ -107,16 +107,16 @@
            menu can never degrade into an empty interaction surface. #}
         {% set veyluneMegaCategories = [
             { key: 'furniture', label: 'veylune.home.discovery.categories.furniture', url: veyluneCategoryRoutes.url('furniture'), available: true },
-            { key: 'outdoor', label: 'Outdoor', url: veyluneCategoryRoutes.url('departmentOutdoor'), available: true },
-            { key: 'bedding-bath', label: 'Bedding & Bath', url: veyluneCategoryRoutes.url('beddingBath'), available: true },
-            { key: 'mattresses', label: 'Mattresses', url: veyluneCategoryRoutes.url('mattresses'), available: true },
-            { key: 'rugs', label: 'Rugs', url: veyluneCategoryRoutes.url('rugs'), available: true },
-            { key: 'decor-objects', label: 'Decor & Objects', url: veyluneCategoryRoutes.url('departmentDecorObjects'), available: true },
+            { key: 'outdoor', label: 'veylune.marketplace.header.departments.outdoor', url: veyluneCategoryRoutes.url('departmentOutdoor'), available: true },
+            { key: 'bedding-bath', label: 'veylune.marketplace.header.departments.beddingBath', url: veyluneCategoryRoutes.url('beddingBath'), available: true },
+            { key: 'mattresses', label: 'veylune.marketplace.header.departments.mattresses', url: veyluneCategoryRoutes.url('mattresses'), available: true },
+            { key: 'rugs', label: 'veylune.marketplace.header.departments.rugs', url: veyluneCategoryRoutes.url('rugs'), available: true },
+            { key: 'decor-objects', label: 'veylune.marketplace.header.departments.decorObjects', url: veyluneCategoryRoutes.url('departmentDecorObjects'), available: true },
             { key: 'lighting', label: 'veylune.home.discovery.categories.lighting', url: veyluneCategoryRoutes.url('departmentLighting'), available: true },
             { key: 'textiles-rugs', label: 'veylune.home.discovery.categories.textilesRugs', url: veyluneCategoryRoutes.url('textilesRugs'), available: true },
-            { key: 'organization', label: 'Organization', url: veyluneCategoryRoutes.url('organization'), available: true },
-            { key: 'dining-kitchen', label: 'Dining & Kitchen', url: veyluneCategoryRoutes.url('diningKitchen'), available: true },
-            { key: 'sale', label: 'Sale', url: veyluneCategoryRoutes.url('sale'), available: true }
+            { key: 'organization', label: 'veylune.marketplace.header.departments.organization', url: veyluneCategoryRoutes.url('organization'), available: true },
+            { key: 'dining-kitchen', label: 'veylune.marketplace.header.departments.diningKitchen', url: veyluneCategoryRoutes.url('diningKitchen'), available: true },
+            { key: 'sale', label: 'veylune.marketplace.header.departments.sale', url: veyluneCategoryRoutes.url('sale'), available: true }
         ] %}
         {% set veyluneMegaRooms = [
             { key: 'living-room', label: 'veylune.home.discovery.rooms.livingRoom', url: veyluneCategoryRoutes.url('livingRoom'), available: true },
@@ -128,71 +128,137 @@
         {% set veyluneMegaCollections = [
             { key: 'founder-selection', label: 'veylune.home.discovery.collections.founderSelection', url: veyluneCategoryRoutes.url('founderSelection'), available: true },
             { key: 'new-arrivals', label: 'veylune.home.discovery.collections.newArrivals', url: veyluneCategoryRoutes.url('newArrivals'), available: true },
-            { key: 'best-sellers', label: 'Best Sellers', url: veyluneCategoryRoutes.url('bestSellers'), available: true },
-            { key: 'sale', label: 'Sale', url: veyluneCategoryRoutes.url('sale'), available: true }
+            { key: 'best-sellers', label: 'veylune.marketplace.header.mobile.bestSellers', url: veyluneCategoryRoutes.url('bestSellers'), available: true },
+            { key: 'sale', label: 'veylune.marketplace.header.departments.sale', url: veyluneCategoryRoutes.url('sale'), available: true }
         ] %}
     {% endif %}
     {% set veyluneDepartmentRail = (isPrivatePreview or isCanonicalCatalog) ? [] : [
-        { key: 'furniture', label: 'Furniture', url: veyluneCategoryRoutes.url('furniture') },
-        { key: 'outdoor', label: 'Outdoor', url: veyluneCategoryRoutes.url('departmentOutdoor') },
-        { key: 'bedding-bath', label: 'Bedding & Bath', url: veyluneCategoryRoutes.url('beddingBath') },
-        { key: 'mattresses', label: 'Mattresses', url: veyluneCategoryRoutes.url('mattresses') },
-        { key: 'rugs', label: 'Rugs', url: veyluneCategoryRoutes.url('rugs') },
-        { key: 'decor-objects', label: 'Decor & Objects', url: veyluneCategoryRoutes.url('departmentDecorObjects') },
-        { key: 'lighting', label: 'Lighting', url: veyluneCategoryRoutes.url('departmentLighting') },
-        { key: 'organization', label: 'Organization', url: veyluneCategoryRoutes.url('organization') },
-        { key: 'dining-kitchen', label: 'Dining & Kitchen', url: veyluneCategoryRoutes.url('diningKitchen') },
-        { key: 'sale', label: 'Sale', url: veyluneCategoryRoutes.url('sale'), sale: true }
+        { key: 'furniture', label: 'veylune.marketplace.header.departments.furniture', url: veyluneCategoryRoutes.url('furniture') },
+        { key: 'outdoor', label: 'veylune.marketplace.header.departments.outdoor', url: veyluneCategoryRoutes.url('departmentOutdoor') },
+        { key: 'bedding-bath', label: 'veylune.marketplace.header.departments.beddingBath', url: veyluneCategoryRoutes.url('beddingBath') },
+        { key: 'mattresses', label: 'veylune.marketplace.header.departments.mattresses', url: veyluneCategoryRoutes.url('mattresses') },
+        { key: 'rugs', label: 'veylune.marketplace.header.departments.rugs', url: veyluneCategoryRoutes.url('rugs') },
+        { key: 'decor-objects', label: 'veylune.marketplace.header.departments.decorObjects', url: veyluneCategoryRoutes.url('departmentDecorObjects') },
+        { key: 'lighting', label: 'veylune.marketplace.header.departments.lighting', url: veyluneCategoryRoutes.url('departmentLighting') },
+        { key: 'organization', label: 'veylune.marketplace.header.departments.organization', url: veyluneCategoryRoutes.url('organization') },
+        { key: 'dining-kitchen', label: 'veylune.marketplace.header.departments.diningKitchen', url: veyluneCategoryRoutes.url('diningKitchen') },
+        { key: 'sale', label: 'veylune.marketplace.header.departments.sale', url: veyluneCategoryRoutes.url('sale'), sale: true }
     ] %}
     {% set veyluneLivingIndexAxes = [
-        { key: 'object', label: 'Object', url: veyluneRoutes.shop, mega: 'shop' },
-        { key: 'room', label: 'Room', url: veyluneRoutes.rooms, mega: 'rooms' },
-        { key: 'material', label: 'Material', url: veyluneRoutes.editions, mega: null },
-        { key: 'style', label: 'Style', url: veyluneRoutes.collections, mega: 'collections' },
-        { key: 'maker', label: 'Maker', url: veyluneRoutes.partnership, mega: null },
-        { key: 'project', label: 'Project', url: veyluneRoutes.consultation, mega: null },
-        { key: 'sale', label: 'Sale', url: veyluneCategoryRoutes.url('sale'), mega: null }
+        { key: 'object', label: 'veylune.marketplace.header.axes.object', url: veyluneRoutes.shop, mega: 'shop' },
+        { key: 'room', label: 'veylune.marketplace.header.axes.room', url: veyluneRoutes.rooms, mega: 'rooms' },
+        { key: 'material', label: 'veylune.marketplace.header.axes.material', url: veyluneRoutes.editions, mega: null },
+        { key: 'style', label: 'veylune.marketplace.header.axes.style', url: veyluneRoutes.collections, mega: 'collections' },
+        { key: 'maker', label: 'veylune.marketplace.header.axes.maker', url: veyluneRoutes.partnership, mega: null },
+        { key: 'project', label: 'veylune.marketplace.header.axes.project', url: veyluneRoutes.consultation, mega: null },
+        { key: 'sale', label: 'veylune.marketplace.header.axes.sale', url: veyluneCategoryRoutes.url('sale'), mega: null }
     ] %}
     {% set veyluneHeaderPopularSearches = isCanonicalCatalog ? [
-        { label: 'Living room', query: 'living room', terms: 'living room sofa seating' },
-        { label: 'Sofas', query: 'sofa', terms: 'sofa seating upholstery' },
-        { label: 'Oak furniture', query: 'oak furniture', terms: 'oak wood furniture table' },
-        { label: 'Sculptural lighting', query: 'lighting', terms: 'light lighting lamp sculptural' },
-        { label: 'Travertine', query: 'travertine', terms: 'travertine stone table object' }
+        { label: 'veylune.marketplace.header.searchLabels.livingRoom', query: 'living room', terms: 'living room sofa seating' },
+        { label: 'veylune.marketplace.header.searchLabels.sofas', query: 'sofa', terms: 'sofa seating upholstery' },
+        { label: 'veylune.marketplace.header.searchLabels.oakFurniture', query: 'oak furniture', terms: 'oak wood furniture table' },
+        { label: 'veylune.marketplace.header.searchLabels.sculpturalLighting', query: 'lighting', terms: 'light lighting lamp sculptural' },
+        { label: 'veylune.marketplace.header.searchLabels.travertine', query: 'travertine', terms: 'travertine stone table object' }
     ] : [
-        { label: 'Living room', query: 'living room', terms: 'living room sofa seating' },
-        { label: 'Quiet contrast', query: 'quiet contrast', terms: 'quiet contrast style restraint' },
-        { label: 'Oak furniture', query: 'oak furniture', terms: 'oak wood furniture table' },
-        { label: 'Sculptural lighting', query: 'sculptural lighting', terms: 'light lighting lamp sculptural' },
-        { label: 'Private project', query: 'private project', terms: 'project design service consultation' }
+        { label: 'veylune.marketplace.header.searchLabels.livingRoom', query: 'living room', terms: 'living room sofa seating' },
+        { label: 'veylune.marketplace.header.searchLabels.quietContrast', query: 'quiet contrast', terms: 'quiet contrast style restraint' },
+        { label: 'veylune.marketplace.header.searchLabels.oakFurniture', query: 'oak furniture', terms: 'oak wood furniture table' },
+        { label: 'veylune.marketplace.header.searchLabels.sculpturalLighting', query: 'sculptural lighting', terms: 'light lighting lamp sculptural' },
+        { label: 'veylune.marketplace.header.searchLabels.privateProject', query: 'private project', terms: 'project design service consultation' }
     ] %}
     {% set veyluneHeaderProductSearches = [
-        { label: 'Furniture', query: 'furniture' },
-        { label: 'Lighting', query: 'lighting' },
-        { label: 'Vessels', query: 'vessels' },
-        { label: 'Seating', query: 'chair' },
-        { label: 'Tables', query: 'table' },
-        { label: 'Outdoor', query: 'outdoor' }
+        { label: 'veylune.marketplace.header.searchLabels.furniture', query: 'furniture' },
+        { label: 'veylune.marketplace.header.searchLabels.lighting', query: 'lighting' },
+        { label: 'veylune.marketplace.header.searchLabels.vessels', query: 'vessels' },
+        { label: 'veylune.marketplace.header.searchLabels.seating', query: 'chair' },
+        { label: 'veylune.marketplace.header.searchLabels.tables', query: 'table' },
+        { label: 'veylune.marketplace.header.searchLabels.outdoor', query: 'outdoor' }
     ] %}
 
 	<header class="veylune-header veylune-header--living-index" data-veylune-header data-veylune-living-index-header>
 		{% block layout_header_navigation %}
-            <div class="veylune-marketplace-utility" aria-label="Store services">
+            <div class="veylune-marketplace-utility" aria-label="{{ 'veylune.marketplace.header.storeServices'|trans|striptags }}">
                 <div class="veylune-marketplace-utility__inner">
-                    <div class="veylune-marketplace-family" aria-label="Veylune family">
+                    <div class="veylune-marketplace-family" aria-label="{{ 'veylune.marketplace.header.family'|trans|striptags }}">
                         <a class="veylune-marketplace-family__primary" href="{{ path('frontend.home.page') }}">Veylune</a>
-                        <a href="{{ veyluneRoutes.rooms }}">Rooms</a>
-                        <a href="{{ veyluneRoutes.editions }}">Material Index</a>
+                        <a href="{{ veyluneRoutes.rooms }}">{{ 'veylune.marketplace.header.rooms'|trans|sw_sanitize }}</a>
+                        <a href="{{ veyluneRoutes.editions }}">{{ 'veylune.marketplace.header.materialIndex'|trans|sw_sanitize }}</a>
                     </div>
                     <a class="veylune-marketplace-utility__announcement"
                        href="{{ veyluneRoutes.consultation }}">
-                        Private consultation by appointment
+                        {{ 'veylune.marketplace.header.appointment'|trans|sw_sanitize }}
                     </a>
                     <div class="veylune-marketplace-utility__right">
-                        <nav class="veylune-marketplace-utility__links" aria-label="Programs and services">
-                            <a href="{{ veyluneRoutes.partnership }}">Atelier Partnerships</a>
-                            <a href="{{ veyluneRoutes.consultation }}">Design Service</a>
-                            <span>EN / EUR</span>
+                        <nav class="veylune-marketplace-utility__links" aria-label="{{ 'veylune.marketplace.header.programs'|trans|striptags }}">
+                            <a href="{{ veyluneRoutes.partnership }}">{{ 'veylune.marketplace.header.partnerships'|trans|sw_sanitize }}</a>
+                            <a href="{{ veyluneRoutes.consultation }}">{{ 'veylune.marketplace.header.designService'|trans|sw_sanitize }}</a>
+                            {% set activeLocaleParts = context.languageInfo.localeCode|upper|split('-') %}
+                            <div class="veylune-marketplace-locale dropdown" data-veylune-locale-switcher>
+                                <button class="veylune-marketplace-locale__trigger"
+                                        type="button"
+                                        id="veyluneLocaleDropdown"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-auto-close="outside"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                        aria-label="{{ 'veylune.marketplace.header.localeAria'|trans({'%language%': context.languageInfo.name, '%currency%': context.currency.translated.name})|striptags }}"
+                                        data-veylune-locale-trigger>
+                                    <span>{{ activeLocaleParts[0] }} / {{ context.currency.isoCode }}</span>
+                                    <span class="veylune-marketplace-locale__chevron" aria-hidden="true"></span>
+                                </button>
+                                <div class="veylune-marketplace-locale__menu dropdown-menu dropdown-menu-end"
+                                     aria-labelledby="veyluneLocaleDropdown"
+                                     data-veylune-locale-menu>
+                                    {% if header.languages.count > 1 %}
+                                        <section class="veylune-marketplace-locale__section" aria-labelledby="veyluneLocaleLanguageLabel">
+                                            <p class="veylune-marketplace-locale__label" id="veyluneLocaleLanguageLabel">{{ 'veylune.marketplace.header.language'|trans|sw_sanitize }}</p>
+                                            <form method="post"
+                                                  action="{{ path('frontend.checkout.switch-language') }}"
+                                                  class="veylune-marketplace-locale__options language-form"
+                                                  data-form-add-dynamic-redirect="true">
+                                                {% for language in header.languages %}
+                                                    {% set isActiveLanguage = language.id is same as(context.context.languageId) %}
+                                                    {% set localeParts = language.translationCode.code|upper|split('-') %}
+                                                    <button class="veylune-marketplace-locale__option{{ isActiveLanguage ? ' is-active' : '' }}"
+                                                            type="submit"
+                                                            name="languageId"
+                                                            value="{{ language.id }}"
+                                                            data-veylune-locale-language="{{ language.translationCode.code }}"
+                                                            {% if isActiveLanguage %}aria-current="true"{% endif %}>
+                                                        <span>{{ localeParts[0] }}</span>
+                                                        <strong>{{ language.name }}</strong>
+                                                    </button>
+                                                    {% if app.request.attributes.get('_route_params')['_locale'] %}
+                                                        <input type="hidden" name="languageCode_{{ language.id }}" value="{{ language.translationCode.code }}">
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </form>
+                                        </section>
+                                    {% endif %}
+                                    {% if header.currencies.count > 1 %}
+                                        <section class="veylune-marketplace-locale__section" aria-labelledby="veyluneLocaleCurrencyLabel">
+                                            <p class="veylune-marketplace-locale__label" id="veyluneLocaleCurrencyLabel">{{ 'veylune.marketplace.header.currency'|trans|sw_sanitize }}</p>
+                                            <form method="post"
+                                                  action="{{ path('frontend.checkout.configure') }}"
+                                                  class="veylune-marketplace-locale__options currency-form"
+                                                  data-form-add-dynamic-redirect="true">
+                                                {% for currency in header.currencies %}
+                                                    {% set isActiveCurrency = currency.id is same as(context.currency.id) %}
+                                                    <button class="veylune-marketplace-locale__option{{ isActiveCurrency ? ' is-active' : '' }}"
+                                                            type="submit"
+                                                            name="currencyId"
+                                                            value="{{ currency.id }}"
+                                                            data-veylune-locale-currency="{{ currency.isoCode }}"
+                                                            {% if isActiveCurrency %}aria-current="true"{% endif %}>
+                                                        <span>{{ currency.isoCode }}</span>
+                                                        <strong>{{ currency.symbol }} {{ currency.translated.name }}</strong>
+                                                    </button>
+                                                {% endfor %}
+                                            </form>
+                                        </section>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </nav>
                     </div>
                 </div>
@@ -225,17 +291,17 @@
                                    name="q"
                                    value="{{ app.request.attributes.get('_route') == 'frontend.veylune.catalog.search' ? app.request.query.get('q')|default('') : '' }}"
                                    autocomplete="off"
-                                   placeholder="Search objects, rooms, materials, makers..."
+                                   placeholder="{{ 'veylune.marketplace.header.searchPlaceholder'|trans|striptags }}"
                                    aria-autocomplete="list"
                                    aria-controls="veyluneMarketplaceSuggestions"
                                    aria-expanded="false"
                                    data-vli-header-search-input
                                    aria-label="{{ 'header.searchPlaceholder'|trans|striptags }}">
-                            <button class="veylune-marketplace-search__submit" type="submit">Search</button>
+                            <button class="veylune-marketplace-search__submit" type="submit">{{ 'veylune.marketplace.header.search'|trans|sw_sanitize }}</button>
                         </form>
                         <section class="vli-header-suggest"
                                  id="veyluneMarketplaceSuggestions"
-                                 aria-label="Search suggestions"
+                                 aria-label="{{ 'veylune.marketplace.header.searchSuggestions'|trans|striptags }}"
                                  aria-live="polite"
                                  data-vli-header-suggest
                                  hidden>
@@ -243,26 +309,26 @@
                                href="{{ path(veyluneHeaderSearchRoute) }}"
                                data-vli-header-query-link
                                hidden>
-                                <span>Search for</span>
+                                <span>{{ 'veylune.marketplace.header.searchFor'|trans|sw_sanitize }}</span>
                                 <strong data-vli-header-query-label></strong>
                                 <b aria-hidden="true">&rarr;</b>
                             </a>
                             <div class="vli-header-suggest__grid">
                                 <div>
-                                    <p>Popular searches</p>
+                                    <p>{{ 'veylune.marketplace.header.popularSearches'|trans|sw_sanitize }}</p>
                                     {% for suggestion in veyluneHeaderPopularSearches %}
                                         <a href="{{ path(veyluneHeaderSearchRoute, { q: suggestion.query }) }}"
                                            data-vli-header-suggestion
-                                           data-search-terms="{{ suggestion.terms }}">{{ suggestion.label }}</a>
+                                           data-search-terms="{{ suggestion.terms }}">{{ suggestion.label|trans|sw_sanitize }}</a>
                                     {% endfor %}
                                 </div>
                                 <div>
-                                    <p>{{ isCanonicalCatalog ? 'Explore products' : 'Explore by type' }}</p>
+                                    <p>{{ (isCanonicalCatalog ? 'veylune.marketplace.header.exploreProducts' : 'veylune.marketplace.header.exploreByType')|trans|sw_sanitize }}</p>
                                     {% if isCanonicalCatalog %}
                                         {% for suggestion in veyluneHeaderProductSearches %}
                                             <a href="{{ path(veyluneHeaderSearchRoute, { q: suggestion.query }) }}"
                                                data-vli-header-suggestion
-                                               data-search-terms="{{ suggestion.query }} {{ suggestion.label|lower }}">{{ suggestion.label }}</a>
+                                               data-search-terms="{{ suggestion.query }} {{ suggestion.label|trans|lower }}">{{ suggestion.label|trans|sw_sanitize }}</a>
                                         {% endfor %}
                                     {% else %}
                                         {% for axis in veyluneLivingIndexAxes %}
@@ -275,7 +341,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <small data-vli-header-search-scope>{{ isCanonicalCatalog ? 'Suggestions search the current product catalog.' : 'Suggestions cover public Living Index paths only.' }}</small>
+                            <small data-vli-header-search-scope>{{ (isCanonicalCatalog ? 'veylune.marketplace.header.catalogScope' : 'veylune.marketplace.header.livingScope')|trans|sw_sanitize }}</small>
                         </section>
                     </div>
 					<nav class="veylune-header__nav" id="veylunePrimaryNavigation" aria-label="{{ 'veylune.header.primaryNavAriaLabel'|trans|striptags }}" data-veylune-nav-surface="primary">
@@ -286,7 +352,7 @@
                                    data-veylune-nav-key="{{ axis.key }}"
                                    {% if axis.mega %}data-veylune-mega-trigger="{{ axis.mega }}" aria-haspopup="true" aria-expanded="false" aria-controls="veyluneMegaPanel-{{ axis.mega }}"{% endif %}
                                    data-veylune-page-transition>
-                                    {{ axis.label }}
+                                    {{ axis.label|trans|sw_sanitize }}
                                 </a>
                         {% endfor %}
 					</nav>
@@ -300,23 +366,23 @@
 
                         {% block layout_header_actions_account %}
                             {% if isPrivatePreview %}
-                                <a class="veylune-marketplace-action" href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" aria-label="Private account preview" data-veylune-preview-account data-veylune-header-account>
+                                <a class="veylune-marketplace-action" href="{{ path('frontend.veylune.preview.account', { token: veyluneHeaderPreviewToken }) }}" aria-label="{{ 'veylune.marketplace.header.privateAccount'|trans|striptags }}" data-veylune-preview-account data-veylune-header-account>
                                     <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
-                                    <span class="veylune-marketplace-action__label">Sign In</span>
+                                    <span class="veylune-marketplace-action__label">{{ 'veylune.marketplace.header.signIn'|trans|sw_sanitize }}</span>
                                 </a>
                             {% else %}
                                 <a class="veylune-marketplace-action" href="{{ path('frontend.account.home.page') }}" aria-label="{{ 'account.myAccount'|trans|striptags }}" data-veylune-header-account>
                                     <span class="veylune-marketplace-action__icon" aria-hidden="true">{% sw_icon 'avatar' %}</span>
-                                    <span class="veylune-marketplace-action__label">{{ context.salesChannel.id == '019f7a00000070008000000000000001' and context.customer and not context.customer.guest ? 'My account' : 'Sign In' }}</span>
+                                    <span class="veylune-marketplace-action__label">{{ (context.salesChannel.id == '019f7a00000070008000000000000001' and context.customer and not context.customer.guest ? 'veylune.marketplace.header.myAccount' : 'veylune.marketplace.header.signIn')|trans|sw_sanitize }}</span>
                                 </a>
                             {% endif %}
                         {% endblock %}
 
 						{% block layout_header_actions_cart %}
                             {% if isPrivatePreview %}
-                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="Cart, 0 items" data-veylune-preview-cart data-veylune-header-cart>
+                                <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.veylune.preview.cart', { token: veyluneHeaderPreviewToken }) }}" aria-label="{{ 'veylune.marketplace.header.cartAria'|trans({'%count%': 0})|striptags }}" data-veylune-preview-cart data-veylune-header-cart>
                                     <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
-                                    <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">0</span></span>
+                                    <span class="veylune-header__bag-label veylune-marketplace-action__label">{{ 'veylune.marketplace.header.cart'|trans|sw_sanitize }} <span class="veylune-marketplace-action__count">0</span></span>
                                 </a>
                             {% else %}
                                 <a class="veylune-header__bag veylune-marketplace-action" href="{{ path('frontend.checkout.cart.page') }}" aria-label="{{ 'checkout.cartTitle'|trans|striptags }}" data-veylune-header-cart {% if isNativeCartSurface %}data-off-canvas-cart="true"{% endif %}>
@@ -326,7 +392,7 @@
                                         </span>
                                     {% else %}
                                         <span class="veylune-header__bag-icon" aria-hidden="true">{% sw_icon 'basket' %}</span>
-                                        <span class="veylune-header__bag-label veylune-marketplace-action__label">Cart <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
+                                        <span class="veylune-header__bag-label veylune-marketplace-action__label">{{ 'veylune.marketplace.header.cart'|trans|sw_sanitize }} <span class="veylune-marketplace-action__count">{{ page.cart.lineItems|length }}</span></span>
                                     {% endif %}
                                 </a>
                             {% endif %}
@@ -337,7 +403,7 @@
 
             {% if not isPrivatePreview %}
                 <nav class="veylune-marketplace-department-rail"
-                    aria-label="Shop Veylune departments"
+                    aria-label="{{ 'veylune.marketplace.header.shopDepartments'|trans|striptags }}"
                      data-veylune-nav-surface="departments"
                      data-vli-visual-baseline="department-rail">
                     <div class="veylune-marketplace-department-rail__inner">
@@ -345,7 +411,7 @@
                             <a{% if department.sale|default(false) %} class="veylune-marketplace-department-rail__sale"{% endif %}
                                href="{{ department.url }}"
                                data-veylune-nav-key="{{ department.key }}"
-                               data-veylune-page-transition>{{ department.label }}</a>
+                               data-veylune-page-transition>{{ department.label|trans|sw_sanitize }}</a>
                         {% endfor %}
                     </div>
                 </nav>
@@ -354,7 +420,7 @@
             <div class="veylune-mega" data-veylune-mega aria-hidden="true">
                 <div class="veylune-mega__backdrop" aria-hidden="true"></div>
                 <div class="veylune-mega__panel" role="region" aria-label="{{ 'veylune.header.mega.ariaLabel'|trans|striptags }}" data-veylune-nav-surface="mega">
-                    <button class="veylune-mega__close" type="button" data-veylune-mega-close aria-label="Close menu">
+                    <button class="veylune-mega__close" type="button" data-veylune-mega-close aria-label="{{ 'veylune.marketplace.header.closeMenu'|trans|striptags }}">
                         {% sw_icon 'x' %}
                     </button>
                     {% for item in veyluneNavigationRegistry %}
@@ -420,11 +486,11 @@
                                     </div>
                                 {% endif %}
                                 <div class="veylune-mega__group" data-veylune-registry-scope="mega-{{ item.mega }}" data-veylune-registry-entity="services">
-                                    <h3>Services &amp; Inspiration</h3>
+                                    <h3>{{ 'veylune.marketplace.header.servicesTitle'|trans|sw_sanitize }}</h3>
                                     <div class="veylune-mega__links">
-                                        <a href="{{ veyluneRoutes.consultation }}" data-veylune-registry-key="consultation" data-veylune-page-transition>Design Consultation</a>
-                                        <a href="{{ veyluneRoutes.editions }}" data-veylune-registry-key="journal" data-veylune-page-transition>Journal &amp; Material Index</a>
-                                        <a href="{{ veyluneRoutes.trade }}" data-veylune-registry-key="trade" data-veylune-page-transition>Trade Program</a>
+                                        <a href="{{ veyluneRoutes.consultation }}" data-veylune-registry-key="consultation" data-veylune-page-transition>{{ 'veylune.marketplace.header.designConsultation'|trans|sw_sanitize }}</a>
+                                        <a href="{{ veyluneRoutes.editions }}" data-veylune-registry-key="journal" data-veylune-page-transition>{{ 'veylune.marketplace.header.journalMaterial'|trans|sw_sanitize }}</a>
+                                        <a href="{{ veyluneRoutes.trade }}" data-veylune-registry-key="trade" data-veylune-page-transition>{{ 'veylune.marketplace.header.tradeProgram'|trans|sw_sanitize }}</a>
                                     </div>
                                 </div>
                             </section>
@@ -438,7 +504,7 @@
 					<button class="veylune-mobile-nav__close" type="button" data-veylune-mobile-close aria-label="{{ 'veylune.header.mobile.closeAriaLabel'|trans|striptags }}">
 						{% sw_icon 'x' %}
 					</button>
-					<span class="veylune-mobile-nav__kicker">Browse Veylune</span>
+                    <span class="veylune-mobile-nav__kicker">{{ 'veylune.marketplace.header.browse'|trans|sw_sanitize }}</span>
                     {% sw_include '@VeyluneTheme/storefront/layout/header/mobile-navigation.html.twig' %}
 				</div>
 			</div>

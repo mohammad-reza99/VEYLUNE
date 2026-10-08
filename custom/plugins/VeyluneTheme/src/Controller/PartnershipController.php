@@ -46,8 +46,8 @@ class PartnershipController extends StorefrontController
             $source = 'consultation';
         }
 
-        $page->getMetaInformation()?->setMetaTitle('Private Consultation | VEYLUNE STUDIO');
-        $page->getMetaInformation()?->setMetaDescription('A private design conversation for considered interiors, sourcing, and material direction.');
+        $page->getMetaInformation()?->setMetaTitle($this->translator->trans('veylune.marketplace.consultation.label') . ' | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription($this->translator->trans('veylune.marketplace.consultation.text'));
         $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [
@@ -65,8 +65,8 @@ class PartnershipController extends StorefrontController
     public function trade(Request $request, SalesChannelContext $context): Response
     {
         $page = $this->genericPageLoader->load($request, $context);
-        $page->getMetaInformation()?->setMetaTitle('Trade Program | VEYLUNE STUDIO');
-        $page->getMetaInformation()?->setMetaDescription('Professional sourcing and studio support for designers, architects, and considered projects.');
+        $page->getMetaInformation()?->setMetaTitle($this->translator->trans('veylune.marketplace.trade.label') . ' | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription($this->translator->trans('veylune.marketplace.trade.metaDescription'));
         $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/consultation-page.html.twig', [

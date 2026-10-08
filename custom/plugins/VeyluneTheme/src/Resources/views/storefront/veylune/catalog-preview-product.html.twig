@@ -13,14 +13,14 @@
         ? path('frontend.checkout.confirm.page')
         : path('frontend.veylune.preview.checkout', { token: veylunePreviewToken }) %}
     <div class="veylune-pdp-preview" data-veylune-pdp-preview data-product-id="{{ product.recordId }}" data-product-name="{{ product.name }}" data-product-price="{{ product.targetPrice }}" data-product-image-url="{{ product.coverUrl|default('') }}" data-product-image-alt="{{ product.coverAlt|default(product.name ~ ' product view') }}" data-pdp-family="{{ veylunePdpPresentation.family }}" data-commerce-state="{{ veylunePdpPresentation.commerce.state }}">
-        <nav class="veylune-pdp-preview__breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ path('frontend.home.page') }}">Home</a><span aria-hidden="true">/</span>
+        <nav class="veylune-pdp-preview__breadcrumb" aria-label="{{ 'veylune.marketplace.pdp.breadcrumb'|trans|striptags }}">
+            <a href="{{ path('frontend.home.page') }}">{{ 'veylune.marketplace.pdp.home'|trans|sw_sanitize }}</a><span aria-hidden="true">/</span>
             <a href="{{ veyluneCategoryUrl }}">{{ product.department|replace({'_': ' '})|title }}</a><span aria-hidden="true">/</span>
             <span aria-current="page">{{ product.name }}</span>
         </nav>
 
         <article class="veylune-pdp-preview__hero">
-            <section class="veylune-pdp-gallery" aria-label="{{ product.name }} gallery" data-gallery-state="{{ veylunePdpPresentation.gallery.state }}" data-gallery-count="{{ veylunePdpPresentation.gallery.count }}">
+            <section class="veylune-pdp-gallery" aria-label="{{ 'veylune.marketplace.pdp.gallery'|trans({'%name%': product.name})|striptags }}" data-gallery-state="{{ veylunePdpPresentation.gallery.state }}" data-gallery-count="{{ veylunePdpPresentation.gallery.count }}">
                 <div class="veylune-pdp-gallery__stage veylune-preview-card__visual--{{ product.material|replace({'_': '-'}) }}" data-pdp-gallery-stage data-gallery-view="front">
                     {% if product.coverUrl %}
                         <img class="veylune-pdp-gallery__media"
@@ -31,16 +31,16 @@
                     {% endif %}
                     <span class="veylune-pdp-gallery__badge">{{ product.status }}</span>
                     {% if not product.coverUrl %}<span class="veylune-pdp-gallery__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>{% endif %}
-                    <span class="visually-hidden" data-pdp-gallery-description>Front concept study for {{ product.name }} in {{ product.materialLabel }}</span>
-                    <button class="veylune-pdp-gallery__zoom" type="button" data-pdp-zoom-open aria-haspopup="dialog">View larger</button>
+                    <span class="visually-hidden" data-pdp-gallery-description>{{ 'veylune.marketplace.pdp.frontStudy'|trans({'%name%': product.name, '%material%': product.materialLabel})|sw_sanitize }}</span>
+                    <button class="veylune-pdp-gallery__zoom" type="button" data-pdp-zoom-open aria-haspopup="dialog">{{ 'veylune.marketplace.pdp.viewLarger'|trans|sw_sanitize }}</button>
                 </div>
                 <div class="veylune-pdp-gallery__support" aria-hidden="true">
                     <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--material"><span>{{ product.materialLabel }}</span></div>
-                    <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--silhouette"><span>Silhouette study</span></div>
+                    <div class="veylune-pdp-gallery__detail veylune-pdp-gallery__detail--silhouette"><span>{{ 'veylune.marketplace.pdp.silhouette'|trans|sw_sanitize }}</span></div>
                 </div>
-                <div class="veylune-pdp-gallery__thumbs" role="group" aria-label="Choose a product view">
+                <div class="veylune-pdp-gallery__thumbs" role="group" aria-label="{{ 'veylune.marketplace.pdp.chooseView'|trans|striptags }}">
                     {% for media in product.media|default([]) %}
-                        <button type="button" data-pdp-gallery-thumb="front" aria-pressed="{{ loop.first ? 'true' : 'false' }}" aria-label="{{ media.alt|default('Product view') }}">
+                        <button type="button" data-pdp-gallery-thumb="front" aria-pressed="{{ loop.first ? 'true' : 'false' }}" aria-label="{{ media.alt|default('veylune.marketplace.pdp.productView'|trans) }}">
                             <img src="{{ media.url }}" alt="" loading="lazy" decoding="async">
                         </button>
                     {% endfor %}
@@ -48,8 +48,8 @@
                 <p class="veylune-pdp-gallery__evidence" data-pdp-gallery-evidence>{{ veylunePdpPresentation.gallery.label }}</p>
             </section>
 
-            <dialog class="veylune-pdp-lightbox" data-pdp-lightbox aria-label="Expanded product view">
-                <button class="veylune-pdp-lightbox__close" type="button" data-pdp-zoom-close aria-label="Close expanded view">Close</button>
+            <dialog class="veylune-pdp-lightbox" data-pdp-lightbox aria-label="{{ 'veylune.marketplace.pdp.expandedView'|trans|striptags }}">
+                <button class="veylune-pdp-lightbox__close" type="button" data-pdp-zoom-close aria-label="{{ 'veylune.marketplace.pdp.closeExpanded'|trans|striptags }}">{{ 'veylune.marketplace.pdp.close'|trans|sw_sanitize }}</button>
                 <div class="veylune-pdp-lightbox__stage" data-pdp-lightbox-stage>
                     {% if product.coverUrl %}
                         <img src="{{ product.coverUrl }}" alt="{{ product.coverAlt|default(product.name ~ ' product view') }}" decoding="async">
@@ -57,22 +57,22 @@
                         <span class="veylune-pdp-gallery__object veylune-preview-card__object--{{ product.productType|replace({'_': '-'}) }}" aria-hidden="true"></span>
                     {% endif %}
                 </div>
-                <p data-pdp-lightbox-caption>Front view of {{ product.name }}</p>
+                <p data-pdp-lightbox-caption>{{ 'veylune.marketplace.pdp.frontView'|trans({'%name%': product.name})|sw_sanitize }}</p>
             </dialog>
 
             <aside class="veylune-pdp-buybox" aria-labelledby="veylunePdpTitle">
                 <p class="veylune-pdp-buybox__eyebrow">{{ product.productType|replace({'_': ' '})|title }}</p>
                 <h1 id="veylunePdpTitle">{{ product.name }}</h1>
-                <div class="veylune-pdp-buybox__rating" aria-label="New piece, no customer reviews yet">
-                    <span aria-hidden="true">☆☆☆☆☆</span><span>New piece</span>
+                <div class="veylune-pdp-buybox__rating" aria-label="{{ 'veylune.marketplace.pdp.ratingAria'|trans|striptags }}">
+                    <span aria-hidden="true">☆☆☆☆☆</span><span>{{ 'veylune.marketplace.pdp.newPiece'|trans|sw_sanitize }}</span>
                 </div>
-                <p class="veylune-pdp-buybox__price"><span>Non-binding target estimate</span><strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
-                <p class="veylune-pdp-buybox__finance">Final pricing, lead time and configuration are confirmed during consultation.</p>
+                <p class="veylune-pdp-buybox__price"><span>{{ 'veylune.marketplace.pdp.targetEstimate'|trans|sw_sanitize }}</span><strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
+                <p class="veylune-pdp-buybox__finance">{{ 'veylune.marketplace.pdp.finance'|trans|sw_sanitize }}</p>
 
                 {% sw_include '@Storefront/storefront/veylune/catalog-preview-product-commerce.html.twig' with { product: product } %}
 
-                <a class="veylune-pdp-buybox__cta" href="{{ path('frontend.veylune.consultation.page') }}">Discuss specification with the studio</a>
-                <button class="veylune-pdp-buybox__save" type="button" aria-pressed="false">Save for later</button>
+                <a class="veylune-pdp-buybox__cta" href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.marketplace.pdp.discussSpecification'|trans|sw_sanitize }}</a>
+                <button class="veylune-pdp-buybox__save" type="button" aria-pressed="false">{{ 'veylune.marketplace.pdp.saveLater'|trans|sw_sanitize }}</button>
 
             </aside>
         </article>
@@ -80,27 +80,27 @@
         {% sw_include '@Storefront/storefront/veylune/catalog-preview-product-information.html.twig' with { product: product } %}
 
         <section class="veylune-pdp-story" aria-labelledby="veylunePdpStoryTitle">
-            <p>Veylune material edit</p>
-            <h2 id="veylunePdpStoryTitle">Designed to give the room presence without visual noise.</h2>
-            <div><span>{{ product.materialLabel }}</span><span>{{ product.productType|replace({'_': ' '})|title }}</span><span>Reference {{ product.recordId }}</span></div>
+            <p>{{ 'veylune.marketplace.pdp.materialEdit'|trans|sw_sanitize }}</p>
+            <h2 id="veylunePdpStoryTitle">{{ 'veylune.marketplace.pdp.storyTitle'|trans|sw_sanitize }}</h2>
+            <div><span>{{ product.materialLabel }}</span><span>{{ product.productType|replace({'_': ' '})|title }}</span><span>{{ 'veylune.marketplace.pdp.reference'|trans|sw_sanitize }} {{ product.recordId }}</span></div>
         </section>
 
         {% if veylunePreviewRelated|length %}
             <section class="veylune-pdp-related veylune-pdp-bundle" aria-labelledby="veylunePdpRelatedTitle" data-pdp-bundle>
-                <div class="veylune-pdp-related__head"><p>Get Everything You Need</p><h2 id="veylunePdpRelatedTitle">Complete the room</h2></div>
+                <div class="veylune-pdp-related__head"><p>{{ 'veylune.marketplace.pdp.relatedEyebrow'|trans|sw_sanitize }}</p><h2 id="veylunePdpRelatedTitle">{{ 'veylune.marketplace.pdp.relatedTitle'|trans|sw_sanitize }}</h2></div>
                 <div class="veylune-pdp-bundle__summary" aria-live="polite">
-                    <span><strong data-pdp-bundle-count>0</strong> complementary pieces selected</span>
-                    <span>Combined target estimate <strong data-pdp-bundle-total>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></span>
+                    <span>{{ 'veylune.marketplace.pdp.selectedCount'|trans({'%count%': '<strong data-pdp-bundle-count>0</strong>'})|raw }}</span>
+                    <span>{{ 'veylune.marketplace.pdp.combinedEstimate'|trans|sw_sanitize }} <strong data-pdp-bundle-total>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></span>
                 </div>
                 <div class="veylune-pdp-related__grid">
                     {% for related in veylunePreviewRelated %}
                         <div class="veylune-pdp-bundle__item">
-                            <label><input type="checkbox" data-pdp-bundle-item data-price="{{ related.targetPrice }}"><span>Add to project edit</span></label>
+                            <label><input type="checkbox" data-pdp-bundle-item data-price="{{ related.targetPrice }}"><span>{{ 'veylune.marketplace.pdp.addProjectEdit'|trans|sw_sanitize }}</span></label>
                             {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: related, productIndex: loop.index0 } %}
                         </div>
                     {% endfor %}
                 </div>
-                <a class="veylune-pdp-bundle__cta" href="{{ path('frontend.veylune.consultation.page') }}">Discuss this project edit</a>
+                <a class="veylune-pdp-bundle__cta" href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.marketplace.pdp.discussProjectEdit'|trans|sw_sanitize }}</a>
             </section>
         {% endif %}
 
@@ -148,10 +148,10 @@
         </dialog>
         {% endif %}
 
-        <div class="veylune-pdp-mobile-bar" data-pdp-mobile-bar role="region" aria-label="Product consultation action">
+        <div class="veylune-pdp-mobile-bar" data-pdp-mobile-bar role="region" aria-label="{{ 'veylune.marketplace.pdp.consultationAction'|trans|striptags }}">
             <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong>
             {% if veyluneNativeProductId %}
-                <a href="{{ path('frontend.veylune.catalog.test_cart.add', { recordId: product.recordId }) }}">Add test product to cart</a>
+                <a href="{{ path('frontend.veylune.catalog.test_cart.add', { recordId: product.recordId }) }}">{{ 'veylune.marketplace.pdp.addTestCart'|trans|sw_sanitize }}</a>
             {% else %}
                 <button type="button" data-pdp-add-selection-mobile>{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
             {% endif %}

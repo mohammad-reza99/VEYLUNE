@@ -6,7 +6,7 @@
 {% block layout_header_minimal_logo %}
     {% if isLocalTestCheckout %}
         <div class="col-6 col-md-4 header-minimal-logo">
-            <a class="veylune-native-wordmark" href="{{ isCanonicalLocalCheckout ? path('frontend.home.page') : path('frontend.veylune.local_commerce') }}" aria-label="Veylune home">veylune</a>
+            <a class="veylune-native-wordmark" href="{{ isCanonicalLocalCheckout ? path('frontend.home.page') : path('frontend.veylune.local_commerce') }}" aria-label="{{ 'veylune.marketplace.checkoutShell.homeAria'|trans|striptags }}">veylune</a>
         </div>
     {% else %}
         {{ parent() }}
@@ -16,8 +16,8 @@
 {% block layout_header_minimal_contact %}
     {% if isLocalTestCheckout %}
         <div class="col-md-4 header-minimal-contact">
-            <strong>Secure test checkout</strong><br>
-            Simulated payment. No real charge or delivery.
+            <strong>{{ 'veylune.marketplace.checkoutShell.secure'|trans|sw_sanitize }}</strong><br>
+            {{ 'veylune.marketplace.checkoutShell.simulated'|trans|sw_sanitize }}
         </div>
     {% else %}
         {{ parent() }}

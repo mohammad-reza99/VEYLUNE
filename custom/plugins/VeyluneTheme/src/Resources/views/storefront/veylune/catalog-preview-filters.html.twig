@@ -2,7 +2,7 @@
 
 {% if filterOptions.materials is not empty %}
     <fieldset>
-        <legend>Material</legend>
+        <legend>{{ 'veylune.marketplace.listing.material'|trans|sw_sanitize }}</legend>
         {% for value, label in filterOptions.materials %}
             <label><input type="checkbox" value="{{ value }}" data-plp-material> <span>{{ label }}</span></label>
         {% endfor %}
@@ -11,7 +11,7 @@
 
 {% if filterOptions.prices is not empty %}
     <fieldset>
-        <legend>Price</legend>
+        <legend>{{ 'veylune.marketplace.listing.price'|trans|sw_sanitize }}</legend>
         {% for value, label in filterOptions.prices %}
             <label><input type="checkbox" value="{{ value }}" data-plp-price-range> <span>{{ label }}</span></label>
         {% endfor %}
@@ -20,7 +20,7 @@
 
 {% if filterOptions.statuses is not empty %}
     <fieldset>
-        <legend>Availability</legend>
+        <legend>{{ 'veylune.marketplace.listing.availability'|trans|sw_sanitize }}</legend>
         {% for value, label in filterOptions.statuses %}
             <label><input type="checkbox" value="{{ value }}" data-plp-status-filter> <span>{{ label }}</span></label>
         {% endfor %}

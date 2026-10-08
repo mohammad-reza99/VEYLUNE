@@ -2,57 +2,62 @@
 {% set listingProducts = discoveryProducts|default([]) %}
 {% set listingTypes = discoveryTypeChips|default({}) %}
 {% set listingFilters = discoveryFilterOptions|default({ materials: {}, prices: {}, statuses: {} }) %}
-{% set listingLabel = discoveryListingLabel|default('Veylune products') %}
+{% set listingLabel = discoveryListingLabel|default('veylune.marketplace.listing.defaultLabel'|trans) %}
 
 <section class="veylune-discovery-listing veylune-preview-marketplace-destination__catalog"
          id="{{ listingId }}"
          data-veylune-plp
          data-discovery-listing
          data-discovery-listing-scope="{{ discoveryListingScope|default('public') }}"
+         data-plp-label-filter="{{ 'veylune.marketplace.listing.filter'|trans|striptags }}"
+         data-plp-label-sort="{{ 'veylune.marketplace.listing.sortPrefix'|trans|striptags }}"
+         data-plp-label-load-more="{{ 'veylune.marketplace.listing.loadMore'|trans|striptags }}"
+         data-plp-label-loading="{{ 'veylune.marketplace.listing.loading'|trans|striptags }}"
+         data-plp-status-template="{{ 'veylune.marketplace.listing.status'|trans|striptags }}"
          aria-labelledby="{{ listingId }}Title">
     <header class="veylune-preview-marketplace-destination__catalog-head vli-discovery__section-head">
-        <div><p class="veylune-preview-marketplace-destination__eyebrow">{{ discoveryListingEyebrow|default('Shop the edit') }}</p><h2 id="{{ listingId }}Title">{{ discoveryListingTitle }}</h2></div>
-        <p>{{ discoveryListingDescription|default('Filter by product family, material, price or availability.') }}</p>
+        <div><p class="veylune-preview-marketplace-destination__eyebrow">{{ discoveryListingEyebrow|default('veylune.marketplace.listing.eyebrow'|trans) }}</p><h2 id="{{ listingId }}Title">{{ discoveryListingTitle }}</h2></div>
+        <p>{{ discoveryListingDescription|default('veylune.marketplace.listing.description'|trans) }}</p>
     </header>
 
     {% if listingTypes is not empty %}
-        <nav class="veylune-plp-shortcuts veylune-preview-marketplace-destination__type-strip" aria-label="Product families">
-            <button class="veylune-plp-chip is-active" type="button" data-plp-type="all" aria-pressed="true">All products</button>
+        <nav class="veylune-plp-shortcuts veylune-preview-marketplace-destination__type-strip" aria-label="{{ 'veylune.marketplace.listing.families'|trans|striptags }}">
+            <button class="veylune-plp-chip is-active" type="button" data-plp-type="all" aria-pressed="true">{{ 'veylune.marketplace.listing.allProducts'|trans|sw_sanitize }}</button>
             {% for key, label in listingTypes %}<button class="veylune-plp-chip" type="button" data-plp-type="{{ key|replace({'_': '-'}) }}" aria-pressed="false">{{ label }}</button>{% endfor %}
         </nav>
     {% endif %}
 
     <div class="veylune-plp-marketplace-layout">
-        <aside class="veylune-plp-filter-rail" aria-label="Filter products">
-            <div class="veylune-plp-filter-rail__heading"><strong>Filter products</strong><span>Only relevant options are shown</span></div>
+        <aside class="veylune-plp-filter-rail" aria-label="{{ 'veylune.marketplace.listing.filterProducts'|trans|striptags }}">
+            <div class="veylune-plp-filter-rail__heading"><strong>{{ 'veylune.marketplace.listing.filterProducts'|trans|sw_sanitize }}</strong><span>{{ 'veylune.marketplace.listing.relevantOnly'|trans|sw_sanitize }}</span></div>
             {% sw_include '@Storefront/storefront/veylune/catalog-preview-filters.html.twig' with { discoveryFilterOptions: listingFilters } %}
-            <button class="veylune-plp-filter-clear" type="button" data-plp-filter-clear disabled>Clear all</button>
+            <button class="veylune-plp-filter-clear" type="button" data-plp-filter-clear disabled>{{ 'veylune.marketplace.listing.clearAll'|trans|sw_sanitize }}</button>
         </aside>
 
         <div class="veylune-plp-results">
             <div class="veylune-plp-toolbar">
-                <p class="veylune-plp-toolbar__count" aria-live="polite"><strong data-plp-count>{{ listingProducts|length }}</strong> products</p>
-                <div class="veylune-plp-toolbar__actions" aria-label="Listing controls">
+                <p class="veylune-plp-toolbar__count" aria-live="polite"><strong data-plp-count>{{ listingProducts|length }}</strong> {{ 'veylune.marketplace.listing.products'|trans|sw_sanitize }}</p>
+                <div class="veylune-plp-toolbar__actions" aria-label="{{ 'veylune.marketplace.listing.controls'|trans|striptags }}">
                     <div class="veylune-plp-menu">
-                        <button class="veylune-plp-control" type="button" data-plp-filter-toggle aria-expanded="false" aria-haspopup="dialog" aria-controls="{{ listingId }}Filters">Filter</button>
-                        <div class="veylune-plp-popover" id="{{ listingId }}Filters" data-plp-filter-panel role="dialog" aria-modal="false" aria-label="Product filters" hidden>
+                        <button class="veylune-plp-control" type="button" data-plp-filter-toggle aria-expanded="false" aria-haspopup="dialog" aria-controls="{{ listingId }}Filters">{{ 'veylune.marketplace.listing.filter'|trans|sw_sanitize }}</button>
+                        <div class="veylune-plp-popover" id="{{ listingId }}Filters" data-plp-filter-panel role="dialog" aria-modal="false" aria-label="{{ 'veylune.marketplace.listing.filters'|trans|striptags }}" hidden>
                             {% sw_include '@Storefront/storefront/veylune/catalog-preview-filters.html.twig' with { discoveryFilterOptions: listingFilters } %}
-                            <button class="veylune-plp-filter-clear" type="button" data-plp-filter-clear disabled>Clear filters</button>
+                            <button class="veylune-plp-filter-clear" type="button" data-plp-filter-clear disabled>{{ 'veylune.marketplace.listing.clearFilters'|trans|sw_sanitize }}</button>
                         </div>
                     </div>
                     <div class="veylune-plp-menu">
-                        <button class="veylune-plp-control" type="button" data-plp-sort-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="{{ listingId }}Sort">Sort: Featured</button>
+                        <button class="veylune-plp-control" type="button" data-plp-sort-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="{{ listingId }}Sort">{{ 'veylune.marketplace.listing.sortPrefix'|trans|sw_sanitize }} {{ 'veylune.marketplace.listing.featured'|trans|sw_sanitize }}</button>
                         <div class="veylune-plp-popover veylune-plp-popover--sort" id="{{ listingId }}Sort" data-plp-sort-panel role="menu" hidden>
-                            <button type="button" role="menuitemradio" aria-checked="true" data-plp-sort="featured">Featured</button>
-                            <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="price-low">Price: Low to high</button>
-                            <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="price-high">Price: High to low</button>
-                            <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="name">Name</button>
+                            <button type="button" role="menuitemradio" aria-checked="true" data-plp-sort="featured">{{ 'veylune.marketplace.listing.featured'|trans|sw_sanitize }}</button>
+                            <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="price-low">{{ 'veylune.marketplace.listing.priceLow'|trans|sw_sanitize }}</button>
+                            <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="price-high">{{ 'veylune.marketplace.listing.priceHigh'|trans|sw_sanitize }}</button>
+                            <button type="button" role="menuitemradio" aria-checked="false" data-plp-sort="name">{{ 'veylune.marketplace.listing.name'|trans|sw_sanitize }}</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="veylune-plp-active-filters" data-plp-active-filters aria-label="Active filters" hidden></div>
+            <div class="veylune-plp-active-filters" data-plp-active-filters aria-label="{{ 'veylune.marketplace.listing.activeFilters'|trans|striptags }}" hidden></div>
             <p class="visually-hidden" data-plp-status role="status" aria-live="polite" aria-atomic="true"></p>
             <div class="veylune-preview-grid vli-index__grid" id="{{ listingId }}Grid" data-plp-grid aria-live="polite" aria-atomic="false" aria-busy="false" aria-label="{{ listingLabel }}">
                 {% for product in listingProducts %}
@@ -60,15 +65,15 @@
                 {% endfor %}
                 <div class="veylune-plp-empty vli-index__empty" data-plp-empty role="status"{% if listingProducts is not empty %} hidden{% endif %}>
                     <span class="vli-index__empty-mark" aria-hidden="true">00</span>
-                    <div><h3>{{ discoveryEmptyTitle|default('No products match these filters.') }}</h3><p>{{ discoveryEmptyText|default('Clear the active filters or explore another discovery path.') }}</p>
-                        {% if discoveryEmptyPrimaryUrl|default('') %}<div class="vli-index__empty-actions"><a class="vli-button vli-button--primary" href="{{ discoveryEmptyPrimaryUrl }}">{{ discoveryEmptyPrimaryLabel|default('Explore Discover') }}</a>{% if discoveryEmptySecondaryUrl|default('') %}<a class="vli-button" href="{{ discoveryEmptySecondaryUrl }}">{{ discoveryEmptySecondaryLabel|default('Contact the studio') }}</a>{% endif %}</div>{% endif %}
+                    <div><h3>{{ discoveryEmptyTitle|default('veylune.marketplace.listing.emptyTitle'|trans) }}</h3><p>{{ discoveryEmptyText|default('veylune.marketplace.listing.emptyText'|trans) }}</p>
+                        {% if discoveryEmptyPrimaryUrl|default('') %}<div class="vli-index__empty-actions"><a class="vli-button vli-button--primary" href="{{ discoveryEmptyPrimaryUrl }}">{{ discoveryEmptyPrimaryLabel|default('veylune.marketplace.listing.explore'|trans) }}</a>{% if discoveryEmptySecondaryUrl|default('') %}<a class="vli-button" href="{{ discoveryEmptySecondaryUrl }}">{{ discoveryEmptySecondaryLabel|default('veylune.marketplace.listing.contact'|trans) }}</a>{% endif %}</div>{% endif %}
                     </div>
                 </div>
             </div>
             <div class="veylune-plp-progress">
-                <p>Showing <strong data-plp-showing>{{ listingProducts|length > 12 ? 12 : listingProducts|length }}</strong> of <strong data-plp-matched-count>{{ listingProducts|length }}</strong> matching products</p>
+                <p>{{ 'veylune.marketplace.listing.showing'|trans({'%shown%': '<strong data-plp-showing>' ~ (listingProducts|length > 12 ? 12 : listingProducts|length) ~ '</strong>', '%total%': '<strong data-plp-matched-count>' ~ listingProducts|length ~ '</strong>'})|raw }}</p>
                 <div class="veylune-plp-progress__bar" aria-hidden="true"><span></span></div>
-                <button class="veylune-plp-load-more" type="button" data-plp-load-more aria-controls="{{ listingId }}Grid">Load more</button>
+                <button class="veylune-plp-load-more" type="button" data-plp-load-more aria-controls="{{ listingId }}Grid">{{ 'veylune.marketplace.listing.loadMore'|trans|sw_sanitize }}</button>
             </div>
         </div>
     </div>

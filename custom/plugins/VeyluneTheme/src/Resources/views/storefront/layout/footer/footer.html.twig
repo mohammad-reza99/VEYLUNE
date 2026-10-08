@@ -29,7 +29,7 @@
 			<div class="veylune-footer__column">
 				<div class="veylune-footer__title">{{ 'veylune.footer.services'|trans|sw_sanitize }}</div>
 				<a class="veylune-footer__link" href="{{ veyluneRoutes.consultation }}">{{ 'veylune.footer.privateConsultation'|trans|sw_sanitize }}</a>
-				<a class="veylune-footer__link" href="{{ veyluneRoutes.trade }}">Trade Program</a>
+				<a class="veylune-footer__link" href="{{ veyluneRoutes.trade }}">{{ 'veylune.footer.tradeProgram'|trans|sw_sanitize }}</a>
 				<a class="veylune-footer__link" href="{{ veyluneRoutes.partnership }}">{{ 'veylune.footer.atelierPartnerships'|trans|sw_sanitize }}</a>
 				<a class="veylune-footer__link" href="{{ veyluneRoutes.contact }}">{{ 'veylune.footer.contactStudio'|trans|sw_sanitize }}</a>
 			</div>
@@ -42,12 +42,12 @@
 
 		<div class="veylune-footer__bottom">
 			<span>{{ 'veylune.footer.bottomBrand'|trans|sw_sanitize }}</span>
-			<nav class="veylune-footer__legal" aria-label="Legal information">
-				<a href="{{ path('frontend.veylune.legal.page', { document: 'privacy' }) }}">Privacy</a>
-				<a href="{{ path('frontend.veylune.legal.page', { document: 'imprint' }) }}">Imprint</a>
-				<a href="{{ path('frontend.veylune.legal.page', { document: 'terms' }) }}">Terms</a>
-				<a href="{{ path('frontend.veylune.legal.page', { document: 'payment-delivery' }) }}">Payment &amp; Delivery</a>
-				<a href="{{ path('frontend.veylune.legal.page', { document: 'cancellation' }) }}">Cancellation</a>
+			<nav class="veylune-footer__legal" aria-label="{{ 'veylune.footer.legalAria'|trans|striptags }}">
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'privacy' }) }}">{{ 'veylune.footer.privacy'|trans|sw_sanitize }}</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'imprint' }) }}">{{ 'veylune.footer.imprint'|trans|sw_sanitize }}</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'terms' }) }}">{{ 'veylune.footer.terms'|trans|sw_sanitize }}</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'payment-delivery' }) }}">{{ 'veylune.footer.paymentDelivery'|trans|sw_sanitize }}</a>
+				<a href="{{ path('frontend.veylune.legal.page', { document: 'cancellation' }) }}">{{ 'veylune.footer.cancellation'|trans|sw_sanitize }}</a>
 			</nav>
 			<span>{{ "now"|date("Y") }} {{ 'veylune.footer.bottomHouse'|trans|sw_sanitize }}</span>
 		</div>

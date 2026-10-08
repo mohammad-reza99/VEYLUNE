@@ -1,24 +1,24 @@
-<section class="veylune-pdp-information" aria-label="Product information">
+<section class="veylune-pdp-information" aria-label="{{ 'veylune.marketplace.pdp.productInfo'|trans|striptags }}">
     <section class="veylune-pdp-glance" aria-labelledby="veylunePdpGlanceTitle">
-        <h2 id="veylunePdpGlanceTitle">At a Glance</h2>
+        <h2 id="veylunePdpGlanceTitle">{{ 'veylune.marketplace.pdp.atGlance'|trans|sw_sanitize }}</h2>
         <div class="veylune-pdp-glance__grid">
-            <div><span aria-hidden="true">01</span><strong>{{ product.materialLabel }}</strong><small>Primary material direction</small></div>
-            <div><span aria-hidden="true">02</span><strong>{{ veylunePdpPresentation.familyLabel }}</strong><small>Product family</small></div>
-            <div><span aria-hidden="true">03</span><strong>{{ veylunePdpPresentation.gallery.count }} approved view{{ veylunePdpPresentation.gallery.count == 1 ? '' : 's' }}</strong><small>Gallery evidence</small></div>
-            <div><span aria-hidden="true">04</span><strong>{{ veyluneCatalogIsPublic|default(false) ? 'Studio specification' : 'Private specification' }}</strong><small>Non-binding pathway</small></div>
+            <div><span aria-hidden="true">01</span><strong>{{ product.materialLabel }}</strong><small>{{ 'veylune.marketplace.pdp.primaryMaterial'|trans|sw_sanitize }}</small></div>
+            <div><span aria-hidden="true">02</span><strong>{{ veylunePdpPresentation.familyLabel }}</strong><small>{{ 'veylune.marketplace.pdp.productFamily'|trans|sw_sanitize }}</small></div>
+            <div><span aria-hidden="true">03</span><strong>{{ 'veylune.marketplace.pdp.approvedViews'|trans({'%count%': veylunePdpPresentation.gallery.count})|sw_sanitize }}</strong><small>{{ 'veylune.marketplace.pdp.galleryEvidence'|trans|sw_sanitize }}</small></div>
+            <div><span aria-hidden="true">04</span><strong>{{ (veyluneCatalogIsPublic|default(false) ? 'veylune.marketplace.pdp.studioSpecification' : 'veylune.marketplace.pdp.privateSpecification')|trans|sw_sanitize }}</strong><small>{{ 'veylune.marketplace.pdp.nonBindingPath'|trans|sw_sanitize }}</small></div>
         </div>
     </section>
 
     <section class="veylune-pdp-description" aria-labelledby="veylunePdpDescriptionTitle">
         <div class="veylune-pdp-information__heading">
-            <p>Description</p>
-            <h2 id="veylunePdpDescriptionTitle">About This Product</h2>
+            <p>{{ 'veylune.marketplace.pdp.description'|trans|sw_sanitize }}</p>
+            <h2 id="veylunePdpDescriptionTitle">{{ 'veylune.marketplace.pdp.about'|trans|sw_sanitize }}</h2>
         </div>
         <div class="veylune-pdp-description__body">
             {% if product.description %}
                 <div>{{ product.description|raw }}</div>
             {% else %}
-                <p>{{ product.name }} is a considered {{ product.productType|replace({'_': ' '}) }} selected for its material presence, balanced silhouette and role within a complete interior.</p>
+                <p>{{ 'veylune.marketplace.pdp.fallbackDescription'|trans({'%name%': product.name, '%type%': product.productType|replace({'_': ' '})})|sw_sanitize }}</p>
             {% endif %}
             <p>{{ veylunePdpPresentation.focus }}</p>
         </div>
@@ -30,13 +30,13 @@
     } %}
 
     <section class="veylune-pdp-reviews" aria-labelledby="veylunePdpReviewsTitle">
-        <div class="veylune-pdp-information__heading"><p>Customer Reviews</p><h2 id="veylunePdpReviewsTitle">New to the Veylune edit</h2></div>
+        <div class="veylune-pdp-information__heading"><p>{{ 'veylune.marketplace.pdp.reviews'|trans|sw_sanitize }}</p><h2 id="veylunePdpReviewsTitle">{{ 'veylune.marketplace.pdp.newToEdit'|trans|sw_sanitize }}</h2></div>
         <div class="veylune-pdp-reviews__summary">
-            <div><strong>0.0</strong><span aria-hidden="true">☆☆☆☆☆</span><small>No verified reviews yet</small></div>
-            <div class="veylune-pdp-reviews__bars" aria-label="No ratings submitted">
+            <div><strong>0.0</strong><span aria-hidden="true">☆☆☆☆☆</span><small>{{ 'veylune.marketplace.pdp.noReviews'|trans|sw_sanitize }}</small></div>
+            <div class="veylune-pdp-reviews__bars" aria-label="{{ 'veylune.marketplace.pdp.noRatings'|trans|striptags }}">
                 {% for rating in 5..1 %}<div><span>{{ rating }}</span><i><b style="width: 0"></b></i><small>0</small></div>{% endfor %}
             </div>
-            <p>This draft piece has not entered public commerce. Reviews will only appear after verified customer orders.</p>
+            <p>{{ 'veylune.marketplace.pdp.reviewsDisclosure'|trans|sw_sanitize }}</p>
         </div>
     </section>
 </section>

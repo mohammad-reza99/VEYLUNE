@@ -8,28 +8,47 @@
         'textiles-rugs': 'textiles', 'dining-kitchen': 'dining', outdoor: 'outdoor'
     } %}
     {% set categoryNotes = {
-        furniture: 'Seating, tables, storage and room-defining forms',
-        lighting: 'Ambient, task and architectural illumination',
-        'decor-objects': 'Objects, vessels, mirrors and sculptural accents',
-        'textiles-rugs': 'Rugs, throws and tactile layers for every room',
-        'dining-kitchen': 'Tables, seating and objects for gathering',
-        outdoor: 'Considered pieces for open-air living'
+        furniture: 'veylune.marketplace.home.categoryNotes.furniture',
+        lighting: 'veylune.marketplace.home.categoryNotes.lighting',
+        'decor-objects': 'veylune.marketplace.home.categoryNotes.decorObjects',
+        'textiles-rugs': 'veylune.marketplace.home.categoryNotes.textilesRugs',
+        'dining-kitchen': 'veylune.marketplace.home.categoryNotes.diningKitchen',
+        outdoor: 'veylune.marketplace.home.categoryNotes.outdoor'
+    } %}
+    {% set categoryLabelKeys = {
+        furniture: 'veylune.home.discovery.categories.furniture',
+        lighting: 'veylune.home.discovery.categories.lighting',
+        'decor-objects': 'veylune.home.discovery.categories.decorObjects',
+        'textiles-rugs': 'veylune.home.discovery.categories.textilesRugs',
+        'dining-kitchen': 'veylune.home.discovery.categories.diningKitchen',
+        outdoor: 'veylune.home.discovery.categories.outdoor'
+    } %}
+    {% set roomLabelKeys = {
+        'living-room': 'veylune.home.discovery.rooms.livingRoom',
+        'dining-room': 'veylune.home.discovery.rooms.diningRoom',
+        bedroom: 'veylune.home.discovery.rooms.bedroom',
+        workspace: 'veylune.home.discovery.rooms.workspace',
+        hallway: 'veylune.home.discovery.rooms.hallway'
+    } %}
+    {% set collectionLabelKeys = {
+        'new-arrivals': 'veylune.home.discovery.collections.newArrivals',
+        'founder-selection': 'veylune.home.discovery.collections.founderSelection'
     } %}
     {% set roomAssets = {
         'living-room': 'living', 'dining-room': 'dining', bedroom: 'bedroom',
         workspace: 'workspace', hallway: 'living'
     } %}
     {% set railTitles = {
-        'storefront-test-cohort': 'Trending in the studio',
-        'new-arrivals': 'New arrivals',
-        'founder-selection': 'Founder selection',
-        'living-room': 'Made for the living room'
+        'storefront-test-cohort': 'veylune.marketplace.home.rails.trendingTitle',
+        'new-arrivals': 'veylune.marketplace.home.rails.newTitle',
+        'founder-selection': 'veylune.marketplace.home.rails.founderTitle',
+        'living-room': 'veylune.marketplace.home.rails.livingTitle'
     } %}
     {% set railEyebrows = {
-        'storefront-test-cohort': 'Most considered now',
-        'new-arrivals': veyluneCatalogIsPublic ? 'New to the catalog' : 'Fresh to the private catalog',
-        'founder-selection': 'A signature Veylune edit',
-        'living-room': 'Complete the room'
+        'storefront-test-cohort': 'veylune.marketplace.home.rails.trendingEyebrow',
+        'new-arrivals': veyluneCatalogIsPublic ? 'veylune.marketplace.home.rails.newPublicEyebrow' : 'veylune.marketplace.home.rails.newPrivateEyebrow',
+        'founder-selection': 'veylune.marketplace.home.rails.founderEyebrow',
+        'living-room': 'veylune.marketplace.home.rails.livingEyebrow'
     } %}
     {% set railTargets = {
         'storefront-test-cohort': path(veyluneCatalogCategoryRoute, veyluneCatalogRouteParams|merge({ categoryKey: 'furniture' })),
@@ -40,36 +59,36 @@
 
     <div class="veylune-preview-marketplace-home" data-veylune-preview-marketplace-home>
         <div class="veylune-preview-marketplace-home__access" role="note">
-            <span>{{ veyluneCatalogIsPublic ? 'Veylune catalog' : 'Private catalog access' }}</span>
-            <p>Explore the full Veylune assortment. Final availability and delivery are confirmed by the studio.</p>
-            <a href="{{ path('frontend.account.home.page') }}">My account</a>
+            <span>{{ (veyluneCatalogIsPublic ? 'veylune.marketplace.home.catalogPublic' : 'veylune.marketplace.home.catalogPrivate')|trans|sw_sanitize }}</span>
+            <p>{{ 'veylune.marketplace.home.catalogText'|trans|sw_sanitize }}</p>
+            <a href="{{ path('frontend.account.home.page') }}">{{ 'veylune.marketplace.home.myAccount'|trans|sw_sanitize }}</a>
         </div>
 
         <section class="veylune-preview-marketplace-hero" aria-labelledby="veylunePreviewMarketplaceTitle">
             <img src="{{ asset('assets/veylune-home-hero-architectural-warm-v1.webp', 'theme') }}"
-                 alt="Warm architectural living room with sculptural furniture"
+                 alt="{{ 'veylune.marketplace.home.heroAlt'|trans|striptags }}"
                  width="1536" height="1024" fetchpriority="high" decoding="async">
             <div class="veylune-preview-marketplace-hero__shade" aria-hidden="true"></div>
             <div class="veylune-preview-marketplace-hero__content">
-                <p class="veylune-preview-marketplace-home__eyebrow">{{ veyluneCatalogIsPublic ? 'The Veylune collection' : 'The private Veylune collection' }}</p>
-                <h1 id="veylunePreviewMarketplaceTitle">Everything for a considered home.</h1>
-                <p>Discover furniture, lighting, objects and textiles selected to work together across the rooms you live in.</p>
+                <p class="veylune-preview-marketplace-home__eyebrow">{{ (veyluneCatalogIsPublic ? 'veylune.marketplace.home.heroPublicEyebrow' : 'veylune.marketplace.home.heroPrivateEyebrow')|trans|sw_sanitize }}</p>
+                <h1 id="veylunePreviewMarketplaceTitle">{{ 'veylune.marketplace.home.heroTitle'|trans|sw_sanitize }}</h1>
+                <p>{{ 'veylune.marketplace.home.heroText'|trans|sw_sanitize }}</p>
                 <div class="veylune-preview-marketplace-hero__actions">
-                    <a class="is-primary" href="{{ path(veyluneCatalogCategoryRoute, veyluneCatalogRouteParams|merge({ categoryKey: 'furniture' })) }}">Shop furniture</a>
-                    <a href="{{ path(veyluneCatalogCollectionRoute, veyluneCatalogRouteParams|merge({ collectionKey: 'founder-selection' })) }}">Explore the founder edit</a>
+                    <a class="is-primary" href="{{ path(veyluneCatalogCategoryRoute, veyluneCatalogRouteParams|merge({ categoryKey: 'furniture' })) }}">{{ 'veylune.marketplace.home.shopFurniture'|trans|sw_sanitize }}</a>
+                    <a href="{{ path(veyluneCatalogCollectionRoute, veyluneCatalogRouteParams|merge({ collectionKey: 'founder-selection' })) }}">{{ 'veylune.marketplace.home.exploreFounder'|trans|sw_sanitize }}</a>
                 </div>
             </div>
             <dl class="veylune-preview-marketplace-hero__signals">
-                <div><dt>01</dt><dd>Curated objects</dd></div>
-                <div><dt>02</dt><dd>Material guidance</dd></div>
-                <div><dt>03</dt><dd>Studio consultation</dd></div>
+                <div><dt>01</dt><dd>{{ 'veylune.marketplace.home.curatedObjects'|trans|sw_sanitize }}</dd></div>
+                <div><dt>02</dt><dd>{{ 'veylune.marketplace.home.materialGuidance'|trans|sw_sanitize }}</dd></div>
+                <div><dt>03</dt><dd>{{ 'veylune.marketplace.home.studioConsultation'|trans|sw_sanitize }}</dd></div>
             </dl>
         </section>
 
         <section class="veylune-preview-marketplace-section veylune-preview-marketplace-categories" aria-labelledby="veylunePreviewCategoriesTitle">
             <header class="veylune-preview-marketplace-section__head">
-                <div><p class="veylune-preview-marketplace-home__eyebrow">Shop by department</p><h2 id="veylunePreviewCategoriesTitle">Find the right starting point.</h2></div>
-                <p>Six connected departments, built for a complete home.</p>
+                <div><p class="veylune-preview-marketplace-home__eyebrow">{{ 'veylune.marketplace.home.departmentsEyebrow'|trans|sw_sanitize }}</p><h2 id="veylunePreviewCategoriesTitle">{{ 'veylune.marketplace.home.departmentsTitle'|trans|sw_sanitize }}</h2></div>
+                <p>{{ 'veylune.marketplace.home.departmentsText'|trans|sw_sanitize }}</p>
             </header>
             <div class="veylune-preview-marketplace-categories__grid">
                 {% for key, label in veylunePreviewCategories %}
@@ -78,7 +97,7 @@
                             <img src="{{ asset('assets/veylune-category-' ~ categoryAssets[key] ~ '-v1.webp', 'theme') }}" alt="" width="1254" height="1254" loading="lazy" decoding="async">
                         </span>
                         <span class="veylune-preview-marketplace-category__content">
-                            <strong>{{ label }}</strong><small>{{ categoryNotes[key] }}</small><span>Shop now <span aria-hidden="true">&rarr;</span></span>
+                            <strong>{{ categoryLabelKeys[key]|trans|sw_sanitize }}</strong><small>{{ categoryNotes[key]|trans|sw_sanitize }}</small><span>{{ 'veylune.marketplace.home.shopNow'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></span>
                         </span>
                     </a>
                 {% endfor %}
@@ -87,8 +106,8 @@
 
         <section class="veylune-preview-marketplace-section veylune-preview-marketplace-collections" aria-labelledby="veylunePreviewCollectionsTitle">
             <header class="veylune-preview-marketplace-section__head">
-                <div><p class="veylune-preview-marketplace-home__eyebrow">Curated collections</p><h2 id="veylunePreviewCollectionsTitle">A sharper way into the catalog.</h2></div>
-                <p>Begin with what is new, or with the pieces that define the house.</p>
+                <div><p class="veylune-preview-marketplace-home__eyebrow">{{ 'veylune.marketplace.home.collectionsEyebrow'|trans|sw_sanitize }}</p><h2 id="veylunePreviewCollectionsTitle">{{ 'veylune.marketplace.home.collectionsTitle'|trans|sw_sanitize }}</h2></div>
+                <p>{{ 'veylune.marketplace.home.collectionsText'|trans|sw_sanitize }}</p>
             </header>
             <div class="veylune-preview-marketplace-collections__grid">
                 {% for key, label in veylunePreviewCollections %}
@@ -96,7 +115,7 @@
                         <img src="{{ asset(key == 'founder-selection' ? 'assets/veylune-promo-living-room-v1.webp' : 'assets/veylune-category-furniture-v1.webp', 'theme') }}" alt="" width="1536" height="1024" loading="lazy" decoding="async">
                         <span class="veylune-preview-marketplace-collection__shade" aria-hidden="true"></span>
                         <span class="veylune-preview-marketplace-collection__content">
-                            <small>{{ key == 'founder-selection' ? 'The signature edit' : 'Recently introduced' }}</small><strong>{{ label }}</strong><span>Explore collection <span aria-hidden="true">&rarr;</span></span>
+                            <small>{{ (key == 'founder-selection' ? 'veylune.marketplace.home.signatureEdit' : 'veylune.marketplace.home.recentlyIntroduced')|trans|sw_sanitize }}</small><strong>{{ collectionLabelKeys[key]|trans|sw_sanitize }}</strong><span>{{ 'veylune.marketplace.home.exploreCollection'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></span>
                         </span>
                     </a>
                 {% endfor %}
@@ -106,51 +125,51 @@
         {% for railKey, products in veylunePreviewRails %}
             <section class="veylune-preview-marketplace-section veylune-preview-rail" aria-labelledby="preview-rail-{{ railKey }}">
                 <header class="veylune-preview-marketplace-section__head veylune-preview-rail__head">
-                    <div><p class="veylune-preview-marketplace-home__eyebrow">{{ railEyebrows[railKey] }}</p><h2 id="preview-rail-{{ railKey }}">{{ railTitles[railKey] }}</h2></div>
-                    <a href="{{ railTargets[railKey] }}">View all {{ products|length }} <span aria-hidden="true">&rarr;</span></a>
+                    <div><p class="veylune-preview-marketplace-home__eyebrow">{{ railEyebrows[railKey]|trans|sw_sanitize }}</p><h2 id="preview-rail-{{ railKey }}">{{ railTitles[railKey]|trans|sw_sanitize }}</h2></div>
+                    <a href="{{ railTargets[railKey] }}">{{ 'veylune.marketplace.home.rails.viewAll'|trans({'%count%': products|length})|sw_sanitize }} <span aria-hidden="true">&rarr;</span></a>
                 </header>
                 <div class="veylune-preview-rail__slider veylune-product-slider" data-veylune-product-slider role="region" aria-roledescription="carousel" aria-labelledby="preview-rail-{{ railKey }}">
-                    <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="preview-rail-track-{{ railKey }}" aria-label="Previous {{ railTitles[railKey] }} products">&lsaquo;</button>
+                    <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="preview-rail-track-{{ railKey }}" aria-label="{{ 'veylune.marketplace.home.rails.previous'|trans({'%title%': railTitles[railKey]|trans})|striptags }}">&lsaquo;</button>
                     <div class="veylune-preview-rail__track" id="preview-rail-track-{{ railKey }}" data-veylune-product-slider-track tabindex="0">
                         {% for product in products %}
                             {% sw_include '@Storefront/storefront/veylune/catalog-preview-card.html.twig' with { product: product, productIndex: loop.index0 } %}
                         {% endfor %}
                     </div>
-                    <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="preview-rail-track-{{ railKey }}" aria-label="Next {{ railTitles[railKey] }} products">&rsaquo;</button>
+                    <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="preview-rail-track-{{ railKey }}" aria-label="{{ 'veylune.marketplace.home.rails.next'|trans({'%title%': railTitles[railKey]|trans})|striptags }}">&rsaquo;</button>
                 </div>
             </section>
         {% endfor %}
 
         <section class="veylune-preview-marketplace-section veylune-preview-marketplace-rooms" aria-labelledby="veylunePreviewRoomsTitle">
             <header class="veylune-preview-marketplace-section__head">
-                <div><p class="veylune-preview-marketplace-home__eyebrow">Shop by room</p><h2 id="veylunePreviewRoomsTitle">See what belongs together.</h2></div>
-                <p>Move from individual objects to a complete spatial direction.</p>
+                <div><p class="veylune-preview-marketplace-home__eyebrow">{{ 'veylune.marketplace.home.roomsEyebrow'|trans|sw_sanitize }}</p><h2 id="veylunePreviewRoomsTitle">{{ 'veylune.marketplace.home.roomsTitle'|trans|sw_sanitize }}</h2></div>
+                <p>{{ 'veylune.marketplace.home.roomsText'|trans|sw_sanitize }}</p>
             </header>
             <div class="veylune-preview-marketplace-rooms__slider veylune-product-slider" data-veylune-product-slider>
-                <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="veylunePreviewRoomTrack" aria-label="Previous rooms">&lsaquo;</button>
-                <div class="veylune-preview-marketplace-rooms__track" id="veylunePreviewRoomTrack" data-veylune-product-slider-track role="list" aria-roledescription="carousel" aria-label="Rooms" tabindex="0">
+                <button class="veylune-product-slider__control veylune-product-slider__control--previous" type="button" data-veylune-product-slider-previous aria-controls="veylunePreviewRoomTrack" aria-label="{{ 'veylune.marketplace.home.previousRooms'|trans|striptags }}">&lsaquo;</button>
+                <div class="veylune-preview-marketplace-rooms__track" id="veylunePreviewRoomTrack" data-veylune-product-slider-track role="list" aria-roledescription="carousel" aria-label="{{ 'veylune.marketplace.home.roomsAria'|trans|striptags }}" tabindex="0">
                     {% for key, label in veylunePreviewRooms %}
                         <a class="veylune-preview-marketplace-room" role="listitem" href="{{ path(veyluneCatalogRoomRoute, veyluneCatalogRouteParams|merge({ roomKey: key })) }}">
                             <img src="{{ asset('assets/veylune-room-' ~ roomAssets[key] ~ '-v1.webp', 'theme') }}" alt="" width="1024" height="1536" loading="lazy" decoding="async">
-                            <span><strong>{{ label }}</strong><small>Explore the room <span aria-hidden="true">&rarr;</span></small></span>
+                            <span><strong>{{ roomLabelKeys[key]|trans|sw_sanitize }}</strong><small>{{ 'veylune.marketplace.home.exploreRoom'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></small></span>
                         </a>
                     {% endfor %}
                 </div>
-                <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="veylunePreviewRoomTrack" aria-label="Next rooms">&rsaquo;</button>
+                <button class="veylune-product-slider__control veylune-product-slider__control--next" type="button" data-veylune-product-slider-next aria-controls="veylunePreviewRoomTrack" aria-label="{{ 'veylune.marketplace.home.nextRooms'|trans|striptags }}">&rsaquo;</button>
             </div>
         </section>
 
         <section class="veylune-preview-marketplace-services" aria-labelledby="veylunePreviewServicesTitle">
             <div class="veylune-preview-marketplace-services__intro">
-                <p class="veylune-preview-marketplace-home__eyebrow">Veylune client care</p>
-                <h2 id="veylunePreviewServicesTitle">Confidence before commitment.</h2>
-                <p>{{ veyluneCatalogIsPublic ? 'Every catalog piece can be reviewed with the studio before final terms are agreed.' : 'Every private catalog piece can be reviewed with the studio before final terms are agreed.' }}</p>
+                <p class="veylune-preview-marketplace-home__eyebrow">{{ 'veylune.marketplace.home.clientCare'|trans|sw_sanitize }}</p>
+                <h2 id="veylunePreviewServicesTitle">{{ 'veylune.marketplace.home.servicesTitle'|trans|sw_sanitize }}</h2>
+                <p>{{ (veyluneCatalogIsPublic ? 'veylune.marketplace.home.servicesPublicText' : 'veylune.marketplace.home.servicesPrivateText')|trans|sw_sanitize }}</p>
             </div>
             <div class="veylune-preview-marketplace-services__grid">
-                <article><span>01</span><div><h3>Material guidance</h3><p>Compare finish, texture and care before choosing.</p></div></article>
-                <article><span>02</span><div><h3>Access planning</h3><p>Review dimensions, delivery access and placement.</p></div></article>
-                <article><span>03</span><div><h3>Private project support</h3><p>Bring a room, shortlist or sourcing brief to the studio.</p></div></article>
+                <article><span>01</span><div><h3>{{ 'veylune.marketplace.home.materialServiceTitle'|trans|sw_sanitize }}</h3><p>{{ 'veylune.marketplace.home.materialServiceText'|trans|sw_sanitize }}</p></div></article>
+                <article><span>02</span><div><h3>{{ 'veylune.marketplace.home.accessServiceTitle'|trans|sw_sanitize }}</h3><p>{{ 'veylune.marketplace.home.accessServiceText'|trans|sw_sanitize }}</p></div></article>
+                <article><span>03</span><div><h3>{{ 'veylune.marketplace.home.projectServiceTitle'|trans|sw_sanitize }}</h3><p>{{ 'veylune.marketplace.home.projectServiceText'|trans|sw_sanitize }}</p></div></article>
             </div>
-            <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private consultation <span aria-hidden="true">&rarr;</span></a>
+            <a href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.marketplace.home.consultationCta'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></a>
         </section>
     </div>

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
 #[Package('storefront')]
@@ -25,7 +26,10 @@ final class LegalPageController extends StorefrontController
         'cancellation' => ['Cancellation information', 'The jurisdiction-specific cancellation notice will be published with the approved public terms before orders are enabled.', 'No public purchase contract can currently be completed through this storefront.'],
     ];
 
-    public function __construct(private readonly GenericPageLoader $genericPageLoader)
+    public function __construct(
+        private readonly GenericPageLoader $genericPageLoader,
+        private readonly TranslatorInterface $translator
+    )
     {
     }
 
@@ -34,8 +38,9 @@ final class LegalPageController extends StorefrontController
     {
         $copy = self::COPY[$document] ?? throw new NotFoundHttpException();
         $page = $this->genericPageLoader->load($request, $context);
-        $page->getMetaInformation()?->setMetaTitle($copy[0] . ' | VEYLUNE STUDIO');
-        $page->getMetaInformation()?->setMetaDescription($copy[1]);
+        $snippetBase = 'veylune.marketplace.legal.' . $document;
+        $page->getMetaInformation()?->setMetaTitle($this->translator->trans($snippetBase . '.title') . ' | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription($this->translator->trans($snippetBase . '.one'));
         $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/legal-page.html.twig', [

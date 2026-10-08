@@ -2,6 +2,14 @@ const normalize = (value = '') => value.toLowerCase().replace(/[^a-z0-9]+/g, '-'
 
 document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
     const pageSize = 12;
+    const labels = {
+        filter: root.dataset.plpLabelFilter || 'Filter',
+        sort: root.dataset.plpLabelSort || 'Sort:',
+        loadMore: root.dataset.plpLabelLoadMore || 'Load more',
+        loading: root.dataset.plpLabelLoading || 'Loading...',
+        status: root.dataset.plpStatusTemplate || '%matched% pieces match the current filters. %shown% shown.',
+    };
+    const formatLabel = (template, values) => Object.entries(values).reduce((text, [key, value]) => text.replaceAll(`%${key}%`, String(value)), template);
     const grid = root.querySelector('[data-plp-grid]');
     const cards = Array.from(root.querySelectorAll('[data-plp-card]'));
     const chips = Array.from(root.querySelectorAll('button[data-plp-type]'));
@@ -76,7 +84,7 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         const activeCount = (activeType === 'all' ? 0 : 1) + materials.length + prices.length + statuses.length;
         activeFilters.hidden = activeCount === 0;
         filterClearButtons.forEach((button) => { button.disabled = activeCount === 0; });
-        filterToggle.firstChild.textContent = activeCount ? `Filter (${activeCount}) ` : 'Filter ';
+        filterToggle.firstChild.textContent = activeCount ? `${labels.filter} (${activeCount}) ` : `${labels.filter} `;
     };
 
     const matchesType = (card) => {
@@ -135,13 +143,13 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         showing.textContent = String(displayed.length);
         empty.hidden = filtered.length !== 0;
         renderActiveFilters(materials, prices, statuses);
-        status.textContent = `${filtered.length} pieces match the current filters. ${displayed.length} shown.`;
+        status.textContent = formatLabel(labels.status, { matched: filtered.length, shown: displayed.length });
         loadMore.hidden = displayed.length >= filtered.length;
         root.style.setProperty('--veylune-plp-progress', filtered.length ? String(displayed.length / filtered.length) : '0');
         grid.setAttribute('aria-busy', 'false');
         grid.classList.remove('is-updating');
         loadMore.removeAttribute('aria-disabled');
-        loadMore.textContent = 'Load more';
+        loadMore.textContent = labels.loadMore;
         if (syncUrlState) updateUrl(materials, prices, statuses);
     };
 
@@ -231,7 +239,7 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         statusInputs.forEach((input) => { input.checked = requested.status.has(input.value); });
         sortOptions.forEach((option) => option.setAttribute('aria-checked', String(option.dataset.plpSort === activeSort)));
         const currentSort = sortOptions.find((option) => option.dataset.plpSort === activeSort);
-        sortToggle.firstChild.textContent = `Sort: ${currentSort.textContent.trim()} `;
+        sortToggle.firstChild.textContent = `${labels.sort} ${currentSort.textContent.trim()} `;
         render(false);
     };
 
@@ -275,14 +283,14 @@ document.querySelectorAll('[data-veylune-plp]').forEach((root) => {
         activeSort = option.dataset.plpSort;
         visibleLimit = pageSize;
         sortOptions.forEach((item) => item.setAttribute('aria-checked', String(item === option)));
-        sortToggle.firstChild.textContent = `Sort: ${option.textContent.trim()} `;
+        sortToggle.firstChild.textContent = `${labels.sort} ${option.textContent.trim()} `;
         closeMenus(null, true);
         scheduleRender();
     }));
     loadMore.addEventListener('click', () => {
         visibleLimit += pageSize;
         loadMore.setAttribute('aria-disabled', 'true');
-        loadMore.textContent = 'Loading...';
+        loadMore.textContent = labels.loading;
         scheduleRender();
     });
     menuPairs.forEach(([toggle, panel]) => toggle.addEventListener('click', () => openMenu(toggle, panel)));

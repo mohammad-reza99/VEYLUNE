@@ -4,58 +4,58 @@
     {% set brief = veyluneProjectBrief|default({ source: 'direct', query: '', object: '' }) %}
     {% set isTradeBrief = brief.source|default('') == 'trade' %}
     {% set parentRoute = isTradeBrief ? path('frontend.veylune.trade.page') : path('frontend.veylune.consultation.page') %}
-    {% set parentLabel = isTradeBrief ? 'Trade Program' : 'Private Consultation' %}
+    {% set parentLabel = (isTradeBrief ? 'veylune.marketplace.contact.tradeProgram' : 'veylune.marketplace.contact.privateConsultation')|trans %}
     <div class="veylune-contact-page"
          data-veylune-contact-page
          data-vli-project-brief-page
          data-vli-project-source="{{ brief.source|default('direct') }}"
          data-vli-project-query="{{ brief.query|default('') }}"
          data-vli-project-object="{{ brief.object|default('') }}">
-        <nav class="veylune-contact-page__breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ path('frontend.home.page') }}">Home</a>
+        <nav class="veylune-contact-page__breadcrumb" aria-label="{{ 'veylune.marketplace.contact.breadcrumb'|trans|striptags }}">
+            <a href="{{ path('frontend.home.page') }}">{{ 'veylune.marketplace.contact.home'|trans|sw_sanitize }}</a>
             <span aria-hidden="true">/</span>
             <a href="{{ parentRoute }}">{{ parentLabel }}</a>
             <span aria-hidden="true">/</span>
-            <span aria-current="page">Project Brief</span>
+            <span aria-current="page">{{ 'veylune.marketplace.contact.projectBrief'|trans|sw_sanitize }}</span>
         </nav>
 
         <header class="veylune-contact-page__intro">
             <div>
-                <p class="veylune-legal-notice__eyebrow">{{ isTradeBrief ? 'Trade project brief / studio contact' : 'Project brief / studio contact' }}</p>
-                <h1>{{ isTradeBrief ? 'Tell us what the project needs.' : 'Tell us what the room needs.' }}</h1>
-                <p>{{ isTradeBrief ? 'Bring the project type, spatial direction, procurement context, timing, and useful references into one reviewable trade brief.' : 'Bring the space, direction, constraints, and useful references into one reviewable brief. You can still use this form for a general studio inquiry.' }}</p>
+                <p class="veylune-legal-notice__eyebrow">{{ (isTradeBrief ? 'veylune.marketplace.contact.tradeEyebrow' : 'veylune.marketplace.contact.eyebrow')|trans|sw_sanitize }}</p>
+                <h1>{{ (isTradeBrief ? 'veylune.marketplace.contact.tradeTitle' : 'veylune.marketplace.contact.title')|trans|sw_sanitize }}</h1>
+                <p>{{ (isTradeBrief ? 'veylune.marketplace.contact.tradeText' : 'veylune.marketplace.contact.text')|trans|sw_sanitize }}</p>
             </div>
-            <div class="veylune-contact-page__promise" aria-label="Service boundary">
-                <strong>A considered first step</strong>
-                <p>Submitting a brief starts a studio review. It does not confirm service scope, product availability, price, delivery, or installation.</p>
+            <div class="veylune-contact-page__promise" aria-label="{{ 'veylune.marketplace.contact.boundaryAria'|trans|striptags }}">
+                <strong>{{ 'veylune.marketplace.contact.boundaryTitle'|trans|sw_sanitize }}</strong>
+                <p>{{ 'veylune.marketplace.contact.boundaryText'|trans|sw_sanitize }}</p>
             </div>
         </header>
 
-        <ol class="veylune-contact-page__steps" aria-label="Project inquiry steps">
-            <li aria-current="step"><span>01</span><div><strong>Project context</strong><small>Space, direction, timing</small></div></li>
-            <li><span>02</span><div><strong>Your details</strong><small>Contact and useful notes</small></div></li>
-            <li><span>03</span><div><strong>Review and send</strong><small>One transparent inquiry</small></div></li>
+        <ol class="veylune-contact-page__steps" aria-label="{{ 'veylune.marketplace.contact.stepsAria'|trans|striptags }}">
+            <li aria-current="step"><span>01</span><div><strong>{{ 'veylune.marketplace.contact.stepContext'|trans|sw_sanitize }}</strong><small>{{ 'veylune.marketplace.contact.stepContextText'|trans|sw_sanitize }}</small></div></li>
+            <li><span>02</span><div><strong>{{ 'veylune.marketplace.contact.stepDetails'|trans|sw_sanitize }}</strong><small>{{ 'veylune.marketplace.contact.stepDetailsText'|trans|sw_sanitize }}</small></div></li>
+            <li><span>03</span><div><strong>{{ 'veylune.marketplace.contact.stepReview'|trans|sw_sanitize }}</strong><small>{{ 'veylune.marketplace.contact.stepReviewText'|trans|sw_sanitize }}</small></div></li>
         </ol>
 
-        <section class="veylune-contact-page__form" aria-label="Studio inquiry form">
+        <section class="veylune-contact-page__form" aria-label="{{ 'veylune.marketplace.contact.formAria'|trans|striptags }}">
             {% sw_include '@Storefront/storefront/page/content/detail.html.twig' with { cmsPage: cmsPage } %}
         </section>
 
-        <aside class="veylune-contact-page__aside" aria-label="Before you send">
-            <p class="veylune-contact-page__aside-kicker">Before you send</p>
-            <h2>Useful, not exhaustive.</h2>
-            <p>Approximate dimensions, the room type, existing constraints, and the feeling you want are enough to begin. Leave unknown details blank.</p>
+        <aside class="veylune-contact-page__aside" aria-label="{{ 'veylune.marketplace.contact.beforeAria'|trans|striptags }}">
+            <p class="veylune-contact-page__aside-kicker">{{ 'veylune.marketplace.contact.before'|trans|sw_sanitize }}</p>
+            <h2>{{ 'veylune.marketplace.contact.usefulTitle'|trans|sw_sanitize }}</h2>
+            <p>{{ 'veylune.marketplace.contact.usefulText'|trans|sw_sanitize }}</p>
             <ul>
-                <li>No automatic availability or pricing promise</li>
-                <li>Saved paths stay in this browser unless included</li>
-                <li>Final scope is agreed separately in writing</li>
+                <li>{{ 'veylune.marketplace.contact.boundaryOne'|trans|sw_sanitize }}</li>
+                <li>{{ 'veylune.marketplace.contact.boundaryTwo'|trans|sw_sanitize }}</li>
+                <li>{{ 'veylune.marketplace.contact.boundaryThree'|trans|sw_sanitize }}</li>
             </ul>
             {% if brief.source|default('') == 'selection' %}
-                <a class="veylune-contact-page__selection-link" href="{{ path('frontend.checkout.cart.page') }}">Review My Cart</a>
+                <a class="veylune-contact-page__selection-link" href="{{ path('frontend.checkout.cart.page') }}">{{ 'veylune.marketplace.contact.reviewCart'|trans|sw_sanitize }}</a>
             {% elseif isTradeBrief %}
-                <a href="{{ path('frontend.veylune.trade.page') }}">How the Trade Program works</a>
+                <a href="{{ path('frontend.veylune.trade.page') }}">{{ 'veylune.marketplace.contact.tradeHow'|trans|sw_sanitize }}</a>
             {% else %}
-                <a href="{{ path('frontend.veylune.consultation.page') }}">How private consultation works</a>
+                <a href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.marketplace.contact.consultationHow'|trans|sw_sanitize }}</a>
             {% endif %}
         </aside>
     </div>

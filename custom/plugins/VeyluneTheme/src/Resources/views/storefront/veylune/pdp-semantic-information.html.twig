@@ -1,5 +1,14 @@
 {% set presentation = veylunePdpPresentation %}
 {% set sectionId = veylunePdpSectionId|default('veylunePdpSemanticInformation') %}
+{% set familySnippetBase = 'veylune.marketplace.pdp.families.' ~ presentation.family %}
+{% set localizedFamilyLabel = (familySnippetBase ~ '.label')|trans %}
+{% set localizedFamilyFocus = (familySnippetBase ~ '.focus')|trans %}
+{% set specificationLabelKeys = {
+    'Product family': 'veylune.marketplace.pdp.productFamily',
+    'Material direction': 'veylune.marketplace.pdp.materialDirection',
+    'Dimensions': 'veylune.productDetail.dimensions',
+    'Weight': 'veylune.objectMode.weight'
+} %}
 
 <section class="veylune-pdp-semantic"
          data-veylune-pdp-semantic
@@ -9,36 +18,37 @@
          aria-labelledby="{{ sectionId }}Title">
     <header class="veylune-pdp-semantic__header">
         <div>
-            <p>{{ presentation.familyLabel }}</p>
-            <h2 id="{{ sectionId }}Title">Information for this {{ presentation.typeLabel|lower }}</h2>
+            <p>{{ localizedFamilyLabel|sw_sanitize }}</p>
+            <h2 id="{{ sectionId }}Title">{{ 'veylune.marketplace.pdp.semantic.infoFor'|trans({'%type%': localizedFamilyLabel})|sw_sanitize }}</h2>
         </div>
-        <p>{{ presentation.focus }}</p>
+        <p>{{ localizedFamilyFocus|sw_sanitize }}</p>
     </header>
 
     <div class="veylune-pdp-semantic__layout">
         <section aria-labelledby="{{ sectionId }}Specifications">
-            <p class="veylune-pdp-semantic__eyebrow">Product specification</p>
-            <h3 id="{{ sectionId }}Specifications">What is known now</h3>
+            <p class="veylune-pdp-semantic__eyebrow">{{ 'veylune.marketplace.pdp.semantic.specification'|trans|sw_sanitize }}</p>
+            <h3 id="{{ sectionId }}Specifications">{{ 'veylune.marketplace.pdp.semantic.known'|trans|sw_sanitize }}</h3>
             <dl class="veylune-pdp-semantic__facts">
                 {% for specification in presentation.specifications %}
-                    <div><dt>{{ specification.label }}</dt><dd>{{ specification.value }}</dd></div>
+                    {% set value = specification.value == 'Supplier specification pending' ? 'veylune.marketplace.pdp.semantic.supplierPending'|trans : specification.value %}
+                    <div><dt>{{ (specificationLabelKeys[specification.label]|default(specification.label))|trans|sw_sanitize }}</dt><dd>{{ value|sw_sanitize }}</dd></div>
                 {% endfor %}
             </dl>
         </section>
 
-        <aside class="veylune-pdp-semantic__authority" aria-label="Commercial information authority">
+        <aside class="veylune-pdp-semantic__authority" aria-label="{{ 'veylune.marketplace.pdp.semantic.commercialAria'|trans|striptags }}">
             <div data-pdp-gallery-authority="{{ presentation.gallery.state }}">
-                <span>Gallery evidence</span>
-                <strong>{{ presentation.gallery.count }} approved view{{ presentation.gallery.count == 1 ? '' : 's' }}</strong>
+                <span>{{ 'veylune.marketplace.pdp.galleryEvidence'|trans|sw_sanitize }}</span>
+                <strong>{{ 'veylune.marketplace.pdp.approvedViews'|trans({'%count%': presentation.gallery.count})|sw_sanitize }}</strong>
                 <p>{{ presentation.gallery.label }}</p>
             </div>
             <div>
-                <span>{{ presentation.delivery.title }}</span>
-                <p>{{ presentation.delivery.copy }}</p>
+                <span>{{ 'veylune.marketplace.pdp.semantic.deliveryTitle'|trans|sw_sanitize }}</span>
+                <p>{{ 'veylune.marketplace.pdp.semantic.deliveryCopy'|trans|sw_sanitize }}</p>
             </div>
             <div>
-                <span>{{ presentation.returns.title }}</span>
-                <p>{{ presentation.returns.copy }}</p>
+                <span>{{ 'veylune.marketplace.pdp.semantic.termsTitle'|trans|sw_sanitize }}</span>
+                <p>{{ 'veylune.marketplace.pdp.semantic.termsCopy'|trans|sw_sanitize }}</p>
             </div>
         </aside>
     </div>

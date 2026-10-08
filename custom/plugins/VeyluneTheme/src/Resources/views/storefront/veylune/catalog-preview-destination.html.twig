@@ -1,8 +1,34 @@
 {% sw_extends '@Storefront/storefront/base.html.twig' %}
 
-{% set axisLabel = veylunePreviewType == 'category'
-    ? 'Departments'
-    : (veylunePreviewType == 'room' ? 'Rooms' : 'Collections') %}
+{% set axisLabelKey = 'veylune.marketplace.destination.axes.' ~ veylunePreviewType %}
+{% set axisLabel = axisLabelKey|trans %}
+{% set categorySnippetBases = {
+    furniture: 'veylune.destination.categories.furniture',
+    lighting: 'veylune.destination.categories.lighting',
+    'decor-objects': 'veylune.destination.categories.decorObjects',
+    'textiles-rugs': 'veylune.destination.categories.textilesRugs',
+    'dining-kitchen': 'veylune.destination.categories.diningKitchen',
+    outdoor: 'veylune.destination.categories.outdoor'
+} %}
+{% set roomSnippetBases = {
+    'living-room': 'veylune.destination.rooms.livingRoom',
+    'dining-room': 'veylune.destination.rooms.diningRoom',
+    bedroom: 'veylune.destination.rooms.bedroom',
+    workspace: 'veylune.destination.rooms.workspace',
+    hallway: 'veylune.destination.rooms.hallway',
+    outdoor: 'veylune.destination.rooms.outdoor'
+} %}
+{% set collectionSnippetBases = {
+    'founder-selection': 'veylune.destination.collections.founderSelection',
+    'new-arrivals': 'veylune.destination.collections.newArrivals',
+    'best-sellers': 'veylune.destination.collections.bestSellers',
+    sale: 'veylune.destination.collections.sale',
+    'permanent-collections': 'veylune.destination.collections.permanentCollections',
+    'editorial-collections': 'veylune.destination.collections.editorialCollections'
+} %}
+{% set destinationSnippetBase = veylunePreviewType == 'category' ? categorySnippetBases[veylunePreviewKey]|default(null) : (veylunePreviewType == 'room' ? roomSnippetBases[veylunePreviewKey]|default(null) : collectionSnippetBases[veylunePreviewKey]|default(null)) %}
+{% set localizedDestinationTitle = destinationSnippetBase ? (destinationSnippetBase ~ '.title')|trans : veylunePreviewTitle %}
+{% set localizedDestinationSummary = destinationSnippetBase ? (destinationSnippetBase ~ '.text')|trans : veylunePreviewDestination.summary %}
 {% set veyluneCatalogIsPublic = veyluneCatalogRouteMode|default('preview') == 'public' %}
 {% set veyluneCatalogRouteParams = veyluneCatalogIsPublic ? {} : { token: veylunePreviewToken } %}
 {% set veyluneCatalogHomeRoute = veyluneCatalogIsPublic ? 'frontend.veylune.catalog.home' : 'frontend.veylune.preview.catalog.home' %}
@@ -16,56 +42,57 @@
          data-preview-destination
          data-preview-destination-type="{{ veylunePreviewType }}"
          data-preview-destination-key="{{ veylunePreviewKey }}">
-        <nav class="veylune-preview-marketplace-destination__breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ path(veyluneCatalogHomeRoute, veyluneCatalogRouteParams) }}">Catalog</a>
+        <nav class="veylune-preview-marketplace-destination__breadcrumb" aria-label="{{ 'veylune.marketplace.destination.breadcrumb'|trans|striptags }}">
+            <a href="{{ path(veyluneCatalogHomeRoute, veyluneCatalogRouteParams) }}">{{ 'veylune.marketplace.destination.catalog'|trans|sw_sanitize }}</a>
             <span aria-hidden="true">/</span>
             <span>{{ axisLabel }}</span>
             <span aria-hidden="true">/</span>
-            <span aria-current="page">{{ veylunePreviewTitle }}</span>
+            <span aria-current="page">{{ localizedDestinationTitle|sw_sanitize }}</span>
         </nav>
 
         <header class="veylune-preview-marketplace-destination__hero">
             <div class="veylune-preview-marketplace-destination__hero-copy">
-                <p class="veylune-preview-marketplace-destination__eyebrow">{{ veylunePreviewDestination.eyebrow }}</p>
-                <h1>{{ veylunePreviewTitle }}</h1>
-                <p class="veylune-preview-marketplace-destination__summary">{{ veylunePreviewDestination.summary }}</p>
+                <p class="veylune-preview-marketplace-destination__eyebrow">{{ axisLabel|sw_sanitize }}</p>
+                <h1>{{ localizedDestinationTitle|sw_sanitize }}</h1>
+                <p class="veylune-preview-marketplace-destination__summary">{{ localizedDestinationSummary|sw_sanitize }}</p>
                 <div class="veylune-preview-marketplace-destination__hero-actions">
-                    <a class="is-primary" href="#{{ veyluneDestinationListingId }}">Browse {{ veylunePreviewProducts|length }} products</a>
-                    <a href="{{ path(veyluneCatalogHomeRoute, veyluneCatalogRouteParams) }}">Return to catalog</a>
+                    <a class="is-primary" href="#{{ veyluneDestinationListingId }}">{{ 'veylune.marketplace.destination.browseProducts'|trans({'%count%': veylunePreviewProducts|length})|sw_sanitize }}</a>
+                    <a href="{{ path(veyluneCatalogHomeRoute, veyluneCatalogRouteParams) }}">{{ 'veylune.marketplace.destination.returnCatalog'|trans|sw_sanitize }}</a>
                 </div>
             </div>
             <figure class="veylune-preview-marketplace-destination__hero-media">
                 <img src="{{ veylunePreviewDestination.heroUrl }}"
-                     alt="{{ veylunePreviewDestination.heroAlt }}"
+                     alt="{{ 'veylune.marketplace.destination.heroAlt'|trans({'%title%': localizedDestinationTitle})|striptags }}"
                      width="{{ veylunePreviewDestination.heroWidth }}"
                      height="{{ veylunePreviewDestination.heroHeight }}"
                      loading="eager"
                      fetchpriority="high"
                      decoding="async">
-                <figcaption>{{ veylunePreviewTitle }} / {{ veyluneCatalogIsPublic ? 'Catalog edit' : 'Private catalog edit' }}</figcaption>
+                <figcaption>{{ localizedDestinationTitle|sw_sanitize }} / {{ (veyluneCatalogIsPublic ? 'veylune.marketplace.destination.catalogEdit' : 'veylune.marketplace.destination.privateCatalogEdit')|trans|sw_sanitize }}</figcaption>
             </figure>
         </header>
 
-        <section class="veylune-preview-marketplace-destination__signals" aria-label="Catalog service signals">
-            <div><small>Assortment</small><strong>{{ veylunePreviewProducts|length }} products</strong></div>
-            <div><small>Product families</small><strong>{{ veylunePreviewTypeChips|length }} represented</strong></div>
-            <div><small>Review path</small><strong>Material and delivery check</strong></div>
+        <section class="veylune-preview-marketplace-destination__signals" aria-label="{{ 'veylune.marketplace.destination.signalsAria'|trans|striptags }}">
+            <div><small>{{ 'veylune.marketplace.destination.assortment'|trans|sw_sanitize }}</small><strong>{{ 'veylune.marketplace.destination.productCount'|trans({'%count%': veylunePreviewProducts|length})|sw_sanitize }}</strong></div>
+            <div><small>{{ 'veylune.marketplace.destination.productFamilies'|trans|sw_sanitize }}</small><strong>{{ 'veylune.marketplace.destination.represented'|trans({'%count%': veylunePreviewTypeChips|length})|sw_sanitize }}</strong></div>
+            <div><small>{{ 'veylune.marketplace.destination.reviewPath'|trans|sw_sanitize }}</small><strong>{{ 'veylune.marketplace.destination.materialDelivery'|trans|sw_sanitize }}</strong></div>
         </section>
 
-        <nav class="veylune-preview-marketplace-destination__peer-nav" aria-label="Browse {{ axisLabel }}">
+        <nav class="veylune-preview-marketplace-destination__peer-nav" aria-label="{{ 'veylune.marketplace.destination.browseAxis'|trans({'%axis%': axisLabel})|striptags }}">
             <div>
-                <p class="veylune-preview-marketplace-destination__eyebrow">Explore {{ axisLabel|lower }}</p>
-                <strong>{{ veyluneCatalogIsPublic ? 'Move across the catalog' : 'Move across the private catalog' }}</strong>
+                <p class="veylune-preview-marketplace-destination__eyebrow">{{ 'veylune.marketplace.destination.exploreAxis'|trans({'%axis%': axisLabel})|sw_sanitize }}</p>
+                <strong>{{ (veyluneCatalogIsPublic ? 'veylune.marketplace.destination.movePublic' : 'veylune.marketplace.destination.movePrivate')|trans|sw_sanitize }}</strong>
             </div>
             <div class="veylune-preview-marketplace-destination__peer-links">
                 {% for key, label in veylunePreviewPeers %}
+                    {% set peerSnippetBase = veylunePreviewType == 'category' ? categorySnippetBases[key]|default(null) : (veylunePreviewType == 'room' ? roomSnippetBases[key]|default(null) : collectionSnippetBases[key]|default(null)) %}
                     <a class="{{ key == veylunePreviewKey ? 'is-current' : '' }}"
                        href="{{ veylunePreviewType == 'category'
                            ? path(veyluneCatalogCategoryRoute, veyluneCatalogRouteParams|merge({ categoryKey: key }))
                            : (veylunePreviewType == 'room'
                                ? path(veyluneCatalogRoomRoute, veyluneCatalogRouteParams|merge({ roomKey: key }))
                                : path(veyluneCatalogCollectionRoute, veyluneCatalogRouteParams|merge({ collectionKey: key }))) }}"
-                       {% if key == veylunePreviewKey %}aria-current="page"{% endif %}>{{ label }}</a>
+                       {% if key == veylunePreviewKey %}aria-current="page"{% endif %}>{{ (peerSnippetBase ? (peerSnippetBase ~ '.title')|trans : label)|sw_sanitize }}</a>
                 {% endfor %}
             </div>
         </nav>
@@ -73,34 +100,34 @@
         {% sw_include '@Storefront/storefront/veylune/discovery-listing.html.twig' with {
             discoveryListingId: veyluneDestinationListingId,
             discoveryListingScope: veyluneCatalogIsPublic ? 'public' : 'private',
-            discoveryListingTitle: veylunePreviewTitle ~ ' products',
-            discoveryListingLabel: veylunePreviewTitle ~ (veyluneCatalogIsPublic ? ' catalog products' : ' private catalog products'),
+            discoveryListingTitle: 'veylune.marketplace.destination.listingTitle'|trans({'%title%': localizedDestinationTitle}),
+            discoveryListingLabel: (veyluneCatalogIsPublic ? 'veylune.marketplace.destination.listingAriaPublic' : 'veylune.marketplace.destination.listingAriaPrivate')|trans({'%title%': localizedDestinationTitle}),
             discoveryProducts: veylunePreviewProducts, discoveryTypeChips: veylunePreviewTypeChips,
             discoveryFilterOptions: veylunePreviewFilterOptions,
             discoveryCardTemplate: '@Storefront/storefront/veylune/catalog-preview-card.html.twig',
-            discoveryEmptyTitle: 'No products match these filters.',
-            discoveryEmptyText: veyluneCatalogIsPublic ? 'Clear the active filters or return to the catalog.' : 'Clear the active filters or return to the private catalog.'
+            discoveryEmptyTitle: 'veylune.marketplace.destination.emptyTitle'|trans,
+            discoveryEmptyText: (veyluneCatalogIsPublic ? 'veylune.marketplace.destination.emptyPublic' : 'veylune.marketplace.destination.emptyPrivate')|trans
         } %}
 
         <section class="veylune-preview-marketplace-destination__guide" aria-labelledby="veyluneDestinationGuideTitle">
             <div>
-                <p class="veylune-preview-marketplace-destination__eyebrow">Planning guide</p>
-                <h2 id="veyluneDestinationGuideTitle">{{ veylunePreviewDestination.guideTitle }}</h2>
+                <p class="veylune-preview-marketplace-destination__eyebrow">{{ 'veylune.marketplace.destination.planningGuide'|trans|sw_sanitize }}</p>
+                <h2 id="veyluneDestinationGuideTitle">{{ 'veylune.marketplace.destination.guideTitle'|trans|sw_sanitize }}</h2>
             </div>
             <div class="veylune-preview-marketplace-destination__guide-copy">
-                <p>{{ veylunePreviewDestination.guideLead }}</p>
-                <p>Review dimensions, finish, care and access requirements before confirming a selection. The studio can compare shortlisted products inside the context of a complete room.</p>
+                <p>{{ 'veylune.marketplace.destination.guideLead'|trans|sw_sanitize }}</p>
+                <p>{{ 'veylune.marketplace.destination.guideText'|trans|sw_sanitize }}</p>
             </div>
         </section>
 
         <section class="veylune-preview-marketplace-destination__service" aria-labelledby="veyluneDestinationServiceTitle">
             <div>
-                <p class="veylune-preview-marketplace-destination__eyebrow">Veylune client care</p>
-                <h2 id="veyluneDestinationServiceTitle">Need help connecting the pieces?</h2>
+                <p class="veylune-preview-marketplace-destination__eyebrow">{{ 'veylune.marketplace.destination.clientCare'|trans|sw_sanitize }}</p>
+                <h2 id="veyluneDestinationServiceTitle">{{ 'veylune.marketplace.destination.serviceTitle'|trans|sw_sanitize }}</h2>
             </div>
             <div>
-                <p>Bring a room plan, shortlist or sourcing brief to the studio for material direction and project planning.</p>
-                <a href="{{ path('frontend.veylune.consultation.page') }}">Begin a private dialogue <span aria-hidden="true">&rarr;</span></a>
+                <p>{{ 'veylune.marketplace.destination.serviceText'|trans|sw_sanitize }}</p>
+                <a href="{{ path('frontend.veylune.consultation.page') }}">{{ 'veylune.marketplace.destination.consultationCta'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></a>
             </div>
         </section>
     </div>

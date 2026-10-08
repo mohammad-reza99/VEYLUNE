@@ -12,6 +12,7 @@ use Shopware\Storefront\Page\GenericPageLoader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StorefrontRouteScope::ID]])]
 #[Package('storefront')]
@@ -23,7 +24,8 @@ final class ContactStudioController extends StorefrontController
 
     public function __construct(
         private readonly GenericPageLoader $genericPageLoader,
-        private readonly AbstractCmsRoute $cmsRoute
+        private readonly AbstractCmsRoute $cmsRoute,
+        private readonly TranslatorInterface $translator
     ) {
     }
 
@@ -39,8 +41,8 @@ final class ContactStudioController extends StorefrontController
 
         $searchQuery = $this->cleanContext($request->query->getString('q'), 100);
         $objectReference = $this->cleanContext($request->query->getString('object'), 64);
-        $page->getMetaInformation()?->setMetaTitle('Contact the studio | VEYLUNE STUDIO');
-        $page->getMetaInformation()?->setMetaDescription('Send a private design, sourcing, press, or client-care inquiry to Veylune Studio.');
+        $page->getMetaInformation()?->setMetaTitle($this->translator->trans('veylune.marketplace.contact.metaTitle') . ' | VEYLUNE STUDIO');
+        $page->getMetaInformation()?->setMetaDescription($this->translator->trans('veylune.marketplace.contact.metaDescription'));
         $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
 
         return $this->renderStorefront('@Storefront/storefront/veylune/contact-studio-page.html.twig', [

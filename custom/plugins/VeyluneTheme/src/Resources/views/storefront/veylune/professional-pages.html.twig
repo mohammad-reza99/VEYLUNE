@@ -6,10 +6,10 @@
         accent: 'Studio manifesto'
     },
     trade: {
-        label: 'Trade Program',
-        title: 'Private sourcing for designers, architects, and refined projects.',
-        text: 'A discreet trade atelier for interior designers, architects, hospitality studios, and private residential projects seeking collectible pieces with strong spatial presence.',
-        accent: 'Professional partnership'
+        label: 'veylune.marketplace.trade.label'|trans|sw_sanitize,
+        title: 'veylune.marketplace.trade.title'|trans|sw_sanitize,
+        text: 'veylune.marketplace.trade.text'|trans|sw_sanitize,
+        accent: 'veylune.marketplace.trade.accent'|trans|sw_sanitize
     },
     partnership: {
         label: 'veylune.partnership.hero.label'|trans|sw_sanitize,
@@ -18,10 +18,10 @@
         accent: 'veylune.partnership.hero.accent'|trans|sw_sanitize
     },
     consultation: {
-        label: 'Private Consultation',
-        title: 'Begin a quiet design conversation with the studio.',
-        text: 'For homes, rooms, boutique hospitality spaces, and curated sourcing requests, VEYLUNE offers a calm consultation path shaped around atmosphere, proportion, and intention.',
-        accent: 'Studio dialogue'
+        label: 'veylune.marketplace.consultation.label'|trans|sw_sanitize,
+        title: 'veylune.marketplace.consultation.title'|trans|sw_sanitize,
+        text: 'veylune.marketplace.consultation.text'|trans|sw_sanitize,
+        accent: 'veylune.marketplace.consultation.accent'|trans|sw_sanitize
     },
     contact: {
         label: 'Contact Ecosystem',
@@ -56,17 +56,17 @@
     {% set vliContactParameters = vliContactParameters|merge({ object: vliProjectHandoff.object }) %}
 {% endif %}
 {% set vliAuthorityAxis = veylunePageType == 'partnership' ? 'maker' : (veylunePageType == 'consultation' ? 'project' : null) %}
-{% set vliAuthorityAxisLabel = vliAuthorityAxis == 'maker' ? 'Maker' : 'Project' %}
+{% set vliAuthorityAxisLabel = (vliAuthorityAxis == 'maker' ? 'veylune.marketplace.header.axes.maker' : 'veylune.marketplace.header.axes.project')|trans %}
 {% set vliAuthorityAsset = vliAuthorityAxis == 'maker' ? 'veylune-room-workspace-v1.webp' : 'veylune-promo-living-room-v1.webp' %}
 
 <div class="veylune-authority veylune-authority--{{ veylunePageType }}{% if vliAuthorityAxis %} vli-axis-page vli-axis-page--{{ vliAuthorityAxis }}{% endif %}"
      data-veylune-authority
      {% if vliAuthorityAxis %}data-veylune-living-index-axis="{{ vliAuthorityAxis }}" data-veylune-registry-scope="living-index-axis" data-veylune-registry-entity="{{ vliAuthorityAxis }}"{% endif %}>
     {% if vliAuthorityAxis %}
-        <nav class="vli-axis-page__breadcrumb" aria-label="Breadcrumb">
-            <a href="{{ path('frontend.home.page') }}">Home</a>
+        <nav class="vli-axis-page__breadcrumb" aria-label="{{ 'veylune.marketplace.consultation.breadcrumb'|trans|striptags }}">
+            <a href="{{ path('frontend.home.page') }}">{{ 'veylune.marketplace.consultation.home'|trans|sw_sanitize }}</a>
             <span aria-hidden="true">/</span>
-            <span>Living Index</span>
+            <span>{{ 'veylune.marketplace.consultation.livingIndex'|trans|sw_sanitize }}</span>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{{ vliAuthorityAxisLabel }}</span>
         </nav>
@@ -82,9 +82,9 @@
             </div>
             {% if vliAuthorityAxis %}
                 <figure class="veylune-authority-hero__visual" data-veylune-parallax>
-                    <figcaption>{{ vliAuthorityAxis == 'maker' ? 'Maker / atelier and discipline' : 'Project / space and direction' }}</figcaption>
+                    <figcaption>{{ vliAuthorityAxis == 'maker' ? 'Maker / atelier and discipline' : 'veylune.marketplace.consultation.figureCaption'|trans|sw_sanitize }}</figcaption>
                     <img src="{{ asset('assets/' ~ vliAuthorityAsset, 'theme') }}"
-                         alt="{{ vliAuthorityAxis == 'maker' ? 'A quiet atelier workspace shaped by material and craft' : 'A composed living room prepared for a private design consultation' }}"
+                         alt="{{ vliAuthorityAxis == 'maker' ? 'A quiet atelier workspace shaped by material and craft' : 'veylune.marketplace.consultation.figureAlt'|trans|striptags }}"
                          loading="eager"
                          fetchpriority="high">
                 </figure>
@@ -133,17 +133,17 @@
     {% if veylunePageType == 'trade' %}
         <section class="veylune-authority-section veylune-trade-program" data-veylune-reveal>
             <div class="veylune-authority-section__head">
-                <p class="veylune-authority__eyebrow">Trade Atelier</p>
-                <h2>Professional support for interiors with atmosphere, restraint, and spatial intelligence.</h2>
+                <p class="veylune-authority__eyebrow">{{ 'veylune.marketplace.trade.eyebrow'|trans|sw_sanitize }}</p>
+                <h2>{{ 'veylune.marketplace.trade.sectionTitle'|trans|sw_sanitize }}</h2>
             </div>
             <div class="veylune-trade-program__grid">
                 {% set benefits = [
-                    'Curated sourcing for residential and hospitality projects',
-                    'Private consultation access and collection guidance',
-                    'Material, finish, and proportion support',
-                    'Custom requests and made-to-order coordination',
-                    'Procurement-ready communication for professional teams',
-                    'Early access to selected collectible pieces'
+                    'veylune.marketplace.trade.benefitOne'|trans,
+                    'veylune.marketplace.trade.benefitTwo'|trans,
+                    'veylune.marketplace.trade.benefitThree'|trans,
+                    'veylune.marketplace.trade.benefitFour'|trans,
+                    'veylune.marketplace.trade.benefitFive'|trans,
+                    'veylune.marketplace.trade.benefitSix'|trans
                 ] %}
                 {% for benefit in benefits %}
                     <div class="veylune-authority-card">
@@ -164,17 +164,17 @@
         <section class="veylune-authority-section vli-project-brief" aria-labelledby="vli-project-brief-title" data-veylune-reveal>
             <header class="vli-axis-section-head">
                 <div>
-                    <p class="veylune-authority__eyebrow">Project Brief</p>
-                    <h2 id="vli-project-brief-title">Start with the room. Leave with a clear next direction.</h2>
+                    <p class="veylune-authority__eyebrow">{{ 'veylune.marketplace.consultation.briefEyebrow'|trans|sw_sanitize }}</p>
+                    <h2 id="vli-project-brief-title">{{ 'veylune.marketplace.consultation.briefTitle'|trans|sw_sanitize }}</h2>
                 </div>
-                <p>Share only what is known. The brief keeps spatial context, desired atmosphere, constraints, and saved references together before a studio conversation begins.</p>
+                <p>{{ 'veylune.marketplace.consultation.briefText'|trans|sw_sanitize }}</p>
             </header>
             <div class="vli-project-brief__grid">
                 {% set briefSignals = [
-                    { title: 'Space', text: 'Room type, approximate dimensions, location, and current condition.' },
-                    { title: 'Direction', text: 'Atmosphere, references, materials, and the feeling the room should hold.' },
-                    { title: 'Constraints', text: 'Timeline, access, existing pieces, and a realistic investment frame.' },
-                    { title: 'Review', text: 'Confirm the brief, choose what to share, and send one considered inquiry.' }
+                    { title: 'veylune.marketplace.consultation.space'|trans, text: 'veylune.marketplace.consultation.spaceText'|trans },
+                    { title: 'veylune.marketplace.consultation.direction'|trans, text: 'veylune.marketplace.consultation.directionText'|trans },
+                    { title: 'veylune.marketplace.consultation.constraints'|trans, text: 'veylune.marketplace.consultation.constraintsText'|trans },
+                    { title: 'veylune.marketplace.consultation.review'|trans, text: 'veylune.marketplace.consultation.reviewText'|trans }
                 ] %}
                 {% for signal in briefSignals %}
                     <article>
@@ -186,28 +186,28 @@
             </div>
 
             {% if vliProjectHandoff.source|default('') == 'selection' %}
-                <aside class="vli-project-handoff" data-vli-project-handoff aria-label="Saved selection handoff">
+                <aside class="vli-project-handoff" data-vli-project-handoff aria-label="{{ 'veylune.marketplace.consultation.selectionAria'|trans|striptags }}">
                     <div>
                         <span class="vli-project-handoff__icon" aria-hidden="true">&#9825;</span>
-                        <p><strong><span data-vli-selection-count>0</span> saved <span data-vli-selection-count-label>paths</span> are ready for review.</strong></p>
-                        <p>They remain private in this browser. Nothing is added to an inquiry unless you choose to include them in the next step.</p>
+                        <p><strong>{{ 'veylune.marketplace.consultation.pathsReady'|trans({'%count%': '<span data-vli-selection-count>0</span>', '%label%': '<span data-vli-selection-count-label>paths</span>'})|raw }}</strong></p>
+                        <p>{{ 'veylune.marketplace.consultation.selectionText'|trans|sw_sanitize }}</p>
                     </div>
-                    <a href="{{ path('frontend.veylune.contact.page', vliContactParameters) }}">Build the brief <span aria-hidden="true">&rarr;</span></a>
+                    <a href="{{ path('frontend.veylune.contact.page', vliContactParameters) }}">{{ 'veylune.marketplace.consultation.buildBrief'|trans|sw_sanitize }} <span aria-hidden="true">&rarr;</span></a>
                 </aside>
             {% endif %}
 
-            <ol class="vli-consultation-process" aria-label="Consultation process">
+            <ol class="vli-consultation-process" aria-label="{{ 'veylune.marketplace.consultation.processAria'|trans|striptags }}">
                 <li>
                     <span>01</span>
-                    <div><strong>Share the brief</strong><p>Choose the project type, space, timing, and useful references.</p></div>
+                    <div><strong>{{ 'veylune.marketplace.consultation.shareBrief'|trans|sw_sanitize }}</strong><p>{{ 'veylune.marketplace.consultation.shareBriefText'|trans|sw_sanitize }}</p></div>
                 </li>
                 <li>
                     <span>02</span>
-                    <div><strong>Studio review</strong><p>The studio reads the context before proposing a relevant conversation.</p></div>
+                    <div><strong>{{ 'veylune.marketplace.consultation.studioReview'|trans|sw_sanitize }}</strong><p>{{ 'veylune.marketplace.consultation.studioReviewText'|trans|sw_sanitize }}</p></div>
                 </li>
                 <li>
                     <span>03</span>
-                    <div><strong>Agree the direction</strong><p>Scope, availability, pricing, delivery, and any further service are confirmed separately in writing.</p></div>
+                    <div><strong>{{ 'veylune.marketplace.consultation.agreeDirection'|trans|sw_sanitize }}</strong><p>{{ 'veylune.marketplace.consultation.agreeDirectionText'|trans|sw_sanitize }}</p></div>
                 </li>
             </ol>
         </section>

@@ -82,6 +82,8 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
         'frontend.checkout.line-items.update',
         'frontend.checkout.line-items.delete',
         'frontend.checkout.cart.delete',
+        'frontend.checkout.switch-language',
+        'frontend.checkout.configure',
         'frontend.form.contact.send',
         'frontend.country.country.data',
         'frontend.captcha.basic-captcha.load',
@@ -121,6 +123,23 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
 
     public function protectLocalCommerceResponse(ResponseEvent $event): void
     {
+        $request = $event->getRequest();
+        $response = $event->getResponse();
+        if ($response instanceof RedirectResponse && \in_array(
+            (string) $request->attributes->get('_route'),
+            ['frontend.checkout.switch-language', 'frontend.checkout.configure'],
+            true
+        )) {
+            $target = parse_url($response->getTargetUrl());
+            if (\is_array($target)) {
+                $path = (string) ($target['path'] ?? '/');
+                $query = isset($target['query']) ? '?' . $target['query'] : '';
+                $fragment = isset($target['fragment']) ? '#' . $target['fragment'] : '';
+
+                $response->setTargetUrl($request->getSchemeAndHttpHost() . $path . $query . $fragment);
+            }
+        }
+
         if ($event->getRequest()->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID) === LocalCommerce::CHANNEL) {
             $event->getResponse()->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
             $event->getResponse()->headers->set('Cache-Control', 'no-store, private');
@@ -146,6 +165,14 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
     public function enforceCanonicalRedirectAllowlist(BeforeSendRedirectResponseEvent $event): void
     {
         $request = $event->getRequest();
+
+        if (\in_array(
+            (string) $request->attributes->get('_route'),
+            ['frontend.checkout.switch-language', 'frontend.checkout.configure'],
+            true
+        )) {
+            return;
+        }
 
         if (LocalCommerce::matches($request, $this->environment)
             || $this->isCanonicalLocalCheckoutRoute($request)) {
