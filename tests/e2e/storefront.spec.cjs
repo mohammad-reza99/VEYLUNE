@@ -129,6 +129,53 @@ test.describe('Veylune critical public journeys', () => {
         expect(initialBytes, `Initial critical resources: ${initialBytes} bytes`).toBeLessThanOrEqual(3 * 1024 * 1024);
     });
 
+    test('header overlays close through expected pointer and keyboard paths', async ({ page, isMobile }) => {
+        await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+        if (isMobile) {
+            const mobileToggle = page.locator('[data-veylune-mobile-toggle]');
+            await mobileToggle.click();
+            await expect(mobileToggle).toHaveAttribute('aria-expanded', 'true');
+            await page.keyboard.press('Escape');
+            await expect(mobileToggle).toHaveAttribute('aria-expanded', 'false');
+            return;
+        }
+
+        const megaTrigger = page.locator('[data-veylune-mega-trigger]').first();
+        const mega = page.locator('[data-veylune-mega]');
+        await megaTrigger.hover();
+        await expect(mega).toHaveClass(/is-open/);
+        await page.locator('main').hover({ position: { x: 10, y: 200 } });
+        await expect(mega).not.toHaveClass(/is-open/);
+
+        const localeTrigger = page.locator('[data-veylune-locale-trigger]');
+        await localeTrigger.click();
+        await expect(localeTrigger).toHaveAttribute('aria-expanded', 'true');
+        await page.locator('main').click({ position: { x: 10, y: 200 } });
+        await expect(localeTrigger).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    test('rendered public navigation has no dead internal links', async ({ page, request, isMobile }) => {
+        test.skip(isMobile, 'Internal route crawl is viewport-independent');
+        const internalUrls = new Set();
+
+        for (const path of ['/', '/catalog', '/catalog/category/furniture', '/catalog/product/F02']) {
+            await page.goto(path, { waitUntil: 'domcontentloaded' });
+            const publicOrigin = new URL(page.url()).origin;
+            const links = await page.locator('a[href]').evaluateAll((anchors) => anchors.map((anchor) => anchor.href));
+            for (const href of links) {
+                const url = new URL(href);
+                if (url.origin !== publicOrigin || url.hash || url.pathname === '/account/logout') continue;
+                internalUrls.add(`${url.pathname}${url.search}`);
+            }
+        }
+
+        for (const url of [...internalUrls].slice(0, 80)) {
+            const response = await request.get(url, { maxRedirects: 8 });
+            expect(response.status(), `${url} returned ${response.status()}`).toBeLessThan(400);
+        }
+    });
+
     test('critical surfaces have no serious or critical automated accessibility violations', async ({ page }) => {
         for (const path of ['/', '/catalog/category/furniture', '/catalog/product/F02', '/account/login']) {
             await page.goto(path, { waitUntil: 'domcontentloaded' });
