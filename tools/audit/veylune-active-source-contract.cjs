@@ -6,6 +6,8 @@ const themeRoot = path.join(root, 'custom/plugins/VeyluneTheme/src');
 const viewRoot = path.join(themeRoot, 'Resources/views');
 const storefrontRoot = path.join(themeRoot, 'Resources/app/storefront/src');
 const componentRoot = path.join(storefrontRoot, 'scss/component');
+const assetRoot = path.join(storefrontRoot, 'assets');
+const imageAssetBudgetBytes = 512 * 1024;
 
 const fail = (message) => {
     throw new Error(message);
@@ -42,6 +44,12 @@ const activeFiles = walk(themeRoot);
 const forbiddenArtifacts = activeFiles.filter((file) => /(?:\.orig|\.rej|\.tmp|~)$/i.test(file));
 if (forbiddenArtifacts.length > 0) {
     fail(`Temporary artifacts remain active: ${forbiddenArtifacts.join(', ')}`);
+}
+
+const imageAssets = walk(assetRoot).filter((file) => /\.(?:avif|jpe?g|png|webp)$/i.test(file));
+const oversizedImageAssets = imageAssets.filter((file) => fs.statSync(file).size > imageAssetBudgetBytes);
+if (oversizedImageAssets.length > 0) {
+    fail(`Image assets exceed the 512 KiB source budget: ${oversizedImageAssets.map((file) => path.relative(root, file)).join(', ')}`);
 }
 
 const activeTwig = walk(viewRoot).filter((file) => file.endsWith('.twig'));
@@ -121,6 +129,8 @@ const result = {
     javascriptModules: jsImports.length,
     retiredActiveFiles: 0,
     forbiddenLegacyRouteReferences: 0,
+    imageAssets: imageAssets.length,
+    oversizedImageAssets: 0,
     archivedRetiredFiles: requiredArchiveFiles.length,
 };
 
