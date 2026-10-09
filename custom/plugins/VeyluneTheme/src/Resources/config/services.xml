@@ -32,13 +32,6 @@
             <call method="setContainer"><argument type="service" id="service_container" /></call>
         </service>
 
-        <service id="VeyluneTheme\Controller\CanonicalTestCartController" public="true">
-            <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService" />
-            <argument type="service" id="Shopware\Core\Checkout\Cart\LineItemFactoryRegistry" />
-            <argument>%kernel.environment%</argument>
-            <call method="setContainer"><argument type="service" id="service_container" /></call>
-        </service>
-
         <service id="VeyluneTheme\Controller\PartnershipController" public="true">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
