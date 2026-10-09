@@ -4,7 +4,8 @@
   "scripts": {
     "check:source": "node tools/audit/veylune-active-source-contract.cjs",
     "check:js": "node tools/quality/check-js.cjs",
-    "quality:fast": "npm run check:source && npm run check:js",
+    "check:secrets": "node tools/quality/check-secrets.cjs",
+    "quality:fast": "npm run check:source && npm run check:js && npm run check:secrets",
     "test:routes": "bash tools/audit/veylune-secondary-route-audit.sh",
     "test:boundary": "bash tools/audit/veylune-public-preview-boundary.sh",
     "test:e2e": "playwright test",
