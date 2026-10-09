@@ -288,6 +288,7 @@
                             <input id="veyluneMarketplaceSearch"
                                    class="veylune-marketplace-search__input"
                                    type="search"
+                                   role="combobox"
                                    name="q"
                                    value="{{ app.request.attributes.get('_route') == 'frontend.veylune.catalog.search' ? app.request.query.get('q')|default('') : '' }}"
                                    autocomplete="off"

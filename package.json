@@ -1,0 +1,17 @@
+{
+  "name": "veylune-shopware-quality",
+  "private": true,
+  "scripts": {
+    "check:source": "node tools/audit/veylune-active-source-contract.cjs",
+    "check:js": "node tools/quality/check-js.cjs",
+    "quality:fast": "npm run check:source && npm run check:js",
+    "test:routes": "bash tools/audit/veylune-secondary-route-audit.sh",
+    "test:boundary": "bash tools/audit/veylune-public-preview-boundary.sh",
+    "test:e2e": "playwright test",
+    "test:e2e:update": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0"
+  }
+}

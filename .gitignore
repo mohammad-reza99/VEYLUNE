@@ -24,3 +24,9 @@
 *.bak
 *.tmp
 *~
+
+# Local JavaScript quality and browser-test artifacts.
+/node_modules/
+/test-results/
+/playwright-report/
+/reports/current/

@@ -136,7 +136,7 @@
     text-transform: uppercase;
 }
 
-.veylune-preview-card__meta > span { flex: 0 0 auto; color: rgb(112 106 114 / 72%); font-size: 0.6rem; }
+.veylune-preview-card__meta > span { flex: 0 0 auto; color: var(--veylune-card-muted); font-size: 0.6rem; }
 
 .veylune-preview-card h3,
 .veylune-preview--destination .veylune-preview-card h3 {
