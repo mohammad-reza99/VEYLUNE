@@ -1,0 +1,26 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
+    - vendor/shopwarelabs/phpstan-shopware/rules.neon
+
+parameters:
+    level: 1
+    paths:
+        - custom/plugins/VeyluneTheme/src/Catalog
+        - custom/plugins/VeyluneTheme/src/Controller
+        - custom/plugins/VeyluneTheme/src/Discovery
+        - custom/plugins/VeyluneTheme/src/Edition
+        - custom/plugins/VeyluneTheme/src/Governance
+        - custom/plugins/VeyluneTheme/src/Preview
+        - custom/plugins/VeyluneTheme/src/Product
+        - custom/plugins/VeyluneTheme/src/Publication
+        - custom/plugins/VeyluneTheme/src/Retrieval
+        - custom/plugins/VeyluneTheme/src/Semantic
+        - custom/plugins/VeyluneTheme/src/Sitemap
+        - custom/plugins/VeyluneTheme/src/Storefront
+        - custom/plugins/VeyluneTheme/src/Subscriber
+        - custom/plugins/VeyluneTheme/src/Testing
+    excludePaths:
+        analyse:
+            - custom/plugins/VeyluneTheme/src/Catalog/DraftCatalogSeeder.php
+    tmpDir: var/cache/phpstan-shopware

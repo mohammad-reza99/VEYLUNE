@@ -61,6 +61,9 @@
         ],
         "analyse": [
             "phpstan analyse --no-progress --memory-limit=1G"
+        ],
+        "analyse:shopware-runtime": [
+            "phpstan analyse --configuration=phpstan.shopware.neon.dist --no-progress --memory-limit=1G"
         ]
     },
     "extra": {

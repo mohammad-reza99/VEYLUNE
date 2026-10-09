@@ -99,7 +99,7 @@ final class LivingIndexObjectController extends StorefrontController
             throw new NotFoundHttpException();
         }
 
-        $draft = $this->draftCatalogPreviewService->forRecordId($recordId);
+        $draft = $this->draftCatalogPreviewService->forRecordId($recordId, $context->getContext());
 
         if ($draft === null || !\is_string($draft['coverUrl'] ?? null) || $draft['coverUrl'] === '') {
             throw new NotFoundHttpException();

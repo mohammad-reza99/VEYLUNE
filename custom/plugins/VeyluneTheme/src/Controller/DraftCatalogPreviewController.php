@@ -185,7 +185,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'veylunePreviewToken' => $isPublic ? null : $this->access->token(),
             'veylunePreviewRails' => $isPublic
                 ? $this->publicCatalogService->homepageRails($context)
-                : $this->previewService->homepageRails(),
+                : $this->previewService->homepageRails($context->getContext()),
             'veylunePreviewCategories' => self::CATEGORIES,
             'veylunePreviewRooms' => self::ROOMS,
             'veylunePreviewCollections' => self::COLLECTIONS,
@@ -259,8 +259,8 @@ final class DraftCatalogPreviewController extends StorefrontController
                 ? $this->publicCatalogService->homepageRails($context)['new-arrivals']
                 : $this->publicCatalogService->forCollection($canonicalKey, $context))
             : ($collectionKey === 'new-arrivals'
-                ? $this->previewService->homepageRails()['new-arrivals']
-                : $this->previewService->forCollection($canonicalKey));
+                ? $this->previewService->homepageRails($context->getContext())['new-arrivals']
+                : $this->previewService->forCollection($canonicalKey, $context->getContext()));
 
         return $this->destination(
             $request,
@@ -280,7 +280,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         $isPublic = $this->routeMode($request) === 'public';
         $product = $isPublic
             ? $this->publicCatalogService->forRecordId($recordId, $context)
-            : $this->previewService->forRecordId($recordId);
+            : $this->previewService->forRecordId($recordId, $context->getContext());
 
         if ($product === null) {
             throw new NotFoundHttpException();
@@ -323,7 +323,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-cart.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
-            'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest(),
+            'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest($context->getContext()),
         ]);
     }
 
@@ -339,7 +339,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-checkout.html.twig', [
             'page' => $page,
             'veylunePreviewToken' => $this->access->token(),
-            'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest(),
+            'veylunePreviewMediaManifest' => $this->previewService->selectionMediaManifest($context->getContext()),
         ]);
     }
 
@@ -377,7 +377,7 @@ final class DraftCatalogPreviewController extends StorefrontController
         if ($content === null) {
             throw new NotFoundHttpException();
         }
-        $editorialMedia = $this->previewService->editorialMedia($destinationId);
+        $editorialMedia = $this->previewService->editorialMedia($destinationId, $context->getContext());
         if ($editorialMedia === null) {
             throw new \RuntimeException('Governed Admin editorial media is missing for ' . $destinationId);
         }
@@ -530,7 +530,7 @@ final class DraftCatalogPreviewController extends StorefrontController
     {
         return $this->routeMode($request) === 'public'
             ? $this->publicCatalogService->forCategory($categoryKey, $context)
-            : $this->previewService->forCategory($categoryKey);
+            : $this->previewService->forCategory($categoryKey, $context->getContext());
     }
 
     /** @return list<array<string, mixed>> */
@@ -538,7 +538,7 @@ final class DraftCatalogPreviewController extends StorefrontController
     {
         return $this->routeMode($request) === 'public'
             ? $this->publicCatalogService->forRoom($roomKey, $context)
-            : $this->previewService->forRoom($roomKey);
+            : $this->previewService->forRoom($roomKey, $context->getContext());
     }
 
     private function page(Request $request, SalesChannelContext $context, string $title): \Shopware\Storefront\Page\Page

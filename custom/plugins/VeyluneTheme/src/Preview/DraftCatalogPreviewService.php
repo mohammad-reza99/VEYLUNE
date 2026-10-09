@@ -36,7 +36,7 @@ final class DraftCatalogPreviewService
     /**
      * @return list<array<string, mixed>>
      */
-    public function products(): array
+    public function products(Context $context): array
     {
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('customFields.veylune_source_batch', DraftCatalogManifest::BATCH_ID))
@@ -47,7 +47,8 @@ final class DraftCatalogPreviewService
         $criteria->addSorting(new \Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting('productNumber'));
 
         $products = [];
-        foreach ($this->productRepository->search($criteria, Context::createDefaultContext())->getEntities() as $product) {
+        $productEntities = $this->productRepository->search($criteria, $context)->getEntities();
+        foreach ($productEntities as $product) {
             $products[] = $this->projector->project($product, false);
         }
 
@@ -57,10 +58,10 @@ final class DraftCatalogPreviewService
     /**
      * @return array<string, array{imageUrl: string, imageAlt: string}>
      */
-    public function selectionMediaManifest(): array
+    public function selectionMediaManifest(Context $context): array
     {
         $manifest = [];
-        foreach ($this->products() as $product) {
+        foreach ($this->products($context) as $product) {
             $recordId = (string) ($product['recordId'] ?? '');
             $coverUrl = (string) ($product['coverUrl'] ?? '');
             if ($recordId === '' || $coverUrl === '') {
@@ -79,7 +80,7 @@ final class DraftCatalogPreviewService
     /**
      * @return array{url: string, alt: string, width: int|null, height: int|null}|null
      */
-    public function editorialMedia(string $destinationId): ?array
+    public function editorialMedia(string $destinationId, Context $context): ?array
     {
         if (!isset(EditorialMediaRegistry::destinations()[$destinationId])) {
             return null;
@@ -87,7 +88,7 @@ final class DraftCatalogPreviewService
 
         $media = $this->mediaRepository->search(
             new Criteria([EditorialMediaRegistry::mediaId($destinationId)]),
-            Context::createDefaultContext()
+            $context
         )->first();
         if ($media === null || $media->getUrl() === null) {
             return null;
@@ -106,33 +107,33 @@ final class DraftCatalogPreviewService
     /**
      * @return list<array<string, mixed>>
      */
-    public function forCategory(string $categoryKey): array
+    public function forCategory(string $categoryKey, Context $context): array
     {
-        return $this->filter(static fn (array $product): bool => $product['department'] === $categoryKey);
+        return $this->filter(static fn (array $product): bool => $product['department'] === $categoryKey, $context);
     }
 
     /**
      * @return list<array<string, mixed>>
      */
-    public function forRoom(string $roomKey): array
+    public function forRoom(string $roomKey, Context $context): array
     {
-        return $this->filter(static fn (array $product): bool => \in_array($roomKey, $product['rooms'], true));
+        return $this->filter(static fn (array $product): bool => \in_array($roomKey, $product['rooms'], true), $context);
     }
 
     /**
      * @return list<array<string, mixed>>
      */
-    public function forCollection(string $collectionKey): array
+    public function forCollection(string $collectionKey, Context $context): array
     {
-        return $this->filter(static fn (array $product): bool => \in_array($collectionKey, $product['collections'], true));
+        return $this->filter(static fn (array $product): bool => \in_array($collectionKey, $product['collections'], true), $context);
     }
 
     /**
      * @return array<string, mixed>|null
      */
-    public function forRecordId(string $recordId): ?array
+    public function forRecordId(string $recordId, Context $context): ?array
     {
-        foreach ($this->products() as $product) {
+        foreach ($this->products($context) as $product) {
             if (\strtoupper(\trim((string) $product['recordId'])) === \strtoupper(\trim($recordId))) {
                 return $product;
             }
@@ -144,7 +145,7 @@ final class DraftCatalogPreviewService
     /**
      * @return list<array<string, mixed>>
      */
-    public function search(string $query): array
+    public function search(string $query, Context $context): array
     {
         $normalizedQuery = $this->normalizeSearchText($query);
 
@@ -155,7 +156,7 @@ final class DraftCatalogPreviewService
         $tokens = \array_values(\array_filter(\explode(' ', $normalizedQuery)));
         $matches = [];
 
-        foreach ($this->products() as $position => $product) {
+        foreach ($this->products($context) as $position => $product) {
             $name = $this->normalizeSearchText((string) ($product['name'] ?? ''));
             $recordId = $this->normalizeSearchText((string) ($product['recordId'] ?? ''));
             $material = $this->normalizeSearchText((string) ($product['materialLabel'] ?? ''));
@@ -205,22 +206,22 @@ final class DraftCatalogPreviewService
     /**
      * @return array<string, list<array<string, mixed>>>
      */
-    public function homepageRails(): array
+    public function homepageRails(Context $context): array
     {
         return [
-            'storefront-test-cohort' => $this->storefrontTestCohort(),
+            'storefront-test-cohort' => $this->storefrontTestCohort($context),
             'new-arrivals' => \array_slice(
-                $this->filter(static fn (array $product): bool => \in_array('New Arrivals', $product['rails'], true)),
+                $this->filter(static fn (array $product): bool => \in_array('New Arrivals', $product['rails'], true), $context),
                 0,
                 self::HOMEPAGE_RAIL_LIMITS['new-arrivals']
             ),
             'founder-selection' => \array_slice(
-                $this->forCollection('founder_selection'),
+                $this->forCollection('founder_selection', $context),
                 0,
                 self::HOMEPAGE_RAIL_LIMITS['founder-selection']
             ),
             'living-room' => \array_slice(
-                $this->forRoom('living_room'),
+                $this->forRoom('living_room', $context),
                 0,
                 self::HOMEPAGE_RAIL_LIMITS['living-room']
             ),
@@ -230,10 +231,10 @@ final class DraftCatalogPreviewService
     /**
      * @return list<array<string, mixed>>
      */
-    private function storefrontTestCohort(): array
+    private function storefrontTestCohort(Context $context): array
     {
         $productsByRecord = [];
-        foreach ($this->products() as $product) {
+        foreach ($this->products($context) as $product) {
             $productsByRecord[$product['recordId']] = $product;
         }
 
@@ -248,9 +249,9 @@ final class DraftCatalogPreviewService
      *
      * @return list<array<string, mixed>>
      */
-    private function filter(callable $predicate): array
+    private function filter(callable $predicate, Context $context): array
     {
-        return \array_values(\array_filter($this->products(), $predicate));
+        return \array_values(\array_filter($this->products($context), $predicate));
     }
 
     private function normalizeSearchText(string $value): string

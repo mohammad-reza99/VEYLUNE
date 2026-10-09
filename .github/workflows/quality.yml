@@ -28,7 +28,7 @@ jobs:
       - name: Install PHP quality dependencies
         run: composer install --no-interaction --no-progress --prefer-dist --no-scripts
       - name: Run PHP static analysis
-        run: composer analyse
+        run: composer analyse && composer analyse:shopware-runtime
       - name: Lint Veylune PHP
         run: find custom/plugins/VeyluneTheme/src custom/plugins/VeyluneTheme/bin -type f -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Install JavaScript quality dependencies

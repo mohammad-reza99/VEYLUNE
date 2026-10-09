@@ -12,6 +12,7 @@ use Shopware\Storefront\Page\GenericPageLoader;
 use VeyluneTheme\Retrieval\IdentityRetrievalMediator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -87,9 +88,9 @@ class EditionsController extends StorefrontController
         ]);
     }
 
-    private function denyEditionDetail(): Response
+    private function denyEditionDetail(): never
     {
-        return new Response('', Response::HTTP_NOT_FOUND);
+        throw new NotFoundHttpException();
     }
 
     private function editorialPage(Request $request, SalesChannelContext $context, string $mode): Response
