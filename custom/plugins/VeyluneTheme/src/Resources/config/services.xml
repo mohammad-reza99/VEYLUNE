@@ -135,6 +135,7 @@
 
         <service id="VeyluneTheme\Catalog\PublicCatalogService">
             <argument type="service" id="sales_channel.product.repository" />
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Search\ProductSearchRoute" />
             <argument type="service" id="VeyluneTheme\Catalog\CatalogProductProjector" />
             <argument>%kernel.environment%</argument>
         </service>

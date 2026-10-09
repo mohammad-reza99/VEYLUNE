@@ -2,6 +2,7 @@
 
 namespace VeyluneTheme\Catalog;
 
+use Shopware\Core\Content\Product\SalesChannel\Search\AbstractProductSearchRoute;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\AndFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -10,6 +11,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\PrefixFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Symfony\Component\HttpFoundation\Request;
 
 final class PublicCatalogService
 {
@@ -25,6 +27,7 @@ final class PublicCatalogService
      */
     public function __construct(
         private readonly SalesChannelRepository $productRepository,
+        private readonly AbstractProductSearchRoute $productSearchRoute,
         private readonly CatalogProductProjector $projector,
         private readonly string $environment,
     ) {
@@ -33,20 +36,10 @@ final class PublicCatalogService
     /** @return list<array<string, mixed>> */
     public function products(SalesChannelContext $context): array
     {
-        $sources = [
-            new AndFilter([
-                new EqualsFilter('customFields.veylune_source_batch', DraftCatalogManifest::BATCH_ID),
-                new EqualsFilter('customFields.veylune_publication_state', 'published'),
-            ]),
-        ];
-        if ($this->localFixturesAllowed()) {
-            $sources[] = new PrefixFilter('productNumber', 'VLT-TEST-');
-        }
-
         $criteria = (new Criteria())
             ->addFilter(new EqualsFilter('active', true))
             ->addFilter(new EqualsFilter('parentId', null))
-            ->addFilter(new OrFilter($sources))
+            ->addFilter($this->sourceFilter())
             ->addAssociation('properties.group')
             ->addAssociation('cover.media')
             ->addAssociation('media.media')
@@ -96,40 +89,28 @@ final class PublicCatalogService
     /** @return list<array<string, mixed>> */
     public function search(string $query, SalesChannelContext $context): array
     {
-        $normalizedQuery = $this->normalizeSearchText($query);
-        if ($normalizedQuery === '') {
+        $query = \trim($query);
+        if ($query === '') {
             return [];
         }
 
-        $tokens = \array_values(\array_filter(\explode(' ', $normalizedQuery)));
-        $matches = [];
-        foreach ($this->products($context) as $position => $product) {
-            $name = $this->normalizeSearchText((string) ($product['name'] ?? ''));
-            $material = $this->normalizeSearchText((string) ($product['materialLabel'] ?? ''));
-            $searchable = $this->normalizeSearchText(\implode(' ', [
-                (string) ($product['recordId'] ?? ''),
-                (string) ($product['productNumber'] ?? ''),
-                (string) ($product['name'] ?? ''),
-                \strip_tags((string) ($product['description'] ?? '')),
-                (string) ($product['department'] ?? ''),
-                (string) ($product['productType'] ?? ''),
-                (string) ($product['materialLabel'] ?? ''),
-                \implode(' ', (array) ($product['materials'] ?? [])),
-                \implode(' ', (array) ($product['rooms'] ?? [])),
-                \implode(' ', (array) ($product['collections'] ?? [])),
-            ]));
-            if (!\array_all($tokens, static fn (string $token): bool => \str_contains($searchable, $token))) {
-                continue;
+        $criteria = (new Criteria())
+            ->addFilter($this->sourceFilter())
+            ->addFilter(new EqualsFilter('parentId', null))
+            ->addAssociation('properties.group')
+            ->addAssociation('cover.media')
+            ->addAssociation('media.media');
+        $request = new Request(['search' => $query, 'limit' => 50]);
+        $result = $this->productSearchRoute->load($request, $context, $criteria)->getListingResult();
+        $products = [];
+        foreach ($result->getEntities() as $product) {
+            $projected = $this->projector->project($product, true);
+            if ($projected['recordId'] !== '') {
+                $products[] = $projected;
             }
-            $score = ($name === $normalizedQuery ? 300 : 0)
-                + (\str_starts_with($name, $normalizedQuery) ? 180 : 0)
-                + (\str_contains($name, $normalizedQuery) ? 120 : 0)
-                + (\str_contains($material, $normalizedQuery) ? 60 : 0);
-            $matches[] = ['score' => $score, 'position' => $position, 'product' => $product];
         }
-        \usort($matches, static fn (array $left, array $right): int => $right['score'] <=> $left['score'] ?: $left['position'] <=> $right['position']);
 
-        return \array_values(\array_map(static fn (array $match): array => $match['product'], $matches));
+        return $products;
     }
 
     /** @return array<string, list<array<string, mixed>>> */
@@ -214,11 +195,18 @@ final class PublicCatalogService
         return $this->environment === 'dev' && \getenv('DDEV_PROJECT') === 'veylune-shopware';
     }
 
-    private function normalizeSearchText(string $value): string
+    private function sourceFilter(): OrFilter
     {
-        $value = \mb_strtolower(\html_entity_decode($value, \ENT_QUOTES | \ENT_HTML5, 'UTF-8'));
-        $value = \str_replace(['_', '-', '/', '&'], ' ', $value);
+        $sources = [
+            new AndFilter([
+                new EqualsFilter('customFields.veylune_source_batch', DraftCatalogManifest::BATCH_ID),
+                new EqualsFilter('customFields.veylune_publication_state', 'published'),
+            ]),
+        ];
+        if ($this->localFixturesAllowed()) {
+            $sources[] = new PrefixFilter('productNumber', 'VLT-TEST-');
+        }
 
-        return \trim((string) \preg_replace('/[^\p{L}\p{N}]+/u', ' ', $value));
+        return new OrFilter($sources);
     }
 }
