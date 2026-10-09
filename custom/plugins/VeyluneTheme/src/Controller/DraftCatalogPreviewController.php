@@ -174,6 +174,11 @@ final class DraftCatalogPreviewController extends StorefrontController
         $this->denyUnlessAllowed($request);
         $isPublic = $this->routeMode($request) === 'public';
         $page = $this->page($request, $context, $isPublic ? 'Catalog' : 'Draft Catalog Preview');
+        $page->getMetaInformation()?->setMetaDescription(
+            $isPublic
+                ? 'Discover curated furniture, lighting, decor and room-led selections with material detail and Veylune studio guidance.'
+                : 'Review the private Veylune draft catalog before products are approved for the public storefront.'
+        );
 
         return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-home.html.twig', [
             'page' => $page,
@@ -543,6 +548,9 @@ final class DraftCatalogPreviewController extends StorefrontController
         $publicTitle = (string) \preg_replace('/ Preview$/', '', $title);
 
         $page->getMetaInformation()?->setMetaTitle($isPublic ? $publicTitle . ' | Veylune' : $title);
+        if ($isPublic) {
+            $page->getMetaInformation()?->setCanonical($request->getSchemeAndHttpHost() . $request->getPathInfo());
+        }
 
         if (!$isPublic) {
             $page->getMetaInformation()?->setRobots('noindex,nofollow,noarchive,nosnippet');

@@ -89,6 +89,46 @@ test.describe('Veylune critical public journeys', () => {
         }
     });
 
+    test('public pages expose complete indexable metadata and healthy images', async ({ page, isMobile }) => {
+        test.skip(isMobile, 'Metadata is viewport-independent');
+
+        for (const path of ['/', '/catalog', '/catalog/product/F02', '/contact-studio']) {
+            await page.goto(path, { waitUntil: 'networkidle' });
+
+            expect((await page.title()).trim(), `${path} title`).not.toBe('');
+            await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /\S/);
+            await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /^https:\/\/veylune-shopware\.ddev\.site\//);
+            expect(await page.locator('h1').count(), `${path} H1 count`).toBe(1);
+
+            const robots = await page.locator('meta[name="robots"]').getAttribute('content');
+            expect(robots?.toLowerCase() ?? '', `${path} robots`).not.toContain('noindex');
+
+            const brokenImages = await page.locator('img').evaluateAll((images) => images
+                .filter((image) => image.currentSrc && (!image.complete || image.naturalWidth === 0))
+                .map((image) => image.currentSrc));
+            expect(brokenImages, `${path} broken images`).toEqual([]);
+        }
+    });
+
+    test('homepage stays inside the initial asset budget', async ({ page, isMobile }) => {
+        test.skip(isMobile, 'Performance budget is measured once on desktop');
+        await page.goto('/', { waitUntil: 'networkidle' });
+
+        const resources = await page.evaluate(() => performance.getEntriesByType('resource').map((entry) => ({
+            name: entry.name,
+            bytes: entry.encodedBodySize,
+            type: entry.initiatorType,
+        })));
+        const criticalResources = resources.filter((entry) => ['css', 'font', 'img', 'script'].includes(entry.type));
+        const initialBytes = criticalResources.reduce((total, entry) => total + entry.bytes, 0);
+        const oversizedImages = resources.filter((entry) => entry.type === 'img' && entry.bytes > 512 * 1024);
+        const legacyPngs = resources.filter((entry) => /\/veylune-(?:category|promo|room)-.+\.png(?:\?|$)/i.test(entry.name));
+
+        expect(oversizedImages, 'Images larger than 512 KiB').toEqual([]);
+        expect(legacyPngs, 'Legacy PNG variants loaded by the storefront').toEqual([]);
+        expect(initialBytes, `Initial critical resources: ${initialBytes} bytes`).toBeLessThanOrEqual(3 * 1024 * 1024);
+    });
+
     test('critical surfaces have no serious or critical automated accessibility violations', async ({ page }) => {
         for (const path of ['/', '/catalog/category/furniture', '/catalog/product/F02', '/account/login']) {
             await page.goto(path, { waitUntil: 'domcontentloaded' });
