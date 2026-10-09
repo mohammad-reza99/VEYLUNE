@@ -95,6 +95,12 @@ final class PdpPresentationService
     /** @return array<string, mixed> */
     public function forDraft(array $product): array
     {
+        return $this->forProjection($product, false);
+    }
+
+    /** @return array<string, mixed> */
+    public function forProjection(array $product, bool $public): array
+    {
         return $this->build(
             typeKey: (string) ($product['productType'] ?? ''),
             materialLabel: (string) ($product['materialLabel'] ?? 'Material direction pending'),
@@ -103,8 +109,8 @@ final class PdpPresentationService
             length: $this->number($product['length'] ?? null),
             weight: $this->number($product['weight'] ?? null),
             galleryCount: \count($product['media'] ?? []),
-            mode: 'preview',
-            available: false,
+            mode: $public ? 'native' : 'preview',
+            available: $public && (bool) ($product['available'] ?? false),
         );
     }
 

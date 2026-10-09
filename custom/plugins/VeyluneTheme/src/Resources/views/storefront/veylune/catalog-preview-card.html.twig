@@ -3,7 +3,8 @@
     scope: veyluneCatalogIsPublic ? 'public' : 'private', id: product.id|default(product.recordId), recordId: product.recordId, name: product.name,
     productType: product.productType, materials: product.materials|default([product.material]), materialLabel: product.materialLabel,
     status: product.status, statusKey: product.status|lower|replace({' ': '_'}), price: product.targetPrice,
-    priceNote: 'veylune.marketplace.card.estimate'|trans, availability: 'veylune.marketplace.card.availability'|trans,
+    priceNote: veyluneCatalogIsPublic ? 'Price' : 'veylune.marketplace.card.estimate'|trans,
+    availability: veyluneCatalogIsPublic ? product.status : 'veylune.marketplace.card.availability'|trans,
     coverUrl: product.coverUrl|default(''), coverAlt: product.coverAlt|default(product.name ~ ' product view')
 } %}
 {% set productUrl = veyluneCatalogIsPublic

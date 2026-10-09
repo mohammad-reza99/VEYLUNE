@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use VeyluneTheme\Catalog\DraftCatalogManifest;
+use VeyluneTheme\Catalog\PublicCatalogService;
 use VeyluneTheme\Preview\DraftCatalogPreviewAccess;
 use VeyluneTheme\Preview\DraftCatalogPreviewService;
 use VeyluneTheme\Product\PdpPresentationService;
@@ -161,8 +162,8 @@ final class DraftCatalogPreviewController extends StorefrontController
         private readonly GenericPageLoader $genericPageLoader,
         private readonly DraftCatalogPreviewAccess $access,
         private readonly DraftCatalogPreviewService $previewService,
+        private readonly PublicCatalogService $publicCatalogService,
         private readonly PdpPresentationService $pdpPresentationService,
-        private readonly string $environment
     ) {
     }
 
@@ -171,12 +172,15 @@ final class DraftCatalogPreviewController extends StorefrontController
     public function home(Request $request, SalesChannelContext $context): Response
     {
         $this->denyUnlessAllowed($request);
-        $page = $this->page($request, $context, 'Draft Catalog Preview');
+        $isPublic = $this->routeMode($request) === 'public';
+        $page = $this->page($request, $context, $isPublic ? 'Catalog' : 'Draft Catalog Preview');
 
         return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-home.html.twig', [
             'page' => $page,
-            'veylunePreviewToken' => $this->access->token(),
-            'veylunePreviewRails' => $this->previewService->homepageRails(),
+            'veylunePreviewToken' => $isPublic ? null : $this->access->token(),
+            'veylunePreviewRails' => $isPublic
+                ? $this->publicCatalogService->homepageRails($context)
+                : $this->previewService->homepageRails(),
             'veylunePreviewCategories' => self::CATEGORIES,
             'veylunePreviewRooms' => self::ROOMS,
             'veylunePreviewCollections' => self::COLLECTIONS,
@@ -194,7 +198,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             return $this->redirectToRoute('frontend.veylune.catalog.home');
         }
 
-        $products = $this->previewService->search($query);
+        $products = $this->publicCatalogService->search($query, $context);
         $page = $this->page($request, $context, 'Search results for ' . $query);
         $page->getMetaInformation()?->setMetaDescription(\sprintf(
             'Browse %d Veylune catalog results for %s.',
@@ -222,7 +226,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'category',
             $categoryKey,
             self::CATEGORIES[$categoryKey],
-            $this->previewService->forCategory(self::CATEGORY_KEYS[$categoryKey] ?? $categoryKey)
+            $this->productsForCategory($request, $context, self::CATEGORY_KEYS[$categoryKey] ?? $categoryKey)
         );
     }
 
@@ -236,7 +240,7 @@ final class DraftCatalogPreviewController extends StorefrontController
             'room',
             $roomKey,
             self::ROOMS[$roomKey],
-            $this->previewService->forRoom(self::ROOM_KEYS[$roomKey] ?? $roomKey)
+            $this->productsForRoom($request, $context, self::ROOM_KEYS[$roomKey] ?? $roomKey)
         );
     }
 
@@ -245,9 +249,13 @@ final class DraftCatalogPreviewController extends StorefrontController
     public function collection(string $collectionKey, Request $request, SalesChannelContext $context): Response
     {
         $canonicalKey = self::COLLECTION_KEYS[$collectionKey];
-        $products = $collectionKey === 'new-arrivals'
-            ? $this->previewService->homepageRails()['new-arrivals']
-            : $this->previewService->forCollection($canonicalKey);
+        $products = $this->routeMode($request) === 'public'
+            ? ($collectionKey === 'new-arrivals'
+                ? $this->publicCatalogService->homepageRails($context)['new-arrivals']
+                : $this->publicCatalogService->forCollection($canonicalKey, $context))
+            : ($collectionKey === 'new-arrivals'
+                ? $this->previewService->homepageRails()['new-arrivals']
+                : $this->previewService->forCollection($canonicalKey));
 
         return $this->destination(
             $request,
@@ -264,32 +272,37 @@ final class DraftCatalogPreviewController extends StorefrontController
     public function product(string $recordId, Request $request, SalesChannelContext $context): Response
     {
         $this->denyUnlessAllowed($request);
-        $product = $this->previewService->forRecordId($recordId);
+        $isPublic = $this->routeMode($request) === 'public';
+        $product = $isPublic
+            ? $this->publicCatalogService->forRecordId($recordId, $context)
+            : $this->previewService->forRecordId($recordId);
 
         if ($product === null) {
             throw new NotFoundHttpException();
         }
 
         $related = \array_values(\array_filter(
-            $this->previewService->forCategory($product['department']),
+            $this->productsForCategory($request, $context, $product['department']),
             static fn (array $candidate): bool => $candidate['recordId'] !== $recordId
         ));
 
-        $page = $this->page($request, $context, $product['name'] . ' Preview');
+        $page = $this->page($request, $context, $product['name'] . ($isPublic ? '' : ' Preview'));
         $page->getMetaInformation()?->setMetaDescription(\sprintf(
-            '%s in %s. Private Veylune product preview with material direction, project delivery planning and consultation details.',
+            $isPublic
+                ? '%s in %s. Review product details, availability, delivery planning and Veylune studio services.'
+                : '%s in %s. Private Veylune product preview with material direction, project delivery planning and consultation details.',
             $product['name'],
             $product['materialLabel']
         ));
 
         return $this->previewResponse($request, '@Storefront/storefront/veylune/catalog-preview-product.html.twig', [
             'page' => $page,
-            'veylunePreviewToken' => $this->access->token(),
+            'veylunePreviewToken' => $isPublic ? null : $this->access->token(),
             'veylunePreviewProduct' => $product,
-            'veylunePdpPresentation' => $this->pdpPresentationService->forDraft($product),
+            'veylunePdpPresentation' => $this->pdpPresentationService->forProjection($product, $isPublic),
             'veylunePreviewRelated' => \array_slice($related, 0, 4),
             'veyluneCatalogRouteMode' => $this->routeMode($request),
-            'veyluneNativeProductId' => $this->nativeProductId($recordId, $request),
+            'veyluneNativeProductId' => $product['nativeProductId'] ?? null,
         ]);
     }
 
@@ -507,17 +520,20 @@ final class DraftCatalogPreviewController extends StorefrontController
             : 'preview';
     }
 
-    private function nativeProductId(string $recordId, Request $request): ?string
+    /** @return list<array<string, mixed>> */
+    private function productsForCategory(Request $request, SalesChannelContext $context, string $categoryKey): array
     {
-        if ($this->routeMode($request) !== 'public'
-            || $this->environment !== 'dev'
-            || getenv('DDEV_PROJECT') !== 'veylune-shopware'
-            || $request->getHost() !== 'veylune-shopware.ddev.site'
-            || !preg_match('/^F(0[1-9]|10)$/', $recordId, $matches)) {
-            return null;
-        }
+        return $this->routeMode($request) === 'public'
+            ? $this->publicCatalogService->forCategory($categoryKey, $context)
+            : $this->previewService->forCategory($categoryKey);
+    }
 
-        return \VeyluneTheme\Testing\LocalCommerce::productId(((int) $matches[1]) - 1);
+    /** @return list<array<string, mixed>> */
+    private function productsForRoom(Request $request, SalesChannelContext $context, string $roomKey): array
+    {
+        return $this->routeMode($request) === 'public'
+            ? $this->publicCatalogService->forRoom($roomKey, $context)
+            : $this->previewService->forRoom($roomKey);
     }
 
     private function page(Request $request, SalesChannelContext $context, string $title): \Shopware\Storefront\Page\Page

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use VeyluneTheme\Catalog\PublicCatalogService;
 use VeyluneTheme\Discovery\ProductExposureService;
 use VeyluneTheme\Preview\DraftCatalogPreviewService;
 
@@ -42,6 +43,7 @@ final class LivingIndexObjectController extends StorefrontController
         private readonly GenericPageLoader $genericPageLoader,
         private readonly ProductExposureService $productExposureService,
         private readonly DraftCatalogPreviewService $draftCatalogPreviewService,
+        private readonly PublicCatalogService $publicCatalogService,
         private readonly string $environment
     ) {
     }
@@ -66,7 +68,7 @@ final class LivingIndexObjectController extends StorefrontController
         $recordId = strtoupper(trim((string) ($customFields['veylune_catalog_record_id'] ?? '')));
 
         if (preg_match('/^[A-Z][0-9]{2}$/', $recordId) === 1
-            && $this->draftCatalogPreviewService->forRecordId($recordId) !== null) {
+            && $this->publicCatalogService->forRecordId($recordId, $context) !== null) {
             return $this->redirectToRoute(
                 'frontend.veylune.catalog.product',
                 ['recordId' => $recordId],

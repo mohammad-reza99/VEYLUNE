@@ -75,8 +75,8 @@
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
             <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewAccess" />
             <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewService" />
+            <argument type="service" id="VeyluneTheme\Catalog\PublicCatalogService" />
             <argument type="service" id="VeyluneTheme\Product\PdpPresentationService" />
-            <argument>%kernel.environment%</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
@@ -101,6 +101,7 @@
             <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader" />
             <argument type="service" id="VeyluneTheme\Discovery\ProductExposureService" />
             <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewService" />
+            <argument type="service" id="VeyluneTheme\Catalog\PublicCatalogService" />
             <argument>%kernel.environment%</argument>
             <call method="setContainer">
                 <argument type="service" id="service_container" />
@@ -128,6 +129,14 @@
 
         <service id="VeyluneTheme\Catalog\SupplierEvidenceAcceptanceGate">
             <argument>%kernel.project_dir%</argument>
+        </service>
+
+        <service id="VeyluneTheme\Catalog\CatalogProductProjector" />
+
+        <service id="VeyluneTheme\Catalog\PublicCatalogService">
+            <argument type="service" id="sales_channel.product.repository" />
+            <argument type="service" id="VeyluneTheme\Catalog\CatalogProductProjector" />
+            <argument>%kernel.environment%</argument>
         </service>
 
         <service id="VeyluneTheme\Governance\GovernanceAuditService" />
@@ -216,6 +225,7 @@
         <service id="VeyluneTheme\Preview\DraftCatalogPreviewService">
             <argument type="service" id="product.repository" />
             <argument type="service" id="media.repository" />
+            <argument type="service" id="VeyluneTheme\Catalog\CatalogProductProjector" />
         </service>
 
         <service id="VeyluneTheme\Subscriber\EditionMetadataValidationSubscriber" />
@@ -226,8 +236,7 @@
 
         <service id="VeyluneTheme\Subscriber\ProductExposurePageSubscriber">
             <argument type="service" id="VeyluneTheme\Discovery\ProductExposureService" />
-            <argument type="service" id="VeyluneTheme\Preview\DraftCatalogPreviewService" />
-            <argument>%kernel.environment%</argument>
+            <argument type="service" id="VeyluneTheme\Catalog\PublicCatalogService" />
         </service>
 
         <service id="VeyluneTheme\Subscriber\ProductPdpPresentationSubscriber" />

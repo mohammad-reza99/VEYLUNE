@@ -66,7 +66,7 @@
                 <div class="veylune-pdp-buybox__rating" aria-label="{{ 'veylune.marketplace.pdp.ratingAria'|trans|striptags }}">
                     <span aria-hidden="true">☆☆☆☆☆</span><span>{{ 'veylune.marketplace.pdp.newPiece'|trans|sw_sanitize }}</span>
                 </div>
-                <p class="veylune-pdp-buybox__price"><span>{{ 'veylune.marketplace.pdp.targetEstimate'|trans|sw_sanitize }}</span><strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
+                <p class="veylune-pdp-buybox__price"><span>{{ veyluneCatalogIsPublic ? 'Price' : 'veylune.marketplace.pdp.targetEstimate'|trans|sw_sanitize }}</span><strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong></p>
                 <p class="veylune-pdp-buybox__finance">{{ 'veylune.marketplace.pdp.finance'|trans|sw_sanitize }}</p>
 
                 {% sw_include '@Storefront/storefront/veylune/catalog-preview-product-commerce.html.twig' with { product: product } %}
@@ -151,7 +151,7 @@
         <div class="veylune-pdp-mobile-bar" data-pdp-mobile-bar role="region" aria-label="{{ 'veylune.marketplace.pdp.consultationAction'|trans|striptags }}">
             <strong>€{{ product.targetPrice|number_format(0, '.', ',') }}</strong>
             {% if veyluneNativeProductId %}
-                <a href="{{ path('frontend.veylune.catalog.test_cart.add', { recordId: product.recordId }) }}">{{ 'veylune.marketplace.pdp.addTestCart'|trans|sw_sanitize }}</a>
+                <button type="submit" form="veylunePdpBuyForm">{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
             {% else %}
                 <button type="button" data-pdp-add-selection-mobile>{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
             {% endif %}

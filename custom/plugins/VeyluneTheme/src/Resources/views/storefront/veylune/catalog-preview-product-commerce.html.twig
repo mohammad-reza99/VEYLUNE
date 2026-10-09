@@ -22,11 +22,32 @@
     </form>
 
     {% if veyluneNativeProductId %}
-    <div class="veylune-pdp-purchase" aria-label="{{ 'veylune.marketplace.pdp.nativeCartAria'|trans|striptags }}">
-        <a class="veylune-pdp-purchase__add"
-           href="{{ path('frontend.veylune.catalog.test_cart.add', { recordId: product.recordId }) }}">{{ 'veylune.marketplace.pdp.addTestCart'|trans|sw_sanitize }}</a>
-        <p data-pdp-add-status aria-live="polite">{{ 'veylune.marketplace.pdp.testDisclosure'|trans|sw_sanitize }}</p>
-    </div>
+    <form id="veylunePdpBuyForm"
+          class="veylune-pdp-purchase"
+          action="{{ path('frontend.checkout.line-item.add') }}"
+          method="post"
+          data-add-to-cart="true"
+          aria-label="{{ 'veylune.marketplace.pdp.nativeCartAria'|trans|striptags }}">
+        <input type="hidden" name="redirectTo" value="frontend.checkout.cart.page">
+        <input type="hidden" name="lineItems[{{ veyluneNativeProductId }}][id]" value="{{ veyluneNativeProductId }}">
+        <input type="hidden" name="lineItems[{{ veyluneNativeProductId }}][type]" value="product">
+        <input type="hidden" name="lineItems[{{ veyluneNativeProductId }}][referencedId]" value="{{ veyluneNativeProductId }}">
+        <input type="hidden" name="lineItems[{{ veyluneNativeProductId }}][stackable]" value="1">
+        <input type="hidden" name="lineItems[{{ veyluneNativeProductId }}][removable]" value="1">
+        <div>
+            <strong>{{ 'veylune.marketplace.pdp.quantity'|trans|default('Quantity') }}</strong>
+            <div class="veylune-pdp-quantity">
+                <input type="number"
+                       name="lineItems[{{ veyluneNativeProductId }}][quantity]"
+                       min="1"
+                       step="1"
+                       value="1"
+                       aria-label="{{ 'veylune.marketplace.pdp.quantity'|trans|default('Quantity') }}">
+            </div>
+        </div>
+        <button class="veylune-pdp-purchase__add" type="submit">{{ veylunePdpPresentation.commerce.primaryLabel }}</button>
+        <p data-pdp-add-status aria-live="polite">{{ veylunePdpPresentation.commerce.disclosure }}</p>
+    </form>
     {% else %}
     <div class="veylune-pdp-purchase" aria-label="Project quantity">
         <div>
