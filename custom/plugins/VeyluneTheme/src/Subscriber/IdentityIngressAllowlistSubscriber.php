@@ -12,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -125,6 +126,15 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
     {
         $request = $event->getRequest();
         $response = $event->getResponse();
+        if ($this->isIdentityIngressRequest($request)) {
+            $route = (string) $request->attributes->get('_route');
+            if ($route === 'frontend.robots.txt') {
+                $this->scopeRobotsToRequestHost($request, $response);
+            } elseif ($route === 'frontend.sitemap.xml') {
+                $this->scopeSitemapIndexToRequestHost($request, $response);
+            }
+        }
+
         if ($response instanceof RedirectResponse && \in_array(
             (string) $request->attributes->get('_route'),
             ['frontend.checkout.switch-language', 'frontend.checkout.configure'],
@@ -144,6 +154,110 @@ final class IdentityIngressAllowlistSubscriber implements EventSubscriberInterfa
             $event->getResponse()->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
             $event->getResponse()->headers->set('Cache-Control', 'no-store, private');
         }
+    }
+
+    private function scopeRobotsToRequestHost(Request $request, Response $response): void
+    {
+        if ($response instanceof StreamedResponse) {
+            $callback = $response->getCallback();
+            if ($callback !== null) {
+                $response->setCallback(function () use ($callback, $request): void {
+                    ob_start();
+                    $callback();
+                    $content = ob_get_clean();
+                    echo $this->filteredRobotsContent(\is_string($content) ? $content : '', $request);
+                });
+            }
+
+            return;
+        }
+
+        $content = $response->getContent();
+        if (!\is_string($content) || $content === '') {
+            return;
+        }
+
+        $response->setContent($this->filteredRobotsContent($content, $request));
+    }
+
+    private function filteredRobotsContent(string $content, Request $request): string
+    {
+
+        $lines = preg_split('/\R/', $content) ?: [];
+        $filtered = [];
+        foreach ($lines as $line) {
+            if (str_contains($line, '/__commerce-test/')) {
+                continue;
+            }
+
+            if (str_starts_with($line, 'Sitemap:')) {
+                $sitemapUrl = trim(substr($line, \strlen('Sitemap:')));
+                if (parse_url($sitemapUrl, \PHP_URL_HOST) !== $request->getHost()) {
+                    continue;
+                }
+            }
+
+            $filtered[] = $line;
+        }
+
+        return rtrim(implode("\n", $filtered)) . "\n";
+    }
+
+    private function scopeSitemapIndexToRequestHost(Request $request, Response $response): void
+    {
+        if ($response instanceof StreamedResponse) {
+            $callback = $response->getCallback();
+            if ($callback !== null) {
+                $response->setCallback(function () use ($callback, $request): void {
+                    ob_start();
+                    $callback();
+                    $content = ob_get_clean();
+                    echo $this->filteredSitemapIndexContent(\is_string($content) ? $content : '', $request);
+                });
+            }
+
+            return;
+        }
+
+        $content = $response->getContent();
+        if (!\is_string($content) || !str_contains($content, '<sitemapindex')) {
+            return;
+        }
+
+        $response->setContent($this->filteredSitemapIndexContent($content, $request));
+    }
+
+    private function filteredSitemapIndexContent(string $content, Request $request): string
+    {
+        if (!str_contains($content, '<sitemapindex')) {
+            return $content;
+        }
+
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        $previousUseInternalErrors = libxml_use_internal_errors(true);
+        $loaded = $document->loadXML($content, \LIBXML_NONET | \LIBXML_NOBLANKS);
+        libxml_clear_errors();
+        libxml_use_internal_errors($previousUseInternalErrors);
+        if (!$loaded) {
+            return $content;
+        }
+
+        $xpath = new \DOMXPath($document);
+        $entries = $xpath->query('/*[local-name()="sitemapindex"]/*[local-name()="sitemap"]');
+        if ($entries === false) {
+            return $content;
+        }
+
+        foreach ([...$entries] as $entry) {
+            $location = $xpath->query('./*[local-name()="loc"]', $entry)?->item(0)?->textContent;
+            if (!\is_string($location) || parse_url(trim($location), \PHP_URL_HOST) !== $request->getHost()) {
+                $entry->parentNode?->removeChild($entry);
+            }
+        }
+
+        $scopedContent = $document->saveXML();
+
+        return \is_string($scopedContent) ? $scopedContent : $content;
     }
 
     public function enforceNotFoundDenial(ExceptionEvent $event): void

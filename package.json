@@ -8,6 +8,7 @@
     "quality:fast": "npm run check:source && npm run check:js && npm run check:secrets",
     "test:routes": "bash tools/audit/veylune-secondary-route-audit.sh",
     "test:boundary": "bash tools/audit/veylune-public-preview-boundary.sh",
+    "test:seo": "bash tools/audit/veylune-seo-boundary.sh",
     "test:e2e": "playwright test",
     "test:e2e:update": "playwright test --update-snapshots"
   },
