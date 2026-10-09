@@ -30,3 +30,7 @@
 /test-results/
 /playwright-report/
 /reports/current/
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###

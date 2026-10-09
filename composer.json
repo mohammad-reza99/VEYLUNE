@@ -58,6 +58,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "analyse": [
+            "phpstan analyse --no-progress --memory-limit=1G"
         ]
     },
     "extra": {
@@ -68,5 +71,10 @@
                 "flex://defaults"
             ]
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "2.2.16",
+        "phpstan/phpstan-symfony": "2.0.20",
+        "shopwarelabs/phpstan-shopware": "0.2.4"
     }
 }
