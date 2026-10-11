@@ -1,4 +1,4 @@
-# Veylune Studio
+# Veylune
 
 ![Veylune Shopware screenshot](docs/screenshots/project-screenshot.png)
 
@@ -14,12 +14,12 @@ Veylune is not a traditional online store.
 
 It is designed as a commerce platform capable of supporting:
 
-* Multiple suppliers
-* Product family and variant management
-* Curated collections
-* Room-based product discovery
-* Governance-driven publication workflows
-* Scalable catalog growth
+- Multiple suppliers
+- Product family and variant management
+- Curated collections
+- Room-based product discovery
+- Governance-driven publication workflows
+- Scalable catalog growth
 
 The architecture is designed to evolve from an initial curated catalog into a large-scale supplier ecosystem without requiring a storefront redesign.
 
@@ -31,12 +31,12 @@ The architecture is designed to evolve from an initial curated catalog into a la
 
 Products are modeled as families with support for:
 
-* Multiple sizes
-* Multiple materials
-* Multiple finishes
-* Multiple color variations
-* Variant-specific pricing
-* Variant-specific media
+- Multiple sizes
+- Multiple materials
+- Multiple finishes
+- Multiple color variations
+- Variant-specific pricing
+- Variant-specific media
 
 ---
 
@@ -44,11 +44,11 @@ Products are modeled as families with support for:
 
 The storefront is organized around:
 
-* Founder Selections
-* New Arrivals
-* Room-based discovery
-* Collection-driven merchandising
-* Architectural product storytelling
+- Founder Selections
+- New Arrivals
+- Room-based discovery
+- Collection-driven merchandising
+- Architectural product storytelling
 
 ---
 
@@ -56,10 +56,10 @@ The storefront is organized around:
 
 The platform follows a fail-closed approach:
 
-* Draft products remain private
-* Publication requires approval workflows
-* Search, SEO, and exposure are controlled
-* Preview environments are isolated from public storefronts
+- Draft products remain private
+- Publication requires approval workflows
+- Search, SEO, and exposure are controlled
+- Preview environments are isolated from public storefronts
 
 ---
 
@@ -67,12 +67,12 @@ The platform follows a fail-closed approach:
 
 The platform is designed for future supplier onboarding with support for:
 
-* Supplier-specific catalogs
-* SKU governance
-* Product mapping
-* Import pipelines
-* Asset management
-* Scalable variant structures
+- Supplier-specific catalogs
+- SKU governance
+- Product mapping
+- Import pipelines
+- Asset management
+- Scalable variant structures
 
 ---
 
@@ -80,34 +80,34 @@ The platform is designed for future supplier onboarding with support for:
 
 ### Backend
 
-* PHP 8+
-* Shopware 6.7
-* Symfony
-* Doctrine
+- PHP 8+
+- Shopware 6.7
+- Symfony
+- Doctrine
 
 ### Frontend
 
-* Twig
-* SCSS
-* JavaScript
+- Twig
+- SCSS
+- JavaScript
 
 ### Development
 
-* DDEV
-* Docker
-* Git
+- DDEV
+- Docker
+- Git
 
 ---
 
 ## Architecture Highlights
 
-* Commerce-first architecture
-* Product family modeling
-* Variant-ready catalog structure
-* Room and collection taxonomy
-* Governance-driven publication process
-* Preview-only catalog review environments
-* Scalable supplier integration strategy
+- Commerce-first architecture
+- Product family modeling
+- Variant-ready catalog structure
+- Room and collection taxonomy
+- Governance-driven publication process
+- Preview-only catalog review environments
+- Scalable supplier integration strategy
 
 ---
 
@@ -115,19 +115,19 @@ The platform is designed for future supplier onboarding with support for:
 
 The project is currently focused on:
 
-* Catalog architecture
-* Product family modeling
-* Supplier onboarding readiness
-* Commerce governance
-* Scalable storefront structure
+- Catalog architecture
+- Product family modeling
+- Supplier onboarding readiness
+- Commerce governance
+- Scalable storefront structure
 
 Future phases include:
 
-* Supplier integrations
-* Advanced product import pipelines
-* Search and filtering systems
-* Public catalog activation
-* Checkout and fulfillment expansion
+- Supplier integrations
+- Advanced product import pipelines
+- Search and filtering systems
+- Public catalog activation
+- Checkout and fulfillment expansion
 
 ---
 
