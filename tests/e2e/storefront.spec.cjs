@@ -89,6 +89,35 @@ test.describe('Veylune critical public journeys', () => {
         }
     });
 
+    test('mobile PDP actions stay clear of the scroll-up control', async ({ page, isMobile }) => {
+        test.skip(!isMobile, 'Mobile project only');
+        await page.goto('/catalog/product/F02', { waitUntil: 'domcontentloaded' });
+        await page.evaluate(() => window.scrollTo(0, Math.min(1800, document.documentElement.scrollHeight)));
+
+        const mobileBar = page.locator('.veylune-pdp-mobile-bar');
+        const mobileAction = mobileBar.getByRole('button', { name: /add to cart/i });
+        const scrollUp = page.locator('.scroll-up-button');
+        await expect(mobileBar).toBeVisible();
+        await expect(mobileAction).toBeVisible();
+        await expect(scrollUp).toHaveClass(/is-visible/);
+
+        const [barBox, actionBox, scrollUpBox] = await Promise.all([
+            mobileBar.boundingBox(),
+            mobileAction.boundingBox(),
+            scrollUp.boundingBox(),
+        ]);
+        expect(barBox).not.toBeNull();
+        expect(actionBox).not.toBeNull();
+        expect(scrollUpBox).not.toBeNull();
+
+        const overlaps = actionBox.x < scrollUpBox.x + scrollUpBox.width
+            && actionBox.x + actionBox.width > scrollUpBox.x
+            && actionBox.y < scrollUpBox.y + scrollUpBox.height
+            && actionBox.y + actionBox.height > scrollUpBox.y;
+        expect(overlaps, 'Mobile cart action overlaps the scroll-up control').toBe(false);
+        expect(scrollUpBox.y + scrollUpBox.height).toBeLessThanOrEqual(barBox.y);
+    });
+
     test('public pages expose complete indexable metadata and healthy images', async ({ page, isMobile }) => {
         test.skip(isMobile, 'Metadata is viewport-independent');
 
