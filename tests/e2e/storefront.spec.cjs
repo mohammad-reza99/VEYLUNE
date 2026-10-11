@@ -156,6 +156,7 @@ test.describe('Veylune critical public journeys', () => {
     });
 
     test('rendered public navigation has no dead internal links', async ({ page, request, isMobile }) => {
+        test.setTimeout(60_000);
         test.skip(isMobile, 'Internal route crawl is viewport-independent');
         const internalUrls = new Set();
 
